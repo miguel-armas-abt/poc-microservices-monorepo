@@ -1,0 +1,19 @@
+#server:
+#  port: 8093
+#
+#eureka:
+#  client:
+#    serviceUrl:
+##      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+#      defaultZone: EUREKA_SERVER
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#
+#spring:
+#  application:
+#    name: business-menu-option-v1
+

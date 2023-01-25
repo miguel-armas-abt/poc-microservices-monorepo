@@ -1,0 +1,1085 @@
+{
+	"info": {
+		"_postman_id": "680283bc-5ded-4eab-a825-ce6304a82b88",
+		"name": "BBQ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12456516"
+	},
+	"item": [
+		{
+			"name": "bs-menu-options",
+			"item": [
+				{
+					"name": "/menu-options",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "yJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzbGdSSWpoTFNwN2NFN0NRaGJ0UndzbFJ4OWRyMFZUSmozdFM0ZndGNUpRIn0.eyJleHAiOjE2NzI2MjAxMzksImlhdCI6MTY3MjYxODMzOSwianRpIjoiYTE1NTQ1ZGMtNDIxYS00Y2NhLTgwMDAtZDI1Njc5OTZiNTgxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImNiMmNmNTU1LWUzNWItNDYzYS1iMjc4LWE0ZjYyODJiNjliYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.k4Dl4zZV3F2f6w38K4gtvr6o9xAS9E42Fus5y7-rhIHKZP7qUnQnknnLGCEi8jT_I6cT9pIMUFmxIQJXO6vz-B_svTutnmEJPZvoOAXpakjXgRYU2SXgRorLF_o3ajZDkp1JeAQHcJkdfAycWw7R7w5lrEk_zlwqnpo-7ozgiCaMch4FgrMQPaR53x0xlOGpzh2oK8IynQjSAvgycI5dYu7fnyKQfV7VcYJzIoS7ZoCdV_pvr85HSZmAKYnLCmncQNwYIQlAywCZcR8RrW2jZWapv-bCpp66QoBh4vBJBMgMuLtze1QX0uBhabAq5AsBkdwKPhR8v4ux631OUOoT2Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pollo a la brasa\",\r\n    \"category\": \"main-dish\",\r\n    \"price\": 30.00,\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-gateway-domain}}/bbq/business/v1/menu-options",
+							"host": [
+								"{{api-gateway-domain}}"
+							],
+							"path": [
+								"bbq",
+								"business",
+								"v1",
+								"menu-options"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "save 201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Vino\",\r\n    \"category\": \"drink\",\r\n    \"price\": 30.00,\r\n    \"active\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/business/v1/menu-options",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"business",
+										"v1",
+										"menu-options"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Location",
+									"value": "http://host.docker.internal:55176/bbq/business/v1/menu-options/1"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 17:38:04 GMT"
+								},
+								{
+									"key": "content-length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save 400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"1 Pollo a la brasa\",\r\n    \"category\": \"food\",\r\n    \"price\": 50.00,\r\n    \"active\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/business/v1/menu-options",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"business",
+										"v1",
+										"menu-options"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 17:41:27 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"/errors/bad-requests\",\n    \"title\": \"Invalid request\",\n    \"errorCode\": \"02\",\n    \"details\": [\n        {\n            \"title\": \"incorrect menu option category\",\n            \"component\": \"business-menu-option\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "findAll 200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/business/v1/menu-options",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"business",
+										"v1",
+										"menu-options"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 17:42:43 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Vino\",\n        \"category\": \"drink\",\n        \"price\": 30,\n        \"active\": true\n    },\n    {\n        \"id\": 2,\n        \"name\": \"1 Pollo a la brasa\",\n        \"category\": \"main-dish\",\n        \"price\": 50,\n        \"active\": true\n    }\n]"
+						},
+						{
+							"name": "findById 200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/business/v1/menu-options/1",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"business",
+										"v1",
+										"menu-options",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 17:44:37 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Vino\",\n    \"category\": \"drink\",\n    \"price\": 30,\n    \"active\": true\n}"
+						},
+						{
+							"name": "findByCategory 200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/business/v1/menu-options?category=drink",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"business",
+										"v1",
+										"menu-options"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "drink"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 17:45:06 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Vino\",\n        \"category\": \"drink\",\n        \"price\": 30,\n        \"active\": true\n    }\n]"
+						},
+						{
+							"name": "findByCategory 400",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Vino\",\r\n    \"category\": \"drink\",\r\n    \"price\": 30.00,\r\n    \"active\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/business/v1/menu-options?category",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"business",
+										"v1",
+										"menu-options"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 17:48:42 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"/errors/business-rules\",\n    \"title\": \"Category menu option not found\",\n    \"errorCode\": \"ERROR1001\",\n    \"details\": []\n}"
+						},
+						{
+							"name": "update 201",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Pisco sour\",\r\n    \"category\": \"drink\",\r\n    \"price\": 25.00,\r\n    \"active\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/business/v1/menu-options/1",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"business",
+										"v1",
+										"menu-options",
+										"1"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Location",
+									"value": "http://host.docker.internal:55436/bbq/business/v1/menu-options/1"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 17:50:23 GMT"
+								},
+								{
+									"key": "content-length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "delete 204",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/business/v1/menu-options/1",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"business",
+										"v1",
+										"menu-options",
+										"1"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 17:51:21 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "bs-dining-room-order",
+			"item": [
+				{
+					"name": "/dining-room-orders",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "yJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzbGdSSWpoTFNwN2NFN0NRaGJ0UndzbFJ4OWRyMFZUSmozdFM0ZndGNUpRIn0.eyJleHAiOjE2NzI2MjAxMzksImlhdCI6MTY3MjYxODMzOSwianRpIjoiYTE1NTQ1ZGMtNDIxYS00Y2NhLTgwMDAtZDI1Njc5OTZiNTgxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImNiMmNmNTU1LWUzNWItNDYzYS1iMjc4LWE0ZjYyODJiNjliYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.k4Dl4zZV3F2f6w38K4gtvr6o9xAS9E42Fus5y7-rhIHKZP7qUnQnknnLGCEi8jT_I6cT9pIMUFmxIQJXO6vz-B_svTutnmEJPZvoOAXpakjXgRYU2SXgRorLF_o3ajZDkp1JeAQHcJkdfAycWw7R7w5lrEk_zlwqnpo-7ozgiCaMch4FgrMQPaR53x0xlOGpzh2oK8IynQjSAvgycI5dYu7fnyKQfV7VcYJzIoS7ZoCdV_pvr85HSZmAKYnLCmncQNwYIQlAywCZcR8RrW2jZWapv-bCpp66QoBh4vBJBMgMuLtze1QX0uBhabAq5AsBkdwKPhR8v4ux631OUOoT2Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/stream+json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"menuOptionList\": [\r\n        {\r\n            \"menuOptionId\": 3,\r\n            \"quantity\": 2\r\n        }\r\n    ],\r\n    \"tableNumber\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-gateway-domain}}/bbq/business/v1/dining-room-orders",
+							"host": [
+								"{{api-gateway-domain}}"
+							],
+							"path": [
+								"bbq",
+								"business",
+								"v1",
+								"dining-room-orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "save 201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/stream+json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"menuOptionList\": [\r\n        {\r\n            \"menuOptionId\": 2,\r\n            \"quantity\": 4\r\n        }\r\n    ],\r\n    \"tableNumber\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/business/v1/dining-room-orders",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"business",
+										"v1",
+										"dining-room-orders"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Location",
+									"value": "http://host.docker.internal:55611/bbq/business/v1/dining-room-orders/63b31cbd0ad35a439647aa44"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 18:04:45 GMT"
+								},
+								{
+									"key": "content-length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "update 201",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/stream+json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"menuOptionId\": 3,\r\n        \"quantity\": 2\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/business/v1/dining-room-orders?tableNumber=1",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"business",
+										"v1",
+										"dining-room-orders"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Location",
+									"value": "http://host.docker.internal:55611/bbq/business/v1/dining-room-orders"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 18:11:51 GMT"
+								},
+								{
+									"key": "content-length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ux-consult-menu-options",
+			"item": [
+				{
+					"name": "/menu-options",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pollo frito\",\r\n    \"category\": \"food\",\r\n    \"price\": 6.00,\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8094/bbq/experience/v1/menu-options",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8094",
+							"path": [
+								"bbq",
+								"experience",
+								"v1",
+								"menu-options"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth-adapter",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api-gateway-domain}}/bbq/infrastructure/v1/auth/login",
+							"host": [
+								"{{api-gateway-domain}}"
+							],
+							"path": [
+								"bbq",
+								"infrastructure",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login 200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "admin",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/infrastructure/v1/auth/login",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"infrastructure",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2174"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 18:51:25 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access_token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrZ2E3eGdjaHZVU2dYQWdicWJTcFR5WjBFbEdrbXN4aGNlQ2JTYlVCWnY0In0.eyJleHAiOjE2NzI2ODcyODUsImlhdCI6MTY3MjY4NTQ4NSwianRpIjoiZTQ1NWYzOGEtZWY5ZC00YjAwLWJlZDctYTVlMTIwZjkwMjk0IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImJkOGUzZDljLWNjYWMtNDMxYy04MThiLTc3M2Q0MWZmN2EzYyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMjAyNTY4N2MtODViNC00ODI0LWE2Y2EtZTk1NTdjZWVlMmQ3IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiMjAyNTY4N2MtODViNC00ODI0LWE2Y2EtZTk1NTdjZWVlMmQ3IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.ekOxW9avXf2BRRMBwequxvXW-7uIF94SI81jLLVq8WYbrsdoPNixA-HmRdrH61lxu9AkUMdjSQx0CisfalIhEJ5g3xZ_f-bQ91Z7PVeQ1fTujm9ZUVZBoUtq4pYSZzq_nAnssbFSShv35pp1Ij2CkpR5X3BcCOO-ZAA4fBbhwTgJllcPVLaTg2Rl3LBz-vQ6CvYDvp4toWcqHcHrONNmSZdvyNNxcZiPgYxOir9BwcvdUzLaxmy_zFua4dhygXA_IY13cPK_fpZjCg3DFAQFtUxF4ImiH5iXdj1OE11IlYY0DJDH1OOhX2yEE7AEaMudzWeG4mlTa46Pk7VbWCtf0A\",\n    \"expires_in\": 1800,\n    \"refresh_expires_in\": 1800,\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyMDA5M2I1Yi02MWI3LTQ0MmUtYjg2Yy0wYWNjMjljODIyNDgifQ.eyJleHAiOjE2NzI2ODcyODUsImlhdCI6MTY3MjY4NTQ4NSwianRpIjoiZGZjMWRhZDgtYzAxMi00OTVjLTk2NjQtZGNhMjI3NjVkNGUwIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50Iiwic3ViIjoiYmQ4ZTNkOWMtY2NhYy00MzFjLTgxOGItNzczZDQxZmY3YTNjIiwidHlwIjoiUmVmcmVzaCIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMjAyNTY4N2MtODViNC00ODI0LWE2Y2EtZTk1NTdjZWVlMmQ3Iiwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiMjAyNTY4N2MtODViNC00ODI0LWE2Y2EtZTk1NTdjZWVlMmQ3In0.ASLXsfzsPc2AQTsBl1X14tb5PeHUIpJIDaFJNG5L8jE\",\n    \"token_type\": \"Bearer\",\n    \"not-before-policy\": 0,\n    \"session_state\": \"2025687c-85b4-4824-a6ca-e9557ceee2d7\",\n    \"scope\": \"profile email\"\n}"
+						}
+					]
+				},
+				{
+					"name": "getRoles",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrZ2E3eGdjaHZVU2dYQWdicWJTcFR5WjBFbEdrbXN4aGNlQ2JTYlVCWnY0In0.eyJleHAiOjE2NzI2ODczNDUsImlhdCI6MTY3MjY4NTU0NSwianRpIjoiODZlZmNiOGEtNDBlYi00M2U0LTgyNjQtOTZiZDkwN2IwNGYyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImJkOGUzZDljLWNjYWMtNDMxYy04MThiLTc3M2Q0MWZmN2EzYyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiNDQ2ZDJlMTktYjc2MS00MDM3LWFhYzAtY2FlYzY1ZTlmOTkwIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNDQ2ZDJlMTktYjc2MS00MDM3LWFhYzAtY2FlYzY1ZTlmOTkwIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.c6zeqqKXp-gNwqtzH3uEleGCbfJWSBWoA7DFIKtX3H2u-DugGrIZaGxQNCKOFurQQFA0Ztxt-AQeVxfeMmiCHXk7PhtQmXjcVmTB6kAnig9_i9pObuDSzZVXKRADRIFcOIBh4RI_cnnwsgMdnMkN1P9Q7V4vyjvnvVJMzNlR1nbu5M5chZLkTTun8qcN86LrQKu2t6MuYpWNWS0tAviGcALwEzg5e3BtxZiLvV0KbegJqMAVr3rSlqsnqtFNI02IX8lr1GCaSX-tyiZ6b8Z9yNgxmAH9n5T-mX0eUi6JSuQwddpXqIYjI3jVjSYbvg6QG2wjhomtc2jPSxLAmEHF4A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{api-gateway-domain}}/bbq/infrastructure/v1/auth/roles",
+							"host": [
+								"{{api-gateway-domain}}"
+							],
+							"path": [
+								"bbq",
+								"infrastructure",
+								"v1",
+								"auth",
+								"roles"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "getRoles 200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/infrastructure/v1/auth/roles",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"infrastructure",
+										"v1",
+										"auth",
+										"roles"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 18:52:42 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"partners\": 8,\n    \"offline_access\": 14,\n    \"default-roles-bbq-management\": 28,\n    \"uma_authorization\": 17\n}"
+						},
+						{
+							"name": "getRoles 403",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/infrastructure/v1/auth/roles",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"infrastructure",
+										"v1",
+										"auth",
+										"roles"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 18:52:56 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"/errors/auth-rules\",\n    \"title\": \"Token validation error\",\n    \"errorCode\": \"ERROR1000\",\n    \"details\": []\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "auth-provider (keycloak)",
+			"item": [
+				{
+					"name": "getAccessToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "front-bbq-app",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8091/auth/realms/bbq-management/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"auth",
+								"realms",
+								"bbq-management",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "getAccessToken 200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "client_id",
+											"value": "front-bbq-app",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "admin",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8091/auth/realms/bbq-management/protocol/openid-connect/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"auth",
+										"realms",
+										"bbq-management",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-store"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "KEYCLOAK_LOCALE=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/bbq-management/; HttpOnly"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "KC_RESTART=; Version=1; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/bbq-management/; HttpOnly"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 18:47:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2174"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access_token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrZ2E3eGdjaHZVU2dYQWdicWJTcFR5WjBFbEdrbXN4aGNlQ2JTYlVCWnY0In0.eyJleHAiOjE2NzI2ODcwMjIsImlhdCI6MTY3MjY4NTIyMiwianRpIjoiM2M3YjkwNTctNzIyMS00MmIyLWE3OWYtNGM0OTI1YjE1NGE1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImJkOGUzZDljLWNjYWMtNDMxYy04MThiLTc3M2Q0MWZmN2EzYyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiZjE1YjdjNzEtNmExYy00OWExLWI5ZGYtNzE1NWNjZThlZGVlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiZjE1YjdjNzEtNmExYy00OWExLWI5ZGYtNzE1NWNjZThlZGVlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.G8H8teTexbHrLq8hXIOuORxFTgeWKhbjaAWx5cfcpgGuxoC0bmx9Yc4KvAoyqLwh6ooURNwkoL2ohPZf1YgT98MwUrDp47BsYUeoXLzVFS2lVBMXTOIN8YU6fvFNECXo6WC-VMoC6Q5oKxydautgvmQg7t-7znIw2D5CgDSyDI18D_n31QGexvVy0PH2kQ6pt9HHuhbpSsy7hLItjRZQtefLkYmmQq5MRvyrL5gla0cWvL79G1iymni_YhG_WCvc2Ds5UPOsfCq9OEnSzNSoIuUQ02OH3LMYARCv5ysJ42ObBBz--yIAo6D07S1Sv6oOr6jp3suNL5Okhp6PSO3alw\",\n    \"expires_in\": 1800,\n    \"refresh_expires_in\": 1800,\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyMDA5M2I1Yi02MWI3LTQ0MmUtYjg2Yy0wYWNjMjljODIyNDgifQ.eyJleHAiOjE2NzI2ODcwMjIsImlhdCI6MTY3MjY4NTIyMiwianRpIjoiNDZmOTQ3YWEtN2VkMC00ZWU4LTk3ZDgtZDhiOWQ0YjA2YjYxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50Iiwic3ViIjoiYmQ4ZTNkOWMtY2NhYy00MzFjLTgxOGItNzczZDQxZmY3YTNjIiwidHlwIjoiUmVmcmVzaCIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiZjE1YjdjNzEtNmExYy00OWExLWI5ZGYtNzE1NWNjZThlZGVlIiwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiZjE1YjdjNzEtNmExYy00OWExLWI5ZGYtNzE1NWNjZThlZGVlIn0.hdQOwX9ufyH8HWazTIMqoNcYDKcAk6BUyAX6V0NEeJE\",\n    \"token_type\": \"Bearer\",\n    \"not-before-policy\": 0,\n    \"session_state\": \"f15b7c71-6a1c-49a1-b9df-7155cce8edee\",\n    \"scope\": \"profile email\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "registry-discovery-server",
+			"item": [
+				{
+					"name": "getInfoApps",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8761/eureka/apps",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8761",
+							"path": [
+								"eureka",
+								"apps"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

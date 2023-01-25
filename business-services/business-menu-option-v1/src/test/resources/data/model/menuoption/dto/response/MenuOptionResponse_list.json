@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "description": "Ají de gallina",
+    "category": "main-dish",
+    "price": 15.00,
+    "active": true
+  },
+  {
+    "id": 2,
+    "description": "Chancho al cilindro",
+    "category": "main-dish",
+    "price": 25.00,
+    "active": false
+  },
+  {
+    "id": 3,
+    "description": "Jarra de chicha",
+    "category": "drink",
+    "price": 12.00,
+    "active": true
+  },
+  {
+    "id": 4,
+    "description": "Jarra de maracuyá",
+    "category": "drink",
+    "price": 12.00,
+    "active": true
+  },
+  {
+    "id": 5,
+    "description": "Torta de chocolate",
+    "category": "dessert",
+    "price": 10.00,
+    "active": false
+  },
+  {
+    "id": 6,
+    "description": "Pie de manzana",
+    "category": "dessert",
+    "price": 10.00,
+    "active": true
+  }
+]

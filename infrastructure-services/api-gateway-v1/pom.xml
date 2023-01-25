@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.demo.bbq.infrastructure</groupId>
+		<artifactId>infrastructure-common-v1</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>api-gateway-v1</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>API Gateway V1</name>
+	<description>API Gateway V1</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+		<dependency><!-- lombok -->
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.demo.bbq.support</groupId>
+			<artifactId>bbq-support-v1</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.2.7.RELEASE</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- build docker image -->
+			<!--			<plugin>-->
+			<!--				<groupId>com.spotify</groupId>-->
+			<!--				<artifactId>dockerfile-maven-plugin</artifactId>-->
+			<!--				<version>${dockerfile-maven-version}</version>-->
+			<!--				<executions>-->
+			<!--					<execution>-->
+			<!--						<id>build-docker-image</id>-->
+			<!--						<phase>package</phase>-->
+			<!--						<goals>-->
+			<!--							<goal>build</goal>-->
+			<!--							<goal>push</goal>-->
+			<!--						</goals>-->
+			<!--					</execution>-->
+			<!--				</executions>-->
+			<!--				<configuration>-->
+			<!--					<repository>bbq/${project.artifactId}-image</repository>-->
+			<!--					<tag>${project.version}</tag>-->
+			<!--					<buildArgs>-->
+			<!--						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>-->
+			<!--					</buildArgs>-->
+			<!--				</configuration>-->
+			<!--			</plugin>-->
+		</plugins>
+	</build>
+
+</project>

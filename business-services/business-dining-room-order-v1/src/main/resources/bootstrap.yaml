@@ -1,0 +1,36 @@
+server:
+  port: 0 #eureka set a random port
+
+spring:
+  application:
+    name: business-dining-room-order-v1
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server-v1
+      failFast: true
+      name: business #prefix, name of API type
+      profile: dining-room-order-v1-dev #sufix, indicate the execution environment
+      #label: latest
+      username: admin
+      password: 123
+      retry:
+        max-attempts: 1
+        max-interval: 1000
+
+springdoc:
+  swagger-ui:
+    path: /swagger/index.html
+    enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

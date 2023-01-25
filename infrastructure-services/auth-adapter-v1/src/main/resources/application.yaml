@@ -1,0 +1,27 @@
+server:
+  port: 0 #eureka set a random port
+
+spring:
+  application:
+    name: auth-adapter-v1
+
+keycloak:
+  base-uri: ${KEYCLOACK_SERVER:http://localhost:8091/auth/realms}
+  authorization-uri: ${keycloak.base-uri}/bbq-management/protocol/openid-connect/auth
+  user-info-uri: ${keycloak.base-uri}/bbq-management/protocol/openid-connect/userinfo
+  token-uri: ${keycloak.base-uri}/bbq-management/protocol/openid-connect/token
+  logout: ${keycloak.base-uri}/bbq-management/protocol/openid-connect/logout
+  jwk-set-uri: ${keycloak.base-uri}/bbq-management/protocol/openid-connect/certs
+  certs-id: ${KEYCLOACK_REAL_ID:kga7xgchvUSgXAgbqbSpTyZ0ElGkmsxhceCbSbUBZv4}
+  client-id: front-bbq-app
+  client-secret: qwerty
+  scope: profile
+  authorization-grant-type: password
+  authorization-grant-type-refresh: refresh_token
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+
+logging.level.root: INFO

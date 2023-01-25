@@ -1,0 +1,61 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+
+spring:
+  application:
+    name: api-gateway-v1
+  cloud:
+    gateway:
+      routes:
+        - id: business-menu-option-v1
+          uri: lb://business-menu-option-v1 #If the URL has a scheme of lb (such as lb://myservice), it uses the Spring Cloud LoadBalancerClient to resolve the name (myservice in this case)
+          predicates:
+            - Path=/bbq/business/v1/menu-options/** #- Path=/** #to access swagger doc of the service through the api gateway
+            - Method=GET,POST,PUT,DELETE, PATCH
+          #filters:
+          #  - name: AuthenticatorFiltering
+
+        - id: business-dining-room-order-v1
+          uri: lb://business-dining-room-order-v1
+          predicates:
+            - Path=/bbq/business/v1/dining-room-orders/**
+            - Method=GET,POST,PUT,DELETE, PATCH
+#          filters:
+#            - name: AuthenticatorFiltering
+
+        - id: business-invoice-v1
+          uri: lb://business-invoice-v1
+          predicates:
+            - Path=/bbq/business/v1/invoices/**
+            - Method=GET,POST,PUT,DELETE, PATCH
+        #          filters:
+        #            - name: AuthenticatorFiltering
+
+        - id: business-payment-v1
+          uri: lb://business-payment-v1
+          predicates:
+            - Path=/bbq/business/v1/payments/**
+            - Method=GET,POST,PUT,DELETE, PATCH
+        #          filters:
+        #            - name: AuthenticatorFiltering
+
+        - id: auth-adapter-v1
+          uri: lb://auth-adapter-v1
+          predicates:
+            - Path=/bbq/infrastructure/v1/auth/**
+
+application:
+  http-client:
+    auth-adapter:
+      base-url: http://localhost:8080/bbq/infrastructure/v1/auth/
+  user-roles: '{0:"partners"}' #separate items with comma

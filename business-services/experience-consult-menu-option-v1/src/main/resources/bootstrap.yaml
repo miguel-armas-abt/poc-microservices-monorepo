@@ -1,0 +1,32 @@
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server-v1
+      failFast: true
+      name: experience #name of base properties config file, before profile
+      profile: consult-menu-option-v1-dev #name of file
+      #label: latest
+      username: admin
+      password: 123
+      retry:
+        max-attempts: 1
+        max-interval: 1000
+
+  application:
+    name: experience-consult-menu-option-v1
+
+server:
+  port: 8094
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
