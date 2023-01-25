@@ -1,0 +1,28 @@
+spring:
+
+  sql:
+    init:
+      mode: always #read data.sql or schema sql, default value is embedded, only for integrated db
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: false
+        format_sql: true
+    defer-datasource-initialization: true #read data.sql file after schema generation by hibernate
+
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/db_dining_room_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: oracle12c
+
+application:
+  http-client:
+    menu-options:
+      base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8080/bbq/business/v1/}

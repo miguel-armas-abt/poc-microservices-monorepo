@@ -1,0 +1,9 @@
+springdoc:
+  swagger-ui:
+    path: /swagger/index.html
+    enabled: true
+
+application:
+  http-client:
+    menu-options:
+      base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8080/bbq/business/v1/}

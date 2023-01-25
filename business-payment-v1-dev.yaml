@@ -1,0 +1,9 @@
+kafka-broker:
+  topic:
+    invoice: invoice-topic
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: bbq

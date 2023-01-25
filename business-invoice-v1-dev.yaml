@@ -1,0 +1,16 @@
+application:
+  http-client:
+    menu-option:
+      base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8080/bbq/business/v1/}
+    dining-room-order:
+      base-url: ${BUSINESS_DINING_ROOM_ORDER_BASE_PATH:http://localhost:8080/bbq/business/v1/}
+
+kafka-broker:
+  topic:
+    invoice: invoice-topic
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: bbq
