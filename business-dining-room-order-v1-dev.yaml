@@ -26,8 +26,5 @@ application:
   http-client:
     menu-option-v1:
       base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8080/bbq/business/v1/}
-
-application:
-  http-client:
-    menu-option-v1:
+    menu-option-v2:
       base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8080/bbq/business/v2/}
