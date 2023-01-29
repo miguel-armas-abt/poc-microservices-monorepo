@@ -1,0 +1,36 @@
+query findById {
+  findById(menuOptionId: 1) {
+    category,
+    description
+  }
+},
+
+## error
+query findAll {
+  findByCategory(categoryCode: "main-dish") {
+    description,
+    id
+  }
+}
+
+mutation save {
+  save(menuOptionRequest: {
+    description: "Arroz con pollo",
+    category: "main-dish",
+    price: 15.0,
+    active: true
+  })
+}
+
+mutation delete {
+  deleteById(id: 2)
+}
+
+mutation update {
+  update(menuOptionRequest: {
+    description: "Causa de pollo",
+    category: "main-dish",
+    price: 15.0,
+    active: true
+  }, id: 1)
+}

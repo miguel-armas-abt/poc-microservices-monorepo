@@ -8,7 +8,7 @@ spring:
   cloud:
     config:
       server:
-        absolute-path: C:\\\\Users\\\\Miguel\\\\dev\\\\demo-restful-api-config-server\\\\
+        absolute-path: C:\\\\Users\\\\Miguel\\\\dev\\\\bbq-project\\\\bbq-config-server\\\\
         git:
           uri: ${LOCAL_REPOSITORY:${spring.cloud.config.server.absolute-path}}
           clone-on-start: true

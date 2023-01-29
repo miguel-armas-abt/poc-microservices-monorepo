@@ -2,7 +2,7 @@ package com.demo.bbq.business.invoice.application.service.impl;
 
 import com.demo.bbq.business.invoice.infrastructure.broker.producer.InvoiceProducer;
 import com.demo.bbq.business.invoice.infrastructure.repository.restclient.DiningRoomOrderApi;
-import com.demo.bbq.business.invoice.infrastructure.repository.restclient.MenuOptionApi;
+import com.demo.bbq.business.invoice.infrastructure.repository.restclient.MenuOptionV2Api;
 import com.demo.bbq.business.invoice.application.service.InvoiceService;
 import com.demo.bbq.business.invoice.domain.model.request.InvoiceRequest;
 import com.demo.bbq.business.invoice.domain.model.response.Invoice;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 public class InvoiceServiceImpl implements InvoiceService {
 
   private final DiningRoomOrderApi diningRoomOrderApi;
-  private final MenuOptionApi menuOptionApi;
+  private final MenuOptionV2Api menuOptionV2Api;
   private final InvoiceProducer invoiceProducer;
 
   @Override
@@ -34,7 +34,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     BigDecimal igv = new BigDecimal("0.01");
     return diningRoomOrderApi.findByTableNumber(tableNumber)
         .flatMapObservable(diningRoomOrder -> Observable.fromIterable(diningRoomOrder.getMenuOrderList()))
-        .flatMapSingle(menuOrder -> menuOptionApi.findById(menuOrder.getMenuOptionId())
+        .flatMapSingle(menuOrder -> menuOptionV2Api.findById(menuOrder.getMenuOptionId())
             .doOnSuccess(menuOptionFound -> {
               BigDecimal totalMenu = menuOptionFound.getPrice().multiply(new BigDecimal(menuOrder.getQuantity().toString()));
               BigDecimal actualAmount = subtotalInvoice.get();

@@ -1,7 +1,9 @@
 package com.demo.bbq.business.invoice.infrastructure.config;
 
 import com.demo.bbq.business.invoice.infrastructure.repository.restclient.DiningRoomOrderApi;
-import com.demo.bbq.business.invoice.infrastructure.repository.restclient.MenuOptionApi;
+import com.demo.bbq.business.invoice.infrastructure.repository.restclient.MenuOptionV2Api;
+import com.demo.bbq.support.reactive.httpclient.SupportHttpClient;
+import java.time.Duration;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,21 +16,21 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 @Configuration
 public class RestClientConfig {
 
-  @Value("${application.http-client.menu-option.base-url}")
-  private String menuOptionsBaseUrl;
+  @Value("${application.http-client.menu-option-v2.base-url}")
+  private String menuOptionV2BaseUrl;
 
-  @Value("${application.http-client.dining-room-order.base-url}")
+  @Value("${application.http-client.dining-room-order-v1.base-url}")
   private String diningRoomOrdersBaseUrl;
 
   @Bean
-  MenuOptionApi menuOptionApi(OkHttpClient.Builder builder) {
-    return new Retrofit.Builder()
-        .baseUrl(menuOptionsBaseUrl)
-        .client(client().build())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(JacksonConverterFactory.create())
-        .build()
-        .create(MenuOptionApi.class);
+  MenuOptionV2Api menuOptionV2Api(OkHttpClient.Builder builder) {
+    return SupportHttpClient.builder()
+        .clientBuilder(builder)
+        .baseUrl(this.menuOptionV2BaseUrl)
+        .connectTimeout(Duration.ofMillis(300L))
+        .readTimeout(Duration.ofMillis(1200L))
+        .writeTimeout(Duration.ofMillis(700L))
+        .buildProxy(MenuOptionV2Api.class);
   }
 
   @Bean

@@ -1,6 +1,8 @@
 package com.demo.bbq.business.diningroomorder.infrastructure.config;
 
-import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.MenuOptionRepository;
+import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoptionv1.MenuOptionV1RetrofitApi;
+import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoptionv2.MenuOptionV2RetrofitApi;
+import com.demo.bbq.support.reactive.httpclient.SupportHttpClient;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,21 +12,37 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
+import java.time.Duration;
+
 @Configuration
 public class RestClientConfig {
 
-  @Value("${application.http-client.menu-options.base-url}")
-  private String menuOptionsBaseUrl;
+  @Value("${application.http-client.menu-option-v1.base-url}")
+  private String menuOptionV1BaseUrl;
+
+  @Value("${application.http-client.menu-option-v2.base-url}")
+  private String menuOptionV2BaseUrl;
 
   @Bean
-  MenuOptionRepository menuOptionApi(OkHttpClient.Builder builder) {
+  MenuOptionV1RetrofitApi menuOptionV1Api(OkHttpClient.Builder builder) {
     return new Retrofit.Builder()
-        .baseUrl(menuOptionsBaseUrl)
+        .baseUrl(menuOptionV1BaseUrl)
         .client(client().build())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(JacksonConverterFactory.create())
         .build()
-        .create(MenuOptionRepository.class);
+        .create(MenuOptionV1RetrofitApi.class);
+  }
+
+  @Bean
+  MenuOptionV2RetrofitApi menuOptionV2Api(OkHttpClient.Builder builder) {
+    return SupportHttpClient.builder()
+        .clientBuilder(builder)
+        .baseUrl(this.menuOptionV2BaseUrl)
+        .connectTimeout(Duration.ofMillis(300L))
+        .readTimeout(Duration.ofMillis(1200L))
+        .writeTimeout(Duration.ofMillis(700L))
+        .buildProxy(MenuOptionV2RetrofitApi.class);
   }
 
   @Bean

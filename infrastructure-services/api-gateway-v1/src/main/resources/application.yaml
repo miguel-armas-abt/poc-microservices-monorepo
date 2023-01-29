@@ -59,3 +59,13 @@ application:
     auth-adapter:
       base-url: http://localhost:8080/bbq/infrastructure/v1/auth/
   user-roles: '{0:"partners"}' #separate items with comma
+
+# actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' #gateway,info,health,metrics
+  endpoint:
+    health:
+      show-details: always

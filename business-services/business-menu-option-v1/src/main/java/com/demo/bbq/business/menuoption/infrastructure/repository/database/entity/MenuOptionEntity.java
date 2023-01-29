@@ -18,7 +18,7 @@ import lombok.Setter;
 public class MenuOptionEntity {
 
   @Id
-  @Column(name = "menu_option_id")
+  @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 

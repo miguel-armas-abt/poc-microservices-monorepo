@@ -95,7 +95,7 @@
 #### Base de datos en memoria H2
 > Puede acceder a la interfaz a través de: `http://localhost:<service-port>/h2-console/`
 
-### 3.1. Business API Alternative Menu Option
+### 3.1. Business API Menu Option V1
 > Gesiona las opciones de menú que ofrece el restaurante.
 
 | Endpoint                                            | Método | Descripción                                                                                       |
@@ -106,7 +106,7 @@
 | `/bbq/business/v1/menu-options/{id}`                | PUT    | Actualiza un registro de opción de menú.                                                          |
 | `/bbq/business/v1/menu-options/{id}`                | DELETE | Elimina un registro de opción de menú.                                                            |
 
-### 3.2. Business API Dining Room Order
+### 3.2. Business API Dining Room Order V1
 > Gesiona las los pedidos que se realizan en el comedor.
 
 | Endpoint                                                        | Método | Descripción                                    |
@@ -114,7 +114,7 @@
 | `/bbq/business/v1/dining-room-orders?tableNumber={tableNumber}` | GET    | Recupera los pedidos de una mesa.              |
 | `/bbq/business/v1/dining-room-orders/{id}`                      | PATCH  | Agrega opciones de menú al pedido de una mesa. |
 
-### 3.3. Business API Invoice
+### 3.3. Business API Invoice V1
 > Gesiona las facturas asociadas a los pedidos realizados en el comedor.
 
 | Endpoint                                              | Método | Descripción                                         |
@@ -122,12 +122,19 @@
 | `/bbq/business/v1/invoices?tableNumber={tableNumber}` | GET    | Recupera la factura asociada al pedido de una mesa. |
 | `/bbq/business/v1/invoices/send-to-pay`               | POST   | Envía a pagar la factura.                           |
 
-### 3.4. Business API Payment
+### 3.4. Business API Payment V1
 > Lista los pagos asociadas a los pedidos realizados en el comedor.
 
 | Endpoint                      | Método | Descripción              |
 |-------------------------------|--------|--------------------------|
 | `/bbq/business/v1/payments`   | GET    | Recupera todos los pagos | 
+
+### 3.5. Experience API Kitchen Order V1
+> Lista las órdenes para cocina.
+
+| Endpoint                                                      | Método | Descripción                      |
+|---------------------------------------------------------------|--------|----------------------------------|
+| `/bbq/experience/v1/kitchen-orders?tableNumber={tableNumber}` | GET    | Recupera las órdenes para cocina | 
 
 ## 4. Despliegue local
 > 1. Desplegar registry-discovery-server, config-server y api-gateway

@@ -55,7 +55,7 @@ public class MenuOptionApi {
                                    @Valid @RequestBody MenuOptionRequest menuOption) {
     logRequest.accept(servletRequest);
     Long id = service.save(menuOption);
-    return ResponseEntity.created(buildPostUriLocation.apply(id)).build();
+    return ResponseEntity.created(buildUriLocation.apply(id)).build();
   }
 
   @PutMapping(value = "/{id}")
@@ -63,27 +63,23 @@ public class MenuOptionApi {
                                      @Valid @RequestBody MenuOptionRequest menuOption, @PathVariable("id") Long id) {
     logRequest.accept(servletRequest);
     Long updatedMenuOptionId = service.update(id, menuOption);
-    return ResponseEntity.created(buildPutUriLocation.apply(updatedMenuOptionId)).build();
+    return ResponseEntity.created(buildUriLocation.apply(updatedMenuOptionId)).build();
   }
 
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<Void> delete(HttpServletRequest servletRequest, @PathVariable("id") Long id) {
     logRequest.accept(servletRequest);
-    System.out.println(servletRequest.getRequestURI());
-    return ResponseEntity.noContent().build();
+    service.deleteById(id);
+    return ResponseEntity.noContent().location(buildUriLocation.apply(id)).build();
   }
 
   private final static Consumer<HttpServletRequest> logRequest = servletRequest->
       log.info(Markers.SENSITIVE_JSON, "{}", servletRequest.getMethod() + ": " + servletRequest.getRequestURI());
 
-  private final static Function<Long, URI> buildPostUriLocation = id ->
+  private final static Function<Long, URI> buildUriLocation = id ->
       ServletUriComponentsBuilder.fromCurrentRequest()
       .path("/{id}")
       .buildAndExpand(id)
       .toUri();
 
-  private final static Function<Long, URI> buildPutUriLocation = id ->
-      ServletUriComponentsBuilder.fromCurrentRequest()
-      .buildAndExpand()
-      .toUri();
 }

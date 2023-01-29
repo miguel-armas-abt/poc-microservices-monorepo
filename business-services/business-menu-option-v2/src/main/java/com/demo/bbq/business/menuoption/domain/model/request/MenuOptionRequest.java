@@ -28,6 +28,6 @@ public class MenuOptionRequest implements Serializable {
   private BigDecimal price;
 
   @NotNull(message = "is active cannot be null")
-  private boolean isActive;
+  private boolean active;
 
 }
