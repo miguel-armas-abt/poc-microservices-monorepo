@@ -42,18 +42,3 @@ resilience4j:
         slidingWindowSize: 10
         waitDurationInOpenState: 5s
         slidingWindowType: COUNT_BASED
-
-# actuator
-management:
-  health:
-    circuitbreakers:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: health
-  endpoint:
-    gateway:
-      enabled: true
-    health:
-      show-details: always
