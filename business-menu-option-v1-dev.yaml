@@ -19,5 +19,5 @@ spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/db_menu_options?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     driverClassName: com.mysql.cj.jdbc.Driver
-    username: root
-    password: oracle12c
+    username: bbq_user
+    password: qwerty
