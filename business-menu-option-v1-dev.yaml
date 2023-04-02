@@ -17,7 +17,7 @@ spring:
     defer-datasource-initialization: true #read data.sql file after schema generation by hibernate
 
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/db_menu_options?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/db_menu_options?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
     driverClassName: com.mysql.cj.jdbc.Driver
-    username: bbq_user
-    password: qwerty
+    username: ${MYSQL_USERNAME:bbq_user}
+    password: ${MYSQL_PASSWORD:qwerty}
