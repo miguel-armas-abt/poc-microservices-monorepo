@@ -1,0 +1,30 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server-v1
+
+  profiles:
+    active: native
+
+  cloud:
+    config:
+      server:
+        absolute-path: C:\\\\dev-workspace\\\\bbq-project\\\\bbq-config-server-repo\\\\
+        git:
+          uri: ${LOCAL_REPOSITORY:${spring.cloud.config.server.absolute-path}}
+          clone-on-start: true
+          default-label: config-server # branch name
+        native:
+          searchLocations: ${LOCAL_REPOSITORY:${spring.cloud.config.server.absolute-path}}
+
+  security:
+    user:
+      name: admin
+      password: 123
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}

@@ -165,3 +165,9 @@
 > - Crear los servicios en quarkus
 > - Revisar los Dockerfiles. Tienen diferente esctructura a los del curso
 > - Revisar el nombre consult-menu-options. No es un nombre funcional, sino tecnico
+> 
+> 
+Para el desplieuge en local de los servicios desarrollados con Quarkus hay que tener las siguientes consideraciones:
+- Tener instalado Native Tools Command Prompt
+- Tener instalado GraalVM (variables de entorno GRAALVM_HOME, JAVA_HOME=%GRAALVM_HOME%. verificar con 'echo JAVA_HOME')
+- Tener instalado Maven (variable de entorno MAVEN_HOME)

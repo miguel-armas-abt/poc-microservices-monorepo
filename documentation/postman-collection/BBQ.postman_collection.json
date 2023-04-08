@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "bs-menu-options",
+			"name": "bs-menu-options-v1",
 			"item": [
 				{
 					"name": "/menu-options",
@@ -26,7 +26,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Pollo a la brasa\",\r\n    \"category\": \"main-dish\",\r\n    \"price\": 30.00,\r\n    \"active\": true\r\n}",
+							"raw": "{\r\n    \"description\": \"Pollo a la brasa\",\r\n    \"category\": \"main-dish\",\r\n    \"price\": 30.00,\r\n    \"active\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -54,7 +54,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Vino\",\r\n    \"category\": \"drink\",\r\n    \"price\": 30.00,\r\n    \"active\": true\r\n}",
+									"raw": "{\r\n    \"description\": \"Vino\",\r\n    \"category\": \"drink\",\r\n    \"price\": 30.00,\r\n    \"active\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -101,7 +101,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"1 Pollo a la brasa\",\r\n    \"category\": \"food\",\r\n    \"price\": 50.00,\r\n    \"active\": true\r\n}",
+									"raw": "{\r\n    \"description\": \"1 Pollo a la brasa\",\r\n    \"category\": \"food\",\r\n    \"price\": 50.00,\r\n    \"active\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -193,7 +193,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Vino\",\n        \"category\": \"drink\",\n        \"price\": 30,\n        \"active\": true\n    },\n    {\n        \"id\": 2,\n        \"name\": \"1 Pollo a la brasa\",\n        \"category\": \"main-dish\",\n        \"price\": 50,\n        \"active\": true\n    }\n]"
+							"body": "[\n    {\n        \"id\": 1,\n        \"description\": \"Vino\",\n        \"category\": \"drink\",\n        \"price\": 30,\n        \"active\": true\n    },\n    {\n        \"id\": 2,\n        \"description\": \"1 Pollo a la brasa\",\n        \"category\": \"main-dish\",\n        \"price\": 50,\n        \"active\": true\n    }\n]"
 						},
 						{
 							"name": "findById 200",
@@ -241,7 +241,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 1,\n    \"name\": \"Vino\",\n    \"category\": \"drink\",\n    \"price\": 30,\n    \"active\": true\n}"
+							"body": "{\n    \"id\": 1,\n    \"description\": \"Vino\",\n    \"category\": \"drink\",\n    \"price\": 30,\n    \"active\": true\n}"
 						},
 						{
 							"name": "findByCategory 200",
@@ -294,7 +294,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Vino\",\n        \"category\": \"drink\",\n        \"price\": 30,\n        \"active\": true\n    }\n]"
+							"body": "[\n    {\n        \"id\": 1,\n        \"description\": \"Vino\",\n        \"category\": \"drink\",\n        \"price\": 30,\n        \"active\": true\n    }\n]"
 						},
 						{
 							"name": "findByCategory 400",
@@ -356,7 +356,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Pisco sour\",\r\n    \"category\": \"drink\",\r\n    \"price\": 25.00,\r\n    \"active\": true\r\n}",
+									"raw": "{\r\n    \"description\": \"Pisco sour\",\r\n    \"category\": \"drink\",\r\n    \"price\": 25.00,\r\n    \"active\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -442,7 +442,69 @@
 			]
 		},
 		{
-			"name": "bs-dining-room-order",
+			"name": "bs-menu-options-v2",
+			"item": [
+				{
+					"name": "/menu-options",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "yJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzbGdSSWpoTFNwN2NFN0NRaGJ0UndzbFJ4OWRyMFZUSmozdFM0ZndGNUpRIn0.eyJleHAiOjE2NzI2MjAxMzksImlhdCI6MTY3MjYxODMzOSwianRpIjoiYTE1NTQ1ZGMtNDIxYS00Y2NhLTgwMDAtZDI1Njc5OTZiNTgxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImNiMmNmNTU1LWUzNWItNDYzYS1iMjc4LWE0ZjYyODJiNjliYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.k4Dl4zZV3F2f6w38K4gtvr6o9xAS9E42Fus5y7-rhIHKZP7qUnQnknnLGCEi8jT_I6cT9pIMUFmxIQJXO6vz-B_svTutnmEJPZvoOAXpakjXgRYU2SXgRorLF_o3ajZDkp1JeAQHcJkdfAycWw7R7w5lrEk_zlwqnpo-7ozgiCaMch4FgrMQPaR53x0xlOGpzh2oK8IynQjSAvgycI5dYu7fnyKQfV7VcYJzIoS7ZoCdV_pvr85HSZmAKYnLCmncQNwYIQlAywCZcR8RrW2jZWapv-bCpp66QoBh4vBJBMgMuLtze1QX0uBhabAq5AsBkdwKPhR8v4ux631OUOoT2Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/stream+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Pollo a la brasa\",\r\n    \"category\": \"main-dish\",\r\n    \"price\": 20.00,\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8810/bbq/business/v2/menu-options",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8810",
+							"path": [
+								"bbq",
+								"business",
+								"v2",
+								"menu-options"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "main-dish",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bs-dining-room-order-v1",
 			"item": [
 				{
 					"name": "/dining-room-orders",
@@ -460,18 +522,22 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "PATCH",
 						"header": [
 							{
 								"key": "Accept",
 								"value": "application/stream+json",
-								"type": "text",
-								"disabled": true
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/stream+json",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"menuOptionList\": [\r\n        {\r\n            \"menuOptionId\": 3,\r\n            \"quantity\": 2\r\n        }\r\n    ],\r\n    \"tableNumber\": 1\r\n}",
+							"raw": "[\r\n    {\r\n        \"menuOptionId\": 1,\r\n        \"quantity\": 2\r\n    }\r\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -479,7 +545,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{api-gateway-domain}}/bbq/business/v1/dining-room-orders",
+							"raw": "{{api-gateway-domain}}/bbq/business/v1/dining-room-orders?tableNumber=1",
 							"host": [
 								"{{api-gateway-domain}}"
 							],
@@ -488,14 +554,20 @@
 								"business",
 								"v1",
 								"dining-room-orders"
+							],
+							"query": [
+								{
+									"key": "tableNumber",
+									"value": "1"
+								}
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "save 201",
+							"name": "findByTableNumber 200",
 							"originalRequest": {
-								"method": "POST",
+								"method": "GET",
 								"header": [
 									{
 										"key": "Accept",
@@ -506,7 +578,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"menuOptionList\": [\r\n        {\r\n            \"menuOptionId\": 2,\r\n            \"quantity\": 4\r\n        }\r\n    ],\r\n    \"tableNumber\": 1\r\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -514,7 +586,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{api-gateway-domain}}/bbq/business/v1/dining-room-orders",
+									"raw": "{{api-gateway-domain}}/bbq/business/v1/dining-room-orders?tableNumber=1",
 									"host": [
 										"{{api-gateway-domain}}"
 									],
@@ -523,31 +595,37 @@
 										"business",
 										"v1",
 										"dining-room-orders"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "1"
+										}
 									]
 								}
 							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "plain",
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
 							"header": [
 								{
-									"key": "Location",
-									"value": "http://host.docker.internal:55611/bbq/business/v1/dining-room-orders/63b31cbd0ad35a439647aa44"
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
 								},
 								{
 									"key": "Date",
-									"value": "Mon, 02 Jan 2023 18:04:45 GMT"
-								},
-								{
-									"key": "content-length",
-									"value": "0"
+									"value": "Thu, 12 Jan 2023 00:43:55 GMT"
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": "{\n    \"tableNumber\": 1,\n    \"menuOrderList\": [\n        {\n            \"menuOptionId\": 5,\n            \"quantity\": 2\n        }\n    ]\n}"
 						},
 						{
-							"name": "update 201",
+							"name": "generateTableOrder 201",
 							"originalRequest": {
 								"method": "PATCH",
 								"header": [
@@ -560,7 +638,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\r\n    {\r\n        \"menuOptionId\": 3,\r\n        \"quantity\": 2\r\n    }\r\n]",
+									"raw": "[\r\n    {\r\n        \"menuOptionId\": 5,\r\n        \"quantity\": 2\r\n    }\r\n]",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -592,11 +670,11 @@
 							"header": [
 								{
 									"key": "Location",
-									"value": "http://host.docker.internal:55611/bbq/business/v1/dining-room-orders"
+									"value": "http://miguelarmasabt:62203/bbq/business/v1/dining-room-orders"
 								},
 								{
 									"key": "Date",
-									"value": "Mon, 02 Jan 2023 18:11:51 GMT"
+									"value": "Thu, 12 Jan 2023 00:47:05 GMT"
 								},
 								{
 									"key": "content-length",
@@ -605,13 +683,197 @@
 							],
 							"cookie": [],
 							"body": null
+						},
+						{
+							"name": "generateTableOrder 400",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/stream+json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"menuOptionId\": 100,\r\n        \"quantity\": 2\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/business/v1/dining-room-orders?tableNumber=1",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"business",
+										"v1",
+										"dining-room-orders"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 12 Jan 2023 00:47:46 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"/errors/business-rules\",\n    \"title\": \"The requested menu order doesn't exist - id: 100\",\n    \"errorCode\": \"ERROR1001\",\n    \"details\": []\n}"
 						}
 					]
 				}
 			]
 		},
 		{
-			"name": "ux-consult-menu-options",
+			"name": "bs-invoice-v1",
+			"item": [
+				{
+					"name": "/invoices",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/stream+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api-gateway-domain}}/bbq/business/v1/invoices?tableNumber=1",
+							"host": [
+								"{{api-gateway-domain}}"
+							],
+							"path": [
+								"bbq",
+								"business",
+								"v1",
+								"invoices"
+							],
+							"query": [
+								{
+									"key": "tableNumber",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "generateInvoice 200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/stream+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/business/v1/invoices?tableNumber=1",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"business",
+										"v1",
+										"invoices"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/stream+json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 21 Jan 2023 00:12:51 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"menuOrderList\": [\n        {\n            \"description\": \"Ají de gallina\",\n            \"price\": 15,\n            \"quantity\": 1,\n            \"total\": 15\n        },\n        {\n            \"description\": \"Chancho al cilindro\",\n            \"price\": 25,\n            \"quantity\": 2,\n            \"total\": 50\n        }\n    ],\n    \"subtotal\": 65,\n    \"igv\": 0.01,\n    \"total\": 65.65\n}"
+						}
+					]
+				},
+				{
+					"name": "/invoices/send-to-pay",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/stream+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tableNumber\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-gateway-domain}}/bbq/business/v1/invoices/send-to-pay",
+							"host": [
+								"{{api-gateway-domain}}"
+							],
+							"path": [
+								"bbq",
+								"business",
+								"v1",
+								"invoices",
+								"send-to-pay"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ux-consult-menu-options-v1",
 			"item": [
 				{
 					"name": "/menu-options",
@@ -650,7 +912,7 @@
 			]
 		},
 		{
-			"name": "auth-adapter",
+			"name": "auth-adapter-v1",
 			"item": [
 				{
 					"name": "login",
@@ -1057,23 +1319,407 @@
 			]
 		},
 		{
-			"name": "registry-discovery-server",
+			"name": "infrastructure",
 			"item": [
 				{
-					"name": "getInfoApps",
+					"name": "registry-discovery-server",
+					"item": [
+						{
+							"name": "getInfoApps",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8761/eureka/apps",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8761",
+									"path": [
+										"eureka",
+										"apps"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "config-server",
+					"item": [
+						{
+							"name": "login",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8888/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "bs-menu-option-v1-dev",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8888/business/menu-option-v1-dev",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"business",
+										"menu-option-v1-dev"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "bs-dining-room-order-v1-dev",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8888/business/dining-room-order-v1-dev",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"business",
+										"dining-room-order-v1-dev"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "bs-invoice-v1-dev",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8888/business/invoice-v1-dev",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"business",
+										"invoice-v1-dev"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "bs-payment-v1-dev",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8888/business/payment-v1-dev",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"business",
+										"payment-v1-dev"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "actuator",
+					"item": [
+						{
+							"name": "/gateway/routes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api-gateway-domain}}/actuator/gateway/routes/",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"actuator",
+										"gateway",
+										"routes",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/business-menu-option-v1",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api-gateway-domain}}/actuator/gateway/routes/business-menu-option-v1/",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"actuator",
+										"gateway",
+										"routes",
+										"business-menu-option-v1",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ux-kitchen-order-v1",
+			"item": [
+				{
+					"name": "/kitchen-orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Pisco sour\",\r\n    \"category\": \"drink\",\r\n    \"price\": 20.00,\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8761/eureka/apps",
+							"raw": "http://localhost:8811/bbq/business/v2/kitchen-orders",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8761",
+							"port": "8811",
 							"path": [
-								"eureka",
-								"apps"
+								"bbq",
+								"business",
+								"v2",
+								"kitchen-orders"
 							]
 						}
 					},
