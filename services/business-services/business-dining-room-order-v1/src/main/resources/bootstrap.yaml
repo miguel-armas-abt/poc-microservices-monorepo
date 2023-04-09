@@ -10,8 +10,8 @@ spring:
         enabled: true
         service-id: config-server-v1
       failFast: true
-      name: business #prefix, name of API type
-      profile: dining-room-order-v1-dev #sufix, indicate the execution environment
+      name: business-dining-room-order-v1 #prefix, API name
+      profile: dev #sufix, indicate the execution environment
       #label: latest
       username: admin
       password: 123

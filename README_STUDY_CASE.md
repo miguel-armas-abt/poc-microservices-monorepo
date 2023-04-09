@@ -1,33 +1,28 @@
 # Caso de estudio: Reactive BBQ Restaurant
-`<autor>`: Miguel Rodrigo Armas Abt
 
-- [1. Expertos en el dominio](#1-expertos-en-el-dominio)
-- [2. Bounded contexts](#2-bounded-contexts)
-
-> Reactive BBQ es un restaurante que se enfoca en sabores tradicionales de barbacoa. Comenzó como una tienda familiar y 
-> finalmente comenzó a crecer. Ellos habrían abierto un par de otras ubicaciones, luego tal vez se mudaron a algunas 
-> ciudades diferentes, luego se mudaron por todo el país y ahora están en el punto en el que realmente se han 
-> globalizado.
+> Reactive BBQ es un restaurante que se enfoca en sabores tradicionales de barbacoa. Comenzó como una tienda familiar, 
+> luego creció progresivamente abriendo locales en diferentes ciudades del país y actualmente se ha globalizado.
 >
-> El software es una gran parte de su negocio, sin embargo, lo que sucedió es que, el restaurante realmente creció y el 
-> software creció orgánicamente con él, simplemente atornillaron cosas en diferentes lugares hasta el punto en que ahora
-> tienen una aplicación que hace varias cosas. Hace de todo, desde la gestión de inventario hasta los precios del menú, 
-> las entregas y los pedidos y reservas online. Todos estos se han agrupado en un solo sistema y lo que están 
-> descubriendo ahora es que ese sistema realmente está luchando por su propio peso. Tienen muchos procesos heredados 
-> relacionados con ese sistema antiguo y algunos de esos procesos heredados requieren que el sistema se apague durante 
-> un período de tiempo. Cuando, por supuesto, el sistema se desactiva, significa que no pueden hacer cosas en sus 
-> restaurantes, por lo que deben tratar de orientar ese tiempo de inactividad a períodos en los que no hay mucha 
+> El software creció orgánicamente con el negocio, se atornillaron cosas en diferentes lugares hasta el punto en que 
+> ahora se tiene una aplicación gigante que hace de todo. Por ejemplo, permite gestionar los inventarios, los precios 
+> del menú, las reservas online, los pedidos en el comedor, el delivery, etc. Todas estas funcionalidades se han 
+> agrupado en un solo sistema que está luchando por su propio peso. Tiene muchos procesos heredados que requieren que el
+> sistema se apague durante un período de tiempo, lo que significa que los restaurantes no pueden continuar con sus 
+> actividades, por lo que deben tratar de orientar ese tiempo de inactividad a períodos en los que no hay mucha 
 > actividad en sus restaurantes o cuando los restaurantes están cerrados. Eso estaba bien cuando todas sus ubicaciones 
 > estaban en América del Norte, pero a medida que se han globalizado, cada vez es más difícil encontrar esos períodos de
 > tiempo en los que pueden tener tiempo de inactividad.
 >
-> Entonces El Reactive BBQ Restaurant, ahora está buscando arquitecturas para tratar de ayudar a resolver ese problema, 
-> ya que está experimentando una importante actualización de su software. Buscan modernizar su monolito heredado 
-> mediante la creación de nuevas piezas de la aplicación como microservicios.
+> En consecuencia Reactive BBQ Restaurant experimentará una importante actualización de su software, ya que busca 
+> soportar su aplicación sobre una arquitectura de microservicios.
 
-## 1. Expertos en el dominio
-> Tras hablar con los expertos en el dominio "restaurante" e intentar entender su vocabulario para usarlo en nuestro 
-> modelo pudimos identificar las siguientes actividades utilizando la notación sujeto-verbo-objeto.
+- [1. Expertos en el dominio](#1-expertos-en-el-dominio)
+- [2. Bounded contexts](#2-bounded-contexts)
+- [3. Web Services](#3-web-services)
+
+# 1. Expertos en el dominio
+Tras hablar con los expertos en el dominio "restaurante" y entender su vocabulario para usarlo en nuestro modelo pudimos
+identificar las siguientes actividades utilizando la notación `sujeto-verbo-objeto`
 
 - Anfitrión
     - El anfitrión verifica las reservas actuales.
@@ -35,9 +30,9 @@
     - El anfitrión asienta al cliente con reserva.
 
 - Mesero
-    - El mesero toma el pedido.
-    - El mesero entrega el pedido.
-    - El mesero cobra el pago de un pedido.
+    - El mesero toma el pedido en el comedor.
+    - El mesero entrega el pedido en el comedor.
+    - El mesero cobra el pago de un pedido en el comedor.
   
 - Chef de cocina
     - El chef de cocina prepara un pedido.
@@ -54,11 +49,56 @@
     - El cliente en línea realiza el pago de un pedido.
     - El cliente en línea hace una reserva.
 
-## 2. Bounded contexts
-> De acuerdo a los objetos definidos en las actividades anteriores se identificaron los siguientes bounded contexts y 
-> algunas palabras de sus lenguajes ubicuos.
+# 2. Bounded contexts
+De acuerdo a los objetos definidos en las actividades anteriores se identificaron los siguientes bounded contexts y 
+algunas palabras de sus lenguajes ubicuos
 
-- Reservation: reservation, table, customer, time, location
-- Payment: credit, debit, cash
-- Order: order, cook, notification, delivery, tip
-- Menu: drink, plate, items
+- `Menu:` option, drink, main dish 
+- `Order`: dining room, kitchen, notification, delivery, tip
+- `Payment`: invoice, credit, debit, cash
+- `Reservation`: table, reservation, customer, time, location
+
+# 3. Web Services
+
+## 3.1. Business API Menu Option V1
+Gesiona las opciones de menú que ofrece el restaurante.
+
+| Endpoint                                            | Método | Descripción                                                                                       |
+|-----------------------------------------------------|--------|---------------------------------------------------------------------------------------------------|
+| `/bbq/business/v1/menu-options?category={category}` | GET    | Recupera todas las opciones de menú. Se filtra por categoría si se envía el query param category. |
+| `/bbq/business/v1/menu-options/{id}`                | GET    | Recupera una opción de menú por id.                                                               |
+| `/bbq/business/v1/menu-options`                     | POST   | Almacena una nueva opción de menú.                                                                |
+| `/bbq/business/v1/menu-options/{id}`                | PUT    | Actualiza un registro de opción de menú.                                                          |
+| `/bbq/business/v1/menu-options/{id}`                | DELETE | Elimina un registro de opción de menú.                                                            |
+
+## 3.2. Business API Dining Room Order V1
+Gesiona los pedidos que se realizan en el comedor.
+
+| Endpoint                                                        | Método | Descripción                                    |
+|-----------------------------------------------------------------|--------|------------------------------------------------|
+| `/bbq/business/v1/dining-room-orders?tableNumber={tableNumber}` | GET    | Recupera los pedidos de una mesa.              |
+| `/bbq/business/v1/dining-room-orders/{id}`                      | PATCH  | Agrega opciones de menú al pedido de una mesa. |
+
+## 3.3. Business API Invoice V1
+Gesiona las facturas asociadas a los pedidos realizados en el comedor.
+
+| Endpoint                                              | Método | Descripción                                         |
+|-------------------------------------------------------|--------|-----------------------------------------------------|
+| `/bbq/business/v1/invoices?tableNumber={tableNumber}` | GET    | Recupera la factura asociada al pedido de una mesa. |
+| `/bbq/business/v1/invoices/send-to-pay`               | POST   | Envía a pagar la factura.                           |
+
+## 3.4. Business API Payment V1
+Lista los pagos asociadas a los pedidos realizados en el comedor.
+
+| Endpoint                      | Método | Descripción              |
+|-------------------------------|--------|--------------------------|
+| `/bbq/business/v1/payments`   | GET    | Recupera todos los pagos | 
+
+## 3.5. Experience API Kitchen Order V1
+Lista las órdenes para cocina.
+
+| Endpoint                                                      | Método | Descripción                      |
+|---------------------------------------------------------------|--------|----------------------------------|
+| `/bbq/experience/v1/kitchen-orders?tableNumber={tableNumber}` | GET    | Recupera las órdenes para cocina | 
+
+

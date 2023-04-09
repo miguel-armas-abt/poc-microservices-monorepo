@@ -11,7 +11,7 @@ spring:
         enabled: true
         service-id: config-server-v1
       failFast: true
-      name: business-menu-option-v1 #prefix, name of API type
+      name: business-menu-option-v1 #prefix, API name
       profile: dev #sufix, indicate the execution environment
       #label: latest
       username: admin

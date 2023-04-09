@@ -22,7 +22,7 @@ services:
     networks:
       - prod_environment
     ports:
-      - 8093:8093
+      - "8093:8093"
 
   business-menu-option-v2:
     container_name: business-menu-option-v2
@@ -38,7 +38,30 @@ services:
     networks:
       - prod_environment
     ports:
-      - 8810:8810
+      - "8810:8810"
+
+  business-dining-room-order-v1:
+    container_name: business-dining-room-order-v1
+    image: bbq-images/business-dining-room-order-v1:0.0.1-SNAPSHOT
+    restart: always
+    environment:
+      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=qwerty
+      - POSTGRESQL_URL=jdbc:postgresql://postgres_db:5432/db_dining_room_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - BUSINESS_MENU_OPTION_V1_BASE_PATH=http://api-gateway-v1:8080/bbq/business/v1/
+      - BUSINESS_MENU_OPTION_V2_BASE_PATH=http://business-menu-option-v2:8810/bbq/business/v2/
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    depends_on:
+      - registry-discovery-server-v1
+      - config-server-v1
+      - postgres_db
+      - business-menu-option-v1
+      - business-menu-option-v2
+    networks:
+      - prod_environment
+    ports:
+      - "8094:8094"
 
 ############################
 #infraestructure services
@@ -51,7 +74,7 @@ services:
     networks:
       - prod_environment
     ports:
-      - 8761:8761
+      - "8761:8761"
 
   api-gateway-v1:
     container_name: api-gateway-v1
@@ -64,7 +87,7 @@ services:
     networks:
       - prod_environment
     ports:
-      - 8080:8080
+      - "8080:8080"
 
   config-server-v1:
     container_name: config-server-v1
@@ -73,14 +96,14 @@ services:
       - ../../../bbq-config-server-repo:/tmp/bbq-config-server-repo #represents a local git repository /host/path:/container/path
     environment:
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
-      - LOCAL_REPOSITORY=/tmp/config-server-repo
+      - LOCAL_REPOSITORY=/tmp/bbq-config-server-repo
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - registry-discovery-server-v1
     networks:
       - prod_environment
     ports:
-      - 8888:8888
+      - "8888:8888"
 
 ############################
 #database services
@@ -92,9 +115,9 @@ services:
     networks:
       - prod_environment
     ports:
-      - 3306:3306
+      - "3306:3306"
     volumes:
-      - ./mysql_db:/docker-entrypoint-initdb.d #allow *.sql, *.sql.gz, or *.sh and is execute only if data directory is empty
+      - ./mysql_db:/docker-entrypoint-initdb.d #allow *.sql, *.sql.gz, or *.sh and is executed only if data directory is empty
       - /var/lib/mysql_data:/var/lib/mysql_data
     environment:
       MYSQL_ROOT_PASSWORD: qwerty #root is the user with the highest level of permissions within the DBMS
@@ -107,7 +130,7 @@ services:
     networks:
       - prod_environment
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - ./postgres_db:/docker-entrypoint-initdb.d
       - /var/lib/postgres_data:/var/lib/postgres_data
@@ -117,7 +140,7 @@ services:
       POSTGRES_DB: postgres
 
 ############################
-#network services
+#networks
 ############################
 networks:
   prod_environment:
