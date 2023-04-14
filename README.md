@@ -1,5 +1,5 @@
 # DevOps
-Esta guía le ayudará a desplegar y orquestar los servicios de BBQ
+Esta guía le ayudará a configurar y orquestar los servicios de BBQ
 
 - [1. Clonar repositorio](#1-clonar-repositorio)
 - [2. Compilar código fuente](#2-compilar-código-fuente)
@@ -31,10 +31,6 @@ URL: <https://github.com/miguel-armas-abt/demo-microservices-bbq.git>
 
 # 2. Compilar código fuente
 El código fuente de los servicios está en el directorio `/services`:
-- `bbq-parent-v1`: Maven Parent Module para servicios de BBQ implementados con Spring Boot
-- `bbq-support-v1`: Proyecto no ejecutable que centraliza configuraciones y utilidades requeridas por los servicios de BBQ implementados con Spring Boot
-- `business-services`: Directorio que contiene los servicios de negocio
-- `infrastructure-services`: Directorio que contiene los servicios de infraestructura
 
 ```javascript
 └───bbq-project
@@ -50,6 +46,11 @@ El código fuente de los servicios está en el directorio `/services`:
                 ├───registry-discovery-server-v1
                 └─── ...
 ```
+
+- `bbq-parent-v1`: Maven Parent Module para servicios de BBQ implementados con Spring Boot
+- `bbq-support-v1`: Proyecto no ejecutable que centraliza configuraciones y utilidades requeridas por los servicios de BBQ implementados con Spring Boot
+- `business-services`: Directorio que contiene los servicios de negocio
+- `infrastructure-services`: Directorio que contiene los servicios de infraestructura
 
 Considere compilar `bbq-parent-v1` y `bbq-support-v1` antes que los servicios de negocio e infraestructura, ya que 
 podrían tener dependencia.
@@ -92,7 +93,7 @@ servicios correctamente.
 
 | HTTP Method | URI                                                 | Header Basic Auth                  |
 |-------------|-----------------------------------------------------|------------------------------------|
-| `GET`       | `http://localhost:8888/business/menu-option-v1-dev` | Username: `admin`, Password: `123` |
+| `GET`       | `http://localhost:8888/business-menu-option-v1/dev` | Username: `admin`, Password: `123` |
 
 # 4. Despliegue local
 Inicie los servicios de infraestructura antes que los servicios de negocio.
@@ -127,39 +128,51 @@ docker build -f src/main/docker/Dockerfile.jvm -t bbq-images/<service-name>:0.0.
 
 ## 5.2. Orquestación con Docker Compose
 
-### Iniciar servicios:
+### Iniciar orquestación:
 ```shell script
 docker-compose -f ./devops/docker-compose/docker-compose.yml up -d --force-recreate
 ```
 
-### Eliminar servicios:
+### Eliminar orquestación:
 ```shell script
 docker-compose -f ./devops/docker-compose/docker-compose.yml down -v
 ```
 
 ## 5.3. Orquestación con Kubernetes
+### Iniciar orquestación:
+```shell script
+kubectl apply -f ./devops/k8s/mysql_db/
+kubectl apply -f ./devops/k8s/postgres_db/
+```
+
+### Eliminar orquestación:
+```shell script
+kubectl delete -f ./devops/k8s/mysql_db/
+kubectl delete -f ./devops/k8s/postgres_db/
+```
 
 ## 5.4. Conexión a las bases de datos
 Podemos utilizar DBeaver para conectarnos a las diferentes bases de datos relacionales
 ### 5.4.1. MYSQL
-| Parámetro         | Valor                                          | 
-|-------------------|------------------------------------------------|
-| Server Host       | `localhost`                                    | 
-| Database          | `db_menu_options?allowPublicKeyRetrieval=true` | 
-| Nombre de usuario | `root` o  `bbq_user`                           | 
-| Contraseña        | `qwerty`                                       |
+| Parámetro         | Valor en orquestación con Docker Compose       | Valor en orquestación K8S                                           |   
+|-------------------|------------------------------------------------|---------------------------------------------------------------------|
+| Server Host       | `localhost`                                    | `localhost`                                                         |
+| Port              | `3306`                                         | Puerto generado por Minikube: `minikube service --url svc_mysql_db` |
+| Database          | `db_menu_options?allowPublicKeyRetrieval=true` | `db_menu_options?allowPublicKeyRetrieval=true`                      |
+| Nombre de usuario | `root` o  `bbq_user`                           | `root` o  `bbq_user`                                                |
+| Contraseña        | `qwerty`                                       | `qwerty`                                                            |
 
 ### 5.4.2. PostgreSQL
 - Activar la opción `Show all database` de la pestaña `PostgreSQL`
 
-| Parámetro         | Valor                    | 
-|-------------------|--------------------------|
-| Connect by        | `HOST`                   | 
-| Host              | `localhost`              | 
-| Database          | `db_dining_room_orders`  | 
-| Port              | `5432`                   |
-| Nombre de usuario | `postgres` o  `bbq_user` | 
-| Contraseña        | `qwerty`                 |
+| Parámetro         | Valor en orquestación con Docker Compose   | Valor en orquestación K8S                                              |   
+|-------------------|--------------------------------------------|------------------------------------------------------------------------|
+| Connect by        | `HOST`                                     | `HOST`                                                                 |
+| Host              | `localhost`                                | `localhost`                                                            |
+| Port              | `5432`                                     | Puerto generado por Minikube: `minikube service --url svc_postgres_db` |
+| Database          | `db_dining_room_orders`                    | `db_dining_room_orders`                                                |
+| Nombre de usuario | `postgres` o  `bbq_user`                   | `postgres` o  `bbq_user`                                               |
+| Contraseña        | `qwerty`                                   | `qwerty`                                                               |
 
 
 

@@ -1,0 +1,15 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-mysql-db
+  labels:
+    type: local #it is a plugin support many disks like amazon EBS azure disk etc.  local = local storage devices mounted on nodes.
+    app: mysql-db
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany #many pods on scheduled on different nodes can read and write
+  hostPath:
+    path: "/mnt/data/" #path on cluster's node
