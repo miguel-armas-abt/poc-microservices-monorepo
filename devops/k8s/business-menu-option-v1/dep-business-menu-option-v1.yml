@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-business-menu-option-v1
+spec:
+  selector:
+    matchLabels:
+      app: business-menu-option-v1
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: business-menu-option-v1
+    spec:
+      containers:
+        - name: business-menu-option-v1
+          image: bbq-images/business-menu-option-v1:0.0.1-SNAPSHOT
+          ports:
+            - containerPort: 8093
+              name: port-business-menu-option-v1
+          env:
+            - name: EUREKA_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-business-menu-option-v1
+                  key: eureka-server

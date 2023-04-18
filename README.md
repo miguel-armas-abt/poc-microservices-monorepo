@@ -52,20 +52,11 @@ El código fuente de los servicios está en el directorio `/services`:
 - `business-services`: Directorio que contiene los servicios de negocio
 - `infrastructure-services`: Directorio que contiene los servicios de infraestructura
 
-Considere compilar `bbq-parent-v1` y `bbq-support-v1` antes que los servicios de negocio e infraestructura, ya que 
-podrían tener dependencia.
+Compile los proyectos `bbq-parent-v1` y `bbq-support-v1` antes que los servicios de negocio e infraestructura, ya que 
+tienen dependencia.
 ```shell script
 mvnw clean install
 ```
-
-> **Importante**: Los servicios de negocio e infraestructura, implementados con Spring Boot, utilizan el plugin 
-> `dockerfile-maven-plugin` para construir automáticamente las imágenes de Docker al finalizar la fase `package` de Maven. 
-> 
-> Este proceso requiere que el Docker Engine esté activo, de otro modo obtendrá un error. En tal sentido usted puede tomar
-> alguna de las siguientes acciones mientras trabaja localmente:
-> 
-> 1. Encender el Docker Engine
-> 2. Comentar el plugin `dockerfile-maven-plugin` en el archivo `pom.xml`
 
 # 3. Configurar Config Server
 ## 3.1. Apuntar al repositorio de archivos de configuración
@@ -104,51 +95,77 @@ Inicie los servicios de infraestructura antes que los servicios de negocio.
 > **Importante**: Considere en su ambiente local las dependencias de cada servicio de negocio, por ejemplo MySQL, PostgreSQL,
 > Kafka, Redis, etc.
 
-# 5. Despliegue con contenedores
-
-## 5.1. Construir imágenes de Docker
-### 5.1.1. Servicios con Spring Boot
-Los servicios implementados con Spring Boot hacen uso del plugin `dockerfile-maven-plugin` para la construcción
-automática de las imágenes durante la fase `package` de Maven.
-
-Ejecute el siguiente comando sobre cada proyecto de Spring Boot para construir sus respectivas imágenes :
+# 5. Orquestación con Docker Compose
+## 5.1. Construir imágenes
+Servicios de infraestructura:
 ```shell script
-mvnw clean package
+docker build -t bbq-images/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/registry-discovery-server-v1
+docker build -t bbq-images/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/config-server-v1
+docker build -t bbq-images/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/api-gateway-v1
 ```
 
-### 5.1.2. Servicios con Quarkus
-El framework de Quarkus provee una serie de archivos Dockerfile de acuerdo al tipo de compilación que se requiera, 
-ubicados en el directorio `src/main/docker/`. Para este caso se ha configurado el uso del archivo `Dockerfile.jvm`.
-
-Ejecute el siguiente comando sobre cada proyecto de Quarkus para construir sus respectivas imágenes :
-- Reemplazar `<service-name>` por el nombre del servicio
+Servicios de negocio:
 ```shell script
-docker build -f src/main/docker/Dockerfile.jvm -t bbq-images/<service-name>:0.0.1-SNAPSHOT .
+docker build -t bbq-images/business-menu-option-v1:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v1
+docker build -t bbq-images/business-dining-room-order-v1:0.0.1-SNAPSHOT ./services/business-services/business-dining-room-order-v1
+docker build -f ./services/business-services/business-menu-option-v2/src/main/docker/Dockerfile.jvm -t bbq-images/business-menu-option-v2:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v2
 ```
 
-## 5.2. Orquestación con Docker Compose
-
-### Iniciar orquestación:
+## 5.2. Iniciar orquestación:
 ```shell script
 docker-compose -f ./devops/docker-compose/docker-compose.yml up -d --force-recreate
 ```
 
-### Eliminar orquestación:
+## 5.3. Eliminar orquestación:
 ```shell script
 docker-compose -f ./devops/docker-compose/docker-compose.yml down -v
 ```
 
-## 5.3. Orquestación con Kubernetes
-### Iniciar orquestación:
+# 6. Orquestación con Kubernetes
+Enceder el clúster de Kubernetes de Minikube
+```shell script
+minikube start
+```
+
+## 6.1. Construir imágenes
+Las imágenes de nuestros servicios deben estar disponibles en el clúster de Kubernetes de Minikube, para ello 
+establecemos el entorno de Docker de Minikube en nuestra shell y seguidamente construimos las imágenes en la misma
+sesión de la shell.
+
+Servicios de infraestructura:
+```shell script
+Invoke-Expression ((minikube docker-env) -join "`n")
+docker build -t bbq-images/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/registry-discovery-server-v1
+docker build -t bbq-images/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/config-server-v1
+docker build -t bbq-images/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/api-gateway-v1
+```
+
+Servicios de negocio:
+```shell script
+Invoke-Expression ((minikube docker-env) -join "`n")
+docker build -t bbq-images/business-menu-option-v1:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v1
+docker build -t bbq-images/business-dining-room-order-v1:0.0.1-SNAPSHOT ./services/business-services/business-dining-room-order-v1
+docker build -f ./services/business-services/business-menu-option-v2/src/main/docker/Dockerfile.jvm -t bbq-images/business-menu-option-v2:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v2
+```
+
+A continuación, abrimos una shell en Minikube y revisamos que las imágenes hayan sido creadas.
+```shell script
+minikube ssh
+docker images
+```
+
+## 6.2. Iniciar orquestación:
 ```shell script
 kubectl apply -f ./devops/k8s/mysql_db/
 kubectl apply -f ./devops/k8s/postgres_db/
+kubectl apply -f ./devops/k8s/registry-discovery-server-v1/
 ```
 
-### Eliminar orquestación:
+### 6.3. Eliminar orquestación:
 ```shell script
 kubectl delete -f ./devops/k8s/mysql_db/
 kubectl delete -f ./devops/k8s/postgres_db/
+kubectl delete -f ./devops/k8s/registry-discovery-server-v1/
 ```
 
 ## 5.4. Conexión a las bases de datos
@@ -157,7 +174,7 @@ Podemos utilizar DBeaver para conectarnos a las diferentes bases de datos relaci
 | Parámetro         | Valor en orquestación con Docker Compose       | Valor en orquestación K8S                                           |   
 |-------------------|------------------------------------------------|---------------------------------------------------------------------|
 | Server Host       | `localhost`                                    | `localhost`                                                         |
-| Port              | `3306`                                         | Puerto generado por Minikube: `minikube service --url svc_mysql_db` |
+| Port              | `3306`                                         | Puerto generado por Minikube: `minikube service --url svc-mysql-db` |
 | Database          | `db_menu_options?allowPublicKeyRetrieval=true` | `db_menu_options?allowPublicKeyRetrieval=true`                      |
 | Nombre de usuario | `root` o  `bbq_user`                           | `root` o  `bbq_user`                                                |
 | Contraseña        | `qwerty`                                       | `qwerty`                                                            |
@@ -169,7 +186,7 @@ Podemos utilizar DBeaver para conectarnos a las diferentes bases de datos relaci
 |-------------------|--------------------------------------------|------------------------------------------------------------------------|
 | Connect by        | `HOST`                                     | `HOST`                                                                 |
 | Host              | `localhost`                                | `localhost`                                                            |
-| Port              | `5432`                                     | Puerto generado por Minikube: `minikube service --url svc_postgres_db` |
+| Port              | `5432`                                     | Puerto generado por Minikube: `minikube service --url svc-postgres-db` |
 | Database          | `db_dining_room_orders`                    | `db_dining_room_orders`                                                |
 | Nombre de usuario | `postgres` o  `bbq_user`                   | `postgres` o  `bbq_user`                                               |
 | Contraseña        | `qwerty`                                   | `qwerty`                                                               |

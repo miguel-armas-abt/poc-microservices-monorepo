@@ -36,31 +36,31 @@
     </dependency>
   </dependencies>
 
-  <build>
-    <plugins>
-      <!-- build docker image -->
-      <plugin>
-        <groupId>com.spotify</groupId>
-        <artifactId>dockerfile-maven-plugin</artifactId>
-        <version>${dockerfile-maven-version}</version>
-        <executions>
-          <execution>
-            <id>build-docker-image</id>
-            <phase>package</phase>
-            <goals>
-              <goal>build</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <repository>bbq-images/${project.artifactId}</repository>
-          <tag>${project.version}</tag>
-          <buildArgs>
-            <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-          </buildArgs>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+<!--  <build>-->
+<!--    <plugins>-->
+<!--      &lt;!&ndash; build docker image &ndash;&gt;-->
+<!--      <plugin>-->
+<!--        <groupId>com.spotify</groupId>-->
+<!--        <artifactId>dockerfile-maven-plugin</artifactId>-->
+<!--        <version>${dockerfile-maven-version}</version>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>build-docker-image</id>-->
+<!--            <phase>package</phase>-->
+<!--            <goals>-->
+<!--              <goal>build</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--        <configuration>-->
+<!--          <repository>bbq-images/${project.artifactId}</repository>-->
+<!--          <tag>${project.version}</tag>-->
+<!--          <buildArgs>-->
+<!--            <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>-->
+<!--          </buildArgs>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
+<!--    </plugins>-->
+<!--  </build>-->
 
 </project>
