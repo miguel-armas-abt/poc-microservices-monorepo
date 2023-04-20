@@ -6,18 +6,17 @@ spring:
     name: config-server-v1
 
   profiles:
-    active: native
+    active: git
 
   cloud:
     config:
       server:
-        absolute-path: C:\\\\dev-workspace\\\\bbq-project\\\\bbq-config-server-repo\\\\
         git:
-          uri: ${LOCAL_REPOSITORY:${spring.cloud.config.server.absolute-path}}
+          uri: https://github.com/miguel-armas-abt/demo-microservices-bbq.git
           clone-on-start: true
-          default-label: config-server # branch name
+          default-label: config-server #branch
         native:
-          searchLocations: ${LOCAL_REPOSITORY:${spring.cloud.config.server.absolute-path}}
+          enabled: false #disable file system search
 
   security:
     user:

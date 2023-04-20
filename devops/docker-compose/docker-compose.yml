@@ -92,11 +92,8 @@ services:
   config-server-v1:
     container_name: config-server-v1
     image: bbq-images/config-server-v1:0.0.1-SNAPSHOT
-    volumes:
-      - ../../../bbq-config-server-repo:/tmp/bbq-config-server-repo #represents a local git repository /host/path:/container/path
     environment:
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
-      - LOCAL_REPOSITORY=/tmp/bbq-config-server-repo
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - registry-discovery-server-v1

@@ -9,7 +9,7 @@ spec:
   ipFamilies:
     - IPv4
   ports:
-    - name: mysql-db
+    - name: port-mysql-db
       port: 3306
       nodePort : 30306
   type: NodePort #type: LoadBalancer

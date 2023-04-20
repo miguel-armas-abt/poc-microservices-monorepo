@@ -2,10 +2,11 @@
 Esta guía le ayudará a configurar y orquestar los servicios de BBQ
 
 - [1. Clonar repositorio](#1-clonar-repositorio)
-- [2. Compilar código fuente](#2-compilar-código-fuente)
-- [3. Configurar Config Server](#3-configurar-config-server)
-- [4. Despliegue local](#4-despliegue-local)
-- [5. Despliegue con contenedores ](#5-despliegue-con-contenedores)
+- [2. Compilar código fuente](#2-compilar-cdigo-fuente)
+- [3. Despliegue local](#3-despliegue-local)
+- [4. Orquestación con Docker Compose](#4-orquestacin-con-docker-compose)
+- [5. Orquestación con Kubernetes](#5-orquestacin-con-kubernetes)
+- [6. Conexión a las bases de datos](#6-conexin-a-las-bases-de-datos)
 
 # 1. Clonar repositorio
 El repositorio del proyecto tiene las siguientes ramas:
@@ -39,6 +40,8 @@ El código fuente de los servicios está en el directorio `/services`:
             ├───bbq-parent-v1
             ├───bbq-support-v1
             ├───business-services
+            │   ├───business-menu-option-v1
+            │   ├───business-dining-room-order-v1
             │   └─── ...
             └───infrastructure-services
                 ├───api-gateway-v1
@@ -47,56 +50,24 @@ El código fuente de los servicios está en el directorio `/services`:
                 └─── ...
 ```
 
-- `bbq-parent-v1`: Maven Parent Module para servicios de BBQ implementados con Spring Boot
-- `bbq-support-v1`: Proyecto no ejecutable que centraliza configuraciones y utilidades requeridas por los servicios de BBQ implementados con Spring Boot
+- `bbq-parent-v1`: Maven Parent Module para los servicios de BBQ que fueron implementados con Spring Boot
+- `bbq-support-v1`: Proyecto no ejecutable que centraliza configuraciones y utilidades requeridas por los servicios de BBQ que fueron implementados con Spring Boot
 - `business-services`: Directorio que contiene los servicios de negocio
 - `infrastructure-services`: Directorio que contiene los servicios de infraestructura
 
-Compile los proyectos `bbq-parent-v1` y `bbq-support-v1` antes que los servicios de negocio e infraestructura, ya que 
-tienen dependencia.
-```shell script
-mvnw clean install
-```
+> **NOTA**: Compile los proyectos `bbq-parent-v1` y `bbq-support-v1` antes que cualquier otro servicio.
 
-# 3. Configurar Config Server
-## 3.1. Apuntar al repositorio de archivos de configuración
-La implementación del servidor de configuraciones está en el siguiente directorio:
-```javascript
-└───bbq-project
-    └───bbq-monorepo
-        └───services
-            └───infrastructure-services
-                └───config-server-v1
-```
-
-El proyecto `config-server-v1` se debe conectar localmente a nuestro repositorio de archivos de configuración (rama `config-server`)
-y para ello modificaremos la propiedad `spring.cloud.config.server.absolute-path` del archivo `application.yaml`.
-
-> `absolute-path: C:\\\\dev-workspace\\\\bbq-project\\\\bbq-config-server-repo\\\\`
-
-## 3.2. Probar funcionamiento del Config Server
-El servidor de configuraciones (`config-server-v1`) depende del servidor de registro y descubrimiento 
-(`registry-discovery-server-v1`), así que para validar el funcionamiento del servidor de configuraciones compilaremos 
-el código fuente de ambos proyectos y ejecutaremos ambas aplicaciones en conjunto.
-
-A continuación, podemos ejecutar la siguiente petición para validar que se están recuperando las propiedades de los 
-servicios correctamente.
-
-| HTTP Method | URI                                                 | Header Basic Auth                  |
-|-------------|-----------------------------------------------------|------------------------------------|
-| `GET`       | `http://localhost:8888/business-menu-option-v1/dev` | Username: `admin`, Password: `123` |
-
-# 4. Despliegue local
+# 3. Despliegue local
 Inicie los servicios de infraestructura antes que los servicios de negocio.
 1. registry-discovery-server-v1
 2. config-server-v1
 3. api-gateway-v1
 
-> **Importante**: Considere en su ambiente local las dependencias de cada servicio de negocio, por ejemplo MySQL, PostgreSQL,
+> **NOTA**: Considere en su ambiente local las dependencias de cada servicio de negocio, por ejemplo MySQL, PostgreSQL,
 > Kafka, Redis, etc.
 
-# 5. Orquestación con Docker Compose
-## 5.1. Construir imágenes
+# 4. Orquestación con Docker Compose
+## 4.1. Construir imágenes
 Servicios de infraestructura:
 ```shell script
 docker build -t bbq-images/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/registry-discovery-server-v1
@@ -111,66 +82,70 @@ docker build -t bbq-images/business-dining-room-order-v1:0.0.1-SNAPSHOT ./servic
 docker build -f ./services/business-services/business-menu-option-v2/src/main/docker/Dockerfile.jvm -t bbq-images/business-menu-option-v2:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v2
 ```
 
-## 5.2. Iniciar orquestación:
+## 4.2. Iniciar orquestación:
 ```shell script
 docker-compose -f ./devops/docker-compose/docker-compose.yml up -d --force-recreate
 ```
 
-## 5.3. Eliminar orquestación:
+## 4.3. Eliminar orquestación:
 ```shell script
 docker-compose -f ./devops/docker-compose/docker-compose.yml down -v
 ```
 
-# 6. Orquestación con Kubernetes
+# 5. Orquestación con Kubernetes
 Enceder el clúster de Kubernetes de Minikube
 ```shell script
 minikube start
 ```
 
-## 6.1. Construir imágenes
+## 5.1. Construir imágenes
 Las imágenes de nuestros servicios deben estar disponibles en el clúster de Kubernetes de Minikube, para ello 
 establecemos el entorno de Docker de Minikube en nuestra shell y seguidamente construimos las imágenes en la misma
 sesión de la shell.
 
 Servicios de infraestructura:
 ```shell script
-Invoke-Expression ((minikube docker-env) -join "`n")
 docker build -t bbq-images/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/registry-discovery-server-v1
 docker build -t bbq-images/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/config-server-v1
 docker build -t bbq-images/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/api-gateway-v1
+Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
 Servicios de negocio:
 ```shell script
-Invoke-Expression ((minikube docker-env) -join "`n")
 docker build -t bbq-images/business-menu-option-v1:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v1
 docker build -t bbq-images/business-dining-room-order-v1:0.0.1-SNAPSHOT ./services/business-services/business-dining-room-order-v1
 docker build -f ./services/business-services/business-menu-option-v2/src/main/docker/Dockerfile.jvm -t bbq-images/business-menu-option-v2:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v2
+Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
 A continuación, abrimos una shell en Minikube y revisamos que las imágenes hayan sido creadas.
 ```shell script
-minikube ssh
 docker images
+minikube ssh
 ```
 
-## 6.2. Iniciar orquestación:
+## 5.2. Iniciar orquestación:
 ```shell script
 kubectl apply -f ./devops/k8s/mysql_db/
 kubectl apply -f ./devops/k8s/postgres_db/
 kubectl apply -f ./devops/k8s/registry-discovery-server-v1/
+kubectl apply -f ./devops/k8s/config-server-v1/
+kubectl apply -f ./devops/k8s/business-menu-option-v1/
 ```
 
-### 6.3. Eliminar orquestación:
+### 5.3. Eliminar orquestación:
 ```shell script
 kubectl delete -f ./devops/k8s/mysql_db/
 kubectl delete -f ./devops/k8s/postgres_db/
 kubectl delete -f ./devops/k8s/registry-discovery-server-v1/
+kubectl delete -f ./devops/k8s/config-server-v1/
+kubectl delete -f ./devops/k8s/business-menu-option-v1/
 ```
 
-## 5.4. Conexión a las bases de datos
+# 6. Conexión a las bases de datos
 Podemos utilizar DBeaver para conectarnos a las diferentes bases de datos relacionales
-### 5.4.1. MYSQL
+## 6.1. MYSQL
 | Parámetro         | Valor en orquestación con Docker Compose       | Valor en orquestación K8S                                           |   
 |-------------------|------------------------------------------------|---------------------------------------------------------------------|
 | Server Host       | `localhost`                                    | `localhost`                                                         |
@@ -179,7 +154,7 @@ Podemos utilizar DBeaver para conectarnos a las diferentes bases de datos relaci
 | Nombre de usuario | `root` o  `bbq_user`                           | `root` o  `bbq_user`                                                |
 | Contraseña        | `qwerty`                                       | `qwerty`                                                            |
 
-### 5.4.2. PostgreSQL
+## 6.2. PostgreSQL
 - Activar la opción `Show all database` de la pestaña `PostgreSQL`
 
 | Parámetro         | Valor en orquestación con Docker Compose   | Valor en orquestación K8S                                              |   
@@ -223,6 +198,7 @@ Afinar lo siguiente:
 
 ### Mejoras
 > - Faltan pruebas unitarias
+> - SpringDoc
 > - Generar las peticiones automáticas del token en Postman
 > - Copiar manejo de excepcion externa de atlas
 > - Crear los servicios en quarkus

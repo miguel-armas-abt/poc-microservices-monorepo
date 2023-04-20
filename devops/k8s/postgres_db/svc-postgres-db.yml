@@ -9,7 +9,7 @@ spec:
   ipFamilies:
     - IPv4
   ports:
-    - name: postgres-db
+    - name: port-postgres-db
       port: 5432
       nodePort : 30432
   type: NodePort #type: LoadBalancer
