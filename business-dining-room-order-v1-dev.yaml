@@ -17,17 +17,17 @@ spring:
     defer-datasource-initialization: true #read data.sql file after schema generation by hibernate
 
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/db_dining_room_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: ${POSTGRESQL_URL:jdbc:postgresql://127.0.0.1:5432/db_dining_room_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
     driverClassName: org.postgresql.Driver
-    username: postgres
-    password: oracle12c
+    username: ${POSTGRESQL_USERNAME:bbq_user}
+    password: ${POSTGRESQL_PASSWORD:qwerty}
 
 application:
   http-client:
     menu-option-v1:
-      base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8080/bbq/business/v1/}
+      base-url: ${BUSINESS_MENU_OPTION_V1_BASE_PATH:http://localhost:8080/bbq/business/v1/}
     menu-option-v2:
-      base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8810/bbq/business/v2/}
+      base-url: ${BUSINESS_MENU_OPTION_V2_BASE_PATH:http://localhost:8810/bbq/business/v2/}
 
 resilience4j:
   circuitbreaker:
