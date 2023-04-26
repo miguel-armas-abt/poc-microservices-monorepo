@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-registry-discovery-server-v1
+  labels:
+    app: registry-discovery-server-v1
+spec:
+  ports:
+    - name: port-registry-discovery-server-v1
+      port: 8761
+      nodePort : 30761
+  type: NodePort #type: LoadBalancer
+  selector:
+    app: registry-discovery-server-v1

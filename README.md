@@ -1,134 +1,179 @@
-# Monorepo: Reactive BBQ Restaurant
+# DevOps
+Esta guía le ayudará a configurar y orquestar los servicios de BBQ
 
-- [1. Componentes de infraestructura](#1-componentes-de-infraestructura)
-- [1.1. Admin Server](#1.1-admin-server)
-- [1.2. Registry Discover Server](#12-registry-discovery-server)
-- [1.3. Config Server](#13-config-server)
-- [1.4. Api Gateway](#14-api-gateway)
-- [1.5. Auth Adapter](#15-auth-adapter)
-- [2. Componentes de soporte](#2-componentes-de-soporte)
-- [2.1. BBQ Parent](#21-bbq-parent)
-- [2.2. BBQ Support](#22-bbq-support)
-- [3. Componentes de negocio](#3-componentes-de-negocio)
-- [3.1. Business API Alternative Menu Option](#31-business-api-alternative-menu-option)
-- [3.2. Business API Dining Room Order](#32-business-api-dining-room-order)
-- [3.3. Business API Invoice](#33-business-api-invoice)
-- [3.4. Business API Payment](#34-business-api-payment)
+- [1. Clonar repositorio](#1-clonar-repositorio)
+- [2. Compilar código fuente](#2-compilar-cdigo-fuente)
+- [3. Despliegue local](#3-despliegue-local)
+- [4. Orquestación con Docker Compose](#4-orquestacin-con-docker-compose)
+- [5. Orquestación con Kubernetes](#5-orquestacin-con-kubernetes)
+- [6. Conexión a las bases de datos](#6-conexin-a-las-bases-de-datos)
+
+# 1. Clonar repositorio
+El repositorio del proyecto tiene las siguientes ramas:
+- `develop`: Contiene el código fuente en su versión de desarrollo
+- `main`: Contiene la última versión estable del código fuente
+- `config-server`: Contiene los archivos de configuración de los servicios
+
+Crearemos un directorio `/bbq-project` y en su interior clonaremos las ramas `develop` y `config-server` con los nombres
+`bbq-monorepo` y `bbq-config-server-repo` respectivamente:
+```javascript
+└───bbq-project
+    ├───bbq-monorepo
+    └───bbq-config-server-repo
+```
+
+```shell script
+git clone -b develop <URL> bbq-monorepo
+```
+```shell script
+git clone -b config-server <URL> bbq-config-server-repo
+```
+URL: <https://github.com/miguel-armas-abt/demo-microservices-bbq.git>
+
+# 2. Compilar código fuente
+El código fuente de los servicios está en el directorio `/services`:
+
+```javascript
+└───bbq-project
+    └───bbq-monorepo
+        └───services
+            ├───bbq-parent-v1
+            ├───bbq-support-v1
+            ├───business-services
+            │   ├───business-menu-option-v1
+            │   ├───business-dining-room-order-v1
+            │   └─── ...
+            └───infrastructure-services
+                ├───api-gateway-v1
+                ├───config-server-v1
+                ├───registry-discovery-server-v1
+                └─── ...
+```
+
+- `bbq-parent-v1`: Maven Parent Module para los servicios de BBQ que fueron implementados con Spring Boot
+- `bbq-support-v1`: Proyecto no ejecutable que centraliza configuraciones y utilidades requeridas por los servicios de BBQ que fueron implementados con Spring Boot
+- `business-services`: Directorio que contiene los servicios de negocio
+- `infrastructure-services`: Directorio que contiene los servicios de infraestructura
+
+> **NOTA**: Compile los proyectos `bbq-parent-v1` y `bbq-support-v1` antes que cualquier otro servicio.
+
+# 3. Despliegue local
+Inicie los servicios de infraestructura antes que los servicios de negocio.
+1. registry-discovery-server-v1
+2. config-server-v1
+3. api-gateway-v1
+
+> **NOTA**: Considere en su ambiente local las dependencias de cada servicio de negocio, por ejemplo MySQL, PostgreSQL,
+> Kafka, Redis, etc.
+
+# 4. Orquestación con Docker Compose
+## 4.1. Construir imágenes
+Servicios de infraestructura:
+```shell script
+docker build -t bbq-images/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/registry-discovery-server-v1
+docker build -t bbq-images/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/config-server-v1
+docker build -t bbq-images/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/api-gateway-v1
+```
+
+Servicios de negocio:
+```shell script
+docker build -t bbq-images/business-menu-option-v1:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v1
+docker build -t bbq-images/business-dining-room-order-v1:0.0.1-SNAPSHOT ./services/business-services/business-dining-room-order-v1
+docker build -f ./services/business-services/business-menu-option-v2/src/main/docker/Dockerfile.jvm -t bbq-images/business-menu-option-v2:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v2
+```
+
+## 4.2. Iniciar orquestación:
+```shell script
+docker-compose -f ./devops/docker-compose/docker-compose.yml up -d --force-recreate
+```
+
+## 4.3. Eliminar orquestación:
+```shell script
+docker-compose -f ./devops/docker-compose/docker-compose.yml down -v
+```
+
+# 5. Orquestación con Kubernetes
+Enceder el clúster de Kubernetes de Minikube
+```shell script
+minikube start
+```
+
+## 5.1. Construir imágenes
+Las imágenes de nuestros servicios deben estar disponibles en el clúster de Kubernetes de Minikube, para ello 
+establecemos el entorno de Docker de Minikube en nuestra shell y seguidamente construimos las imágenes en la misma
+sesión de la shell.
+
+Servicios de infraestructura:
+```shell script
+docker build -t bbq-images/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/registry-discovery-server-v1
+docker build -t bbq-images/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/config-server-v1
+docker build -t bbq-images/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/api-gateway-v1
+Invoke-Expression ((minikube docker-env) -join "`n")
+```
+
+Servicios de negocio:
+```shell script
+docker build -t bbq-images/business-menu-option-v1:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v1
+docker build -t bbq-images/business-dining-room-order-v1:0.0.1-SNAPSHOT ./services/business-services/business-dining-room-order-v1
+docker build -f ./services/business-services/business-menu-option-v2/src/main/docker/Dockerfile.jvm -t bbq-images/business-menu-option-v2:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v2
+Invoke-Expression ((minikube docker-env) -join "`n")
+```
+
+A continuación, abrimos una shell en Minikube y revisamos que las imágenes hayan sido creadas.
+```shell script
+docker images
+minikube ssh
+```
+
+## 5.2. Iniciar orquestación:
+```shell script
+kubectl apply -f ./devops/k8s/mysql_db/
+kubectl apply -f ./devops/k8s/postgres_db/
+kubectl apply -f ./devops/k8s/registry-discovery-server-v1/
+kubectl apply -f ./devops/k8s/config-server-v1/
+kubectl apply -f ./devops/k8s/business-menu-option-v1/
+```
+
+### 5.3. Eliminar orquestación:
+```shell script
+kubectl delete -f ./devops/k8s/mysql_db/
+kubectl delete -f ./devops/k8s/postgres_db/
+kubectl delete -f ./devops/k8s/registry-discovery-server-v1/
+kubectl delete -f ./devops/k8s/config-server-v1/
+kubectl delete -f ./devops/k8s/business-menu-option-v1/
+```
+
+# 6. Conexión a las bases de datos
+Podemos utilizar DBeaver para conectarnos a las diferentes bases de datos relacionales
+## 6.1. MYSQL
+| Parámetro         | Valor en orquestación con Docker Compose       | Valor en orquestación K8S                                           |   
+|-------------------|------------------------------------------------|---------------------------------------------------------------------|
+| Server Host       | `localhost`                                    | `localhost`                                                         |
+| Port              | `3306`                                         | Puerto generado por Minikube: `minikube service --url svc-mysql-db` |
+| Database          | `db_menu_options?allowPublicKeyRetrieval=true` | `db_menu_options?allowPublicKeyRetrieval=true`                      |
+| Nombre de usuario | `root` o  `bbq_user`                           | `root` o  `bbq_user`                                                |
+| Contraseña        | `qwerty`                                       | `qwerty`                                                            |
+
+## 6.2. PostgreSQL
+- Activar la opción `Show all database` de la pestaña `PostgreSQL`
+
+| Parámetro         | Valor en orquestación con Docker Compose   | Valor en orquestación K8S                                              |   
+|-------------------|--------------------------------------------|------------------------------------------------------------------------|
+| Connect by        | `HOST`                                     | `HOST`                                                                 |
+| Host              | `localhost`                                | `localhost`                                                            |
+| Port              | `5432`                                     | Puerto generado por Minikube: `minikube service --url svc-postgres-db` |
+| Database          | `db_dining_room_orders`                    | `db_dining_room_orders`                                                |
+| Nombre de usuario | `postgres` o  `bbq_user`                   | `postgres` o  `bbq_user`                                               |
+| Contraseña        | `qwerty`                                   | `qwerty`                                                               |
 
 
-## 1. Componentes de infraestructura
 
-### 1.1 Admin Server
-> El servidor de administración permite conocer las características de interés de nuestros servicios. Por ejemplo,
-> el número de instancias, la cantidad de memoria que están consumiendo, etc.
-> 
-> Puede acceder a la interfaz a través de: `http://localhost:8762/`
 
-### 1.2. Registry Discovery Server
-> El servidor de descubrimiento facilita la comunicación entre servicios mediante la invocación por nombres en lugar de
-> URLs con su IPs y puertos (`http://127.0.0.1:<service-port>/products` => `http://product-service/products`). Es 
-> importante en un escenario de escalamiento, ya que a medida que el ecosistema de servicios crezca, el problema de 
-> gestión de IPs y puertos estáticos crecerá con él. Con un servidor de descubrimiento se espera un escalado dinámico 
-> con instancias efímeras en dependencia de la carga de trabajo.
-> 
-> Puede acceder a la interfaz a través de: `http://localhost:8761/`
 
-#### Consideraciones
-> - Utilizar una versión de Spring Cloud compatible con la versión de Spring Boot
->   - `https://spring.io/projects/spring-cloud`
-> - Podríamos tener errores de red al utilizar Docker Desktop
->   - `https://stackoverflow.com/questions/57319678/spring-boot-cloud-eurka-windows-10-eurkea-returns-host-docker-internal-for-clien`
 
-### 1.3. Config Server
-> El servidor de configuraciones centraliza las propiedades de los servicios en un repositorio de Git. Además permite
-> separar las propiedades según el ambiente de ejecución (dev, qa, prod), ya que es posible que algunas propiedades 
-> cambien entre un entorno y otro. Por ejemplo, contraseñas, URLs, IPs, constantes, etc. Para ello, basta indicar una 
-> variable de entorno que indique el perfil de dev, qa o prod al ejecutar nuestro servicio.
 
-#### Consideraciones
-> - Los ficheros de propidades deben estar en la misma ruta que .git
-> - Se debe considerar un prefijo y un sufijo en la nomenclatura de los archivos de propiedades. Por ejemplo:
->   - business-menu-option-dev
->   - experience-kitchen-order-prod
-> - Se puede validar la conexión con los archivos de propiedades. Por ejemplo:
->   - `http://localhost:8888/business/menu-option-dev`
->   - `http://localhost:8888/experience/kitchen-order-prod`
-> - Los clientes del config-server deben utilizar un bootstrap.yaml, el cual es primer el fichero de configuración que 
-> SpringBoot llama al arrancar la aplicación
-
-### 1.4. Api Gateway
-> El API Gateway es una implementación de proxy inverso. Participa en un sistema distribudo como un componente 
-> intermediario que simplifica la comunicación entre los distintos clientes y servicios del sistema enrutando las 
-> peticiones desde un único punto de entrada. Algunas de sus responsabilidades son aplicar políticas de seguridad, 
-> enrutamiento, monitorización del tráfico, escalabilidad, etc.
-
-### 1.5. Auth Adapter
-> Componente adaptador que conecta con un proveedor de autenticación y autorización (Keycloack que implementa Oauth2). 
-> Su propósito es servir de habilitador para que el API Gateway aplique políticas de autenticación.
->
-> De este modo, cuando la aplicación cliente quiera acceder a cualquier recurso de nuestra aplicación, primero debe
-> solicitar un token (request access token) al provedoor de autenticación y enviarlo en la petición hacia el API Gateway
-> a través de la cabecera Authorization. A continuación, el API Gateway utilizará el servicio adaptador para que se 
-> conecte con el proveedor de auntenticación y este último valide el token de acceso. Finalmente, una vez que se haya
-> verificado que el token es válido, el API Gateway redirige la petición al recurso que se esté solicitando.
-
-## 2. Componentes de soporte
-### 2.1. BBQ Parent
-> Estructura de módulos que centraliza las propiedades, librerías y plugins para adoptar un estándar en todos los
-> proyectos de BBQ. Los grupos de proyectos en Maven nos permiten tener una estructura de proyectos más coherente y
-> ordenada, que pueden ser heredadas dentro de los proyectos hijos que conforman un grupo de proyectos, evitando así la
-> redundancia.
->
-> Tutorial de parent modules: `https://www.youtube.com/watch?v=XqC1zeFdxMs&ab_channel=CodeJava`
-
-### 2.2. BBQ Support
-> Proyecto no ejecutable que centraliza las funciones y constantes requeridas por los proyectos de BBQ.
-
-## 3. Componentes de negocio
-### Consideraciones
-#### Swagger UI
-> Para ver la documentación de los servicios en Swagger UI debe quitar la configuración relacionada al API Gateway. Sin 
-> embargo, esto no es una práctica aconsejable en entornos productivos.
->
-> Puede acceder a la interfaz a través de: `http://localhost:<service-port>/swagger/swagger-ui/index.html`
-
-#### Base de datos en memoria H2
-> Puede acceder a la interfaz a través de: `http://localhost:<service-port>/h2-console/`
-
-### 3.1. Business API Alternative Menu Option
-> Gesiona las opciones de menú que ofrece el restaurante.
-
-| Endpoint                                            | Método | Descripción                                                                                       |
-|-----------------------------------------------------|--------|---------------------------------------------------------------------------------------------------|
-| `/bbq/business/v1/menu-options?category={category}` | GET    | Recupera todas las opciones de menú. Se filtra por categoría si se envía el query param category. |
-| `/bbq/business/v1/menu-options/{id}`                | GET    | Recupera una opción de menú por id.                                                               |
-| `/bbq/business/v1/menu-options`                     | POST   | Almacena una nueva opción de menú.                                                                |
-| `/bbq/business/v1/menu-options/{id}`                | PUT    | Actualiza un registro de opción de menú.                                                          |
-| `/bbq/business/v1/menu-options/{id}`                | DELETE | Elimina un registro de opción de menú.                                                            |
-
-### 3.2. Business API Dining Room Order
-> Gesiona las los pedidos que se realizan en el comedor.
-
-| Endpoint                                                        | Método | Descripción                                    |
-|-----------------------------------------------------------------|--------|------------------------------------------------|
-| `/bbq/business/v1/dining-room-orders?tableNumber={tableNumber}` | GET    | Recupera los pedidos de una mesa.              |
-| `/bbq/business/v1/dining-room-orders/{id}`                      | PATCH  | Agrega opciones de menú al pedido de una mesa. |
-
-### 3.3. Business API Invoice
-> Gesiona las facturas asociadas a los pedidos realizados en el comedor.
-
-| Endpoint                                              | Método | Descripción                                         |
-|-------------------------------------------------------|--------|-----------------------------------------------------|
-| `/bbq/business/v1/invoices?tableNumber={tableNumber}` | GET    | Recupera la factura asociada al pedido de una mesa. |
-| `/bbq/business/v1/invoices/send-to-pay`               | POST   | Envía a pagar la factura.                           |
-
-### 3.4. Business API Payment
-> Lista los pagos asociadas a los pedidos realizados en el comedor.
-
-| Endpoint                      | Método | Descripción              |
-|-------------------------------|--------|--------------------------|
-| `/bbq/business/v1/payments`   | GET    | Recupera todos los pagos | 
-
+##########
+Afinar lo siguiente:
 ## 4. Despliegue local
 > 1. Desplegar registry-discovery-server, config-server y api-gateway
 > 2. Desplegar el proveedor de autenticación Keycloak
@@ -148,13 +193,20 @@
 
 ### Consideraciones
 > - Para omitir la autenticación a través de Keycloak, comentar todas las ocurrencias del filtro AuthenticatorFiltering
-> en la propiedad spring.cloud.gateway.routes.<id>.filters del archivo application.yaml de api-gateway. De esta manera
-> no se aplicará el filtro de autenticación
+    > en la propiedad spring.cloud.gateway.routes.<id>.filters del archivo application.yaml de api-gateway. De esta manera
+    > no se aplicará el filtro de autenticación
 
 ### Mejoras
 > - Faltan pruebas unitarias
+> - SpringDoc
 > - Generar las peticiones automáticas del token en Postman
 > - Copiar manejo de excepcion externa de atlas
 > - Crear los servicios en quarkus
 > - Revisar los Dockerfiles. Tienen diferente esctructura a los del curso
 > - Revisar el nombre consult-menu-options. No es un nombre funcional, sino tecnico
+>
+>
+Para el desplieuge en local de los servicios desarrollados con Quarkus hay que tener las siguientes consideraciones:
+- Tener instalado Native Tools Command Prompt
+- Tener instalado GraalVM (variables de entorno GRAALVM_HOME, JAVA_HOME=%GRAALVM_HOME%. verificar con 'echo JAVA_HOME')
+- Tener instalado Maven (variable de entorno MAVEN_HOME)

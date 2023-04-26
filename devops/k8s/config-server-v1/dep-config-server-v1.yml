@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-config-server-v1
+spec:
+  selector:
+    matchLabels:
+      app: config-server-v1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: config-server-v1
+    spec:
+      containers:
+        - name: config-server-v1
+          image: bbq-images/config-server-v1:0.0.1-SNAPSHOT
+          imagePullPolicy: IfNotPresent #load the image from local
+          ports:
+            - containerPort: 8888
+          env:
+            - name: EUREKA_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-config-server-v1
+                  key: eureka-server
+            - name: JAVA_OPTS
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-config-server-v1
+                  key: java-opts

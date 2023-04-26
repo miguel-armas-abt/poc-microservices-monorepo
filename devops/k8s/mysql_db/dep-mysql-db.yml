@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-mysql-db
+  labels:
+    app: mysql-db
+spec:
+  replicas: 1 #number of pods replicas
+  selector: #define how the Deployment identify the pods that it could manage
+    matchLabels:
+      app: mysql-db
+  template: #pod template specification
+    metadata:
+      labels: #define the labels for all pods
+        app: mysql-db
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:latest
+          imagePullPolicy: IfNotPresent
+          ports: #open the port to allow send and receive traffic in the container
+            - containerPort: 3306
+          envFrom: #read envars from secret file
+            - secretRef:
+                name: sec-mysql-db
+          volumeMounts:
+            #this is the path in the container on which the mounting will take place.
+            - mountPath: /var/lib/postgresql/data
+              name: vol-mysql-db-data
+            - mountPath: /docker-entrypoint-initdb.d/initdb.sql
+              subPath: initdb.sql
+              name: vol-mysql-db-init-script
+      volumes:
+        - name: vol-mysql-db-data
+          persistentVolumeClaim:
+            claimName: pvc-mysql-db
+        - name: vol-mysql-db-init-script
+          configMap:
+            name: cm-mysql-db-init-script

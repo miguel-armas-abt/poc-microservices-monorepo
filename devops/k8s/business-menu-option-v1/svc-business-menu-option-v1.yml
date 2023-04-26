@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-business-menu-option-v1
+  labels:
+    app: business-menu-option-v1
+spec:
+  ports:
+    - name: port-business-menu-option-v1
+      port: 8093
+      nodePort : 30093
+  type: NodePort #type: LoadBalancer
+  selector:
+    app: business-menu-option-v1

@@ -1,0 +1,29 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server-v1
+
+  profiles:
+    active: git
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/miguel-armas-abt/demo-microservices-bbq.git
+          clone-on-start: true
+          default-label: config-server #branch
+        native:
+          enabled: false #disable file system search
+
+  security:
+    user:
+      name: admin
+      password: 123
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
