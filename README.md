@@ -218,8 +218,12 @@ de GitHub `Account > Settings > Developer settings > Personal access tokens` y c
 Para que nuestros pipelines se ejecuten automáticamente cuando escuchen algún evento en el repositorio iremos a la sección
 `Disparadores de ejecución` y seleccionaremos la opción `GitHub hook trigger for GITScm polling`.
 
-
-
+## 7.4. Integración con Slack
+- Cree una cuenta y un workspace en `Slack`. A continuación, instale el plugin `Jenkins CI` y obtenga la configuración para integrar su workspace con Jenkins.
+- Instale el plugin `Slack Notification` en Jenkins. A continuación, diríjase a `Panel de control > Administrar Jenkins > System > Slack` y configure los campos
+  - **Workspace**: `<Subdominio de equipo> de Slack`
+  - **Credential**: `<ID de credencial de token de integración> de Slack`
+- Ubique en la configuración de su pipeline la opción `Acciones para ejecutar después`, seleccion la opción `Slack Notifications` y marque todas las casillas.
 
 ##########
 Afinar lo siguiente:
