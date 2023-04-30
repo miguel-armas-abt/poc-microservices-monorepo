@@ -166,8 +166,57 @@ Podemos utilizar DBeaver para conectarnos a las diferentes bases de datos relaci
 | Nombre de usuario | `postgres` o  `bbq_user`                   | `postgres` o  `bbq_user`                                               |
 | Contraseña        | `qwerty`                                   | `qwerty`                                                               |
 
+# 7. Jenkins
+## 7.1. Crer imagen y ejecutar contenedor
+```shell script
+docker-compose -f ./devops/jenkins/docker-compose-cicd.yml up -d --force-recreate
+docker build -t bbq-images/jenkins:v1 --no-cache ./devops/jenkins 
+```
 
+## 7.2. Desbloquear
+- Revisar los logs del contenedor y copiar el password en la pantalla de login `localhost:8080`
+```shell script
+docker logs <jenkins-container-id>
+```
+- Seleccionar la opción `Install suggested plugins` para instalar los plugins sugeridos.
+- Crear la cuenta de administrador. Utilice `admin` y `qwerty` para el nombre de usuario y el password respectivamente.
+- Dejar la configuración de la URL por defecto, `http://localhost:8080/`
 
+## 7.3. GitHub Webhooks
+Para conectar Jenkins con GitHub Webhook es necesario que nuestra instancia de Jenkins sea accesible desde internet.
+
+### 7.3.1. URI del reverse proxy
+A continuación, obtendremos la URI de un reverse proxy que redirija las peticiones de internet hacia nuestra instancia local.
+
+- Cree una cuenta en `ngrok`, descargue la versión estable y descomprima el fichero .zip
+- Acceda al directorio descomprimido y ejecute los siguientes comandos para conectar su cuenta y exponer el puerto `8080` hacia internet
+```shell script
+./ngrok http 8080
+./ngrok config add-authtoken <ngrok-authtoken>
+cd <ngrok-directory>
+```
+- Copie el valor de `Forwarding`. Por ejemplo, `https://95ee-179-6-212-27.ngrok-free.app`. 
+
+### 7.3.2. Configurar repositorio
+Para notificar a nuestra instancia de Jenkis sobre los cambios en el repositorio, configuraremos nuestro proxy reverse 
+en la sección Webhooks (`Repository > Settigs > Webhooks`).
+- **Payload URL**: `<URI del reverse proxy>/github-webhook/`
+- **Content type**: `application/json`
+- **Which events would you like to trigger this webhook?**: `Just push event`
+
+### 7.3.3. Vincular Jenkins con GitHub Server
+Accedemos a `Panel de Control > Administrar Jenkins > System > GitHub`. A continuación, seleccionamos la opción 
+`Add GitHub Server` y agregamos los siguientes campos.
+- **Name**: `miguel-armas-abt-server`
+- **API URL**: `https://api.github.com`
+
+Para el siguiente campo de tipo `Secret text` generaremos un token clásico en GitHub. Para ello accederemos a la opción
+de GitHub `Account > Settings > Developer settings > Personal access tokens` y crearemos un nuevo token con acceso a `repo`.
+- **Credentials**: `<github-classic-token>`
+
+### 7.3.4. Activar hook en pipelines
+Para que nuestros pipelines se ejecuten automáticamente cuando escuchen algún evento en el repositorio iremos a la sección
+`Disparadores de ejecución` y seleccionaremos la opción `GitHub hook trigger for GITScm polling`.
 
 
 
@@ -210,3 +259,6 @@ Para el desplieuge en local de los servicios desarrollados con Quarkus hay que t
 - Tener instalado Native Tools Command Prompt
 - Tener instalado GraalVM (variables de entorno GRAALVM_HOME, JAVA_HOME=%GRAALVM_HOME%. verificar con 'echo JAVA_HOME')
 - Tener instalado Maven (variable de entorno MAVEN_HOME)
+
+Actual:
+El registry server descubre a los deployments y no a los servicios, por ello se genera un error en la conexión al config server

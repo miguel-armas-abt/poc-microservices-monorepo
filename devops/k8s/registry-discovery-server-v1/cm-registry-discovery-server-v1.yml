@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-registry-discovery-server-v1
+data:
+  server-ip: 192.168.49.2

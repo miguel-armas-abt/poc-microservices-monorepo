@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+  bbq-jenkins:
+    container_name: bbq-jenkins
+    image: bbq-images/jenkins:v1
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+volumes:
+  jenkins_home:
