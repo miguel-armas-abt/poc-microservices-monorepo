@@ -199,10 +199,25 @@ cd <ngrok-directory>
 
 ### 7.3.2. Configurar repositorio
 Para notificar a nuestra instancia de Jenkis sobre los cambios en el repositorio, configuraremos nuestro proxy reverse 
-en la sección Webhooks (`Settigs > Webhooks`).
-- Payload URL: `<URI del reverse proxy>`
+en la sección Webhooks (`Repository > Settigs > Webhooks`).
+- Payload URL: `<URI del reverse proxy>/github-webhook/`
 - Content type: `application/json`
 - Which events would you like to trigger this webhook?: `Just push event`
+
+### 7.3.3. Configurar Jenkins
+#### 7.3.3.1. Vincular con GitHub Server
+Accedemos a `Panel de Control > Administrar Jenkins > System > GitHub`. A continuación, seleccionamos la opción 
+`Add GitHub Server` y agregamos los siguientes campos.
+- Name: `miguel-armas-abt-server`
+- API URL: `https://api.github.com`
+
+Para el siguiente campo de tipo `Secret text` generaremos un token clásico en GitHub. Para ello accederemos a la opción
+de GitHub `Account > Settings > Developer settings > Personal access tokens` y crearemos un nuevo token con acceso a `repo`.
+- Credentials: `<github-classic-token>`
+
+#### 7.3.3.1. Activar hook en pipelines
+Para que nuestros pipelines se ejecuten automáticamente cuando se escuche un evento en el repositorio iremos a la sección
+`Disparadores de ejecución` dentro de su configuración y seleccionaremos la opción `GitHub hook trigger for GITScm polling`.
 
 
 
