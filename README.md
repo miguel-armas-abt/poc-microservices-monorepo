@@ -328,6 +328,7 @@ ngrok http https://127.0.0.1:51870
 ```
 
 - Dentro de Jenkins diríjase a `Panel de control > Administrar Jenkins > Configure Clouds`, presione el botón `Kubernetes Cloud details...`, configure los siguientes campos y pruebe la conexión
+>**Nota**: Si obtiene un error de autenticación, elimine y vuelva a crear la credencial
 
 | Campo                             | Valor                                                                  |
 |-----------------------------------|------------------------------------------------------------------------|
@@ -341,7 +342,7 @@ ngrok http https://127.0.0.1:51870
   - `Pipeline > Definition: Pipeline script from SCM`: 
     - `SCM`: Git
     - `Repository URL`: https://miguel-armas-abt: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@github.com/miguel-armas-abt/demo-microservices-bbq
-    - ``
+    - `devops/jenkins/Jenkinsfile`: devops/jenkins/Jenkinsfile
     
 
 ##########
