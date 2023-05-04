@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: config-server-v1
-          image: bbq-images/config-server-v1:0.0.1-SNAPSHOT
+          image: miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT
           imagePullPolicy: IfNotPresent #load the image from local
           ports:
             - containerPort: 8888

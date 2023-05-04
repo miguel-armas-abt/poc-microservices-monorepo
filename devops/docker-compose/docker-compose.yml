@@ -2,9 +2,9 @@ version: '3.1'
 
 services:
 
-############################
-#business services
-############################
+  ############################
+  #business services
+  ############################
   business-menu-option-v1:
     container_name: business-menu-option-v1
     image: bbq-images/business-menu-option-v1:0.0.1-SNAPSHOT
@@ -20,7 +20,7 @@ services:
       - config-server-v1
       - mysql_db
     networks:
-      - prod_environment
+      - dev_environment
     ports:
       - "8093:8093"
 
@@ -36,7 +36,7 @@ services:
     depends_on:
       - mysql_db
     networks:
-      - prod_environment
+      - dev_environment
     ports:
       - "8810:8810"
 
@@ -59,20 +59,20 @@ services:
       - business-menu-option-v1
       - business-menu-option-v2
     networks:
-      - prod_environment
+      - dev_environment
     ports:
       - "8094:8094"
 
-############################
-#infraestructure services
-############################
+  ############################
+  #infraestructure services
+  ############################
   registry-discovery-server-v1:
     container_name: registry-discovery-server-v1
     image: bbq-images/registry-discovery-server-v1:0.0.1-SNAPSHOT
     environment:
       - JAVA_OPTS=-Xms256M -Xmx256M
     networks:
-      - prod_environment
+      - dev_environment
     ports:
       - "8761:8761"
 
@@ -85,7 +85,7 @@ services:
     depends_on:
       - registry-discovery-server-v1
     networks:
-      - prod_environment
+      - dev_environment
     ports:
       - "8080:8080"
 
@@ -98,19 +98,19 @@ services:
     depends_on:
       - registry-discovery-server-v1
     networks:
-      - prod_environment
+      - dev_environment
     ports:
       - "8888:8888"
 
-############################
-#database services
-############################
+  ############################
+  #database services
+  ############################
   mysql_db:
     container_name: mysql_db
     image: mysql:latest
     restart: always
     networks:
-      - prod_environment
+      - dev_environment
     ports:
       - "3306:3306"
     volumes:
@@ -125,7 +125,7 @@ services:
     image: postgres:latest
     restart: always
     networks:
-      - prod_environment
+      - dev_environment
     ports:
       - "5432:5432"
     volumes:
@@ -140,7 +140,7 @@ services:
 #networks
 ############################
 networks:
-  prod_environment:
+  dev_environment:
     driver: bridge
     #activate ipv6
     driver_opts:
