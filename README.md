@@ -2,11 +2,11 @@
 Esta guía le ayudará a configurar y orquestar los servicios de BBQ
 
 - [1. Clonar repositorio](#1-clonar-repositorio)
-- [2. Compilar código fuente](#2-compilar-cdigo-fuente)
+- [2. Compilar codigo fuente](#2-compilar-codigo-fuente)
 - [3. Despliegue local](#3-despliegue-local)
-- [4. Orquestación con Docker Compose](#4-orquestacin-con-docker-compose)
-- [5. Orquestación con Kubernetes](#5-orquestacin-con-kubernetes)
-- [6. Conexión a las bases de datos](#6-conexin-a-las-bases-de-datos)
+- [4. Orquestacion con Docker Compose](#4-orquestacion-con-docker-compose)
+- [5. Orquestacion con Kubernetes](#5-orquestacion-con-kubernetes)
+- [6. Conexion a las bases de datos](#6-conexion-a-las-bases-de-datos)
 
 # 1. Clonar repositorio
 El repositorio del proyecto tiene las siguientes ramas:
@@ -30,7 +30,7 @@ git clone -b config-server <URL> bbq-config-server-repo
 ```
 URL: <https://github.com/miguel-armas-abt/demo-microservices-bbq.git>
 
-# 2. Compilar código fuente
+# 2. Compilar codigo fuente
 El código fuente de los servicios está en el directorio `/services`:
 
 ```javascript
@@ -66,20 +66,20 @@ Inicie los servicios de infraestructura antes que los servicios de negocio.
 > **NOTA**: Considere en su ambiente local las dependencias de cada servicio de negocio, por ejemplo MySQL, PostgreSQL,
 > Kafka, Redis, etc.
 
-# 4. Orquestación con Docker Compose
+# 4. Orquestacion con Docker Compose
 ## 4.1. Construir imágenes
 Servicios de infraestructura:
 ```shell script
-docker build -t bbq-images/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/registry-discovery-server-v1
-docker build -t bbq-images/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/config-server-v1
-docker build -t bbq-images/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/api-gateway-v1
+docker build -t miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/registry-discovery-server-v1
+docker build -t miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/config-server-v1
+docker build -t miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/api-gateway-v1
 ```
 
 Servicios de negocio:
 ```shell script
-docker build -t bbq-images/business-menu-option-v1:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v1
-docker build -t bbq-images/business-dining-room-order-v1:0.0.1-SNAPSHOT ./services/business-services/business-dining-room-order-v1
-docker build -f ./services/business-services/business-menu-option-v2/src/main/docker/Dockerfile.jvm -t bbq-images/business-menu-option-v2:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v2
+docker build -t miguelarmasabt/business-menu-option-v1:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v1
+docker build -t miguelarmasabt/business-dining-room-order-v1:0.0.1-SNAPSHOT ./services/business-services/business-dining-room-order-v1
+docker build -f ./services/business-services/business-menu-option-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/business-menu-option-v2:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v2
 ```
 
 ## 4.2. Iniciar orquestación:
@@ -92,7 +92,7 @@ docker-compose -f ./devops/docker-compose/docker-compose.yml up -d --force-recre
 docker-compose -f ./devops/docker-compose/docker-compose.yml down -v
 ```
 
-# 5. Orquestación con Kubernetes
+# 5. Orquestacion con Kubernetes
 Enceder el clúster de Kubernetes de Minikube
 ```shell script
 minikube start
@@ -105,17 +105,17 @@ sesión de la shell.
 
 Servicios de infraestructura:
 ```shell script
-docker build -t bbq-images/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/registry-discovery-server-v1
-docker build -t bbq-images/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/config-server-v1
-docker build -t bbq-images/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/api-gateway-v1
+docker build -t miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/registry-discovery-server-v1
+docker build -t miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/config-server-v1
+docker build -t miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/api-gateway-v1
 Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
 Servicios de negocio:
 ```shell script
-docker build -t bbq-images/business-menu-option-v1:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v1
-docker build -t bbq-images/business-dining-room-order-v1:0.0.1-SNAPSHOT ./services/business-services/business-dining-room-order-v1
-docker build -f ./services/business-services/business-menu-option-v2/src/main/docker/Dockerfile.jvm -t bbq-images/business-menu-option-v2:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v2
+docker build -t miguelarmasabt/business-menu-option-v1:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v1
+docker build -t miguelarmasabt/business-dining-room-order-v1:0.0.1-SNAPSHOT ./services/business-services/business-dining-room-order-v1
+docker build -f ./services/business-services/business-menu-option-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/business-menu-option-v2:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v2
 Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
@@ -143,7 +143,7 @@ kubectl delete -f ./devops/k8s/config-server-v1/
 kubectl delete -f ./devops/k8s/business-menu-option-v1/
 ```
 
-# 6. Conexión a las bases de datos
+# 6. Conexion a las bases de datos
 Podemos utilizar DBeaver para conectarnos a las diferentes bases de datos relacionales
 ## 6.1. MYSQL
 | Parámetro         | Valor en orquestación con Docker Compose       | Valor en orquestación K8S                                           |   
@@ -170,7 +170,7 @@ Podemos utilizar DBeaver para conectarnos a las diferentes bases de datos relaci
 ## 7.1. Crer imagen y ejecutar contenedor
 ```shell script
 docker-compose -f ./devops/jenkins/docker-compose-cicd.yml up -d --force-recreate
-docker build -t bbq-images/jenkins:v1 --no-cache ./devops/jenkins 
+docker build -t miguelarmasabt/jenkins:v1 --no-cache ./devops/jenkins 
 ```
 
 ## 7.2. Desbloquear
@@ -179,51 +179,171 @@ docker build -t bbq-images/jenkins:v1 --no-cache ./devops/jenkins
 docker logs <jenkins-container-id>
 ```
 - Seleccionar la opción `Install suggested plugins` para instalar los plugins sugeridos.
-- Crear la cuenta de administrador. Utilice `admin` y `qwerty` para el nombre de usuario y el password respectivamente.
+- Crear la cuenta de administrador. Utilice `bbq-user` y `qwerty` para el nombre de usuario y el password respectivamente.
 - Dejar la configuración de la URL por defecto, `http://localhost:8080/`
 
-## 7.3. GitHub Webhooks
-Para conectar Jenkins con GitHub Webhook es necesario que nuestra instancia de Jenkins sea accesible desde internet.
+## 7.3. Integración con GitHub Webhooks
 
 ### 7.3.1. URI del reverse proxy
-A continuación, obtendremos la URI de un reverse proxy que redirija las peticiones de internet hacia nuestra instancia local.
+Para conectar Jenkins con GitHub Webhook es necesario que nuestra instancia de Jenkins sea accesible desde internet
+mediante un reverse proxy.
 
-- Cree una cuenta en `ngrok`, descargue la versión estable y descomprima el fichero .zip
+- Cree una cuenta en `ngrok`, descargue una versión estable y descomprima el fichero .zip
 - Acceda al directorio descomprimido y ejecute los siguientes comandos para conectar su cuenta y exponer el puerto `8080` hacia internet
 ```shell script
-./ngrok http 8080
-./ngrok config add-authtoken <ngrok-authtoken>
+ngrok http 8080
+ngrok config add-authtoken <ngrok-authtoken>
 cd <ngrok-directory>
 ```
-- Copie el valor de `Forwarding`. Por ejemplo, `https://95ee-179-6-212-27.ngrok-free.app`. 
+- Copie el valor de `Forwarding` que aparece en consola, por ejemplo `https://95ee-179-6-212-27.ngrok-free.app` 
 
 ### 7.3.2. Configurar repositorio
-Para notificar a nuestra instancia de Jenkis sobre los cambios en el repositorio, configuraremos nuestro proxy reverse 
-en la sección Webhooks (`Repository > Settigs > Webhooks`).
-- **Payload URL**: `<URI del reverse proxy>/github-webhook/`
-- **Content type**: `application/json`
-- **Which events would you like to trigger this webhook?**: `Just push event`
+Para notificar a nuestra instancia de Jenkis sobre los eventos que suceden en el repositorio, ubíquise dentro de GitHub y 
+diríajse a `Repository > Settigs > Webhooks`. A continuación configure los siguientes campos.
+
+| Campo                                                | Valor                                     |
+|------------------------------------------------------|-------------------------------------------|
+| Payload URL                                          | `<URI del reverse proxy>/github-webhook/` |
+| Content type                                         | `application/json`                        |
+| Which events would you like to trigger this webhook? | `Just push event`                         |
 
 ### 7.3.3. Vincular Jenkins con GitHub Server
-Accedemos a `Panel de Control > Administrar Jenkins > System > GitHub`. A continuación, seleccionamos la opción 
-`Add GitHub Server` y agregamos los siguientes campos.
-- **Name**: `miguel-armas-abt-server`
-- **API URL**: `https://api.github.com`
+Dentro de GitHub diríjase a `Panel de Control > Administrar Jenkins > System > GitHub`. A continuación, seleccione 
+la opción `Add GitHub Server` y configure los siguientes campos.
 
-Para el siguiente campo de tipo `Secret text` generaremos un token clásico en GitHub. Para ello accederemos a la opción
-de GitHub `Account > Settings > Developer settings > Personal access tokens` y crearemos un nuevo token con acceso a `repo`.
-- **Credentials**: `<github-classic-token>`
+| Campo    | Valor                     |
+|----------|---------------------------|
+| Name     | `miguel-armas-abt-server` |
+| API URL  | `https://api.github.com`  |
+
+Para el siguiente campo de tipo `Secret text` genere un token clásico de GitHub. Para ello, ubíquise dentro de GitHub, 
+diríjase a `Account > Settings > Developer settings > Personal access tokens` y cree un nuevo token con acceso a `repo`
+
+| Campo       | Valor                    |
+|-------------|--------------------------|
+| Credentials | `<github-classic-token>` |
 
 ### 7.3.4. Activar hook en pipelines
-Para que nuestros pipelines se ejecuten automáticamente cuando escuchen algún evento en el repositorio iremos a la sección
-`Disparadores de ejecución` y seleccionaremos la opción `GitHub hook trigger for GITScm polling`.
+Para que nuestros pipelines se ejecuten automáticamente cuando escuchen algún evento en el repositorio, diríjase a la 
+sección `Disparadores de ejecución` y seleccione la opción `GitHub hook trigger for GITScm polling`
 
 ## 7.4. Integración con Slack
-- Cree una cuenta y un workspace en `Slack`. A continuación, instale el plugin `Jenkins CI` y obtenga la configuración para integrar su workspace con Jenkins.
-- Instale el plugin `Slack Notification` en Jenkins. A continuación, diríjase a `Panel de control > Administrar Jenkins > System > Slack` y configure los campos
-  - **Workspace**: `<Subdominio de equipo> de Slack`
-  - **Credential**: `<ID de credencial de token de integración> de Slack`
-- Ubique en la configuración de su pipeline la opción `Acciones para ejecutar después`, seleccion la opción `Slack Notifications` y marque todas las casillas.
+- Cree una cuenta y un workspace en `Slack`. A continuación, instale el plugin `Jenkins CI` y obtenga la configuración para integrar su workspace con Jenkins
+- Instale el plugin `Slack Notification` en Jenkins. A continuación, diríjase a `Panel de control > Administrar Jenkins > System > Slack` y configure los siguientes campos
+
+| Campo       | Valor                                                 |
+|-------------|-------------------------------------------------------|
+| Workspace   | `<Subdominio de equipo> de Slack`                     |
+| Credential  | `<ID de credencial de token de integración> de Slack` |
+
+- Ubique en la configuración de su pipeline la opción `Acciones para ejecutar después`, seleccione la opción `Slack Notifications` y marque todas las casillas
+
+## 7.5. Integración con SonarQube
+- Diríjase a `localhost:9000`. Las credenciales por default son `admin` y `admin` para los campos user y password respectivamente
+- Dentro de SonarQube diríjase a `Administration > Security > Users`, ubique la columna `Tokens`, de clic en el botón `Update tokens` y genere un token sin tiempo de expiración
+- Instale el plugin `SonarQube Scanner` en Jenkins. A continuación, diríjase a `Panel de control > Administrar Jenkins > System > SonarQube servers` y configure los siguientes campos
+
+| Campo                        | Valor                       |
+|------------------------------|-----------------------------|
+| Environment variables        | Activado                    |
+| Name (nombre del contenedor) | `bbq-sonarqube`             |
+| URL del servidor             | `http://bbq-sonarqube:9000` |
+| Server authentication token  | `<sonarqube-token>`         |
+
+- Dentro de Jenkins diríjase a `Panel de control > Administrar Jenkins > System > Tools > instalaciones de SonarQube Scanner`, añada un scanner y configure los siguientes campos:
+
+| Campo   | Valor                                                      |
+|---------|------------------------------------------------------------|
+| Name    | `bbq-sonarqube-scanner`                                    |
+| Versión | Escoger la última versión estable compatible con SonarQube |
+
+- Ubique en la configuración de su pipeline la opción `Build Steps`, presione el botón `Añadir un nuevo paso`, seleccione la opción `Execute SonarQube Scanner` y configure los siguientes campos
+
+| Campo               | Valor              |
+|---------------------|--------------------|
+| Task to run         | `Scan`             |
+| JDK                 | `Inherit from job` |
+| Aditional Arguments | `-X`               |
+
+**Analysis properties**:
+```javascript
+sonar.projectKey=<service-name>
+sonar.sources=<service-directory>/src/main/java
+sonar.java.binaries=<service-directory>/target/classes
+```
+
+## 7.5. Integración con DockerHub
+- Instale el plugin `CloudBees Docker Build and Publish` en Jenkins
+- Ubique en la configuración de su pipeline la opción `Build Steps`, presione el botón `Añadir un nuevo paso`, seleccione la opción `Docker Build and Publish` y configure los siguientes campos
+
+| Campo          | Valor                         |
+|----------------|-------------------------------|
+| Repositoy Name | `miguelarmasabt/<repository>` |
+| Tag            | `0.0.1-SNAPSHOT`              |
+
+El siguiente campo requiere que expongamos el Daemon Docker del host. Para ello, dentro de Docker Desktop diríjase a 
+`Settings > General`, active la opción `Expose daemon on tcp://localhost:2375 without TLS` y reinicie Docker Desktop.
+A continuación, puede validar que el Daemon Docker fue expuesto exitosamente accediendo a la siguiente URI: `http://localhost:2375/images/json`.
+
+| Campo           | Valor                             |
+|-----------------|-----------------------------------|
+| Docker Host URI | `tcp://host.docker.internal:2375` |
+
+Finalmente presione el botón `Avanzado...` y especifique el siguiente campo
+
+| Campo         | Valor                                                                              |
+|---------------|------------------------------------------------------------------------------------|
+| Build Context | Path, por ejemplo `services/infrastructure-services/registry-discovery-server-v1/` |
+
+## 7.5. Integración con Kubernetes
+- Instale el plugin `Kubernetes` en Jenkins
+- Conecte Jenkins a la red de Minikube. Utilice `disconnect` para desconectarse de la red de Minikube
+```shell script
+docker network connect minikube bbq-jenkins
+```
+
+- Configure los privilegios de Jenkins para acceder al clúster de Kubernetes
+```shell script
+kubectl apply -f ./devops/jenkins/k8s-jenkins/
+```
+
+- Recupere el token de autenticación y agréguelo en Jenkins como una credencial de tipo `Secret Text` con el ID `cluster-k8s-secret`
+```shell script
+kubectl describe secret/jenkins-token-rk2mg
+```
+
+- Revise la configuración del clúster de Kubernetes y recupere los siguientes valores:
+```shell script
+kubectl config view
+```
+
+| Descripción               | Campo                                  | Valor                                          |
+|---------------------------|----------------------------------------|------------------------------------------------|
+| Certificado del clúster   | clusters.cluster.certificate-authority | Por ejemplo `C:\Users\Miguel\.minikube\ca.crt` |
+| URL de la API del clúster | clusters.cluster.server                | Por ejemplo `https://127.0.0.1:51870`          |
+
+- Exponga la URL hacia internet mediante `ngrok`. Debería obtener una URL pública, por ejemplo `https://f247-179-6-212-27.ngrok-free.app`
+```shell script
+ngrok http https://127.0.0.1:51870
+```
+
+- Dentro de Jenkins diríjase a `Panel de control > Administrar Jenkins > Configure Clouds`, presione el botón `Kubernetes Cloud details...`, configure los siguientes campos y pruebe la conexión
+>**Nota**: Si obtiene un error de autenticación, elimine y vuelva a crear la credencial
+
+| Campo                             | Valor                                                                  |
+|-----------------------------------|------------------------------------------------------------------------|
+| Kubernetes URL                    | `https://f247-179-6-212-27.ngrok-free.app`                             |
+| Kubernetes server certificate key | Copiar el contenido del certificado `C:\Users\Miguel\.minikube\ca.crt` |
+| Disable https certificate check   | Activado                                                               |
+| Credentials                       | `cluster-k8s-secret`                                                   |
+
+- Finalmente configure el job de tipo `Pipeline`
+  - `General > GitHub project`: Indique la URL del repositorio de GitHub
+  - `Pipeline > Definition: Pipeline script from SCM`: 
+    - `SCM`: Git
+    - `Repository URL`: https://miguel-armas-abt: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@github.com/miguel-armas-abt/demo-microservices-bbq
+    - `devops/jenkins/Jenkinsfile`: devops/jenkins/Jenkinsfile
+    
 
 ##########
 Afinar lo siguiente:

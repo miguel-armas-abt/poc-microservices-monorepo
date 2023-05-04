@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: business-menu-option-v1
-          image: bbq-images/business-menu-option-v1:0.0.1-SNAPSHOT
+          image: miguelarmasabt/business-menu-option-v1:0.0.1-SNAPSHOT
           ports:
             - containerPort: 8093
           env:
