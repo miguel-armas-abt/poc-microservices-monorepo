@@ -336,10 +336,13 @@ ngrok http https://127.0.0.1:51870
 | Disable https certificate check   | Activado                                                               |
 | Credentials                       | `cluster-k8s-secret`                                                   |
 
-
-
-
-
+- Finalmente configure el job de tipo `Pipeline`
+  - `General > GitHub project`: Indique la URL del repositorio de GitHub
+  - `Pipeline > Definition: Pipeline script from SCM`: 
+    - `SCM`: Git
+    - `Repository URL`: https://miguel-armas-abt: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@github.com/miguel-armas-abt/demo-microservices-bbq
+    - ``
+    
 
 ##########
 Afinar lo siguiente:

@@ -14,7 +14,7 @@ git --version'''
         withCredentials(bindings: [
                       string(credentialsId: 'cluster-k8s-secret', variable: 'api_token')
                       ]) {
-            sh 'kubectl --token $api_token --server https://f247-179-6-212-27.ngrok-free.app --insecure-skip-tls-verify=true apply -f ./../k8s/registry-discovery-server-v1/'
+            sh 'kubectl --token $api_token --server https://f247-179-6-212-27.ngrok-free.app --insecure-skip-tls-verify=true apply -f devops/k8s/registry-discovery-server-v1/'
           }
 
         }
