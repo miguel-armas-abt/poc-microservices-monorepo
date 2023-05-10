@@ -1,34 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: config-server-v1
+  name: dep-api-gateway-v1
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: config-server-v1
+      app: api-gateway-v1
+  replicas: 1
   template:
     metadata:
       labels:
-        app: config-server-v1
+        app: api-gateway-v1
     spec:
       containers:
-        - name: config-server-v1
-          image: miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT
+        - name: api-gateway-v1
+          image: miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT
           imagePullPolicy: IfNotPresent #load the image from local
           ports:
-            - name: http
-              containerPort: 8888
+            - containerPort: 8888
           env:
             - name: EUREKA_SERVER
               valueFrom:
                 configMapKeyRef:
-                  name: cm-config-server-v1
+                  name: cm-api-gateway-v1
                   key: eureka-server
             - name: JAVA_OPTS
               valueFrom:
                 configMapKeyRef:
-                  name: cm-config-server-v1
+                  name: cm-api-gateway-v1
                   key: java-opts
           resources:
             requests:

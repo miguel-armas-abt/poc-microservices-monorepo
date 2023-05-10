@@ -128,7 +128,6 @@ minikube ssh
 ## 5.2. Iniciar orquestación:
 ```shell script
 kubectl apply -f ./devops/k8s/mysql_db/
-kubectl apply -f ./devops/k8s/postgres_db/
 kubectl apply -f ./devops/k8s/registry-discovery-server-v1/
 kubectl apply -f ./devops/k8s/config-server-v1/
 kubectl apply -f ./devops/k8s/business-menu-option-v1/
@@ -137,7 +136,6 @@ kubectl apply -f ./devops/k8s/business-menu-option-v1/
 ### 5.3. Eliminar orquestación:
 ```shell script
 kubectl delete -f ./devops/k8s/mysql_db/
-kubectl delete -f ./devops/k8s/postgres_db/
 kubectl delete -f ./devops/k8s/registry-discovery-server-v1/
 kubectl delete -f ./devops/k8s/config-server-v1/
 kubectl delete -f ./devops/k8s/business-menu-option-v1/
@@ -182,9 +180,12 @@ docker logs <jenkins-container-id>
 - Crear la cuenta de administrador. Utilice `bbq-user` y `qwerty` para el nombre de usuario y el password respectivamente.
 - Dejar la configuración de la URL por defecto, `http://localhost:8080/`
 
-## 7.3. Integración con GitHub Webhooks
+## 7.3. Crear pipeline de estilo libre
 
-### 7.3.1. URI del reverse proxy
+
+## 7.4. Integración con GitHub Webhooks
+
+### 7.4.1. URI del reverse proxy
 Para conectar Jenkins con GitHub Webhook es necesario que nuestra instancia de Jenkins sea accesible desde internet
 mediante un reverse proxy.
 
@@ -197,7 +198,7 @@ cd <ngrok-directory>
 ```
 - Copie el valor de `Forwarding` que aparece en consola, por ejemplo `https://95ee-179-6-212-27.ngrok-free.app` 
 
-### 7.3.2. Configurar repositorio
+### 7.4.2. Configurar repositorio
 Para notificar a nuestra instancia de Jenkis sobre los eventos que suceden en el repositorio, ubíquise dentro de GitHub y 
 diríajse a `Repository > Settigs > Webhooks`. A continuación configure los siguientes campos.
 
@@ -207,7 +208,7 @@ diríajse a `Repository > Settigs > Webhooks`. A continuación configure los sig
 | Content type                                         | `application/json`                        |
 | Which events would you like to trigger this webhook? | `Just push event`                         |
 
-### 7.3.3. Vincular Jenkins con GitHub Server
+### 7.4.3. Vincular Jenkins con GitHub Server
 Dentro de GitHub diríjase a `Panel de Control > Administrar Jenkins > System > GitHub`. A continuación, seleccione 
 la opción `Add GitHub Server` y configure los siguientes campos.
 
@@ -223,11 +224,11 @@ diríjase a `Account > Settings > Developer settings > Personal access tokens` y
 |-------------|--------------------------|
 | Credentials | `<github-classic-token>` |
 
-### 7.3.4. Activar hook en pipelines
+### 7.4.4. Activar hook en pipelines
 Para que nuestros pipelines se ejecuten automáticamente cuando escuchen algún evento en el repositorio, diríjase a la 
 sección `Disparadores de ejecución` y seleccione la opción `GitHub hook trigger for GITScm polling`
 
-## 7.4. Integración con Slack
+## 7.5. Integración con Slack
 - Cree una cuenta y un workspace en `Slack`. A continuación, instale el plugin `Jenkins CI` y obtenga la configuración para integrar su workspace con Jenkins
 - Instale el plugin `Slack Notification` en Jenkins. A continuación, diríjase a `Panel de control > Administrar Jenkins > System > Slack` y configure los siguientes campos
 
@@ -238,7 +239,7 @@ sección `Disparadores de ejecución` y seleccione la opción `GitHub hook trigg
 
 - Ubique en la configuración de su pipeline la opción `Acciones para ejecutar después`, seleccione la opción `Slack Notifications` y marque todas las casillas
 
-## 7.5. Integración con SonarQube
+## 7.6. Integración con SonarQube
 - Diríjase a `localhost:9000`. Las credenciales por default son `admin` y `admin` para los campos user y password respectivamente
 - Dentro de SonarQube diríjase a `Administration > Security > Users`, ubique la columna `Tokens`, de clic en el botón `Update tokens` y genere un token sin tiempo de expiración
 - Instale el plugin `SonarQube Scanner` en Jenkins. A continuación, diríjase a `Panel de control > Administrar Jenkins > System > SonarQube servers` y configure los siguientes campos
@@ -272,7 +273,7 @@ sonar.sources=<service-directory>/src/main/java
 sonar.java.binaries=<service-directory>/target/classes
 ```
 
-## 7.5. Integración con DockerHub
+## 7.7. Integración con DockerHub
 - Instale el plugin `CloudBees Docker Build and Publish` en Jenkins
 - Ubique en la configuración de su pipeline la opción `Build Steps`, presione el botón `Añadir un nuevo paso`, seleccione la opción `Docker Build and Publish` y configure los siguientes campos
 
@@ -295,7 +296,7 @@ Finalmente presione el botón `Avanzado...` y especifique el siguiente campo
 |---------------|------------------------------------------------------------------------------------|
 | Build Context | Path, por ejemplo `services/infrastructure-services/registry-discovery-server-v1/` |
 
-## 7.5. Integración con Kubernetes
+## 7.8. Integración con Kubernetes
 - Instale el plugin `Kubernetes` en Jenkins
 - Conecte Jenkins a la red de Minikube. Utilice `disconnect` para desconectarse de la red de Minikube
 ```shell script
@@ -337,13 +338,20 @@ ngrok http https://127.0.0.1:51870
 | Disable https certificate check   | Activado                                                               |
 | Credentials                       | `cluster-k8s-secret`                                                   |
 
-- Finalmente configure el job de tipo `Pipeline`
-  - `General > GitHub project`: Indique la URL del repositorio de GitHub
-  - `Pipeline > Definition: Pipeline script from SCM`: 
-    - `SCM`: Git
-    - `Repository URL`: https://miguel-armas-abt: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@github.com/miguel-armas-abt/demo-microservices-bbq
-    - `devops/jenkins/Jenkinsfile`: devops/jenkins/Jenkinsfile
-    
+- Configure el job de tipo `Pipeline` con los siguientes campos:
+
+| Campo                    | Valor                                                                                                                  |
+|--------------------------|------------------------------------------------------------------------------------------------------------------------|
+| General > GitHub project | `https://github.com/miguel-armas-abt/demo-microservices-bbq`                                                           |
+| Pipeline > Definition    | `Pipeline script from SCM`                                                                                             |
+| SCM                      | `Git`                                                                                                                  |
+| Repository URL           | `https://miguel-armas-abt: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@github.com/miguel-armas-abt/demo-microservices-bbq` |
+| Script Path              | Por ejemplo, `devops/k8s/registry-discovery-server-v1/Jenkinsfile`                                                     |
+
+- Actualice el Jenkinsfile con la URL de la API del cluster de Kubernetes
+- Finalmente, encadene este pipeline con otros pipelines. Para ello diríjase a `Acciones para ejecutar después`, selecciones `Ejecutar otros proyectos` e indique el/los jobs que desea ejecutar a continuación
+
+
 
 ##########
 Afinar lo siguiente:

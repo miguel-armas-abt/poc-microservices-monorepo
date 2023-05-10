@@ -1,9 +1,9 @@
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
-  name: pvc-postgres-db
+  name: pvc-bbq-postgres
   labels:
-    app: postgres-db
+    app: bbq-postgres
 spec:
   storageClassName: manual
   accessModes:

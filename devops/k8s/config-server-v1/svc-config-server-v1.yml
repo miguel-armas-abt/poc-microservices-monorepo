@@ -1,14 +1,15 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: svc-config-server-v1
+  name: config-server-v1
   labels:
     app: config-server-v1
 spec:
+  type: NodePort
+  clusterIP: 10.96.1.4 #cluster IP allow backend requests
   ports:
-    - name: port-config-server-v1
+    - name: config-server-v1
       port: 8888
-      nodePort : 30888
-  type: NodePort #type: LoadBalancer
+      nodePort: 30888
   selector:
     app: config-server-v1

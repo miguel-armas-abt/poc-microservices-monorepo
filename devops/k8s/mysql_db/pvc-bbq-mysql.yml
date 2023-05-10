@@ -1,9 +1,9 @@
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
-  name: pvc-mysql-db
+  name: pvc-bbq-mysql
   labels:
-    app: mysql-db
+    app: bbq-mysql
 spec:
   storageClassName: manual
   accessModes:

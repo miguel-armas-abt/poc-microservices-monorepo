@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-api-gateway-v1
+data:
+  eureka-server: http://svc-registry-discovery-server-v1:8761/eureka/
+  java-opts: -Xms256M -Xmx256M

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dep-business-menu-option-v1
+  name: business-menu-option-v1
 spec:
   selector:
     matchLabels:
@@ -43,3 +43,10 @@ spec:
                 configMapKeyRef:
                   name: cm-business-menu-option-v1
                   key: java-opts
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "640Mi"
+              cpu: "1"
