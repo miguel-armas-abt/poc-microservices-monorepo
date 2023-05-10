@@ -1,14 +1,14 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: svc-api-gateway-v1
+  name: api-gateway-v1
   labels:
     app: api-gateway-v1
 spec:
+  type: NodePort
+  selector:
+    app: api-gateway-v1
   ports:
     - name: port-api-gateway-v1
       port: 8080
       nodePort : 30080
-  type: NodePort #type: LoadBalancer
-  selector:
-    app: api-gateway-v1

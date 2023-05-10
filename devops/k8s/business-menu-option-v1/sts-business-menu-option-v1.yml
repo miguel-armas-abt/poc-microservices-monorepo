@@ -1,12 +1,13 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: business-menu-option-v1
 spec:
+  replicas: 1
+  serviceName: business-menu-option-v1
   selector:
     matchLabels:
       app: business-menu-option-v1
-  replicas: 1
   template:
     metadata:
       labels:

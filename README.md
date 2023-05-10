@@ -1,70 +1,57 @@
 # DevOps
-Esta guía le ayudará a configurar y orquestar los servicios de BBQ
+Esta guía le ayudará a configurar y desplegar los servicios de BBQ
 
 - [1. Clonar repositorio](#1-clonar-repositorio)
 - [2. Compilar codigo fuente](#2-compilar-codigo-fuente)
 - [3. Despliegue local](#3-despliegue-local)
 - [4. Orquestacion con Docker Compose](#4-orquestacion-con-docker-compose)
 - [5. Orquestacion con Kubernetes](#5-orquestacion-con-kubernetes)
-- [6. Conexion a las bases de datos](#6-conexion-a-las-bases-de-datos)
+- [6. Conexion a las bases de datos](#6-conexion-a-base-de-datos)
 
 # 1. Clonar repositorio
 El repositorio del proyecto tiene las siguientes ramas:
-- `develop`: Contiene el código fuente en su versión de desarrollo
+- `feature/<feature-name>`: Contiene el código fuente en su versión de desarrollo
 - `main`: Contiene la última versión estable del código fuente
 - `config-server`: Contiene los archivos de configuración de los servicios
 
-Crearemos un directorio `/bbq-project` y en su interior clonaremos las ramas `develop` y `config-server` con los nombres
-`bbq-monorepo` y `bbq-config-server-repo` respectivamente:
-```javascript
-└───bbq-project
-    ├───bbq-monorepo
-    └───bbq-config-server-repo
-```
-
 ```shell script
-git clone -b develop <URL> bbq-monorepo
-```
-```shell script
-git clone -b config-server <URL> bbq-config-server-repo
+git checkout -b feature/<feature-name>
+cd bbq-monorepo 
+git clone -b main <URL> bbq-monorepo
 ```
 URL: <https://github.com/miguel-armas-abt/demo-microservices-bbq.git>
 
 # 2. Compilar codigo fuente
-El código fuente de los servicios está en el directorio `/services`:
+El código fuente de los servicios web está en el directorio `/services`:
 
 ```javascript
-└───bbq-project
-    └───bbq-monorepo
-        └───services
-            ├───bbq-parent-v1
-            ├───bbq-support-v1
-            ├───business-services
-            │   ├───business-menu-option-v1
-            │   ├───business-dining-room-order-v1
-            │   └─── ...
-            └───infrastructure-services
-                ├───api-gateway-v1
-                ├───config-server-v1
-                ├───registry-discovery-server-v1
-                └─── ...
+    bbq-monorepo
+    └───services
+        ├───bbq-parent-v1
+        ├───bbq-support-v1
+        ├───business-services
+        │   ├───business-menu-option-v1
+        │   ├───business-dining-room-order-v1
+        │   └─── ...
+        └───infrastructure-services
+            ├───api-gateway-v1
+            ├───config-server-v1
+            ├───registry-discovery-server-v1
+            └─── ...
 ```
 
-- `bbq-parent-v1`: Maven Parent Module para los servicios de BBQ que fueron implementados con Spring Boot
-- `bbq-support-v1`: Proyecto no ejecutable que centraliza configuraciones y utilidades requeridas por los servicios de BBQ que fueron implementados con Spring Boot
-- `business-services`: Directorio que contiene los servicios de negocio
-- `infrastructure-services`: Directorio que contiene los servicios de infraestructura
+- `bbq-parent-v1`: Proyecto `parent module` para los servicios web que fueron implementados con Spring Boot
+- `bbq-support-v1`: Proyecto no ejecutable que centraliza las utilidades requeridas por los servicios web implementados con Spring Boot
+- `business-services`: Directorio que contiene los servicios web de negocio
+- `infrastructure-services`: Directorio que contiene los servicios web de infraestructura
 
-> **NOTA**: Compile los proyectos `bbq-parent-v1` y `bbq-support-v1` antes que cualquier otro servicio.
+> **NOTA**: Para que los servicios web de negocio e infraestructura compilen es necesario compilar previamente los proyectos `bbq-parent-v1` y `bbq-support-v1`.
 
 # 3. Despliegue local
-Inicie los servicios de infraestructura antes que los servicios de negocio.
-1. registry-discovery-server-v1
-2. config-server-v1
-3. api-gateway-v1
+Para desplegar localmente los servicios web es necesario ejecutar previamente los servicios de infraestructura 
+`registry-discovery-server-v1`, `config-server-v1` y `api-gateway-v1`. 
 
-> **NOTA**: Considere en su ambiente local las dependencias de cada servicio de negocio, por ejemplo MySQL, PostgreSQL,
-> Kafka, Redis, etc.
+Los detalles de cada servicio web de negocio los encontrará en sus respectivos README.
 
 # 4. Orquestacion con Docker Compose
 ## 4.1. Construir imágenes
@@ -82,20 +69,28 @@ docker build -t miguelarmasabt/business-dining-room-order-v1:0.0.1-SNAPSHOT ./se
 docker build -f ./services/business-services/business-menu-option-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/business-menu-option-v2:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v2
 ```
 
-## 4.2. Iniciar orquestación:
+## 4.2. Iniciar orquestación
 ```shell script
 docker-compose -f ./devops/docker-compose/docker-compose.yml up -d --force-recreate
 ```
 
-## 4.3. Eliminar orquestación:
+## 4.3. Eliminar orquestación
 ```shell script
 docker-compose -f ./devops/docker-compose/docker-compose.yml down -v
 ```
 
 # 5. Orquestacion con Kubernetes
-Enceder el clúster de Kubernetes de Minikube
+Si usted requiere asignar más memoria RAM a Docker Desktop, cree el archivo `.wslconfig` en la ruta de usuario
+`C:\Users\<username>\ `, agregue el siguiente contenido y reinicie Docker Desktop.
+```javascript
+[wsl2]
+memory=3072MB
+processors=5
+```
+
+Encienda el clúster de Kubernetes de Minikube
 ```shell script
-minikube start
+minikube start --memory=2816 --cpus=4
 ```
 
 ## 5.1. Construir imágenes
@@ -114,12 +109,10 @@ Invoke-Expression ((minikube docker-env) -join "`n")
 Servicios de negocio:
 ```shell script
 docker build -t miguelarmasabt/business-menu-option-v1:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v1
-docker build -t miguelarmasabt/business-dining-room-order-v1:0.0.1-SNAPSHOT ./services/business-services/business-dining-room-order-v1
-docker build -f ./services/business-services/business-menu-option-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/business-menu-option-v2:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v2
 Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
-A continuación, abrimos una shell en Minikube y revisamos que las imágenes hayan sido creadas.
+A continuación, abrimos una shell de Minikube y revisamos que las imágenes hayan sido creadas.
 ```shell script
 docker images
 minikube ssh
@@ -130,227 +123,43 @@ minikube ssh
 kubectl apply -f ./devops/k8s/mysql_db/
 kubectl apply -f ./devops/k8s/registry-discovery-server-v1/
 kubectl apply -f ./devops/k8s/config-server-v1/
+kubectl apply -f ./devops/k8s/api-gateway-v1/
 kubectl apply -f ./devops/k8s/business-menu-option-v1/
 ```
 
-### 5.3. Eliminar orquestación:
+Usted puede obtener la URL del servicio `api-gateway-v1` con el siguiente comando: `minikube service --url api-gateway-v1`
+
+## 5.3. Eliminar orquestación:
 ```shell script
 kubectl delete -f ./devops/k8s/mysql_db/
 kubectl delete -f ./devops/k8s/registry-discovery-server-v1/
 kubectl delete -f ./devops/k8s/config-server-v1/
+kubectl delete -f ./devops/k8s/api-gateway-v1/
 kubectl delete -f ./devops/k8s/business-menu-option-v1/
 ```
 
-# 6. Conexion a las bases de datos
-Podemos utilizar DBeaver para conectarnos a las diferentes bases de datos relacionales
+# 6. Conexion a base de datos
+Utilice DBeaver para conectarse a las bases de datos relacionales.
 ## 6.1. MYSQL
-| Parámetro         | Valor en orquestación con Docker Compose       | Valor en orquestación K8S                                           |   
-|-------------------|------------------------------------------------|---------------------------------------------------------------------|
-| Server Host       | `localhost`                                    | `localhost`                                                         |
-| Port              | `3306`                                         | Puerto generado por Minikube: `minikube service --url svc-mysql-db` |
-| Database          | `db_menu_options?allowPublicKeyRetrieval=true` | `db_menu_options?allowPublicKeyRetrieval=true`                      |
-| Nombre de usuario | `root` o  `bbq_user`                           | `root` o  `bbq_user`                                                |
-| Contraseña        | `qwerty`                                       | `qwerty`                                                            |
+| Parámetro         | Valor (Docker Compose)                         | Valor (Kubernetes)                                     |   
+|-------------------|------------------------------------------------|--------------------------------------------------------|
+| Server Host       | `localhost`                                    | `localhost`                                            |
+| Port              | `3306`                                         | Puerto de Minikube: `minikube service --url bbq-mysql` |
+| Database          | `db_menu_options?allowPublicKeyRetrieval=true` | `db_menu_options?allowPublicKeyRetrieval=true`         |
+| Nombre de usuario | `root` o  `bbq_user`                           | `root` o  `bbq_user`                                   |
+| Contraseña        | `qwerty`                                       | `qwerty`                                               |
 
 ## 6.2. PostgreSQL
-- Activar la opción `Show all database` de la pestaña `PostgreSQL`
+- Ubique la pestaña `PostgreSQL` y active la opción `Show all database`.
 
-| Parámetro         | Valor en orquestación con Docker Compose   | Valor en orquestación K8S                                              |   
-|-------------------|--------------------------------------------|------------------------------------------------------------------------|
-| Connect by        | `HOST`                                     | `HOST`                                                                 |
-| Host              | `localhost`                                | `localhost`                                                            |
-| Port              | `5432`                                     | Puerto generado por Minikube: `minikube service --url svc-postgres-db` |
-| Database          | `db_dining_room_orders`                    | `db_dining_room_orders`                                                |
-| Nombre de usuario | `postgres` o  `bbq_user`                   | `postgres` o  `bbq_user`                                               |
-| Contraseña        | `qwerty`                                   | `qwerty`                                                               |
-
-# 7. Jenkins
-## 7.1. Crer imagen y ejecutar contenedor
-```shell script
-docker-compose -f ./devops/jenkins/docker-compose-cicd.yml up -d --force-recreate
-docker build -t miguelarmasabt/jenkins:v1 --no-cache ./devops/jenkins 
-```
-
-## 7.2. Desbloquear
-- Revisar los logs del contenedor y copiar el password en la pantalla de login `localhost:8080`
-```shell script
-docker logs <jenkins-container-id>
-```
-- Seleccionar la opción `Install suggested plugins` para instalar los plugins sugeridos.
-- Crear la cuenta de administrador. Utilice `bbq-user` y `qwerty` para el nombre de usuario y el password respectivamente.
-- Dejar la configuración de la URL por defecto, `http://localhost:8080/`
-
-## 7.3. Crear pipeline de estilo libre
-
-
-## 7.4. Integración con GitHub Webhooks
-
-### 7.4.1. URI del reverse proxy
-Para conectar Jenkins con GitHub Webhook es necesario que nuestra instancia de Jenkins sea accesible desde internet
-mediante un reverse proxy.
-
-- Cree una cuenta en `ngrok`, descargue una versión estable y descomprima el fichero .zip
-- Acceda al directorio descomprimido y ejecute los siguientes comandos para conectar su cuenta y exponer el puerto `8080` hacia internet
-```shell script
-ngrok http 8080
-ngrok config add-authtoken <ngrok-authtoken>
-cd <ngrok-directory>
-```
-- Copie el valor de `Forwarding` que aparece en consola, por ejemplo `https://95ee-179-6-212-27.ngrok-free.app` 
-
-### 7.4.2. Configurar repositorio
-Para notificar a nuestra instancia de Jenkis sobre los eventos que suceden en el repositorio, ubíquise dentro de GitHub y 
-diríajse a `Repository > Settigs > Webhooks`. A continuación configure los siguientes campos.
-
-| Campo                                                | Valor                                     |
-|------------------------------------------------------|-------------------------------------------|
-| Payload URL                                          | `<URI del reverse proxy>/github-webhook/` |
-| Content type                                         | `application/json`                        |
-| Which events would you like to trigger this webhook? | `Just push event`                         |
-
-### 7.4.3. Vincular Jenkins con GitHub Server
-Dentro de GitHub diríjase a `Panel de Control > Administrar Jenkins > System > GitHub`. A continuación, seleccione 
-la opción `Add GitHub Server` y configure los siguientes campos.
-
-| Campo    | Valor                     |
-|----------|---------------------------|
-| Name     | `miguel-armas-abt-server` |
-| API URL  | `https://api.github.com`  |
-
-Para el siguiente campo de tipo `Secret text` genere un token clásico de GitHub. Para ello, ubíquise dentro de GitHub, 
-diríjase a `Account > Settings > Developer settings > Personal access tokens` y cree un nuevo token con acceso a `repo`
-
-| Campo       | Valor                    |
-|-------------|--------------------------|
-| Credentials | `<github-classic-token>` |
-
-### 7.4.4. Activar hook en pipelines
-Para que nuestros pipelines se ejecuten automáticamente cuando escuchen algún evento en el repositorio, diríjase a la 
-sección `Disparadores de ejecución` y seleccione la opción `GitHub hook trigger for GITScm polling`
-
-## 7.5. Integración con Slack
-- Cree una cuenta y un workspace en `Slack`. A continuación, instale el plugin `Jenkins CI` y obtenga la configuración para integrar su workspace con Jenkins
-- Instale el plugin `Slack Notification` en Jenkins. A continuación, diríjase a `Panel de control > Administrar Jenkins > System > Slack` y configure los siguientes campos
-
-| Campo       | Valor                                                 |
-|-------------|-------------------------------------------------------|
-| Workspace   | `<Subdominio de equipo> de Slack`                     |
-| Credential  | `<ID de credencial de token de integración> de Slack` |
-
-- Ubique en la configuración de su pipeline la opción `Acciones para ejecutar después`, seleccione la opción `Slack Notifications` y marque todas las casillas
-
-## 7.6. Integración con SonarQube
-- Diríjase a `localhost:9000`. Las credenciales por default son `admin` y `admin` para los campos user y password respectivamente
-- Dentro de SonarQube diríjase a `Administration > Security > Users`, ubique la columna `Tokens`, de clic en el botón `Update tokens` y genere un token sin tiempo de expiración
-- Instale el plugin `SonarQube Scanner` en Jenkins. A continuación, diríjase a `Panel de control > Administrar Jenkins > System > SonarQube servers` y configure los siguientes campos
-
-| Campo                        | Valor                       |
-|------------------------------|-----------------------------|
-| Environment variables        | Activado                    |
-| Name (nombre del contenedor) | `bbq-sonarqube`             |
-| URL del servidor             | `http://bbq-sonarqube:9000` |
-| Server authentication token  | `<sonarqube-token>`         |
-
-- Dentro de Jenkins diríjase a `Panel de control > Administrar Jenkins > System > Tools > instalaciones de SonarQube Scanner`, añada un scanner y configure los siguientes campos:
-
-| Campo   | Valor                                                      |
-|---------|------------------------------------------------------------|
-| Name    | `bbq-sonarqube-scanner`                                    |
-| Versión | Escoger la última versión estable compatible con SonarQube |
-
-- Ubique en la configuración de su pipeline la opción `Build Steps`, presione el botón `Añadir un nuevo paso`, seleccione la opción `Execute SonarQube Scanner` y configure los siguientes campos
-
-| Campo               | Valor              |
-|---------------------|--------------------|
-| Task to run         | `Scan`             |
-| JDK                 | `Inherit from job` |
-| Aditional Arguments | `-X`               |
-
-**Analysis properties**:
-```javascript
-sonar.projectKey=<service-name>
-sonar.sources=<service-directory>/src/main/java
-sonar.java.binaries=<service-directory>/target/classes
-```
-
-## 7.7. Integración con DockerHub
-- Instale el plugin `CloudBees Docker Build and Publish` en Jenkins
-- Ubique en la configuración de su pipeline la opción `Build Steps`, presione el botón `Añadir un nuevo paso`, seleccione la opción `Docker Build and Publish` y configure los siguientes campos
-
-| Campo          | Valor                         |
-|----------------|-------------------------------|
-| Repositoy Name | `miguelarmasabt/<repository>` |
-| Tag            | `0.0.1-SNAPSHOT`              |
-
-El siguiente campo requiere que expongamos el Daemon Docker del host. Para ello, dentro de Docker Desktop diríjase a 
-`Settings > General`, active la opción `Expose daemon on tcp://localhost:2375 without TLS` y reinicie Docker Desktop.
-A continuación, puede validar que el Daemon Docker fue expuesto exitosamente accediendo a la siguiente URI: `http://localhost:2375/images/json`.
-
-| Campo           | Valor                             |
-|-----------------|-----------------------------------|
-| Docker Host URI | `tcp://host.docker.internal:2375` |
-
-Finalmente presione el botón `Avanzado...` y especifique el siguiente campo
-
-| Campo         | Valor                                                                              |
-|---------------|------------------------------------------------------------------------------------|
-| Build Context | Path, por ejemplo `services/infrastructure-services/registry-discovery-server-v1/` |
-
-## 7.8. Integración con Kubernetes
-- Instale el plugin `Kubernetes` en Jenkins
-- Conecte Jenkins a la red de Minikube. Utilice `disconnect` para desconectarse de la red de Minikube
-```shell script
-docker network connect minikube bbq-jenkins
-```
-
-- Configure los privilegios de Jenkins para acceder al clúster de Kubernetes
-```shell script
-kubectl apply -f ./devops/jenkins/k8s-jenkins/
-```
-
-- Recupere el token de autenticación y agréguelo en Jenkins como una credencial de tipo `Secret Text` con el ID `cluster-k8s-secret`
-```shell script
-kubectl describe secret/jenkins-token-rk2mg
-```
-
-- Revise la configuración del clúster de Kubernetes y recupere los siguientes valores:
-```shell script
-kubectl config view
-```
-
-| Descripción               | Campo                                  | Valor                                          |
-|---------------------------|----------------------------------------|------------------------------------------------|
-| Certificado del clúster   | clusters.cluster.certificate-authority | Por ejemplo `C:\Users\Miguel\.minikube\ca.crt` |
-| URL de la API del clúster | clusters.cluster.server                | Por ejemplo `https://127.0.0.1:51870`          |
-
-- Exponga la URL hacia internet mediante `ngrok`. Debería obtener una URL pública, por ejemplo `https://f247-179-6-212-27.ngrok-free.app`
-```shell script
-ngrok http https://127.0.0.1:51870
-```
-
-- Dentro de Jenkins diríjase a `Panel de control > Administrar Jenkins > Configure Clouds`, presione el botón `Kubernetes Cloud details...`, configure los siguientes campos y pruebe la conexión
->**Nota**: Si obtiene un error de autenticación, elimine y vuelva a crear la credencial
-
-| Campo                             | Valor                                                                  |
-|-----------------------------------|------------------------------------------------------------------------|
-| Kubernetes URL                    | `https://f247-179-6-212-27.ngrok-free.app`                             |
-| Kubernetes server certificate key | Copiar el contenido del certificado `C:\Users\Miguel\.minikube\ca.crt` |
-| Disable https certificate check   | Activado                                                               |
-| Credentials                       | `cluster-k8s-secret`                                                   |
-
-- Configure el job de tipo `Pipeline` con los siguientes campos:
-
-| Campo                    | Valor                                                                                                                  |
-|--------------------------|------------------------------------------------------------------------------------------------------------------------|
-| General > GitHub project | `https://github.com/miguel-armas-abt/demo-microservices-bbq`                                                           |
-| Pipeline > Definition    | `Pipeline script from SCM`                                                                                             |
-| SCM                      | `Git`                                                                                                                  |
-| Repository URL           | `https://miguel-armas-abt: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@github.com/miguel-armas-abt/demo-microservices-bbq` |
-| Script Path              | Por ejemplo, `devops/k8s/registry-discovery-server-v1/Jenkinsfile`                                                     |
-
-- Actualice el Jenkinsfile con la URL de la API del cluster de Kubernetes
-- Finalmente, encadene este pipeline con otros pipelines. Para ello diríjase a `Acciones para ejecutar después`, selecciones `Ejecutar otros proyectos` e indique el/los jobs que desea ejecutar a continuación
-
+| Parámetro         | Valor (Docker Compose)         | Valor (Kubernetes)                                        |   
+|-------------------|--------------------------------|-----------------------------------------------------------|
+| Connect by        | `HOST`                         | `HOST`                                                    |
+| Host              | `localhost`                    | `localhost`                                               |
+| Port              | `5432`                         | Puerto de Minikube: `minikube service --url bbq-postgres` |
+| Database          | `db_dining_room_orders`        | `db_dining_room_orders`                                   |
+| Nombre de usuario | `postgres` o  `bbq_user`       | `postgres` o  `bbq_user`                                  |
+| Contraseña        | `qwerty`                       | `qwerty`                                                  |
 
 
 ##########
