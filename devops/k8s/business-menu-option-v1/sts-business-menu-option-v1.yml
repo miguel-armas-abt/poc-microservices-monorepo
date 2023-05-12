@@ -1,12 +1,13 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: dep-business-menu-option-v1
+  name: business-menu-option-v1
 spec:
+  replicas: 1
+  serviceName: business-menu-option-v1
   selector:
     matchLabels:
       app: business-menu-option-v1
-  replicas: 1
   template:
     metadata:
       labels:
@@ -43,3 +44,10 @@ spec:
                 configMapKeyRef:
                   name: cm-business-menu-option-v1
                   key: java-opts
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "640Mi"
+              cpu: "1"

@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dep-postgres-db
+  name: bbq-postgres
   labels:
-    app: postgres-db
+    app: bbq-postgres
 spec:
   replicas: 1 #number of pods replicas
   selector: #define how the Deployment identify the pods that it could manage
     matchLabels:
-      app: postgres-db
+      app: bbq-postgres
   template: #pod template specification
     metadata:
       labels: #define the labels for all pods
-        app: postgres-db
+        app: bbq-postgres
     spec:
       containers:
         - name: postgres
@@ -22,18 +22,25 @@ spec:
             - containerPort: 5432
           envFrom: #read envars from secret file
             - secretRef:
-                name: sec-postgres-db
+                name: secret-bbq-postgres
           volumeMounts:
             #this is the path in the container on which the mounting will take place.
             - mountPath: /var/lib/postgresql/data
-              name: vol-postgres-db-data
+              name: bbq-postgres-volume-data
             - mountPath: /docker-entrypoint-initdb.d/initdb.sh
               subPath: initdb.sh
-              name: vol-postgres-db-init-script
+              name: bbq-postgres-volume-script
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
       volumes:
-        - name: vol-postgres-db-data
+        - name: bbq-postgres-volume-data
           persistentVolumeClaim:
-            claimName: pvc-postgres-db
-        - name: vol-postgres-db-init-script
+            claimName: pvc-bbq-postgres
+        - name: bbq-postgres-volume-script
           configMap:
-            name: cm-postgres-db-init-script
+            name: cm-bbq-postgres-script

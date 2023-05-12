@@ -3,8 +3,8 @@ kind: ConfigMap
 metadata:
   name: cm-business-menu-option-v1
 data:
-  eureka-server: http://svc-registry-discovery-server-v1:8761/eureka/
+  eureka-server: http://registry-discovery-server-v1:8761/eureka/
   mysql-username: bbq_user
   mysql-password: qwerty
-  mysql-url: jdbc:mysql://svc-mysql-db:3306/db_menu_options?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  mysql-url: jdbc:mysql://bbq-mysql:3306/db_menu_options?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
   java-opts: -Xms256M -Xmx256M

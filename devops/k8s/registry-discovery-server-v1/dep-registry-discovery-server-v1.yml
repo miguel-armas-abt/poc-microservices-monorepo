@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dep-registry-discovery-server-v1
+  name: registry-discovery-server-v1
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: registry-discovery-server-v1
-  replicas: 1
   template:
     metadata:
       labels:
@@ -18,3 +18,10 @@ spec:
           imagePullPolicy: IfNotPresent #load the image from local
           ports:
             - containerPort: 8761
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
