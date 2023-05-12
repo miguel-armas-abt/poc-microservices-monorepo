@@ -1,4 +1,4 @@
-# DevOps
+# Despliegue
 Esta guía le ayudará a configurar y desplegar los servicios de BBQ
 
 - [1. Clonar repositorio](#1-clonar-repositorio)
@@ -192,14 +192,8 @@ Afinar lo siguiente:
 > - Generar las peticiones automáticas del token en Postman
 > - Copiar manejo de excepcion externa de atlas
 > - Crear los servicios en quarkus
-> - Revisar los Dockerfiles. Tienen diferente esctructura a los del curso
-> - Revisar el nombre consult-menu-options. No es un nombre funcional, sino tecnico
->
 >
 Para el desplieuge en local de los servicios desarrollados con Quarkus hay que tener las siguientes consideraciones:
 - Tener instalado Native Tools Command Prompt
 - Tener instalado GraalVM (variables de entorno GRAALVM_HOME, JAVA_HOME=%GRAALVM_HOME%. verificar con 'echo JAVA_HOME')
 - Tener instalado Maven (variable de entorno MAVEN_HOME)
-
-Actual:
-El registry server descubre a los deployments y no a los servicios, por ello se genera un error en la conexión al config server
