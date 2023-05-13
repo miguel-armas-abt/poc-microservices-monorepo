@@ -34,10 +34,17 @@ siguiente flujo de trabajo:
 > adelante lo referenciaremos como `<github-access-token>`
 
 # 1. Ejecutar contenedor de Jenkins
+#### Iniciar orquestación
 ```shell script
-docker-compose -f ./devops/jenkins/docker-compose-cicd.yml up -d --force-recreate
+docker-compose -f docker-compose-cicd.yml up -d --force-recreate
 docker build -t miguelarmasabt/bbq-jenkins:v1 --no-cache ./devops/jenkins
 ```
+
+#### Detener orquestación
+```shell script
+docker-compose -f docker-compose-cicd.yml stop
+```
+
 Revise los logs del contenedor y copie el token en la pantalla de login `localhost:8080`.
 ```shell script
 docker logs bbq-jenkins

@@ -43,7 +43,7 @@ public class ApiExceptionController extends ResponseEntityExceptionHandler {
     for (String errorMessage: errorMessageList) {
       detailList.add(ApiExceptionDetail.builder()
           .title(errorMessage)
-          .component("business-menu-option")
+          .component("auth-adapter-v1")
           .build());
     }
 

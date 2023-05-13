@@ -59,6 +59,7 @@ Servicios de infraestructura:
 ```shell script
 docker build -t miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/registry-discovery-server-v1
 docker build -t miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/config-server-v1
+docker build -t miguelarmasabt/auth-adapter-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/auth-adapter-v1
 docker build -t miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/api-gateway-v1
 ```
 
@@ -92,6 +93,8 @@ Encienda el clúster de Kubernetes de Minikube
 ```shell script
 minikube start --memory=2816 --cpus=4
 ```
+
+> **NOTA**: Desactive el filtro de autenticación en api-gateway-v1. Revise el README correspondiente para más información.
 
 ## 5.1. Construir imágenes
 Las imágenes de nuestros servicios deben estar disponibles en el clúster de Kubernetes de Minikube, para ello 
@@ -161,39 +164,21 @@ Utilice DBeaver para conectarse a las bases de datos relacionales.
 | Nombre de usuario | `postgres` o  `bbq_user`       | `postgres` o  `bbq_user`                                  |
 | Contraseña        | `qwerty`                       | `qwerty`                                                  |
 
-
-##########
-Afinar lo siguiente:
-## 4. Despliegue local
-> 1. Desplegar registry-discovery-server, config-server y api-gateway
-> 2. Desplegar el proveedor de autenticación Keycloak
-> - docker-compose -f docker-compose.yml up -d keycloak-server
-> - Ingresar con las credenciales (username=admin, password=admin) en `http://localhost:8091`
-> - **Realm**: Crear un realm con nombre bbq-management
-> - **Realm**: Ubicar la llave pública RS256 del realm creado y reemplazar la propiedad keycloak.certs-id del application.yaml de auth-adapter
-> - **Realm**: Cambiar el tiempo de expiración del token a 30' (Access Token Lifespan)
-> - **User**: Crear user (username=admin, password=admin, temporary=off)
-> - **Roles**: Crear rol (rolename=partners)
-> - **User**: Agregar rol creado al usuario
-> - **Client**: Crear cliente (clientid=front-bbq-app, client-protocol=openid-connect)
-> - **Client**: Actualizar la propiedad Valid Redirect URIs=*
-> - Configurar el realm, el usuario y sus roles (rol=partners)
-> 3. Desplegar auth-adapter
-> 4. Desplegar business-menu-option, business-dining-room-order, business-invoice, business-payment
-
-### Consideraciones
-> - Para omitir la autenticación a través de Keycloak, comentar todas las ocurrencias del filtro AuthenticatorFiltering
-    > en la propiedad spring.cloud.gateway.routes.<id>.filters del archivo application.yaml de api-gateway. De esta manera
-    > no se aplicará el filtro de autenticación
-
-### Mejoras
-> - Faltan pruebas unitarias
-> - SpringDoc
-> - Generar las peticiones automáticas del token en Postman
-> - Copiar manejo de excepcion externa de atlas
-> - Crear los servicios en quarkus
->
-Para el desplieuge en local de los servicios desarrollados con Quarkus hay que tener las siguientes consideraciones:
-- Tener instalado Native Tools Command Prompt
-- Tener instalado GraalVM (variables de entorno GRAALVM_HOME, JAVA_HOME=%GRAALVM_HOME%. verificar con 'echo JAVA_HOME')
-- Tener instalado Maven (variable de entorno MAVEN_HOME)
+# Puntos de mejora
+> - [feat-0001] Automatizar la exportación e importación de la configuración de los pipelines de Jenkins
+> - [feat-0002] Automatizar la exportación e importación de la configuración de Keycloak Server
+> - [feat-0003] Refactorizar campo details de ApiException con patrón builder para lista
+> - [feat-0004] Implementar pruebas unitarias en los servicios web de negocio
+> - [feat-0005] Implementar SpringDoc en los servicios web de negocio
+> - [feat-0006] Implementar frontend básico con Angular
+> - [feat-0007] Agregar manifiesto de K8s para Keycloak Server y su adaptador de autenticación
+> - [feat-0008] Aumentar el timeout para el consumo de los servicios clientes
+> - [feat-0009] Deserealizar el objeto recuperado del topico invoice en el servicio business-payment-v1 e implementar los servicios REST
+> - [feat-0010] Analizar los casos de uso y especificar los bounded contexts (diagrama)
+> - [feat-0011] Implementar patrón strategy para seleccionar una implementación a partir de un selectorClass y uno o más flags
+> - [feat-0012] Implementar anotaciones personalizadas
+> - [feat-0013] Implementar Actuator para consultar propiedades y refrescarlas, aprovechando la anotación @RefreshScope 
+> - [feat-0014] Integrar servicios de Quarkus con Spring Cloud (config-server-v1, registry-discovery-server-v1 y api-gateway-v1)
+> - [feat-0015] Implementar un nuevo servicio con Go
+> - [feat-0016] Integrar Kibana en el flujo de DevOps
+> - [feat-0017] Revisar qué componentes utilizan una versión latest y asignarles una versión específica
