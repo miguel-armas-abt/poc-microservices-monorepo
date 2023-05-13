@@ -22,42 +22,43 @@ spring:
           predicates:
             - Path=/bbq/business/v1/menu-options/** #- Path=/** #to access swagger doc of the service through the api gateway
             - Method=GET,POST,PUT,DELETE, PATCH
-          #filters:
-          #  - name: AuthenticatorFiltering
+          filters:
+            - name: AuthenticatorFiltering
 
         - id: business-dining-room-order-v1
           uri: lb://business-dining-room-order-v1
           predicates:
             - Path=/bbq/business/v1/dining-room-orders/**
             - Method=GET,POST,PUT,DELETE, PATCH
-#          filters:
-#            - name: AuthenticatorFiltering
+          filters:
+            - name: AuthenticatorFiltering
 
         - id: business-invoice-v1
           uri: lb://business-invoice-v1
           predicates:
             - Path=/bbq/business/v1/invoices/**
             - Method=GET,POST,PUT,DELETE, PATCH
-        #          filters:
-        #            - name: AuthenticatorFiltering
+          filters:
+            - name: AuthenticatorFiltering
 
         - id: business-payment-v1
           uri: lb://business-payment-v1
           predicates:
             - Path=/bbq/business/v1/payments/**
             - Method=GET,POST,PUT,DELETE, PATCH
-        #          filters:
-        #            - name: AuthenticatorFiltering
+          filters:
+            - name: AuthenticatorFiltering
 
         - id: auth-adapter-v1
           uri: lb://auth-adapter-v1
           predicates:
             - Path=/bbq/infrastructure/v1/auth/**
+            - Method=GET,POST,PUT,DELETE, PATCH
 
 application:
   http-client:
     auth-adapter:
-      base-url: http://localhost:8080/bbq/infrastructure/v1/auth/
+      base-url: ${AUTH_ADAPTER:http://localhost:8080/bbq/infrastructure/v1/auth/}
   user-roles: '{0:"partners"}' #separate items with comma
 
 # actuator

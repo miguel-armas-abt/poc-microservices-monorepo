@@ -1,3 +1,8 @@
+# Pre requisitos
+- Tener instalado Native Tools Command Prompt
+- Tener instalado GraalVM (variables de entorno GRAALVM_HOME, JAVA_HOME=%GRAALVM_HOME%. verificar con 'echo JAVA_HOME')
+- Tener instalado Maven (variable de entorno MAVEN_HOME)
+
 # business-menu-option-v2 Project
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.

@@ -7,7 +7,7 @@ services:
   ############################
   business-menu-option-v1:
     container_name: business-menu-option-v1
-    image: bbq-images/business-menu-option-v1:0.0.1-SNAPSHOT
+    image: miguelarmasabt/business-menu-option-v1:0.0.1-SNAPSHOT
     restart: always
     environment:
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
@@ -21,54 +21,48 @@ services:
       - mysql_db
     networks:
       - dev_environment
-    ports:
-      - "8093:8093"
 
-  business-menu-option-v2:
-    container_name: business-menu-option-v2
-    image: bbq-images/business-menu-option-v2:0.0.1-SNAPSHOT
-    restart: always
-    environment:
-      - MYSQL_USERNAME=bbq_user
-      - MYSQL_PASSWORD=qwerty
-      - MYSQL_URL=mysql://mysql_db:3306/db_menu_options
-      - JAVA_OPTS=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev
-    depends_on:
-      - mysql_db
-    networks:
-      - dev_environment
-    ports:
-      - "8810:8810"
+#  business-menu-option-v2:
+#    container_name: business-menu-option-v2
+#    image: miguelarmasabt/business-menu-option-v2:0.0.1-SNAPSHOT
+#    restart: always
+#    environment:
+#      - MYSQL_USERNAME=bbq_user
+#      - MYSQL_PASSWORD=qwerty
+#      - MYSQL_URL=mysql://mysql_db:3306/db_menu_options
+#      - JAVA_OPTS=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev
+#    depends_on:
+#      - mysql_db
+#    networks:
+#      - dev_environment
 
-  business-dining-room-order-v1:
-    container_name: business-dining-room-order-v1
-    image: bbq-images/business-dining-room-order-v1:0.0.1-SNAPSHOT
-    restart: always
-    environment:
-      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
-      - POSTGRESQL_USERNAME=postgres
-      - POSTGRESQL_PASSWORD=qwerty
-      - POSTGRESQL_URL=jdbc:postgresql://postgres_db:5432/db_dining_room_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-      - BUSINESS_MENU_OPTION_V1_BASE_PATH=http://api-gateway-v1:8080/bbq/business/v1/
-      - BUSINESS_MENU_OPTION_V2_BASE_PATH=http://business-menu-option-v2:8810/bbq/business/v2/
-      - JAVA_OPTS=-Xms256M -Xmx256M
-    depends_on:
-      - registry-discovery-server-v1
-      - config-server-v1
-      - postgres_db
-      - business-menu-option-v1
-      - business-menu-option-v2
-    networks:
-      - dev_environment
-    ports:
-      - "8094:8094"
+#  business-dining-room-order-v1:
+#    container_name: business-dining-room-order-v1
+#    image: miguelarmasabt/business-dining-room-order-v1:0.0.1-SNAPSHOT
+#    restart: always
+#    environment:
+#      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
+#      - POSTGRESQL_USERNAME=postgres
+#      - POSTGRESQL_PASSWORD=qwerty
+#      - POSTGRESQL_URL=jdbc:postgresql://postgres_db:5432/db_dining_room_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+#      - BUSINESS_MENU_OPTION_V1_BASE_PATH=http://api-gateway-v1:8080/bbq/business/v1/
+#      - BUSINESS_MENU_OPTION_V2_BASE_PATH=http://business-menu-option-v2:8810/bbq/business/v2/
+#      - JAVA_OPTS=-Xms256M -Xmx256M
+#    depends_on:
+#      - registry-discovery-server-v1
+#      - config-server-v1
+#      - postgres_db
+#      - business-menu-option-v1
+#      - business-menu-option-v2
+#    networks:
+#      - dev_environment
 
   ############################
   #infraestructure services
   ############################
   registry-discovery-server-v1:
     container_name: registry-discovery-server-v1
-    image: bbq-images/registry-discovery-server-v1:0.0.1-SNAPSHOT
+    image: miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT
     environment:
       - JAVA_OPTS=-Xms256M -Xmx256M
     networks:
@@ -76,22 +70,9 @@ services:
     ports:
       - "8761:8761"
 
-  api-gateway-v1:
-    container_name: api-gateway-v1
-    image: bbq-images/api-gateway-v1:0.0.1-SNAPSHOT
-    environment:
-      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/ #define an environment variable to be used inside the container
-      - JAVA_OPTS=-Xms256M -Xmx256M
-    depends_on:
-      - registry-discovery-server-v1
-    networks:
-      - dev_environment
-    ports:
-      - "8080:8080"
-
   config-server-v1:
     container_name: config-server-v1
-    image: bbq-images/config-server-v1:0.0.1-SNAPSHOT
+    image: miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT
     environment:
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
       - JAVA_OPTS=-Xms256M -Xmx256M
@@ -101,6 +82,46 @@ services:
       - dev_environment
     ports:
       - "8888:8888"
+
+  api-gateway-v1:
+    container_name: api-gateway-v1
+    image: miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT
+    environment:
+      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/ #define an environment variable to be used inside the container
+      - AUTH_ADAPTER=http://api-gateway-v1:8080/bbq/infrastructure/v1/auth/
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    depends_on:
+      - registry-discovery-server-v1
+    networks:
+      - dev_environment
+    ports:
+      - "8080:8080"
+
+  auth-adapter-v1:
+    container_name: auth-adapter-v1
+    image: miguelarmasabt/auth-adapter-v1:0.0.1-SNAPSHOT
+    environment:
+      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
+      - KEYCLOACK_SERVER=http://keycloak-server:8080/auth/realms
+      - KEYCLOACK_REAL_ID=YBuqdNxwlePycpKwD2W8CPGgflqMETn-23N0OxsVg-w
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    depends_on:
+      - registry-discovery-server-v1
+    networks:
+      - dev_environment
+
+  keycloak-server:
+    container_name: keycloak-server
+    image: jboss/keycloak:16.0.0
+    restart: always
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      DB_VENDOR: H2
+    networks:
+      - dev_environment
+    ports:
+      - "8091:8080"
 
   ############################
   #database services
@@ -120,21 +141,21 @@ services:
       MYSQL_ROOT_PASSWORD: qwerty #root is the user with the highest level of permissions within the DBMS
       TZ: "UTC"
 
-  postgres_db:
-    container_name: postgres_db
-    image: postgres:latest
-    restart: always
-    networks:
-      - dev_environment
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./postgres_db:/docker-entrypoint-initdb.d
-      - /var/lib/postgres_data:/var/lib/postgres_data
-    environment:
-      POSTGRES_USER: postgres #postgres is the superuser with permissions to manage the database
-      POSTGRES_PASSWORD: qwerty
-      POSTGRES_DB: postgres
+#  postgres_db:
+#    container_name: postgres_db
+#    image: postgres:latest
+#    restart: always
+#    networks:
+#      - dev_environment
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - ./postgres_db:/docker-entrypoint-initdb.d
+#      - /var/lib/postgres_data:/var/lib/postgres_data
+#    environment:
+#      POSTGRES_USER: postgres #postgres is the superuser with permissions to manage the database
+#      POSTGRES_PASSWORD: qwerty
+#      POSTGRES_DB: postgres
 
 ############################
 #networks
