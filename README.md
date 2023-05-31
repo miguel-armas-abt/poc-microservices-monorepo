@@ -71,13 +71,14 @@ docker build -f ./services/business-services/business-menu-option-v2/src/main/do
 ```
 
 ## 4.2. Iniciar orquestación
+Para forzar la recreación de los servicios utilice el flag `--force-recreate`
 ```shell script
-docker-compose -f ./devops/docker-compose/docker-compose.yml up -d --force-recreate
+docker-compose -f ./devops/docker-compose/docker-compose.yml up -d
 ```
 
-## 4.3. Eliminar orquestación
+## 4.3. Detener orquestación
 ```shell script
-docker-compose -f ./devops/docker-compose/docker-compose.yml down -v
+docker-compose -f ./devops/docker-compose/docker-compose.yml stop
 ```
 
 # 5. Orquestacion con Kubernetes

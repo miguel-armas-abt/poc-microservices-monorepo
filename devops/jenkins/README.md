@@ -36,8 +36,8 @@ siguiente flujo de trabajo:
 # 1. Ejecutar contenedor de Jenkins
 #### Iniciar orquestación
 ```shell script
-docker-compose -f docker-compose-cicd.yml up -d --force-recreate
-docker build -t miguelarmasabt/bbq-jenkins:v1 --no-cache ./devops/jenkins
+docker-compose -f docker-compose-cicd.yml up -d
+docker build -t miguelarmasabt/bbq-jenkins:v1 --no-cache
 ```
 
 #### Detener orquestación

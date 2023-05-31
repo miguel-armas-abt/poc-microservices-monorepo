@@ -21,7 +21,7 @@ spring:
           uri: lb://business-menu-option-v1 #If the URL has a scheme of lb (such as lb://myservice), it uses the Spring Cloud LoadBalancerClient to resolve the name (myservice in this case)
           predicates:
             - Path=/bbq/business/v1/menu-options/** #- Path=/** #to access swagger doc of the service through the api gateway
-            - Method=GET,POST,PUT,DELETE, PATCH
+            - Method=GET,POST,PUT,DELETE,PATCH
           filters:
             - name: AuthenticatorFiltering
 
@@ -29,7 +29,7 @@ spring:
           uri: lb://business-dining-room-order-v1
           predicates:
             - Path=/bbq/business/v1/dining-room-orders/**
-            - Method=GET,POST,PUT,DELETE, PATCH
+            - Method=GET,POST,PUT,DELETE,PATCH
           filters:
             - name: AuthenticatorFiltering
 
@@ -37,7 +37,7 @@ spring:
           uri: lb://business-invoice-v1
           predicates:
             - Path=/bbq/business/v1/invoices/**
-            - Method=GET,POST,PUT,DELETE, PATCH
+            - Method=GET,POST,PUT,DELETE,PATCH
           filters:
             - name: AuthenticatorFiltering
 
@@ -45,20 +45,14 @@ spring:
           uri: lb://business-payment-v1
           predicates:
             - Path=/bbq/business/v1/payments/**
-            - Method=GET,POST,PUT,DELETE, PATCH
+            - Method=GET,POST,PUT,DELETE,PATCH
           filters:
             - name: AuthenticatorFiltering
-
-        - id: auth-adapter-v1
-          uri: lb://auth-adapter-v1
-          predicates:
-            - Path=/bbq/infrastructure/v1/auth/**
-            - Method=GET,POST,PUT,DELETE, PATCH
 
 application:
   http-client:
     auth-adapter:
-      base-url: ${AUTH_ADAPTER:http://localhost:8080/bbq/infrastructure/v1/auth/}
+      base-url: ${AUTH_ADAPTER:http://localhost:8092/bbq/infrastructure/v1/auth/}
   user-roles: '{0:"partners"}' #separate items with comma
 
 # actuator

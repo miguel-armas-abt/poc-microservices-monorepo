@@ -1,5 +1,5 @@
 server:
-  port: 0 #eureka set a random port
+  port: 8092 #eureka set a random port
 
 spring:
   application:
@@ -12,7 +12,7 @@ keycloak:
   token-uri: ${keycloak.base-uri}/bbq-management/protocol/openid-connect/token
   logout: ${keycloak.base-uri}/bbq-management/protocol/openid-connect/logout
   jwk-set-uri: ${keycloak.base-uri}/bbq-management/protocol/openid-connect/certs
-  certs-id: ${KEYCLOACK_REAL_ID:kga7xgchvUSgXAgbqbSpTyZ0ElGkmsxhceCbSbUBZv4}
+  certs-id: ${KEYCLOACK_REAL_ID:QrcrmFJTNggn-h3TzsYRXSHbjiqE8q_Vb1lTWvnrdgY}
   client-id: front-bbq-app
   client-secret: qwerty
   scope: profile

@@ -536,9 +536,9 @@
 									]
 								},
 								"url": {
-									"raw": "{{api-gateway-domain}}/bbq/infrastructure/v1/auth/login",
+									"raw": "{{auth-adapter-domain}}/bbq/infrastructure/v1/auth/login",
 									"host": [
-										"{{api-gateway-domain}}"
+										"{{auth-adapter-domain}}"
 									],
 									"path": [
 										"bbq",
@@ -1739,7 +1739,7 @@
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"const API_GATEWAY_DOMAIN = pm.environment.get(\"api-gateway-domain\");",
+							"const API_GATEWAY_DOMAIN = pm.environment.get(\"auth-adapter-domain\");",
 							"",
 							"const REQUEST_ACTUATOR_TOKEN = {",
 							"    url: API_GATEWAY_DOMAIN + '/bbq/infrastructure/v1/auth/login',",
