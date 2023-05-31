@@ -182,3 +182,4 @@ Utilice DBeaver para conectarse a las bases de datos relacionales.
 > - [feat-0015] Implementar un nuevo servicio con Go
 > - [feat-0016] Integrar Kibana en el flujo de DevOps
 > - [feat-0017] Revisar qué componentes utilizan una versión latest y asignarles una versión específica
+> - [feat-0018] Modificar el timeout de las peticiones

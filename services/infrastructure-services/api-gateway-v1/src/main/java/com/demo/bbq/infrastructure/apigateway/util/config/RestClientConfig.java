@@ -10,6 +10,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Clase Config que implementa las configuraciones para conectar con otras APIs RESTful.<br/>
  *
@@ -36,6 +38,9 @@ public class RestClientConfig {
   OkHttpClient.Builder client() {
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-    return new OkHttpClient.Builder().addInterceptor(interceptor);
+    return new OkHttpClient.Builder()
+        .readTimeout(60, TimeUnit.SECONDS)
+        .connectTimeout(60, TimeUnit.SECONDS)
+        .addInterceptor(interceptor);
   }
 }
