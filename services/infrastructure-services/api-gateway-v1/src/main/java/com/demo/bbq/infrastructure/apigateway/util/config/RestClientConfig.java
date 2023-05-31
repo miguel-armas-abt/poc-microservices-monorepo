@@ -1,6 +1,7 @@
 package com.demo.bbq.infrastructure.apigateway.util.config;
 
 import com.demo.bbq.infrastructure.apigateway.repository.proxy.AuthAdapterProxy;
+import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +37,9 @@ public class RestClientConfig {
   OkHttpClient.Builder client() {
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-    return new OkHttpClient.Builder().addInterceptor(interceptor);
+    return new OkHttpClient.Builder()
+        .readTimeout(15, TimeUnit.SECONDS)
+        .connectTimeout(15, TimeUnit.SECONDS)
+        .addInterceptor(interceptor);
   }
 }

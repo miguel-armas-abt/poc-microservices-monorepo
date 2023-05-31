@@ -88,7 +88,7 @@ services:
     image: miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT
     environment:
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/ #define an environment variable to be used inside the container
-      - AUTH_ADAPTER=http://api-gateway-v1:8080/bbq/infrastructure/v1/auth/
+      - AUTH_ADAPTER=http://auth-adapter-v1:8092/bbq/infrastructure/v1/auth/
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - registry-discovery-server-v1
@@ -103,12 +103,14 @@ services:
     environment:
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
       - KEYCLOACK_SERVER=http://keycloak-server:8080/auth/realms
-      - KEYCLOACK_REAL_ID=YBuqdNxwlePycpKwD2W8CPGgflqMETn-23N0OxsVg-w
+      - KEYCLOACK_REAL_ID=QrcrmFJTNggn-h3TzsYRXSHbjiqE8q_Vb1lTWvnrdgY
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - registry-discovery-server-v1
     networks:
       - dev_environment
+    ports:
+      - "8092:8092"
 
   keycloak-server:
     container_name: keycloak-server

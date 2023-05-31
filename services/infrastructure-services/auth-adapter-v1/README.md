@@ -26,8 +26,6 @@ Configure las siguientes propiedades.
 > **Clients**: Cree un nuevo cliente (clientid=`front-bbq-app`, client-protocol=`openid-connect`)
 > 
 > **Clients**: Ubique la propiedad y actualícela `Valid Redirect URIs`=`*`
-> 
-> Asigne (rol=`partners`) al realm, usuario y rol creados
 
 ## auth-adapter-v1
 En el paso anterior se actualizó el archivo de propiedades, así que es necesario recompilar las fuentes, actualizar la
@@ -35,6 +33,4 @@ imagen de Docker y recrear el contenedor.
 
 ```shell script
 docker-compose -f ./../../../devops/docker-compose/docker-compose.yml up -d --force-recreate auth-adapter-v1
-docker build -t miguelarmasabt/auth-adapter-v1:0.0.1-SNAPSHOT .
-mvn clean install
 ```

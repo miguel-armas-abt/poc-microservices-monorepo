@@ -3,16 +3,16 @@ package com.demo.bbq.infrastructure.apigateway.setups;
 import com.demo.bbq.infrastructure.apigateway.repository.proxy.AuthAdapterProxy;
 import com.demo.bbq.infrastructure.apigateway.util.config.ApplicationProperties;
 import com.demo.bbq.infrastructure.apigateway.util.exception.ExceptionCatalog;
+import io.reactivex.BackpressureStrategy;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.OrderedGatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+import reactor.adapter.rxjava.RxJava2Adapter;
+import reactor.core.publisher.Flux;
 
 @Slf4j
 @Component
@@ -42,20 +42,16 @@ public class AuthenticatorFiltering extends AbstractGatewayFilterFactory<Authent
         throw ExceptionCatalog.ERROR1001.buildException();
       }
 
-      List<String> actualRolesList = authAdapterProxy.listRoles(parts[1]).blockingFirst()
-          .entrySet()
-          .stream()
-          .map(Map.Entry::getKey)
-          .collect(Collectors.toList());
-
-      rolesList.forEach(rol -> {
-            if (!actualRolesList.contains(rol)) {
-              throw ExceptionCatalog.ERROR1002.buildException();
-            }
-          });
-
-      return chain.filter(exchange)
-          .onErrorMap(ExceptionCatalog.ERROR1003::buildException);
+      return Flux.fromIterable(rolesList)
+          .flatMap(expectedRol -> RxJava2Adapter.observableToFlux(authAdapterProxy.listRoles(parts[1]), BackpressureStrategy.BUFFER)
+              .map(hashMap -> {
+                if(!hashMap.containsKey(expectedRol)) {
+                  throw ExceptionCatalog.ERROR1002.buildException();
+                }
+                return hashMap;
+              }))
+          .ignoreElements()
+          .then(chain.filter(exchange).onErrorMap(ExceptionCatalog.ERROR1003::buildException));
     },1);
   }
 
