@@ -165,22 +165,3 @@ Utilice DBeaver para conectarse a las bases de datos relacionales.
 | Nombre de usuario | `postgres` o  `bbq_user`       | `postgres` o  `bbq_user`                                  |
 | Contraseña        | `qwerty`                       | `qwerty`                                                  |
 
-# Puntos de mejora
-> - [feat-0001] Automatizar la exportación e importación de la configuración de los pipelines de Jenkins
-> - [feat-0002] Automatizar la exportación e importación de la configuración de Keycloak Server
-> - [feat-0003] Refactorizar campo details de ApiException con patrón builder para lista
-> - [feat-0004] Implementar pruebas unitarias en los servicios web de negocio
-> - [feat-0005] Implementar SpringDoc en los servicios web de negocio
-> - [feat-0006] Implementar frontend básico con Angular
-> - [feat-0007] Agregar manifiesto de K8s para Keycloak Server y su adaptador de autenticación
-> - [feat-0008] Aumentar el timeout para el consumo de los servicios clientes
-> - [feat-0009] Deserealizar el objeto recuperado del topico invoice en el servicio business-payment-v1 e implementar los servicios REST
-> - [feat-0010] Analizar los casos de uso y especificar los bounded contexts (diagrama)
-> - [feat-0011] Implementar patrón strategy para seleccionar una implementación a partir de un selectorClass y uno o más flags
-> - [feat-0012] Implementar anotaciones personalizadas
-> - [feat-0013] Implementar Actuator para consultar propiedades y refrescarlas, aprovechando la anotación @RefreshScope 
-> - [feat-0014] Integrar servicios de Quarkus con Spring Cloud (config-server-v1, registry-discovery-server-v1 y api-gateway-v1)
-> - [feat-0015] Implementar un nuevo servicio con Go
-> - [feat-0016] Integrar Kibana en el flujo de DevOps
-> - [feat-0017] Revisar qué componentes utilizan una versión latest y asignarles una versión específica
-> - [feat-0018] Modificar el timeout de las peticiones

@@ -37,7 +37,7 @@ siguiente flujo de trabajo:
 #### Iniciar orquestación
 ```shell script
 docker-compose -f docker-compose-cicd.yml up -d
-docker build -t miguelarmasabt/bbq-jenkins:v1 --no-cache
+docker build -t miguelarmasabt/bbq-jenkins:v1 . --no-cache
 ```
 
 #### Detener orquestación
