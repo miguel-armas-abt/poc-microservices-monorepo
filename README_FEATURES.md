@@ -26,3 +26,5 @@
 > - [feat-0013] `Backend` Implementar un nuevo servicio con Go
 > - [feat-0014] `DevOps` Integrar Kibana en el flujo de DevOps
 > - [feat-0015] `Backend | DevOps` Revisar qué componentes utilizan una versión latest y asignarles una versión específica
+
+Update de prueba
