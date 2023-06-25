@@ -24,15 +24,18 @@ spring:
 
 application:
   http-client:
-    menu-option-v1:
-      base-url: ${BUSINESS_MENU_OPTION_V1_BASE_PATH:http://localhost:8080/bbq/business/v1/}
-    menu-option-v2:
-      base-url: ${BUSINESS_MENU_OPTION_V2_BASE_PATH:http://localhost:8810/bbq/business/v2/}
+    menu-option:
+      v1:
+        base-url: ${BUSINESS_MENU_OPTION_V1_BASE_PATH:http://localhost:8080/bbq/business/v1/}
+      v2:
+        base-url: ${BUSINESS_MENU_OPTION_V2_BASE_PATH:http://localhost:8810/bbq/business/v2/}
+      selector-class: com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoptionv2.retrofit.MenuOptionV2ApiConnectorRetrofitImpl
+      selector-class-fallback: com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoptionv1.retrofit.MenuOptionV1ApiConnectorRetrofitImpl
 
 resilience4j:
   circuitbreaker:
     instances:
-      menu-option-v2:
+      menu-option:
         registerHealthIndicator: true
         eventConsumerBufferSize: 10
         automaticTransitionFromOpenToHalfOpenEnabled: true
