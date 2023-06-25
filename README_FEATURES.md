@@ -19,7 +19,7 @@
 > - [feat-0006] `Backend` Deserealizar el objeto recuperado del topico invoice en el servicio business-payment-v1 y exponer los servicios REST
 > - [feat-0007] `Architecture` Acotar los casos de uso asociados a cada bounded context
 > - [feat-0008] `Architecture` Modificar la arquitectura según los bounded contexts
-> - [feat-0009] `Backend` Implementar patrón strategy para seleccionar una implementación a partir de un selectorClass, haciendo uso del método supports()
+> - [<s>feat-0009</s>] `Backend` Implementar patrón strategy para seleccionar una implementación a partir de un selectorClass, haciendo uso del método supports()
 > - [feat-0010] `Backend` Implementar anotaciones personalizadas basadas en el caso de uso XXXX
 > - [feat-0011] `Backend` Implementar Actuator para consultar y refrescar propiedades, aprovechando la anotación @RefreshScope
 > - [feat-0012] `Backend` Integrar servicios de Quarkus con Spring Cloud (config-server-v1, registry-discovery-server-v1 y api-gateway-v1)

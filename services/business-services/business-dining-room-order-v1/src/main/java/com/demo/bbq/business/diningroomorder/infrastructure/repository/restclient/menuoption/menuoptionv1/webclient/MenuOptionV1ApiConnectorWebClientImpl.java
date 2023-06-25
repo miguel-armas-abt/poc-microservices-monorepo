@@ -1,14 +1,15 @@
-package com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoptionv1;
+package com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoption.menuoptionv1.webclient;
 
-import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.dto.MenuOptionDto;
-import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.dto.MenuOptionRequestDto;
+import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoption.MenuOptionApiConnector;
+import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoption.dto.MenuOptionDto;
+import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoption.dto.MenuOptionRequestDto;
+import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.properties.RestClientBaseUrlProperties;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -23,12 +24,10 @@ import reactor.netty.tcp.TcpClient;
 
 @Component
 @RequiredArgsConstructor
-public class MenuOptionV1WebClientApi {
+public class MenuOptionV1ApiConnectorWebClientImpl implements MenuOptionApiConnector {
 
   private final WebClient.Builder webClientBuilder;
-
-  @Value("${application.http-client.menu-option-v1.base-url}")
-  private String menuOptionsBaseUrl;
+  private final RestClientBaseUrlProperties properties;
 
   TcpClient tcpClient = TcpClient
       .create()
@@ -40,9 +39,9 @@ public class MenuOptionV1WebClientApi {
 
   private WebClient buildWebClient() {
     return webClientBuilder.clientConnector(new ReactorClientHttpConnector(HttpClient.from(tcpClient)))
-        .baseUrl(menuOptionsBaseUrl)
+        .baseUrl(properties.getMenuOptionV1BaseUrl())
         .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-        .defaultUriVariables(Collections.singletonMap("url", menuOptionsBaseUrl))
+        .defaultUriVariables(Collections.singletonMap("url", properties.getMenuOptionV1BaseUrl()))
         .build();
   }
 
@@ -85,5 +84,10 @@ public class MenuOptionV1WebClientApi {
         .uri(uriBuilder -> uriBuilder.path("menu-options/" + id).build())
         .retrieve()
         .bodyToMono(Void.class);
+  }
+
+  @Override
+  public boolean supports(Class<?> selectedClass) {
+    return this.getClass().isAssignableFrom(selectedClass);
   }
 }

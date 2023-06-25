@@ -1,14 +1,14 @@
-package com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoptionv1;
+package com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoption.menuoptionv1.retrofit;
 
-import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.dto.MenuOptionDto;
-import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.dto.MenuOptionRequestDto;
+import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoption.dto.MenuOptionDto;
+import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoption.dto.MenuOptionRequestDto;
 import io.reactivex.Single;
 import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.*;
 
-public interface MenuOptionV1RetrofitApi {
+public interface MenuOptionV1Api {
 
   @Headers({"Accept: application/json"})
   @GET("menu-options/{id}")
