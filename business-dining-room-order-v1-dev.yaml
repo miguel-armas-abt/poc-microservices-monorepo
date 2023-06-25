@@ -29,8 +29,8 @@ application:
         base-url: ${BUSINESS_MENU_OPTION_V1_BASE_PATH:http://localhost:8080/bbq/business/v1/}
       v2:
         base-url: ${BUSINESS_MENU_OPTION_V2_BASE_PATH:http://localhost:8810/bbq/business/v2/}
-      selector-class: com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoptionv2.retrofit.MenuOptionV2ApiConnectorRetrofitImpl
-      selector-class-fallback: com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoptionv1.retrofit.MenuOptionV1ApiConnectorRetrofitImpl
+      selector-class: com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoption.menuoptionv2.retrofit.MenuOptionV2ApiConnectorRetrofitImpl
+      selector-class-fallback: com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoption.menuoptionv1.retrofit.MenuOptionV1ApiConnectorRetrofitImpl
 
 resilience4j:
   circuitbreaker:
