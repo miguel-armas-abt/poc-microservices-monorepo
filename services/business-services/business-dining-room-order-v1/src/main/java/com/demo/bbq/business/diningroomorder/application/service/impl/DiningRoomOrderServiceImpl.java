@@ -1,7 +1,7 @@
 package com.demo.bbq.business.diningroomorder.application.service.impl;
 
-import com.demo.bbq.business.diningroomorder.domain.model.response.DiningRoomOrder;
-import com.demo.bbq.business.diningroomorder.domain.model.response.MenuOrder;
+import com.demo.bbq.business.diningroomorder.domain.model.dto.DiningRoomOrderDto;
+import com.demo.bbq.business.diningroomorder.domain.model.dto.MenuOrderDto;
 import com.demo.bbq.business.diningroomorder.infrastructure.repository.database.impl.MenuOrderRepositoryReactive;
 import com.demo.bbq.business.diningroomorder.infrastructure.repository.database.impl.TableRepositoryReactive;
 import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoption.MenuOptionApi;
@@ -39,33 +39,33 @@ public class DiningRoomOrderServiceImpl implements DiningRoomOrderService {
   private final MenuOrderMapper menuOrderMapper;
 
   @Override
-  public Mono<DiningRoomOrder> findByTableNumber(Integer tableNumber) {
+  public Mono<DiningRoomOrderDto> findByTableNumber(Integer tableNumber) {
     return tableRepository.findByTableNumber(tableNumber)
-        .map(diningRoomOrderMapper::fromEntityToDomain)
+        .map(diningRoomOrderMapper::fromEntityToDto)
         .switchIfEmpty(Mono.error(DiningRoomOrderException.ERROR1000.buildCustomException()));
   }
 
   @Override
-  public Mono<Void> generateTableOrder(List<MenuOrderRequest> menuOrderRequestList, Integer tableNumber) {
+  public Mono<Void> generateTableOrder(List<MenuOrderRequest> requestedMenuOrderList, Integer tableNumber) {
     return findByTableNumber(tableNumber)
-        .map(diningRoomOrder -> updateExistingDiningRoomOrder(diningRoomOrder, menuOrderRequestList))
+        .map(diningRoomOrder -> updateExistingDiningRoomOrder(diningRoomOrder, requestedMenuOrderList))
         .flatMapMany(diningRoomOrder -> Flux.fromIterable(diningRoomOrder.getMenuOrderList())
-            .flatMap(menuOrder -> menuOrderRepository.updateMenuOrder(menuOrderMapper.fromDomainToEntity(menuOrder, diningRoomOrder.getId()))))
+            .flatMap(menuOrder -> menuOrderRepository.updateMenuOrder(menuOrderMapper.fromDtoToEntity(menuOrder, diningRoomOrder.getId()))))
         .ignoreElements()
         .flatMap(ignored -> Mono.empty());
   }
 
-  private DiningRoomOrder updateExistingDiningRoomOrder(DiningRoomOrder diningRoomOrder, List<MenuOrderRequest> menuOrderRequestList) {
-    Map<Long, MenuOrder> existingMenuOrderMap = diningRoomOrder.getMenuOrderList()
+  private DiningRoomOrderDto updateExistingDiningRoomOrder(DiningRoomOrderDto diningRoomOrder, List<MenuOrderRequest> requestedMenuOrderList) {
+    Map<Long, MenuOrderDto> existingMenuOrderMap = diningRoomOrder.getMenuOrderList()
         .stream()
-        .collect(Collectors.toMap(MenuOrder::getMenuOptionId, savedMenuOrder -> savedMenuOrder));
+        .collect(Collectors.toMap(MenuOrderDto::getMenuOptionId, savedMenuOrder -> savedMenuOrder));
 
-    menuOrderRequestList.forEach(requestedMenuOrder -> {
+    requestedMenuOrderList.forEach(requestedMenuOrder -> {
         if (menuOptionAlreadyExist.test(existingMenuOrderMap, requestedMenuOrder.getMenuOptionId())) {
           increaseQuantity.accept(existingMenuOrderMap, requestedMenuOrder);
         } else {
           if(existMenuOption(requestedMenuOrder.getMenuOptionId())) {
-            existingMenuOrderMap.put(requestedMenuOrder.getMenuOptionId(), menuOrderMapper.fromRequestToDomain(requestedMenuOrder));
+            existingMenuOrderMap.put(requestedMenuOrder.getMenuOptionId(), menuOrderMapper.fromRequestToDto(requestedMenuOrder));
           }
         }
     });
@@ -73,10 +73,10 @@ public class DiningRoomOrderServiceImpl implements DiningRoomOrderService {
     return diningRoomOrder;
   }
 
-  private final BiPredicate<Map<Long, MenuOrder>, Long> menuOptionAlreadyExist = Map::containsKey;
+  private final BiPredicate<Map<Long, MenuOrderDto>, Long> menuOptionAlreadyExist = Map::containsKey;
 
-  private final BiConsumer<Map<Long, MenuOrder>, MenuOrderRequest> increaseQuantity = (existingMenuOrderMap, requestedMenuOrder) -> {
-    MenuOrder existingMenuOrder = existingMenuOrderMap.get(requestedMenuOrder.getMenuOptionId());
+  private final BiConsumer<Map<Long, MenuOrderDto>, MenuOrderRequest> increaseQuantity = (existingMenuOrderMap, requestedMenuOrder) -> {
+    MenuOrderDto existingMenuOrder = existingMenuOrderMap.get(requestedMenuOrder.getMenuOptionId());
     existingMenuOrder.setQuantity(existingMenuOrder.getQuantity() + requestedMenuOrder.getQuantity());
     existingMenuOrderMap.put(requestedMenuOrder.getMenuOptionId(), existingMenuOrder);
   };

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import com.demo.bbq.business.diningroomorder.application.service.DiningRoomOrderService;
 import com.demo.bbq.business.diningroomorder.domain.model.request.MenuOrderRequest;
-import com.demo.bbq.business.diningroomorder.domain.model.response.DiningRoomOrder;
+import com.demo.bbq.business.diningroomorder.domain.model.dto.DiningRoomOrderDto;
 import com.demo.bbq.support.logstash.Markers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class DiningRoomOrderRestService {
   private final DiningRoomOrderService diningRoomOrderService;
 
   @GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-  public Mono<DiningRoomOrder> findByTableNumber(
+  public Mono<DiningRoomOrderDto> findByTableNumber(
       HttpServletRequest servletRequest, @RequestParam(value = "tableNumber") Integer tableNumber) {
     logRequest.accept(servletRequest);
     return diningRoomOrderService.findByTableNumber(tableNumber);
@@ -39,10 +39,10 @@ public class DiningRoomOrderRestService {
   @PatchMapping
   public Mono<Void> generateTableOrder(HttpServletRequest servletRequest,
                                        HttpServletResponse servletResponse,
-                                       @Valid @RequestBody List<MenuOrderRequest> menuOrderRequestList,
+                                       @Valid @RequestBody List<MenuOrderRequest> requestedMenuOrderList,
                                        @RequestParam(value = "tableNumber") Integer tableNumber) {
     logRequest.accept(servletRequest);
-    return diningRoomOrderService.generateTableOrder(menuOrderRequestList, tableNumber)
+    return diningRoomOrderService.generateTableOrder(requestedMenuOrderList, tableNumber)
         .doOnSuccess(tableOrderId -> servletResponse.setStatus(201))
         .then(Mono.empty());
   }

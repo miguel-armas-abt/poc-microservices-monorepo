@@ -1,7 +1,7 @@
 package com.demo.bbq.business.diningroomorder.application.service;
 
 import com.demo.bbq.business.diningroomorder.domain.model.request.MenuOrderRequest;
-import com.demo.bbq.business.diningroomorder.domain.model.response.DiningRoomOrder;
+import com.demo.bbq.business.diningroomorder.domain.model.dto.DiningRoomOrderDto;
 import reactor.core.publisher.Mono;
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface DiningRoomOrderService {
 
-  Mono<Void> generateTableOrder(List<MenuOrderRequest> menuOrderRequestList, Integer tableNumber);
+  Mono<Void> generateTableOrder(List<MenuOrderRequest> requestedMenuOrderList, Integer tableNumber);
 
-  Mono<DiningRoomOrder> findByTableNumber(Integer tableNumber);
+  Mono<DiningRoomOrderDto> findByTableNumber(Integer tableNumber);
 }
