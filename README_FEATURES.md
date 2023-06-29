@@ -26,5 +26,4 @@
 > - [feat-0013] `Backend` Implementar un nuevo servicio con Go
 > - [feat-0014] `DevOps` Integrar Kibana en el flujo de DevOps
 > - [feat-0015] `Backend | DevOps` Revisar qué componentes utilizan una versión latest y asignarles una versión específica
-
-Fix de prueba
+> - [<s>feat-0016</s>] `Backend` Refactorizar método para generar orden de una mesa (dining-room-order-v1)

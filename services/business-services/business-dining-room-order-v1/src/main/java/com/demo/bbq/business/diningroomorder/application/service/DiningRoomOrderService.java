@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface DiningRoomOrderService {
 
-  Mono<Long> generateTableOrder(List<MenuOrderRequest> menuOrderRequestList, Integer tableNumber);
+  Mono<Void> generateTableOrder(List<MenuOrderRequest> menuOrderRequestList, Integer tableNumber);
 
   Mono<DiningRoomOrder> findByTableNumber(Integer tableNumber);
 }

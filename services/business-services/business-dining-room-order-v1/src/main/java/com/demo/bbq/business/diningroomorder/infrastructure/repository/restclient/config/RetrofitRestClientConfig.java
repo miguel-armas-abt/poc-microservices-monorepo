@@ -46,6 +46,8 @@ public class RetrofitRestClientConfig {
   OkHttpClient.Builder client() {
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-    return new OkHttpClient.Builder().addInterceptor(interceptor);
+    return new OkHttpClient.Builder()
+        .addInterceptor(interceptor)
+        .addInterceptor(new ApiExceptionInterceptor());
   }
 }

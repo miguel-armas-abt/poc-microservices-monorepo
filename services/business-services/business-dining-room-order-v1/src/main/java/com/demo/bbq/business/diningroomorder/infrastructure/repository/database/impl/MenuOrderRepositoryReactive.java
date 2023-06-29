@@ -12,13 +12,16 @@ public class MenuOrderRepositoryReactive {
 
   private final MenuOrderRepository menuOrderRepository;
 
-  public Mono<MenuOrderEntity> saveMenuOrder(MenuOrderEntity menuOrder) {
-    return Mono.just(menuOrderRepository.save(menuOrder));
-  }
-
-  public Mono<MenuOrderEntity> findByMenuOptionId(Long menuOptionId) {
-    return menuOrderRepository.findByMenuOptionId(menuOptionId)
-        .map(Mono::just)
-        .orElse(Mono.empty());
+  public Mono<MenuOrderEntity> updateMenuOrder(MenuOrderEntity menuOrder) {
+    return Mono.just(menuOrder)
+        .map(existingMenuOrder -> menuOrderRepository.findByMenuOptionId(existingMenuOrder.getMenuOptionId())
+            .map(foundMenuOrder -> {
+              foundMenuOrder.setMenuOptionId(existingMenuOrder.getMenuOptionId());
+              foundMenuOrder.setQuantity(existingMenuOrder.getQuantity());
+              foundMenuOrder.setTableId(existingMenuOrder.getTableId());
+              return foundMenuOrder;
+            })
+            .orElse(existingMenuOrder))
+        .map(menuOrderRepository::save);
   }
 }
