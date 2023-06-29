@@ -1,24 +1,19 @@
-package com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.dto;
+package com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoption.dto;
+
+import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import lombok.*;
 
 @Builder
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuOptionDto implements Serializable {
-
-  private Long id;
+public class MenuOptionRequestDto implements Serializable {
 
   private String description;
-
   private String category;
-
   private BigDecimal price;
-
   private boolean active;
-
 }
