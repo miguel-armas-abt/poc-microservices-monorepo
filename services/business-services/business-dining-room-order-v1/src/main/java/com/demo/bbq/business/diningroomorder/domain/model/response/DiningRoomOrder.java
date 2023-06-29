@@ -13,5 +13,5 @@ public class DiningRoomOrder implements Serializable{
 
   private List<MenuOrder> menuOrderList;
   private Integer tableNumber;
-
+  private Long id;
 }
