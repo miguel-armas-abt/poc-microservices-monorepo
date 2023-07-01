@@ -50,7 +50,7 @@ public class MenuOptionV2ApiConnectorRetrofitImpl implements MenuOptionApiConnec
         .ignoreElement()
         .onErrorResumeNext(throwable -> Optional.ofNullable(((Exception) throwable).getMessage())
             .filter(error -> error.equals("HTTP 400 Bad Request"))
-            .map(error -> Completable.error(DiningRoomOrderException.ERROR1001.buildCustomException()))
+            .map(error -> Completable.error(DiningRoomOrderException.ERROR0001.buildException()))
             .orElse(Completable.complete())));
   }
 

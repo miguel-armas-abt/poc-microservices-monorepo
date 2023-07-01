@@ -2,7 +2,7 @@ package com.demo.bbq.infrastructure.apigateway.setups;
 
 import com.demo.bbq.infrastructure.apigateway.repository.proxy.AuthAdapterProxy;
 import com.demo.bbq.infrastructure.apigateway.util.config.ApplicationProperties;
-import com.demo.bbq.infrastructure.apigateway.util.exception.ExceptionCatalog;
+import com.demo.bbq.infrastructure.apigateway.util.exception.ApiGatewayException;
 import io.reactivex.BackpressureStrategy;
 import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
@@ -33,25 +33,25 @@ public class AuthenticatorFiltering extends AbstractGatewayFilterFactory<Authent
       ArrayList<String> rolesList = new ArrayList<>(properties.getRolesList().values());
 
       if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-        throw ExceptionCatalog.ERROR1000.buildException();
+        throw ApiGatewayException.ERROR0000.buildException();
       }
 
       String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
       String[] parts = authHeader.split(" ");
       if (parts.length != 2 || !"Bearer".equals(parts[0])) {
-        throw ExceptionCatalog.ERROR1001.buildException();
+        throw ApiGatewayException.ERROR0001.buildException();
       }
 
       return Flux.fromIterable(rolesList)
           .flatMap(expectedRol -> RxJava2Adapter.observableToFlux(authAdapterProxy.listRoles(parts[1]), BackpressureStrategy.BUFFER)
               .map(hashMap -> {
                 if(!hashMap.containsKey(expectedRol)) {
-                  throw ExceptionCatalog.ERROR1002.buildException();
+                  throw ApiGatewayException.ERROR0002.buildException();
                 }
                 return hashMap;
               }))
           .ignoreElements()
-          .then(chain.filter(exchange).onErrorMap(ExceptionCatalog.ERROR1003::buildException));
+          .then(chain.filter(exchange).onErrorMap(ApiGatewayException.ERROR0003::buildException));
     },1);
   }
 

@@ -45,7 +45,7 @@ public class MenuOptionServiceImpl implements MenuOptionService {
   public MenuOption findById(Long id) {
     return menuOptionRepository.findById(id)
         .map(menuOptionMapper::fromEntityToResponse)
-        .orElseThrow(MenuOptionException.ERROR1000::buildCustomException);
+        .orElseThrow(MenuOptionException.ERROR0000::buildException);
   }
 
   @Override
@@ -62,7 +62,7 @@ public class MenuOptionServiceImpl implements MenuOptionService {
         menuOptionRepository.save(menuOptionEntity);
         return menuOptionEntity.getId();
       })
-      .orElseThrow(MenuOptionException.ERROR1000::buildCustomException);
+      .orElseThrow(MenuOptionException.ERROR0000::buildException);
   }
 
   @Override
@@ -72,7 +72,7 @@ public class MenuOptionServiceImpl implements MenuOptionService {
           menuOptionRepository.deleteById(id);
           return menuOptionFound.getId();
         })
-        .orElseThrow(MenuOptionException.ERROR1000::buildCustomException);
+        .orElseThrow(MenuOptionException.ERROR0000::buildException);
   }
 
 }

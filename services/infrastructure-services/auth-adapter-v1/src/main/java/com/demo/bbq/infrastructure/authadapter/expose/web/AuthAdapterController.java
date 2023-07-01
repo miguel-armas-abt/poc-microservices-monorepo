@@ -6,7 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.demo.bbq.infrastructure.authadapter.service.JsonWebTokenService;
 import com.demo.bbq.infrastructure.authadapter.service.OauthProviderService;
-import com.demo.bbq.infrastructure.authadapter.util.exception.ExceptionCatalog;
+import com.demo.bbq.infrastructure.authadapter.util.exception.AuthAdapterException;
 import java.security.interfaces.RSAPublicKey;
 import java.util.*;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +51,7 @@ public class AuthAdapterController {
 
     } catch (Exception e) {
       log.error("exception : {} ", e.getMessage());
-      throw ExceptionCatalog.ERROR1000.buildException();
+      throw AuthAdapterException.ERROR0000.buildException();
     }
   }
 
@@ -64,7 +64,7 @@ public class AuthAdapterController {
       }});
     } catch (Exception e) {
       log.error("token is not valid, exception : {} ", e.getMessage());
-      throw ExceptionCatalog.ERROR1001.buildException();
+      throw AuthAdapterException.ERROR0001.buildException();
     }
   }
 
@@ -83,7 +83,7 @@ public class AuthAdapterController {
       }});
     } catch (Exception e) {
       log.error("unable to logout, exception : {} ", e.getMessage());
-      throw ExceptionCatalog.ERROR1002.buildException();
+      throw AuthAdapterException.ERROR0002.buildException();
     }
   }
 
@@ -93,7 +93,7 @@ public class AuthAdapterController {
       return ResponseEntity.ok(oauthProviderService.refresh(refreshToken));
     } catch (Exception e) {
       log.error("unable to refresh, exception : {} ", e.getMessage());
-      throw ExceptionCatalog.ERROR1003.buildException();
+      throw AuthAdapterException.ERROR0003.buildException();
     }
   }
 

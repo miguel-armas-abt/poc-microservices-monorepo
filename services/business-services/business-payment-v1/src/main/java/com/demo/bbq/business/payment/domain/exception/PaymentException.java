@@ -1,41 +1,44 @@
 package com.demo.bbq.business.payment.domain.exception;
 
+import com.demo.bbq.support.exception.catalog.ApiExceptionType;
 import com.demo.bbq.support.exception.model.ApiException;
-import java.util.Optional;
+import com.demo.bbq.support.exception.model.builder.ApiExceptionBuilder;
+import java.util.function.Supplier;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.http.HttpStatus;
 
 @Slf4j
 @AllArgsConstructor
 @Getter
 public enum PaymentException {
 
-  ERROR1000("/errors/no-data", "The dining room table does not exist", HttpStatus.BAD_REQUEST),
-  ERROR1001("/errors/business-rules", "The requested menu order doesn't exist", HttpStatus.BAD_REQUEST);
+  ERROR1000(ApiExceptionType.NO_DATA, "The dining room table does not exist"),
+  ERROR1001(ApiExceptionType.BUSINESS_RULES, "The requested menu order doesn't exist");
 
 
-  private final String type;
-  private final String description;
-  private final HttpStatus status;
+  private final String serviceNumber = "bs.004";
+  private final ApiExceptionType type;
+  private final String message;
 
-  public ApiException buildExceptionFromThrowable(Throwable cause) {
-    return ApiException.builder(this.type, this.name(), this.description, this.status)
+  private final Supplier<String> generateErrorCode = () ->
+      this.getServiceNumber().concat(this.getType().getCode()).concat(this.name());
+
+  public ApiException buildException(Throwable cause) {
+    return buildApiException()
         .cause(cause)
         .build();
   }
 
-  public ApiException buildCustomException() {
-    return ApiException.builder(this.type, this.name(), this.description, this.status)
+  public ApiException buildException() {
+    return buildApiException()
         .build();
   }
 
-  public ApiException buildCustomException(String additionalDescription) {
-    return ApiException.builder(this.type, this.name(),
-            this.description + " - " + Optional.ofNullable(additionalDescription).orElse(Strings.EMPTY), this.status)
-        .build();
+  private ApiExceptionBuilder buildApiException() {
+    return ApiException.builder()
+        .errorCode(this.generateErrorCode.get())
+        .message(this.message)
+        .status(this.type.getHttpStatus());
   }
 }
-

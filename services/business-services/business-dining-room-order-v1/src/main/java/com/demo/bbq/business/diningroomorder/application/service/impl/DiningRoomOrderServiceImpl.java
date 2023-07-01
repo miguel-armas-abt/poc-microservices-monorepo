@@ -42,7 +42,7 @@ public class DiningRoomOrderServiceImpl implements DiningRoomOrderService {
   public Mono<DiningRoomOrderDto> findByTableNumber(Integer tableNumber) {
     return tableRepository.findByTableNumber(tableNumber)
         .map(diningRoomOrderMapper::fromEntityToDto)
-        .switchIfEmpty(Mono.error(DiningRoomOrderException.ERROR1000.buildCustomException()));
+        .switchIfEmpty(Mono.error(DiningRoomOrderException.ERROR0000.buildException()));
   }
 
   @Override

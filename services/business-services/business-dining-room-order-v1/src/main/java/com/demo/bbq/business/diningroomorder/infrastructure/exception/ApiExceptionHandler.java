@@ -1,8 +1,9 @@
 package com.demo.bbq.business.diningroomorder.infrastructure.exception;
 
+import com.demo.bbq.support.exception.catalog.ApiExceptionType;
 import com.demo.bbq.support.exception.model.ApiException;
 import com.demo.bbq.support.exception.model.ApiExceptionDetail;
-import com.demo.bbq.support.exception.model.ApiExceptionResponse;
+import com.demo.bbq.support.exception.model.dto.ApiExceptionDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,10 +25,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleHttpMessageNotReadable(
       HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-    ApiExceptionResponse apiExceptionResponse = ApiExceptionResponse
-        .builder("/errors/bad-requests", ex.getCause().getMessage(), "BAD_REQUEST_BODY_STRUCTURE")
+    ApiExceptionDto apiException = ApiExceptionDto.builder()
+        .type(ApiExceptionType.MALFORMED_REQUEST.getDescription())
+        .message(ex.getCause().getMessage())
         .build();
-    return new ResponseEntity<>(apiExceptionResponse, HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(apiException, ApiExceptionType.MALFORMED_REQUEST.getHttpStatus());
   }
 
   @Override
@@ -41,24 +43,26 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     List<ApiExceptionDetail> detailList = new ArrayList<>();
     for (String errorMessage: errorMessageList) {
-      detailList.add(ApiExceptionDetail.builder()
-          .title(errorMessage)
-          .component("business-menu-option")
-          .build());
+      detailList.add(ApiExceptionDetail.builder().message(errorMessage).build());
     }
 
-    ApiExceptionResponse exceptionResponse = ApiExceptionResponse
-        .builder("/errors/bad-requests", "Invalid request body", "BAD_REQUEST_BODY")
+    ApiExceptionDto exception = ApiExceptionDto.builder()
+        .type(ApiExceptionType.MALFORMED_REQUEST.getDescription())
         .details(detailList)
         .build();
 
-    return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(exception, ApiExceptionType.MALFORMED_REQUEST.getHttpStatus());
   }
 
   @ExceptionHandler(ApiException.class)
-  public final ResponseEntity<ApiExceptionResponse> sendException(ApiException ex, WebRequest request) {
-    return new ResponseEntity<>(ApiExceptionResponse.builder(ex.getType(), ex.getTitle(), ex.getErrorCode()).build(),
-        ex.getStatus());
+  public final ResponseEntity<ApiExceptionDto> sendException(ApiException ex, WebRequest request) {
+    ApiExceptionDto exception = ApiExceptionDto.builder()
+        .type(ex.getType())
+        .message(ex.getMessage())
+        .errorCode(ex.getErrorCode())
+        .details(ex.getDetails())
+        .build();
+    return new ResponseEntity<>(exception, ex.getHttpStatus());
   }
 
 }

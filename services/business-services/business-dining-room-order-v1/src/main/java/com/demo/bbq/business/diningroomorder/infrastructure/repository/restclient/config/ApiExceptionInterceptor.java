@@ -1,7 +1,7 @@
 package com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.config;
 
 import com.demo.bbq.support.exception.model.ApiException;
-import com.demo.bbq.support.exception.model.ApiExceptionResponse;
+import com.demo.bbq.support.exception.model.dto.ApiExceptionDto;
 import com.google.gson.Gson;
 import java.io.IOException;
 import okhttp3.Interceptor;
@@ -18,13 +18,18 @@ public class ApiExceptionInterceptor implements Interceptor {
     if (!response.isSuccessful()) {
       ResponseBody responseBody = response.body();
       String jsonExceptionResponse = responseBody != null ? responseBody.string() : "";
-      ApiExceptionResponse exceptionResponse = new Gson().fromJson(jsonExceptionResponse, ApiExceptionResponse.class);
+      ApiExceptionDto exceptionResponse = new Gson().fromJson(jsonExceptionResponse, ApiExceptionDto.class);
       throw mapToApiException(exceptionResponse, response.code());
     }
     return response;
   }
 
-  private ApiException mapToApiException(ApiExceptionResponse exceptionResponse, int httpCode) {
-    return ApiException.builder(exceptionResponse.getType(), exceptionResponse.getErrorCode(), exceptionResponse.getTitle(), HttpStatus.resolve(httpCode)).build();
+  private ApiException mapToApiException(ApiExceptionDto exception, int httpCode) {
+    return ApiException.builder()
+        .type(exception.getType())
+        .message(exception.getMessage())
+        .errorCode(exception.getErrorCode())
+        .status(HttpStatus.resolve(httpCode))
+        .build();
   }
 }
