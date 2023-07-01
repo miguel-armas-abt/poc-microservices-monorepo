@@ -1,4 +1,4 @@
-package com.demo.bbq.business.diningroomorder.domain.model.response;
+package com.demo.bbq.business.diningroomorder.domain.model.dto;
 
 import lombok.*;
 import java.io.Serializable;
@@ -9,9 +9,9 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DiningRoomOrder implements Serializable{
+public class DiningRoomOrderDto implements Serializable{
 
-  private List<MenuOrder> menuOrderList;
+  private List<MenuOrderDto> menuOrderList;
   private Integer tableNumber;
   private Long id;
 }

@@ -1,62 +1,40 @@
 package com.demo.bbq.support.exception.model;
 
-import com.demo.bbq.support.exception.util.builder.ApiExceptionBuilder;
+import com.demo.bbq.support.exception.model.builder.ApiExceptionBuilder;
 import java.util.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-/**
- * <br/>Clase modelo que define el objeto de excepción personalizada.<br/>
- *
- * <b>Class</b>: ApiException<br/>
- *
- * @author Miguel Armas Abt <br/>
- *      <u>Developed by</u>: <br/>
- *      <ul>
- *      <li>Miguel Armas Abt</li>
- *      </ul>
- *      <u>Changes</u>:<br/>
- *      <ul>
- *      <li>Oct, 2021 Creación de Clase.</li>
- *      </ul>
- * @version 1.0
- */
 @Getter
 @Setter
 public class ApiException extends RuntimeException {
-
-  private String type;
-  private String title;
-  private String errorCode;
-  private List<ApiExceptionDetail> details;
+  private String message;
   private Throwable cause;
-  private HttpStatus status;
+  private String type;
+  private String errorCode;
+  private HttpStatus httpStatus;
+  private List<ApiExceptionDetail> details;
 
-  public ApiException(String type, String title, String errorCode, List<ApiExceptionDetail> details, Throwable cause,
-                      HttpStatus status) {
-
-    super(title, cause);
+  public ApiException(String message, Throwable cause, String type, String errorCode,
+                      HttpStatus httpStatus, List<ApiExceptionDetail> details) {
+    super(message, cause);
     this.type = type;
-    this.title = title;
+    this.message = message;
     this.errorCode = errorCode;
     this.details = Optional.ofNullable(details)
         .map(Collections::unmodifiableList)
         .orElseGet(Collections::emptyList);
-    this.status = status;
+    this.httpStatus = httpStatus;
   }
 
-  public static ApiExceptionBuilder builder(String type, String errorCode, String title, HttpStatus status) {
-    return new ApiExceptionBuilder()
-        .type(type)
-        .title(title)
-        .errorCode(errorCode)
-        .status(status);
+  public static ApiExceptionBuilder builder() {
+    return new ApiExceptionBuilder();
   }
 
   public List<ApiExceptionDetail> getDetails() {
     if (this.getCause() instanceof ApiException) {
-      List<ApiExceptionDetail> details = ((ApiException)this.getCause()).getDetails();
+      List<ApiExceptionDetail> details = ((ApiException) this.getCause()).getDetails();
       List<ApiExceptionDetail> newDetails = new ArrayList<>();
       newDetails.addAll(this.details);
       newDetails.addAll(details);
@@ -65,5 +43,4 @@ public class ApiException extends RuntimeException {
       return this.details;
     }
   }
-
 }

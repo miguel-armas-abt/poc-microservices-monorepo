@@ -1,32 +1,30 @@
-package com.demo.bbq.business.menuoption.domain.exception;
+package com.demo.bbq.infrastructure.apigateway.util.exception;
 
-import com.demo.bbq.support.constant.CharacterConstant;
 import com.demo.bbq.support.exception.catalog.ApiExceptionType;
 import com.demo.bbq.support.exception.model.ApiException;
 import com.demo.bbq.support.exception.model.builder.ApiExceptionBuilder;
 import java.util.function.Supplier;
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
-public enum MenuOptionException {
+public enum ApiGatewayException {
 
-  ERROR0000(ApiExceptionType.NO_DATA, "The menu option does not exist"),
-  ERROR0001(ApiExceptionType.BUSINESS_RULES, "The menu option category is not defined");
+  ERROR0000(ApiExceptionType.AUTH_RULES, "Missing  Authorization header"),
+  ERROR0001(ApiExceptionType.AUTH_RULES, "Bad Authorization structure"),
+  ERROR0002(ApiExceptionType.AUTH_RULES, "Roles missing"),
+  ERROR0003(ApiExceptionType.GATEWAY_CONNECTION, "Gateway connection error");
 
-  private final String serviceNumber = "bs.001";
+  private final String serviceNumber = "in.001";
   private final ApiExceptionType type;
   private final String message;
 
   private final Supplier<String> generateErrorCode = () ->
-      this.getServiceNumber()
-          .concat(CharacterConstant.DOT)
-          .concat(this.getType().getCode())
-          .concat(CharacterConstant.DOT)
-          .concat(this.name());
+     this.getServiceNumber().concat(this.getType().getCode()).concat(this.name());
 
   public ApiException buildException(Throwable cause) {
     return buildApiException()
@@ -43,7 +41,7 @@ public enum MenuOptionException {
     return ApiException.builder()
         .errorCode(this.generateErrorCode.get())
         .message(this.message)
-        .type(this.type.getDescription())
         .status(this.type.getHttpStatus());
   }
+
 }
