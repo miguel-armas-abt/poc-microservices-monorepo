@@ -26,7 +26,7 @@ public enum MenuOptionException {
           .concat(CharacterConstant.DOT)
           .concat(this.getType().getCode())
           .concat(CharacterConstant.DOT)
-          .concat(this.name());
+          .concat(this.name().toLowerCase());
 
   public ApiException buildException(Throwable cause) {
     return buildApiException()
