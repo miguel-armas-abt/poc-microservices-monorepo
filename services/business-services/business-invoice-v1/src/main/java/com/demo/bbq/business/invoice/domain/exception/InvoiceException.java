@@ -1,5 +1,6 @@
 package com.demo.bbq.business.invoice.domain.exception;
 
+import com.demo.bbq.support.constant.CharacterConstant;
 import com.demo.bbq.support.exception.catalog.ApiExceptionType;
 import com.demo.bbq.support.exception.model.ApiException;
 import com.demo.bbq.support.exception.model.builder.ApiExceptionBuilder;
@@ -21,7 +22,11 @@ public enum InvoiceException {
   private final String message;
 
   private final Supplier<String> generateErrorCode = () ->
-      this.getServiceNumber().concat(this.getType().getCode()).concat(this.name());
+      this.getServiceNumber()
+          .concat(CharacterConstant.DOT)
+          .concat(this.getType().getCode())
+          .concat(CharacterConstant.DOT)
+          .concat(this.name().toLowerCase());
 
   public ApiException buildException(Throwable cause) {
     return buildApiException()
@@ -38,6 +43,7 @@ public enum InvoiceException {
     return ApiException.builder()
         .errorCode(this.generateErrorCode.get())
         .message(this.message)
+        .type(this.type.getDescription())
         .status(this.type.getHttpStatus());
   }
 }
