@@ -23,7 +23,7 @@
 > - [feat-0010] `Backend` Implementar anotaciones personalizadas basadas en el caso de uso XXXX
 > - [feat-0011] `Backend` Implementar Actuator para consultar y refrescar propiedades, aprovechando la anotación @RefreshScope
 > - [feat-0012] `Backend` Integrar servicios de Quarkus con Spring Cloud (config-server-v1, registry-discovery-server-v1 y api-gateway-v1)
-> - [feat-0013] `Backend` Implementar un nuevo servicio con Go
+> - [<s>feat-0013</s>] `Backend` Implementar el servicio business-menu-option-v3 con GO
 > - [feat-0014] `DevOps` Integrar Kibana en el flujo de DevOps
 > - [feat-0015] `Backend | DevOps` Revisar qué componentes utilizan una versión latest y asignarles una versión específica
 > - [<s>feat-0016</s>] `Backend` Refactorizar método para generar orden de una mesa (dining-room-order-v1)
