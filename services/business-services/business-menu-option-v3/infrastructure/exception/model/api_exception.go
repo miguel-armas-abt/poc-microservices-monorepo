@@ -1,6 +1,6 @@
 package model
 
-type APIException struct {
+type ApiException struct {
 	Type      string `json:"type"`
 	Title     string `json:"title"`
 	ErrorCode string `json:"errorCode"`

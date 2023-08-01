@@ -4,12 +4,27 @@ import (
 	"business-menu-option-v3/infrastructure/exception/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strings"
 )
 
-func ErrorHandler(context *gin.Context, err error) {
-	var apiException model.APIException
+const serviceNumber string = "bs.005"
 
-	// Add logic to handle different types of errors and map them to the appropriate APIException
-	// For example, you can use if statements or switch cases.
-	context.JSON(http.StatusInternalServerError, apiException)
+func ErrorHandler(context *gin.Context, err error) {
+	if apiError, ok := err.(model.ApiError); ok {
+		context.JSON(apiError.ApiErrorType.Status, model.ApiException{
+			Type:      apiError.ApiErrorType.Description,
+			Title:     apiError.Title,
+			ErrorCode: generateErrorCode(&apiError),
+		})
+		return
+	}
+	context.JSON(http.StatusInternalServerError, model.ApiException{
+		Type:      "/errors/internal-server-error",
+		Title:     "Internal server error",
+		ErrorCode: "INTERNAL_SERVER_ERROR",
+	})
+}
+
+func generateErrorCode(apiError *model.ApiError) string {
+	return serviceNumber + "." + apiError.ApiErrorType.Code + "." + strings.ToLower(apiError.ErrorCode)
 }
