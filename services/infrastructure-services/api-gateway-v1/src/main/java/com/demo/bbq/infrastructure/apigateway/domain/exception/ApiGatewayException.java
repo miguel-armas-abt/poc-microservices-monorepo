@@ -16,8 +16,7 @@ public enum ApiGatewayException {
 
   ERROR0000(ApiExceptionType.AUTH_RULES, "Missing  Authorization header"),
   ERROR0001(ApiExceptionType.AUTH_RULES, "Bad Authorization structure"),
-  ERROR0002(ApiExceptionType.AUTH_RULES, "The expected role was not found"),
-  ERROR0003(ApiExceptionType.GATEWAY_CONNECTION, "Gateway connection error");
+  ERROR0002(ApiExceptionType.AUTH_RULES, "The expected role was not found");
 
   private final ApiExceptionType type;
   private final String message;

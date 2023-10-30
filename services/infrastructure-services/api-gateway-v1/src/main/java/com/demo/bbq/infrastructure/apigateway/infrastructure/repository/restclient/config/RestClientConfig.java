@@ -34,6 +34,7 @@ public class RestClientConfig {
     return new OkHttpClient.Builder()
         .readTimeout(15, TimeUnit.SECONDS)
         .connectTimeout(15, TimeUnit.SECONDS)
-        .addInterceptor(interceptor);
+        .addInterceptor(interceptor)
+        .addInterceptor(new ApiExceptionInterceptor());
   }
 }

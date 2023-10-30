@@ -2,8 +2,8 @@
 
 ## Fixes
 > - [<s>fix-0000</s>] `Any` Actualizar READMEs
-> - [fix-0001] `Backend` Refactorizar api-gateway-v1 (clean architecture)
-> - [fix-0002] `Backend` Refactorizar auth-adapter-v1 (clean architecture)
+> - [<s>fix-0001</s>] `Backend` Refactorizar api-gateway-v1 (clean architecture)
+> - [<s>fix-0002</s>] `Backend` Refactorizar auth-adapter-v1 (clean architecture)
 > - [fix-0003] `Backend` Refactorizar el campo details de ApiException con el patrón builder para lista
 
 ## Tests

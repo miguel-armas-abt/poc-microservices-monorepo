@@ -1,8 +1,10 @@
 package com.demo.bbq.infrastructure.apigateway.application.filter;
 
+import com.demo.bbq.infrastructure.apigateway.infrastructure.exception.HandleErrorUtil;
 import com.demo.bbq.infrastructure.apigateway.infrastructure.repository.restclient.authadapter.AuthAdapterApi;
 import com.demo.bbq.infrastructure.apigateway.infrastructure.properties.RolesProperties;
 import com.demo.bbq.infrastructure.apigateway.domain.exception.ApiGatewayException;
+import com.demo.bbq.support.exception.model.ApiException;
 import io.reactivex.BackpressureStrategy;
 import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +44,9 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 return hashMap;
               }))
           .ignoreElements()
-          .then(chain.filter(serverWebExchange).onErrorMap(ApiGatewayException.ERROR0003::buildException));
+          .then(chain.filter(serverWebExchange))
+          .onErrorResume(ApiException.class, e -> HandleErrorUtil.handleError(serverWebExchange, e))
+          .onErrorResume(Throwable.class, e -> HandleErrorUtil.handleError(serverWebExchange, e));
     },1);
   }
 
