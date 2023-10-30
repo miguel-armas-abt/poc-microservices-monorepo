@@ -13,27 +13,21 @@ import org.springframework.stereotype.Component;
 public class AuthenticationProviderConnector {
 
   private final KeycloackProperties properties;
-  private final TokenApi tokenApi;
-
-  private final LogoutApi logoutApi;
-
-  private final UserInfoApi userInfoApi;
-
-  private final RefreshApi refreshApi;
+  private final AuthenticationProviderApi authenticationProviderApi;
 
   public Single<TokenResponse> getToken(String username, String password) {
-    return tokenApi.getToken(username, password, properties.getClientId(), properties.getGrantType(), properties.getClientSecret(), properties.getScope());
+    return authenticationProviderApi.getToken(username, password, properties.getClientId(), properties.getGrantType(), properties.getClientSecret(), properties.getScope());
   }
 
   public Completable logout(String refreshToken) {
-    return logoutApi.logout(properties.getClientId(), properties.getClientSecret(), refreshToken);
+    return authenticationProviderApi.logout(properties.getClientId(), properties.getClientSecret(), refreshToken);
   }
 
   public Single<UserInfoResponse> getUserInfo(String authToken) {
-    return userInfoApi.getUserInfo(authToken);
+    return authenticationProviderApi.getUserInfo(authToken);
   }
 
   public Single<TokenResponse> refreshToken(String refreshToken) {
-    return refreshApi.refresh(properties.getClientId(), properties.getGrantTypeRefresh(), refreshToken);
+    return authenticationProviderApi.refresh(properties.getClientId(), properties.getGrantTypeRefresh(), refreshToken);
   }
 }

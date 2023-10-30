@@ -1,11 +1,7 @@
 package com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.config;
 
+import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.AuthenticationProviderApi;
 import java.util.concurrent.TimeUnit;
-
-import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.LogoutApi;
-import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.RefreshApi;
-import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.TokenApi;
-import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.UserInfoApi;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,47 +19,14 @@ public class RestClientConfig {
 
 
   @Bean
-  TokenApi tokenApi(OkHttpClient.Builder builder) {
+  AuthenticationProviderApi tokenApi(OkHttpClient.Builder builder) {
     return new Retrofit.Builder()
         .baseUrl(keycloakUri)
         .client(client().build())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(JacksonConverterFactory.create())
         .build()
-        .create(TokenApi.class);
-  }
-
-  @Bean
-  RefreshApi refreshApi(OkHttpClient.Builder builder) {
-    return new Retrofit.Builder()
-        .baseUrl(keycloakUri)
-        .client(client().build())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(JacksonConverterFactory.create())
-        .build()
-        .create(RefreshApi.class);
-  }
-
-  @Bean
-  LogoutApi logoutApi(OkHttpClient.Builder builder) {
-    return new Retrofit.Builder()
-        .baseUrl(keycloakUri)
-        .client(client().build())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(JacksonConverterFactory.create())
-        .build()
-        .create(LogoutApi.class);
-  }
-
-  @Bean
-  UserInfoApi userInfoApi(OkHttpClient.Builder builder) {
-    return new Retrofit.Builder()
-        .baseUrl(keycloakUri)
-        .client(client().build())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(JacksonConverterFactory.create())
-        .build()
-        .create(UserInfoApi.class);
+        .create(AuthenticationProviderApi.class);
   }
 
   @Bean
