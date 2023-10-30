@@ -3,9 +3,18 @@ Este componente conecta con un proveedor de autenticación SS0 y Oauth2 (Keycloa
 tokens de acceso.
 
 # Despliegue (Docker Compose)
-## keycloak-server
-Acceda a la web `http://localhost:8091`, seleccione la opción `Administration Console` e inicie sesión con las 
-credenciales (username=admin, password=admin).
+## 1. keycloak-server
+### 1.1. Despliegue aislado (Opcional)
+**[AMBIENTE LOCAL]** Si usted desea desplegar únicamente el servicio de keycloak para tenerlo disponible en su ambiente local, ejecute el 
+siguiente comando.
+
+```shell script
+docker-compose -f ./../../../devops/docker-compose/docker-compose.yml up -d --force-recreate keycloak-server
+```
+
+### 1.2. Configuración
+Acceda a la web `http://localhost:8091`, seleccione la opción 
+`Administration Console` e inicie sesión con las credenciales (username=admin, password=admin).
 
 Configure las siguientes propiedades.
 > Cree un nuevo realm y asígnele el nombre `bbq-management`
@@ -21,15 +30,15 @@ Configure las siguientes propiedades.
 >
 > **Roles**: Cree un nuevo rol (rolename=`partners`)
 > 
-> **User**: Seleccion el tab `Role Mappings` y agrege el rol `partners`
+> **User**: Seleccion el tab `Role Mappings` y agregue el rol `partners`
 > 
 > **Clients**: Cree un nuevo cliente (clientid=`front-bbq-app`, client-protocol=`openid-connect`)
 > 
 > **Clients**: Ubique la propiedad y actualícela `Valid Redirect URIs`=`*`
 
-## auth-adapter-v1
-En el paso anterior se actualizó el archivo de propiedades, así que es necesario recompilar las fuentes, actualizar la
-imagen de Docker y recrear el contenedor.
+## 2. auth-adapter-v1
+Si previamente orquestó todos los servicios del docker compose, entonces debe reiniciar el servicio `auth-adapter-v1`
+para que tengas las credenciales actualizadas.
 
 ```shell script
 docker-compose -f ./../../../devops/docker-compose/docker-compose.yml up -d --force-recreate auth-adapter-v1
