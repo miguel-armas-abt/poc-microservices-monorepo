@@ -10,8 +10,8 @@ credenciales (username=admin, password=admin).
 Configure las siguientes propiedades.
 > Cree un nuevo realm y asígnele el nombre `bbq-management`
 > 
-> **Realm Settings**: Seleccion el tab `Keys` y ubique la llave pública `RS256`, asignada al realm previamente creado.
-> A continuación, reemplace la propiedad `keycloak.certs-id` del archivo de propiedades de `auth-adapter-v1`.
+> **Realm Settings**: Seleccion el tab `Keys` y ubique la llave pública `RS256`. A continuación, reemplace la variable 
+> `KEYCLOACK_KEY_RS256` en el `docker-compose.yml`.
 > 
 > **Realm Settings**: Seleccion el tab `Tokens`, ubique la propiedad `Access Token Lifespan` y cambie el tiempo de
 > expiración a 30'.

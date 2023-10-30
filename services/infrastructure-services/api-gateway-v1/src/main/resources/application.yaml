@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8010
 
 logging:
   level:
@@ -23,36 +23,36 @@ spring:
             - Path=/bbq/business/v1/menu-options/** #- Path=/** #to access swagger doc of the service through the api gateway
             - Method=GET,POST,PUT,DELETE,PATCH
           filters:
-            - name: AuthenticatorFiltering
+            - name: AuthenticationFilter
 
         - id: business-dining-room-order-v1
           uri: lb://business-dining-room-order-v1
           predicates:
             - Path=/bbq/business/v1/dining-room-orders/**
             - Method=GET,POST,PUT,DELETE,PATCH
-          filters:
-            - name: AuthenticatorFiltering
+#          filters:
+#            - name: AuthenticationFilter
 
         - id: business-invoice-v1
           uri: lb://business-invoice-v1
           predicates:
             - Path=/bbq/business/v1/invoices/**
             - Method=GET,POST,PUT,DELETE,PATCH
-          filters:
-            - name: AuthenticatorFiltering
+#          filters:
+#            - name: AuthenticationFilter
 
         - id: business-payment-v1
           uri: lb://business-payment-v1
           predicates:
             - Path=/bbq/business/v1/payments/**
             - Method=GET,POST,PUT,DELETE,PATCH
-          filters:
-            - name: AuthenticatorFiltering
+#          filters:
+#            - name: AuthenticationFilter
 
 application:
   http-client:
     auth-adapter:
-      base-url: ${AUTH_ADAPTER:http://localhost:8092/bbq/infrastructure/v1/auth/}
+      base-url: ${AUTH_ADAPTER:http://localhost:8011/bbq/infrastructure/v1/auth/}
   user-roles: '{0:"partners"}' #separate items with comma
 
 # actuator

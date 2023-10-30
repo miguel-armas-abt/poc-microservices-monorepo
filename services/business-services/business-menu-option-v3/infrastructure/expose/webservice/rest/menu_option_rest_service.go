@@ -19,8 +19,8 @@ func NewMenuOptionRestService(service service.MenuOptionService) *MenuOptionRest
 	}
 }
 
-func (restService *MenuOptionRestService) FindAll(context *gin.Context) {
-	menuOptionList, err := restService.menuOptionService.FindAll()
+func (thisRestService *MenuOptionRestService) FindAll(context *gin.Context) {
+	menuOptionList, err := thisRestService.menuOptionService.FindAll()
 	if err != nil {
 		handler.ErrorHandler(context, err)
 		return
@@ -28,9 +28,9 @@ func (restService *MenuOptionRestService) FindAll(context *gin.Context) {
 	context.JSON(http.StatusOK, menuOptionList)
 }
 
-func (restService *MenuOptionRestService) FindById(context *gin.Context) {
+func (thisRestService *MenuOptionRestService) FindById(context *gin.Context) {
 	id, _ := strconv.ParseUint(context.Param("id"), 10, 64)
-	menuOption, err := restService.menuOptionService.FindById(uint(id))
+	menuOption, err := thisRestService.menuOptionService.FindById(uint(id))
 	if err != nil {
 		handler.ErrorHandler(context, err)
 		return
@@ -38,14 +38,14 @@ func (restService *MenuOptionRestService) FindById(context *gin.Context) {
 	context.JSON(http.StatusOK, menuOption)
 }
 
-func (restService *MenuOptionRestService) Save(context *gin.Context) {
+func (thisRestService *MenuOptionRestService) Save(context *gin.Context) {
 	var menuOptionRequest request.MenuOptionRequest
 	if err := context.ShouldBindJSON(&menuOptionRequest); err != nil {
 		handler.ErrorHandler(context, err)
 		return
 	}
 
-	menuOption, err := restService.menuOptionService.Save(menuOptionRequest)
+	menuOption, err := thisRestService.menuOptionService.Save(menuOptionRequest)
 	if err != nil {
 		handler.ErrorHandler(context, err)
 		return
@@ -53,7 +53,7 @@ func (restService *MenuOptionRestService) Save(context *gin.Context) {
 	context.JSON(http.StatusCreated, menuOption)
 }
 
-func (restService *MenuOptionRestService) Update(context *gin.Context) {
+func (thisRestService *MenuOptionRestService) Update(context *gin.Context) {
 	id, _ := strconv.ParseUint(context.Param("id"), 10, 64)
 	var menuOptionRequest request.MenuOptionRequest
 
@@ -62,7 +62,7 @@ func (restService *MenuOptionRestService) Update(context *gin.Context) {
 		return
 	}
 
-	menuOption, err := restService.menuOptionService.Update(menuOptionRequest, uint(id))
+	menuOption, err := thisRestService.menuOptionService.Update(menuOptionRequest, uint(id))
 	if err != nil {
 		handler.ErrorHandler(context, err)
 		return
@@ -70,9 +70,9 @@ func (restService *MenuOptionRestService) Update(context *gin.Context) {
 	context.JSON(http.StatusOK, menuOption)
 }
 
-func (restService *MenuOptionRestService) Delete(context *gin.Context) {
+func (thisRestService *MenuOptionRestService) Delete(context *gin.Context) {
 	id, _ := strconv.ParseUint(context.Param("id"), 10, 64)
-	err := restService.menuOptionService.Delete(uint(id))
+	err := thisRestService.menuOptionService.Delete(uint(id))
 	if err != nil {
 		handler.ErrorHandler(context, err)
 		return
