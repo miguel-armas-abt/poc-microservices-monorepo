@@ -1,53 +1,42 @@
 package com.demo.bbq.business.diningroomorder.infrastructure.resource.rest;
 
-import java.util.List;
-import java.util.function.Consumer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import com.demo.bbq.business.diningroomorder.application.service.DiningRoomOrderService;
-import com.demo.bbq.business.diningroomorder.domain.model.request.MenuOrderRequest;
+import java.util.List;
 import com.demo.bbq.business.diningroomorder.domain.model.dto.DiningRoomOrderDto;
-import com.demo.bbq.support.logstash.Markers;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import com.demo.bbq.business.diningroomorder.domain.model.request.MenuOrderRequest;
+import com.demo.bbq.business.diningroomorder.infrastructure.documentation.data.DiningRoomOrderDocumentationMetadata;
+import com.demo.bbq.business.diningroomorder.infrastructure.documentation.data.DiningRoomOrderExample;
+import com.demo.bbq.support.exception.documentation.ApiExceptionJsonExample;
+import com.demo.bbq.support.exception.model.dto.ApiExceptionDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import reactor.core.publisher.Mono;
 
-/**
- * <br/>Clase Controller que implementa los métodos necesarios para exponer mediante REST los servicios del contexto
- * Menu Option.<br/>
- *
- * @author Miguel Armas Abt <br/>
- */
-@Slf4j
-@RequiredArgsConstructor
-@RestController
-@RequestMapping("/bbq/business/v1/dining-room-orders")
-public class DiningRoomOrderRestService {
+@ApiResponses(value = {
+    @ApiResponse(responseCode = "400",
+        content = @Content(schema = @Schema(implementation = ApiExceptionDto.class), examples = @ExampleObject(value = ApiExceptionJsonExample.BAD_REQUEST))),
+    @ApiResponse(responseCode = "404",
+        content = @Content(schema = @Schema(implementation = ApiExceptionDto.class), examples = @ExampleObject(value = ApiExceptionJsonExample.NOT_FOUND))),
+})
+public interface DiningRoomOrderRestService {
 
-  private final DiningRoomOrderService diningRoomOrderService;
+  @Operation(summary = "Get an order list by table number", tags = DiningRoomOrderDocumentationMetadata.TAG)
+  @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = DiningRoomOrderDto.class))})
+  Mono<DiningRoomOrderDto> findByTableNumber(HttpServletRequest servletRequest,
+                                             @Parameter(example = DiningRoomOrderExample.TABLE_NUMBER) Integer tableNumber);
 
-  @GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-  public Mono<DiningRoomOrderDto> findByTableNumber(
-      HttpServletRequest servletRequest, @RequestParam(value = "tableNumber") Integer tableNumber) {
-    logRequest.accept(servletRequest);
-    return diningRoomOrderService.findByTableNumber(tableNumber);
-  }
-
-  @PatchMapping
-  public Mono<Void> generateTableOrder(HttpServletRequest servletRequest,
-                                       HttpServletResponse servletResponse,
-                                       @Valid @RequestBody List<MenuOrderRequest> requestedMenuOrderList,
-                                       @RequestParam(value = "tableNumber") Integer tableNumber) {
-    logRequest.accept(servletRequest);
-    return diningRoomOrderService.generateTableOrder(requestedMenuOrderList, tableNumber)
-        .doOnSuccess(tableOrderId -> servletResponse.setStatus(201))
-        .then(Mono.empty());
-  }
-
-  private final static Consumer<HttpServletRequest> logRequest = servletRequest->
-      log.info(Markers.SENSITIVE_JSON, "{}", servletRequest.getMethod() + ": " + servletRequest.getRequestURI());
+  @Operation(summary = "Generate an order of menus for a table", tags = DiningRoomOrderDocumentationMetadata.TAG)
+  @ApiResponse(responseCode = "201")
+  Mono<Void> generateTableOrder(HttpServletRequest servletRequest,
+                                HttpServletResponse servletResponse,
+                                @RequestBody(description = "Requested menu list") List<MenuOrderRequest> requestedMenuOrderList,
+                                @Parameter(example = DiningRoomOrderExample.TABLE_NUMBER) Integer tableNumber);
 
 }

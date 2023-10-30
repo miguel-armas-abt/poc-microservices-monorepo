@@ -1,23 +1,21 @@
 package com.demo.bbq.support.exception.model.dto;
 
 import com.demo.bbq.support.exception.constant.ApiExceptionConstant;
-
+import com.demo.bbq.support.exception.model.ApiExceptionDetail;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.List;
 import javax.validation.constraints.Pattern;
-
-import com.demo.bbq.support.exception.model.ApiExceptionDetail;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 
 /**
- * <br/>Clase DTO que define el modelo de objeto para transmitir información de la excepción personalizada.
+ * <br/>Exception DTO to all application.
  *
- * type(notes: The unique uri identifier that categorizes the error, example: /errors/authentication)
- * message(notes: A brief, human-readable message about the error, example: The user does not have autorization)
- * errorCode(notes: The unique error code, example: 001.01.0001)
- * details(notes: A human-readable explanation specific to this occurrence of the problem)
+ * type(Unique uri that identifies that categorizes the error, example: /errors/business-rules)
+ * message(A brief, human-readable message about the error, example: The category is not defined)
+ * errorCode(Unique error code that includes the error type followed by the specific error, example: 01.0001)
+ * details(List of specific explanations for this occurrence of the problem)
  * <br/>
  */
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)

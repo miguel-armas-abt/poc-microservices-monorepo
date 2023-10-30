@@ -1,90 +1,58 @@
 package com.demo.bbq.business.menuoption.infrastructure.resource.rest;
 
-import com.demo.bbq.business.menuoption.application.service.MenuOptionService;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionRequest;
 import com.demo.bbq.business.menuoption.domain.model.response.MenuOption;
-import com.demo.bbq.support.logstash.Markers;
-import java.net.URI;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.ws.rs.core.MediaType;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import com.demo.bbq.business.menuoption.infrastructure.documentation.data.MenuOptionDocumentationMetadata;
+import com.demo.bbq.business.menuoption.infrastructure.documentation.data.MenuOptionExample;
+import com.demo.bbq.support.exception.documentation.ApiExceptionJsonExample;
+import com.demo.bbq.support.exception.model.dto.ApiExceptionDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-@Slf4j
-@RequiredArgsConstructor
-@RestController
-@RequestMapping("/bbq/business/v1/menu-options")
-public class MenuOptionRestService {
+@ApiResponses(value = {
+    @ApiResponse(responseCode = "400",
+        content = @Content(schema = @Schema(implementation = ApiExceptionDto.class), examples = @ExampleObject(value = ApiExceptionJsonExample.BAD_REQUEST))),
+    @ApiResponse(responseCode = "404",
+        content = @Content(schema = @Schema(implementation = ApiExceptionDto.class), examples = @ExampleObject(value = ApiExceptionJsonExample.NOT_FOUND))),
+})
+public interface MenuOptionRestService {
 
-  private final MenuOptionService service;
+  @Operation(summary = "Get a menu by ID", tags = MenuOptionDocumentationMetadata.TAG)
+  @ApiResponse(responseCode = "200")
+  ResponseEntity<MenuOption> findById(HttpServletRequest servletRequest,
+                                      @Parameter(example = MenuOptionExample.ID) Long id);
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON, value = "/{id}")
-  public ResponseEntity<MenuOption> findById(HttpServletRequest servletRequest,
-                                             @PathVariable(name = "id") Long id) {
-    logRequest.accept(servletRequest);
-    return ResponseEntity.ok(service.findById(id));
-  }
+  @Operation(summary = "Get a menu list by category", tags = MenuOptionDocumentationMetadata.TAG)
+  @ApiResponse(responseCode = "200")
+  ResponseEntity<List<MenuOption>> findByCategory(HttpServletRequest servletRequest,
+                                                  @Parameter(description = "Menu category", examples = {
+                                                      @ExampleObject(value = MenuOptionExample.CATEGORY_MAIN_DISH),
+                                                      @ExampleObject(value = MenuOptionExample.CATEGORY_DRINK),
+                                                      @ExampleObject(value = MenuOptionExample.CATEGORY_DESSERT),
+                                                  }) String categoryCode);
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON)
-  public ResponseEntity<List<MenuOption>> findByCategory(HttpServletRequest servletRequest,
-                                                         @RequestParam(value = "category", required = false) String categoryCode) {
-    logRequest.accept(servletRequest);
-    List<MenuOption> menuOptionList = service.findByCategory(categoryCode);
-    return (menuOptionList == null || menuOptionList.isEmpty())
-        ? ResponseEntity.noContent().build()
-        : ResponseEntity.ok(service.findByCategory(categoryCode));
-  }
+  @Operation(summary = "Save a menu", tags = MenuOptionDocumentationMetadata.TAG)
+  @ApiResponse(responseCode = "201")
+  ResponseEntity<Void> save(HttpServletRequest servletRequest,
+                            @RequestBody(content = {@Content(schema = @Schema(implementation = MenuOptionRequest.class))}) MenuOptionRequest menuOption);
 
-  @PostMapping
-  public ResponseEntity<Void> save(HttpServletRequest servletRequest,
-                                   @Valid @RequestBody MenuOptionRequest menuOption) {
-    logRequest.accept(servletRequest);
-    Long id = service.save(menuOption);
-    return ResponseEntity.created(buildPostUriLocation.apply(id)).build();
-  }
+  @Operation(summary = "Update a menu", tags = MenuOptionDocumentationMetadata.TAG)
+  @ApiResponse(responseCode = "201")
+  ResponseEntity<Void> update(HttpServletRequest servletRequest,
+                              @RequestBody(content = {@Content(schema = @Schema(implementation = MenuOptionRequest.class))}) MenuOptionRequest menuOption,
+                              @Parameter(example = MenuOptionExample.ID) Long id);
 
-  @PutMapping(value = "/{id}")
-  public ResponseEntity<Void> update(HttpServletRequest servletRequest,
-                                     @Valid @RequestBody MenuOptionRequest menuOption, @PathVariable("id") Long id) {
-    logRequest.accept(servletRequest);
-    Long updatedMenuOptionId = service.update(id, menuOption);
-    return ResponseEntity.created(buildUriLocation.apply(updatedMenuOptionId)).build();
-  }
-
-  @DeleteMapping(value = "/{id}")
-  public ResponseEntity<Void> delete(HttpServletRequest servletRequest, @PathVariable("id") Long id) {
-    logRequest.accept(servletRequest);
-    service.deleteById(id);
-    return ResponseEntity.noContent().location(buildUriLocation.apply(id)).build();
-  }
-
-  private final static Consumer<HttpServletRequest> logRequest = servletRequest->
-      log.info(Markers.SENSITIVE_JSON, "{}", servletRequest.getMethod() + ": " + servletRequest.getRequestURI());
-
-  private final static Function<Long, URI> buildPostUriLocation = id ->
-      ServletUriComponentsBuilder.fromCurrentRequest()
-          .path("/{id}")
-          .buildAndExpand(id)
-          .toUri();
-
-  private final static Function<Long, URI> buildUriLocation = id ->
-      ServletUriComponentsBuilder.fromCurrentRequest()
-          .buildAndExpand()
-          .toUri();
-
+  @Operation(summary = "Delete a menu", tags = MenuOptionDocumentationMetadata.TAG)
+  @ApiResponse(responseCode = "204")
+  ResponseEntity<Void> delete(HttpServletRequest servletRequest,
+                              @Parameter(example = MenuOptionExample.ID) Long id);
 }

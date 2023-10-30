@@ -1,5 +1,6 @@
 server:
-  port: 0 #eureka set a random port
+#  port: 0 #eureka set a random port
+  port: 8015
 
 spring:
   application:
@@ -12,7 +13,6 @@ spring:
       failFast: true
       name: business #prefix, name of API type
       profile: payment-v1-dev #sufix, indicate the execution environment
-      #label: latest
       username: admin
       password: 123
       retry:

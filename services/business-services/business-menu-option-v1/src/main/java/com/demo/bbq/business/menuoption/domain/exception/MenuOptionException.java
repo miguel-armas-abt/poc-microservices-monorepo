@@ -17,16 +17,13 @@ public enum MenuOptionException {
   ERROR0000(ApiExceptionType.NO_DATA, "The menu option does not exist"),
   ERROR0001(ApiExceptionType.BUSINESS_RULES, "The menu option category is not defined");
 
-  private final String serviceNumber = "bs.001";
   private final ApiExceptionType type;
   private final String message;
 
   private final Supplier<String> generateErrorCode = () ->
-      this.getServiceNumber()
+      this.getType().getCode()
           .concat(CharacterConstant.DOT)
-          .concat(this.getType().getCode())
-          .concat(CharacterConstant.DOT)
-          .concat(this.name().toLowerCase());
+          .concat(this.name().substring(5));
 
   public ApiException buildException(Throwable cause) {
     return buildApiException()

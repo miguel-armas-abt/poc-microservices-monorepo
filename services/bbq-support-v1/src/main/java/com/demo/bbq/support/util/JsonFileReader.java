@@ -17,15 +17,16 @@ public class JsonFileReader {
   private static final ObjectMapper mapper = new ObjectMapper();
 
   public static <T> T getAnElement(String filePath, Class<T> className) throws IOException {
-    byte[] byteArray = ByteStreams.toByteArray(Objects.requireNonNull(JsonFileReader.class.getClassLoader().getResourceAsStream(filePath)));
-    String arrayJson = new String(byteArray);
-    return new Gson().fromJson(arrayJson, className);
+    return new Gson().fromJson(getJson(filePath), className);
   }
 
-  public static <T> List<T> getList(String filePath, Class<T[]> clazz) throws IOException {
+  public static <T> List<T> getList(String filePath, Class<T[]> className) throws IOException {
+    return Arrays.asList(new Gson().fromJson(getJson(filePath), className));
+  }
+
+  public static String getJson(String filePath) throws IOException {
     byte[] byteArray = ByteStreams.toByteArray(Objects.requireNonNull(JsonFileReader.class.getClassLoader().getResourceAsStream(filePath)));
-    String arrayJson = new String(byteArray);
-    return Arrays.asList(new Gson().fromJson(arrayJson, clazz));
+    return new String(byteArray);
   }
 
   public static <T> List<T> getList2(String filePath, Class<T[]> clazz) throws IOException {

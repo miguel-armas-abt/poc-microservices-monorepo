@@ -1,45 +1,38 @@
 package com.demo.bbq.business.invoice.infrastructure.resource.rest;
 
-import java.util.function.Consumer;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import com.demo.bbq.business.invoice.application.service.InvoiceService;
 import com.demo.bbq.business.invoice.domain.model.request.InvoiceRequest;
 import com.demo.bbq.business.invoice.domain.model.response.Invoice;
-import com.demo.bbq.support.logstash.Markers;
+import com.demo.bbq.business.invoice.infrastructure.documentation.data.InvoiceDocumentationMetadata;
+import com.demo.bbq.business.invoice.infrastructure.documentation.data.InvoiceExample;
+import com.demo.bbq.support.exception.documentation.ApiExceptionJsonExample;
+import com.demo.bbq.support.exception.model.dto.ApiExceptionDto;
 import io.reactivex.Completable;
 import io.reactivex.Single;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-@Slf4j
-@RequiredArgsConstructor
-@RestController
-@RequestMapping("/bbq/business/v1/invoices")
-public class InvoiceRestService {
+@ApiResponses(value = {
+    @ApiResponse(responseCode = "400",
+        content = @Content(schema = @Schema(implementation = ApiExceptionDto.class), examples = @ExampleObject(value = ApiExceptionJsonExample.BAD_REQUEST))),
+    @ApiResponse(responseCode = "404",
+        content = @Content(schema = @Schema(implementation = ApiExceptionDto.class), examples = @ExampleObject(value = ApiExceptionJsonExample.NOT_FOUND))),
+})
+public interface InvoiceRestService {
 
-  private final InvoiceService invoiceService;
+  @Operation(summary = "Generate a proforma invoice based on the orders requested on a table", tags = InvoiceDocumentationMetadata.TAG)
+  @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = Invoice.class))})
+  Single<Invoice> generateProformaInvoice(HttpServletRequest servletRequest,
+                                          @Parameter(example = InvoiceExample.TABLE_NUMBER) Integer tableNumber);
 
-  @GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-  public Single<Invoice> generateInvoice(
-      HttpServletRequest servletRequest, @RequestParam(value = "tableNumber") Integer tableNumber) {
-    logRequest.accept(servletRequest);
-    return invoiceService.generateInvoice(tableNumber);
-  }
-
-  @PostMapping("/send-to-pay")
-  public Completable sendToPay(HttpServletRequest servletRequest,
-                                        HttpServletResponse servletResponse,
-                                        @Valid @RequestBody InvoiceRequest invoiceRequest) {
-    logRequest.accept(servletRequest);
-    return invoiceService.sendToPay(invoiceRequest)
-        .doOnComplete(() -> servletResponse.setStatus(201));
-  }
-
-  private final static Consumer<HttpServletRequest> logRequest = servletRequest->
-      log.info(Markers.SENSITIVE_JSON, "{}", servletRequest.getMethod() + ": " + servletRequest.getRequestURI());
-
+  @Operation(summary = "Send proforma invoice to pay", tags = InvoiceDocumentationMetadata.TAG)
+  @ApiResponse(responseCode = "201")
+  Completable sendToPay(HttpServletRequest servletRequest,
+                        HttpServletResponse servletResponse, InvoiceRequest invoiceRequest);
 }

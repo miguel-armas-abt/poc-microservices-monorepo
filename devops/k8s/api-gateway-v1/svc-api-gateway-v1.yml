@@ -10,5 +10,5 @@ spec:
     app: api-gateway-v1
   ports:
     - name: port-api-gateway-v1
-      port: 8080
+      port: 8010
       nodePort : 30080
