@@ -14,3 +14,7 @@ spring:
     bootstrap-servers: localhost:9092
     consumer:
       group-id: bbq
+
+business:
+  invoice:
+    igv: 0.18
