@@ -1,9 +1,9 @@
 application:
   http-client:
     menu-option-v2:
-      base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8810/bbq/business/v2/}
+      base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8016/bbq/business/v2/}
     dining-room-order-v1:
-      base-url: ${BUSINESS_DINING_ROOM_ORDER_BASE_PATH:http://localhost:8080/bbq/business/v1/}
+      base-url: ${BUSINESS_DINING_ROOM_ORDER_BASE_PATH:http://localhost:8010/bbq/business/v1/}
 
 kafka-broker:
   topic:

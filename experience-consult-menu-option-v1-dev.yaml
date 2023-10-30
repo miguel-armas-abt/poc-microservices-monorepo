@@ -6,4 +6,4 @@ springdoc:
 application:
   http-client:
     menu-options:
-      base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8080/bbq/business/v1/}
+      base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8010/bbq/business/v1/}
