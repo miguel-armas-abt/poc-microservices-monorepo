@@ -1,6 +1,7 @@
 kafka-broker:
   topic:
     invoice: invoice-topic
+    payment: paid-topic
 
 spring:
   kafka:
