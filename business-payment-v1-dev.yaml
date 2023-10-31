@@ -7,3 +7,20 @@ spring:
     bootstrap-servers: localhost:9092
     consumer:
       group-id: bbq
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: false
+        format_sql: true
+
+  datasource:
+    url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/db_payments?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${MYSQL_USERNAME:bbq_user}
+    password: ${MYSQL_PASSWORD:qwerty}
