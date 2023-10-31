@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-08-03T00:58:18.582Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="9X2Z170K-WttdYoYG-Ab" version="21.6.6" type="device" pages="2">
+<mxfile host="app.diagrams.net" modified="2023-10-31T00:47:31.130Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="kBRURirOJV8MFP_zkA1R" version="22.0.8" type="device" pages="2">
   <diagram id="Mab86lwmYLIhfpq_8ImP" name="UC-waiter">
     <mxGraphModel dx="-1568" dy="430" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -133,27 +133,6 @@
         <mxCell id="6RjSpF5HRiMKSESvIRvW-85" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.armadilloamarillo.com/wp-content/uploads/course-image.png;container=0;" parent="jKIbGQgtxKfHBczteNCG-28" vertex="1">
           <mxGeometry x="1.3760000000000217" y="1.3719999999999999" width="17.252" height="17.252" as="geometry" />
         </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-46" value="" style="group" parent="1" vertex="1" connectable="0">
-          <mxGeometry x="4417" y="294" width="116" height="55" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-41" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;bs-dining-room-order-v1&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0e8088;strokeWidth=2;fillColor=#b0e3e6;align=center;spacing=10;" parent="jKIbGQgtxKfHBczteNCG-46" vertex="1">
-          <mxGeometry x="10" y="9" width="100" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-42" value="REST&lt;br style=&quot;font-size: 5px;&quot;&gt;API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=5;fontStyle=1" parent="jKIbGQgtxKfHBczteNCG-46" vertex="1">
-          <mxGeometry y="23" width="20" height="15" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-43" value="" style="group" parent="jKIbGQgtxKfHBczteNCG-46" vertex="1" connectable="0">
-          <mxGeometry x="96" width="20" height="20" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-44" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="jKIbGQgtxKfHBczteNCG-43" vertex="1">
-          <mxGeometry width="20" height="20" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-45" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.armadilloamarillo.com/wp-content/uploads/course-image.png;container=0;" parent="jKIbGQgtxKfHBczteNCG-43" vertex="1">
-          <mxGeometry x="1.3760000000000217" y="1.3719999999999999" width="17.252" height="17.252" as="geometry" />
-        </mxCell>
-        <mxCell id="6RjSpF5HRiMKSESvIRvW-68" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/databases/Azure_Database_PostgreSQL_Server.svg;strokeColor=#000000;strokeWidth=2;fillColor=none;" parent="jKIbGQgtxKfHBczteNCG-46" vertex="1">
-          <mxGeometry x="97.25" y="30" width="18.75" height="25" as="geometry" />
-        </mxCell>
         <mxCell id="jKIbGQgtxKfHBczteNCG-47" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1.002;exitY=0.418;exitDx=0;exitDy=0;exitPerimeter=0;dashed=1;dashPattern=1 1;" parent="1" source="jKIbGQgtxKfHBczteNCG-41" target="jKIbGQgtxKfHBczteNCG-5" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="4523.45" y="369" as="sourcePoint" />
@@ -219,62 +198,11 @@
             <mxPoint x="4603" y="408" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-70" value="" style="group" parent="1" vertex="1" connectable="0">
-          <mxGeometry x="4337" y="374" width="111" height="55" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-50" value="" style="group" parent="jKIbGQgtxKfHBczteNCG-70" vertex="1" connectable="0">
-          <mxGeometry width="107" height="49" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-51" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;bs-invoice-v1&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0e8088;strokeWidth=2;fillColor=#b0e3e6;align=center;spacing=10;" parent="jKIbGQgtxKfHBczteNCG-50" vertex="1">
-          <mxGeometry x="10" y="9" width="90" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-52" value="REST&lt;br style=&quot;font-size: 5px;&quot;&gt;API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=5;fontStyle=1" parent="jKIbGQgtxKfHBczteNCG-50" vertex="1">
-          <mxGeometry y="23" width="20" height="15" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-53" value="" style="group" parent="jKIbGQgtxKfHBczteNCG-50" vertex="1" connectable="0">
-          <mxGeometry x="87" width="20" height="20" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-54" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="jKIbGQgtxKfHBczteNCG-53" vertex="1">
-          <mxGeometry width="20" height="20" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-55" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.armadilloamarillo.com/wp-content/uploads/course-image.png;container=0;" parent="jKIbGQgtxKfHBczteNCG-53" vertex="1">
-          <mxGeometry x="1.3760000000000217" y="1.3719999999999999" width="17.252" height="17.252" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-58" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://img.icons8.com/color/480/mongodb.png;" parent="jKIbGQgtxKfHBczteNCG-70" vertex="1">
-          <mxGeometry x="85" y="29" width="26" height="26" as="geometry" />
-        </mxCell>
         <mxCell id="jKIbGQgtxKfHBczteNCG-79" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;dashPattern=1 1;exitX=0.585;exitY=0.998;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" source="6RjSpF5HRiMKSESvIRvW-10" target="jKIbGQgtxKfHBczteNCG-73" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="4402" y="433" as="sourcePoint" />
             <mxPoint x="4402" y="461" as="targetPoint" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-81" value="" style="group" parent="1" vertex="1" connectable="0">
-          <mxGeometry x="4337" y="499.87" width="111" height="55" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-71" value="" style="group" parent="jKIbGQgtxKfHBczteNCG-81" vertex="1" connectable="0">
-          <mxGeometry width="111" height="55" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-72" value="" style="group" parent="jKIbGQgtxKfHBczteNCG-71" vertex="1" connectable="0">
-          <mxGeometry width="107" height="49" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-73" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;bs-payment-v1&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0e8088;strokeWidth=2;fillColor=#b0e3e6;align=center;spacing=10;" parent="jKIbGQgtxKfHBczteNCG-72" vertex="1">
-          <mxGeometry x="10" y="9" width="90" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-74" value="REST&lt;br style=&quot;font-size: 5px;&quot;&gt;API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=5;fontStyle=1" parent="jKIbGQgtxKfHBczteNCG-72" vertex="1">
-          <mxGeometry y="23" width="20" height="15" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-75" value="" style="group" parent="jKIbGQgtxKfHBczteNCG-72" vertex="1" connectable="0">
-          <mxGeometry x="87" width="20" height="20" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-76" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="jKIbGQgtxKfHBczteNCG-75" vertex="1">
-          <mxGeometry width="20" height="20" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-77" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.armadilloamarillo.com/wp-content/uploads/course-image.png;container=0;" parent="jKIbGQgtxKfHBczteNCG-75" vertex="1">
-          <mxGeometry x="1.3760000000000217" y="1.3719999999999999" width="17.252" height="17.252" as="geometry" />
-        </mxCell>
-        <mxCell id="jKIbGQgtxKfHBczteNCG-80" value="" style="sketch=0;aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/mscae/Cache_Redis_Product.svg;strokeColor=#000000;strokeWidth=2;fillColor=none;" parent="jKIbGQgtxKfHBczteNCG-81" vertex="1">
-          <mxGeometry x="88" y="34.129999999999995" width="22.03" height="18.5" as="geometry" />
         </mxCell>
         <mxCell id="jKIbGQgtxKfHBczteNCG-82" value="" style="group" parent="1" vertex="1" connectable="0">
           <mxGeometry x="4180" y="226.5" width="107" height="50" as="geometry" />
@@ -616,11 +544,74 @@
         <mxCell id="jKIbGQgtxKfHBczteNCG-464" value="Indique el DNI o RUC" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rect;strokeColor=none;fillColor=none;fontColor=#999999;align=left;spacingLeft=5;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="2965" y="1638.37" width="130" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="HQYLXBbnGuhfSInWrE4T-21" value="SOFTWARE ARCHITECTURE" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" vertex="1" parent="1">
+        <mxCell id="HQYLXBbnGuhfSInWrE4T-21" value="SOFTWARE ARCHITECTURE" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="3810" y="30" width="300" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="HQYLXBbnGuhfSInWrE4T-22" value="USER EXPERIENCE" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" vertex="1" parent="1">
+        <mxCell id="HQYLXBbnGuhfSInWrE4T-22" value="USER EXPERIENCE" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="2570" y="20" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-71" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="4337" y="499.87" width="111" height="63" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-72" value="" style="group" parent="jKIbGQgtxKfHBczteNCG-71" vertex="1" connectable="0">
+          <mxGeometry width="107" height="63" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-73" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;bs-payment-v1&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0e8088;strokeWidth=2;fillColor=#b0e3e6;align=center;spacing=10;" parent="jKIbGQgtxKfHBczteNCG-72" vertex="1">
+          <mxGeometry x="10" y="9" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-74" value="REST&lt;br style=&quot;font-size: 5px;&quot;&gt;API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=5;fontStyle=1" parent="jKIbGQgtxKfHBczteNCG-72" vertex="1">
+          <mxGeometry y="23" width="20" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-75" value="" style="group" parent="jKIbGQgtxKfHBczteNCG-72" vertex="1" connectable="0">
+          <mxGeometry x="87" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-76" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="jKIbGQgtxKfHBczteNCG-75" vertex="1">
+          <mxGeometry width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-77" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.armadilloamarillo.com/wp-content/uploads/course-image.png;container=0;" parent="jKIbGQgtxKfHBczteNCG-75" vertex="1">
+          <mxGeometry x="1.3760000000000217" y="1.3719999999999999" width="17.252" height="17.252" as="geometry" />
+        </mxCell>
+        <mxCell id="6RjSpF5HRiMKSESvIRvW-68" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/databases/Azure_Database_PostgreSQL_Server.svg;strokeColor=#000000;strokeWidth=2;fillColor=none;" parent="jKIbGQgtxKfHBczteNCG-72" vertex="1">
+          <mxGeometry x="87.61999999999989" y="38" width="18.75" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="P072KRGB2cGO4uocXCFb-1" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="4417" y="294" width="117.01999999999953" height="57.5" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-41" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;bs-dining-room-order-v1&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0e8088;strokeWidth=2;fillColor=#b0e3e6;align=center;spacing=10;" parent="P072KRGB2cGO4uocXCFb-1" vertex="1">
+          <mxGeometry x="10" y="9" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-42" value="REST&lt;br style=&quot;font-size: 5px;&quot;&gt;API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=5;fontStyle=1" parent="P072KRGB2cGO4uocXCFb-1" vertex="1">
+          <mxGeometry y="23" width="20" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-43" value="" style="group" parent="P072KRGB2cGO4uocXCFb-1" vertex="1" connectable="0">
+          <mxGeometry x="96" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-44" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="jKIbGQgtxKfHBczteNCG-43" vertex="1">
+          <mxGeometry width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-45" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.armadilloamarillo.com/wp-content/uploads/course-image.png;container=0;" parent="jKIbGQgtxKfHBczteNCG-43" vertex="1">
+          <mxGeometry x="1.3760000000000217" y="1.3719999999999999" width="17.252" height="17.252" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-80" value="" style="sketch=0;aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/mscae/Cache_Redis_Product.svg;strokeColor=#000000;strokeWidth=2;fillColor=none;" parent="P072KRGB2cGO4uocXCFb-1" vertex="1">
+          <mxGeometry x="94.98999999999978" y="39" width="22.03" height="18.5" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-50" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="4337" y="374" width="107" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-51" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;bs-invoice-v1&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0e8088;strokeWidth=2;fillColor=#b0e3e6;align=center;spacing=10;" parent="jKIbGQgtxKfHBczteNCG-50" vertex="1">
+          <mxGeometry x="10" y="9" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-52" value="REST&lt;br style=&quot;font-size: 5px;&quot;&gt;API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=5;fontStyle=1" parent="jKIbGQgtxKfHBczteNCG-50" vertex="1">
+          <mxGeometry y="23" width="20" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-53" value="" style="group" parent="jKIbGQgtxKfHBczteNCG-50" vertex="1" connectable="0">
+          <mxGeometry x="87" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-54" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="jKIbGQgtxKfHBczteNCG-53" vertex="1">
+          <mxGeometry width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="jKIbGQgtxKfHBczteNCG-55" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.armadilloamarillo.com/wp-content/uploads/course-image.png;container=0;" parent="jKIbGQgtxKfHBczteNCG-53" vertex="1">
+          <mxGeometry x="1.3760000000000217" y="1.3719999999999999" width="17.252" height="17.252" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

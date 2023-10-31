@@ -4,7 +4,9 @@ import java.util.function.Consumer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import com.demo.bbq.business.invoice.application.service.InvoiceService;
+
+import com.demo.bbq.business.invoice.application.service.PaymentGeneratorService;
+import com.demo.bbq.business.invoice.application.service.ProformaInvoiceService;
 import com.demo.bbq.business.invoice.domain.model.request.InvoiceRequest;
 import com.demo.bbq.business.invoice.domain.model.response.Invoice;
 import com.demo.bbq.support.logstash.Markers;
@@ -21,13 +23,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/bbq/business/v1/invoices")
 public class InvoiceRestServiceImpl implements InvoiceRestService{
 
-  private final InvoiceService invoiceService;
+  private final ProformaInvoiceService proformaInvoiceService;
+  private final PaymentGeneratorService paymentGeneratorService;
 
   @GetMapping(value = "/proforma", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
   public Single<Invoice> generateProformaInvoice(
       HttpServletRequest servletRequest, @RequestParam(value = "tableNumber") Integer tableNumber) {
     logRequest.accept(servletRequest);
-    return invoiceService.generateInvoice(tableNumber);
+    return proformaInvoiceService.generateProformaInvoice(tableNumber);
   }
 
   @PostMapping("/send-to-pay")
@@ -35,7 +38,7 @@ public class InvoiceRestServiceImpl implements InvoiceRestService{
                                         HttpServletResponse servletResponse,
                                         @Valid @RequestBody InvoiceRequest invoiceRequest) {
     logRequest.accept(servletRequest);
-    return invoiceService.sendToPay(invoiceRequest)
+    return paymentGeneratorService.sendToPay(invoiceRequest)
         .doOnComplete(() -> servletResponse.setStatus(201));
   }
 

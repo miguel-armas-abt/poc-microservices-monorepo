@@ -12,6 +12,7 @@
 
 ## Features
 > - [feat-0001] `DevOps` Automatizar la exportación e importación de la configuración de los pipelines de Jenkins
+> - [feat-0002] `Backend` Refactorizar el proceso de facturación y pago
 > - [<s>feat-0003</s>] `Backend` Implementar SpringDoc en los servicios web de negocio
 > - [feat-0004] `Frontend` Implementar frontend con Angular
 > - [feat-0005] `DevOps` Agregar manifiesto de K8s para Keycloak Server y auth-adapter-v1

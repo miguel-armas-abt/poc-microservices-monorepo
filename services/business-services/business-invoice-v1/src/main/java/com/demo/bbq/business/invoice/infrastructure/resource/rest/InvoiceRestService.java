@@ -31,7 +31,7 @@ public interface InvoiceRestService {
   Single<Invoice> generateProformaInvoice(HttpServletRequest servletRequest,
                                           @Parameter(example = InvoiceExample.TABLE_NUMBER) Integer tableNumber);
 
-  @Operation(summary = "Send proforma invoice to pay", tags = InvoiceDocumentationMetadata.TAG)
+  @Operation(summary = "Send proforma invoice to pay and clean the table order", tags = InvoiceDocumentationMetadata.TAG)
   @ApiResponse(responseCode = "201")
   Completable sendToPay(HttpServletRequest servletRequest,
                         HttpServletResponse servletResponse, InvoiceRequest invoiceRequest);

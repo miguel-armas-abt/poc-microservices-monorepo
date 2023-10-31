@@ -18,6 +18,8 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
+
+import io.reactivex.Completable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -43,6 +45,18 @@ public class DiningRoomOrderServiceImpl implements DiningRoomOrderService {
     return tableRepository.findByTableNumber(tableNumber)
         .map(diningRoomOrderMapper::fromEntityToDto)
         .switchIfEmpty(Mono.error(DiningRoomOrderException.ERROR0000.buildException()));
+  }
+
+  @Override
+  public Mono<Void> cleanTable(Integer tableNumber) {
+    return tableRepository.findByTableNumber(tableNumber)
+        .map(tableEntity -> {
+          tableEntity.setMenuOrderList(new ArrayList<>());
+          return tableEntity;
+        })
+        .flatMap(tableRepository::save)
+        .ignoreElement()
+        .flatMap(ignored -> Mono.empty());
   }
 
   @Override
