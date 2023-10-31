@@ -1,7 +1,7 @@
 package com.demo.bbq.business.invoice.infrastructure.resource.rest;
 
 import com.demo.bbq.business.invoice.domain.model.request.InvoiceRequest;
-import com.demo.bbq.business.invoice.domain.model.response.Invoice;
+import com.demo.bbq.business.invoice.domain.model.response.ProformaInvoice;
 import com.demo.bbq.business.invoice.infrastructure.documentation.data.InvoiceDocumentationMetadata;
 import com.demo.bbq.business.invoice.infrastructure.documentation.data.InvoiceExample;
 import com.demo.bbq.support.exception.documentation.ApiExceptionJsonExample;
@@ -27,9 +27,9 @@ import javax.servlet.http.HttpServletResponse;
 public interface InvoiceRestService {
 
   @Operation(summary = "Generate a proforma invoice based on the orders requested on a table", tags = InvoiceDocumentationMetadata.TAG)
-  @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = Invoice.class))})
-  Single<Invoice> generateProformaInvoice(HttpServletRequest servletRequest,
-                                          @Parameter(example = InvoiceExample.TABLE_NUMBER) Integer tableNumber);
+  @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = ProformaInvoice.class))})
+  Single<ProformaInvoice> generateProformaInvoice(HttpServletRequest servletRequest,
+                                                  @Parameter(example = InvoiceExample.TABLE_NUMBER) Integer tableNumber);
 
   @Operation(summary = "Send proforma invoice to pay and clean the table order", tags = InvoiceDocumentationMetadata.TAG)
   @ApiResponse(responseCode = "201")

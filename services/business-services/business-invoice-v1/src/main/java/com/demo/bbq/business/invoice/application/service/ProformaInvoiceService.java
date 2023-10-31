@@ -1,10 +1,10 @@
 package com.demo.bbq.business.invoice.application.service;
 
-import com.demo.bbq.business.invoice.domain.model.response.Invoice;
+import com.demo.bbq.business.invoice.domain.model.response.ProformaInvoice;
 import io.reactivex.Single;
 
 public interface ProformaInvoiceService {
 
-  Single<Invoice> generateProformaInvoice(Integer tableNumber);
+  Single<ProformaInvoice> generateProformaInvoice(Integer tableNumber);
 
 }

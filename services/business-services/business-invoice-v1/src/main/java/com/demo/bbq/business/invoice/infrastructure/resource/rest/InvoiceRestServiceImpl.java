@@ -8,7 +8,7 @@ import javax.validation.Valid;
 import com.demo.bbq.business.invoice.application.service.PaymentGeneratorService;
 import com.demo.bbq.business.invoice.application.service.ProformaInvoiceService;
 import com.demo.bbq.business.invoice.domain.model.request.InvoiceRequest;
-import com.demo.bbq.business.invoice.domain.model.response.Invoice;
+import com.demo.bbq.business.invoice.domain.model.response.ProformaInvoice;
 import com.demo.bbq.support.logstash.Markers;
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -27,7 +27,7 @@ public class InvoiceRestServiceImpl implements InvoiceRestService{
   private final PaymentGeneratorService paymentGeneratorService;
 
   @GetMapping(value = "/proforma", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-  public Single<Invoice> generateProformaInvoice(
+  public Single<ProformaInvoice> generateProformaInvoice(
       HttpServletRequest servletRequest, @RequestParam(value = "tableNumber") Integer tableNumber) {
     logRequest.accept(servletRequest);
     return proformaInvoiceService.generateProformaInvoice(tableNumber);

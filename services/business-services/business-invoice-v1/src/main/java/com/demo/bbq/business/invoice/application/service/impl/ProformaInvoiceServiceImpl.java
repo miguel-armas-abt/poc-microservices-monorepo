@@ -4,7 +4,7 @@ import com.demo.bbq.business.invoice.infrastructure.properties.InvoiceProperties
 import com.demo.bbq.business.invoice.infrastructure.repository.restclient.DiningRoomOrderApi;
 import com.demo.bbq.business.invoice.infrastructure.repository.restclient.MenuOptionV2Api;
 import com.demo.bbq.business.invoice.application.service.ProformaInvoiceService;
-import com.demo.bbq.business.invoice.domain.model.response.Invoice;
+import com.demo.bbq.business.invoice.domain.model.response.ProformaInvoice;
 import com.demo.bbq.business.invoice.domain.model.response.MenuOrder;
 import com.demo.bbq.business.invoice.infrastructure.repository.restclient.dto.menuoption.MenuOptionDto;
 import io.reactivex.Observable;
@@ -28,7 +28,7 @@ public class ProformaInvoiceServiceImpl implements ProformaInvoiceService {
   private final InvoiceProperties properties;
 
   @Override
-  public Single<Invoice> generateProformaInvoice(Integer tableNumber) {
+  public Single<ProformaInvoice> generateProformaInvoice(Integer tableNumber) {
     List<MenuOrder> menuOrderList = new ArrayList<>();
     AtomicReference<BigDecimal> subtotalInvoice = new AtomicReference<>(BigDecimal.ZERO);
     return diningRoomOrderApi.findByTableNumber(tableNumber)
@@ -54,9 +54,9 @@ public class ProformaInvoiceServiceImpl implements ProformaInvoiceService {
         .build();
   }
 
-  private Invoice toInvoice(List<MenuOrder> menuOrderList, BigDecimal subtotal) {
+  private ProformaInvoice toInvoice(List<MenuOrder> menuOrderList, BigDecimal subtotal) {
     BigDecimal igv = properties.getIgv();
-    return Invoice.builder()
+    return ProformaInvoice.builder()
         .menuOrderList(menuOrderList)
         .subtotal(subtotal)
         .igv(igv)

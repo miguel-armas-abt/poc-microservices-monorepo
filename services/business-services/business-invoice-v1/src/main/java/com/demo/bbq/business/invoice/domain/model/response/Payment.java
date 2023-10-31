@@ -1,4 +1,4 @@
-package com.demo.bbq.business.payment.domain.model.response;
+package com.demo.bbq.business.invoice.domain.model.response;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Invoice implements Serializable {
+public class ProformaInvoice implements Serializable {
 
   private List<MenuOrder> menuOrderList;
 
