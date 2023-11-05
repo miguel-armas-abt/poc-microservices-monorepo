@@ -1,7 +1,8 @@
 package com.demo.bbq.business.payment.domain.model.response;
 
-import lombok.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import lombok.*;
 
 @Builder
 @Setter
@@ -10,6 +11,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Payment implements Serializable {
 
-  private Long id;
+  BigDecimal totalAmount;
+  String paymentMethod;
+  String paymentStatus;
+  Long invoiceId;
 
 }

@@ -39,4 +39,10 @@ public interface DiningRoomOrderRestService {
                                 @RequestBody(description = "Requested menu list") List<MenuOrderRequest> requestedMenuOrderList,
                                 @Parameter(example = DiningRoomOrderExample.TABLE_NUMBER) Integer tableNumber);
 
+  @Operation(summary = "Clean the menu list associated to table order", tags = DiningRoomOrderDocumentationMetadata.TAG)
+  @ApiResponse(responseCode = "201")
+  Mono<Void> cleanTable(HttpServletRequest servletRequest,
+                        HttpServletResponse servletResponse,
+                        @Parameter(example = DiningRoomOrderExample.TABLE_NUMBER) Integer tableNumber);
+
 }

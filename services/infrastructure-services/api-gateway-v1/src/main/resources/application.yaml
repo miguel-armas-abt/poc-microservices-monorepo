@@ -22,8 +22,8 @@ spring:
           predicates:
             - Path=/bbq/business/v1/menu-options/** #- Path=/** #to access swagger doc of the service through the api gateway
             - Method=GET,POST,PUT,DELETE,PATCH
-          filters:
-            - name: AuthenticationFilter
+#          filters:
+#            - name: AuthenticationFilter
 
         - id: business-dining-room-order-v1
           uri: lb://business-dining-room-order-v1

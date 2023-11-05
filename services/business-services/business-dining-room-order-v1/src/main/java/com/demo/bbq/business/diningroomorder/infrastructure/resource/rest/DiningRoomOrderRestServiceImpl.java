@@ -12,6 +12,7 @@ import com.demo.bbq.support.logstash.Markers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -28,6 +29,16 @@ public class DiningRoomOrderRestServiceImpl implements DiningRoomOrderRestServic
       HttpServletRequest servletRequest, @RequestParam(value = "tableNumber") Integer tableNumber) {
     logRequest.accept(servletRequest);
     return diningRoomOrderService.findByTableNumber(tableNumber);
+  }
+
+  @PatchMapping("/clean")
+  public Mono<Void> cleanTable(HttpServletRequest servletRequest,
+                               HttpServletResponse servletResponse,
+                               @RequestParam(value = "tableNumber") Integer tableNumber) {
+    logRequest.accept(servletRequest);
+    return diningRoomOrderService.cleanTable(tableNumber)
+        .doOnSuccess(tableOrderId -> servletResponse.setStatus(201))
+        .then(Mono.empty());
   }
 
   @PatchMapping

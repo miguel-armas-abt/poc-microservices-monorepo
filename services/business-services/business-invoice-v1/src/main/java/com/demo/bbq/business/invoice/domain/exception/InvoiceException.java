@@ -15,7 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 public enum InvoiceException {
 
   ERROR0000(ApiExceptionType.NO_DATA, "The dining room table does not exist"),
-  ERROR0001(ApiExceptionType.BUSINESS_RULES, "The requested menu order doesn't exist");
+  ERROR0001(ApiExceptionType.BUSINESS_RULES, "The requested menu order doesn't exist"),
+  ERROR0002(ApiExceptionType.BUSINESS_RULES, "The payment installment requested isn't permitted"),
+  ERROR0003(ApiExceptionType.BUSINESS_RULES, "The invoice requested doesn't have data"),
+  ERROR0004(ApiExceptionType.BUSINESS_RULES, "The amount paid exceeds the debt");
 
   private final ApiExceptionType type;
   private final String message;

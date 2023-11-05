@@ -50,7 +50,7 @@ services:
 #      - POSTGRESQL_PASSWORD=qwerty
 #      - POSTGRESQL_URL=jdbc:postgresql://postgres_db:5432/db_dining_room_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
 #      - BUSINESS_MENU_OPTION_V1_BASE_PATH=http://api-gateway-v1:8010/bbq/business/v1/
-#      - BUSINESS_MENU_OPTION_V2_BASE_PATH=http://business-menu-option-v2:8810/bbq/business/v2/
+#      - BUSINESS_MENU_OPTION_V2_BASE_PATH=http://business-menu-option-v2:8016/bbq/business/v2/
 #      - JAVA_OPTS=-Xms256M -Xmx256M
 #    depends_on:
 #      - registry-discovery-server-v1
