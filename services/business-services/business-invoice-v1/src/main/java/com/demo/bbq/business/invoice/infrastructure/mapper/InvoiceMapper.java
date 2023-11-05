@@ -8,6 +8,8 @@ import com.demo.bbq.business.invoice.infrastructure.repository.database.entity.I
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.math.BigDecimal;
+
 @Mapper(componentModel = "spring")
 public interface InvoiceMapper {
 
@@ -24,10 +26,17 @@ public interface InvoiceMapper {
   @Mapping(target = "paymentMethod", expression = "java(invoiceEntity.getPaymentMethod().name())")
   @Mapping(target = "paymentStatus", expression = "java(invoiceEntity.getPaymentStatus().name())")
   @Mapping(target = "invoiceId", source = "id")
-  @Mapping(target = "totalAmount", source = "total")
+  @Mapping(target = "totalAmount", expression = "java(getAmountToPay(invoiceEntity.getPaymentInstallments(), invoiceEntity.getTotal()))")
   Payment invoiceToPayment(InvoiceEntity invoiceEntity);
 
   default PaymentMethod getPaymentMethod(String paymentMethod) {
     return PaymentMethod.valueOf(paymentMethod);
+  }
+
+  default BigDecimal getAmountToPay(Integer paymentInstallments, BigDecimal totalAmount) {
+    if (paymentInstallments > 1) {
+      return totalAmount.divide(new BigDecimal(paymentInstallments));
+    }
+    return totalAmount;
   }
 }

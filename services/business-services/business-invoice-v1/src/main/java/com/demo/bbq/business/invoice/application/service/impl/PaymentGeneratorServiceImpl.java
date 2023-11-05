@@ -58,13 +58,22 @@ public class PaymentGeneratorServiceImpl implements PaymentGeneratorService {
     if(invoice.getTotal().compareTo(BigDecimal.ZERO) == 0) {
       throw InvoiceException.ERROR0003.buildException();
     }
+
+    if(invoice.getPaymentInstallments() < 0) {
+      throw InvoiceException.ERROR0002.buildException();
+    }
+
+    if(invoice.getPaymentInstallments() == 1) { //this logic isn't correct
+      invoice.setPendingAmount(invoice.getTotal());
+    }
+
     LocalDateTime currentDate = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(InvoiceConstant.FORMAT_DATE);
 
     invoice.setBillingDate(currentDate.format(formatter));
     invoice.setDueDate(buildDueDate(currentDate, formatter, invoice.getPaymentInstallments()));
     invoice.setPaymentStatus(PaymentStatus.PENDING);
-    validateCustomer(invoice.getCustomerEntity());
+    invoice.setCustomerEntity(validateCustomer(invoice.getCustomerEntity()));
     productRepository.saveAll(invoice.getProductEntityList());
 
     return invoice;
@@ -72,9 +81,6 @@ public class PaymentGeneratorServiceImpl implements PaymentGeneratorService {
 
   private static final String buildDueDate(LocalDateTime currentDate, DateTimeFormatter dateFormatter,
                                            Integer paymentInstallments) {
-    if(paymentInstallments < 0) {
-      throw InvoiceException.ERROR0002.buildException();
-    }
     return paymentInstallments == 1
         ? currentDate.format(dateFormatter)
         : currentDate.plus(Period.ofMonths(paymentInstallments)).format(dateFormatter);
@@ -82,6 +88,6 @@ public class PaymentGeneratorServiceImpl implements PaymentGeneratorService {
 
   private CustomerEntity validateCustomer(CustomerEntity customerEntity) {
     return customerRepository.findByDocumentNumber(customerEntity.getDocumentNumber())
-        .orElse(customerRepository.save(customerEntity));
+        .orElseGet(() -> customerRepository.save(customerEntity));
   }
 }

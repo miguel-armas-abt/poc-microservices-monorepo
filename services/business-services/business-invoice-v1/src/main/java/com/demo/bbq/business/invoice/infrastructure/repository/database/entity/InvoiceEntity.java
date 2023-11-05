@@ -46,6 +46,9 @@ public class InvoiceEntity implements Serializable {
   @Column(name = "total")
   private BigDecimal total;
 
+  @Column(name = "pending_amount")
+  private BigDecimal pendingAmount;
+
   @Enumerated(EnumType.STRING)
   @Column(name = "payment_method")
   private PaymentMethod paymentMethod;
