@@ -5,8 +5,8 @@ application:
         base-url: ${BUSINESS_MENU_OPTION_V1_BASE_PATH:http://localhost:8010/bbq/business/v1/}
       v2:
         base-url: ${BUSINESS_MENU_OPTION_V2_BASE_PATH:http://localhost:8016/bbq/business/v2/}
-      selector-class: com.demo.bbq.business.waiterorder.infrastructure.repository.restclient.menuoption.menuoptionv2.retrofit.MenuOptionV2ApiConnectorRetrofitImpl
-      selector-class-fallback: com.demo.bbq.business.waiterorder.infrastructure.repository.restclient.menuoption.menuoptionv1.retrofit.MenuOptionV1ApiConnectorRetrofitImpl
+      selector-class: com.demo.bbq.business.waiterorder.infrastructure.repository.restclient.menuoption.menuoptionv1.retrofit.MenuOptionV1ApiConnectorRetrofitImpl
+      selector-class-fallback: com.demo.bbq.business.waiterorder.infrastructure.repository.restclient.menuoption.menuoptionv2.retrofit.MenuOptionV2ApiConnectorRetrofitImpl
     dining-room-order:
       base-url: ${BUSINESS_DINING_ROOM_ORDER_V1_BASE_PATH:http://localhost:8010/bbq/business/v1/}
 
