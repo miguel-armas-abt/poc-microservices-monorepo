@@ -21,14 +21,11 @@ public class ProductEntity implements Serializable {
   @Column(name = "description")
   private String description;
 
-  @Column(name = "price")
-  private BigDecimal price;
+  @Column(name = "unit_price")
+  private BigDecimal unitPrice;
 
   @Column(name = "quantity")
   private Integer quantity;
-
-  @Column(name = "total")
-  private BigDecimal total;
 
   @Column(name = "invoice_id")
   private Long invoiceId;

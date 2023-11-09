@@ -12,8 +12,6 @@ import lombok.*;
 @NoArgsConstructor
 public class Customer implements Serializable {
 
-  private String name;
-
   @Pattern(regexp = InvoiceRegex.DOCUMENT_TYPE, message = "Invalid document type")
   private String documentType;
 

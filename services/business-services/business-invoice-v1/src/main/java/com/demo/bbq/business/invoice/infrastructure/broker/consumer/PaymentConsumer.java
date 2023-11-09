@@ -3,7 +3,7 @@ package com.demo.bbq.business.invoice.infrastructure.broker.consumer;
 import com.demo.bbq.business.invoice.domain.exception.InvoiceException;
 import com.demo.bbq.business.invoice.domain.model.response.PaidTransaction;
 import com.demo.bbq.business.invoice.infrastructure.repository.database.InvoiceRepository;
-import java.math.BigDecimal;
+import com.demo.bbq.business.invoice.infrastructure.repository.database.catalog.PaymentStatus;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,15 +26,10 @@ public class PaymentConsumer {
 
     invoiceRepository.findById(paidTransaction.getInvoiceId())
         .map(invoice -> {
-          BigDecimal actualPendingAmount = invoice.getPendingAmount();
-          BigDecimal subtractedAmount = actualPendingAmount.subtract(paidTransaction.getPaidAmount());
-          if (subtractedAmount.compareTo(BigDecimal.ZERO) < 0) {
-            throw InvoiceException.ERROR0004.buildException();
-          }
-          invoice.setPendingAmount(subtractedAmount);
+          invoice.setPaymentStatus(PaymentStatus.COMPLETED);
           return invoiceRepository.save(invoice);
-        });
+        })
+        .orElseThrow(InvoiceException.ERROR0001::buildException);
 
-    log.error(payload); //if the process wasn't successful, then send a notification to resend the payment
   }
 }
