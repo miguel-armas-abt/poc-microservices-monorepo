@@ -14,7 +14,7 @@ resilience4j:
   circuitbreaker:
     instances:
       menu-option:
-        registerHealthIndicator: true
+        registerHealthIndicator: false
         eventConsumerBufferSize: 10
         automaticTransitionFromOpenToHalfOpenEnabled: true
         failureRateThreshold: 50
