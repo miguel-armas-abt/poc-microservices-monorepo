@@ -4,22 +4,17 @@ import com.demo.bbq.business.diningroomorder.domain.model.dto.DiningRoomOrderDto
 import com.demo.bbq.business.diningroomorder.domain.model.dto.MenuOrderDto;
 import com.demo.bbq.business.diningroomorder.infrastructure.repository.database.impl.MenuOrderRepositoryReactive;
 import com.demo.bbq.business.diningroomorder.infrastructure.repository.database.impl.TableRepositoryReactive;
-import com.demo.bbq.business.diningroomorder.infrastructure.repository.restclient.menuoption.MenuOptionApi;
 import com.demo.bbq.business.diningroomorder.application.service.DiningRoomOrderService;
 import com.demo.bbq.business.diningroomorder.domain.exception.DiningRoomOrderException;
 import com.demo.bbq.business.diningroomorder.domain.model.request.MenuOrderRequest;
 import com.demo.bbq.business.diningroomorder.infrastructure.mapper.DiningRoomOrderMapper;
 import com.demo.bbq.business.diningroomorder.infrastructure.mapper.MenuOrderMapper;
-import com.demo.bbq.support.exception.model.ApiException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
-
-import io.reactivex.Completable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -33,8 +28,6 @@ public class DiningRoomOrderServiceImpl implements DiningRoomOrderService {
 
   private final TableRepositoryReactive tableRepository;
   private final MenuOrderRepositoryReactive menuOrderRepository;
-
-  private final MenuOptionApi menuOptionApi;
 
   private final DiningRoomOrderMapper diningRoomOrderMapper;
 
@@ -78,9 +71,7 @@ public class DiningRoomOrderServiceImpl implements DiningRoomOrderService {
         if (menuOptionAlreadyExist.test(existingMenuOrderMap, requestedMenuOrder.getMenuOptionId())) {
           increaseQuantity.accept(existingMenuOrderMap, requestedMenuOrder);
         } else {
-          if(existMenuOption(requestedMenuOrder.getMenuOptionId())) {
-            existingMenuOrderMap.put(requestedMenuOrder.getMenuOptionId(), menuOrderMapper.fromRequestToDto(requestedMenuOrder));
-          }
+          existingMenuOrderMap.put(requestedMenuOrder.getMenuOptionId(), menuOrderMapper.fromRequestToDto(requestedMenuOrder));
         }
     });
     diningRoomOrder.setMenuOrderList(new ArrayList<>(existingMenuOrderMap.values()));
@@ -94,18 +85,5 @@ public class DiningRoomOrderServiceImpl implements DiningRoomOrderService {
     existingMenuOrder.setQuantity(existingMenuOrder.getQuantity() + requestedMenuOrder.getQuantity());
     existingMenuOrderMap.put(requestedMenuOrder.getMenuOptionId(), existingMenuOrder);
   };
-
-  private Boolean existMenuOption(Long menuOptionId) {
-    return menuOptionApi.findById(menuOptionId)
-        .map(response -> Objects.nonNull(response.getId()))
-        .block();
-  }
-
-  Mono<Throwable> validApiException(Throwable throwable, String exceptionCode) {
-    return Mono.just(throwable)
-        .filter(ApiException.class::isInstance)
-        .filter(exception -> ((ApiException) exception).getErrorCode().equals(exceptionCode))
-        .switchIfEmpty(Mono.error(throwable));
-  }
 
 }

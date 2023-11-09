@@ -49,6 +49,14 @@ spring:
 #          filters:
 #            - name: AuthenticationFilter
 
+        - id: experience-waiter-order-v1
+          uri: lb://experience-waiter-order-v1
+          predicates:
+            - Path=/bbq/experience/v1/waiter-orders/**
+            - Method=GET,POST,PUT,DELETE,PATCH
+#          filters:
+#            - name: AuthenticationFilter
+
 application:
   http-client:
     auth-adapter:
