@@ -1,0 +1,27 @@
+application:
+  http-client:
+    menu:
+      v1:
+        base-url: ${MENU_V1_BASE_URL:http://localhost:8010/bbq/business/menu/v1/}
+      v2:
+        base-url: ${MENU_V2_BASE_URL:http://localhost:8016/bbq/business/menu/v2/}
+      selector-class: com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menuoption.menuoptionv1.retrofit.MenuOptionV1ApiConnectorRetrofitImpl
+      selector-class-fallback: com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menuoption.menuoptionv2.retrofit.MenuOptionV2ApiConnectorRetrofitImpl
+    table-placement:
+      base-url: ${TABLE_PLACEMENT_V1_BASE_URL:http://localhost:8010/bbq/business/table-placement/v1/}
+    invoice:
+      base-url: ${INVOICE_V1_BASE_URL:http://localhost:8010/bbq/business/invoice/v1/}
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      menu-option:
+        registerHealthIndicator: false
+        eventConsumerBufferSize: 10
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        waitDurationInOpenState: 5s
+        slidingWindowType: COUNT_BASED
