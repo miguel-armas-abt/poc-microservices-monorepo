@@ -30,13 +30,13 @@ public class TablePlacementRestServiceImpl implements TablePlacementRestService 
     return tablePlacementService.findByTableNumber(tableNumber);
   }
 
-  @PatchMapping("/clean")
+  @DeleteMapping
   public Mono<Void> cleanTable(HttpServletRequest servletRequest,
                                HttpServletResponse servletResponse,
                                @RequestParam(value = "tableNumber") Integer tableNumber) {
     logRequest.accept(servletRequest);
     return tablePlacementService.cleanTable(tableNumber)
-        .doOnSuccess(tableOrderId -> servletResponse.setStatus(201))
+        .doOnSuccess(tableOrderId -> servletResponse.setStatus(204))
         .then(Mono.empty());
   }
 

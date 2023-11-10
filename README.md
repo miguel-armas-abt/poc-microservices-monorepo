@@ -53,18 +53,18 @@ Para desplegar localmente los servicios web es necesario ejecutar previamente lo
 
 Los puertos definidos para cada servicio web son los siguientes:
 
-| Web service                   | Port   |
-|-------------------------------|--------|
-| registry-discovery-server-v1  | `8761` |
-| config-server-v1              | `8888` |
-| api-gateway-v1                | `8010` |
-| auth-adapter-v1               | `8011` |
-| business-menu-option-v1       | `8012` |
-| business-dining-room-order-v1 | `8013` |
-| business-invoice-v1           | `8014` |
-| business-payment-v1           | `8015` |
-| business-menu-option-v2       | `8016` |
-| business-menu-option-v3       | `8017` |
+| Web service                  | Port   |
+|------------------------------|--------|
+| registry-discovery-server-v1 | `8761` |
+| config-server-v1             | `8888` |
+| api-gateway-v1               | `8010` |
+| auth-adapter-v1              | `8011` |
+| menu-v1                      | `8012` |
+| table-placement-v1           | `8013` |
+| invoice-v1                   | `8014` |
+| payment-v1                   | `8015` |
+| menu-v2                      | `8016` |
+| menu-v3                      | `8017` |
 
 # 4. Orquestacion con Docker Compose
 ## 4.1. Construir imágenes

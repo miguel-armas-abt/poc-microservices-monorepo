@@ -33,18 +33,18 @@ spring:
 #          filters:
 #            - name: AuthenticationFilter
 
-        - id: business-invoice-v1
-          uri: lb://business-invoice-v1
+        - id: invoice-v1
+          uri: lb://invoice-v1
           predicates:
-            - Path=/bbq/business/invoices/v1/**
+            - Path=/bbq/business/invoice/v1/**
             - Method=GET,POST,PUT,DELETE,PATCH
 #          filters:
 #            - name: AuthenticationFilter
 
-        - id: business-payment-v1
-          uri: lb://business-payment-v1
+        - id: payment-v1
+          uri: lb://payment-v1
           predicates:
-            - Path=/bbq/business/payments/v1/**
+            - Path=/bbq/business/payment/v1/**
             - Method=GET,POST,PUT,DELETE,PATCH
 #          filters:
 #            - name: AuthenticationFilter

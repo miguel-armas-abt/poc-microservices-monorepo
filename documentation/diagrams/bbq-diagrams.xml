@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-11-10T02:51:10.971Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="ycGVaEo7dc3MRdOdDfgQ" version="22.1.0" type="device" pages="2">
+<mxfile host="app.diagrams.net" modified="2023-11-10T03:59:34.442Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="q2k5Fe1ArezD9Vk4edCW" version="22.1.0" type="device" pages="2">
   <diagram id="Mab86lwmYLIhfpq_8ImP" name="UC-waiter">
     <mxGraphModel dx="-1363" dy="548" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -700,6 +700,18 @@
         </mxCell>
         <mxCell id="-WSHRDpBIJS9e_KUlGCz-3" value="menu_orders" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="4670" y="435" width="93" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-WSHRDpBIJS9e_KUlGCz-4" value="customers" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="4810" y="478.37" width="93" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-WSHRDpBIJS9e_KUlGCz-5" value="invoices" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="4810" y="513.37" width="93" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-WSHRDpBIJS9e_KUlGCz-6" value="products" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="4810" y="548.5" width="93" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-WSHRDpBIJS9e_KUlGCz-7" value="payments" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="4548.01" y="692.37" width="93" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
