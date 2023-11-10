@@ -20,15 +20,15 @@ spring:
         - id: menu-v1
           uri: lb://menu-v1 #If the URL has a scheme of lb (such as lb://myservice), it uses the Spring Cloud LoadBalancerClient to resolve the name (myservice in this case)
           predicates:
-            - Path=/bbq/business/menu/v1/menu-options/** #- Path=/** #to access swagger doc of the service through the api gateway
+            - Path=/bbq/business/menu/v1/** #- Path=/** #to access swagger doc of the service through the api gateway
             - Method=GET,POST,PUT,DELETE,PATCH
 #          filters:
 #            - name: AuthenticationFilter
 
-        - id: business-dining-room-order-v1
-          uri: lb://business-dining-room-order-v1
+        - id: table-placement-v1
+          uri: lb://table-placement-v1
           predicates:
-            - Path=/bbq/business/v1/dining-room-orders/**
+            - Path=/bbq/business/table-placement/v1/**
             - Method=GET,POST,PUT,DELETE,PATCH
 #          filters:
 #            - name: AuthenticationFilter
@@ -36,7 +36,7 @@ spring:
         - id: business-invoice-v1
           uri: lb://business-invoice-v1
           predicates:
-            - Path=/bbq/business/v1/invoices/**
+            - Path=/bbq/business/invoices/v1/**
             - Method=GET,POST,PUT,DELETE,PATCH
 #          filters:
 #            - name: AuthenticationFilter
@@ -44,15 +44,15 @@ spring:
         - id: business-payment-v1
           uri: lb://business-payment-v1
           predicates:
-            - Path=/bbq/business/v1/payments/**
+            - Path=/bbq/business/payments/v1/**
             - Method=GET,POST,PUT,DELETE,PATCH
 #          filters:
 #            - name: AuthenticationFilter
 
-        - id: experience-waiter-order-v1
-          uri: lb://experience-waiter-order-v1
+        - id: order-hub-v1
+          uri: lb://order-hub-v1
           predicates:
-            - Path=/bbq/experience/v1/waiter-orders/**
+            - Path=/bbq/experience/order-hub/v1/**
             - Method=GET,POST,PUT,DELETE,PATCH
 #          filters:
 #            - name: AuthenticationFilter
