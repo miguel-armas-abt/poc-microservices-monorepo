@@ -64,7 +64,7 @@ email ficticios. A continuación, ubique la sección `Build Steps`, presione el 
 opción `Ejecutar tareas 'maven' de nivel superior` y configure los siguientes campos.
 > **Goals**: `clean install`
 > 
-> **POM**: `services/business-services/business-menu-option-v1/pom.xml`
+> **POM**: `services/business-services/menu-v1/pom.xml`
 
 Ubique la sección `Build Steps`, presione el botón `Add build step`, seleccione la opción `Ejecutar línea de comandos (shell)`
 y agregue los siguientes comandos:
@@ -170,9 +170,9 @@ y configure los siguientes campos.
 >
 > **Analysis properties**: Agregue el siguiente contenido y reemplace el servicio web correspondiente
 ```javascript
-sonar.projectKey=business-menu-option-v1
-sonar.sources=services/business-services/business-menu-option-v1/src/main/java
-sonar.java.binaries=services/business-services/business-menu-option-v1/target/classes
+sonar.projectKey=menu-v1
+sonar.sources=services/business-services/menu-v1/src/main/java
+sonar.java.binaries=services/business-services/menu-v1/target/classes
 ```
 
 # 6. Integrar con DockerHub
@@ -192,7 +192,7 @@ A continuación, usted puede validar que el Daemon Docker fue expuesto exitosame
 > **Docker Host URI**: `tcp://host.docker.internal:2375`
 
 Finalmente presione el botón `Avanzado...` y especifique el siguiente campo con el servicio web correspondiente.
-> **Build Context**: `services/business-services/business-menu-option-v1/`
+> **Build Context**: `services/business-services/menu-v1/`
 
 # 7. Integrar con Kubernetes
 Ubíquese en Jenkins e instale el plugin `Kubernetes`.
@@ -244,7 +244,7 @@ Para que nuestro pipeline se conecte al clúster de Kubernetes, configure un nue
 >
 > **Repository URL**: `https://miguel-armas-abt:<github-access-token>@github.com/miguel-armas-abt/demo-microservices-bbq`
 >
-> **Script Path**: `devops/k8s/business-menu-option-v1/Jenkinsfile`
+> **Script Path**: `devops/k8s/menu-v1/Jenkinsfile`
 
 Finalmente, modifique el Jenkinsfile del servicio web con la URL pública de la API del cluster.
 

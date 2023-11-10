@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: menu-v1
+spec:
+  replicas: 1
+  serviceName: menu-v1
+  selector:
+    matchLabels:
+      app: menu-v1
+  template:
+    metadata:
+      labels:
+        app: menu-v1
+    spec:
+      containers:
+        - name: menu-v1
+          image: miguelarmasabt/menu-v1:0.0.1-SNAPSHOT
+          ports:
+            - containerPort: 8093
+          env:
+            - name: EUREKA_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: eureka-server
+            - name: MYSQL_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: mysql-username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: mysql-password
+            - name: MYSQL_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: mysql-url
+            - name: JAVA_OPTS
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: java-opts
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "640Mi"
+              cpu: "1"

@@ -5,9 +5,9 @@ services:
   ############################
   #business services
   ############################
-  business-menu-option-v1:
-    container_name: business-menu-option-v1
-    image: miguelarmasabt/business-menu-option-v1:0.0.1-SNAPSHOT
+  menu-v1:
+    container_name: menu-v1
+    image: miguelarmasabt/menu-v1:0.0.1-SNAPSHOT
     restart: always
     environment:
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
@@ -24,44 +24,40 @@ services:
     ports:
       - "8012:8012"
 
-#  business-menu-option-v2:
-#    container_name: business-menu-option-v2
-#    image: miguelarmasabt/business-menu-option-v2:0.0.1-SNAPSHOT
-#    restart: always
-#    environment:
-#      - MYSQL_USERNAME=bbq_user
-#      - MYSQL_PASSWORD=qwerty
-#      - MYSQL_URL=mysql://mysql_db:3306/db_menu_options
-#      - JAVA_OPTS=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev
-#    depends_on:
-#      - mysql_db
-#    networks:
-#      - dev_environment
-#    ports:
-#      - "8016:8016"
+  menu-v2:
+    container_name: menu-v2
+    image: miguelarmasabt/menu-v2:0.0.1-SNAPSHOT
+    restart: always
+    environment:
+      - MYSQL_USERNAME=bbq_user
+      - MYSQL_PASSWORD=qwerty
+      - MYSQL_URL=mysql://mysql_db:3306/db_menu_options
+      - JAVA_OPTS=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev
+    depends_on:
+      - mysql_db
+    networks:
+      - dev_environment
+    ports:
+      - "8016:8016"
 
-#  business-dining-room-order-v1:
-#    container_name: business-dining-room-order-v1
-#    image: miguelarmasabt/business-dining-room-order-v1:0.0.1-SNAPSHOT
-#    restart: always
-#    environment:
-#      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
-#      - POSTGRESQL_USERNAME=postgres
-#      - POSTGRESQL_PASSWORD=qwerty
-#      - POSTGRESQL_URL=jdbc:postgresql://postgres_db:5432/db_dining_room_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-#      - BUSINESS_MENU_OPTION_V1_BASE_PATH=http://api-gateway-v1:8010/bbq/business/v1/
-#      - BUSINESS_MENU_OPTION_V2_BASE_PATH=http://business-menu-option-v2:8016/bbq/business/v2/
-#      - JAVA_OPTS=-Xms256M -Xmx256M
-#    depends_on:
-#      - registry-discovery-server-v1
-#      - config-server-v1
-#      - postgres_db
-#      - business-menu-option-v1
-#      - business-menu-option-v2
-#    networks:
-#      - dev_environment
-#    ports:
-#      - "8013:8013"
+  table-placement-v1:
+    container_name: table-placement-v1
+    image: miguelarmasabt/table-placement-v1:0.0.1-SNAPSHOT
+    restart: always
+    environment:
+      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=qwerty
+      - POSTGRESQL_URL=jdbc:postgresql://postgres_db:5432/db_table_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    depends_on:
+      - registry-discovery-server-v1
+      - config-server-v1
+      - postgres_db
+    networks:
+      - dev_environment
+    ports:
+      - "8013:8013"
 
   ############################
   #infraestructure services
@@ -93,7 +89,7 @@ services:
     container_name: api-gateway-v1
     image: miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT
     environment:
-      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/ #define an environment variable to be used inside the container
+      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
       - AUTH_ADAPTER=http://auth-adapter-v1:8011/bbq/infrastructure/v1/auth/
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
