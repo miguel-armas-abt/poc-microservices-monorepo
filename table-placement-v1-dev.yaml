@@ -17,7 +17,7 @@ spring:
     defer-datasource-initialization: true #read data.sql file after schema generation by hibernate
 
   datasource:
-    url: ${POSTGRESQL_URL:jdbc:postgresql://127.0.0.1:5432/db_dining_room_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
+    url: ${POSTGRESQL_URL:jdbc:postgresql://127.0.0.1:5432/db_table_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
     driverClassName: org.postgresql.Driver
     username: ${POSTGRESQL_USERNAME:bbq_user}
     password: ${POSTGRESQL_PASSWORD:qwerty}
