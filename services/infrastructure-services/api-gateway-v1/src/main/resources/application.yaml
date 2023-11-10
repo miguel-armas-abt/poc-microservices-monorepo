@@ -17,10 +17,10 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: business-menu-option-v1
-          uri: lb://business-menu-option-v1 #If the URL has a scheme of lb (such as lb://myservice), it uses the Spring Cloud LoadBalancerClient to resolve the name (myservice in this case)
+        - id: menu-v1
+          uri: lb://menu-v1 #If the URL has a scheme of lb (such as lb://myservice), it uses the Spring Cloud LoadBalancerClient to resolve the name (myservice in this case)
           predicates:
-            - Path=/bbq/business/v1/menu-options/** #- Path=/** #to access swagger doc of the service through the api gateway
+            - Path=/bbq/business/menu/v1/menu-options/** #- Path=/** #to access swagger doc of the service through the api gateway
             - Method=GET,POST,PUT,DELETE,PATCH
 #          filters:
 #            - name: AuthenticationFilter
