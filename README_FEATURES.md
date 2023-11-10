@@ -1,30 +1,23 @@
-# Oportunidades de mejora
+> - [fix-0003]  Refactorizar el campo details de ApiException con el patrón builder para lista
 
-## Fixes
-> - [<s>fix-0000</s>] `Any` Actualizar READMEs
-> - [<s>fix-0001</s>] `Backend` Refactorizar api-gateway-v1 (clean architecture)
-> - [<s>fix-0002</s>] `Backend` Refactorizar auth-adapter-v1 (clean architecture)
-> - [fix-0003] `Backend` Refactorizar el campo details de ApiException con el patrón builder para lista
+# FEATURES
+- Reemplazar `doc` por el tipo de documentación actualizada (README, POSTMAN, DIAGRAM)
+- Reemplazar `port` por el puerto del servicio web correspondiente 
+- Reemplazar `description` por una breve descripción del cambio
 
-## Tests
-> - [test-0001] `Backend` Implementar pruebas unitarias en business-menu-option-v1
-> - [test-0002] `Backend` Implementar pruebas unitarias en business-menu-option-v2
+### Genéricos
+> - [feat/`port`-`description`] Refactorizar servicio web
+> - [test/`port`-`description`] Actualizar/Agregar pruebas unitarias del servicio web
+> - [doc/`doc`-`description`] Actualizar documentación
 
-## Features
-> - [feat-0001] `DevOps` Automatizar la exportación e importación de la configuración de los pipelines de Jenkins
-> - [feat-0002] `Backend` Refactorizar el proceso de facturación y pago
-> - [<s>feat-0003</s>] `Backend` Implementar SpringDoc en los servicios web de negocio
-> - [feat-0004] `Frontend` Implementar frontend con Angular
-> - [feat-0005] `DevOps` Agregar manifiesto de K8s para Keycloak Server y auth-adapter-v1
-> - [feat-0006] `Backend` Deserealizar el objeto recuperado del topico invoice en el servicio business-payment-v1 y exponer los servicios REST
-> - [feat-0007] `Architecture` Acotar los casos de uso asociados a cada bounded context
-> - [feat-0008] `Architecture` Modificar la arquitectura según los bounded contexts
-> - [<s>feat-0009</s>] `Backend` Implementar patrón strategy para seleccionar una implementación a partir de un selectorClass, haciendo uso del método supports()
-> - [feat-0010] `Backend` Implementar anotaciones personalizadas basadas en el caso de uso XXXX
-> - [feat-0011] `Backend` Implementar Actuator para consultar y refrescar propiedades, aprovechando la anotación @RefreshScope
-> - [feat-0012] `Backend` Integrar servicios de Quarkus con Spring Cloud (config-server-v1, registry-discovery-server-v1 y api-gateway-v1)
-> - [<s>feat-0013</s>] `Backend` Implementar el servicio business-menu-option-v3 con GO
-> - [feat-0014] `DevOps` Integrar Kibana en el flujo de DevOps
-> - [feat-0015] `Backend | DevOps` Revisar qué componentes utilizan una versión latest y asignarles una versión específica
-> - [<s>feat-0016</s>] `Backend` Refactorizar método para generar orden de una mesa (dining-room-order-v1)
-> - [<s>feat-0017</s>] `Backend` Refactorizar ApiException
+### Backlog
+> - [feat/100*]  Implementar anotaciones y programación orientada a aspectos (AOP)
+> - [feat/100*]  Implementar Actuator para consultar y refrescar propiedades, @RefreshScope
+> - [feat/100*]  Integrar servicios Quarkus con Spring Cloud (config server, service discovery y api-gateway-v1)
+> - [feat-100*]  Revisar qué dependencias tienen una versión latest y asignarles una versión específica
+> - [feat-100*]  Implementar drools
+> - [feat-100*]  Implementar envío de correos con MailHog
+> - [feat-100*]  Implementar frontend con Angular
+> - [feat-100*]  Agregar manifiesto K8s para Keycloak Server y auth-adapter-v1
+> - [feat-100*]  Automatizar la exportación e importación de la configuración de los pipelines de Jenkins
+> - [doc/000*]  Diagramar nuevos bounded contexts para el restaurante

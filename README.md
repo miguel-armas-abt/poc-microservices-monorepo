@@ -8,48 +8,33 @@ Esta guía le ayudará a configurar y desplegar los servicios de BBQ
 - [5. Orquestacion con Kubernetes](#5-orquestacion-con-kubernetes)
 - [6. Conexion a las bases de datos](#6-conexion-a-base-de-datos)
 
-# 1. Clonar repositorio
-El repositorio del proyecto tiene las siguientes ramas:
+# 1. Ramas
+- `config-server`: Contiene los archivos de configuración de los servicios
 - `feature/<feature-name>`: Contiene el código fuente en su versión de desarrollo
 - `main`: Contiene la última versión estable del código fuente
-- `config-server`: Contiene los archivos de configuración de los servicios
 
-```shell script
-git checkout -b feature/<feature-name>
-cd bbq-monorepo 
-git clone -b main <URL> bbq-monorepo
-```
-URL: <https://github.com/miguel-armas-abt/demo-microservices-bbq.git>
-
-# 2. Compilar codigo fuente
+# 2. Código fuente
 El código fuente de los servicios web está en el directorio `/services`:
 
 ```javascript
-    bbq-monorepo
-    └───services
-        ├───bbq-parent-v1
-        ├───bbq-support-v1
-        ├───business-services
-        │   ├───business-menu-option-v1
-        │   ├───business-dining-room-order-v1
-        │   └─── ...
-        └───infrastructure-services
-            ├───api-gateway-v1
-            ├───config-server-v1
-            ├───registry-discovery-server-v1
-            └─── ...
+    services
+    ├───bbq-parent-v1
+    ├───bbq-support-v1
+    ├───business-services
+    │   ├───menu-v1
+    │   ├───table-placement-v1
+    │   └─── ...
+    └───infrastructure-services
+        ├───api-gateway-v1
+        ├───config-server-v1
+        ├───registry-discovery-server-v1
+        └─── ...
 ```
 
-- `bbq-parent-v1`: Proyecto `parent module` para los servicios web que fueron implementados con Spring Boot
+- `bbq-parent-v1`: Proyecto de tipo `parent module` para servicios web implementados con Spring Boot
 - `bbq-support-v1`: Proyecto no ejecutable que centraliza las utilidades requeridas por los servicios web implementados con Spring Boot
 - `business-services`: Directorio que contiene los servicios web de negocio
 - `infrastructure-services`: Directorio que contiene los servicios web de infraestructura
-
-> **NOTA**: Para que los servicios web de negocio e infraestructura compilen es necesario compilar previamente los proyectos `bbq-parent-v1` y `bbq-support-v1`.
-
-# 3. Despliegue local
-Para desplegar localmente los servicios web es necesario ejecutar previamente los servicios de infraestructura 
-`registry-discovery-server-v1`, `config-server-v1` y `api-gateway-v1`. 
 
 Los puertos definidos para cada servicio web son los siguientes:
 
@@ -66,6 +51,14 @@ Los puertos definidos para cada servicio web son los siguientes:
 | menu-v2                      | `8016` |
 | menu-v3                      | `8017` |
 
+# 3. Despliegue local
+- Compilar los proyectos `bbq-parent-v1` y `bbq-support-v1` antes que los demás
+- Ejecutar los servicios de infraestructura indispensables
+  - `registry-discovery-server-v1`
+  - `config-server-v1`
+  - `api-gateway-v1`
+- Seguir las indicaciones de cada README
+
 # 4. Orquestacion con Docker Compose
 ## 4.1. Construir imágenes
 Servicios de infraestructura:
@@ -78,9 +71,9 @@ docker build -t miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastr
 
 Servicios de negocio:
 ```shell script
-docker build -t miguelarmasabt/business-menu-option-v1:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v1
-docker build -t miguelarmasabt/business-dining-room-order-v1:0.0.1-SNAPSHOT ./services/business-services/business-dining-room-order-v1
-docker build -f ./services/business-services/business-menu-option-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/business-menu-option-v2:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v2
+docker build -t miguelarmasabt/menu-v1:0.0.1-SNAPSHOT ./services/business-services/menu-v1
+docker build -t miguelarmasabt/table-placement-v1:0.0.1-SNAPSHOT ./services/business-services/table-placement-v1
+docker build -f ./services/business-services/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu-v2:0.0.1-SNAPSHOT ./services/business-services/menu-v2
 ```
 
 ## 4.2. Iniciar orquestación
@@ -108,12 +101,12 @@ Encienda el clúster de Kubernetes de Minikube
 minikube start --memory=2816 --cpus=4
 ```
 
-> **NOTA**: Desactive el filtro de autenticación en api-gateway-v1. Revise el README correspondiente para más información.
+> **NOTA**: Desactive el filtro de autenticación para los servicios web que desplegará. Para ello siga las instrucciones
+> en el README de api-gateway-v1
 
 ## 5.1. Construir imágenes
-Las imágenes de nuestros servicios deben estar disponibles en el clúster de Kubernetes de Minikube, para ello 
-establecemos el entorno de Docker de Minikube en nuestra shell y seguidamente construimos las imágenes en la misma
-sesión de la shell.
+Las imágenes de nuestros servicios deben estar disponibles en el clúster de Kubernetes de Minikube. Para ello 
+establecemos el entorno de Docker de Minikube en nuestra shell y sobre ella construimos las imágenes.
 
 Servicios de infraestructura:
 ```shell script
@@ -125,7 +118,7 @@ Invoke-Expression ((minikube docker-env) -join "`n")
 
 Servicios de negocio:
 ```shell script
-docker build -t miguelarmasabt/business-menu-option-v1:0.0.1-SNAPSHOT ./services/business-services/business-menu-option-v1
+docker build -t miguelarmasabt/menu-v1:0.0.1-SNAPSHOT ./services/business-services/menu-v1
 Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
@@ -141,7 +134,7 @@ kubectl apply -f ./devops/k8s/mysql_db/
 kubectl apply -f ./devops/k8s/registry-discovery-server-v1/
 kubectl apply -f ./devops/k8s/config-server-v1/
 kubectl apply -f ./devops/k8s/api-gateway-v1/
-kubectl apply -f ./devops/k8s/business-menu-option-v1/
+kubectl apply -f ./devops/k8s/menu-v1/
 ```
 
 Usted puede obtener la URL del servicio `api-gateway-v1` con el siguiente comando: `minikube service --url api-gateway-v1`
@@ -152,7 +145,7 @@ kubectl delete -f ./devops/k8s/mysql_db/
 kubectl delete -f ./devops/k8s/registry-discovery-server-v1/
 kubectl delete -f ./devops/k8s/config-server-v1/
 kubectl delete -f ./devops/k8s/api-gateway-v1/
-kubectl delete -f ./devops/k8s/business-menu-option-v1/
+kubectl delete -f ./devops/k8s/menu-v1/
 ```
 
 # 6. Conexion a base de datos
@@ -169,12 +162,11 @@ Utilice DBeaver para conectarse a las bases de datos relacionales.
 ## 6.2. PostgreSQL
 - Ubique la pestaña `PostgreSQL` y active la opción `Show all database`.
 
-| Parámetro         | Valor (Docker Compose)         | Valor (Kubernetes)                                        |   
-|-------------------|--------------------------------|-----------------------------------------------------------|
-| Connect by        | `HOST`                         | `HOST`                                                    |
-| Host              | `localhost`                    | `localhost`                                               |
-| Port              | `5432`                         | Puerto de Minikube: `minikube service --url bbq-postgres` |
-| Database          | `db_dining_room_orders`        | `db_dining_room_orders`                                   |
-| Nombre de usuario | `postgres` o  `bbq_user`       | `postgres` o  `bbq_user`                                  |
-| Contraseña        | `qwerty`                       | `qwerty`                                                  |
-
+| Parámetro         | Valor (Docker Compose)     | Valor (Kubernetes)                                        |   
+|-------------------|----------------------------|-----------------------------------------------------------|
+| Connect by        | `HOST`                     | `HOST`                                                    |
+| Host              | `localhost`                | `localhost`                                               |
+| Port              | `5432`                     | Puerto de Minikube: `minikube service --url bbq-postgres` |
+| Database          | `db_table_orders`          | `db_table_orders`                                         |
+| Nombre de usuario | `postgres` o  `bbq_user`   | `postgres` o  `bbq_user`                                  |
+| Contraseña        | `qwerty`                   | `qwerty`                                                  |
