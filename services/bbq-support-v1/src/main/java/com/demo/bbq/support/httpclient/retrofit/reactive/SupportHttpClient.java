@@ -1,4 +1,4 @@
-package com.demo.bbq.support.reactive.httpclient;
+package com.demo.bbq.support.httpclient.retrofit.reactive;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
