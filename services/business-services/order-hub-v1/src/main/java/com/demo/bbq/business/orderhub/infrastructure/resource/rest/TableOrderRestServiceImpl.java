@@ -1,10 +1,9 @@
-package com.demo.bbq.business.orderhub.infrastructure.resource.rest.tableorder;
+package com.demo.bbq.business.orderhub.infrastructure.resource.rest;
 
 import com.demo.bbq.business.orderhub.application.tableorder.service.TableOrderService;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.tableorder.TableOrderApi;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.tableorder.dto.MenuOrderRequestDto;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.tableorder.dto.TableOrderDto;
-import com.demo.bbq.business.orderhub.infrastructure.resource.rest.OrderHubRestService;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Component
 @RequiredArgsConstructor
-public class TableOrderRestServiceImpl extends OrderHubRestService implements TableOrderRestService  {
+public class TableOrderRestServiceImpl extends OrderHubRestService {
 
   private final TableOrderService tableOrderService;
   private final TableOrderApi tableOrderApi;
