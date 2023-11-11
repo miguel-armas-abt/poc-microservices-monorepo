@@ -24,9 +24,6 @@ public class PaymentEntity implements Serializable {
   @Column(name = "paymentMethod")
   private String paymentMethod;
 
-  @Column(name = "paymentStatus")
-  private String paymentStatus;
-
   @Column(name = "invoiceId")
   private Long invoiceId;
 }

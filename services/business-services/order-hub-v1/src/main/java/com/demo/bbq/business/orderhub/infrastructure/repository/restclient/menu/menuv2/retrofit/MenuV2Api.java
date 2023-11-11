@@ -5,6 +5,7 @@ import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.http.*;
 
 public interface MenuV2Api {
@@ -29,5 +30,5 @@ public interface MenuV2Api {
 
   @Streaming
   @DELETE("menu-options/{id}")
-  Single<ResponseBody> delete(@Path(value = "id") Long id);
+  Single<Response<Void>> delete(@Path(value = "id") Long id);
 }

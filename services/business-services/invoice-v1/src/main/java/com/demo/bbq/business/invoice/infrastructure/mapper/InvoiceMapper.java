@@ -19,7 +19,6 @@ public interface InvoiceMapper {
   InvoiceEntity toEntity(ProformaInvoice proformaInvoice, Customer customer, String paymentMethod);
 
   @Mapping(target = "paymentMethod", expression = "java(invoiceEntity.getPaymentMethod().name())")
-  @Mapping(target = "paymentStatus", expression = "java(invoiceEntity.getPaymentStatus().name())")
   @Mapping(target = "invoiceId", source = "invoiceEntity.id")
   Payment invoiceToPayment(InvoiceEntity invoiceEntity, BigDecimal totalAmount);
 

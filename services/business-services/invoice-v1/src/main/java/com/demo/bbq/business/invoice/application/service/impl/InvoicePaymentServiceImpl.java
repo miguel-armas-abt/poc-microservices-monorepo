@@ -1,6 +1,6 @@
 package com.demo.bbq.business.invoice.application.service.impl;
 
-import com.demo.bbq.business.invoice.application.service.PaymentGeneratorService;
+import com.demo.bbq.business.invoice.application.service.InvoicePaymentService;
 import com.demo.bbq.business.invoice.application.service.ProformaInvoiceService;
 import com.demo.bbq.business.invoice.domain.exception.InvoiceException;
 import com.demo.bbq.business.invoice.domain.model.request.PaymentRequest;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class PaymentGeneratorServiceImpl implements PaymentGeneratorService {
+public class InvoicePaymentServiceImpl implements InvoicePaymentService {
   private final ProformaInvoiceService proformaInvoiceService;
   private final InvoiceRepositoryHelper repositoryHelper;
   private final InvoiceProducer invoiceProducer;
@@ -33,7 +33,7 @@ public class PaymentGeneratorServiceImpl implements PaymentGeneratorService {
     return proformaInvoiceService.generateProformaInvoice(paymentRequest.getProductList())
         .doOnSuccess(validateProforma::accept)
         .doOnSuccess(proforma -> totalAmount.set(proforma.getTotal()))
-        .map(invoice -> invoiceMapper.toEntity(invoice, paymentRequest.getCustomer(), paymentRequest.getPaymentMethod()))
+        .map(invoice -> invoiceMapper.toEntity(invoice, paymentRequest.getCustomer(), paymentRequest.getPayment().getMethod()))
         .map(repositoryHelper::buildEntity)
         .map(invoice -> invoiceMapper.invoiceToPayment(invoice, totalAmount.get()))
         .doOnSuccess(payment-> invoiceProducer.sendMessage(new Gson().toJson(payment)))
