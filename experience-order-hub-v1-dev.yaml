@@ -25,3 +25,11 @@ resilience4j:
         slidingWindowSize: 10
         waitDurationInOpenState: 5s
         slidingWindowType: COUNT_BASED
+
+spring:
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
+    ssl: false
