@@ -13,7 +13,6 @@ public class Payment implements Serializable {
 
   BigDecimal totalAmount;
   String paymentMethod;
-  String paymentStatus;
   Long invoiceId;
 
 }

@@ -1,7 +1,7 @@
 package com.demo.bbq.business.orderhub.infrastructure.resource.rest;
 
-import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.invoice.InvoiceApi;
-import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.invoice.dto.request.PaymentRequest;
+import com.demo.bbq.business.orderhub.application.invoice.service.InvoiceService;
+import com.demo.bbq.business.orderhub.domain.model.invoicepayment.InvoicePaymentRequest;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.invoice.dto.request.ProductRequestDto;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.invoice.dto.response.ProformaInvoiceDto;
 import io.reactivex.Completable;
@@ -20,19 +20,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InvoiceRestServiceImpl extends OrderHubRestService {
 
-  private final InvoiceApi invoiceApi;
+  private final InvoiceService invoiceService;
 
   @PostMapping(value = "/proforma-invoices", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
   public Single<ProformaInvoiceDto> generateProforma(HttpServletRequest servletRequest,
                                                      @Valid @RequestBody List<ProductRequestDto> productList) {
-    return invoiceApi.generateProforma(productList);
+    return invoiceService.generateProforma(productList);
   }
 
   @PostMapping("/invoice-payments")
   public Completable sendToPay(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-                              @Valid @RequestBody PaymentRequest paymentRequest) {
-    return invoiceApi.sendToPay(paymentRequest)
-        .doOnSuccess(ignore -> servletResponse.setStatus(201))
-        .ignoreElement();
+                              @Valid @RequestBody InvoicePaymentRequest invoicePaymentRequest) {
+    return invoiceService.sendToPay(invoicePaymentRequest)
+        .doOnComplete(() -> servletResponse.setStatus(201));
   }
 }

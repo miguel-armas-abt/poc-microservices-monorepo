@@ -1,7 +1,5 @@
 package com.demo.bbq.business.invoice.domain.model.request;
 
-import com.demo.bbq.business.invoice.domain.constant.InvoiceRegex;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.List;
 import lombok.*;
@@ -17,6 +15,5 @@ public class PaymentRequest implements Serializable {
 
   private Customer customer;
 
-  @Pattern(regexp = InvoiceRegex.PAYMENT_METHOD, message = "Invalid payment method")
-  private String paymentMethod;
+  private Payment payment;
 }

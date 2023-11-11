@@ -2,18 +2,15 @@ package com.demo.bbq.business.orderhub.infrastructure.repository.restclient.invo
 
 import lombok.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Builder
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentRequest implements Serializable {
+public class CustomerDto implements Serializable {
 
-  private List<ProductRequestDto> productList;
+  private String documentType;
 
-  private CustomerDto customer;
-
-  private PaymentDto payment;
+  private String documentNumber;
 }

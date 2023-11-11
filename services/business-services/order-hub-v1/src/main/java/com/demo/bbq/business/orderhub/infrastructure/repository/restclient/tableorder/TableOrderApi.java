@@ -5,6 +5,7 @@ import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.table
 import io.reactivex.Single;
 import java.util.List;
 import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.http.*;
 
 public interface TableOrderApi {
@@ -22,6 +23,6 @@ public interface TableOrderApi {
   @Streaming
   @Headers({"Accept: application/stream+json"})
   @DELETE("table-orders")
-  Single<ResponseBody> cleanTable(@Query("tableNumber") Integer tableNumber);
+  Single<Response<Void>> cleanTable(@Query("tableNumber") Integer tableNumber);
 
 }
