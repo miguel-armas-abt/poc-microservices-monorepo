@@ -16,7 +16,9 @@ public enum ApiExceptionType {
 
   NO_DATA("03", "/errors/no-data", HttpStatus.NOT_FOUND),
   GATEWAY_CONNECTION("04", "/errors/gateway-connection", HttpStatus.BAD_GATEWAY),
-  MALFORMED_REQUEST("05", "/errors/malformed-request", HttpStatus.BAD_GATEWAY);
+  MALFORMED_REQUEST("05", "/errors/malformed-request", HttpStatus.BAD_GATEWAY),
+  UNEXPECTED("06", "/errors/unexpected", HttpStatus.INTERNAL_SERVER_ERROR),
+  TIMEOUT("07", "/errors/timeout", HttpStatus.SERVICE_UNAVAILABLE);
 
   private final String code;
   private final String description;

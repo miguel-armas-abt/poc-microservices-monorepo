@@ -50,6 +50,7 @@ Los puertos definidos para cada servicio web son los siguientes:
 | payment-v1                   | `8015` |
 | menu-v2                      | `8016` |
 | menu-v3                      | `8017` |
+| order-hub-v3                 | `8018` |
 
 # 3. Despliegue local
 - Compilar los proyectos `bbq-parent-v1` y `bbq-support-v1` antes que los demás

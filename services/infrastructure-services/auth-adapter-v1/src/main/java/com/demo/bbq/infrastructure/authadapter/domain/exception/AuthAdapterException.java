@@ -1,10 +1,9 @@
 package com.demo.bbq.infrastructure.authadapter.domain.exception;
 
-import com.demo.bbq.support.constant.CharacterConstant;
+import com.demo.bbq.support.exception.util.ApiExceptionUtil;
 import com.demo.bbq.support.exception.catalog.ApiExceptionType;
 import com.demo.bbq.support.exception.model.ApiException;
 import com.demo.bbq.support.exception.model.builder.ApiExceptionBuilder;
-import java.util.function.Supplier;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -17,15 +16,12 @@ public enum AuthAdapterException {
   ERROR0000(ApiExceptionType.AUTH_RULES, "JWT is not valid"),
   ERROR0001(ApiExceptionType.AUTH_RULES, "Unable to logout"),
   ERROR0002(ApiExceptionType.AUTH_RULES, "Unable to refresh"),
-  ERROR0003(ApiExceptionType.AUTH_RULES, "Token is expired");
+  ERROR0003(ApiExceptionType.AUTH_RULES, "Token is expired"),
+  ERROR0004(ApiExceptionType.AUTH_RULES, "Could not connect to external service");
 
+  private final String SERVICE_NAME = "auth-adapter-v1";
   private final ApiExceptionType type;
   private final String message;
-
-  private final Supplier<String> generateErrorCode = () ->
-      this.getType().getCode()
-          .concat(CharacterConstant.DOT)
-          .concat(this.name().substring(5));
 
   public ApiException buildException(Throwable cause) {
     return buildApiException()
@@ -40,7 +36,7 @@ public enum AuthAdapterException {
 
   private ApiExceptionBuilder buildApiException() {
     return ApiException.builder()
-        .errorCode(this.generateErrorCode.get())
+        .errorCode(ApiExceptionUtil.generateErrorCode(type, SERVICE_NAME, this.name()))
         .message(this.message)
         .type(this.type.getDescription())
         .status(this.type.getHttpStatus());

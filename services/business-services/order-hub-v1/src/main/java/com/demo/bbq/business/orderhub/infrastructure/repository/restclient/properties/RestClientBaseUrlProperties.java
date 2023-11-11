@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
 public class RestClientBaseUrlProperties {
 
   @Value("${application.http-client.menu.v1.base-url}")
-  private String menuOptionV1BaseUrl;
+  private String menuV1BaseUrl;
 
   @Value("${application.http-client.menu.v2.base-url}")
-  private String menuOptionV2BaseUrl;
+  private String menuV2BaseUrl;
 
   @Value("${application.http-client.table-placement.base-url}")
-  private String diningRoomBaseUrl;
+  private String tableOrderBaseUrl;
 
   @Value("${application.http-client.invoice.base-url}")
   private String invoiceBaseUrl;
