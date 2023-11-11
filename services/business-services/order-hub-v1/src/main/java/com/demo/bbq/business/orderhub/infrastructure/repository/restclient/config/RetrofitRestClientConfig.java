@@ -1,10 +1,10 @@
 package com.demo.bbq.business.orderhub.infrastructure.repository.restclient.config;
 
-import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.diningroomorder.DiningRoomOrderApi;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.tableorder.TableOrderApi;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.invoice.InvoiceApi;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.properties.RestClientBaseUrlProperties;
-import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menuoption.menuoptionv1.retrofit.MenuOptionV1Api;
-import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menuoption.menuoptionv2.retrofit.MenuOptionV2Api;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.menuv1.retrofit.MenuV1Api;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.menuv2.retrofit.MenuV2Api;
 import com.demo.bbq.support.reactive.httpclient.SupportHttpClient;
 import java.time.Duration;
 import lombok.RequiredArgsConstructor;
@@ -23,36 +23,36 @@ public class RetrofitRestClientConfig {
   private final RestClientBaseUrlProperties properties;
 
   @Bean
-  MenuOptionV1Api menuOptionV1Api(OkHttpClient.Builder builder) {
+  MenuV1Api menuOptionV1Api(OkHttpClient.Builder builder) {
     return new Retrofit.Builder()
-        .baseUrl(properties.getMenuOptionV1BaseUrl())
+        .baseUrl(properties.getMenuV1BaseUrl())
         .client(client().build())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(JacksonConverterFactory.create())
         .build()
-        .create(MenuOptionV1Api.class);
+        .create(MenuV1Api.class);
   }
 
   @Bean
-  MenuOptionV2Api menuOptionV2Api(OkHttpClient.Builder builder) {
+  MenuV2Api menuOptionV2Api(OkHttpClient.Builder builder) {
     return SupportHttpClient.builder()
         .clientBuilder(builder)
-        .baseUrl(properties.getMenuOptionV2BaseUrl())
+        .baseUrl(properties.getMenuV2BaseUrl())
         .connectTimeout(Duration.ofMillis(300L))
         .readTimeout(Duration.ofMillis(1200L))
         .writeTimeout(Duration.ofMillis(700L))
-        .buildProxy(MenuOptionV2Api.class);
+        .buildProxy(MenuV2Api.class);
   }
 
   @Bean
-  DiningRoomOrderApi diningRoomOrderApi(OkHttpClient.Builder builder) {
+  TableOrderApi diningRoomOrderApi(OkHttpClient.Builder builder) {
     return SupportHttpClient.builder()
         .clientBuilder(builder)
-        .baseUrl(properties.getDiningRoomBaseUrl())
+        .baseUrl(properties.getTableOrderBaseUrl())
         .connectTimeout(Duration.ofMillis(300L))
         .readTimeout(Duration.ofMillis(1200L))
         .writeTimeout(Duration.ofMillis(700L))
-        .buildProxy(DiningRoomOrderApi.class);
+        .buildProxy(TableOrderApi.class);
   }
 
   @Bean
