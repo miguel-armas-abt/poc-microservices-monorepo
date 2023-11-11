@@ -6,7 +6,9 @@ import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.
 import com.demo.bbq.support.exception.model.ApiException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.util.List;
+import java.util.function.Predicate;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -77,8 +79,14 @@ public class MenuApi {
   }
 
   private static void validateException(Throwable throwable) {
-    if (throwable instanceof ApiException)
-      throw (ApiException) throwable;
+    if (throwable instanceof ApiException) {
+      ApiException apiException = (ApiException) throwable;
+      if(isFunctionalError.test(apiException)) {
+        throw apiException;
+      }
+    }
   }
 
+  private static final Predicate<ApiException> isFunctionalError = apiException ->
+      apiException.getHttpStatus().equals(HttpStatus.BAD_REQUEST) || apiException.getHttpStatus().equals(HttpStatus.NOT_FOUND);
 }

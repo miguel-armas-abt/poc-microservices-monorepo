@@ -5,7 +5,7 @@ import com.demo.bbq.business.orderhub.domain.exception.OrderHubException;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.MenuApiConnector;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionDto;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionRequestDto;
-import com.demo.bbq.support.reactive.httpclient.HttpStreamingTransformer;
+import com.demo.bbq.support.httpclient.retrofit.reactive.HttpStreamingTransformer;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
 import lombok.RequiredArgsConstructor;

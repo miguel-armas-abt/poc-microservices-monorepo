@@ -1,8 +1,7 @@
-package com.demo.bbq.business.orderhub.infrastructure.resource.rest.menu;
+package com.demo.bbq.business.orderhub.infrastructure.resource.rest;
 
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.MenuApi;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionDto;
-import com.demo.bbq.business.orderhub.infrastructure.resource.rest.OrderHubRestService;
 import io.reactivex.Observable;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,7 @@ import reactor.adapter.rxjava.RxJava2Adapter;
 
 @Component
 @RequiredArgsConstructor
-public class MenuRestServiceImpl extends OrderHubRestService implements MenuRestService{
+public class MenuRestServiceImpl extends OrderHubRestService {
 
   private final MenuApi menuApi;
 

@@ -1,10 +1,9 @@
-package com.demo.bbq.business.orderhub.infrastructure.resource.rest.invoice;
+package com.demo.bbq.business.orderhub.infrastructure.resource.rest;
 
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.invoice.InvoiceApi;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.invoice.dto.request.PaymentRequest;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.invoice.dto.request.ProductRequestDto;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.invoice.dto.response.ProformaInvoiceDto;
-import com.demo.bbq.business.orderhub.infrastructure.resource.rest.OrderHubRestService;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class InvoiceRestServiceImpl extends OrderHubRestService implements InvoiceRestService  {
+public class InvoiceRestServiceImpl extends OrderHubRestService {
 
   private final InvoiceApi invoiceApi;
 

@@ -1,4 +1,4 @@
-package com.demo.bbq.support.reactive.httpclient;
+package com.demo.bbq.support.httpclient.retrofit.reactive;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

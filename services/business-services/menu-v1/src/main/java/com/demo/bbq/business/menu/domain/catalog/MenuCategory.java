@@ -18,7 +18,7 @@ public enum MenuCategory {
 
   private final String description;
 
-  public static Consumer<String> validateCategory =
+  public static final Consumer<String> validateCategory =
       menuOptionCategoryCode -> Arrays.stream(MenuCategory.values())
           .filter(menuCategory -> menuCategory.name().equals(menuOptionCategoryCode))
           .findFirst()
