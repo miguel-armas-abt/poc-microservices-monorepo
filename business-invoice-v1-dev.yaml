@@ -35,3 +35,7 @@ spring:
 business:
   invoice:
     igv: 0.18
+  rules:
+    discount-rules:
+      ruleClass: DiscountRule
+      name: classpath:rules/discount_rules.drl
