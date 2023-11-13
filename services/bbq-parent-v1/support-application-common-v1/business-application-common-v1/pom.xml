@@ -52,7 +52,11 @@
       <artifactId>springdoc-openapi-ui</artifactId>
       <version>1.6.4</version>
     </dependency>
-
+    <dependency><!-- drools -->
+      <groupId>org.kie</groupId>
+      <artifactId>kie-spring</artifactId>
+      <version>7.73.0.Final</version>
+    </dependency>
   </dependencies>
 
   <build>
