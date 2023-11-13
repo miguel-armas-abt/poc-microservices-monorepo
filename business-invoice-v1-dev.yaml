@@ -38,4 +38,4 @@ business:
   rules:
     discount-rules:
       ruleClass: DiscountRule
-      ruleFile: classpath:rules/discount_rules.drl
+      ruleFile: discount_rules.drl
