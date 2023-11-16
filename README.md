@@ -38,19 +38,19 @@ El código fuente de los servicios web está en el directorio `/services`:
 
 Los puertos definidos para cada servicio web son los siguientes:
 
-| Web service                  | Port   |
-|------------------------------|--------|
-| registry-discovery-server-v1 | `8761` |
-| config-server-v1             | `8888` |
-| api-gateway-v1               | `8010` |
-| auth-adapter-v1              | `8011` |
-| menu-v1                      | `8012` |
-| table-placement-v1           | `8013` |
-| invoice-v1                   | `8014` |
-| payment-v1                   | `8015` |
-| menu-v2                      | `8016` |
-| menu-v3                      | `8017` |
-| order-hub-v3                 | `8018` |
+| Web service                   | Port   |
+|-------------------------------|--------|
+| registry-discovery-server-v1  | `8761` |
+| config-server-v1              | `8888` |
+| api-gateway-v1                | `8010` |
+| auth-adapter-v1               | `8011` |
+| menu-v1                       | `8012` |
+| table-placement-v1            | `8013` |
+| invoice-v1                    | `8014` |
+| payment-v1                    | `8015` |
+| menu-v2                       | `8016` |
+| product-v1                    | `8017` |
+| order-hub-v3                  | `8018` |
 
 # 3. Despliegue local
 - Compilar los proyectos `bbq-parent-v1` y `bbq-support-v1` antes que los demás
