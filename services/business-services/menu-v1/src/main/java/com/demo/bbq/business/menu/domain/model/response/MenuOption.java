@@ -17,19 +17,16 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MenuOption implements Serializable {
 
-  @Schema(example = MenuOptionExample.ID)
-  private Long id;
+  @Schema(example = MenuOptionExample.PRODUCT_CODE)
+  private String productCode;
+
+  @Schema(example = MenuOptionExample.UNIT_PRICE)
+  private BigDecimal unitPrice;
 
   @Schema(example = MenuOptionExample.DESCRIPTION)
   private String description;
 
   @Schema(example = MenuOptionExample.CATEGORY_MAIN_DISH)
   private String category;
-
-  @Schema(example = MenuOptionExample.PRICE)
-  private BigDecimal price;
-
-  @Schema(example = MenuOptionExample.ACTIVE)
-  private boolean active;
 
 }

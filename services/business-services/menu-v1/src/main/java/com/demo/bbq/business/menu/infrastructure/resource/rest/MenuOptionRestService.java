@@ -29,7 +29,7 @@ public interface MenuOptionRestService {
   @Operation(summary = "Get a menu by ID", tags = MenuOptionDocumentationMetadata.TAG)
   @ApiResponse(responseCode = "200")
   ResponseEntity<MenuOption> findById(HttpServletRequest servletRequest,
-                                      @Parameter(example = MenuOptionExample.ID) Long id);
+                                      @Parameter(example = MenuOptionExample.PRODUCT_CODE) Long id);
 
   @Operation(summary = "Get a menu list by category", tags = MenuOptionDocumentationMetadata.TAG)
   @ApiResponse(responseCode = "200")
@@ -49,10 +49,10 @@ public interface MenuOptionRestService {
   @ApiResponse(responseCode = "201")
   ResponseEntity<Void> update(HttpServletRequest servletRequest,
                               @RequestBody(content = {@Content(schema = @Schema(implementation = MenuOptionRequest.class))}) MenuOptionRequest menuOption,
-                              @Parameter(example = MenuOptionExample.ID) Long id);
+                              @Parameter(example = MenuOptionExample.PRODUCT_CODE) Long id);
 
   @Operation(summary = "Delete a menu", tags = MenuOptionDocumentationMetadata.TAG)
   @ApiResponse(responseCode = "204")
   ResponseEntity<Void> delete(HttpServletRequest servletRequest,
-                              @Parameter(example = MenuOptionExample.ID) Long id);
+                              @Parameter(example = MenuOptionExample.PRODUCT_CODE) Long id);
 }
