@@ -1,7 +1,8 @@
 package com.demo.bbq.business.menu.infrastructure.resource.rest;
 
 import com.demo.bbq.business.menu.application.service.MenuOptionService;
-import com.demo.bbq.business.menu.domain.model.request.MenuOptionRequest;
+import com.demo.bbq.business.menu.domain.model.request.MenuOptionSaveRequest;
+import com.demo.bbq.business.menu.domain.model.request.MenuOptionUpdateRequest;
 import com.demo.bbq.business.menu.domain.model.response.MenuOption;
 import com.demo.bbq.support.logstash.Markers;
 import java.net.URI;
@@ -33,11 +34,11 @@ public class MenuOptionRestServiceImpl implements MenuOptionRestService {
 
   private final MenuOptionService service;
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON, value = "/{id}")
-  public ResponseEntity<MenuOption> findById(HttpServletRequest servletRequest,
-                                             @PathVariable(name = "id") Long id) {
+  @GetMapping(produces = MediaType.APPLICATION_JSON, value = "/{productCode}")
+  public ResponseEntity<MenuOption> findByProductCode(HttpServletRequest servletRequest,
+                                             @PathVariable(name = "productCode") String productCode) {
     logRequest.accept(servletRequest);
-    return ResponseEntity.ok(service.findById(id));
+    return ResponseEntity.ok(service.findByProductCode(productCode));
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON)
@@ -52,37 +53,37 @@ public class MenuOptionRestServiceImpl implements MenuOptionRestService {
 
   @PostMapping
   public ResponseEntity<Void> save(HttpServletRequest servletRequest,
-                                   @Valid @RequestBody MenuOptionRequest menuOption) {
+                                   @Valid @RequestBody MenuOptionSaveRequest menuOption) {
     logRequest.accept(servletRequest);
-    Long id = service.save(menuOption);
-    return ResponseEntity.created(buildPostUriLocation.apply(id)).build();
+    service.save(menuOption);
+    return ResponseEntity.created(buildPostUriLocation.apply(menuOption.getProductCode())).build();
   }
 
-  @PutMapping(value = "/{id}")
+  @PutMapping(value = "/{productCode}")
   public ResponseEntity<Void> update(HttpServletRequest servletRequest,
-                                     @Valid @RequestBody MenuOptionRequest menuOption, @PathVariable("id") Long id) {
+                                     @Valid @RequestBody MenuOptionUpdateRequest menuOption, @PathVariable("productCode") String productCode) {
     logRequest.accept(servletRequest);
-    Long updatedMenuOptionId = service.update(id, menuOption);
-    return ResponseEntity.created(buildUriLocation.apply(updatedMenuOptionId)).build();
+    service.update(productCode, menuOption);
+    return ResponseEntity.created(buildUriLocation.apply(productCode)).build();
   }
 
-  @DeleteMapping(value = "/{id}")
-  public ResponseEntity<Void> delete(HttpServletRequest servletRequest, @PathVariable("id") Long id) {
+  @DeleteMapping(value = "/{productCode}")
+  public ResponseEntity<Void> delete(HttpServletRequest servletRequest, @PathVariable("productCode") String productCode) {
     logRequest.accept(servletRequest);
-    service.deleteById(id);
-    return ResponseEntity.noContent().location(buildUriLocation.apply(id)).build();
+    service.deleteByProductCode(productCode);
+    return ResponseEntity.noContent().location(buildUriLocation.apply(productCode)).build();
   }
 
   private final static Consumer<HttpServletRequest> logRequest = servletRequest->
       log.info(Markers.SENSITIVE_JSON, "{}", servletRequest.getMethod() + ": " + servletRequest.getRequestURI());
 
-  private final static Function<Long, URI> buildPostUriLocation = id ->
+  private final static Function<String, URI> buildPostUriLocation = productCode ->
       ServletUriComponentsBuilder.fromCurrentRequest()
-          .path("/{id}")
-          .buildAndExpand(id)
+          .path("/{productCode}")
+          .buildAndExpand(productCode)
           .toUri();
 
-  private final static Function<Long, URI> buildUriLocation = id ->
+  private final static Function<String, URI> buildUriLocation = productCode ->
       ServletUriComponentsBuilder.fromCurrentRequest()
           .buildAndExpand()
           .toUri();

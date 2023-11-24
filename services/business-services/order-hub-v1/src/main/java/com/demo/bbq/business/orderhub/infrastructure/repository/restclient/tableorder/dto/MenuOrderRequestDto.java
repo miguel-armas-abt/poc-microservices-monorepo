@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 public class MenuOrderRequestDto implements Serializable{
 
-  private Long menuOptionId;
+  private String productCode;
 
   private Integer quantity;
 }

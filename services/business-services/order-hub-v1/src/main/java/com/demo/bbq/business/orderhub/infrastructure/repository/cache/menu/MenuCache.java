@@ -16,7 +16,7 @@ public class MenuCache {
   private final String CACHE_NAME = "menu.option";
 
   public Completable save(MenuOptionDto menuOption) {
-    return menuCacheHelper.put(CACHE_NAME, String.valueOf(menuOption.getId()), menuOption);
+    return menuCacheHelper.put(CACHE_NAME, String.valueOf(menuOption.getProductCode()), menuOption);
   }
 
   public Observable<MenuOptionDto> findAll() {

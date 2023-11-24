@@ -39,7 +39,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         .blockingGet()
         .getMenuOrderList()
         .stream()
-        .map(menuOrder -> Optional.of(menuRepositoryHandler.findById(menuOrder.getMenuOptionId()).blockingGet())
+        .map(menuOrder -> Optional.of(menuRepositoryHandler.findByProductCode(menuOrder.getProductCode()).blockingGet())
             .map(menuOption -> invoiceMapper.toProduct(menuOrder, menuOption))
             .get())
         .collect(Collectors.toList());

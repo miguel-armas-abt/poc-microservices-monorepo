@@ -1,6 +1,5 @@
 package com.demo.bbq.business.menu.infrastructure.repository.database.entity;
 
-import java.math.BigDecimal;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,16 +21,13 @@ public class MenuOptionEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(name = "product_code", unique = true)
+  private String productCode;
+
   @Column(name = "description")
   private String description;
 
   @Column(name = "category")
   private String category;
-
-  @Column(name = "price")
-  private BigDecimal price;
-
-  @Column(name = "is_active")
-  private boolean active;
 
 }

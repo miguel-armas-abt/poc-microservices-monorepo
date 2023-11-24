@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public enum OrderHubException {
 
   ERROR0000(ApiExceptionType.BUSINESS_RULES, "The requested menu order doesn't exist"),
-  ERROR0001(ApiExceptionType.NO_DATA, "Menu option not found on cache"),
+  ERROR0001(ApiExceptionType.NO_DATA, "Menu option not found"),
   ERROR0002(ApiExceptionType.TIMEOUT, "Could not connect to external service");
 
   private static final String SERVICE_NAME = "order-hub-v1";

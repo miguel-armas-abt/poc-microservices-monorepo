@@ -2,7 +2,8 @@ package com.demo.bbq.business.menu.infrastructure.resource.rest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import com.demo.bbq.business.menu.domain.model.request.MenuOptionRequest;
+import com.demo.bbq.business.menu.domain.model.request.MenuOptionSaveRequest;
+import com.demo.bbq.business.menu.domain.model.request.MenuOptionUpdateRequest;
 import com.demo.bbq.business.menu.domain.model.response.MenuOption;
 import com.demo.bbq.business.menu.infrastructure.documentation.data.MenuOptionDocumentationMetadata;
 import com.demo.bbq.business.menu.infrastructure.documentation.data.MenuOptionExample;
@@ -28,8 +29,8 @@ public interface MenuOptionRestService {
 
   @Operation(summary = "Get a menu by ID", tags = MenuOptionDocumentationMetadata.TAG)
   @ApiResponse(responseCode = "200")
-  ResponseEntity<MenuOption> findById(HttpServletRequest servletRequest,
-                                      @Parameter(example = MenuOptionExample.ID) Long id);
+  ResponseEntity<MenuOption> findByProductCode(HttpServletRequest servletRequest,
+                                               @Parameter(example = MenuOptionExample.PRODUCT_CODE) String productCode);
 
   @Operation(summary = "Get a menu list by category", tags = MenuOptionDocumentationMetadata.TAG)
   @ApiResponse(responseCode = "200")
@@ -43,16 +44,16 @@ public interface MenuOptionRestService {
   @Operation(summary = "Save a menu", tags = MenuOptionDocumentationMetadata.TAG)
   @ApiResponse(responseCode = "201")
   ResponseEntity<Void> save(HttpServletRequest servletRequest,
-                            @RequestBody(content = {@Content(schema = @Schema(implementation = MenuOptionRequest.class))}) MenuOptionRequest menuOption);
+                            @RequestBody(content = {@Content(schema = @Schema(implementation = MenuOptionSaveRequest.class))}) MenuOptionSaveRequest menuOption);
 
   @Operation(summary = "Update a menu", tags = MenuOptionDocumentationMetadata.TAG)
   @ApiResponse(responseCode = "201")
   ResponseEntity<Void> update(HttpServletRequest servletRequest,
-                              @RequestBody(content = {@Content(schema = @Schema(implementation = MenuOptionRequest.class))}) MenuOptionRequest menuOption,
-                              @Parameter(example = MenuOptionExample.ID) Long id);
+                              @RequestBody(content = {@Content(schema = @Schema(implementation = MenuOptionUpdateRequest.class))}) MenuOptionUpdateRequest menuOption,
+                              @Parameter(example = MenuOptionExample.PRODUCT_CODE) String productCode);
 
   @Operation(summary = "Delete a menu", tags = MenuOptionDocumentationMetadata.TAG)
   @ApiResponse(responseCode = "204")
   ResponseEntity<Void> delete(HttpServletRequest servletRequest,
-                              @Parameter(example = MenuOptionExample.ID) Long id);
+                              @Parameter(example = MenuOptionExample.PRODUCT_CODE) String productCode);
 }

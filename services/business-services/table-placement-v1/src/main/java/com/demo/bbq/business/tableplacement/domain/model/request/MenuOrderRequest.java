@@ -13,7 +13,7 @@ import lombok.*;
 public class MenuOrderRequest implements Serializable{
 
   @Schema(example = TablePlacementExample.MENU_ID)
-  private Long menuOptionId;
+  private String productCode;
 
   @Schema(example = TablePlacementExample.MENU_QUANTITY)
   private Integer quantity;

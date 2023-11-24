@@ -63,27 +63,27 @@ public class TablePlacementServiceImpl implements TablePlacementService {
   }
 
   private TableOrder updateExistingDiningRoomOrder(TableOrder diningRoomOrder, List<MenuOrderRequest> requestedMenuOrderList) {
-    Map<Long, MenuOrder> existingMenuOrderMap = diningRoomOrder.getMenuOrderList()
+    Map<String, MenuOrder> existingMenuOrderMap = diningRoomOrder.getMenuOrderList()
         .stream()
-        .collect(Collectors.toMap(MenuOrder::getMenuOptionId, savedMenuOrder -> savedMenuOrder));
+        .collect(Collectors.toMap(MenuOrder::getProductCode, savedMenuOrder -> savedMenuOrder));
 
     requestedMenuOrderList.forEach(requestedMenuOrder -> {
-        if (menuOptionAlreadyExist.test(existingMenuOrderMap, requestedMenuOrder.getMenuOptionId())) {
+        if (menuOptionAlreadyExist.test(existingMenuOrderMap, requestedMenuOrder.getProductCode())) {
           increaseQuantity.accept(existingMenuOrderMap, requestedMenuOrder);
         } else {
-          existingMenuOrderMap.put(requestedMenuOrder.getMenuOptionId(), menuOrderMapper.fromRequestToDto(requestedMenuOrder));
+          existingMenuOrderMap.put(requestedMenuOrder.getProductCode(), menuOrderMapper.fromRequestToDto(requestedMenuOrder));
         }
     });
     diningRoomOrder.setMenuOrderList(new ArrayList<>(existingMenuOrderMap.values()));
     return diningRoomOrder;
   }
 
-  private final BiPredicate<Map<Long, MenuOrder>, Long> menuOptionAlreadyExist = Map::containsKey;
+  private final BiPredicate<Map<String, MenuOrder>, String> menuOptionAlreadyExist = Map::containsKey;
 
-  private final BiConsumer<Map<Long, MenuOrder>, MenuOrderRequest> increaseQuantity = (existingMenuOrderMap, requestedMenuOrder) -> {
-    MenuOrder existingMenuOrder = existingMenuOrderMap.get(requestedMenuOrder.getMenuOptionId());
+  private final BiConsumer<Map<String, MenuOrder>, MenuOrderRequest> increaseQuantity = (existingMenuOrderMap, requestedMenuOrder) -> {
+    MenuOrder existingMenuOrder = existingMenuOrderMap.get(requestedMenuOrder.getProductCode());
     existingMenuOrder.setQuantity(existingMenuOrder.getQuantity() + requestedMenuOrder.getQuantity());
-    existingMenuOrderMap.put(requestedMenuOrder.getMenuOptionId(), existingMenuOrder);
+    existingMenuOrderMap.put(requestedMenuOrder.getProductCode(), existingMenuOrder);
   };
 
 }

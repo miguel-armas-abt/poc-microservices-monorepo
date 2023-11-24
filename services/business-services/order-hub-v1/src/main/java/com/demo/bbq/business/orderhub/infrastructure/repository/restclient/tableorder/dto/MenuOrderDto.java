@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class MenuOrderDto implements Serializable {
 
-  private Long menuOptionId;
+  private String productCode;
 
   private Integer quantity;
 

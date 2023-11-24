@@ -1,13 +1,12 @@
 package com.demo.bbq.business.menu.application.service.impl;
 
 import com.demo.bbq.business.menu.application.service.MenuOptionService;
+import com.demo.bbq.business.menu.domain.model.request.MenuOptionUpdateRequest;
 import com.demo.bbq.business.menu.domain.model.response.MenuOption;
-import com.demo.bbq.business.menu.infrastructure.repository.database.MenuOptionRepository;
 import com.demo.bbq.business.menu.domain.catalog.MenuCategory;
 import com.demo.bbq.business.menu.domain.exception.MenuOptionException;
-import com.demo.bbq.business.menu.infrastructure.mapper.MenuOptionMapper;
-import com.demo.bbq.business.menu.domain.model.request.MenuOptionRequest;
-import com.demo.bbq.business.menu.infrastructure.repository.database.entity.MenuOptionEntity;
+import com.demo.bbq.business.menu.domain.model.request.MenuOptionSaveRequest;
+import com.demo.bbq.business.menu.infrastructure.repository.handler.MenuOptionRepositoryHandler;
 import com.demo.bbq.support.logstash.Markers;
 import com.google.gson.Gson;
 import java.util.List;
@@ -22,57 +21,44 @@ import org.springframework.stereotype.Component;
 @Component
 public class MenuOptionServiceImpl implements MenuOptionService {
 
-  private final MenuOptionRepository menuOptionRepository;
-  private final MenuOptionMapper menuOptionMapper;
+  private final MenuOptionRepositoryHandler menuOptionRepositoryHandler;
 
   @Override
   public List<MenuOption> findByCategory(String categoryCode) {
-    return (Optional.ofNullable(categoryCode).isEmpty()
-          ? menuOptionRepository.findAll()
-          : this.validateMenuOptionAndFindByCategory(categoryCode))
-        .stream()
-        .map(menuOptionMapper::fromEntityToResponse)
-        .peek(menuOption -> log.info(Markers.SENSITIVE_JSON, "findByCategory: {}", new Gson().toJson(menuOption)))
+    return Optional.ofNullable(categoryCode).isEmpty()
+          ? menuOptionRepositoryHandler.findAll()
+          : this.validateMenuOptionAndFindByCategory(categoryCode);
+  }
+
+  private List<MenuOption> validateMenuOptionAndFindByCategory(String categoryCode) {
+    MenuCategory.validateCategory.accept(categoryCode);
+    return menuOptionRepositoryHandler.findAll().stream()
+        .filter(menu -> menu.getCategory().equals(categoryCode))
         .collect(Collectors.toList());
   }
 
-  private List<MenuOptionEntity> validateMenuOptionAndFindByCategory(String categoryCode) {
-    MenuCategory.validateCategory.accept(categoryCode);
-    return menuOptionRepository.findByCategory(categoryCode);
-  }
-
   @Override
-  public MenuOption findById(Long id) {
-    return menuOptionRepository.findById(id)
-        .map(menuOptionMapper::fromEntityToResponse)
+  public MenuOption findByProductCode(String productCode) {
+    return menuOptionRepositoryHandler.findAll().stream()
+        .filter(menuOption -> productCode.equals(menuOption.getProductCode()))
+        .peek(menuOption -> log.info(Markers.SENSITIVE_JSON, "findByProductCode: {}", new Gson().toJson(menuOption)))
+        .findFirst()
         .orElseThrow(MenuOptionException.ERROR0000::buildException);
   }
 
   @Override
-  public Long save(MenuOptionRequest menuOption) {
-    return menuOptionRepository.save(menuOptionMapper.fromRequestToEntity(menuOption)).getId();
+  public void save(MenuOptionSaveRequest menuOption) {
+    menuOptionRepositoryHandler.save(menuOption);
   }
 
   @Override
-  public Long update(Long id, MenuOptionRequest menuOption) {
-    return menuOptionRepository.findById(id)
-      .map(menuOptionFound -> {
-        MenuOptionEntity menuOptionEntity = menuOptionMapper.fromRequestToEntity(menuOption);
-        menuOptionEntity.setId(id);
-        menuOptionRepository.save(menuOptionEntity);
-        return menuOptionEntity.getId();
-      })
-      .orElseThrow(MenuOptionException.ERROR0000::buildException);
+  public void update(String productCode, MenuOptionUpdateRequest menuOption) {
+    menuOptionRepositoryHandler.update(productCode, menuOption);
   }
 
   @Override
-  public Long deleteById(Long id) {
-    return menuOptionRepository.findById(id)
-        .map(menuOptionFound -> {
-          menuOptionRepository.deleteById(id);
-          return menuOptionFound.getId();
-        })
-        .orElseThrow(MenuOptionException.ERROR0000::buildException);
+  public void deleteByProductCode(String productCode) {
+    menuOptionRepositoryHandler.deleteByProductCode(productCode);
   }
 
 }

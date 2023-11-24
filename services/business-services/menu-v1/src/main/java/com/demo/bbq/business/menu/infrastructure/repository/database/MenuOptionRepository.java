@@ -13,9 +13,11 @@ public interface MenuOptionRepository extends CrudRepository<MenuOptionEntity, L
 
   Optional<MenuOptionEntity> findById(Long id);
 
+  Optional<MenuOptionEntity> findByProductCode(String productCode);
+
   List<MenuOptionEntity> findByCategory(String category);
 
   MenuOptionEntity save(MenuOptionEntity menuOptionEntity);
 
-  void deleteById(Long id);
+  void deleteByProductCode(String productCode);
 }

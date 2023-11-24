@@ -2,7 +2,8 @@ package com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu
 
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.MenuApiConnector;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionDto;
-import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionRequestDto;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionSaveRequestDto;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionUpdateRequestDto;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.properties.RestClientBaseUrlProperties;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
@@ -54,14 +55,14 @@ public class MenuV1ApiConnectorWebClientImpl implements MenuApiConnector {
         .bodyToFlux(MenuOptionDto.class);
   }
 
-  public Mono<MenuOptionDto> findById(Long id) {
+  public Mono<MenuOptionDto> findByProductCode(String productCode) {
     return buildWebClient().method(HttpMethod.GET)
-        .uri(uriBuilder -> uriBuilder.path("menu-options/" + id).build())
+        .uri(uriBuilder -> uriBuilder.path("menu-options/" + productCode).build())
         .retrieve()
         .bodyToMono(MenuOptionDto.class);
   }
 
-  public Mono<Void> save(MenuOptionRequestDto menuOption) {
+  public Mono<Void> save(MenuOptionSaveRequestDto menuOption) {
     return buildWebClient().method(HttpMethod.POST)
         .uri(uriBuilder -> uriBuilder.path("menu-options").build())
         .contentType(MediaType.APPLICATION_JSON)
@@ -70,18 +71,18 @@ public class MenuV1ApiConnectorWebClientImpl implements MenuApiConnector {
         .bodyToMono(Void.class);
   }
 
-  public Mono<Void> update(Long id, MenuOptionRequestDto menuOption) {
+  public Mono<Void> update(String productCode, MenuOptionUpdateRequestDto menuOption) {
     return buildWebClient().method(HttpMethod.PUT)
-        .uri(uriBuilder -> uriBuilder.path("menu-options/" + id).build())
+        .uri(uriBuilder -> uriBuilder.path("menu-options/" + productCode).build())
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromObject(menuOption))
         .retrieve()
         .bodyToMono(Void.class);
   }
 
-  public Mono<Void> delete(Long id) {
+  public Mono<Void> delete(String productCode) {
     return buildWebClient().method(HttpMethod.DELETE)
-        .uri(uriBuilder -> uriBuilder.path("menu-options/" + id).build())
+        .uri(uriBuilder -> uriBuilder.path("menu-options/" + productCode).build())
         .retrieve()
         .bodyToMono(Void.class);
   }
