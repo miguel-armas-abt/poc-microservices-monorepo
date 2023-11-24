@@ -14,9 +14,9 @@ public class MenuOrderRepositoryReactive {
 
   public Mono<MenuOrderEntity> updateMenuOrder(MenuOrderEntity menuOrder) {
     return Mono.just(menuOrder)
-        .map(existingMenuOrder -> menuOrderRepository.findByMenuOptionId(existingMenuOrder.getMenuOptionId())
+        .map(existingMenuOrder -> menuOrderRepository.findByProductCode(existingMenuOrder.getProductCode())
             .map(foundMenuOrder -> {
-              foundMenuOrder.setMenuOptionId(existingMenuOrder.getMenuOptionId());
+              foundMenuOrder.setProductCode(existingMenuOrder.getProductCode());
               foundMenuOrder.setQuantity(existingMenuOrder.getQuantity());
               foundMenuOrder.setTableId(existingMenuOrder.getTableId());
               return foundMenuOrder;

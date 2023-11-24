@@ -27,8 +27,8 @@ public class MenuRepositoryHandler {
     return findAll().filter(menuOptionDto -> menuCategory.equals(menuOptionDto.getCategory()));
   }
 
-  public Maybe<MenuOptionDto> findById(Long menuOptionId) {
-    return findAll().filter(menuOptionDto -> menuOptionId.equals(menuOptionDto.getId()))
+  public Maybe<MenuOptionDto> findByProductCode(String productCode) {
+    return findAll().filter(menuOptionDto -> productCode.equals(menuOptionDto.getProductCode()))
         .firstElement();
   }
 

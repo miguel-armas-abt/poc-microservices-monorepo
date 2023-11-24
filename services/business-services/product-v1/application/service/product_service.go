@@ -7,9 +7,9 @@ import (
 
 type ProductService interface {
 	FindAll() ([]response.ProductResponse, error)
-	FindById(id uint) (*response.ProductResponse, error)
+	FindByCode(code string) (*response.ProductResponse, error)
 	FindByScope(scope string) ([]response.ProductResponse, error)
-	Save(request request.ProductRequest) (*response.ProductResponse, error)
-	Update(request request.ProductRequest, id uint) (*response.ProductResponse, error)
-	Delete(id uint) error
+	Save(request request.ProductSaveRequest) (*response.ProductResponse, error)
+	Update(request request.ProductUpdateRequest, code string) (*response.ProductResponse, error)
+	Delete(code string) error
 }

@@ -9,9 +9,8 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductRequestDto implements Serializable {
+public class ProductUpdateRequestDto implements Serializable {
 
-  private String code;
   private BigDecimal unitPrice;
   private String scope;
 }

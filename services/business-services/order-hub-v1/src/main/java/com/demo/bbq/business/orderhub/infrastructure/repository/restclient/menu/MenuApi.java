@@ -1,7 +1,8 @@
 package com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu;
 
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionDto;
-import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionRequestDto;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionSaveRequestDto;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionUpdateRequestDto;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.properties.MenuOptionSelectorClassProperties;
 import com.demo.bbq.support.exception.model.ApiException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -28,9 +29,9 @@ public class MenuApi {
         .orElseThrow(NullPointerException::new);
   }
 
-  @CircuitBreaker(name = API_CLIENT, fallbackMethod = "findByIdFallback")
-  public Mono<MenuOptionDto> findById(Long id) {
-    return getService(properties.getSelectorClass()).findById(id);
+  @CircuitBreaker(name = API_CLIENT, fallbackMethod = "findByProductCodeFallback")
+  public Mono<MenuOptionDto> findByProductCode(String productCode) {
+    return getService(properties.getSelectorClass()).findByProductCode(productCode);
   }
 
   @CircuitBreaker(name = API_CLIENT, fallbackMethod = "findByCategoryFallback")
@@ -39,23 +40,23 @@ public class MenuApi {
   }
 
   @CircuitBreaker(name = API_CLIENT, fallbackMethod = "saveFallback")
-  public Mono<Void> save(MenuOptionRequestDto menuOptionRequest) {
+  public Mono<Void> save(MenuOptionSaveRequestDto menuOptionRequest) {
     return getService(properties.getSelectorClass()).save(menuOptionRequest);
   }
 
   @CircuitBreaker(name = API_CLIENT, fallbackMethod = "updateFallback")
-  public Mono<Void> update(Long id, MenuOptionRequestDto menuOptionRequest) {
-    return getService(properties.getSelectorClassFallback()).update(id, menuOptionRequest);
+  public Mono<Void> update(String productCode, MenuOptionUpdateRequestDto menuOptionRequest) {
+    return getService(properties.getSelectorClassFallback()).update(productCode, menuOptionRequest);
   }
 
   @CircuitBreaker(name = API_CLIENT, fallbackMethod = "deleteFallback")
-  public Mono<Void> delete(Long id) {
-    return getService(properties.getSelectorClassFallback()).delete(id);
+  public Mono<Void> delete(String productCode) {
+    return getService(properties.getSelectorClassFallback()).delete(productCode);
   }
 
-  public Mono<MenuOptionDto> findByIdFallback(Long id, Throwable throwable) {
+  public Mono<MenuOptionDto> findByProductCodeFallback(String productCode, Throwable throwable) {
     validateException(throwable);
-    return getService(properties.getSelectorClassFallback()).findById(id);
+    return getService(properties.getSelectorClassFallback()).findByProductCode(productCode);
   }
 
   public Flux<MenuOptionDto> findByCategoryFallback(String category, Throwable throwable) {
@@ -63,19 +64,19 @@ public class MenuApi {
     return getService(properties.getSelectorClassFallback()).findByCategory(category);
   }
 
-  public Mono<Void> saveFallback(MenuOptionRequestDto menuOptionRequest, Throwable throwable) {
+  public Mono<Void> saveFallback(MenuOptionSaveRequestDto menuOptionRequest, Throwable throwable) {
     validateException(throwable);
     return getService(properties.getSelectorClassFallback()).save(menuOptionRequest);
   }
 
-  public Mono<Void> updateFallback(Long id, MenuOptionRequestDto menuOptionRequest, Throwable throwable) {
+  public Mono<Void> updateFallback(String productCode, MenuOptionUpdateRequestDto menuOptionRequest, Throwable throwable) {
     validateException(throwable);
-    return getService(properties.getSelectorClassFallback()).update(id, menuOptionRequest);
+    return getService(properties.getSelectorClassFallback()).update(productCode, menuOptionRequest);
   }
 
-  public Mono<Void> deleteFallback(Long id, Throwable throwable) {
+  public Mono<Void> deleteFallback(String productCode, Throwable throwable) {
     validateException(throwable);
-    return getService(properties.getSelectorClassFallback()).delete(id);
+    return getService(properties.getSelectorClassFallback()).delete(productCode);
   }
 
   private static void validateException(Throwable throwable) {

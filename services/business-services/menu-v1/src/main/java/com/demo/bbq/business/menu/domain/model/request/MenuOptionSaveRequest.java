@@ -1,6 +1,7 @@
 package com.demo.bbq.business.menu.domain.model.request;
 
 import com.demo.bbq.business.menu.domain.constant.MenuRegex;
+import com.demo.bbq.business.menu.infrastructure.documentation.data.MenuOptionExample;
 import com.demo.bbq.support.constant.RegexConstant;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.NotNull;
@@ -19,25 +20,24 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuOptionRequest implements Serializable {
+public class MenuOptionSaveRequest implements Serializable {
 
-  @Schema(example = "Pollo a la brasa")
+  @Schema(example = MenuOptionExample.PRODUCT_CODE)
+  @NotNull(message = "productCode cannot be null")
+  private String productCode;
+
+  @Schema(example = MenuOptionExample.DESCRIPTION)
   @Pattern(regexp = RegexConstant.ANY_STRING, message = "Name has invalid format")
   @Size(min = 3, max = 300)
   @NotNull(message = "description cannot be null")
   private String description;
 
-  @Schema(example = "main-dish")
+  @Schema(example = MenuOptionExample.CATEGORY_MAIN_DISH)
   @Pattern(regexp = MenuRegex.CATEGORY, message = "Invalid menu option category")
   @NotNull(message = "category cannot be null")
   private String category;
 
-  @Schema(example = "29.99")
-  @NotNull(message = "price cannot be null")
-  private BigDecimal price;
-
-  @Schema(example = "true")
-  @NotNull(message = "is active cannot be null")
-  private boolean active;
-
+  @Schema(example = MenuOptionExample.UNIT_PRICE)
+  @NotNull(message = "unitPrice cannot be null")
+  private BigDecimal unitPrice;
 }

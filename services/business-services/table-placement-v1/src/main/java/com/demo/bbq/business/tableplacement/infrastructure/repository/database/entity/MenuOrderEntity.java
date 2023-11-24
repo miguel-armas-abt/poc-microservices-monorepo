@@ -21,8 +21,8 @@ public class MenuOrderEntity implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "menu_option_id") // should be unique=true
-  private Long menuOptionId;
+  @Column(name = "product_code") // should be unique=true
+  private String productCode;
 
   @Column(name = "quantity")
   private Integer quantity;

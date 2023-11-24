@@ -27,8 +27,8 @@ func (thisService *productServiceImpl) FindAll() ([]response.ProductResponse, er
 	return mapper.EntityListToResponseList(productListFound), nil
 }
 
-func (thisService *productServiceImpl) FindById(id uint) (*response.ProductResponse, error) {
-	productFound, err := thisService.repository.FindById(id)
+func (thisService *productServiceImpl) FindByCode(code string) (*response.ProductResponse, error) {
+	productFound, err := thisService.repository.FindByCode(code)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, exception.ProductNotFound
@@ -48,7 +48,7 @@ func (thisService *productServiceImpl) FindByScope(scope string) ([]response.Pro
 	return mapper.EntityListToResponseList(productListFound), nil
 }
 
-func (thisService *productServiceImpl) Save(productRequest request.ProductRequest) (*response.ProductResponse, error) {
+func (thisService *productServiceImpl) Save(productRequest request.ProductSaveRequest) (*response.ProductResponse, error) {
 	productToSave := mapper.RequestToEntity(productRequest)
 	if err := thisService.repository.Save(&productToSave); err != nil {
 		return nil, err
@@ -57,8 +57,8 @@ func (thisService *productServiceImpl) Save(productRequest request.ProductReques
 	return &product, nil
 }
 
-func (thisService *productServiceImpl) Update(productRequest request.ProductRequest, id uint) (*response.ProductResponse, error) {
-	productFound, err := thisService.repository.FindById(id)
+func (thisService *productServiceImpl) Update(productRequest request.ProductUpdateRequest, code string) (*response.ProductResponse, error) {
+	productFound, err := thisService.repository.FindByCode(code)
 	if err != nil {
 		return nil, err
 	}
@@ -72,6 +72,6 @@ func (thisService *productServiceImpl) Update(productRequest request.ProductRequ
 	return &product, nil
 }
 
-func (thisService *productServiceImpl) Delete(id uint) error {
-	return thisService.repository.Delete(id)
+func (thisService *productServiceImpl) Delete(code string) error {
+	return thisService.repository.Delete(code)
 }

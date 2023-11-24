@@ -2,7 +2,8 @@ package com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu
 
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.MenuApiConnector;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionDto;
-import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionRequestDto;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionSaveRequestDto;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionUpdateRequestDto;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Observable;
 import lombok.RequiredArgsConstructor;
@@ -26,24 +27,24 @@ public class MenuV1ApiConnectorRetrofitImpl implements MenuApiConnector {
   }
 
   @Override
-  public Mono<MenuOptionDto> findById(Long id) {
-    return RxJava2Adapter.singleToMono(menuV1Api.findById(id));
+  public Mono<MenuOptionDto> findByProductCode(String productCode) {
+    return RxJava2Adapter.singleToMono(menuV1Api.findByProductCode(productCode));
   }
 
   @Override
-  public Mono<Void> save(MenuOptionRequestDto menuOption) {
+  public Mono<Void> save(MenuOptionSaveRequestDto menuOption) {
     return RxJava2Adapter.completableToMono(menuV1Api.save(menuOption).ignoreElement());
   }
 
   @Override
-  public Mono<Void> update(Long id, MenuOptionRequestDto menuOption) {
-    return RxJava2Adapter.completableToMono(menuV1Api.update(id, menuOption).ignoreElement());
+  public Mono<Void> update(String productCode, MenuOptionUpdateRequestDto menuOption) {
+    return RxJava2Adapter.completableToMono(menuV1Api.update(productCode, menuOption).ignoreElement());
   }
 
   @Override
-  public Mono<Void> delete(Long id) {
+  public Mono<Void> delete(String productCode) {
     return RxJava2Adapter.completableToMono(menuV1Api
-        .delete(id)
+        .delete(productCode)
         .ignoreElement());
   }
 

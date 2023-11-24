@@ -21,7 +21,7 @@ public class MenuOptionEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "product_code")
+  @Column(name = "product_code", unique = true)
   private String productCode;
 
   @Column(name = "description")

@@ -2,8 +2,8 @@ package com.demo.bbq.business.menu.infrastructure.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.demo.bbq.business.menu.domain.model.request.MenuOptionSaveRequest;
 import com.demo.bbq.business.menu.domain.model.response.MenuOption;
-import com.demo.bbq.business.menu.domain.model.request.MenuOptionRequest;
 import com.demo.bbq.business.menu.infrastructure.repository.database.entity.MenuOptionEntity;
 import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
@@ -26,7 +26,7 @@ public class MenuOptionMapperTest {
 
     private MenuOption menuOption;
 
-    private MenuOptionRequest menuOptionRequest;
+    private MenuOptionSaveRequest menuOptionRequest;
 
     /**
      * Método que pre carga la data necesaria para ejecutar las pruebas unitarias.
@@ -41,7 +41,7 @@ public class MenuOptionMapperTest {
             .getAnElement("data/model/menuoption/dto/response/MenuOptionResponse.json", MenuOption.class);
 
         menuOptionRequest= JsonFileReader
-            .getAnElement("data/model/menuoption/dto/request/MenuOptionRequest.json", MenuOptionRequest.class);
+            .getAnElement("data/model/menuoption/dto/request/MenuOptionRequest.json", MenuOptionSaveRequest.class);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class MenuOptionMapperTest {
         menuOptionEntity.setId(null);
 
         String expected = new Gson().toJson(currentMenuOptionEntity);
-        String actual = new Gson().toJson(mapper.fromRequestToEntity(menuOptionRequest));
+        String actual = new Gson().toJson(mapper.fromSaveRequestToEntity(menuOptionRequest));
 
         assertEquals(expected, actual);
     }

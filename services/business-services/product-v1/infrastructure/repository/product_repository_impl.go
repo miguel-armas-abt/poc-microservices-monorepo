@@ -24,9 +24,9 @@ func (thisRepository *productRepositoryImpl) FindAll() ([]entity.ProductEntity, 
 	return productList, nil
 }
 
-func (thisRepository *productRepositoryImpl) FindById(id uint) (*entity.ProductEntity, error) {
+func (thisRepository *productRepositoryImpl) FindByCode(code string) (*entity.ProductEntity, error) {
 	var product entity.ProductEntity
-	if err := thisRepository.db.First(&product, id).Error; err != nil {
+	if err := thisRepository.db.Where("code=?", code).First(&product).Error; err != nil {
 		return nil, err
 	}
 	return &product, nil
@@ -44,7 +44,7 @@ func (thisRepository *productRepositoryImpl) Save(product *entity.ProductEntity)
 	return thisRepository.db.Save(product).Error
 }
 
-func (thisRepository *productRepositoryImpl) Delete(id uint) error {
+func (thisRepository *productRepositoryImpl) Delete(code string) error {
 	var product entity.ProductEntity
-	return thisRepository.db.Where("id = ?", id).Delete(&product).Error
+	return thisRepository.db.Where("code = ?", code).Delete(&product).Error
 }

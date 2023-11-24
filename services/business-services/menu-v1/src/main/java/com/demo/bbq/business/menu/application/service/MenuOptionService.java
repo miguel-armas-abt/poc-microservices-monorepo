@@ -1,24 +1,19 @@
 package com.demo.bbq.business.menu.application.service;
 
-import com.demo.bbq.business.menu.domain.model.request.MenuOptionRequest;
+import com.demo.bbq.business.menu.domain.model.request.MenuOptionSaveRequest;
+import com.demo.bbq.business.menu.domain.model.request.MenuOptionUpdateRequest;
 import com.demo.bbq.business.menu.domain.model.response.MenuOption;
 import java.util.List;
 
-/**
- * <br/>Interface Service que define los métodos necesarios para tramitar la lógica de negocio del contexto Menu
- * Option.<br/>
- *
- * @author Miguel Armas Abt <br/>
- */
 public interface MenuOptionService {
 
   List<MenuOption> findByCategory(String categoryCode);
 
-  MenuOption findById(Long id);
+  MenuOption findByProductCode(String productCode);
 
-  Long save (MenuOptionRequest menuOption);
+  void save (MenuOptionSaveRequest menuOption);
 
-  Long update(Long id, MenuOptionRequest menuOption);
+  void update(String productCode, MenuOptionUpdateRequest menuOption);
 
-  Long deleteById(Long id);
+  void deleteByProductCode(String productCode);
 }

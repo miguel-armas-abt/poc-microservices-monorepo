@@ -14,7 +14,7 @@ public interface InvoiceMapper {
   PaymentRequest toPaymentRequest(InvoicePaymentRequest invoicePaymentRequest);
 
   @Mapping(target = "description", source = "menuOption.description")
-  @Mapping(target = "unitPrice", source = "menuOption.price")
+  @Mapping(target = "unitPrice", source = "menuOption.unitPrice")
   @Mapping(target = "quantity", source = "menuOrder.quantity")
   ProductRequestDto toProduct(MenuOrderDto menuOrder, MenuOptionDto menuOption);
 }

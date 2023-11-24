@@ -31,7 +31,7 @@ public class TableOrderServiceImpl implements TableOrderService {
   }
 
   private Maybe<MenuOptionDto> existsMenuOption(MenuOrderRequestDto menuOrderRequest) {
-    return menuRepositoryHandler.findById(menuOrderRequest.getMenuOptionId())
+    return menuRepositoryHandler.findByProductCode(menuOrderRequest.getProductCode())
         .switchIfEmpty(Maybe.error(OrderHubException.ERROR0001.buildException()));
   }
 

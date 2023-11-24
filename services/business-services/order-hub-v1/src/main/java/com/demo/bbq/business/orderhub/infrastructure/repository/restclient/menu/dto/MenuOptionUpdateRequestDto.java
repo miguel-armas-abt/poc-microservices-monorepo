@@ -9,14 +9,9 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuOptionDto implements Serializable {
-
-  private String productCode;
+public class MenuOptionUpdateRequestDto implements Serializable {
 
   private String description;
-
   private String category;
-
   private BigDecimal unitPrice;
-
 }

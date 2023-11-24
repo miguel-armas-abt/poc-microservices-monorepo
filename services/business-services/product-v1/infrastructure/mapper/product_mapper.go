@@ -7,14 +7,14 @@ import (
 	"product-v1/infrastructure/repository/entity"
 )
 
-func RequestToEntity(productRequest request.ProductRequest) entity.ProductEntity {
+func RequestToEntity(productRequest request.ProductSaveRequest) entity.ProductEntity {
 	var productEntity entity.ProductEntity
 	mapstructure.Decode(productRequest, &productEntity)
 	productEntity.IsActive = true
 	return productEntity
 }
 
-func UpdateRequestToEntity(productRequest request.ProductRequest, productEntity *entity.ProductEntity) {
+func UpdateRequestToEntity(productRequest request.ProductUpdateRequest, productEntity *entity.ProductEntity) {
 	mapstructure.Decode(productRequest, productEntity)
 }
 

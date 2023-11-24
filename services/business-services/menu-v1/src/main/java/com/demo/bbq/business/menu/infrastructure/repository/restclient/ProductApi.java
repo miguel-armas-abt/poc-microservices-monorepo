@@ -1,7 +1,7 @@
 package com.demo.bbq.business.menu.infrastructure.repository.restclient;
 
 import com.demo.bbq.business.menu.infrastructure.repository.restclient.dto.ProductDto;
-import com.demo.bbq.business.menu.infrastructure.repository.restclient.dto.ProductRequestDto;
+import com.demo.bbq.business.menu.infrastructure.repository.restclient.dto.ProductSaveRequestDto;
 import io.reactivex.Single;
 import java.util.List;
 import okhttp3.ResponseBody;
@@ -12,18 +12,18 @@ public interface ProductApi {
 
   @Headers({"Accept: application/json"})
   @GET("products/{id}")
-  Single<ProductDto> findById(@Path(value = "id") Long id);
+  Single<ProductDto> findByCode(@Path(value = "code") String code);
 
   @Headers({"Accept: application/json"})
   @GET("products")
   Single<List<ProductDto>> findByScope(@Query("scope") String scope);
 
   @POST("products")
-  Single<ResponseBody> save(@Body ProductRequestDto productRequest);
+  Single<ResponseBody> save(@Body ProductSaveRequestDto productRequest);
 
-  @PUT("products/{id}")
-  Single<ResponseBody> update(@Path(value = "id") Long id, @Body ProductRequestDto productRequest);
+  @PUT("products/{code}")
+  Single<ResponseBody> update(@Path(value = "code") String code, @Body ProductSaveRequestDto productRequest);
 
-  @DELETE("products/{id}")
-  Single<Response<Void>> delete(@Path(value = "id") Long id);
+  @DELETE("products/{code}")
+  Single<Response<Void>> delete(@Path(value = "code") String code);
 }

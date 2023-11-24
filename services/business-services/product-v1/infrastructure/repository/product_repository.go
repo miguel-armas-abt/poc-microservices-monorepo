@@ -7,7 +7,7 @@ import (
 type ProductRepository interface {
 	FindAll() ([]entity.ProductEntity, error)
 	FindByScope(scope string) ([]entity.ProductEntity, error)
-	FindById(id uint) (*entity.ProductEntity, error)
+	FindByCode(code string) (*entity.ProductEntity, error)
 	Save(product *entity.ProductEntity) error
-	Delete(id uint) error
+	Delete(code string) error
 }

@@ -1,7 +1,8 @@
 package com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu;
 
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionDto;
-import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionRequestDto;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionSaveRequestDto;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionUpdateRequestDto;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -9,13 +10,13 @@ public interface MenuApiConnector {
 
   Flux<MenuOptionDto> findByCategory(String category);
 
-  Mono<MenuOptionDto> findById(Long id);
+  Mono<MenuOptionDto> findByProductCode(String productCode);
 
-  Mono<Void> save(MenuOptionRequestDto menuOption);
+  Mono<Void> save(MenuOptionSaveRequestDto menuOption);
 
-  Mono<Void> update(Long id, MenuOptionRequestDto menuOption);
+  Mono<Void> update(String productCode, MenuOptionUpdateRequestDto menuOption);
 
-  Mono<Void> delete(Long id);
+  Mono<Void> delete(String productCode);
 
   boolean supports(Class<?> selectedClass);
 }

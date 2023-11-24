@@ -7,7 +7,6 @@ import (
 	"product-v1/domain/model/request"
 	"product-v1/domain/model/response"
 	"product-v1/infrastructure/exception/handler"
-	"strconv"
 )
 
 type ProductRestService struct {
@@ -20,9 +19,9 @@ func NewProductRestService(service service.ProductService) *ProductRestService {
 	}
 }
 
-func (thisRestService *ProductRestService) FindById(context *gin.Context) {
-	id, _ := strconv.ParseUint(context.Param("id"), 10, 64)
-	menuOption, err := thisRestService.productService.FindById(uint(id))
+func (thisRestService *ProductRestService) FindByCode(context *gin.Context) {
+	code := context.Param("code")
+	menuOption, err := thisRestService.productService.FindByCode(code)
 	if err != nil {
 		handler.ErrorHandler(context, err)
 		return
@@ -51,7 +50,7 @@ func (thisRestService *ProductRestService) FindByScope(context *gin.Context) {
 }
 
 func (thisRestService *ProductRestService) Save(context *gin.Context) {
-	var menuOptionRequest request.ProductRequest
+	var menuOptionRequest request.ProductSaveRequest
 	if err := context.ShouldBindJSON(&menuOptionRequest); err != nil {
 		handler.ErrorHandler(context, err)
 		return
@@ -66,15 +65,15 @@ func (thisRestService *ProductRestService) Save(context *gin.Context) {
 }
 
 func (thisRestService *ProductRestService) Update(context *gin.Context) {
-	id, _ := strconv.ParseUint(context.Param("id"), 10, 64)
-	var menuOptionRequest request.ProductRequest
+	code := context.Param("code")
+	var menuOptionRequest request.ProductUpdateRequest
 
 	if err := context.ShouldBindJSON(&menuOptionRequest); err != nil {
 		handler.ErrorHandler(context, err)
 		return
 	}
 
-	menuOption, err := thisRestService.productService.Update(menuOptionRequest, uint(id))
+	menuOption, err := thisRestService.productService.Update(menuOptionRequest, code)
 	if err != nil {
 		handler.ErrorHandler(context, err)
 		return
@@ -83,8 +82,8 @@ func (thisRestService *ProductRestService) Update(context *gin.Context) {
 }
 
 func (thisRestService *ProductRestService) Delete(context *gin.Context) {
-	id, _ := strconv.ParseUint(context.Param("id"), 10, 64)
-	err := thisRestService.productService.Delete(uint(id))
+	code := context.Param("code")
+	err := thisRestService.productService.Delete(code)
 	if err != nil {
 		handler.ErrorHandler(context, err)
 		return

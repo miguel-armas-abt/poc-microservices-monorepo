@@ -10,6 +10,6 @@ public interface MenuOrderRepository extends CrudRepository<MenuOrderEntity, Lon
 
   MenuOrderEntity save(MenuOrderEntity menuOrder);
 
-  Optional<MenuOrderEntity> findByMenuOptionId(Long menuOptionId);
+  Optional<MenuOrderEntity> findByProductCode(String productCode);
 
 }
