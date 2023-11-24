@@ -1,10 +1,3 @@
-application:
-  http-client:
-    menu-option-v2:
-      base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8016/bbq/business/v2/}
-    dining-room-order-v1:
-      base-url: ${BUSINESS_DINING_ROOM_ORDER_BASE_PATH:http://localhost:8010/bbq/business/v1/}
-
 kafka-broker:
   topic:
     invoice: invoice-topic
@@ -31,6 +24,11 @@ spring:
     driverClassName: org.postgresql.Driver
     username: ${POSTGRESQL_USERNAME:bbq_user}
     password: ${POSTGRESQL_PASSWORD:qwerty}
+
+application:
+  http-client:
+    product:
+      base-url: ${PRODUCT_V1_BASE_URL:http://localhost:8017/bbq/business/product/v1/}
 
 business:
   invoice:

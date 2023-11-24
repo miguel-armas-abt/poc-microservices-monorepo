@@ -22,14 +22,7 @@ spring:
     username: ${MYSQL_USERNAME:bbq_user}
     password: ${MYSQL_PASSWORD:qwerty}
 
-  cache:
-    type: redis
-  redis:
-    host: localhost
-    port: 6379
-    ssl: false
-
 application:
   http-client:
     product:
-      base-url: ${PRODUCT_V1_BASE_URL:http://localhost:8010/bbq/business/product/v1/}
+      base-url: ${PRODUCT_V1_BASE_URL:http://localhost:8017/bbq/business/product/v1/}
