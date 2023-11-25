@@ -1,4 +1,4 @@
-package com.demo.bbq.business.orderhub.infrastructure.rules.util;
+package com.demo.bbq.business.invoice.infrastructure.rules.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,7 +22,7 @@ public class DroolFileGeneratorApplication {
 
     DroolFileGeneratorApplication xlsToDrlUtil = new DroolFileGeneratorApplication();
 
-    xlsToDrlUtil.getDLR("C:\\dev-workspace\\bbq-project\\bbq-monorepo\\services\\business-services\\order-hub-v1\\src\\main\\resources\\rules\\",
+    xlsToDrlUtil.getDLR("C:\\dev-workspace\\bbq\\bbq-monorepo\\services\\business-services\\invoice-v1\\src\\main\\resources\\rules\\",
         "discount_rules");
   }
   public  void getDLR(String basePath, String nameRule) {

@@ -22,11 +22,12 @@ public interface InvoiceMapper {
   @Mapping(target = "invoiceId", source = "invoiceEntity.id")
   Payment invoiceToPayment(InvoiceEntity invoiceEntity, BigDecimal totalAmount);
 
-  @Mapping(target = "subtotal", expression = "java(getSubtotal(request))")
-  Product toProduct(ProductRequest request);
+  @Mapping(target = "subtotal", expression = "java(getSubtotal(request, unitPrice, discount))")
+  Product toProduct(ProductRequest request, BigDecimal unitPrice, BigDecimal discount);
 
-  default BigDecimal getSubtotal(ProductRequest request) {
-    return request.getUnitPrice().multiply(new BigDecimal(request.getQuantity()));
+  default BigDecimal getSubtotal(ProductRequest request, BigDecimal unitPrice, BigDecimal discount) {
+    BigDecimal subtotal = unitPrice.multiply(new BigDecimal(request.getQuantity()));
+    return subtotal.subtract(subtotal.multiply(discount));
   }
 
   default PaymentMethod getPaymentMethod(String paymentMethod) {

@@ -1,7 +1,6 @@
 package com.demo.bbq.business.invoice.domain.model.request;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import lombok.*;
 
 @Builder
@@ -11,8 +10,8 @@ import lombok.*;
 @NoArgsConstructor
 public class ProductRequest implements Serializable {
 
+  private String productCode;
   private String description;
   private Integer quantity;
-  private BigDecimal unitPrice;
 
 }
