@@ -11,7 +11,7 @@ import retrofit2.http.*;
 public interface ProductApi {
 
   @Headers({"Accept: application/json"})
-  @GET("products/{id}")
+  @GET("products/{code}")
   Single<ProductDto> findByCode(@Path(value = "code") String code);
 
   @Headers({"Accept: application/json"})

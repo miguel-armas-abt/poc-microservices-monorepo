@@ -1,6 +1,6 @@
-package com.demo.bbq.business.orderhub.infrastructure.rules.service;
+package com.demo.bbq.business.invoice.infrastructure.rules.service;
 
-import com.demo.bbq.business.orderhub.infrastructure.rules.properties.RuleInitMap;
+import com.demo.bbq.business.invoice.infrastructure.rules.properties.RuleInitMap;
 import lombok.RequiredArgsConstructor;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;

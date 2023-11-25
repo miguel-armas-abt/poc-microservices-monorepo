@@ -14,7 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 public enum InvoiceException {
 
   ERROR0000(ApiExceptionType.BUSINESS_RULES, "The total amount is less than zero"),
-  ERROR0001(ApiExceptionType.BUSINESS_RULES, "Payment status could not be updated");
+  ERROR0001(ApiExceptionType.BUSINESS_RULES, "Payment status could not be updated"),
+  ERROR0002(ApiExceptionType.TIMEOUT, "Could not connect to external service");
 
   private final String SERVICE_NAME = "invoice-v1";
   private final ApiExceptionType type;

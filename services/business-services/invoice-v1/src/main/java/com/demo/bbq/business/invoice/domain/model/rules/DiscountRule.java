@@ -1,4 +1,4 @@
-package com.demo.bbq.business.orderhub.domain.rules;
+package com.demo.bbq.business.invoice.domain.model.rules;
 
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 
@@ -16,16 +16,14 @@ import lombok.ToString;
 public class DiscountRule implements Serializable {
 
   //input
-  private String menuCategory;
-
-  private String menuOptionId;
+  private String productCode;
 
   //output
   private boolean discountable;
 
   private double discount;
 
-  public final boolean validateDiscountable(List<String> menuOptionIdList) {
-    return isNotEmpty(menuOptionIdList) && menuOptionIdList.contains(menuOptionId);
+  public final boolean validateDiscountable(List<String> productCodeList) {
+    return isNotEmpty(productCodeList) && productCodeList.contains(productCode);
   }
 }

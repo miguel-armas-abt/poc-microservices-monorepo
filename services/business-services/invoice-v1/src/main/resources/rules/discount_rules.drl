@@ -1,0 +1,15 @@
+package rule_table;
+//generated from Decision Table
+import com.demo.bbq.business.invoice.domain.model.rules.DiscountRule;
+import java.util.Arrays;
+// rule values at A10, header at A5
+rule "R01"
+/* Menú del día */
+	salience 65535
+	when
+		$filter :DiscountRule(validateDiscountable(Arrays.asList("MENU0001","MENU0002","MENU0003")))
+	then
+		$filter.setDiscountable(true);
+		$filter.setDiscount(0.15);
+end
+

@@ -1,4 +1,4 @@
-package com.demo.bbq.business.orderhub.infrastructure.rules.properties;
+package com.demo.bbq.business.invoice.infrastructure.rules.properties;
 
 import lombok.Data;
 

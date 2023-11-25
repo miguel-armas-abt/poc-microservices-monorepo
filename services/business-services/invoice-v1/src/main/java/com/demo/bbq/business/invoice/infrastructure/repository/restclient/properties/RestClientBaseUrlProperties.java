@@ -1,4 +1,4 @@
-package com.demo.bbq.business.menu.infrastructure.repository.restclient.properties;
+package com.demo.bbq.business.invoice.infrastructure.repository.restclient.properties;
 
 import lombok.Getter;
 import lombok.Setter;
