@@ -7,7 +7,7 @@ rule "R01"
 /* Menú del día */
 	salience 65535
 	when
-		$filter :DiscountRule(validateDiscountable(Arrays.asList("MENU0001","MENU0002","MENU0003")))
+		$filter :DiscountRule(quantity == "2", validateDiscountable(Arrays.asList("MENU0001","MENU0002","MENU0003")))
 	then
 		$filter.setDiscountable(true);
 		$filter.setDiscount(0.15);

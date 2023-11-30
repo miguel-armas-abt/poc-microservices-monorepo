@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-11-30T02:27:04.824Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="1SCEAyeadJb-22YOW_Nn" version="22.1.5" type="device" pages="3">
+<mxfile host="app.diagrams.net" modified="2023-11-30T02:54:02.647Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="T33w2fAme1p8BpgBQXyz" version="22.1.5" type="device" pages="3">
   <diagram id="Mab86lwmYLIhfpq_8ImP" name="UC-waiter">
-    <mxGraphModel dx="318" dy="1516" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="57" dy="1378" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -436,53 +436,53 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-7" value="" style="childLayout=tableLayout;recursiveResize=0;shadow=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
-          <mxGeometry x="3825" y="860" width="960" height="297.4811734286218" as="geometry" />
+          <mxGeometry x="3920" y="765" width="960" height="335.4811734286218" as="geometry" />
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-8" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;fillColor=none;strokeColor=inherit;" parent="BjneXB7JfgLjXE7wOcdy-7" vertex="1">
-          <mxGeometry width="960" height="32" as="geometry" />
+          <mxGeometry width="960" height="50" as="geometry" />
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-9" value="menu-v1" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-8" vertex="1">
-          <mxGeometry width="150" height="32" as="geometry">
-            <mxRectangle width="150" height="32" as="alternateBounds" />
+          <mxGeometry width="150" height="50" as="geometry">
+            <mxRectangle width="150" height="50" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-10" value="Permite gestionar las opciones de menú disponibles en el restaurante. (CRUD)" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-8" vertex="1">
-          <mxGeometry x="150" width="480" height="32" as="geometry">
-            <mxRectangle width="480" height="32" as="alternateBounds" />
+          <mxGeometry x="150" width="480" height="50" as="geometry">
+            <mxRectangle width="480" height="50" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="BjneXB7JfgLjXE7wOcdy-11" value="SpringBoot&lt;br&gt;BD MySQL" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-8" vertex="1">
-          <mxGeometry x="630" width="330" height="32" as="geometry">
-            <mxRectangle width="330" height="32" as="alternateBounds" />
+        <mxCell id="BjneXB7JfgLjXE7wOcdy-11" value="SpringBoot&lt;br&gt;BD MySQL&lt;br&gt;Retrofit" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-8" vertex="1">
+          <mxGeometry x="630" width="330" height="50" as="geometry">
+            <mxRectangle width="330" height="50" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-12" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;fillColor=none;strokeColor=inherit;" parent="BjneXB7JfgLjXE7wOcdy-7" vertex="1">
-          <mxGeometry y="32" width="960" height="60" as="geometry" />
+          <mxGeometry y="50" width="960" height="80" as="geometry" />
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-13" value="menu-v2" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-12" vertex="1">
-          <mxGeometry width="150" height="60" as="geometry">
-            <mxRectangle width="150" height="60" as="alternateBounds" />
+          <mxGeometry width="150" height="80" as="geometry">
+            <mxRectangle width="150" height="80" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-14" value="&quot;" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-12" vertex="1">
-          <mxGeometry x="150" width="480" height="60" as="geometry">
-            <mxRectangle width="480" height="60" as="alternateBounds" />
+          <mxGeometry x="150" width="480" height="80" as="geometry">
+            <mxRectangle width="480" height="80" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="BjneXB7JfgLjXE7wOcdy-15" value="Quarkus&lt;br&gt;BD MySQL&lt;br&gt;Programación reactiva con Multiny&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;&lt;br&gt;Expone servicios GraphQL&lt;br&gt;&lt;/span&gt;" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-12" vertex="1">
-          <mxGeometry x="630" width="330" height="60" as="geometry">
-            <mxRectangle width="330" height="60" as="alternateBounds" />
+        <mxCell id="BjneXB7JfgLjXE7wOcdy-15" value="Quarkus&lt;br&gt;BD MySQL&lt;br&gt;RestClient&lt;br&gt;Programación reactiva con Multiny&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;&lt;br&gt;Expone servicios GraphQL&lt;br&gt;&lt;/span&gt;" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-12" vertex="1">
+          <mxGeometry x="630" width="330" height="80" as="geometry">
+            <mxRectangle width="330" height="80" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-16" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;fillColor=none;strokeColor=inherit;" parent="BjneXB7JfgLjXE7wOcdy-7" vertex="1">
-          <mxGeometry y="92" width="960" height="32" as="geometry" />
+          <mxGeometry y="130" width="960" height="32" as="geometry" />
         </mxCell>
-        <mxCell id="BjneXB7JfgLjXE7wOcdy-17" value="menu-v3" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-16" vertex="1">
+        <mxCell id="BjneXB7JfgLjXE7wOcdy-17" value="product-v1" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-16" vertex="1">
           <mxGeometry width="150" height="32" as="geometry">
             <mxRectangle width="150" height="32" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="BjneXB7JfgLjXE7wOcdy-18" value="&quot;" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-16" vertex="1">
+        <mxCell id="BjneXB7JfgLjXE7wOcdy-18" value="Permite gestionar los productos de BBQ" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-16" vertex="1">
           <mxGeometry x="150" width="480" height="32" as="geometry">
             <mxRectangle width="480" height="32" as="alternateBounds" />
           </mxGeometry>
@@ -493,7 +493,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-24" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;fillColor=none;strokeColor=inherit;" parent="BjneXB7JfgLjXE7wOcdy-7" vertex="1">
-          <mxGeometry y="124" width="960" height="66" as="geometry" />
+          <mxGeometry y="162" width="960" height="66" as="geometry" />
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-25" value="table-placement-v1" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-24" vertex="1">
           <mxGeometry width="150" height="66" as="geometry">
@@ -511,7 +511,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-28" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;fillColor=none;strokeColor=inherit;" parent="BjneXB7JfgLjXE7wOcdy-7" vertex="1">
-          <mxGeometry y="190" width="960" height="60" as="geometry" />
+          <mxGeometry y="228" width="960" height="60" as="geometry" />
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-29" value="invoice-v1" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-28" vertex="1">
           <mxGeometry width="150" height="60" as="geometry">
@@ -529,7 +529,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-20" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;fillColor=none;strokeColor=inherit;" parent="BjneXB7JfgLjXE7wOcdy-7" vertex="1">
-          <mxGeometry y="250" width="960" height="47" as="geometry" />
+          <mxGeometry y="288" width="960" height="47" as="geometry" />
         </mxCell>
         <mxCell id="BjneXB7JfgLjXE7wOcdy-21" value="payment-v1" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;" parent="BjneXB7JfgLjXE7wOcdy-20" vertex="1">
           <mxGeometry width="150" height="47" as="geometry">
@@ -643,14 +643,8 @@
         <mxCell id="cCVW-aE-xEQiENKnFz2S-3" value="payments" style="whiteSpace=wrap;html=1;align=center;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=10;" parent="1" vertex="1">
           <mxGeometry x="4788" y="617" width="56.34" height="17" as="geometry" />
         </mxCell>
-        <mxCell id="uI1czun4a1MsieRbrc6n-1" value="Los platillos pueden tener diferentes descuentos:&lt;br&gt;Descuentos por plato del día&lt;br&gt;Postre gratis por cumpleaños con la compra de un plato principal&lt;br&gt;Promoción de temporada en postres (15% en diciembre)&lt;br&gt;Descuento por cliente frecuente (5%)" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" parent="1" vertex="1">
-          <mxGeometry x="5230" y="268" width="440" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="uFk-olbhKy-gwVMrvEOH-11" value="¿qué base de datos?" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" parent="1" vertex="1">
-          <mxGeometry x="5600" y="421" width="220" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="uFk-olbhKy-gwVMrvEOH-12" value="order-hub-v1 actualmente tiene una base de datos redis, &lt;br&gt;pero debería tener una caché&amp;nbsp; @Cacheable&lt;br&gt;&lt;br&gt;respecto a order-placement-v1 queda la interrogante de si es adecuado &lt;br&gt;cambiarlo a una base de datos no relacional.&lt;br&gt;&lt;br&gt;- Sería mejor tener un solo documento con las mesas (incluye disponibilidad) y sus pedidos actuales? &lt;br&gt;--&amp;gt; Lento para inserción, rápido para lectura&lt;br&gt;&lt;br&gt;- O sería mejor tener dos tablas separadas?&lt;br&gt;- Rápido para inserción, lento para lectura" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="5210" y="464.63" width="560" height="170" as="geometry" />
+        <mxCell id="uI1czun4a1MsieRbrc6n-1" value="DESCUENTOS:&lt;br&gt;- Descuentos por plato del día (IMPLEMENTADO)&lt;br&gt;- Postre gratis por cumpleaños con la compra de un plato principal&lt;br&gt;- Promoción de temporada en postres (15% en diciembre)&lt;br&gt;- Descuento por cliente frecuente (5%)" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" parent="1" vertex="1">
+          <mxGeometry x="5160" y="80" width="380" height="100" as="geometry" />
         </mxCell>
         <mxCell id="QVGDoMQQqwJr5iOqOftv-15" value="" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;strokeColor=#66B2FF;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="4331" y="260" width="159" height="130" as="geometry" />
@@ -753,6 +747,9 @@
         </mxCell>
         <mxCell id="EDodEOaQ_nyoVYkKURNC-28" value="&lt;b&gt;Servicios compartidos&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="4591" y="250" width="149" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="Q0oyUarRGguPbzHhsrVy-1" value="BUSINESS RULES" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="5160" y="30" width="200" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
