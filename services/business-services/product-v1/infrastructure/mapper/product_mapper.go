@@ -4,7 +4,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 	"product-v1/domain/model/request"
 	"product-v1/domain/model/response"
-	"product-v1/infrastructure/repository/entity"
+	"product-v1/infrastructure/repository/database/entity"
 )
 
 func RequestToEntity(productRequest request.ProductSaveRequest) entity.ProductEntity {

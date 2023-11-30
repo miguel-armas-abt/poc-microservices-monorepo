@@ -145,21 +145,21 @@ services:
       MYSQL_ROOT_PASSWORD: qwerty #root is the user with the highest level of permissions within the DBMS
       TZ: "UTC"
 
-#  postgres_db:
-#    container_name: postgres_db
-#    image: postgres:latest
-#    restart: always
-#    networks:
-#      - dev_environment
-#    ports:
-#      - "5432:5432"
-#    volumes:
-#      - ./postgres_db:/docker-entrypoint-initdb.d
-#      - /var/lib/postgres_data:/var/lib/postgres_data
-#    environment:
-#      POSTGRES_USER: postgres #postgres is the superuser with permissions to manage the database
-#      POSTGRES_PASSWORD: qwerty
-#      POSTGRES_DB: postgres
+  postgres_db:
+    container_name: postgres_db
+    image: postgres:latest
+    restart: always
+    networks:
+      - dev_environment
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_db:/docker-entrypoint-initdb.d
+      - /var/lib/postgres_data:/var/lib/postgres_data
+    environment:
+      POSTGRES_USER: postgres #postgres is the superuser with permissions to manage the database
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_DB: postgres
 
 ############################
 #networks
