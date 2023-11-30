@@ -6,14 +6,14 @@ import (
 	"product-v1/domain/model/request"
 	"product-v1/domain/model/response"
 	"product-v1/infrastructure/mapper"
-	"product-v1/infrastructure/repository"
+	"product-v1/infrastructure/repository/database"
 )
 
 type productServiceImpl struct {
-	repository repository.ProductRepository
+	repository database.ProductRepository
 }
 
-func NewProductService(productRepository repository.ProductRepository) ProductService {
+func NewProductService(productRepository database.ProductRepository) ProductService {
 	return &productServiceImpl{
 		repository: productRepository,
 	}

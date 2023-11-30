@@ -1,8 +1,8 @@
-package repository
+package database
 
 import (
 	"gorm.io/gorm"
-	"product-v1/infrastructure/repository/entity"
+	"product-v1/infrastructure/repository/database/entity"
 )
 
 type productRepositoryImpl struct {

@@ -1,7 +1,7 @@
-package repository
+package database
 
 import (
-	"product-v1/infrastructure/repository/entity"
+	"product-v1/infrastructure/repository/database/entity"
 )
 
 type ProductRepository interface {
