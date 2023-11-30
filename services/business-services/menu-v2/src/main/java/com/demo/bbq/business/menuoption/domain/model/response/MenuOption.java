@@ -11,14 +11,11 @@ import lombok.*;
 @NoArgsConstructor
 public class MenuOption implements Serializable {
 
-  private Long id;
+  private String productCode;
+
+  private BigDecimal unitPrice;
 
   private String description;
 
   private String category;
-
-  private BigDecimal price;
-
-  private boolean active;
-
 }

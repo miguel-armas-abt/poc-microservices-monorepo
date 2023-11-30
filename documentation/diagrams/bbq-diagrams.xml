@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-11-17T20:31:46.097Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="a8Up6j1p5G66utsVB216" version="22.1.3" type="device" pages="3">
+<mxfile host="app.diagrams.net" modified="2023-11-30T02:27:04.824Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="1SCEAyeadJb-22YOW_Nn" version="22.1.5" type="device" pages="3">
   <diagram id="Mab86lwmYLIhfpq_8ImP" name="UC-waiter">
-    <mxGraphModel dx="-2169" dy="1294" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="318" dy="1516" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -644,49 +644,13 @@
           <mxGeometry x="4788" y="617" width="56.34" height="17" as="geometry" />
         </mxCell>
         <mxCell id="uI1czun4a1MsieRbrc6n-1" value="Los platillos pueden tener diferentes descuentos:&lt;br&gt;Descuentos por plato del día&lt;br&gt;Postre gratis por cumpleaños con la compra de un plato principal&lt;br&gt;Promoción de temporada en postres (15% en diciembre)&lt;br&gt;Descuento por cliente frecuente (5%)" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" parent="1" vertex="1">
-          <mxGeometry x="5720" y="289.74" width="440" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="uFk-olbhKy-gwVMrvEOH-1" value="VERSIÓN 1&lt;br&gt;Agregar en la request de order-hub-v1 una regla que&lt;br&gt;permita idntifica qué platillos tienen descuento&lt;br&gt;input: menuId&lt;br&gt;output: isDiscountable&lt;br&gt;&lt;br&gt;VERSION 2&lt;br&gt;order-hub-v2 no debería realizar ningún tipo de cálculo al ser una aplicación de canal&lt;br&gt;invoice-v1 debería recibir un código de producto y en base a él obtener su precio unitario&lt;br&gt;y también sobre él aplicar las reglas de descuento&lt;br&gt;en el output devuelve una lista con todas las reglas aplicadas (descuento, descripción)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="5690" y="49.370000000000005" width="500" height="170" as="geometry" />
-        </mxCell>
-        <mxCell id="uFk-olbhKy-gwVMrvEOH-2" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="6190" y="187.74" as="sourcePoint" />
-            <mxPoint x="6260" y="187.74" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="uFk-olbhKy-gwVMrvEOH-3" value="Basado en ello. El servicio de menu debe retirar el precio de su base de datos&lt;br&gt;y agregar una llave foranea que haga referencia al código de producto&lt;br&gt;&lt;br&gt;El código de producto vendrá desde un servicio de productos, un nivel más abajo&lt;br&gt;Este servicio de productos tendrá el precio unitario, el código de producto y su scope=MENU&lt;br&gt;&lt;br&gt;Este servicio será consumido por menu-vx e invoice-v1&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="6270" y="139.37" width="520" height="110" as="geometry" />
-        </mxCell>
-        <mxCell id="uFk-olbhKy-gwVMrvEOH-4" value="menu-vx" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="6450" y="279.87" width="90" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="uFk-olbhKy-gwVMrvEOH-5" value="invoice-v1" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="6450" y="349.74" width="90" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="uFk-olbhKy-gwVMrvEOH-6" value="product-v1" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="6580" y="309.74" width="90" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="uFk-olbhKy-gwVMrvEOH-7" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="uFk-olbhKy-gwVMrvEOH-4" target="uFk-olbhKy-gwVMrvEOH-6" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="6370" y="489.87" as="sourcePoint" />
-            <mxPoint x="6420" y="439.87" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="uFk-olbhKy-gwVMrvEOH-8" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="uFk-olbhKy-gwVMrvEOH-5" target="uFk-olbhKy-gwVMrvEOH-6" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="6550" y="309.87" as="sourcePoint" />
-            <mxPoint x="6590" y="329.87" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="uFk-olbhKy-gwVMrvEOH-9" value="¿Cómo aplicar drools?" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" parent="1" vertex="1">
-          <mxGeometry x="6080" y="-5.629999999999999" width="240" height="40" as="geometry" />
+          <mxGeometry x="5230" y="268" width="440" height="100" as="geometry" />
         </mxCell>
         <mxCell id="uFk-olbhKy-gwVMrvEOH-11" value="¿qué base de datos?" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" parent="1" vertex="1">
-          <mxGeometry x="6090" y="442.74" width="220" height="40" as="geometry" />
+          <mxGeometry x="5600" y="421" width="220" height="40" as="geometry" />
         </mxCell>
         <mxCell id="uFk-olbhKy-gwVMrvEOH-12" value="order-hub-v1 actualmente tiene una base de datos redis, &lt;br&gt;pero debería tener una caché&amp;nbsp; @Cacheable&lt;br&gt;&lt;br&gt;respecto a order-placement-v1 queda la interrogante de si es adecuado &lt;br&gt;cambiarlo a una base de datos no relacional.&lt;br&gt;&lt;br&gt;- Sería mejor tener un solo documento con las mesas (incluye disponibilidad) y sus pedidos actuales? &lt;br&gt;--&amp;gt; Lento para inserción, rápido para lectura&lt;br&gt;&lt;br&gt;- O sería mejor tener dos tablas separadas?&lt;br&gt;- Rápido para inserción, lento para lectura" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="5700" y="486.37" width="560" height="170" as="geometry" />
+          <mxGeometry x="5210" y="464.63" width="560" height="170" as="geometry" />
         </mxCell>
         <mxCell id="QVGDoMQQqwJr5iOqOftv-15" value="" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;strokeColor=#66B2FF;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="4331" y="260" width="159" height="130" as="geometry" />

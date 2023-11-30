@@ -1,19 +1,20 @@
 package com.demo.bbq.business.menuoption.application.service;
 
-import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionRequest;
+import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionSaveRequest;
+import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionUpdateRequest;
 import com.demo.bbq.business.menuoption.domain.model.response.MenuOption;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
+import java.util.List;
 
 public interface MenuOptionService {
 
-  Uni<MenuOption> findById(Long id);
+  Uni<List<MenuOption>> findByCategory(String categoryCode);
 
-  Multi<MenuOption> findByCategory(String categoryCode);
+  Uni<MenuOption> findByProductCode(String productCode);
 
-  Uni<Long> save(MenuOptionRequest menuOptionRequest);
+  Uni<Void> save(MenuOptionSaveRequest menuOptionRequest);
 
-  Uni<Long> update(MenuOptionRequest menuOptionRequest, Long id);
+  Uni<Void> update(MenuOptionUpdateRequest menuOptionRequest, String productCode);
 
-  Uni<Boolean> deleteById(Long id);
+  Uni<Void> deleteByProductCode(String productCode);
 }

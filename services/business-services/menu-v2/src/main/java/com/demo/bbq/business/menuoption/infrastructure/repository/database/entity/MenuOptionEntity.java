@@ -1,10 +1,9 @@
 package com.demo.bbq.business.menuoption.infrastructure.repository.database.entity;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntity;
-import java.math.BigDecimal;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import lombok.*;
 
 @Builder
@@ -14,17 +13,19 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "menu_options")
-public class MenuOptionEntity extends PanacheEntity {
+public class MenuOptionEntity extends PanacheEntityBase {
+
+  @Id
+  @Column(name = "id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  @Column(name = "product_code", unique = true)
+  private String productCode;
 
   @Column(name = "description")
   private String description;
 
   @Column(name = "category")
   private String category;
-
-  @Column(name = "price")
-  private BigDecimal price;
-
-  @Column(name = "is_active")
-  private boolean active;
 }

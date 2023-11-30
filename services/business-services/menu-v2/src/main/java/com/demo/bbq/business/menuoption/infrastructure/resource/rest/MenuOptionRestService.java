@@ -1,9 +1,9 @@
 package com.demo.bbq.business.menuoption.infrastructure.resource.rest;
 
 import com.demo.bbq.business.menuoption.application.service.MenuOptionService;
-import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionRequest;
+import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionSaveRequest;
+import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionUpdateRequest;
 import com.demo.bbq.business.menuoption.domain.model.response.MenuOption;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import lombok.extern.slf4j.Slf4j;
 import javax.inject.Inject;
@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.List;
 import java.util.function.Function;
 
 @Slf4j
@@ -24,44 +25,41 @@ public class MenuOptionRestService {
   MenuOptionService menuOptionService;
 
   @GET
-  @Path("/{id}")
-  public Uni<MenuOption> findById(@PathParam("id") Long id) {
-    return menuOptionService.findById(id);
+  @Path("/{productCode}")
+  public Uni<MenuOption> findByProductCode(@PathParam("productCode") String productCode) {
+    return menuOptionService.findByProductCode(productCode);
   }
 
   @GET
-  public Multi<MenuOption> findByCategory(@QueryParam("category") String categoryCode) {
+  public Uni<List<MenuOption>> findByCategory(@QueryParam("category") String categoryCode) {
     return menuOptionService.findByCategory(categoryCode);
   }
 
   @POST
-  public Uni<Response> save(MenuOptionRequest menuOptionRequest) {
+  public Uni<Response> save(MenuOptionSaveRequest menuOptionRequest) {
     return menuOptionService.save(menuOptionRequest)
         .onItem()
         .ifNotNull()
-        .transform(menuOptionId -> Response.created(buildPostUriLocation.apply(menuOptionId)).build());
+        .transform(ignore -> Response.created(buildPostUriLocation.apply(menuOptionRequest.getProductCode())).build());
   }
 
   @DELETE
-  @Path("/{id}")
-  public Uni<Response> delete(@PathParam("id") Long id) {
-    return menuOptionService.deleteById(id)
-        .map(isDeleted -> (isDeleted
-            ? Response.noContent()
-            : Response.status(Response.Status.BAD_REQUEST))
-            .build());
+  @Path("/{productCode}")
+  public Uni<Response> delete(@PathParam("productCode") String productCode) {
+    return menuOptionService.deleteByProductCode(productCode)
+        .map(isDeleted -> Response.noContent().build());
   }
 
   @PUT
-  @Path("/{id}")
-  public Uni<Response> update(@PathParam("id") Long id, MenuOptionRequest menuOptionRequest) {
-    return menuOptionService.update(menuOptionRequest, id)
+  @Path("/{productCode}")
+  public Uni<Response> update(@PathParam("productCode") String productCode, MenuOptionUpdateRequest menuOptionRequest) {
+    return menuOptionService.update(menuOptionRequest, productCode)
         .onItem()
         .ifNotNull()
-        .transform(menuOptionId -> Response.created(buildPostUriLocation.apply(menuOptionId)).build());
+        .transform(ignore -> Response.created(buildPostUriLocation.apply(productCode)).build());
   }
 
-  private final static Function<Long, URI> buildPostUriLocation = menuOptionId ->
-      UriBuilder.fromResource(MenuOptionRestService.class).path("/{id}").build(menuOptionId);
+  private final static Function<String, URI> buildPostUriLocation = productCode ->
+      UriBuilder.fromResource(MenuOptionRestService.class).path("/{productCode}").build(productCode);
 
 }
