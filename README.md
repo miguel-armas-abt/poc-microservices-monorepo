@@ -20,22 +20,23 @@ El código fuente de los servicios web está en el directorio `/services`:
     services
     ├───bbq-parent-v1
     ├───bbq-support-v1
-    ├───business-services
+    ├───business
     │   ├───menu-v1
     │   ├───table-placement-v1
     │   └─── ...
-    └───infrastructure-services
+    └───infrastructure
         ├───api-gateway-v1
         ├───config-server-v1
         ├───registry-discovery-server-v1
         └─── ...
 ```
 
-- `bbq-parent-v1`: Proyecto de tipo `parent module` para servicios web implementados con Spring Boot
-- `bbq-support-v1`: Proyecto no ejecutable que centraliza las utilidades requeridas por los servicios web implementados con Spring Boot
-- `business-services`: Directorio que contiene los servicios web de negocio
-- `infrastructure-services`: Directorio que contiene los servicios web de infraestructura
 
+- `business`: Directorio que contiene los servicios web de negocio
+- `infrastructure`: Directorio que contiene los servicios web de infraestructura
+  - `bbq-parent-v1`: Proyecto de tipo `parent module` para servicios web implementados con Spring Boot
+  - `bbq-support-v1`: Proyecto no ejecutable que centraliza las utilidades requeridas por los servicios web implementados con Spring Boot
+  
 Los puertos definidos para cada servicio web son los siguientes:
 
 | Web service                   | Port   |
@@ -62,19 +63,20 @@ Los puertos definidos para cada servicio web son los siguientes:
 
 # 4. Orquestacion con Docker Compose
 ## 4.1. Construir imágenes
-Servicios de infraestructura:
+INFRAESTRUCTURA
 ```shell script
-docker build -t miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/registry-discovery-server-v1
-docker build -t miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/config-server-v1
-docker build -t miguelarmasabt/auth-adapter-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/auth-adapter-v1
-docker build -t miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/api-gateway-v1
+docker build -t miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure/registry-discovery-server-v1
+docker build -t miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure/config-server-v1
+docker build -t miguelarmasabt/auth-adapter-v1:0.0.1-SNAPSHOT ./services/infrastructure/auth-adapter-v1
+docker build -t miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure/api-gateway-v1
 ```
 
-Servicios de negocio:
+NEGOCIO
 ```shell script
-docker build -t miguelarmasabt/menu-v1:0.0.1-SNAPSHOT ./services/business-services/menu-v1
-docker build -t miguelarmasabt/table-placement-v1:0.0.1-SNAPSHOT ./services/business-services/table-placement-v1
-docker build -f ./services/business-services/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu-v2:0.0.1-SNAPSHOT ./services/business-services/menu-v2
+docker build -t miguelarmasabt/product-v1:0.0.1-SNAPSHOT ./services/business/product-v1
+docker build -t miguelarmasabt/menu-v1:0.0.1-SNAPSHOT ./services/business/menu-v1
+docker build -f ./services/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu-v2:0.0.1-SNAPSHOT ./services/business/menu-v2
+docker build -t miguelarmasabt/table-placement-v1:0.0.1-SNAPSHOT ./services/business/table-placement-v1
 ```
 
 ## 4.2. Iniciar orquestación
