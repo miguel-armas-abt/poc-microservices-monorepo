@@ -37,7 +37,7 @@ public class ProformaInvoiceServiceImpl implements ProformaInvoiceService {
     List<Product> productList = products.stream()
         .map(productRequest -> {
           BigDecimal unitPrice = coreProductApi.findByProductCode(productRequest.getProductCode()).blockingGet().getUnitPrice();
-          return proformaInvoiceMapper.toProduct(productRequest, unitPrice, applyDiscount(productRequest.getProductCode()));
+          return proformaInvoiceMapper.toProduct(productRequest, unitPrice, applyDiscount(productRequest));
         })
         .peek(product -> subtotalInvoice.set(subtotalInvoice.get().add(product.getSubtotal()))).collect(Collectors.toList());
     return Single.just(toProformaInvoice(productList, subtotalInvoice.get()));
@@ -53,8 +53,11 @@ public class ProformaInvoiceServiceImpl implements ProformaInvoiceService {
         .build();
   }
 
-  private BigDecimal applyDiscount(String productCode) {
-    DiscountRule discountRule = ruleService.process(DiscountRule.builder().productCode(productCode).build());
+  private BigDecimal applyDiscount(ProductRequest request) {
+    DiscountRule discountRule = ruleService.process(DiscountRule.builder()
+        .quantity(request.getQuantity())
+        .productCode(request.getProductCode())
+        .build());
     return BigDecimal.valueOf(discountRule.getDiscount());
   }
 }

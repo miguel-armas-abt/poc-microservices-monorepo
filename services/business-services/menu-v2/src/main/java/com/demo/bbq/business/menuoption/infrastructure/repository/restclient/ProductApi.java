@@ -3,7 +3,6 @@ package com.demo.bbq.business.menuoption.infrastructure.repository.restclient;
 import com.demo.bbq.business.menuoption.infrastructure.repository.restclient.dto.ProductDto;
 import com.demo.bbq.business.menuoption.infrastructure.repository.restclient.dto.ProductSaveRequestDto;
 import com.demo.bbq.business.menuoption.infrastructure.repository.restclient.dto.ProductUpdateRequestDto;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import javax.ws.rs.*;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;

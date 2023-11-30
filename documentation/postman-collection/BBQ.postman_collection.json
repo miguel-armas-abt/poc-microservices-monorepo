@@ -1272,7 +1272,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"description\": \"Tamales de pollo\",\r\n    \"category\": \"main-dish\",\r\n    \"price\": 10.00,\r\n    \"active\": true\r\n}",
+									"raw": "{\r\n    \"description\": \"Tamales de cerdo\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 89.90\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1280,7 +1280,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{api-gateway-domain}}/bbq/business/menu/v1/menu-options?category=MAIN",
+									"raw": "{{api-gateway-domain}}/bbq/business/menu/v1/menu-options",
 									"host": [
 										"{{api-gateway-domain}}"
 									],
@@ -1294,7 +1294,65 @@
 									"query": [
 										{
 											"key": "category",
-											"value": "MAIN"
+											"value": "MAIN",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "product-v1",
+					"item": [
+						{
+							"name": "product v1",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"unitPrice\": 19.90,\r\n    \"scope\": \"MENU\",\r\n    \"code\": \"MENU0007\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8017/bbq/business/product/v1/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8017",
+									"path": [
+										"bbq",
+										"business",
+										"product",
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "scope",
+											"value": "MENU",
+											"disabled": true
 										}
 									]
 								}
@@ -1332,7 +1390,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"description\": \"Pollo a la brasa\",\r\n    \"category\": \"main-dish\",\r\n    \"price\": 20.00,\r\n    \"active\": true\r\n}",
+									"raw": "{\r\n    \"description\": \"1/4 pollo a la brasa\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 19.90,\r\n    \"productCode\": \"MENU0007\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1401,7 +1459,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\r\n    {\r\n        \"menuOptionId\": 1,\r\n        \"quantity\": 2\r\n    }\r\n]",
+									"raw": "[\r\n    {\r\n        \"productCode\": \"MENU0002\",\r\n        \"quantity\": 2\r\n    }\r\n]",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1458,7 +1516,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\r\n    {\r\n        \"description\": \"Ají de gallina\",\r\n        \"quantity\": 2,\r\n        \"unitPrice\": 15.50\r\n    },\r\n    {\r\n        \"description\": \"Pollo a la brasa\",\r\n        \"quantity\": 1,\r\n        \"unitPrice\": 34.90\r\n    }\r\n]",
+									"raw": "[\r\n    {\r\n        \"description\": \"Ají de gallina\",\r\n        \"quantity\": 2,\r\n        \"productCode\": \"MENU0002\"\r\n    },\r\n    {\r\n        \"description\": \"Pollo a la brasa\",\r\n        \"quantity\": 1,\r\n        \"productCode\": \"MENU0005\"\r\n    }\r\n]",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1494,7 +1552,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"productList\": [\r\n        {\r\n            \"description\": \"Ají de gallina\",\r\n            \"quantity\": 2,\r\n            \"unitPrice\": 15.50\r\n        },\r\n                {\r\n            \"description\": \"Pollo a la brasa\",\r\n            \"quantity\": 1,\r\n            \"unitPrice\": 34.90\r\n        }\r\n    ],  \r\n    \"customer\": {\r\n        \"documentType\": \"DNI\",\r\n        \"documentNumber\": \"76517368\"\r\n    },\r\n    \"paymentMethod\": \"DEBITO\"\r\n}",
+									"raw": "{\r\n    \"productList\": [\r\n    {\r\n        \"description\": \"Ají de gallina\",\r\n        \"quantity\": 2,\r\n        \"productCode\": \"MENU0002\"\r\n    },\r\n    {\r\n        \"description\": \"Pollo a la brasa\",\r\n        \"quantity\": 1,\r\n        \"productCode\": \"MENU0002\"\r\n    }\r\n],\r\n    \"customer\": {\r\n        \"documentType\": \"DNI\",\r\n        \"documentNumber\": \"76517368\"\r\n    },\r\n    \"payment\": {\r\n        \"method\": \"DEBITO\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1532,7 +1590,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "[\r\n    {\r\n        \"description\": \"Ají de gallina\",\r\n        \"quantity\": 2,\r\n        \"unitPrice\": 15.50\r\n    },\r\n    {\r\n        \"description\": \"Pollo a la brasa\",\r\n        \"quantity\": 1,\r\n        \"unitPrice\": 34.90\r\n    }\r\n]",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1540,7 +1598,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{api-gateway-domain}}/bbq/experience/order-hub/v1/menu-options?category=MAIN",
+									"raw": "{{api-gateway-domain}}/bbq/experience/order-hub/v1/menu-options",
 									"host": [
 										"{{api-gateway-domain}}"
 									],
@@ -1554,8 +1612,139 @@
 									"query": [
 										{
 											"key": "category",
-											"value": "MAIN"
+											"value": "MAIN",
+											"disabled": true
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/table-orders",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"productCode\": \"MENU0004\",\r\n        \"quantity\": 11\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/experience/order-hub/v1/table-orders?tableNumber=3",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"experience",
+										"order-hub",
+										"v1",
+										"table-orders"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "get table orders",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{api-gateway-domain}}/bbq/experience/order-hub/v1/table-orders?tableNumber=3",
+											"host": [
+												"{{api-gateway-domain}}"
+											],
+											"path": [
+												"bbq",
+												"experience",
+												"order-hub",
+												"v1",
+												"table-orders"
+											],
+											"query": [
+												{
+													"key": "tableNumber",
+													"value": "3"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "transfer-encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 10 Nov 2023 22:42:45 GMT"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"menuOrderList\": [],\n    \"tableNumber\": 3,\n    \"id\": 3\n}"
+								}
+							]
+						},
+						{
+							"name": "/invoice-payments",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/stream+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tableNumber\": 3,\r\n    \"customer\": {\r\n        \"documentType\": \"DNI\",\r\n        \"documentNumber\": \"76517369\"\r\n    },\r\n    \"payment\": {\r\n        \"method\": \"DEBITO\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway-domain}}/bbq/experience/order-hub/v1/invoice-payments",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"bbq",
+										"experience",
+										"order-hub",
+										"v1",
+										"invoice-payments"
 									]
 								}
 							},

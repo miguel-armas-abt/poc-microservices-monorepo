@@ -16,6 +16,7 @@ import lombok.ToString;
 public class DiscountRule implements Serializable {
 
   //input
+  private Integer quantity;
   private String productCode;
 
   //output
