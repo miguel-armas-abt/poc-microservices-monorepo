@@ -1,14 +1,15 @@
 package com.demo.bbq.business.menuoption.application.service.impl;
 
 import com.demo.bbq.business.menuoption.application.service.MenuOptionService;
-import com.demo.bbq.business.menuoption.infrastructure.repository.MenuOptionRepository;
-import com.demo.bbq.business.menuoption.infrastructure.repository.database.entity.MenuOptionEntity;
-import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionRequest;
+import com.demo.bbq.business.menuoption.domain.catalog.MenuCategory;
+import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionUpdateRequest;
+import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionSaveRequest;
 import com.demo.bbq.business.menuoption.domain.model.response.MenuOption;
-import io.smallrye.mutiny.Multi;
+import com.demo.bbq.business.menuoption.infrastructure.repository.handler.MenuOptionRepositoryHandler;
 import io.smallrye.mutiny.Uni;
+import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
+import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
@@ -18,56 +19,41 @@ import lombok.extern.slf4j.Slf4j;
 public class MenuOptionServiceImpl implements MenuOptionService {
 
   @Inject
-  MenuOptionRepository menuOptionRepository;
+  MenuOptionRepositoryHandler menuOptionRepositoryHandler;
 
   @Override
-  public Uni<MenuOption> findById(Long id) {
-    return menuOptionRepository.findById(id)
-        .map(fromEntityToDomain);
+  public Uni<List<MenuOption>> findByCategory(String categoryCode) {
+    return Optional.ofNullable(categoryCode).isEmpty()
+        ? menuOptionRepositoryHandler.findAll()
+        : this.validateMenuOptionAndFindByCategory(categoryCode);
+  }
+
+  private Uni<List<MenuOption>> validateMenuOptionAndFindByCategory(String categoryCode) {
+    MenuCategory.validateCategory.accept(categoryCode);
+    return menuOptionRepositoryHandler.findAll()
+        .map(menuOptions -> menuOptions.stream().filter(menu -> menu.getCategory().equals(categoryCode))
+              .collect(Collectors.toList()));
   }
 
   @Override
-  public Multi<MenuOption> findByCategory(String categoryCode) {
-    return (Optional.ofNullable(categoryCode).isEmpty()
-        ? menuOptionRepository.findAllMenuOptions()
-        : menuOptionRepository.findByCategory(categoryCode))
-        .map(fromEntityToDomain);
+  public Uni<MenuOption> findByProductCode(String productCode) {
+    return menuOptionRepositoryHandler.findAll()
+        .map(menuOptions -> menuOptions.stream().filter(menuOption -> productCode.equals(menuOption.getProductCode())).findFirst().get());
   }
 
   @Override
-  public Uni<Long> save(MenuOptionRequest menuOptionRequest) {
-    return menuOptionRepository.saveMenuOption(fromRequestToEntity.apply(menuOptionRequest))
-        .invoke(x -> log.info("saved: " + x.toString()))
-        .map(fromEntityToDomain)
-        .map(MenuOption::getId);
+  public Uni<Void> save(MenuOptionSaveRequest menuOptionRequest) {
+    return menuOptionRepositoryHandler.save(menuOptionRequest);
   }
 
   @Override
-  public Uni<Long> update(MenuOptionRequest menuOptionRequest, Long id) {
-    return menuOptionRepository.update(fromRequestToEntity.apply(menuOptionRequest), id)
-        .map(menuOptionEntity -> menuOptionEntity.id);
+  public Uni<Void> update(MenuOptionUpdateRequest menuOptionRequest, String productCode) {
+    return menuOptionRepositoryHandler.update(productCode, menuOptionRequest);
   }
 
   @Override
-  public Uni<Boolean> deleteById(Long id) {
-    return menuOptionRepository.deleteMenuOptionById(id);
+  public Uni<Void> deleteByProductCode(String productCode) {
+    return menuOptionRepositoryHandler.deleteByProductCode(productCode);
   }
-
-  private static final Function<MenuOptionEntity, MenuOption>
-      fromEntityToDomain = menuOptionEntity -> MenuOption.builder()
-      .id(menuOptionEntity.id)
-      .description(menuOptionEntity.getDescription())
-      .category(menuOptionEntity.getCategory())
-      .price(menuOptionEntity.getPrice())
-      .active(menuOptionEntity.isActive())
-      .build();
-
-  private static final Function<MenuOptionRequest, MenuOptionEntity>
-      fromRequestToEntity = menuOptionRequest -> MenuOptionEntity.builder()
-      .description(menuOptionRequest.getDescription())
-      .category(menuOptionRequest.getCategory())
-      .price(menuOptionRequest.getPrice())
-      .active(menuOptionRequest.isActive())
-      .build();
 
 }

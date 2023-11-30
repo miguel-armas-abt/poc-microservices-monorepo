@@ -2,6 +2,7 @@ package com.demo.bbq.business.menu.infrastructure.repository.restclient;
 
 import com.demo.bbq.business.menu.infrastructure.repository.restclient.dto.ProductDto;
 import com.demo.bbq.business.menu.infrastructure.repository.restclient.dto.ProductSaveRequestDto;
+import com.demo.bbq.business.menu.infrastructure.repository.restclient.dto.ProductUpdateRequestDto;
 import io.reactivex.Single;
 import java.util.List;
 import okhttp3.ResponseBody;
@@ -22,7 +23,7 @@ public interface ProductApi {
   Single<ResponseBody> save(@Body ProductSaveRequestDto productRequest);
 
   @PUT("products/{code}")
-  Single<ResponseBody> update(@Path(value = "code") String code, @Body ProductSaveRequestDto productRequest);
+  Single<ResponseBody> update(@Path(value = "code") String code, @Body ProductUpdateRequestDto productRequest);
 
   @DELETE("products/{code}")
   Single<Response<Void>> delete(@Path(value = "code") String code);
