@@ -10,5 +10,5 @@ spec:
     app: menu-v1
   ports:
     - name: menu-v1
-      port: 8093
-      nodePort : 30093
+      port: 8012
+      nodePort : 30012

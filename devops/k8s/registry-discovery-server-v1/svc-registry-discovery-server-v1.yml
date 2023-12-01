@@ -11,4 +11,4 @@ spec:
   ports:
     - name: registry-discovery-server-v1
       port: 8761
-      nodePort: 30761
+      nodePort: 30061

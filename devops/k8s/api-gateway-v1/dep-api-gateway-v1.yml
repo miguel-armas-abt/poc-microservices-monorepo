@@ -17,7 +17,7 @@ spec:
           image: miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT
           imagePullPolicy: IfNotPresent #load the image from local
           ports:
-            - containerPort: 8888
+            - containerPort: 8010
           env:
             - name: EUREKA_SERVER
               valueFrom:

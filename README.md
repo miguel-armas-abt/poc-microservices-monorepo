@@ -113,15 +113,19 @@ establecemos el entorno de Docker de Minikube en nuestra shell y sobre ella cons
 
 Servicios de infraestructura:
 ```shell script
-docker build -t miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/registry-discovery-server-v1
-docker build -t miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/config-server-v1
-docker build -t miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure-services/api-gateway-v1
+docker build -t miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure/registry-discovery-server-v1
+docker build -t miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure/config-server-v1
+docker build -t miguelarmasabt/auth-adapter-v1:0.0.1-SNAPSHOT ./services/infrastructure/auth-adapter-v1
+docker build -t miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure/api-gateway-v1
 Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
 Servicios de negocio:
 ```shell script
-docker build -t miguelarmasabt/menu-v1:0.0.1-SNAPSHOT ./services/business-services/menu-v1
+docker build -t miguelarmasabt/product-v1:0.0.1-SNAPSHOT ./services/business/product-v1
+docker build -t miguelarmasabt/menu-v1:0.0.1-SNAPSHOT ./services/business/menu-v1
+docker build -f ./services/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu-v2:0.0.1-SNAPSHOT ./services/business/menu-v2
+docker build -t miguelarmasabt/table-placement-v1:0.0.1-SNAPSHOT ./services/business/table-placement-v1
 Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
@@ -137,7 +141,11 @@ kubectl apply -f ./devops/k8s/mysql_db/
 kubectl apply -f ./devops/k8s/registry-discovery-server-v1/
 kubectl apply -f ./devops/k8s/config-server-v1/
 kubectl apply -f ./devops/k8s/api-gateway-v1/
+kubectl apply -f ./devops/k8s/product-v1/
 kubectl apply -f ./devops/k8s/menu-v1/
+kubectl apply -f ./devops/k8s/menu-v2/
+kubectl apply -f ./devops/k8s/postgres_db/
+kubectl apply -f ./devops/k8s/table-placement-v1/
 ```
 
 Usted puede obtener la URL del servicio `api-gateway-v1` con el siguiente comando: `minikube service --url api-gateway-v1`
@@ -148,11 +156,14 @@ kubectl delete -f ./devops/k8s/mysql_db/
 kubectl delete -f ./devops/k8s/registry-discovery-server-v1/
 kubectl delete -f ./devops/k8s/config-server-v1/
 kubectl delete -f ./devops/k8s/api-gateway-v1/
+kubectl delete -f ./devops/k8s/product-v1/
 kubectl delete -f ./devops/k8s/menu-v1/
+kubectl delete -f ./devops/k8s/menu-v2/
+kubectl delete -f ./devops/k8s/postgres_db/
+kubectl delete -f ./devops/k8s/table-placement-v1/
 ```
 
 # 6. Conexion a base de datos
-Utilice DBeaver para conectarse a las bases de datos relacionales.
 ## 6.1. MYSQL
 | Parámetro         | Valor (Docker Compose)                         | Valor (Kubernetes)                                     |   
 |-------------------|------------------------------------------------|--------------------------------------------------------|

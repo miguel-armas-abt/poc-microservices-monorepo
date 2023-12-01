@@ -14,4 +14,4 @@ spec:
   ports:
     - name: bbq-postgres
       port: 5432
-      nodePort : 30432
+      nodePort : 30032
