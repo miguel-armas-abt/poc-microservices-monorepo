@@ -1,35 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bbq-postgres
+  name: mysql-db
   labels:
-    app: bbq-postgres
+    app: mysql-db
 spec:
   replicas: 1 #number of pods replicas
   selector: #define how the Deployment identify the pods that it could manage
     matchLabels:
-      app: bbq-postgres
+      app: mysql-db
   template: #pod template specification
     metadata:
       labels: #define the labels for all pods
-        app: bbq-postgres
+        app: mysql-db
     spec:
       containers:
-        - name: postgres
-          image: postgres:latest
+        - name: mysql
+          image: mysql:latest
           imagePullPolicy: IfNotPresent
           ports: #open the port to allow send and receive traffic in the container
-            - containerPort: 5432
+            - containerPort: 3306
           envFrom: #read envars from secret file
             - secretRef:
-                name: secret-bbq-postgres
+                name: secret-mysql-db
           volumeMounts:
             #this is the path in the container on which the mounting will take place.
-            - mountPath: /var/lib/postgresql/data
-              name: bbq-postgres-volume-data
-            - mountPath: /docker-entrypoint-initdb.d/initdb.sh
-              subPath: initdb.sh
-              name: bbq-postgres-volume-script
+            - mountPath: /var/lib/mysql-db/data
+              name: mysql-db-volume-data
+            - mountPath: /docker-entrypoint-initdb.d/initdb.sql
+              subPath: initdb.sql
+              name: mysql-db-volume-script
           resources:
             requests:
               memory: "256Mi"
@@ -38,9 +38,9 @@ spec:
               memory: "512Mi"
               cpu: "1"
       volumes:
-        - name: bbq-postgres-volume-data
+        - name: mysql-db-volume-data
           persistentVolumeClaim:
-            claimName: pvc-bbq-postgres
-        - name: bbq-postgres-volume-script
+            claimName: pvc-mysql-db
+        - name: mysql-db-volume-script
           configMap:
-            name: cm-bbq-postgres-script
+            name: cm-mysql-db-script

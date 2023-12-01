@@ -5,5 +5,5 @@ metadata:
 data:
   mysql-username: bbq_user
   mysql-password: qwerty
-  mysql-host: bbq-mysql:3306
+  mysql-host: mysql-db:3306
   database: db_products

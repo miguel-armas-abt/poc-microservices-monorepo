@@ -6,5 +6,5 @@ data:
   eureka-server: http://registry-discovery-server-v1:8761/eureka/
   postgresql-username: postgres
   postgresql-password: qwerty
-  postgresql-url: jdbc:postgresql://bbq-postgres:5432/db_table_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  postgresql-url: jdbc:postgresql://postgres-db:5432/db_table_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
   java-opts: -Xms256M -Xmx256M

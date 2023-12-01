@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-bbq-postgres
+  name: pv-postgres-db
   labels:
     type: local #it is a plugin support many disks like amazon EBS azure disk etc.  local = local storage devices mounted on nodes.
-    app: bbq-postgres
+    app: postgres-db
 spec:
   storageClassName: manual
   capacity:
