@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: menu-v2
-          image: miguelarmasabt/menu-v2:0.0.1-SNAPSHOT
+          image: miguelarmasabt/menu:v2.0.1
           ports:
             - containerPort: 8016
           env:

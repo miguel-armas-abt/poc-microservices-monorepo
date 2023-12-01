@@ -65,18 +65,18 @@ Los puertos definidos para cada servicio web son los siguientes:
 ## 4.1. Construir imágenes
 INFRAESTRUCTURA
 ```shell script
-docker build -t miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure/registry-discovery-server-v1
-docker build -t miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure/config-server-v1
-docker build -t miguelarmasabt/auth-adapter-v1:0.0.1-SNAPSHOT ./services/infrastructure/auth-adapter-v1
-docker build -t miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure/api-gateway-v1
+docker build -t miguelarmasabt/registry-discovery-server:v1.0.1 ./services/infrastructure/registry-discovery-server-v1
+docker build -t miguelarmasabt/config-server:v1.0.1 ./services/infrastructure/config-server-v1
+docker build -t miguelarmasabt/auth-adapter:v1.0.1 ./services/infrastructure/auth-adapter-v1
+docker build -t miguelarmasabt/api-gateway:v1.0.1 ./services/infrastructure/api-gateway-v1
 ```
 
 NEGOCIO
 ```shell script
-docker build -t miguelarmasabt/product-v1:0.0.1-SNAPSHOT ./services/business/product-v1
-docker build -t miguelarmasabt/menu-v1:0.0.1-SNAPSHOT ./services/business/menu-v1
-docker build -f ./services/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu-v2:0.0.1-SNAPSHOT ./services/business/menu-v2
-docker build -t miguelarmasabt/table-placement-v1:0.0.1-SNAPSHOT ./services/business/table-placement-v1
+docker build -t miguelarmasabt/product:v1.0.1 ./services/business/product-v1
+docker build -t miguelarmasabt/menu:v1.0.1 ./services/business/menu-v1
+docker build -f ./services/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./services/business/menu-v2
+docker build -t miguelarmasabt/table-placement:v1.0.1 ./services/business/table-placement-v1
 ```
 
 ## 4.2. Iniciar orquestación
@@ -113,19 +113,19 @@ establecemos el entorno de Docker de Minikube en nuestra shell y sobre ella cons
 
 Servicios de infraestructura:
 ```shell script
-docker build -t miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure/registry-discovery-server-v1
-docker build -t miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure/config-server-v1
-docker build -t miguelarmasabt/auth-adapter-v1:0.0.1-SNAPSHOT ./services/infrastructure/auth-adapter-v1
-docker build -t miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure/api-gateway-v1
+docker build -t miguelarmasabt/registry-discovery-server:v1.0.1 ./services/infrastructure/registry-discovery-server-v1
+docker build -t miguelarmasabt/config-server:v1.0.1 ./services/infrastructure/config-server-v1
+docker build -t miguelarmasabt/auth-adapter:v1.0.1 ./services/infrastructure/auth-adapter-v1
+docker build -t miguelarmasabt/api-gateway:v1.0.1 ./services/infrastructure/api-gateway-v1
 Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
 Servicios de negocio:
 ```shell script
-docker build -t miguelarmasabt/product-v1:0.0.1-SNAPSHOT ./services/business/product-v1
-docker build -t miguelarmasabt/menu-v1:0.0.1-SNAPSHOT ./services/business/menu-v1
-docker build -f ./services/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu-v2:0.0.1-SNAPSHOT ./services/business/menu-v2
-docker build -t miguelarmasabt/table-placement-v1:0.0.1-SNAPSHOT ./services/business/table-placement-v1
+docker build -t miguelarmasabt/product:v1.0.1 ./services/business/product-v1
+docker build -t miguelarmasabt/menu:v1.0.1 ./services/business/menu-v1
+docker build -f ./services/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./services/business/menu-v2
+docker build -t miguelarmasabt/table-placement:v1.0.1 ./services/business/table-placement-v1
 Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
