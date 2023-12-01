@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-12-01T03:38:08.753Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="54t_uM86B0ne2h6i6Ggn" version="22.1.5" type="device" pages="2">
+<mxfile host="app.diagrams.net" modified="2023-12-01T03:40:37.167Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="Db0KqhlMWi_0jgehvfbv" version="22.1.5" type="device" pages="2">
   <diagram id="Mab86lwmYLIhfpq_8ImP" name="Restaurante">
-    <mxGraphModel dx="318" dy="1516" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="-1249" dy="546" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -344,7 +344,7 @@
           <mxGeometry x="-1" y="-15" width="252" height="18" as="geometry" />
         </mxCell>
         <mxCell id="UWT4PToecLQTJbC--JHC-5" value="" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;strokeColor=#66B2FF;fillColor=none;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
-          <mxGeometry x="3907.5" y="187.37" width="100" height="505" as="geometry" />
+          <mxGeometry x="3907.5" y="187.37" width="100" height="492.63" as="geometry" />
         </mxCell>
         <mxCell id="UWT4PToecLQTJbC--JHC-6" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;dashPattern=1 1;" edge="1" source="UWT4PToecLQTJbC--JHC-9" target="UWT4PToecLQTJbC--JHC-41" parent="1">
           <mxGeometry relative="1" as="geometry">
