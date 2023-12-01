@@ -7,7 +7,7 @@ services:
   ############################
   product-v1:
     container_name: product-v1
-    image: miguelarmasabt/product-v1:0.0.1-SNAPSHOT
+    image: miguelarmasabt/product:v1.0.1
     restart: always
     environment:
       - MYSQL_USERNAME=bbq_user
@@ -23,7 +23,7 @@ services:
 
   menu-v1:
     container_name: menu-v1
-    image: miguelarmasabt/menu-v1:0.0.1-SNAPSHOT
+    image: miguelarmasabt/menu:v1.0.1
     restart: always
     environment:
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
@@ -43,7 +43,7 @@ services:
 
   menu-v2:
     container_name: menu-v2
-    image: miguelarmasabt/menu-v2:0.0.1-SNAPSHOT
+    image: miguelarmasabt/menu:v2.0.1
     restart: always
     environment:
       - MYSQL_USERNAME=bbq_user
@@ -60,7 +60,7 @@ services:
 
   table-placement-v1:
     container_name: table-placement-v1
-    image: miguelarmasabt/table-placement-v1:0.0.1-SNAPSHOT
+    image: miguelarmasabt/table-placement:v1.0.1
     restart: always
     environment:
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
@@ -82,7 +82,7 @@ services:
   ############################
   registry-discovery-server-v1:
     container_name: registry-discovery-server-v1
-    image: miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT
+    image: miguelarmasabt/registry-discovery-server:v1.0.1
     environment:
       - JAVA_OPTS=-Xms256M -Xmx256M
     networks:
@@ -92,7 +92,7 @@ services:
 
   config-server-v1:
     container_name: config-server-v1
-    image: miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT
+    image: miguelarmasabt/config-server:v1.0.1
     environment:
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
       - JAVA_OPTS=-Xms256M -Xmx256M
@@ -105,7 +105,7 @@ services:
 
   api-gateway-v1:
     container_name: api-gateway-v1
-    image: miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT
+    image: miguelarmasabt/api-gateway:v1.0.1
     environment:
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
       - AUTH_ADAPTER=http://auth-adapter-v1:8011/bbq/infrastructure/v1/auth/
@@ -119,7 +119,7 @@ services:
 
   auth-adapter-v1:
     container_name: auth-adapter-v1
-    image: miguelarmasabt/auth-adapter-v1:0.0.1-SNAPSHOT
+    image: miguelarmasabt/auth-adapter:v1.0.1
     environment:
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
       - KEYCLOACK_SERVER=http://keycloak-server:8080/auth/realms

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: config-server-v1
-          image: miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT
+          image: miguelarmasabt/config-server:v1.0.1
           imagePullPolicy: IfNotPresent #load the image from local
           ports:
             - name: http

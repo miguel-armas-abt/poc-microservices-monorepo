@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: registry-discovery-server-v1
-          image: miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT
+          image: miguelarmasabt/registry-discovery-server:v1.0.1
           imagePullPolicy: IfNotPresent #load the image from local
           ports:
             - containerPort: 8761

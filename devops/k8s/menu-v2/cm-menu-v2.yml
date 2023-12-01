@@ -5,6 +5,6 @@ metadata:
 data:
   mysql-username: bbq_user
   mysql-password: qwerty
-  mysql-url: mysql://bbq-mysql:3306/db_menu_options
+  mysql-url: mysql://mysql-db:3306/db_menu_options
   product-v1-base-url: http://product-v1:8017/bbq/business/product/v1
   java-opts: -Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev

@@ -65,18 +65,18 @@ Los puertos definidos para cada servicio web son los siguientes:
 ## 4.1. Construir imágenes
 INFRAESTRUCTURA
 ```shell script
-docker build -t miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure/registry-discovery-server-v1
-docker build -t miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure/config-server-v1
-docker build -t miguelarmasabt/auth-adapter-v1:0.0.1-SNAPSHOT ./services/infrastructure/auth-adapter-v1
-docker build -t miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure/api-gateway-v1
+docker build -t miguelarmasabt/registry-discovery-server:v1.0.1 ./services/infrastructure/registry-discovery-server-v1
+docker build -t miguelarmasabt/config-server:v1.0.1 ./services/infrastructure/config-server-v1
+docker build -t miguelarmasabt/auth-adapter:v1.0.1 ./services/infrastructure/auth-adapter-v1
+docker build -t miguelarmasabt/api-gateway:v1.0.1 ./services/infrastructure/api-gateway-v1
 ```
 
 NEGOCIO
 ```shell script
-docker build -t miguelarmasabt/product-v1:0.0.1-SNAPSHOT ./services/business/product-v1
-docker build -t miguelarmasabt/menu-v1:0.0.1-SNAPSHOT ./services/business/menu-v1
-docker build -f ./services/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu-v2:0.0.1-SNAPSHOT ./services/business/menu-v2
-docker build -t miguelarmasabt/table-placement-v1:0.0.1-SNAPSHOT ./services/business/table-placement-v1
+docker build -t miguelarmasabt/product:v1.0.1 ./services/business/product-v1
+docker build -t miguelarmasabt/menu:v1.0.1 ./services/business/menu-v1
+docker build -f ./services/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./services/business/menu-v2
+docker build -t miguelarmasabt/table-placement:v1.0.1 ./services/business/table-placement-v1
 ```
 
 ## 4.2. Iniciar orquestación
@@ -86,22 +86,30 @@ docker-compose -f ./devops/docker-compose/docker-compose.yml up -d
 ```
 
 ## 4.3. Detener orquestación
+Para eliminar la orquestación utilice `down -v` en lugar de `stop` 
 ```shell script
 docker-compose -f ./devops/docker-compose/docker-compose.yml stop
 ```
 
 # 5. Orquestacion con Kubernetes
-Si usted requiere asignar más memoria RAM a Docker Desktop, cree el archivo `.wslconfig` en la ruta de usuario
-`C:\Users\<username>\ `, agregue el siguiente contenido y reinicie Docker Desktop.
+**[OPCIONAL]** Si usted requiere asignar más memoria RAM a Docker Desktop, cree el archivo `.wslconfig` en la ruta de usuario
+`C:\Users\<username>\`, agregue el siguiente contenido y reinicie Docker Desktop.
 ```javascript
 [wsl2]
 memory=3072MB
 processors=5
 ```
 
-Encienda el clúster de Kubernetes de Minikube
+Asigne el contexto de la CLI de Docker en default
 ```shell script
-minikube start --memory=2816 --cpus=4
+docker context use default
+```
+
+Encienda el clúster de Kubernetes de Minikube. Puede especificar la cantidad de memoria y CPU destinada al clúster con `--memory=2816 --cpus=4`
+
+
+```shell script
+minikube start
 ```
 
 > **NOTA**: Desactive el filtro de autenticación para los servicios web que desplegará. Para ello siga las instrucciones
@@ -113,19 +121,19 @@ establecemos el entorno de Docker de Minikube en nuestra shell y sobre ella cons
 
 Servicios de infraestructura:
 ```shell script
-docker build -t miguelarmasabt/registry-discovery-server-v1:0.0.1-SNAPSHOT ./services/infrastructure/registry-discovery-server-v1
-docker build -t miguelarmasabt/config-server-v1:0.0.1-SNAPSHOT ./services/infrastructure/config-server-v1
-docker build -t miguelarmasabt/auth-adapter-v1:0.0.1-SNAPSHOT ./services/infrastructure/auth-adapter-v1
-docker build -t miguelarmasabt/api-gateway-v1:0.0.1-SNAPSHOT ./services/infrastructure/api-gateway-v1
+docker build -t miguelarmasabt/registry-discovery-server:v1.0.1 ./services/infrastructure/registry-discovery-server-v1
+docker build -t miguelarmasabt/config-server:v1.0.1 ./services/infrastructure/config-server-v1
+docker build -t miguelarmasabt/auth-adapter:v1.0.1 ./services/infrastructure/auth-adapter-v1
+docker build -t miguelarmasabt/api-gateway:v1.0.1 ./services/infrastructure/api-gateway-v1
 Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
 Servicios de negocio:
 ```shell script
-docker build -t miguelarmasabt/product-v1:0.0.1-SNAPSHOT ./services/business/product-v1
-docker build -t miguelarmasabt/menu-v1:0.0.1-SNAPSHOT ./services/business/menu-v1
-docker build -f ./services/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu-v2:0.0.1-SNAPSHOT ./services/business/menu-v2
-docker build -t miguelarmasabt/table-placement-v1:0.0.1-SNAPSHOT ./services/business/table-placement-v1
+docker build -t miguelarmasabt/product:v1.0.1 ./services/business/product-v1
+docker build -t miguelarmasabt/menu:v1.0.1 ./services/business/menu-v1
+docker build -f ./services/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./services/business/menu-v2
+docker build -t miguelarmasabt/table-placement:v1.0.1 ./services/business/table-placement-v1
 Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
@@ -165,22 +173,22 @@ kubectl delete -f ./devops/k8s/table-placement-v1/
 
 # 6. Conexion a base de datos
 ## 6.1. MYSQL
-| Parámetro         | Valor (Docker Compose)                         | Valor (Kubernetes)                                     |   
-|-------------------|------------------------------------------------|--------------------------------------------------------|
-| Server Host       | `localhost`                                    | `localhost`                                            |
-| Port              | `3306`                                         | Puerto de Minikube: `minikube service --url bbq-mysql` |
-| Database          | `db_menu_options?allowPublicKeyRetrieval=true` | `db_menu_options?allowPublicKeyRetrieval=true`         |
-| Nombre de usuario | `root` o  `bbq_user`                           | `root` o  `bbq_user`                                   |
-| Contraseña        | `qwerty`                                       | `qwerty`                                               |
+| Parámetro         | Valor (Docker Compose)                         | Valor (Kubernetes)                                    |   
+|-------------------|------------------------------------------------|-------------------------------------------------------|
+| Server Host       | `localhost`                                    | `localhost`                                           |
+| Port              | `3306`                                         | Puerto de Minikube: `minikube service --url mysql-db` |
+| Database          | `db_menu_options?allowPublicKeyRetrieval=true` | `db_menu_options?allowPublicKeyRetrieval=true`        |
+| Nombre de usuario | `root` o  `bbq_user`                           | `root` o  `bbq_user`                                  |
+| Contraseña        | `qwerty`                                       | `qwerty`                                              |
 
 ## 6.2. PostgreSQL
 - Ubique la pestaña `PostgreSQL` y active la opción `Show all database`.
 
-| Parámetro         | Valor (Docker Compose)     | Valor (Kubernetes)                                        |   
-|-------------------|----------------------------|-----------------------------------------------------------|
-| Connect by        | `HOST`                     | `HOST`                                                    |
-| Host              | `localhost`                | `localhost`                                               |
-| Port              | `5432`                     | Puerto de Minikube: `minikube service --url bbq-postgres` |
-| Database          | `db_table_orders`          | `db_table_orders`                                         |
-| Nombre de usuario | `postgres` o  `bbq_user`   | `postgres` o  `bbq_user`                                  |
-| Contraseña        | `qwerty`                   | `qwerty`                                                  |
+| Parámetro         | Valor (Docker Compose)     | Valor (Kubernetes)                                       |   
+|-------------------|----------------------------|----------------------------------------------------------|
+| Connect by        | `HOST`                     | `HOST`                                                   |
+| Host              | `localhost`                | `localhost`                                              |
+| Port              | `5432`                     | Puerto de Minikube: `minikube service --url postgres-db` |
+| Database          | `db_table_orders`          | `db_table_orders`                                        |
+| Nombre de usuario | `postgres` o  `bbq_user`   | `postgres` o  `bbq_user`                                 |
+| Contraseña        | `qwerty`                   | `qwerty`                                                 |
