@@ -14,4 +14,4 @@ spec:
   ports:
     - name: bbq-mysql
       port: 3306
-      nodePort : 30306
+      nodePort : 30006

@@ -7,4 +7,5 @@ data:
   mysql-username: bbq_user
   mysql-password: qwerty
   mysql-url: jdbc:mysql://bbq-mysql:3306/db_menu_options?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  product-v1-base-url: http://product-v1:8017/bbq/business/product/v1/
   java-opts: -Xms256M -Xmx256M
