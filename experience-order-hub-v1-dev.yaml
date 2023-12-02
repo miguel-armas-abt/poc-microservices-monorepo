@@ -5,8 +5,8 @@ application:
         base-url: ${MENU_V1_BASE_URL:http://localhost:8010/bbq/business/menu/v1/}
       v2:
         base-url: ${MENU_V2_BASE_URL:http://localhost:8016/bbq/business/menu/v2/}
-      selector-class: com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.menuv1.retrofit.MenuV1ApiConnectorRetrofitImpl
-      selector-class-fallback: com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.menuv2.retrofit.MenuV2ApiConnectorRetrofitImpl
+      selector-class: com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.connector.menuv1.retrofit.MenuV1ApiConnectorRetrofitImpl
+      selector-class-fallback: com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.connector.menuv2.MenuV2ApiConnectorRetrofitImpl
     table-placement:
       base-url: ${TABLE_PLACEMENT_V1_BASE_URL:http://localhost:8010/bbq/business/table-placement/v1/}
     invoice:
