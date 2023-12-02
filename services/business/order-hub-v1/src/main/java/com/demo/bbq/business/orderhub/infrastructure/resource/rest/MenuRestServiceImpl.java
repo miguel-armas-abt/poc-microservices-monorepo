@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import reactor.adapter.rxjava.RxJava2Adapter;
 
 @Component
 @RequiredArgsConstructor
@@ -20,6 +19,6 @@ public class MenuRestServiceImpl extends OrderHubRestService {
   @GetMapping(value = "/menu-options", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
   public Observable<MenuOptionDto> findMenuByCategory(HttpServletRequest servletRequest,
                                                       @RequestParam(value = "category") String categoryCode) {
-    return RxJava2Adapter.fluxToObservable(menuApi.findByCategory(categoryCode));
+    return menuApi.findByCategory(categoryCode);
   }
 }

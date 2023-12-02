@@ -1,4 +1,4 @@
-package com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.menuv1.retrofit;
+package com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.connector.menuv1.retrofit;
 
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionDto;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionSaveRequestDto;

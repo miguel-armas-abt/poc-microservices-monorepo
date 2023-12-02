@@ -1,6 +1,6 @@
-package com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.menuv1.webclient;
+package com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.connector.menuv1.webclient;
 
-import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.MenuApiConnector;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.connector.MenuApiConnector;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionDto;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionSaveRequestDto;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionUpdateRequestDto;
@@ -8,6 +8,9 @@ import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.prope
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +21,7 @@ import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+import reactor.adapter.rxjava.RxJava2Adapter;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.tcp.TcpClient;
 
@@ -46,45 +48,45 @@ public class MenuV1ApiConnectorWebClientImpl implements MenuApiConnector {
         .build();
   }
 
-  public Flux<MenuOptionDto> findByCategory(String category) {
-    return buildWebClient().method(HttpMethod.GET)
+  public Observable<MenuOptionDto> findByCategory(String category) {
+    return RxJava2Adapter.fluxToObservable(buildWebClient().method(HttpMethod.GET)
         .uri(uriBuilder -> (category != null)
             ? uriBuilder.path("menu-options").queryParam("category", category).build()
             : uriBuilder.path("menu-options").build())
         .retrieve()
-        .bodyToFlux(MenuOptionDto.class);
+        .bodyToFlux(MenuOptionDto.class));
   }
 
-  public Mono<MenuOptionDto> findByProductCode(String productCode) {
-    return buildWebClient().method(HttpMethod.GET)
+  public Maybe<MenuOptionDto> findByProductCode(String productCode) {
+    return RxJava2Adapter.monoToMaybe(buildWebClient().method(HttpMethod.GET)
         .uri(uriBuilder -> uriBuilder.path("menu-options/" + productCode).build())
         .retrieve()
-        .bodyToMono(MenuOptionDto.class);
+        .bodyToMono(MenuOptionDto.class));
   }
 
-  public Mono<Void> save(MenuOptionSaveRequestDto menuOption) {
-    return buildWebClient().method(HttpMethod.POST)
+  public Completable save(MenuOptionSaveRequestDto menuOption) {
+    return RxJava2Adapter.monoToCompletable(buildWebClient().method(HttpMethod.POST)
         .uri(uriBuilder -> uriBuilder.path("menu-options").build())
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromObject(menuOption))
         .retrieve()
-        .bodyToMono(Void.class);
+        .bodyToMono(Void.class));
   }
 
-  public Mono<Void> update(String productCode, MenuOptionUpdateRequestDto menuOption) {
-    return buildWebClient().method(HttpMethod.PUT)
+  public Completable update(String productCode, MenuOptionUpdateRequestDto menuOption) {
+    return RxJava2Adapter.monoToCompletable(buildWebClient().method(HttpMethod.PUT)
         .uri(uriBuilder -> uriBuilder.path("menu-options/" + productCode).build())
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromObject(menuOption))
         .retrieve()
-        .bodyToMono(Void.class);
+        .bodyToMono(Void.class));
   }
 
-  public Mono<Void> delete(String productCode) {
-    return buildWebClient().method(HttpMethod.DELETE)
+  public Completable delete(String productCode) {
+    return RxJava2Adapter.monoToCompletable(buildWebClient().method(HttpMethod.DELETE)
         .uri(uriBuilder -> uriBuilder.path("menu-options/" + productCode).build())
         .retrieve()
-        .bodyToMono(Void.class);
+        .bodyToMono(Void.class));
   }
 
   @Override

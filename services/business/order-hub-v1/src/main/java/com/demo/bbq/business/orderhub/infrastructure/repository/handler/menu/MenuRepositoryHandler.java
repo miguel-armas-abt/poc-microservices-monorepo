@@ -7,7 +7,6 @@ import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import reactor.adapter.rxjava.RxJava2Adapter;
 
 @Component
 @RequiredArgsConstructor
@@ -18,7 +17,7 @@ public class MenuRepositoryHandler {
 
   public Observable<MenuOptionDto> findAll() {
     return menuCache.findAll()
-        .switchIfEmpty(RxJava2Adapter.fluxToObservable(menuApi.findByCategory(null))
+        .switchIfEmpty(menuApi.findByCategory(null)
             .flatMapCompletable(menuCache::save)
             .andThen(Observable.defer(menuCache::findAll)));
   }

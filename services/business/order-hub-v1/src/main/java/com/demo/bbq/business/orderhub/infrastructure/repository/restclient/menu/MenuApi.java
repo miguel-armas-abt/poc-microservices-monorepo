@@ -1,18 +1,20 @@
 package com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu;
 
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.connector.MenuApiConnector;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionDto;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionSaveRequestDto;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.dto.MenuOptionUpdateRequestDto;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.properties.MenuOptionSelectorClassProperties;
 import com.demo.bbq.support.exception.model.ApiException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import java.util.List;
 import java.util.function.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
@@ -30,51 +32,51 @@ public class MenuApi {
   }
 
   @CircuitBreaker(name = API_CLIENT, fallbackMethod = "findByProductCodeFallback")
-  public Mono<MenuOptionDto> findByProductCode(String productCode) {
+  public Maybe<MenuOptionDto> findByProductCode(String productCode) {
     return getService(properties.getSelectorClass()).findByProductCode(productCode);
   }
 
   @CircuitBreaker(name = API_CLIENT, fallbackMethod = "findByCategoryFallback")
-  public Flux<MenuOptionDto> findByCategory(String category) {
+  public Observable<MenuOptionDto> findByCategory(String category) {
     return getService(properties.getSelectorClass()).findByCategory(category);
   }
 
   @CircuitBreaker(name = API_CLIENT, fallbackMethod = "saveFallback")
-  public Mono<Void> save(MenuOptionSaveRequestDto menuOptionRequest) {
+  public Completable save(MenuOptionSaveRequestDto menuOptionRequest) {
     return getService(properties.getSelectorClass()).save(menuOptionRequest);
   }
 
   @CircuitBreaker(name = API_CLIENT, fallbackMethod = "updateFallback")
-  public Mono<Void> update(String productCode, MenuOptionUpdateRequestDto menuOptionRequest) {
+  public Completable update(String productCode, MenuOptionUpdateRequestDto menuOptionRequest) {
     return getService(properties.getSelectorClassFallback()).update(productCode, menuOptionRequest);
   }
 
   @CircuitBreaker(name = API_CLIENT, fallbackMethod = "deleteFallback")
-  public Mono<Void> delete(String productCode) {
+  public Completable delete(String productCode) {
     return getService(properties.getSelectorClassFallback()).delete(productCode);
   }
 
-  public Mono<MenuOptionDto> findByProductCodeFallback(String productCode, Throwable throwable) {
+  public Maybe<MenuOptionDto> findByProductCodeFallback(String productCode, Throwable throwable) {
     validateException(throwable);
     return getService(properties.getSelectorClassFallback()).findByProductCode(productCode);
   }
 
-  public Flux<MenuOptionDto> findByCategoryFallback(String category, Throwable throwable) {
+  public Observable<MenuOptionDto> findByCategoryFallback(String category, Throwable throwable) {
     validateException(throwable);
     return getService(properties.getSelectorClassFallback()).findByCategory(category);
   }
 
-  public Mono<Void> saveFallback(MenuOptionSaveRequestDto menuOptionRequest, Throwable throwable) {
+  public Completable saveFallback(MenuOptionSaveRequestDto menuOptionRequest, Throwable throwable) {
     validateException(throwable);
     return getService(properties.getSelectorClassFallback()).save(menuOptionRequest);
   }
 
-  public Mono<Void> updateFallback(String productCode, MenuOptionUpdateRequestDto menuOptionRequest, Throwable throwable) {
+  public Completable updateFallback(String productCode, MenuOptionUpdateRequestDto menuOptionRequest, Throwable throwable) {
     validateException(throwable);
     return getService(properties.getSelectorClassFallback()).update(productCode, menuOptionRequest);
   }
 
-  public Mono<Void> deleteFallback(String productCode, Throwable throwable) {
+  public Completable deleteFallback(String productCode, Throwable throwable) {
     validateException(throwable);
     return getService(properties.getSelectorClassFallback()).delete(productCode);
   }

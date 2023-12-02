@@ -3,8 +3,8 @@ package com.demo.bbq.business.orderhub.infrastructure.repository.restclient.conf
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.tableorder.TableOrderApi;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.invoice.InvoiceApi;
 import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.properties.RestClientBaseUrlProperties;
-import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.menuv1.retrofit.MenuV1Api;
-import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.menuv2.retrofit.MenuV2Api;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.connector.menuv1.retrofit.MenuV1Api;
+import com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.connector.menuv2.MenuV2Api;
 import com.demo.bbq.support.httpclient.retrofit.reactive.SupportHttpClient;
 import java.time.Duration;
 import lombok.RequiredArgsConstructor;
