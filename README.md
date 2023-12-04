@@ -1,4 +1,9 @@
-# Despliegue
+# Arquitectura de software
+![Texto alternativo](./documentation/diagrams/exported/software-architecture.svg)
+
+# Servicios web / Tecnologías
+![Texto alternativo](./documentation/diagrams/exported/components-description.svg)
+
 Esta guía le ayudará a configurar y desplegar los servicios de BBQ
 
 - [1. Clonar repositorio](#1-clonar-repositorio)
