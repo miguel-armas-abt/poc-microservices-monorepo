@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-12-04T23:48:22.797Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="lSq1IP2MIARy21jHurVw" version="22.1.5" type="device" pages="2">
+<mxfile host="app.diagrams.net" modified="2023-12-15T02:22:35.306Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="ZoiMSuFEcuXcfVdTnro8" version="22.1.9" type="device" pages="3">
   <diagram id="Mab86lwmYLIhfpq_8ImP" name="Restaurante">
-    <mxGraphModel dx="-581" dy="892" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="-1355" dy="622" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -768,7 +768,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="nhvEB9wWajFoxYTE4Fyj" name="DevOps">
-    <mxGraphModel dx="1674" dy="758" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1674" dy="746" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -880,6 +880,146 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="241.44" y="124" as="sourcePoint" />
             <mxPoint x="241.44" y="94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="zjXJq7EMjJyjIxEMjGLI" name="Página-3">
+    <mxGraphModel dx="-794" dy="2047" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="9AnkBE-FDpClvw3EXCj5-124" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="3280" y="-20" width="1050" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-1" value="" style="childLayout=tableLayout;recursiveResize=0;shadow=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="3330" y="20" width="960" height="480.4811734286209" as="geometry" />
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-2" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;fillColor=none;strokeColor=inherit;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-1">
+          <mxGeometry width="960" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-3" value="product-v1" style="connectable=0;recursiveResize=0;strokeColor=#0e8088;fillColor=#b0e3e6;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-2">
+          <mxGeometry width="160" height="40" as="geometry">
+            <mxRectangle width="160" height="40" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-4" value="Permite gestionar los productos de BBQ" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=16;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-2">
+          <mxGeometry x="160" width="470" height="40" as="geometry">
+            <mxRectangle width="470" height="40" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-5" value="&lt;font color=&quot;#cc0000&quot;&gt;GO&lt;/font&gt;&lt;br style=&quot;font-size: 14px;&quot;&gt;ORM GORM (MySQL)" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-2">
+          <mxGeometry x="630" width="330" height="40" as="geometry">
+            <mxRectangle width="330" height="40" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-6" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;fillColor=none;strokeColor=inherit;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-1">
+          <mxGeometry y="40" width="960" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-7" value="menu-v1" style="connectable=0;recursiveResize=0;strokeColor=#0e8088;fillColor=#b0e3e6;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-6">
+          <mxGeometry width="160" height="55" as="geometry">
+            <mxRectangle width="160" height="55" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-8" value="Permite gestionar las opciones de menú disponibles en el restaurante. (CRUD)" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=16;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-6">
+          <mxGeometry x="160" width="470" height="55" as="geometry">
+            <mxRectangle width="470" height="55" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-9" value="&lt;font color=&quot;#cc0000&quot;&gt;Spring Boot&lt;/font&gt;&lt;br style=&quot;font-size: 14px;&quot;&gt;ORM JPA (MySQL)&lt;br style=&quot;font-size: 14px;&quot;&gt;Retrofit" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-6">
+          <mxGeometry x="630" width="330" height="55" as="geometry">
+            <mxRectangle width="330" height="55" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-10" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;fillColor=none;strokeColor=inherit;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-1">
+          <mxGeometry y="95" width="960" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-11" value="menu-v2" style="connectable=0;recursiveResize=0;strokeColor=#0e8088;fillColor=#b0e3e6;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-10">
+          <mxGeometry width="160" height="90" as="geometry">
+            <mxRectangle width="160" height="90" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-12" value="&quot;" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=16;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-10">
+          <mxGeometry x="160" width="470" height="90" as="geometry">
+            <mxRectangle width="470" height="90" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-13" value="&lt;font color=&quot;#cc0000&quot;&gt;Quarkus&lt;/font&gt;&lt;br style=&quot;font-size: 14px;&quot;&gt;ORM Panache Entity (MySQL)&lt;br style=&quot;font-size: 14px;&quot;&gt;RestClient&lt;br style=&quot;font-size: 14px;&quot;&gt;Programación reactiva con Multiny&lt;span style=&quot;color: rgb(51, 51, 51); font-size: 14px;&quot;&gt;&lt;br style=&quot;font-size: 14px;&quot;&gt;GraphQL&lt;br style=&quot;font-size: 14px;&quot;&gt;&lt;/span&gt;" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-10">
+          <mxGeometry x="630" width="330" height="90" as="geometry">
+            <mxRectangle width="330" height="90" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-14" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;fillColor=none;strokeColor=inherit;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-1">
+          <mxGeometry y="185" width="960" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-15" value="table-placement-v1" style="connectable=0;recursiveResize=0;strokeColor=#0e8088;fillColor=#b0e3e6;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-14">
+          <mxGeometry width="160" height="65" as="geometry">
+            <mxRectangle width="160" height="65" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-16" value="Permite consultar y generar pedidos por cada mesa en el restaurante." style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=16;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-14">
+          <mxGeometry x="160" width="470" height="65" as="geometry">
+            <mxRectangle width="470" height="65" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-17" value="Spring Boot&lt;br&gt;ORM JPA (PostgreSQL)&lt;br style=&quot;font-size: 14px;&quot;&gt;Programación reactiva con Webflux" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-14">
+          <mxGeometry x="630" width="330" height="65" as="geometry">
+            <mxRectangle width="330" height="65" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-18" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;fillColor=none;strokeColor=inherit;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-1">
+          <mxGeometry y="250" width="960" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-19" value="invoice-v1" style="connectable=0;recursiveResize=0;strokeColor=#0e8088;fillColor=#b0e3e6;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-18">
+          <mxGeometry width="160" height="90" as="geometry">
+            <mxRectangle width="160" height="90" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-20" value="Permite generar una factura de proforma y enviarla a pagar." style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=16;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-18">
+          <mxGeometry x="160" width="470" height="90" as="geometry">
+            <mxRectangle width="470" height="90" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-21" value="Spring Boot&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;ORM JPA (PostgreSQL)&lt;br style=&quot;font-size: 14px;&quot;&gt;Programación reactiva con RxJava 2&lt;br style=&quot;font-size: 14px;&quot;&gt;Retrofit&lt;br style=&quot;font-size: 14px;&quot;&gt;Message Broker (Kafka)" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-18">
+          <mxGeometry x="630" width="330" height="90" as="geometry">
+            <mxRectangle width="330" height="90" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-22" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;fillColor=none;strokeColor=inherit;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-1">
+          <mxGeometry y="340" width="960" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-23" value="payment-v1" style="connectable=0;recursiveResize=0;strokeColor=#0e8088;fillColor=#b0e3e6;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-22">
+          <mxGeometry width="160" height="60" as="geometry">
+            <mxRectangle width="160" height="60" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-24" value="Recibe las facturas y las procesa en una pasarela de pago." style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=16;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-22">
+          <mxGeometry x="160" width="470" height="60" as="geometry">
+            <mxRectangle width="470" height="60" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-25" value="Spring Boot&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;ORM JPA (MySQL)&lt;br style=&quot;font-size: 14px;&quot;&gt;Message Broker (Kafka)" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-22">
+          <mxGeometry x="630" width="330" height="60" as="geometry">
+            <mxRectangle width="330" height="60" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-26" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;dropTarget=0;collapsible=0;recursiveResize=0;expand=0;fontStyle=0;fillColor=none;strokeColor=inherit;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-1">
+          <mxGeometry y="400" width="960" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-27" value="order-hub-v1" style="connectable=0;recursiveResize=0;strokeColor=#0e8088;fillColor=#b0e3e6;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-26">
+          <mxGeometry width="160" height="80" as="geometry">
+            <mxRectangle width="160" height="80" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-28" value="Orquesta la selección de menú, asignación de pedido a la mesa y generación de la factura&amp;nbsp;" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=16;" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-26">
+          <mxGeometry x="160" width="470" height="80" as="geometry">
+            <mxRectangle width="470" height="80" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sjz8iInpK-Gzfg-TQcyY-29" value="Spring Boot&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;Retrofit (Soporte reactivo)&lt;br style=&quot;font-size: 14px;&quot;&gt;Redis (BD)&lt;br&gt;Circuit Breaker" style="connectable=0;recursiveResize=0;strokeColor=inherit;fillColor=none;align=center;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=14;fontStyle=1" vertex="1" parent="Sjz8iInpK-Gzfg-TQcyY-26">
+          <mxGeometry x="630" width="330" height="80" as="geometry">
+            <mxRectangle width="330" height="80" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
       </root>
