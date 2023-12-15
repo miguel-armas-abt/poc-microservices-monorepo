@@ -2,7 +2,7 @@
 
 - [1. Diagrama de arquitectura de software](#1-diagrama-de-arquitectura-de-software)
 - [2. Descripción de los servicios web](#2-descripcion-de-los-servicios-web)
-- [3. Gestión de versiones](#3-gestion-de-versiones)
+- [3. Gestión de ramas](#3-gestion-de-ramas)
 - [4. Estructura del repositorio](#4-estructura-del-repositorio)
 - [5. Puertos por defecto](#5-puertos-por-defecto)
 - [6. Despliegue local](#6-despliegue-local)
@@ -16,7 +16,7 @@
 # 2. Descripcion de los servicios web
 ![Texto alternativo](./documentation/diagrams/components-description.jpg)
 
-# 3. Gestion de versiones
+# 3. Gestion de ramas
 - `config-server`: Contiene los archivos de configuración de los servicios web
 - `feature/<feature-name>`: Contiene el código fuente en su versión de desarrollo
 - `main`: Contiene la última versión estable del código fuente
