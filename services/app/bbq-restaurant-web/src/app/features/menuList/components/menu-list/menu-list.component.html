@@ -1,0 +1,15 @@
+<div class="container">
+
+  <mat-card *ngFor="let menuOption of menuOptions;" class="card-menu">
+    <mat-card-header>
+      <mat-card-title>
+        {{menuOption.description}}
+      </mat-card-title>
+      <mat-card-subtitle>Precio: s/. {{menuOption.unitPrice}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-button>Agregar</button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>

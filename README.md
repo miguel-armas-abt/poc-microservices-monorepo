@@ -26,8 +26,6 @@ Los servicios web están en el directorio `/services` y se dividen en dos tipos:
 
 ```javascript
     services
-    ├───bbq-parent-v1
-    ├───bbq-support-v1
     ├───business
     │   ├───menu-v1
     │   ├───table-placement-v1

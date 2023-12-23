@@ -1,0 +1,12 @@
+{
+  "/bbq/business/menu/v1/*": {
+    "target": "http://localhost:8010",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/bbq/experience/order-hub/v1/*": {
+    "target": "http://localhost:8010",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}
