@@ -22,25 +22,28 @@
 - `main`: Contiene la última versión estable del código fuente
 
 # 4. Estructura del repositorio
-Los servicios web están en el directorio `/services` y se dividen en dos tipos: negocio e infraestructura.
+Los servicios web están en el directorio `/backend` y se dividen en dos tipos: servicios de negocio y servicios de infraestructura.
 
 ```javascript
-    services
-    ├───business
-    │   ├───menu-v1
-    │   ├───table-placement-v1
-    │   └─── ...
-    └───infrastructure
-        ├───api-gateway-v1
-        ├───config-server-v1
-        ├───registry-discovery-server-v1
-        └─── ...
+    application
+    ├───frontend
+    │   └───bbq-restaurant-web
+    └───backend
+        ├───business
+        │   ├───product-v1
+        │   ├───menu-v1
+        │   ├───table-placement-v1
+        │   ├───invoice-v1
+        │   ├───payment-v1
+        │   └─── ...
+        └───infrastructure
+                ├───api-gateway-v1
+                ├───config-server-v1
+                ├───registry-discovery-server-v1
+                ├───bbq-support-v1
+                ├───bbq-parent-v1
+                └─── ...
 ```
-
-- `business`: Directorio que contiene los servicios web de negocio
-- `infrastructure`: Directorio que contiene los servicios web de infraestructura
-  - `bbq-parent-v1`: Proyecto de tipo `parent module` para servicios web implementados con Spring Boot
-  - `bbq-support-v1`: Proyecto no ejecutable que centraliza las utilidades requeridas por los servicios web implementados con Spring Boot
 
 # 5. Puertos por defecto
 
@@ -70,18 +73,18 @@ Los servicios web están en el directorio `/services` y se dividen en dos tipos:
 ## 7.1. Construir imágenes
 INFRAESTRUCTURA
 ```shell script
-docker build -t miguelarmasabt/registry-discovery-server:v1.0.1 ./services/infrastructure/registry-discovery-server-v1
-docker build -t miguelarmasabt/config-server:v1.0.1 ./services/infrastructure/config-server-v1
-docker build -t miguelarmasabt/auth-adapter:v1.0.1 ./services/infrastructure/auth-adapter-v1
-docker build -t miguelarmasabt/api-gateway:v1.0.1 ./services/infrastructure/api-gateway-v1
+docker build -t miguelarmasabt/registry-discovery-server:v1.0.1 ./application/backend/infrastructure/registry-discovery-server-v1
+docker build -t miguelarmasabt/config-server:v1.0.1 ./application/backend/infrastructure/config-server-v1
+docker build -t miguelarmasabt/auth-adapter:v1.0.1 ./application/backend/infrastructure/auth-adapter-v1
+docker build -t miguelarmasabt/api-gateway:v1.0.1 ./application/backend/infrastructure/api-gateway-v1
 ```
 
 NEGOCIO
 ```shell script
-docker build -t miguelarmasabt/product:v1.0.1 ./services/business/product-v1
-docker build -t miguelarmasabt/menu:v1.0.1 ./services/business/menu-v1
-docker build -f ./services/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./services/business/menu-v2
-docker build -t miguelarmasabt/table-placement:v1.0.1 ./services/business/table-placement-v1
+docker build -t miguelarmasabt/product:v1.0.1 ./application/backend/business/product-v1
+docker build -t miguelarmasabt/menu:v1.0.1 ./application/backend/business/menu-v1
+docker build -f ./application/backend/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./application/backend/business/menu-v2
+docker build -t miguelarmasabt/table-placement:v1.0.1 ./application/backend/business/table-placement-v1
 ```
 
 ## 7.2. Iniciar orquestación
@@ -126,19 +129,19 @@ establecemos el entorno de Docker de Minikube en nuestra shell y sobre ella cons
 
 Servicios de infraestructura:
 ```shell script
-docker build -t miguelarmasabt/registry-discovery-server:v1.0.1 ./services/infrastructure/registry-discovery-server-v1
-docker build -t miguelarmasabt/config-server:v1.0.1 ./services/infrastructure/config-server-v1
-docker build -t miguelarmasabt/auth-adapter:v1.0.1 ./services/infrastructure/auth-adapter-v1
-docker build -t miguelarmasabt/api-gateway:v1.0.1 ./services/infrastructure/api-gateway-v1
+docker build -t miguelarmasabt/registry-discovery-server:v1.0.1 ./application/backend/infrastructure/registry-discovery-server-v1
+docker build -t miguelarmasabt/config-server:v1.0.1 ./application/backend/infrastructure/config-server-v1
+docker build -t miguelarmasabt/auth-adapter:v1.0.1 ./application/backend/infrastructure/auth-adapter-v1
+docker build -t miguelarmasabt/api-gateway:v1.0.1 ./application/backend/infrastructure/api-gateway-v1
 Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
 Servicios de negocio:
 ```shell script
-docker build -t miguelarmasabt/product:v1.0.1 ./services/business/product-v1
-docker build -t miguelarmasabt/menu:v1.0.1 ./services/business/menu-v1
-docker build -f ./services/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./services/business/menu-v2
-docker build -t miguelarmasabt/table-placement:v1.0.1 ./services/business/table-placement-v1
+docker build -t miguelarmasabt/product:v1.0.1 ./application/backend/business/product-v1
+docker build -t miguelarmasabt/menu:v1.0.1 ./application/backend/business/menu-v1
+docker build -f ./application/backend/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./application/backend/business/menu-v2
+docker build -t miguelarmasabt/table-placement:v1.0.1 ./application/backend/business/table-placement-v1
 Invoke-Expression ((minikube docker-env) -join "`n")
 ```
 
