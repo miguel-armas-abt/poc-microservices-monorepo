@@ -1,5 +1,4 @@
-export class MenuDto {
-  productCode: string = '';
+export class MenuUpdateRequest {
   category: string = '';
   unitPrice: number = 0;
   description: string = '';
