@@ -1,23 +1,4 @@
 spring:
-
-  sql:
-    init:
-      mode: always #read data.sql or schema sql, default value is embedded, only for integrated db
-
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    properties:
-      hibernate:
-        show_sql: true
-        use_sql_comments: false
-        format_sql: true
-    defer-datasource-initialization: true #read data.sql file after schema generation by hibernate
-
-  datasource:
-    url: ${POSTGRESQL_URL:jdbc:postgresql://127.0.0.1:5432/db_table_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
-    driverClassName: org.postgresql.Driver
-    username: ${POSTGRESQL_USERNAME:bbq_user}
-    password: ${POSTGRESQL_PASSWORD:qwerty}
+  data:
+    mongodb:
+      uri: mongodb+srv://miguelarmasabt:l21m01j16M01L13@cluster0.t2pidzg.mongodb.net/tablePlacement
