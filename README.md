@@ -113,7 +113,7 @@ El proceso continúa con la atención en el comedor.
     │   ├───mapper
     │   │   └───_ContextName_Mapper.java
     │   ├───dto
-    │   │   └───_context.name_
+    │   │   └───_context-name_
     │   │       ├───request
     │   │       │   └───_ContextName_Request.java
     │   │       └───response
@@ -123,11 +123,11 @@ El proceso continúa con la atención en el comedor.
     │   ├───exception
     │   │   └───_ApplicationName_Exception.java // Application specific exceptions
     │   └───aspect
-    │       └───_cross.cutting.concern_
+    │       └───_cross-cutting-concern_
     │           └───_CrossCuttingConcern_Aspect.java // Cross-cutting concern aspect
     └───`domain`
         └───repository
-            └───data.model.name
+            └───data-model-name
                 ├───_DataModelName_Repository.java
                 └───(entity | document | request | response)
                       └───_DataModelName_(Entity | Document | RequestWrapper | ResponseWrapper).java
@@ -185,7 +185,7 @@ El proceso continúa con la atención en el comedor.
 > 📋 **Pre condiciones**
 > - Tener instalado Maven 3.9+, Java 11+, GO, Kafka, Zookeeper, Redis, PostgreSQL, MySQL.
 > - Crear las bases de datos asociadas a los servicios web correspondientes.
-> - Editar las rutas absolutas en los archivos .bat de acuerdo a su espacio de trabajo.
+> - Editar el archivo `./devops/local/00_local_path_variables.bat` de acuerdo a su entorno de trabajo.
 
 > 🔨 **Compilar los proyectos**
 > ```shell script 

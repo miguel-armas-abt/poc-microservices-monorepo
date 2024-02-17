@@ -1,12 +1,6 @@
 @echo off
 
-set LOG_FILE=C:\dev-workspace\bbq\bbq-monorepo\devops\local\output.log
-set MVN_HOME_PATH=C:\dev-environment\maven\apache-maven-3.9.1
-set MVN_REPOSITORY_PATH=C:\Users\User\.m2\repository
-
-set LOCAL_REPO=C:\dev-workspace\bbq\bbq-monorepo
-set INFRASTRUCTURE_PATH=%LOCAL_REPO%\application\backend\infrastructure
-set BUSINESS_PATH=%LOCAL_REPO%\application\backend\business
+call ./00_local_path_variables.bat @REM recover local path variables
 
 set MAVEN_COMMAND=call mvn clean install -Dmaven.home="%MVN_HOME_PATH%" -Dmaven.repo.local="%MVN_REPOSITORY_PATH%"
 
