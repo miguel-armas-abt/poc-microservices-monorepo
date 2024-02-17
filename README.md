@@ -45,22 +45,10 @@ El proceso continúa con la atención en el comedor.
 # 2. Disenio del software
 > 📌 **Glosario**
 > - `Dominio`. Área de conocimiento (conceptos, reglas, requisitos) que el software está destinado a abordar.
-> - `Subdominio`. Área de conocimiento más específica dentro del dominio principal.
-> - `Contexto`. Funcionalidad en el sistema que puede abarcar uno o más subdominios. Los contextos ayudan a delimitar las interacciones y responsabilidades entre los componentes del sistema.
-> - `Modelo de datos`. Modelo que captura la estructura y el significado de los datos en un subdominio específico.
-
-> 🔍 **Ejemplo**
-> - **Dominio**: `Colocación de pedidos en mesa`
-> - **Subdominios**: `Mesas` y `pedidos`
-> - **Contextos**:
->   - `Colocación de pedidos`: Se encarga de tomar los pedidos de los clientes y asignarlos a una mesa específica.
->   - `Gestión de estado de mesa`: Controla el estado de ocupación de las mesas, indicando si están disponibles, ocupadas o reservadas.
 
 > 💡 **Notas**: 
 <br>Por lo general, en una arquitectura de microservicios:
 > - Cada `servicio web` aborda un `dominio` específico.
-> - Los `subdominios` de cada servicio web son representados por los `modelos de datos` de sus fuentes de información.
-> - Las `funcionalidades` de cada servicio web representan sus `contextos`.
 
 ## 2.1. Arquitectura de software
 ![Texto alternativo](./docs/diagrams/software-architecture.jpg)
@@ -80,21 +68,26 @@ El proceso continúa con la atención en el comedor.
 | `auth-adapter-v1`              | Adaptador de autenticación.                                                                                                   | 8011   | **Spring Boot**: Retrofit                                     |
 
 ## 2.2. Arquitectura de paquetes
-
 > 📌 **Glosario**
-> - `Lógica de dominio`. Se refiere a las reglas del negocio.
-> - `Lógica de aplicación`. Se refiere a las operaciones necesarias para el funcionamiento y cumplimiento de los requisitos de la aplicación, mientras separa la lógica de dominio de los detalles de implementación.
-> Por ejemplo, validación de datos, mapeo de objetos, orquestación de servicios, manejo de excepciones, mecanismos de seguridad, etc.
-> - `Detalles de implementación`. Se refiere a las particularidades de cada tecnología, que pueden introducir complejidad adicional y dificultar la comprensión y mantenimiento de la lógica de negocio.
+> - `Subdominio`. Área de conocimiento más específica dentro del dominio principal.
+> - `Contexto`. Funcionalidad en el sistema que puede abarcar uno o más subdominios. Los contextos ayudan a delimitar las interacciones y responsabilidades entre los componentes del sistema.
+> - `Modelo de datos`. Modelo que captura la estructura y el significado de los datos en un subdominio específico.
 
-> 💡 **Notas**
-> - `infrastructure`: Capa responsable de recibir las solicitudes y manejar los detalles de implementación.
-> - `application`: Capa responsable de contribuir con la lógica de dominio y aplicación.
-> - `domain`: Capa responsable de manejar los datos de dominio.
+> 🔍 **Ejemplo**
+> - **Dominio**: `Colocación de pedidos en mesa`
+> - **Subdominios**: `Mesas` y `pedidos`
+> - **Contextos**:
+>   - `Colocación de pedidos`: Se encarga de tomar los pedidos de los clientes y asignarlos a una mesa específica.
+>   - `Gestión de estado de mesa`: Controla el estado de ocupación de las mesas, indicando si están disponibles, ocupadas o reservadas.
+
+> 💡 **Notas**:
+<br>Por lo general, en una arquitectura de microservicios:
+> - Los `subdominios` de cada servicio web son representados por los `modelos de datos` de sus fuentes de información.
+> - Las `funcionalidades` de cada servicio web representan sus `contextos`.
 
 ```javascript
     application-name
-    │───`infrastructure`
+    │───`infrastructure` // Receives the requests and handles the implementation details
     │   ├───rest
     │   │   ├───_ContextName_RestService.java // RestController or RouterFunction implementation
     │   │   └───_ContextName_Handler.java // Converts ServerRequest and ServerResponse to DTO
@@ -105,7 +98,7 @@ El proceso continúa con la atención en el comedor.
     │   │   └───_EventName_Producer.java
     │   └───exception.handler
     │       └───ApiExceptionHandler.java // Intercepts exceptions to show in HTTP response
-    ├───`application`
+    ├───`application` // Contributes with the domain logic and application logic
     │   ├───service
     │   │   ├───_ContextName_Service.java
     │   │   └───impl
@@ -125,14 +118,13 @@ El proceso continúa con la atención en el comedor.
     │   └───aspect
     │       └───_cross-cutting-concern_
     │           └───_CrossCuttingConcern_Aspect.java // Cross-cutting concern aspect
-    └───`domain`
+    └───`domain` // Handles the domain data
         └───repository
             └───data-model-name
                 ├───_DataModelName_Repository.java
                 └───(entity | document | request | response)
                       └───_DataModelName_(Entity | Document | RequestWrapper | ResponseWrapper).java
 ```
-
 > ✅ **Ventajas**: 
 >   - Define una clara separación de responsabilidades. 
 >   - Facilita a los desarrolladores seguir los fundamentos de Inversión de dependencias y clean architecture. "Un componente de una capa inferior no debe llamar a uno de una capa superior".
