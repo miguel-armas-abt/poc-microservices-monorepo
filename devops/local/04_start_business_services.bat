@@ -7,7 +7,7 @@ set JAVA=C:\dev-environment\java\jdk-11.0.2\bin\java
 set GO=C:\dev-environment\go\go1.21.4\bin\go
 
 set "GO_SERVICES=product-v1"
-set "SPRING_BOOT_SERVICES=menu-v1 order-hub-v1 payment-v1 table-placement-v1"
+set "SPRING_BOOT_SERVICES=menu-v1 order-hub-v1 payment-v1"
 set "QUARKUS=menu-v2"
 
 echo %DATE% %TIME%: Business execution script started > "%LOG_FILE%"

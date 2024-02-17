@@ -19,11 +19,6 @@ spring:
         max-attempts: 1
         max-interval: 1000
 
-springdoc:
-  swagger-ui:
-    path: /swagger/index.html
-    enabled: true
-
 eureka:
   client:
     serviceUrl:

@@ -1,16 +1,15 @@
 package com.demo.bbq.business.tableplacement.application.service.impl;
 
-import com.demo.bbq.business.tableplacement.domain.model.response.TableOrder;
-import com.demo.bbq.business.tableplacement.domain.model.response.MenuOrder;
-import com.demo.bbq.business.tableplacement.infrastructure.repository.database.impl.MenuOrderRepositoryReactive;
-import com.demo.bbq.business.tableplacement.infrastructure.repository.database.impl.TableRepositoryReactive;
+import com.demo.bbq.business.tableplacement.application.dto.tableplacement.response.TablePlacementResponse;
 import com.demo.bbq.business.tableplacement.application.service.TablePlacementService;
-import com.demo.bbq.business.tableplacement.domain.exception.TablePlacementException;
-import com.demo.bbq.business.tableplacement.domain.model.request.MenuOrderRequest;
-import com.demo.bbq.business.tableplacement.infrastructure.mapper.TableOrderMapper;
-import com.demo.bbq.business.tableplacement.infrastructure.mapper.MenuOrderMapper;
+import com.demo.bbq.business.tableplacement.domain.repository.tableorder.TableOrderRepository;
+import com.demo.bbq.business.tableplacement.domain.exception.TablePlacementExceptionEnum;
+import com.demo.bbq.business.tableplacement.application.dto.tableplacement.request.MenuOrderRequest;
+import com.demo.bbq.business.tableplacement.application.mapper.TablePlacementMapper;
+import com.demo.bbq.business.tableplacement.domain.repository.tableorder.document.MenuOrderDocument;
+import com.demo.bbq.business.tableplacement.domain.repository.tableorder.document.TableDocument;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
@@ -26,62 +25,59 @@ import reactor.core.publisher.Mono;
 @Component
 public class TablePlacementServiceImpl implements TablePlacementService {
 
-  private final TableRepositoryReactive tableRepository;
-  private final MenuOrderRepositoryReactive menuOrderRepository;
-
-  private final TableOrderMapper tableOrderMapper;
-
-  private final MenuOrderMapper menuOrderMapper;
+  private final TableOrderRepository tableOrderRepository;
+  private final TablePlacementMapper tablePlacementMapper;
 
   @Override
-  public Mono<TableOrder> findByTableNumber(Integer tableNumber) {
-    return tableRepository.findByTableNumber(tableNumber)
-        .map(tableOrderMapper::fromEntityToDto)
-        .switchIfEmpty(Mono.error(TablePlacementException.ERROR0000.buildException()));
+  public Mono<TablePlacementResponse> findByTableNumber(Integer tableNumber) {
+    return tableOrderRepository.findByTableNumber(tableNumber)
+        .map(tablePlacementMapper::fromDocumentToResponse)
+        .switchIfEmpty(Mono.error(TablePlacementExceptionEnum.ERROR0000.buildException()));
   }
 
   @Override
   public Mono<Void> cleanTable(Integer tableNumber) {
-    return tableRepository.findByTableNumber(tableNumber)
+    return tableOrderRepository.findByTableNumber(tableNumber)
         .map(tableEntity -> {
           tableEntity.setMenuOrderList(new ArrayList<>());
           return tableEntity;
         })
-        .flatMap(tableRepository::save)
+        .flatMap(tableOrderRepository::save)
         .ignoreElement()
         .flatMap(ignored -> Mono.empty());
   }
 
   @Override
-  public Mono<Void> generateTableOrder(List<MenuOrderRequest> requestedMenuOrderList, Integer tableNumber) {
-    return findByTableNumber(tableNumber)
-        .map(diningRoomOrder -> updateExistingDiningRoomOrder(diningRoomOrder, requestedMenuOrderList))
-        .flatMapMany(diningRoomOrder -> Flux.fromIterable(diningRoomOrder.getMenuOrderList())
-            .flatMap(menuOrder -> menuOrderRepository.updateMenuOrder(menuOrderMapper.fromDtoToEntity(menuOrder, diningRoomOrder.getId()))))
-        .ignoreElements()
-        .flatMap(ignored -> Mono.empty());
+  public Mono<Void> generateTableOrder(Flux<MenuOrderRequest> requestedMenuOrders, Integer tableNumber) {
+    return tableOrderRepository.findByTableNumber(tableNumber)
+        .flatMap(savedTableOrder -> updateExistingTableOrder(savedTableOrder, requestedMenuOrders))
+        .flatMap(tableOrderRepository::save)
+        .then(Mono.empty());
   }
 
-  private TableOrder updateExistingDiningRoomOrder(TableOrder diningRoomOrder, List<MenuOrderRequest> requestedMenuOrderList) {
-    Map<String, MenuOrder> existingMenuOrderMap = diningRoomOrder.getMenuOrderList()
-        .stream()
-        .collect(Collectors.toMap(MenuOrder::getProductCode, savedMenuOrder -> savedMenuOrder));
+  private Mono<TableDocument> updateExistingTableOrder(TableDocument tableOrder, Flux<MenuOrderRequest> requestedMenuOrders) {
+    return requestedMenuOrders.collectList()
+        .map(requestedMenuOrderList -> {
+          Map<String, MenuOrderDocument> existingMenuOrderMap = tableOrder.getMenuOrderList()
+              .stream()
+              .collect(Collectors.toMap(MenuOrderDocument::getProductCode, savedMenuOrder -> savedMenuOrder));
 
-    requestedMenuOrderList.forEach(requestedMenuOrder -> {
-        if (menuOptionAlreadyExist.test(existingMenuOrderMap, requestedMenuOrder.getProductCode())) {
-          increaseQuantity.accept(existingMenuOrderMap, requestedMenuOrder);
-        } else {
-          existingMenuOrderMap.put(requestedMenuOrder.getProductCode(), menuOrderMapper.fromRequestToDto(requestedMenuOrder));
-        }
-    });
-    diningRoomOrder.setMenuOrderList(new ArrayList<>(existingMenuOrderMap.values()));
-    return diningRoomOrder;
+          requestedMenuOrderList.forEach(requestedMenuOrder -> {
+            if (menuOptionAlreadyExist.test(existingMenuOrderMap, requestedMenuOrder.getProductCode())) {
+              increaseQuantity.accept(existingMenuOrderMap, requestedMenuOrder);
+            } else {
+              existingMenuOrderMap.put(requestedMenuOrder.getProductCode(), tablePlacementMapper.fromRequestToDocument(requestedMenuOrder));
+            }
+          });
+          tableOrder.setMenuOrderList(new ArrayList<>(existingMenuOrderMap.values()));
+          return tableOrder;
+        });
   }
 
-  private final BiPredicate<Map<String, MenuOrder>, String> menuOptionAlreadyExist = Map::containsKey;
+  private final BiPredicate<Map<String, MenuOrderDocument>, String> menuOptionAlreadyExist = Map::containsKey;
 
-  private final BiConsumer<Map<String, MenuOrder>, MenuOrderRequest> increaseQuantity = (existingMenuOrderMap, requestedMenuOrder) -> {
-    MenuOrder existingMenuOrder = existingMenuOrderMap.get(requestedMenuOrder.getProductCode());
+  private final BiConsumer<Map<String, MenuOrderDocument>, MenuOrderRequest> increaseQuantity = (existingMenuOrderMap, requestedMenuOrder) -> {
+    MenuOrderDocument existingMenuOrder = existingMenuOrderMap.get(requestedMenuOrder.getProductCode());
     existingMenuOrder.setQuantity(existingMenuOrder.getQuantity() + requestedMenuOrder.getQuantity());
     existingMenuOrderMap.put(requestedMenuOrder.getProductCode(), existingMenuOrder);
   };

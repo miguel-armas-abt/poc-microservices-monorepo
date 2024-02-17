@@ -47,11 +47,6 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-config</artifactId>
     </dependency>
-    <dependency> <!-- springdoc -->
-      <groupId>org.springdoc</groupId>
-      <artifactId>springdoc-openapi-ui</artifactId>
-      <version>1.6.4</version>
-    </dependency>
     <dependency><!-- drools -->
       <groupId>org.kie</groupId>
       <artifactId>kie-spring</artifactId>
