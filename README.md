@@ -176,29 +176,43 @@ El proceso continúa con la atención en el comedor.
 
 > 📋 **Pre condiciones**
 > - Tener instalado Maven 3.9+, Java 11+, GO, Kafka, Zookeeper, Redis, PostgreSQL, MySQL.
-> - Crear las bases de datos asociadas a los servicios web correspondientes.
 > - Editar el archivo `./devops/local/00_local_path_variables.bat` de acuerdo a su entorno de trabajo.
+
+> 📂 **Cambiar ruta a devops local**
+> ```shell script 
+> cd ./devops/local/
+> ```
 
 > 🔨 **Compilar los proyectos**
 > ```shell script 
-> ./devops/local/01_install_services.bat
+> ./01_install_services.bat
 > ```
 
 > ▶️ **Iniciar servicios de infraestructura**
 > ```shell script 
-> ./devops/local/02_start_infra_services.bat
+> ./02_start_infra_services.bat
 > ```
 
-> ▶️ **Iniciar servidores (Kafka, Redis, PostgreSQL)**
-> <br> Inicie MySQL manualmente
+> ▶️ **Iniciar servidores (Kafka, Redis, PostgreSQL, MySQL)**
 > ```shell script 
-> ./devops/local/03_start_servers.bat
+> ./03_start_servers.bat
+> ```
+
+> 🔧 **Crear bases de datos**
+> ```shell script 
+> ./04_create_databases.bat
 > ```
 
 > ▶️ **Iniciar servicios de negocio**
 > ```shell script 
-> ./devops/local/04_start_business_services.bat
+> ./05_start_business_services.bat
 > ```
+
+> 💾 **Insertar data**
+> ```shell script 
+> ./06_insert_data.bat
+> ```
+
 
 ## 4.2. Despliegue con docker-compose
 

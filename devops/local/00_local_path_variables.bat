@@ -23,6 +23,14 @@ set REDIS_PORT=6379
 set POSTGRESQL_PATH=C:\dev-environment\postgresql-16.1\bin
 set POSTGRESQL_LOG=C:\dev-environment\postgresql-16.1\data
 set POSTGRESQL_PORT=5432
+SET PGPASSWORD=qwerty
+set POSTGRESQL_COMMAND=%POSTGRESQL_PATH%\psql.exe -U postgres
+
+@REM specify your MySQL config
+set MYSQL_PATH=C:\dev-environment\mysql-8.2.0\bin
+set MYSQL_PORT=3306
+set MYSQL_ROOT_PASSWORD=qwerty
+set MYSQL_COMMAND=%MYSQL_PATH%\mysql -u root -p%MYSQL_ROOT_PASSWORD%
 
 @REM specify your workspace path
 set BBQ_PATH=C:\dev-workspace\bbq\bbq-monorepo

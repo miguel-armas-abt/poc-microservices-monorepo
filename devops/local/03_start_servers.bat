@@ -6,6 +6,7 @@ set KAFKA_NAME="kafka"
 set ZOOKEEPER_NAME="zookeeper"
 set REDIS_NAME="redis"
 set POSTGRESQL_NAME="postgresql"
+set MYSQL_NAME="mysql"
 
 echo %DATE% %TIME%: Servers execution script started > "%LOG_FILE%"
 
@@ -60,4 +61,13 @@ if %errorlevel% neq 0 (
     echo %DATE% %TIME%: %POSTGRESQL_NAME% executed >> "%LOG_FILE%"
 ) else (
     echo %DATE% %TIME%: %POSTGRESQL_NAME% is already started >> "%LOG_FILE%"
+)
+
+netstat -an | find ":%MYSQL_PORT%" >nul
+if %errorlevel% neq 0 (
+    cd "%MYSQL_PATH%"
+    call start %MYSQL_NAME% mysqld --console
+    echo %DATE% %TIME%: %MYSQL_NAME% executed >> "%LOG_FILE%"
+) else (
+    echo %DATE% %TIME%: %MYSQL_NAME% is already started >> "%LOG_FILE%"
 )
