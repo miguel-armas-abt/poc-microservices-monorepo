@@ -229,8 +229,8 @@ El proceso continúa con la atención en el comedor.
 
 ## 4.2. Despliegue con docker-compose
 
-> 📋 **Pre condiciones**
-> - Tener Docker iniciado.
+> 📋 **Pre requisitos**
+> - Instalar e iniciar Docker.
 > - **Opcional**. Para aumentar los recursos asignados a Docker Desktop, cree un archivo `.wslconfig` en la ruta
 > `C:\Users\<username>\`, agregue el siguiente contenido en dependencia de su entorno y reinicie Docker Desktop.
 > ```javascript
@@ -265,8 +265,8 @@ El proceso continúa con la atención en el comedor.
 
 ## 4.3. Despliegue con k8s
 
-> 📋 **Pre condiciones**
-> - Tener Minikube y Kubectl instalados.
+> 📋 **Pre requisitos**
+> - Instalar Minikube y Kubectl.
 > - Cambiar el contexto de la CLI de Docker (default)
 > ```shell script
 > docker context use default
