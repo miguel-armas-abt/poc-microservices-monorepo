@@ -173,10 +173,23 @@ El proceso continúa con la atención en el comedor.
 # 4. Despliegue
 
 ## 4.1. Despliegue local
-
-> 📋 **Pre condiciones**
-> - Tener instalado Maven 3.9+, Java 11+, GO, Kafka, Zookeeper, Redis, PostgreSQL, MySQL.
-> - Editar el archivo `./devops/local/00_local_path_variables.bat` de acuerdo a su entorno de trabajo.
+> 📋 **Pre requisitos**
+> - Instalar GO, Java 11+, Kafka, Zookeeper, Maven 3.9+, MySQL, PostgreSQL, Redis.
+> <br>⚠️ **Importante:** Guarde los binarios en directorios con nombres sin espaciados para evitar inconsistencias con los scripts. Por ejemplo:
+> ```javascript
+>   C:
+>   │───dev-environment
+>   │   ├───go\go1.21.4\bin
+>   │   ├───java\jdk-17\bin
+>   │   ├───kafka\bin
+>   │   ├───maven\apache-maven-3.9.6\bin
+>   │   ├───mysql\mysql-8.2.0\bin
+>   │   ├───postgresql\postgresql-16.1\bin
+>   │   └───redis\redis-3.2.100
+>   └───dev-workspace
+>       └───bbq-monorepo
+> ```
+> - Editar las variables del archivo `./devops/local/00_local_path_variables.bat` de acuerdo a su espacio de trabajo.
 
 > 📂 **Cambiar ruta a devops local**
 > ```shell script 

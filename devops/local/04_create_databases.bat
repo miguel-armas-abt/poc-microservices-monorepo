@@ -22,7 +22,6 @@ for %%i in (%MYSQL_DATABASES%) do (
 @REM Create databases for PostgreSQL
 echo %DATE% %TIME%: POSTGRESQL databases >> "%LOG_FILE%"
 for %%i in (%POSTGRESQL_DATABASES%) do (
-  %POSTGRESQL_COMMAND%  -c "DROP DATABASE IF EXISTS %%i;" >> "%LOG_FILE%"
   %POSTGRESQL_COMMAND%  -c "CREATE DATABASE %%i;" >> "%LOG_FILE%"
   %POSTGRESQL_COMMAND%  -c "GRANT ALL PRIVILEGES ON DATABASE %%i TO bbq_user;" >> "%LOG_FILE%"
 )
