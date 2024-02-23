@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### DevOps ###
+./devops/k8s/apps/
+./devops/k8s/databases/

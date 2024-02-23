@@ -298,16 +298,38 @@ El proceso continúa con la atención en el comedor.
 
 > ▶️ **Aplicar manifiestos**
 > <br> Iniciamos la orquestación aplicando los siguientes manifiestos.
+
+[//]: # (> ```shell script )
+
+[//]: # (> kubectl apply -f ./devops/k8s/mysql_db/)
+
+[//]: # (> kubectl apply -f ./devops/k8s/registry-discovery-server-v1/)
+
+[//]: # (> kubectl apply -f ./devops/k8s/config-server-v1/)
+
+[//]: # (> kubectl apply -f ./devops/k8s/api-gateway-v1/)
+
+[//]: # (> kubectl apply -f ./devops/k8s/product-v1/)
+
+[//]: # (> kubectl apply -f ./devops/k8s/menu-v1/)
+
+[//]: # (> kubectl apply -f ./devops/k8s/menu-v2/)
+
+[//]: # (> kubectl apply -f ./devops/k8s/postgres_db/)
+
+[//]: # (> kubectl apply -f ./devops/k8s/table-placement-v1/)
+
+[//]: # (> ```)
+
 > ```shell script 
-> kubectl apply -f ./devops/k8s/mysql_db/
-> kubectl apply -f ./devops/k8s/registry-discovery-server-v1/
-> kubectl apply -f ./devops/k8s/config-server-v1/
-> kubectl apply -f ./devops/k8s/api-gateway-v1/
-> kubectl apply -f ./devops/k8s/product-v1/
-> kubectl apply -f ./devops/k8s/menu-v1/
-> kubectl apply -f ./devops/k8s/menu-v2/
-> kubectl apply -f ./devops/k8s/postgres_db/
-> kubectl apply -f ./devops/k8s/table-placement-v1/
+> kubectl apply -f ./devops/k8s/databases/mysql-db/
+> kubectl apply -f ./devops/k8s/apps/registry-discovery-server-v1/
+> kubectl apply -f ./devops/k8s/apps/config-server-v1/
+> kubectl apply -f ./devops/k8s/apps/api-gateway-v1/
+> kubectl apply -f ./devops/k8s/apps/product-v1/
+> kubectl apply -f ./devops/k8s/apps/menu-v1/
+> kubectl apply -f ./devops/k8s/apps/menu-v2/
+> kubectl apply -f ./devops/k8s/apps/table-placement-v1/
 > ```
 
 > 🔃 **Port forwarding**
@@ -319,14 +341,36 @@ El proceso continúa con la atención en el comedor.
 
 > ⏸️ **Eliminar manifiestos**
 > <br> Finalizamos la orquestación eliminando los manifiestos creados previamente.
-> ```shell script 
-> kubectl delete -f ./devops/k8s/mysql_db/
-> kubectl delete -f ./devops/k8s/registry-discovery-server-v1/
-> kubectl delete -f ./devops/k8s/config-server-v1/
-> kubectl delete -f ./devops/k8s/api-gateway-v1/
-> kubectl delete -f ./devops/k8s/product-v1/
-> kubectl delete -f ./devops/k8s/menu-v1/
-> kubectl delete -f ./devops/k8s/menu-v2/
-> kubectl delete -f ./devops/k8s/postgres_db/
-> kubectl delete -f ./devops/k8s/table-placement-v1/
+>  ```shell script 
+> kubectl delete -f ./devops/k8s/databases/mysql-db/
+> kubectl delete -f ./devops/k8s/apps/registry-discovery-server-v1/
+> kubectl delete -f ./devops/k8s/apps/config-server-v1/
+> kubectl delete -f ./devops/k8s/apps/api-gateway-v1/
+> kubectl delete -f ./devops/k8s/apps/product-v1/
+> kubectl delete -f ./devops/k8s/apps/menu-v1/
+> kubectl delete -f ./devops/k8s/apps/menu-v2/
+> kubectl delete -f ./devops/k8s/apps/table-placement-v1/
 > ```
+
+[//]: # (> ```shell script )
+
+[//]: # (> kubectl delete -f ./devops/k8s/mysql_db/)
+
+[//]: # (> kubectl delete -f ./devops/k8s/registry-discovery-server-v1/)
+
+[//]: # (> kubectl delete -f ./devops/k8s/config-server-v1/)
+
+[//]: # (> kubectl delete -f ./devops/k8s/api-gateway-v1/)
+
+[//]: # (> kubectl delete -f ./devops/k8s/product-v1/)
+
+[//]: # (> kubectl delete -f ./devops/k8s/menu-v1/)
+
+[//]: # (> kubectl delete -f ./devops/k8s/menu-v2/)
+
+[//]: # (> kubectl delete -f ./devops/k8s/postgres_db/)
+
+[//]: # (> kubectl delete -f ./devops/k8s/table-placement-v1/)
+
+[//]: # (> ```)
+

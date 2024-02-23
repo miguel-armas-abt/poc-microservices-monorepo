@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: APP_NAME
+  labels:
+    app: APP_NAME
+spec:
+  replicas: 1 #number of pods replicas
+  selector: #define how the Deployment identify the pods that it could manage
+    matchLabels:
+      app: APP_NAME
+  template: #pod template specification
+    metadata:
+      labels: #define the labels for all pods
+        app: APP_NAME
+    spec:
+      containers:
+        - name: CONTAINER_NAME
+          image: DOCKER_IMAGE
+          imagePullPolicy: IfNotPresent
+          ports: #open the port to allow send and receive traffic in the container
+            - containerPort: CONTAINER_PORT
+          envFrom: #read envars from secret file
+            - secretRef:
+                name: secret-APP_NAME
+          volumeMounts:
+            #this is the path in the container on which the mounting will take place.
+            - mountPath: MOUNT_PATH_DATA
+              name: APP_NAME-volume-data
+            - mountPath: MOUNT_PATH_INIT_DB
+              subPath: SUB_PATH_INIT_DB
+              name: APP_NAME-volume-script
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+      volumes:
+        - name: APP_NAME-volume-data
+          persistentVolumeClaim:
+            claimName: pvc-APP_NAME
+        - name: APP_NAME-volume-script
+          configMap:
+            name: cm-APP_NAME-script

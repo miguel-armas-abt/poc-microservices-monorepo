@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cm-product-v1
-data:
-  mysql-username: bbq_user
-  mysql-password: qwerty
-  mysql-host: mysql-db:3306
-  database: db_products
