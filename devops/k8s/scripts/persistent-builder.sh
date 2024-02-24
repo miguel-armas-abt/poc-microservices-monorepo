@@ -10,7 +10,7 @@ HOST_MOUNT_PATH=$2
 PERSISTENT_TEMPLATE=$3
 PERSISTENT_TYPE=$4
 
-template=$(<./templates/$PERSISTENT_TEMPLATE)
+template=$(<./scripts/templates/$PERSISTENT_TEMPLATE)
 template="${template//APP_NAME/$APP_NAME}"
 
 suffix="PV"
@@ -22,7 +22,7 @@ if [ "$PERSISTENT_TYPE" = "PVC" ]; then
   suffix=pvc
 fi
 
-OUTPUT_DIR="./../apps/$APP_NAME"
+OUTPUT_DIR="./apps/$APP_NAME"
 OUTPUT_FILE="$suffix-$APP_NAME.yaml"
 
 if [ ! -d "$OUTPUT_DIR" ]; then

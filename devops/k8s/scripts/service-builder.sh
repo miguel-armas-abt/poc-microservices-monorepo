@@ -12,13 +12,13 @@ SERVICE_TEMPLATE=$4
 CLUSTER_IP=$5
 
 # Replace occurrences
-template=$(<./templates/"$SERVICE_TEMPLATE")
+template=$(<./scripts/templates/"$SERVICE_TEMPLATE")
 template="${template//APP_NAME/$APP_NAME}"
 template="${template//CLUSTER_IP/$CLUSTER_IP}"
 template="${template//NODE_PORT/$NODE_PORT}"
 template="${template//PORT/$PORT}"
 
-OUTPUT_DIR="./../apps/$APP_NAME"
+OUTPUT_DIR="./apps/$APP_NAME"
 OUTPUT_FILE="svc-$APP_NAME.yaml"
 
 if [ ! -d "$OUTPUT_DIR" ]; then

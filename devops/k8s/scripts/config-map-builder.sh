@@ -11,7 +11,7 @@ CONFIG_MAP_TEMPLATE=$3
 IS_DATABASE=$4
 
 # Replace occurrences
-template=$(<./templates/$CONFIG_MAP_TEMPLATE)
+template=$(<./scripts/templates/$CONFIG_MAP_TEMPLATE)
 template="${template//APP_NAME/$APP_NAME}"
 
 if [ "$IS_DATABASE" = true ]; then
@@ -30,7 +30,7 @@ else
     done
 fi
 
-OUTPUT_DIR="./../apps/$APP_NAME"
+OUTPUT_DIR="./apps/$APP_NAME"
 OUTPUT_FILE="cm-$APP_NAME.yaml"
 
 if [ ! -d "$OUTPUT_DIR" ]; then

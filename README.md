@@ -7,12 +7,10 @@
 
 # 1. Caso de estudio
 > 📑 **Resumen**
-> - BBQ Restaurant, es un negocio de barbacoa tradicional que comenzó como una tienda familiar y que evolucionó hasta convertirse en una cadena global de restaurantes.
-> - Su sistema de software actual se ha vuelto difícil de mantener debido a su naturaleza monolítica, lo que requiere períodos de inactividad para mantenimiento.
-> - BBQ Restaurant planea una transición hacia una arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
-
+> <br>BBQ Restaurant es una cadena global de restaurantes que planea implementar de arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
+>
 > 👥 **Expertos en el dominio**
-> <br> Tras conversar con los expertos en el dominio "restaurante" se obtuvo que BBQ Restaurant utiliza los siguientes procesos para prestar servicios a sus clientes.
+> <br> Los expertos en el dominio "restaurante" utilizan los siguientes procesos para prestar servicios a sus clientes.
 > - Atención en el comedor
 > - Reserva en línea
 > - Delivery
@@ -127,7 +125,7 @@ El proceso continúa con la atención en el comedor.
 ```
 > ✅ **Ventajas**: 
 >   - Define una clara separación de responsabilidades. 
->   - Facilita a los desarrolladores seguir los fundamentos de Inversión de dependencias y clean architecture. "Un componente de una capa inferior no debe llamar a uno de una capa superior".
+>   - Facilita a los desarrolladores seguir los principios de Inversión de dependencias y clean architecture. "Un componente de una capa inferior no debe llamar a uno de una capa superior".
 
 > ⚠️ **Desventajas**:
 >   - En arquitecturas de microservicios, donde los servicios web tienden a ser más pequeños y menos complejos, esta estructura de paquetes podría introducir una complejidad innecesaria.
@@ -299,7 +297,7 @@ El proceso continúa con la atención en el comedor.
 > 🔧 **Crear manifiestos**
 > <br>Ejecute el siguiente comando en una shell que soporte UNIX como Git Bash o Power Shell.
 > ```shell script
-> ./devops/k8s/scripts/main.sh
+> ./devops/k8s/main.sh
 > ```
 
 > ▶️ **Aplicar manifiestos**
