@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ARGUMENTS_CSV=./scripts/resources/docker-compose-arguments.csv
+ARGUMENTS_CSV=./scripts/docker-compose-arguments.csv
 DOCKER_COMPOSE_TEMPLATE=./scripts/templates/docker-compose.template.yml
 SERVICE_TEMPLATE=./scripts/templates/service.template.yml
 VARIABLES_PATH=./../environment
