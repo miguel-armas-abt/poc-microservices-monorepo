@@ -1,5 +1,7 @@
 #!/bin/bash
 
+CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
+
 #validate input to app or database controller
 if [ "$#" -ne 7 ] && [ "$#" -ne 11 ]; then
     echo "Usage: $0 <APP_NAME> <CONTAINER_PORT> <DOCKER_IMAGE> <ENV_FILE> <CONTROLLER_TEMPLATE> <CONTROLLER_TYPE> <IS_DATABASE> <MOUNT_PATH_DATA> <MOUNT_PATH_INIT_DB> <SUB_PATH_INIT_DB> <CONTAINER_NAME>"
@@ -65,4 +67,4 @@ if [ ! -d "$OUTPUT_DIR" ]; then
     mkdir -p "$OUTPUT_DIR"
 fi
 echo -e "$template" > "$OUTPUT_DIR/$OUTPUT_FILE"
-echo "created: $OUTPUT_FILE"
+echo -e "${CHECK_SYMBOL} created: $OUTPUT_FILE"

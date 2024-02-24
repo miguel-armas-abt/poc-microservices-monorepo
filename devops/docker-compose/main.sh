@@ -1,5 +1,7 @@
 #!/bin/bash
 
+CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
+
 ARGUMENTS_CSV=./scripts/docker-compose-arguments.csv
 DOCKER_COMPOSE_TEMPLATE=./scripts/templates/docker-compose.template.yml
 SERVICE_TEMPLATE=./scripts/templates/service.template.yml
@@ -82,4 +84,4 @@ done < <(sed 's/\r//g' "$ARGUMENTS_CSV")
 docker_compose_template="${docker_compose_template//SERVICES/$services}"
 OUTPUT_FILE="docker-compose.yml"
 echo -e "$docker_compose_template" > "$OUTPUT_FILE"
-echo "created: $OUTPUT_FILE"
+echo -e "${CHECK_SYMBOL} created: $OUTPUT_FILE"

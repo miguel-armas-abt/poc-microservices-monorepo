@@ -1,5 +1,7 @@
 #!/bin/bash
 
+CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
+
 if [ "$#" -ne 4 ] && [ "$#" -ne 5 ]; then
     echo "Usage: $0 <APP_NAME> <PORT> <NODE_PORT> <SERVICE_TEMPLATE> <CLUSTER_IP>"
     exit 1
@@ -25,4 +27,4 @@ if [ ! -d "$OUTPUT_DIR" ]; then
     mkdir -p "$OUTPUT_DIR"
 fi
 echo -e "$template" > "$OUTPUT_DIR/$OUTPUT_FILE"
-echo "created: $OUTPUT_FILE"
+echo -e "${CHECK_SYMBOL} created: $OUTPUT_FILE"
