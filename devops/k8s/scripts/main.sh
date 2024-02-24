@@ -1,17 +1,22 @@
 #!/bin/bash
 
-ENV_VARIABLES=./apps/variables
-DB_SECRET_VARIABLES=./databases/variables
-DB_DATA=./databases/data
+#general
+CONFIG_MAP_TEMPLATE=config-map.template.yaml
+SECRET_TEMPLATE=secret.template.yaml
+PV_TEMPLATE=persistent-volume.template.yaml
+PVC_TEMPLATE=persistent-volume-claim.template.yaml
 
-#apps
-./apps/api-gateway-v1.sh $ENV_VARIABLES
-./apps/config-server-v1.sh $ENV_VARIABLES
-./apps/menu-v1.sh $ENV_VARIABLES
-./apps/menu-v2.sh $ENV_VARIABLES
-./apps/product-v1.sh $ENV_VARIABLES
-./apps/registry-discovery-server-v1.sh $ENV_VARIABLES
-./apps/table-placement-v1.sh $ENV_VARIABLES
+#app
+APP_VARIABLES_PATH=./apps/variables
+APP_SERVICE_TEMPLATE=app.service.template.yaml
+APP_CONTROLLER_TEMPLATE=app.controller.template.yaml
+
+./apps/k8s-app-manifest-builder.sh $APP_VARIABLES_PATH $CONFIG_MAP_TEMPLATE $APP_SERVICE_TEMPLATE $APP_CONTROLLER_TEMPLATE
+
+#database
+DB_RESOURCES_PATH=./databases/resources
+DB_SERVICE_TEMPLATE=db.service.template.yaml
+DB_CONTROLLER_TEMPLATE=db.deployment.template.yaml
 
 #databases
-./databases/mysql-db.sh $DB_SECRET_VARIABLES $DB_DATA
+./databases/k8s-db-manifest-builder.sh $DB_RESOURCES_PATH $SECRET_TEMPLATE $PV_TEMPLATE $PVC_TEMPLATE $CONFIG_MAP_TEMPLATE $DB_SERVICE_TEMPLATE $DB_CONTROLLER_TEMPLATE

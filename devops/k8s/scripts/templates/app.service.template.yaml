@@ -11,4 +11,4 @@ spec:
   ports:
     - name: APP_NAME
       port: PORT
-      nodePort : NODE_PORT
+      nodePort: NODE_PORT

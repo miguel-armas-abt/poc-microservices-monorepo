@@ -1,9 +1,10 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: KIND_CONTROLLER
 metadata:
   name: APP_NAME
 spec:
   replicas: 1
+  SERVICE_NAME
   selector:
     matchLabels:
       app: APP_NAME

@@ -1,0 +1,3 @@
+APP_NAME,CONTAINER_NAME,IMAGE,PORT,SUB_PATH_INIT_DB,CLUSTER_IP,NODE_PORT,CONTROLLER_TYPE
+mysql-db,mysql,mysql:latest,3306,initdb.sql,10.96.1.3,30006,DEP
+postgres-db,postgres,postgres:latest,5432,initdb.sh,10.96.1.2,30032,DEP
