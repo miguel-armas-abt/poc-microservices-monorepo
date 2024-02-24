@@ -1,21 +1,18 @@
 version: '3.1'
 
 services:
-
-  ############################
-  #business services
-  ############################
   product-v1:
     container_name: product-v1
     image: miguelarmasabt/product:v1.0.1
     restart: always
-    environment:
+    environment: 
       - MYSQL_USERNAME=bbq_user
       - MYSQL_PASSWORD=qwerty
-      - MYSQL_HOST=mysql_db
+      - MYSQL_HOST=mysql-db:3306
       - DATABASE=db_products
     depends_on:
-      - mysql_db
+      - mysql-db
+    
     networks:
       - dev_environment
     ports:
@@ -25,17 +22,18 @@ services:
     container_name: menu-v1
     image: miguelarmasabt/menu:v1.0.1
     restart: always
-    environment:
+    environment: 
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
       - MYSQL_USERNAME=bbq_user
       - MYSQL_PASSWORD=qwerty
-      - MYSQL_URL=jdbc:mysql://mysql_db:3306/db_menu_options?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - MYSQL_URL=jdbc:mysql://mysql-db:3306/db_menu_options?useUnicode=trueSERVICESuseJDBCCompliantTimezoneShift=trueSERVICESuseLegacyDatetimeCode=falseSERVICESserverTimezone=UTC
       - PRODUCT_V1_BASE_URL=http://product-v1:8017/bbq/business/product/v1/
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - registry-discovery-server-v1
       - config-server-v1
-      - mysql_db
+      - mysql-db
+    
     networks:
       - dev_environment
     ports:
@@ -45,14 +43,15 @@ services:
     container_name: menu-v2
     image: miguelarmasabt/menu:v2.0.1
     restart: always
-    environment:
+    environment: 
       - MYSQL_USERNAME=bbq_user
       - MYSQL_PASSWORD=qwerty
-      - MYSQL_URL=mysql://mysql_db:3306/db_menu_options
+      - MYSQL_URL=mysql://mysql-db:3306/db_menu_options
       - PRODUCT_V1_BASE_URL=http://product-v1:8017/bbq/business/product/v1
       - JAVA_OPTS=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev
     depends_on:
-      - mysql_db
+      - mysql-db
+    
     networks:
       - dev_environment
     ports:
@@ -62,29 +61,30 @@ services:
     container_name: table-placement-v1
     image: miguelarmasabt/table-placement:v1.0.1
     restart: always
-    environment:
+    environment: 
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
       - POSTGRESQL_USERNAME=postgres
       - POSTGRESQL_PASSWORD=qwerty
-      - POSTGRESQL_URL=jdbc:postgresql://postgres_db:5432/db_table_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - POSTGRESQL_URL=jdbc:postgresql://postgres-db:5432/db_table_orders?useUnicode=trueSERVICESuseJDBCCompliantTimezoneShift=trueSERVICESuseLegacyDatetimeCode=falseSERVICESserverTimezone=UTC
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - registry-discovery-server-v1
       - config-server-v1
-      - postgres_db
+      - postgres-db
+    
     networks:
       - dev_environment
     ports:
       - "8013:8013"
 
-  ############################
-  #infraestructure services
-  ############################
   registry-discovery-server-v1:
     container_name: registry-discovery-server-v1
     image: miguelarmasabt/registry-discovery-server:v1.0.1
-    environment:
+    restart: always
+    environment: 
       - JAVA_OPTS=-Xms256M -Xmx256M
+    
+    
     networks:
       - dev_environment
     ports:
@@ -93,11 +93,13 @@ services:
   config-server-v1:
     container_name: config-server-v1
     image: miguelarmasabt/config-server:v1.0.1
-    environment:
+    restart: always
+    environment: 
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - registry-discovery-server-v1
+    
     networks:
       - dev_environment
     ports:
@@ -106,12 +108,14 @@ services:
   api-gateway-v1:
     container_name: api-gateway-v1
     image: miguelarmasabt/api-gateway:v1.0.1
-    environment:
+    restart: always
+    environment: 
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
       - AUTH_ADAPTER=http://auth-adapter-v1:8011/bbq/infrastructure/v1/auth/
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - registry-discovery-server-v1
+    
     networks:
       - dev_environment
     ports:
@@ -120,13 +124,15 @@ services:
   auth-adapter-v1:
     container_name: auth-adapter-v1
     image: miguelarmasabt/auth-adapter:v1.0.1
-    environment:
+    restart: always
+    environment: 
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
       - KEYCLOACK_SERVER=http://keycloak-server:8080/auth/realms
       - KEYCLOACK_KEY_RS256=mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - registry-discovery-server-v1
+    
     networks:
       - dev_environment
     ports:
@@ -136,52 +142,51 @@ services:
     container_name: keycloak-server
     image: jboss/keycloak:16.0.0
     restart: always
-    environment:
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: admin
-      DB_VENDOR: H2
+    environment: 
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - DB_VENDOR=H2
+    
+    
     networks:
       - dev_environment
     ports:
       - "8091:8080"
 
-  ############################
-  #database services
-  ############################
-  mysql_db:
-    container_name: mysql_db
+  mysql-db:
+    container_name: mysql-db
     image: mysql:latest
     restart: always
+    environment: 
+      - MYSQL_ROOT_PASSWORD=qwerty
+      - TZ=UTC
+    
+    volumes:
+      - ./../environment/databases/mysql-db:/docker-entrypoint-initdb.d
+      - /var/lib/mysql_data:/var/lib/mysql_data
     networks:
       - dev_environment
     ports:
       - "3306:3306"
-    volumes:
-      - ./mysql_db:/docker-entrypoint-initdb.d #allow *.sql, *.sql.gz, or *.sh and is executed only if data directory is empty
-      - /var/lib/mysql_data:/var/lib/mysql_data
-    environment:
-      MYSQL_ROOT_PASSWORD: qwerty #root is the user with the highest level of permissions within the DBMS
-      TZ: "UTC"
 
-  postgres_db:
-    container_name: postgres_db
+  postgres-db:
+    container_name: postgres-db
     image: postgres:latest
     restart: always
+    environment: 
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qwerty
+    
+    volumes:
+      - ./../environment/databases/postgres-db:/docker-entrypoint-initdb.d
+      - /var/lib/postgres_data:/var/lib/postgres_data
     networks:
       - dev_environment
     ports:
       - "5432:5432"
-    volumes:
-      - ./postgres_db:/docker-entrypoint-initdb.d
-      - /var/lib/postgres_data:/var/lib/postgres_data
-    environment:
-      POSTGRES_USER: postgres #postgres is the superuser with permissions to manage the database
-      POSTGRES_PASSWORD: qwerty
-      POSTGRES_DB: postgres
 
-############################
-#networks
-############################
+
 networks:
   dev_environment:
     driver: bridge

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ "$#" -ne 4 ]; then
-    echo "Usage: $0 <APP_NAME> <DATA_FILE> <CONFIG_MAP_TEMPLATE> <IS_DATABASE>"
+if [ "$#" -ne 4 ] && [ "$#" -ne 5 ]; then
+    echo "Usage: $0 <APP_NAME> <DATA_FILE> <CONFIG_MAP_TEMPLATE> <IS_DATABASE> <SUB_PATH_INIT_DB>"
     exit 1
 fi
 
@@ -9,13 +9,21 @@ APP_NAME=$1
 DATA_FILE=$2
 CONFIG_MAP_TEMPLATE=$3
 IS_DATABASE=$4
+SUB_PATH_INIT_DB=$5
 
 # Replace occurrences
 template=$(<./scripts/templates/$CONFIG_MAP_TEMPLATE)
 template="${template//APP_NAME/$APP_NAME}"
 
 if [ "$IS_DATABASE" = true ]; then
-  template="$template\n$(<"$DATA_FILE")"
+  data=""
+  while IFS= read -r line; do
+      # add tab for each line
+      formatted_line="    $line"
+      data="$data$formatted_line\n"
+  done < "$DATA_FILE"
+  data=$(echo -e "$data" | sed '/^$/d') #remove extra empty line
+  template="$template\n  $SUB_PATH_INIT_DB: |-\n$data"
 else
     # Read the environment variables
     declare -A env_vars

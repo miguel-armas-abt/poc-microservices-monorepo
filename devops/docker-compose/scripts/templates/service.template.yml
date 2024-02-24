@@ -1,0 +1,11 @@
+  APP_NAME:
+    container_name: APP_NAME
+    image: DOCKER_IMAGE
+    restart: always
+    VARIABLES
+    DEPENDENCIES
+    VOLUMES
+    networks:
+      - dev_environment
+    ports:
+      - "HOST_PORT:CONTAINER_PORT"
