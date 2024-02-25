@@ -12,7 +12,7 @@ docker_compose_template=$(<"$DOCKER_COMPOSE_TEMPLATE")
 services=""
 firstline=true
 
-while IFS=',' read -r APP_NAME DOCKER_IMAGE DEPENDENCIES HOST_PORT CONTAINER_PORT TYPE_COMPONENT VOLUMES || [ -n "$APP_NAME" ]; do
+while IFS=',' read -r APP_NAME DOCKER_IMAGE DEPENDENCIES HOST_PORT CONTAINER_PORT VOLUMES || [ -n "$APP_NAME" ]; do
     # Ignore headers
     if $firstline; then
         firstline=false
@@ -47,13 +47,12 @@ while IFS=',' read -r APP_NAME DOCKER_IMAGE DEPENDENCIES HOST_PORT CONTAINER_POR
     #environment (replace VARIABLES string)
     env_directory=""
     ENV_FILE=""
-    if [ "$TYPE_COMPONENT" = "APP" ]; then
-      env_directory="apps"
-      ENV_FILE="$VARIABLES_PATH/$env_directory/$APP_NAME.env"
-    fi
-    if [ "$TYPE_COMPONENT" = "DB" ]; then
+    if [ "$VOLUMES" != null ]; then
       env_directory="databases"
       ENV_FILE="$VARIABLES_PATH/$env_directory/$APP_NAME/$APP_NAME.env"
+    else
+      env_directory="apps"
+      ENV_FILE="$VARIABLES_PATH/$env_directory/$APP_NAME.env"
     fi
     formatted_variables=$(sed 's/^/      - /' "$ENV_FILE" | sed 's/=/=/' | tr '\n' '\n')
     service_template="${service_template//VARIABLES/"environment: \n$formatted_variables"}"
