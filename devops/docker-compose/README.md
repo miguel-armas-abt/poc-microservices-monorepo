@@ -20,7 +20,7 @@ El proyecto cuenta con un script que automatiza la generación del docker compos
 > - El archivo `.csv` cuenta con las siguientes columnas.
 >   - `APP_NAME`: Nombre del servicio.
 >   - `DOCKER_IMAGE`: Imagen de Docker.
->   - `DEPENDENCIES`: Servicios de los que depende la ejecución del servicio. (separados por punto y coma `;`).
+>   - `DEPENDENCIES`: Servicios de los que depende la ejecución del servicio. (separados por punto y coma `;`). Coloque `null` si es que no aplica.
 >   - `HOST_PORT`: Puerto de escucha local.
 >   - `CONTAINER_PORT`: Puerto del contenedor.
 >   - `VOLUMES`: Volúmenes (separados por punto y coma `;`). Coloque `null` si es que no aplica.
