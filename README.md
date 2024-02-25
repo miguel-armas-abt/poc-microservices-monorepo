@@ -249,6 +249,13 @@ El proceso continúa con la atención en el comedor.
 > docker build -t miguelarmasabt/table-placement:v1.0.1 ./application/backend/business/table-placement-v1
 > ```
 
+> 🔧 **Crear docker-compose.yml**
+> <br>Ejecute el siguiente comando en una shell que soporte UNIX como Git Bash o Power Shell.
+> ```shell script
+> ./devops/docker-compose/main.sh
+> ```
+
+
 > ▶️ **Iniciar orquestación**
 > <br>Para forzar la recreación de los servicios utilice el flag `--force-recreate`
 > ```shell script 
