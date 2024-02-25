@@ -2,7 +2,7 @@
 
 CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
 
-ARGUMENTS_CSV=./scripts/docker-compose-arguments.csv
+PARAMETERS_CSV=./scripts/docker-compose-parameters.csv
 DOCKER_COMPOSE_TEMPLATE=./scripts/templates/docker-compose.template.yml
 SERVICE_TEMPLATE=./scripts/templates/service.template.yml
 VARIABLES_PATH=./../environment
@@ -13,12 +13,14 @@ services=""
 firstline=true
 
 while IFS=',' read -r APP_NAME DOCKER_IMAGE DEPENDENCIES HOST_PORT CONTAINER_PORT VOLUMES || [ -n "$APP_NAME" ]; do
-    # Ignore headers
-    if $firstline; then
-        firstline=false
-        continue
-    fi
+  # Ignore headers
+  if $firstline; then
+      firstline=false
+      continue
+  fi
 
+  # Ignore comments
+  if [[ $APP_NAME != "#"* ]]; then
     service_template=$(<"$SERVICE_TEMPLATE")
     service_template="${service_template//APP_NAME/$APP_NAME}"
     service_template="${service_template//DOCKER_IMAGE/$DOCKER_IMAGE}"
@@ -78,9 +80,12 @@ while IFS=',' read -r APP_NAME DOCKER_IMAGE DEPENDENCIES HOST_PORT CONTAINER_POR
 
     services+="$service_template"$'\n\n'
 
-done < <(sed 's/\r//g' "$ARGUMENTS_CSV")
+    fi
+done < <(sed 's/\r//g' "$PARAMETERS_CSV")
 
 docker_compose_template="${docker_compose_template//SERVICES/$services}"
 OUTPUT_FILE="docker-compose.yml"
 echo -e "$docker_compose_template" > "$OUTPUT_FILE"
 echo -e "${CHECK_SYMBOL} created: $OUTPUT_FILE"
+
+

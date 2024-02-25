@@ -22,21 +22,24 @@ while IFS=',' read -r APP_NAME CONTAINER_NAME IMAGE PORT SUB_PATH_INIT_DB CLUSTE
       continue
   fi
 
-  ENV_FILE="$RESOURCES_PATH/$APP_NAME/$APP_NAME.env"
-  extensionFile="${SUB_PATH_INIT_DB##*.}"
-  INIT_DB_FILE="$RESOURCES_PATH/$APP_NAME/$APP_NAME.initdb.$extensionFile"
-  MOUNT_PATH_DATA=/var/lib/$APP_NAME/data
-  MOUNT_PATH_INIT_DB=/docker-entrypoint-initdb.d/$SUB_PATH_INIT_DB
-  HOST_MOUNT_PATH=\"/mnt/data/\"
+  # Ignore comments
+  if [[ $APP_NAME != "#"* ]]; then
+    ENV_FILE="$RESOURCES_PATH/$APP_NAME/$APP_NAME.env"
+    extensionFile="${SUB_PATH_INIT_DB##*.}"
+    INIT_DB_FILE="$RESOURCES_PATH/$APP_NAME/$APP_NAME.initdb.$extensionFile"
+    MOUNT_PATH_DATA=/var/lib/$APP_NAME/data
+    MOUNT_PATH_INIT_DB=/docker-entrypoint-initdb.d/$SUB_PATH_INIT_DB
+    HOST_MOUNT_PATH=\"/mnt/data/\"
 
-  ./scripts/controller-builder.sh "$APP_NAME" "$PORT" "$IMAGE" null "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" true "$MOUNT_PATH_DATA" "$MOUNT_PATH_INIT_DB" "$SUB_PATH_INIT_DB" "$CONTAINER_NAME"
-  ./scripts/persistent-builder.sh "$APP_NAME" $HOST_MOUNT_PATH "$PV_TEMPLATE" PV
-  ./scripts/persistent-builder.sh "$APP_NAME" null "$PVC_TEMPLATE" PVC
-  ./scripts/service-builder.sh "$APP_NAME" "$PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" "$CLUSTER_IP"
-  ./scripts/config-map-builder.sh "$APP_NAME" "$INIT_DB_FILE" "$CONFIG_MAP_TEMPLATE" true "$SUB_PATH_INIT_DB"
-  ./scripts/secret-builder.sh "$APP_NAME" "$ENV_FILE" "$SECRET_TEMPLATE"
+    ./scripts/controller-builder.sh "$APP_NAME" "$PORT" "$IMAGE" null "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" true "$MOUNT_PATH_DATA" "$MOUNT_PATH_INIT_DB" "$SUB_PATH_INIT_DB" "$CONTAINER_NAME"
+    ./scripts/persistent-builder.sh "$APP_NAME" $HOST_MOUNT_PATH "$PV_TEMPLATE" PV
+    ./scripts/persistent-builder.sh "$APP_NAME" null "$PVC_TEMPLATE" PVC
+    ./scripts/service-builder.sh "$APP_NAME" "$PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" "$CLUSTER_IP"
+    ./scripts/config-map-builder.sh "$APP_NAME" "$INIT_DB_FILE" "$CONFIG_MAP_TEMPLATE" true "$SUB_PATH_INIT_DB"
+    ./scripts/secret-builder.sh "$APP_NAME" "$ENV_FILE" "$SECRET_TEMPLATE"
+  fi
 
-done < ./scripts/databases/k8s-db-arguments.csv
+done < ./scripts/databases/k8s-db-parameters.csv
 
 
 
