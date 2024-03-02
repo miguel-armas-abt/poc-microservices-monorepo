@@ -116,6 +116,7 @@ git checkout main
 > - **Credentials**: `cluster-k8s-secret`
 - Guarde
 
+> ⚠️ **Advertencia**: Si obtiene un error de autenticación, elimine y vuelva a crear la credencial
 - Ingrese a la carpeta `infrastructure`, seleccione `+ Nueva Tarea > Pipeline` y configure los siguientes campos:
 > - **General > GitHub project**: `https://github.com/miguel-armas-abt/demo-microservices-bbq`
 > - **Pipeline > Definition**: `Pipeline script from SCM`
@@ -123,3 +124,4 @@ git checkout main
 > - **Repository URL**: `https://miguel-armas-abt:<github-access-token>@github.com/miguel-armas-abt/demo-microservices-bbq`
 > - **Branch Specifier**: `*/main`
 > - **Script Path**: `devops/jenkins/apps/registry-discovery-server-v1/Jenkinsfile`
+- Ejecute el pipeline
