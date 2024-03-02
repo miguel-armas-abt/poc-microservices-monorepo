@@ -89,7 +89,7 @@ git checkout main
 - Presione el botón `+ Add Credentials`, configure los siguientes campos y acepte.
 > - **Kind**: `Secret Text`
 > - **Secret**: `<Token de autenticación k8s>`
-> - **cluster-k8s-secret**: `0.0.1-SNAPSHOT`
+> - **ID**: `k8s-cluster-token`
 
 > 📋️ **Recuperar configuración del clúster**
 > - **Certificado del clúster** `clusters.cluster.certificate-authority`:
@@ -113,7 +113,7 @@ git checkout main
 > - **Kubernetes URL**: `<URL API del clúster>`
 > - **Kubernetes server certificate key**: `<Certificado del cluster>`
 > - **Disable https certificate check**: Habilitado
-> - **Credentials**: `cluster-k8s-secret`
+> - **Credentials**: `k8s-cluster-token`
 - Guarde
 
 > ⚠️ **Advertencia**: Si obtiene un error de autenticación, elimine y vuelva a crear la credencial
@@ -125,3 +125,4 @@ git checkout main
 > - **Branch Specifier**: `*/main`
 > - **Script Path**: `devops/jenkins/apps/registry-discovery-server-v1/Jenkinsfile`
 - Ejecute el pipeline
+
