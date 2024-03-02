@@ -1,0 +1,19 @@
+pipeline {
+  agent any
+  stages {
+    stage('clone repository') {
+      steps {
+        sh '''java -version
+mvn --version
+git --version'''
+      }
+    }
+    stage('Deploy APP_NAME') {
+      steps {
+        withCredentials(bindings: [ string(credentialsId: 'K8S_CLUSTER_TOKEN_NAME', variable: 'api_token') ]) {
+            sh 'kubectl apply -f devops/k8s/manifests/APP_NAME/ --server K8S_CLUSTER_URL --token $api_token --insecure-skip-tls-verify=true'
+        }
+      }
+    }
+  }
+}

@@ -1,31 +1,41 @@
-# CREAR / ACTUALIZAR DOCKER COMPOSE
+# Despliegue con docker-compose
 
-El proyecto cuenta con un script que automatiza la generación del docker compose.
-
-> ⚙️ **Actualizar las variables de entorno**
-> <br>Las variables de entorno y scripts de inicialización de BD para cada uno de los servicios están definidas en el siguiente directorio.
-> ```shell script 
-> cd ./../environment
+> 📋 **Pre requisitos**
+> - Instalar e iniciar Docker.
+> - **Opcional**. Para aumentar los recursos asignados a Docker Desktop, cree un archivo `.wslconfig` en la ruta
+    > `C:\Users\<username>\`, agregue el siguiente contenido en dependencia de su entorno y reinicie Docker Desktop.
+> ```javascript
+> [wsl2]
+> memory=3072MB
+> processors=5
 > ```
 
-> ⚙️ **Actualizar parámetros de Docker Compose**
-> <br>Los parámetros de configuración Docker Compose para cada uno de los servicios están definidos en el siguiente archivo `csv`.
+> 🔨 **Construir imágenes**
 > ```shell script 
-> nano ./scripts/docker-compose-parameters.csv #Linux
-> notepad ./scripts/docker-compose-parameters.csv #Windows
+> docker build -t miguelarmasabt/registry-discovery-server:v1.0.1 ./../../application/backend/infrastructure/registry-discovery-server-v1
+> docker build -t miguelarmasabt/config-server:v1.0.1 ./../../application/backend/infrastructure/config-server-v1
+> docker build -t miguelarmasabt/auth-adapter:v1.0.1 ./../../application/backend/infrastructure/auth-adapter-v1
+> docker build -t miguelarmasabt/api-gateway:v1.0.1 ./../../application/backend/infrastructure/api-gateway-v1
+> docker build -t miguelarmasabt/product:v1.0.1 ./../../application/backend/business/product-v1
+> docker build -t miguelarmasabt/menu:v1.0.1 ./../../application/backend/business/menu-v1
+> docker build -f ./../../application/backend/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./../../application/backend/business/menu-v2
+> docker build -t miguelarmasabt/table-placement:v1.0.1 ./../../application/backend/business/table-placement-v1
 > ```
->
-> 💡 **Notas**:
-> - Puede utilizar `#` para comentar las líneas que desea ignorar.
-> - El archivo `.csv` cuenta con las siguientes columnas.
->   - `APP_NAME`: Nombre del servicio.
->   - `DOCKER_IMAGE`: Imagen de Docker.
->   - `DEPENDENCIES`: Servicios de los que depende la ejecución del servicio. (separados por punto y coma `;`). Coloque `null` si es que no aplica.
->   - `HOST_PORT`: Puerto de escucha local.
->   - `CONTAINER_PORT`: Puerto del contenedor.
->   - `VOLUMES`: Volúmenes (separados por punto y coma `;`). Coloque `null` si es que no aplica.
 
-> ▶️ **Crear / Actualizar Docker Compose**
+> 🔧 **Crear docker-compose.yml**
+> <br>Utilice una shell compatible con Unix (PowerShell o Git bash)
+> ```shell script
+> ./shell-scripts/docker-compose-builder.sh
+> ```
+
+> ▶️ **Iniciar orquestación**
+> <br>Para forzar la recreación de los servicios utilice el flag `--force-recreate`
 > ```shell script 
-> ./main.sh
+> docker-compose -f ./docker-compose.yml up -d
+> ```
+
+> ⏸️️ **Detener orquestación**
+> <br>Para eliminar la orquestación utilice `down -v` en lugar de `stop`
+> ```shell script 
+> docker-compose -f ./docker-compose.yml stop
 > ```

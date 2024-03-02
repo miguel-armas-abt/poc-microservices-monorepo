@@ -2,10 +2,10 @@
 
 CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
 
-PARAMETERS_CSV=./scripts/docker-compose-parameters.csv
-DOCKER_COMPOSE_TEMPLATE=./scripts/templates/docker-compose.template.yml
-SERVICE_TEMPLATE=./scripts/templates/service.template.yml
-VARIABLES_PATH=./../environment
+PARAMETERS_CSV=./resources/docker-compose-parameters.csv
+DOCKER_COMPOSE_TEMPLATE=./resources/templates/docker-compose.template.yml
+SERVICE_TEMPLATE=./resources/templates/service.template.yml
+VARIABLES_PATH=./../../environment
 
 docker_compose_template=$(<"$DOCKER_COMPOSE_TEMPLATE")
 
@@ -84,7 +84,7 @@ while IFS=',' read -r APP_NAME DOCKER_IMAGE DEPENDENCIES HOST_PORT CONTAINER_POR
 done < <(sed 's/\r//g' "$PARAMETERS_CSV")
 
 docker_compose_template="${docker_compose_template//SERVICES/$services}"
-OUTPUT_FILE="docker-compose.yml"
+OUTPUT_FILE="./../docker-compose.yml"
 echo -e "$docker_compose_template" > "$OUTPUT_FILE"
 echo -e "${CHECK_SYMBOL} created: $OUTPUT_FILE"
 

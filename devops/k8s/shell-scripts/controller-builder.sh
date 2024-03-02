@@ -21,7 +21,7 @@ MOUNT_PATH_INIT_DB=$9
 SUB_PATH_INIT_DB=${10}
 CONTAINER_NAME=${11}
 
-template=$(<./scripts/templates/$CONTROLLER_TEMPLATE)
+template=$(<./shell-scripts/templates/$CONTROLLER_TEMPLATE)
 
 kind=""
 suffix=""
@@ -60,7 +60,7 @@ else
   template="${template/ENVIRONMENT_VARIABLES/$env_vars}"
 fi
 
-OUTPUT_DIR="./apps/$APP_NAME"
+OUTPUT_DIR="./manifests/$APP_NAME"
 OUTPUT_FILE="$suffix-$APP_NAME.yaml"
 
 if [ ! -d "$OUTPUT_DIR" ]; then

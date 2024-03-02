@@ -1,0 +1,19 @@
+pipeline {
+  agent any
+  stages {
+    stage('clone repository') {
+      steps {
+        sh '''java -version
+mvn --version
+git --version'''
+      }
+    }
+    stage('Deploy table-placement-v1') {
+      steps {
+        withCredentials(bindings: [ string(credentialsId: 'k8s-cluster-token', variable: 'api_token') ]) {
+            sh 'kubectl apply -f devops/k8s/manifests/table-placement-v1/ --server https://9892-2800-200-ed50-2d5-79e5-907c-79a7-147f.ngrok-free.app --token $api_token --insecure-skip-tls-verify=true'
+        }
+      }
+    }
+  }
+}

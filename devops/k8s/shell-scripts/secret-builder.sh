@@ -11,7 +11,7 @@ APP_NAME=$1
 ENV_FILE=$2
 SECRET_TEMPLATE=$3
 
-template=$(<./scripts/templates/"$SECRET_TEMPLATE")
+template=$(<./shell-scripts/templates/"$SECRET_TEMPLATE")
 
 # Read the environment variables file and store it in an associative array
 declare -A env_vars
@@ -28,7 +28,7 @@ for key in "${!env_vars[@]}"; do
     template+="\n  $key: ${env_vars[$key]}"
 done
 
-OUTPUT_DIR="./apps/$APP_NAME"
+OUTPUT_DIR="./manifests/$APP_NAME"
 OUTPUT_FILE="secret-$APP_NAME.yaml"
 
 if [ ! -d "$OUTPUT_DIR" ]; then

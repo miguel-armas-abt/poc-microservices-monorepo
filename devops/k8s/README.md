@@ -1,45 +1,74 @@
-# CREAR MANIFIESTOS K8S
+# Despliegue con k8s
 
-El proyecto cuenta con un script que automatiza la generación de manifiestos de k8s.
-
-> ⚙️ **Actualizar las variables de entorno**
-> <br>Las variables de entorno y scripts de inicialización de BD para cada uno de los servicios están definidas en el siguiente directorio.
-> ```shell script 
-> cd ./../environment
+> 📋 **Pre requisitos**
+> - Instalar Minikube y Kubectl.
+> - Cambiar el contexto de la CLI de Docker (default)
+> ```shell script
+> docker context use default
+> ```
+> - Encender el clúster de Minikube. Puede especificar la cantidad de recursos con `--memory=2816 --cpus=4`
+> ```shell script
+> minikube start
 > ```
 
-> ⚙️ **Actualizar parámetros de k8s**
-> <br>Los parámetros de configuración k8s para cada uno de los servicios están definidos en los siguientes archivos `csv`.
+> 🔨 **Construir imágenes**
+> <br>Las imágenes deben estar disponibles en el clúster de Minikube. Para ello estableceremos el Docker de Minikube en
+> nuestra línea de comandos y sobre ella construiremos las imágenes en el clúster de Minikube.
 > ```shell script 
-> #Linux
-> nano ./scripts/apps/k8s-app-parameters.csv 
-> nano ./scripts/databases/k8s-db-parameters.csv
-> 
-> #Windows
-> notepad ./scripts/apps/k8s-app-parameters.csv
-> notepad ./scripts/databases/k8s-db-parameters.csv
+> docker build -t miguelarmasabt/product:v1.0.1 ./../../application/backend/business/product-v1
+> docker build -t miguelarmasabt/menu:v1.0.1 ./../../application/backend/business/menu-v1
+> docker build -f ./../../application/backend/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./../../application/backend/business/menu-v2
+> docker build -t miguelarmasabt/table-placement:v1.0.1 ./../../application/backend/business/table-placement-v1
+> docker build -t miguelarmasabt/registry-discovery-server:v1.0.1 ./../../application/backend/infrastructure/registry-discovery-server-v1
+> docker build -t miguelarmasabt/config-server:v1.0.1 ./../../application/backend/infrastructure/config-server-v1
+> docker build -t miguelarmasabt/auth-adapter:v1.0.1 ./../../application/backend/infrastructure/auth-adapter-v1
+> docker build -t miguelarmasabt/api-gateway:v1.0.1 ./../../application/backend/infrastructure/api-gateway-v1
+> Invoke-Expression ((minikube docker-env) -join "`n")
 > ```
->
-> 💡 **Notas**:
-> - Puede utilizar `#` para comentar las líneas que desea ignorar.
-> - El archivo `k8s-app-parameters.csv` cuenta con las siguientes columnas.
->   - `APP_NAME`: Nombre del servicio.
->   - `PORT`: Puerto del contenedor.
->   - `NODE_PORT`: Puerto del nodo.
->   - `IMAGE`: Imagen de Docker.
->   - `CONTROLLER_TYPE`: Tipo de controlador (`STS`: Statefulset, `DEP`: Deployment).
-> - El archivo `k8s-db-parameters.csv` cuenta con las siguientes columnas.
->   - `APP_NAME`: Nombre del servicio.
->   - `CONTAINER_NAME`: Nombre del contenedor.
->   - `IMAGE`: Imagen de Docker.
->   - `PORT`: Puerto del contenedor.
->   - `SUB_PATH_INIT_DB`: Nombre del fichero de inicialización de BD.
->   - `CLUSTER_IP`: IP del Clúster para aceptar las peticiones.
->   - `NODE_PORT`: Puerto del nodo.
->   - `CONTROLLER_TYPE`: Tipo de controlador (`STS`: Statefulset, `DEP`: Deployment).
+> A continuación, abrimos la shell de Minikube y revisamos que las imágenes hayan sido creadas.
+> ```shell script
+> docker images
+> minikube ssh
+> ```
 
+> 🔧 **Crear manifiestos**
+> <br>Utilice una shell compatible con Unix (PowerShell o Git bash)
+> ```shell script
+> ./k8s-manifests-builder.sh
+> ```
 
-> ▶️ **Crear Manifiestos de k8s**
+> ▶️ **Aplicar manifiestos**
+> <br> Iniciamos la orquestación aplicando los siguientes manifiestos.
 > ```shell script 
-> ./main.sh
+> kubectl apply -f ./manifests/mysql-db/
+> kubectl apply -f ./manifests/postgres-db/
+> kubectl apply -f ./manifests/registry-discovery-server-v1/
+> kubectl apply -f ./manifests/config-server-v1/
+> kubectl apply -f ./manifests/api-gateway-v1/
+> kubectl apply -f ./manifests/product-v1/
+> kubectl apply -f ./manifests/menu-v1/
+> kubectl apply -f ./manifests/menu-v2/
+> kubectl apply -f ./manifests/table-placement-v1/
 > ```
+
+> 🔃 **Port forwarding**
+> <br> Haciendo un port forward podremos acceder desde nuestro entorno local a los servicios disponibles en el clúster de Minikube.
+> ```shell script 
+> minikube service --url <service-name>
+> ```
+> 💡 **Nota**: Del mismo modo, si queremos probar conexión a las bases de datos, utilizaremos el puerto provisto en el comando anterior.
+
+> ⏸️ **Eliminar manifiestos**
+> <br> Finalizamos la orquestación eliminando los manifiestos creados previamente.
+>  ```shell script 
+> kubectl delete -f ./manifests/mysql-db/
+> kubectl delete -f ./manifests/postgres-db/
+> kubectl delete -f ./manifests/registry-discovery-server-v1/
+> kubectl delete -f ./manifests/config-server-v1/
+> kubectl delete -f ./manifests/api-gateway-v1/
+> kubectl delete -f ./manifests/product-v1/
+> kubectl delete -f ./manifests/menu-v1/
+> kubectl delete -f ./manifests/menu-v2/
+> kubectl delete -f ./manifests/table-placement-v1/
+> ```
+

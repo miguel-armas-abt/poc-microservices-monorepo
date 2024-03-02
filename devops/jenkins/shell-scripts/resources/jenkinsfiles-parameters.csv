@@ -1,0 +1,12 @@
+APP_NAME
+product-v1
+menu-v1
+menu-v2
+table-placement-v1
+registry-discovery-server-v1
+config-server-v1
+api-gateway-v1
+auth-adapter-v1
+keycloak-server
+mysql-db
+postgres-db
