@@ -1,0 +1,19 @@
+pipeline {
+  agent any
+  stages {
+    stage('clone repository') {
+      steps {
+        sh '''java -version
+mvn --version
+git --version'''
+      }
+    }
+    stage('Deploy billing App') {
+      steps {
+        withCredentials(bindings: [ string(credentialsId: 'cluster-k8s-secret', variable: 'api_token') ]) {
+            sh 'kubectl --token $api_token --server https://9892-2800-200-ed50-2d5-79e5-907c-79a7-147f.ngrok-free.app --insecure-skip-tls-verify=true apply -f devops/k8s/apps/registry-discovery-server-v1/'
+        }
+      }
+    }
+  }
+}
