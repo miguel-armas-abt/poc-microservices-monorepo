@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-table-placement-v1
+data:
+  postgresql-url: jdbc:postgresql://postgres-db:5432/db_table_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  postgresql-username: postgres
+  java-opts: -Xms256M -Xmx256M
+  eureka-server: http://registry-discovery-server-v1:8761/eureka/
+  postgresql-password: qwerty

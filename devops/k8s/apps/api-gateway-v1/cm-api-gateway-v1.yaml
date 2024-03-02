@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-api-gateway-v1
+data:
+  auth-adapter: http://auth-adapter-v1:8011/bbq/infrastructure/v1/auth/
+  java-opts: -Xms256M -Xmx256M
+  eureka-server: http://registry-discovery-server-v1:8761/eureka/

@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: menu-v2
+spec:
+  replicas: 1
+  serviceName: menu-v2
+  selector:
+    matchLabels:
+      app: menu-v2
+  template:
+    metadata:
+      labels:
+        app: menu-v2
+    spec:
+      containers:
+        - name: menu-v2
+          image: miguelarmasabt/menu:v2.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8016
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "640Mi"
+              cpu: "1"
+          env: 
+            - name: MYSQL_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v2
+                  key: mysql-username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v2
+                  key: mysql-password
+            - name: MYSQL_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v2
+                  key: mysql-url
+            - name: PRODUCT_V1_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v2
+                  key: product-v1-base-url
+            - name: JAVA_OPTS
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v2
+                  key: java-opts
