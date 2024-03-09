@@ -1,4 +1,4 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://miguelarmasabt:l21m01j16M01L13@cluster0.t2pidzg.mongodb.net/tablePlacement
+      uri: ${MONGODB_URL:mongodb+srv://miguelarmasabt:l21m01j16M01L13@cluster0.t2pidzg.mongodb.net/tablePlacement}
