@@ -1,10 +1,10 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: table-placement-v1
 spec:
   replicas: 1
-  serviceName: table-placement-v1
+  
   selector:
     matchLabels:
       app: table-placement-v1
@@ -27,11 +27,6 @@ spec:
               memory: "640Mi"
               cpu: "1"
           env: 
-            - name: EUREKA_SERVER
-              valueFrom:
-                configMapKeyRef:
-                  name: cm-table-placement-v1
-                  key: eureka-server
             - name: POSTGRESQL_USERNAME
               valueFrom:
                 configMapKeyRef:
@@ -42,13 +37,18 @@ spec:
                 configMapKeyRef:
                   name: cm-table-placement-v1
                   key: postgresql-password
-            - name: POSTGRESQL_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: cm-table-placement-v1
-                  key: postgresql-url
             - name: JAVA_OPTS
               valueFrom:
                 configMapKeyRef:
                   name: cm-table-placement-v1
                   key: java-opts
+            - name: EUREKA_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-table-placement-v1
+                  key: eureka-server
+            - name: POSTGRESQL_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-table-placement-v1
+                  key: postgresql-url

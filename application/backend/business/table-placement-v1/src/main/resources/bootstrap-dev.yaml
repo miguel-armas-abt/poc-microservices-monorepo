@@ -1,0 +1,4 @@
+eureka:
+  instance:
+    preferIpAddress: false
+    hostname: table-placement-v1 #to identify k8s service

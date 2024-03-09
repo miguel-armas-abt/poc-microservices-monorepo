@@ -3,7 +3,7 @@ kind: KIND_CONTROLLER
 metadata:
   name: APP_NAME
 spec:
-  replicas: 1
+  replicas: REPLICA_COUNT
   SERVICE_NAME
   selector:
     matchLabels:

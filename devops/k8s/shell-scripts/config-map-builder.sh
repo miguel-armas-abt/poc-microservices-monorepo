@@ -19,17 +19,23 @@ template="${template//APP_NAME/$APP_NAME}"
 
 if [ "$IS_DATABASE" = true ]; then
   data=""
-  while IFS= read -r line; do
-      # add tab for each line
+  while IFS= read -r line || [[ -n "$line" ]]; do
+      if [[ -z "$line" ]]; then
+          continue
+      fi
       formatted_line="    $line"
       data="$data$formatted_line\n"
   done < "$DATA_FILE"
   data=$(echo -e "$data" | sed '/^$/d') #remove extra empty line
   template="$template\n  $SUB_PATH_INIT_DB: |-\n$data"
+
 else
     # Read the environment variables
     declare -A env_vars
     while IFS='=' read -r key value || [ -n "$key" ]; do
+        if [[ $key == \#* ]]; then
+            continue
+        fi
         key=$(echo "$key" | tr '[:upper:]' '[:lower:]' | tr '_' '-')
         env_vars["$key"]="$value"
     done < "$DATA_FILE"

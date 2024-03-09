@@ -5,7 +5,7 @@ metadata:
   labels:
     app: APP_NAME
 spec:
-  replicas: 1 #number of pods replicas
+  replicas: REPLICA_COUNT #number of pods replicas
   SERVICE_NAME
   selector: #define how the Deployment identify the pods that it could manage
     matchLabels:
@@ -16,7 +16,7 @@ spec:
         app: APP_NAME
     spec:
       containers:
-        - name: CONTAINER_NAME
+        - name: APP_NAME
           image: DOCKER_IMAGE
           imagePullPolicy: IfNotPresent
           ports: #open the port to allow send and receive traffic in the container

@@ -3,8 +3,8 @@
 CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
 
 #validate input to app or database controller
-if [ "$#" -ne 7 ] && [ "$#" -ne 11 ]; then
-    echo "Usage: $0 <APP_NAME> <CONTAINER_PORT> <DOCKER_IMAGE> <ENV_FILE> <CONTROLLER_TEMPLATE> <CONTROLLER_TYPE> <IS_DATABASE> <MOUNT_PATH_DATA> <MOUNT_PATH_INIT_DB> <SUB_PATH_INIT_DB> <CONTAINER_NAME>"
+if [ "$#" -ne 8 ] && [ "$#" -ne 11 ]; then
+    echo "Usage: $0 <APP_NAME> <CONTAINER_PORT> <DOCKER_IMAGE> <ENV_FILE> <CONTROLLER_TEMPLATE> <CONTROLLER_TYPE> <REPLICA_COUNT> <IS_DATABASE> <MOUNT_PATH_DATA> <MOUNT_PATH_INIT_DB> <SUB_PATH_INIT_DB>"
     exit 1
 fi
 
@@ -14,12 +14,12 @@ DOCKER_IMAGE=$3
 ENV_FILE=$4
 CONTROLLER_TEMPLATE=$5
 CONTROLLER_TYPE=$6
-IS_DATABASE=$7
+REPLICA_COUNT=$7
 
-MOUNT_PATH_DATA=$8
-MOUNT_PATH_INIT_DB=$9
-SUB_PATH_INIT_DB=${10}
-CONTAINER_NAME=${11}
+IS_DATABASE=$8
+MOUNT_PATH_DATA=$9
+MOUNT_PATH_INIT_DB=${10}
+SUB_PATH_INIT_DB=${11}
 
 template=$(<./shell-scripts/templates/$CONTROLLER_TEMPLATE)
 
@@ -42,16 +42,19 @@ template="${template//KIND_CONTROLLER/$kind}"
 template="${template//APP_NAME/$APP_NAME}"
 template="${template//DOCKER_IMAGE/$DOCKER_IMAGE}"
 template="${template//CONTAINER_PORT/$CONTAINER_PORT}"
+template="${template//REPLICA_COUNT/$REPLICA_COUNT}"
 
 if [ "$IS_DATABASE" = true ]; then
   template="${template//MOUNT_PATH_DATA/$MOUNT_PATH_DATA}"
   template="${template//MOUNT_PATH_INIT_DB/$MOUNT_PATH_INIT_DB}"
   template="${template//SUB_PATH_INIT_DB/$SUB_PATH_INIT_DB}"
-  template="${template//CONTAINER_NAME/$CONTAINER_NAME}"
 else
   # Read the environment variables
   env_vars=""
   while IFS='=' read -r key value || [ -n "$key" ]; do
+      if [[ $key == \#* ]]; then
+          continue
+      fi
       keyLower=$(echo "$key" | tr '_' '-')
       env_vars+="\n            - name: $key\n              valueFrom:\n                configMapKeyRef:\n                  name: cm-$APP_NAME\n                  key: ${keyLower,,}"
   done < "$ENV_FILE"

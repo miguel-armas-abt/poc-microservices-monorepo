@@ -15,7 +15,7 @@ CONTROLLER_TEMPLATE=$7
 
 #read csv
 firstline=true
-while IFS=',' read -r APP_NAME CONTAINER_NAME IMAGE PORT SUB_PATH_INIT_DB CLUSTER_IP NODE_PORT CONTROLLER_TYPE || [ -n "$APP_NAME" ]; do
+while IFS=',' read -r APP_NAME IMAGE PORT SUB_PATH_INIT_DB CLUSTER_IP NODE_PORT CONTROLLER_TYPE REPLICA_COUNT || [ -n "$APP_NAME" ]; do
   # Ignore headers
   if $firstline; then
       firstline=false
@@ -31,7 +31,7 @@ while IFS=',' read -r APP_NAME CONTAINER_NAME IMAGE PORT SUB_PATH_INIT_DB CLUSTE
     MOUNT_PATH_INIT_DB=/docker-entrypoint-initdb.d/$SUB_PATH_INIT_DB
     HOST_MOUNT_PATH=\"/mnt/data/\"
 
-    ./shell-scripts/controller-builder.sh "$APP_NAME" "$PORT" "$IMAGE" null "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" true "$MOUNT_PATH_DATA" "$MOUNT_PATH_INIT_DB" "$SUB_PATH_INIT_DB" "$CONTAINER_NAME"
+    ./shell-scripts/controller-builder.sh "$APP_NAME" "$PORT" "$IMAGE" null "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" "$REPLICA_COUNT" true "$MOUNT_PATH_DATA" "$MOUNT_PATH_INIT_DB" "$SUB_PATH_INIT_DB"
     ./shell-scripts/persistent-builder.sh "$APP_NAME" $HOST_MOUNT_PATH "$PV_TEMPLATE" PV
     ./shell-scripts/persistent-builder.sh "$APP_NAME" null "$PVC_TEMPLATE" PVC
     ./shell-scripts/service-builder.sh "$APP_NAME" "$PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" "$CLUSTER_IP"

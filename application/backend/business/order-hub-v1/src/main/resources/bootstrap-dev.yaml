@@ -1,0 +1,4 @@
+eureka:
+  instance:
+    preferIpAddress: false
+    hostname: order-hub-v1 #to identify k8s service

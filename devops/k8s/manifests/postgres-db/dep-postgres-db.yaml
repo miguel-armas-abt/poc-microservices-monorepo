@@ -16,7 +16,7 @@ spec:
         app: postgres-db
     spec:
       containers:
-        - name: postgres
+        - name: postgres-db
           image: postgres:latest
           imagePullPolicy: IfNotPresent
           ports: #open the port to allow send and receive traffic in the container

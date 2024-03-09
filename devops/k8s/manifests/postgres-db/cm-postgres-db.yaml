@@ -12,3 +12,4 @@ data:
         ALTER USER bbq_user WITH SUPERUSER;
         CREATE DATABASE db_table_orders;
         GRANT ALL PRIVILEGES ON DATABASE db_table_orders TO bbq_user;
+    EOSQL

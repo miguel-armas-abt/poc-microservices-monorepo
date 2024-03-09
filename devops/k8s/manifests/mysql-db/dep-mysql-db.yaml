@@ -5,7 +5,7 @@ metadata:
   labels:
     app: mysql-db
 spec:
-  replicas: 1 #number of pods replicas
+  replicas: 1 #number of pods replicas
   
   selector: #define how the Deployment identify the pods that it could manage
     matchLabels:
@@ -16,7 +16,7 @@ spec:
         app: mysql-db
     spec:
       containers:
-        - name: mysql
+        - name: mysql-db
           image: mysql:latest
           imagePullPolicy: IfNotPresent
           ports: #open the port to allow send and receive traffic in the container

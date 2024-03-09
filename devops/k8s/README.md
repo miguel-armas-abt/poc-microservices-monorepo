@@ -37,18 +37,23 @@
 > ./k8s-manifests-builder.sh
 > ```
 
+> ▶️ **Crear namespaces**
+> ```shell script 
+> kubectl create namespace restaurant
+> ```
+
 > ▶️ **Aplicar manifiestos**
 > <br> Iniciamos la orquestación aplicando los siguientes manifiestos.
 > ```shell script 
-> kubectl apply -f ./manifests/mysql-db/
-> kubectl apply -f ./manifests/postgres-db/
-> kubectl apply -f ./manifests/registry-discovery-server-v1/
-> kubectl apply -f ./manifests/config-server-v1/
-> kubectl apply -f ./manifests/api-gateway-v1/
-> kubectl apply -f ./manifests/product-v1/
-> kubectl apply -f ./manifests/menu-v1/
-> kubectl apply -f ./manifests/menu-v2/
-> kubectl apply -f ./manifests/table-placement-v1/
+> kubectl apply -f ./manifests/mysql-db/ -n restaurant
+> kubectl apply -f ./manifests/postgres-db/ -n restaurant
+> kubectl apply -f ./manifests/registry-discovery-server-v1/ -n restaurant
+> kubectl apply -f ./manifests/config-server-v1/ -n restaurant
+> kubectl apply -f ./manifests/api-gateway-v1/ -n restaurant
+> kubectl apply -f ./manifests/product-v1/ -n restaurant
+> kubectl apply -f ./manifests/menu-v1/ -n restaurant
+> kubectl apply -f ./manifests/menu-v2/ -n restaurant
+> kubectl apply -f ./manifests/table-placement-v1/ -n restaurant
 > ```
 
 > 🔃 **Port forwarding**
@@ -61,14 +66,14 @@
 > ⏸️ **Eliminar manifiestos**
 > <br> Finalizamos la orquestación eliminando los manifiestos creados previamente.
 >  ```shell script 
-> kubectl delete -f ./manifests/mysql-db/
-> kubectl delete -f ./manifests/postgres-db/
-> kubectl delete -f ./manifests/registry-discovery-server-v1/
-> kubectl delete -f ./manifests/config-server-v1/
-> kubectl delete -f ./manifests/api-gateway-v1/
-> kubectl delete -f ./manifests/product-v1/
-> kubectl delete -f ./manifests/menu-v1/
-> kubectl delete -f ./manifests/menu-v2/
-> kubectl delete -f ./manifests/table-placement-v1/
+> kubectl delete -f ./manifests/mysql-db/ -n restaurant
+> kubectl delete -f ./manifests/postgres-db/ -n restaurant
+> kubectl delete -f ./manifests/registry-discovery-server-v1/ -n restaurant
+> kubectl delete -f ./manifests/config-server-v1/ -n restaurant
+> kubectl delete -f ./manifests/api-gateway-v1/ -n restaurant
+> kubectl delete -f ./manifests/product-v1/ -n restaurant
+> kubectl delete -f ./manifests/menu-v1/ -n restaurant
+> kubectl delete -f ./manifests/menu-v2/ -n restaurant
+> kubectl delete -f ./manifests/table-placement-v1/ -n restaurant
 > ```
 

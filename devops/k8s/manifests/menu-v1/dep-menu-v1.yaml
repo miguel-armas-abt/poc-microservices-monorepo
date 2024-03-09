@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: product-v1
+  name: menu-v1
 spec:
   replicas: 1
   
   selector:
     matchLabels:
-      app: product-v1
+      app: menu-v1
   template:
     metadata:
       labels:
-        app: product-v1
+        app: menu-v1
     spec:
       containers:
-        - name: product-v1
-          image: miguelarmasabt/product:v1.0.1
+        - name: menu-v1
+          image: miguelarmasabt/menu:v1.0.1
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8017
+            - containerPort: 8012
           resources:
             requests:
               memory: "256Mi"
@@ -30,20 +30,30 @@ spec:
             - name: MYSQL_USERNAME
               valueFrom:
                 configMapKeyRef:
-                  name: cm-product-v1
+                  name: cm-menu-v1
                   key: mysql-username
             - name: MYSQL_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: cm-product-v1
+                  name: cm-menu-v1
                   key: mysql-password
-            - name: DATABASE
+            - name: JAVA_OPTS
               valueFrom:
                 configMapKeyRef:
-                  name: cm-product-v1
-                  key: database
-            - name: MYSQL_HOST
+                  name: cm-menu-v1
+                  key: java-opts
+            - name: EUREKA_SERVER
               valueFrom:
                 configMapKeyRef:
-                  name: cm-product-v1
-                  key: mysql-host
+                  name: cm-menu-v1
+                  key: eureka-server
+            - name: MYSQL_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: mysql-url
+            - name: PRODUCT_V1_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: product-v1-base-url

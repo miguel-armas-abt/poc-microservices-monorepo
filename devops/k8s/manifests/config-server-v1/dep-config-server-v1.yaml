@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-gateway-v1
+  name: config-server-v1
 spec:
   replicas: 1
   
   selector:
     matchLabels:
-      app: api-gateway-v1
+      app: config-server-v1
   template:
     metadata:
       labels:
-        app: api-gateway-v1
+        app: config-server-v1
     spec:
       containers:
-        - name: api-gateway-v1
-          image: miguelarmasabt/api-gateway:v1.0.1
+        - name: config-server-v1
+          image: miguelarmasabt/config-server:v1.0.1
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8010
+            - containerPort: 8888
           resources:
             requests:
               memory: "256Mi"
@@ -30,15 +30,10 @@ spec:
             - name: JAVA_OPTS
               valueFrom:
                 configMapKeyRef:
-                  name: cm-api-gateway-v1
+                  name: cm-config-server-v1
                   key: java-opts
             - name: EUREKA_SERVER
               valueFrom:
                 configMapKeyRef:
-                  name: cm-api-gateway-v1
+                  name: cm-config-server-v1
                   key: eureka-server
-            - name: AUTH_ADAPTER
-              valueFrom:
-                configMapKeyRef:
-                  name: cm-api-gateway-v1
-                  key: auth-adapter
