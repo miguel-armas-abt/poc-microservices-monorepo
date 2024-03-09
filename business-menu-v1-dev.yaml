@@ -7,14 +7,13 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none #create-drop
     database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
       hibernate:
         show_sql: true
         use_sql_comments: false
         format_sql: true
-    defer-datasource-initialization: true #read data.sql file after schema generation by hibernate
 
   datasource:
     url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/db_menu_options?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
