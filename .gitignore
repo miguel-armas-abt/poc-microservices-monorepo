@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### docker-compose
+/devops/environment/databases/mongo-db/data/
+/devops/environment/databases/mysql-db/data/
+/devops/environment/databases/postgres-db/data/
