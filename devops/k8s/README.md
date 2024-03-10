@@ -50,6 +50,7 @@
 > ▶️ **Crear recursos k8s**
 > <br> Iniciamos la orquestación aplicando los siguientes manifiestos.
 > ```shell script 
+> kubectl apply -f ./manifests/mongo-db/ -n restaurant
 > kubectl apply -f ./manifests/mysql-db/ -n restaurant
 > kubectl apply -f ./manifests/postgres-db/ -n restaurant
 > kubectl apply -f ./manifests/registry-discovery-server-v1/ -n restaurant
@@ -62,15 +63,16 @@
 > ```
 
 > 🔃 **Port forwarding**
-> <br> Haciendo un port forward podremos acceder desde nuestro entorno local a los servicios disponibles en el clúster de Minikube.
+> <br> Haciendo un port forward podremos acceder desde nuestro entorno local a los services disponibles en el clúster de Kubernetes.
+>
 > ```shell script 
-> minikube service --url <service-name>
+> kubectl port-forward svc/<service-name> <local-port>:<pod-port> -n <namespace>
 > ```
-> 💡 **Nota**: Del mismo modo, si queremos probar conexión a las bases de datos, utilizaremos el puerto provisto en el comando anterior.
 
 > ⏸️ **Eliminar recursos k8s**
 > <br> Finalizamos la orquestación eliminando los recursos creados previamente.
 >  ```shell script 
+> kubectl delete -f ./manifests/mongo-db/ -n restaurant
 > kubectl delete -f ./manifests/mysql-db/ -n restaurant
 > kubectl delete -f ./manifests/postgres-db/ -n restaurant
 > kubectl delete -f ./manifests/registry-discovery-server-v1/ -n restaurant

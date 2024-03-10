@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: cm-table-placement-v1
 data:
-  mongodb-url: mongodb+srv://miguelarmasabt:l21m01j16M01L13@cluster0.t2pidzg.mongodb.net/tablePlacement?sslEnabled=false
+  mongodb-url: mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement
   java-opts: -Xms256M -Xmx256M
   eureka-server: http://registry-discovery-server-v1:8761/eureka/
