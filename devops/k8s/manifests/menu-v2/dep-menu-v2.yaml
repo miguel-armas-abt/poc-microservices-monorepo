@@ -27,6 +27,16 @@ spec:
               memory: "640Mi"
               cpu: "1"
           env: 
+            - name: MYSQL_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v2
+                  key: mysql-url
+            - name: PRODUCT_V1_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v2
+                  key: product-v1-base-url
             - name: MYSQL_USERNAME
               valueFrom:
                 configMapKeyRef:
@@ -42,13 +52,3 @@ spec:
                 configMapKeyRef:
                   name: cm-menu-v2
                   key: java-opts
-            - name: MYSQL_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: cm-menu-v2
-                  key: mysql-url
-            - name: PRODUCT_V1_BASE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: cm-menu-v2
-                  key: product-v1-base-url

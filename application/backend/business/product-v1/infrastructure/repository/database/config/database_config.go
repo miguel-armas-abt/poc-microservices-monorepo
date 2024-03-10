@@ -4,7 +4,6 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"product-v1/infrastructure/config"
-	"product-v1/infrastructure/repository/database/entity"
 )
 
 func SetupDatabase() *gorm.DB {
@@ -14,10 +13,10 @@ func SetupDatabase() *gorm.DB {
 		panic("[LOG] Failed to connect to MYSQL database")
 	}
 
-	err = database.AutoMigrate(&entity.ProductEntity{})
-	if err != nil {
-		panic("[LOG] Failed to auto migrate products table")
-	}
+	//err = database.AutoMigrate(&entity.ProductEntity{}) //to auto create table
+	//if err != nil {
+	//	panic("[LOG] Failed to auto migrate products table")
+	//}
 
 	return database
 }

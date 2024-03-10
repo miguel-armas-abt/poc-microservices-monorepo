@@ -27,6 +27,11 @@ spec:
               memory: "640Mi"
               cpu: "1"
           env: 
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-product-v1
+                  key: mysql-host
             - name: MYSQL_USERNAME
               valueFrom:
                 configMapKeyRef:
@@ -42,8 +47,3 @@ spec:
                 configMapKeyRef:
                   name: cm-product-v1
                   key: database
-            - name: MYSQL_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: cm-product-v1
-                  key: mysql-host

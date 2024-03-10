@@ -27,13 +27,13 @@ spec:
               memory: "640Mi"
               cpu: "1"
           env: 
-            - name: JAVA_OPTS
-              valueFrom:
-                configMapKeyRef:
-                  name: cm-config-server-v1
-                  key: java-opts
             - name: EUREKA_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: cm-config-server-v1
                   key: eureka-server
+            - name: JAVA_OPTS
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-config-server-v1
+                  key: java-opts

@@ -10,8 +10,13 @@
 > ```shell script
 > minikube start
 > ```
+> - 🔨 Compilar los proyectos
+> ```shell script 
+> ./01_install_services.bat
+> cd ./../local/
+> ```
 
-> 🔨 **Construir imágenes**
+> 🔨 **Construir imágenes en Minikube**
 > <br>Las imágenes deben estar disponibles en el clúster de Minikube. Para ello estableceremos el Docker de Minikube en
 > nuestra línea de comandos y sobre ella construiremos las imágenes en el clúster de Minikube.
 > ```shell script 
@@ -42,7 +47,7 @@
 > kubectl create namespace restaurant
 > ```
 
-> ▶️ **Aplicar manifiestos**
+> ▶️ **Crear recursos k8s**
 > <br> Iniciamos la orquestación aplicando los siguientes manifiestos.
 > ```shell script 
 > kubectl apply -f ./manifests/mysql-db/ -n restaurant
@@ -63,8 +68,8 @@
 > ```
 > 💡 **Nota**: Del mismo modo, si queremos probar conexión a las bases de datos, utilizaremos el puerto provisto en el comando anterior.
 
-> ⏸️ **Eliminar manifiestos**
-> <br> Finalizamos la orquestación eliminando los manifiestos creados previamente.
+> ⏸️ **Eliminar recursos k8s**
+> <br> Finalizamos la orquestación eliminando los recursos creados previamente.
 >  ```shell script 
 > kubectl delete -f ./manifests/mysql-db/ -n restaurant
 > kubectl delete -f ./manifests/postgres-db/ -n restaurant

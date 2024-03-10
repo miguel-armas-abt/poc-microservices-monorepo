@@ -3,8 +3,6 @@ kind: ConfigMap
 metadata:
   name: cm-table-placement-v1
 data:
-  postgresql-url: jdbc:postgresql://postgres-db.bbq-restaurant.svc.cluster.local:5432/db_table_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-  postgresql-username: postgres
+  mongodb-url: mongodb+srv://miguelarmasabt:l21m01j16M01L13@cluster0.t2pidzg.mongodb.net/tablePlacement?sslEnabled=false
   java-opts: -Xms256M -Xmx256M
-  eureka-server: http://registry-discovery-server-v1.bbq-restaurant.svc.cluster.local:8761/eureka/
-  postgresql-password: qwerty
+  eureka-server: http://registry-discovery-server-v1:8761/eureka/

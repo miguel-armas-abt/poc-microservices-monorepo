@@ -56,7 +56,8 @@ while IFS=',' read -r APP_NAME DOCKER_IMAGE DEPENDENCIES HOST_PORT CONTAINER_POR
       env_directory="apps"
       ENV_FILE="$VARIABLES_PATH/$env_directory/$APP_NAME.env"
     fi
-    formatted_variables=$(sed 's/^/      - /' "$ENV_FILE" | sed 's/=/=/' | tr '\n' '\n')
+    #formatted_variables=$(sed 's/^/      - /' "$ENV_FILE" | sed 's/=/=/' | tr '\n' '\n')
+    formatted_variables=$(grep -v '^#' "$ENV_FILE" | sed 's/^/      - /' | sed 's/=/=/' | tr '\n' '\n')
     service_template="${service_template//VARIABLES/"environment: \n$formatted_variables"}"
 
     #volumes (replace VOLUMES string)

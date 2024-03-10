@@ -6,9 +6,9 @@ services:
     image: miguelarmasabt/product:v1.0.1
     restart: always
     environment: 
+      - MYSQL_HOST=mysql-db:3306
       - MYSQL_USERNAME=bbq_user
       - MYSQL_PASSWORD=qwerty
-      - MYSQL_HOST=mysql-db:3306
       - DATABASE=db_products
     depends_on:
       - mysql-db
@@ -24,10 +24,10 @@ services:
     restart: always
     environment: 
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
-      - MYSQL_USERNAME=bbq_user
-      - MYSQL_PASSWORD=qwerty
       - MYSQL_URL=jdbc:mysql://mysql-db:3306/db_menu_options?useUnicode=trueSERVICESuseJDBCCompliantTimezoneShift=trueSERVICESuseLegacyDatetimeCode=falseSERVICESserverTimezone=UTC
       - PRODUCT_V1_BASE_URL=http://product-v1:8017/bbq/business/product/v1/
+      - MYSQL_USERNAME=bbq_user
+      - MYSQL_PASSWORD=qwerty
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - registry-discovery-server-v1
@@ -44,10 +44,10 @@ services:
     image: miguelarmasabt/menu:v2.0.1
     restart: always
     environment: 
-      - MYSQL_USERNAME=bbq_user
-      - MYSQL_PASSWORD=qwerty
       - MYSQL_URL=mysql://mysql-db:3306/db_menu_options
       - PRODUCT_V1_BASE_URL=http://product-v1:8017/bbq/business/product/v1
+      - MYSQL_USERNAME=bbq_user
+      - MYSQL_PASSWORD=qwerty
       - JAVA_OPTS=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev
     depends_on:
       - mysql-db
@@ -63,14 +63,12 @@ services:
     restart: always
     environment: 
       - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
-      - POSTGRESQL_USERNAME=postgres
-      - POSTGRESQL_PASSWORD=qwerty
-      - POSTGRESQL_URL=jdbc:postgresql://postgres-db:5432/db_table_orders?useUnicode=trueSERVICESuseJDBCCompliantTimezoneShift=trueSERVICESuseLegacyDatetimeCode=falseSERVICESserverTimezone=UTC
+      - MONGODB_URL=mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - registry-discovery-server-v1
       - config-server-v1
-      - postgres-db
+      - mongo-db
     
     networks:
       - dev_environment
@@ -162,29 +160,29 @@ services:
       - TZ=UTC
     
     volumes:
-      - ./../environment/databases/mysql-db:/docker-entrypoint-initdb.d
-      - /var/lib/mysql_data:/var/lib/mysql_data
+      - ./../environment/databases/mysql-db/init:/docker-entrypoint-initdb.d
+      - ./../environment/databases/mysql-db/data:/data/db
     networks:
       - dev_environment
     ports:
       - "3306:3306"
 
-  postgres-db:
-    container_name: postgres-db
-    image: postgres:latest
+  mongo-db:
+    container_name: mongo-db
+    image: mongo:latest
     restart: always
     environment: 
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=qwerty
+      - MONGO_INITDB_ROOT_USERNAME=bbq-user
+      - MONGO_INITDB_ROOT_PASSWORD=qwerty
+      - MONGO_INITDB_DATABASE=tablePlacement
     
     volumes:
-      - ./../environment/databases/postgres-db:/docker-entrypoint-initdb.d
-      - /var/lib/postgres_data:/var/lib/postgres_data
+      - ./../environment/databases/mongo-db/init:/docker-entrypoint-initdb.d
+      - ./../environment/databases/mongo-db/data:/data/db
     networks:
       - dev_environment
     ports:
-      - "5432:5432"
+      - "27017:27017"
 
 
 networks:
