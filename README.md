@@ -6,16 +6,14 @@
 - [4. Despliegue](#4-despliegue)
 
 # 1. Caso de estudio
-> 📑 **Resumen**
-> <br>BBQ Restaurant es una cadena global de restaurantes que planea implementar de arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
->
-> 👥 **Expertos en el dominio**
-> <br> Los expertos en el dominio "restaurante" utilizan los siguientes procesos para prestar servicios a sus clientes.
-> - Atención en el comedor
-> - Reserva en línea
-> - Delivery
+BBQ Restaurant es una cadena global de restaurantes que planea implementar de arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
 
-> ☑️ Atención en el comedor
+Los expertos en el dominio "restaurante" utilizan los siguientes procesos para prestar servicios a sus clientes.
+- Atención en el comedor
+- Reserva en línea
+- Delivery
+
+> 📝 Atención en el comedor
 
 | Mesero                                                | Chef de cocina                                                |
 |-------------------------------------------------------|---------------------------------------------------------------|
@@ -24,7 +22,7 @@
 | El mesero entrega el pedido en el comedor             | -                                                             |
 | El mesero cobra el pago de un pedido en el comedor    | -                                                             |
 
-> ☑️ Reserva en línea
+> 📝 Reserva en línea
 
 | Cliente en línea                     | Anfitrión                                                         |
 |--------------------------------------|-------------------------------------------------------------------|
@@ -32,7 +30,7 @@
 
 El proceso continúa con la atención en el comedor.
 
-> ☑️ Delivery
+> 📝 Delivery
 
 | Cliente en línea                                          | Chef de cocina                                                               | Conductor de delivery                           |
 |-----------------------------------------------------------|------------------------------------------------------------------------------|-------------------------------------------------|
@@ -42,11 +40,7 @@ El proceso continúa con la atención en el comedor.
 
 # 2. Disenio del software
 > 📌 **Glosario**
-> - `Dominio`. Área de conocimiento (conceptos, reglas, requisitos) que el software está destinado a abordar.
-
-> 💡 **Notas**: 
-<br>Por lo general, en una arquitectura de microservicios:
-> - Cada `servicio web` aborda un `dominio` específico.
+> - **Dominio**: Área de conocimiento (conceptos, reglas, requisitos) que el software está destinado a abordar. Por lo general, cada `servicio web` aborda un `dominio` específico.
 
 ## 2.1. Arquitectura de software
 ![Texto alternativo](./docs/diagrams/software-architecture.jpg)
@@ -67,21 +61,16 @@ El proceso continúa con la atención en el comedor.
 
 ## 2.2. Arquitectura de paquetes
 > 📌 **Glosario**
-> - `Subdominio`. Área de conocimiento más específica dentro del dominio principal.
-> - `Contexto`. Funcionalidad en el sistema que puede abarcar uno o más subdominios. Los contextos ayudan a delimitar las interacciones y responsabilidades entre los componentes del sistema.
-> - `Modelo de datos`. Modelo que captura la estructura y el significado de los datos en un subdominio específico.
-
+> - **Subdominio**: Área de conocimiento más específica dentro del dominio principal. Por lo general, los `subdominios` de cada servicio web son representados por los `modelos de datos` de sus fuentes de información.
+> - **Modelo de datos**: Modelo que captura la estructura y el significado de los datos en un subdominio específico.
+> - **Contexto**: Funcionalidad en el sistema que puede abarcar uno o más subdominios. Los contextos ayudan a delimitar las responsabilidades entre los componentes del sistema.
+>
 > 🔍 **Ejemplo**
 > - **Dominio**: `Colocación de pedidos en mesa`
 > - **Subdominios**: `Mesas` y `pedidos`
 > - **Contextos**:
 >   - `Colocación de pedidos`: Se encarga de tomar los pedidos de los clientes y asignarlos a una mesa específica.
 >   - `Gestión de estado de mesa`: Controla el estado de ocupación de las mesas, indicando si están disponibles, ocupadas o reservadas.
-
-> 💡 **Notas**:
-<br>Por lo general, en una arquitectura de microservicios:
-> - Los `subdominios` de cada servicio web son representados por los `modelos de datos` de sus fuentes de información.
-> - Las `funcionalidades` de cada servicio web representan sus `contextos`.
 
 ```javascript
     application-name
@@ -126,9 +115,9 @@ El proceso continúa con la atención en el comedor.
 > ✅ **Ventajas**: 
 >   - Define una clara separación de responsabilidades. 
 >   - Facilita a los desarrolladores seguir los principios de Inversión de dependencias y clean architecture. "Un componente de una capa inferior no debe llamar a uno de una capa superior".
-
+>
 > ⚠️ **Desventajas**:
->   - En arquitecturas de microservicios, donde los servicios web tienden a ser más pequeños y menos complejos, esta estructura de paquetes podría introducir una complejidad innecesaria.
+>   - En arquitecturas de microservicios, donde los servicios web tienden a ser menos complejos, esta estructura de paquetes podría introducir una complejidad adicional.
 
 # 3. Gestion del repositorio
 
