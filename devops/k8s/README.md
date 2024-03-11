@@ -2,13 +2,10 @@
 
 > 📋 **Pre requisitos**
 > - Instalar Minikube y Kubectl.
-> - Cambiar el contexto de la CLI de Docker (default)
-> ```shell script
-> docker context use default
-> ```
 > - Encender el clúster de Minikube. Puede especificar la cantidad de recursos con `--memory=2816 --cpus=4`
 > ```shell script
 > minikube start
+> docker context use default
 > ```
 > - 🔨 Compilar los proyectos
 > ```shell script 

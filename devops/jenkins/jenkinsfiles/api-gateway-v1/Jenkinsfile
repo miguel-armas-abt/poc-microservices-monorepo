@@ -1,19 +1,25 @@
 pipeline {
-  agent any
-  stages {
-    stage('clone repository') {
-      steps {
-        sh '''java -version
-mvn --version
-git --version'''
-      }
-    }
-    stage('Deploy api-gateway-v1') {
-      steps {
-        withCredentials(bindings: [ string(credentialsId: 'k8s-cluster-token', variable: 'api_token') ]) {
-            sh 'kubectl apply -f devops/k8s/manifests/api-gateway-v1/ --server https://9892-2800-200-ed50-2d5-79e5-907c-79a7-147f.ngrok-free.app --token $api_token --insecure-skip-tls-verify=true'
+    agent any
+    stages {
+        stage('Compile') {
+            steps {
+                script {
+                    def mvnCmd = 'mvn clean package'
+                    def mvnOutput = sh(script: mvnCmd, returnStdout: true).trim()
+                    if (mvnOutput.contains('BUILD SUCCESS')) {
+                        echo 'Maven build successful'
+                    } else {
+                        error 'Maven build failed'
+                    }
+                }
+            }
         }
-      }
+        stage('Deploy') {
+          steps {
+            withCredentials(bindings: [ string(credentialsId: 'k8s-cluster-token', variable: 'api_token') ]) {
+                sh 'kubectl apply -f devops/k8s/manifests/api-gateway-v1/ --server https://f247-179-6-212-27.ngrok-free.app --token $api_token --insecure-skip-tls-verify=true'
+            }
+          }
+        }
     }
-  }
 }

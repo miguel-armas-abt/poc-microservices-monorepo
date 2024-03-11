@@ -177,23 +177,21 @@ sonar.java.binaries=application/backend/business/menu-v1/target/classes
 ```
 
 # 6. Integrar con DockerHub
-Ubíquese en Jenkins e instale el plugin `CloudBees Docker Build and Publish`.
+- Seleccione `Panel de control > Administrar Jenkins > Plugins > Available plugins` e instale `CloudBees Docker Build and Publish`.
+- Para que nuestro pipeline se conecte con un repositorio de Docker Hub, ubíquese en el pipeline y diríjase a la sección `Build Steps`.
+- Presione el botón `Añadir un nuevo paso`, seleccione la opción `Docker Build and Publish` y configure los siguientes campos:
+> - **Repositoy Name**: `miguelarmasabt/<repository>`
+> - **Tag**: `0.0.1-SNAPSHOT`
 
-Para que nuestro pipeline se conecte con un repositorio de Docker Hub, ubíquese en el pipeline y diríjase a la sección
-`Build Steps`. A continuación, presione el botón `Añadir un nuevo paso`, seleccione la opción `Docker Build and Publish`
-y configure los siguientes campos.
+> **Docker Desktop**
+> - El siguiente campo requiere que expongamos el Daemon Docker del host. Para ello, ubíquese en Docker Desktop y diríjase a `Settings > General`.
+> - Active la opción `Expose daemon on tcp://localhost:2375 without TLS` y reinicie Docker Desktop.
+> - Valide que el Daemon Docker fue expuesto exitosamente accediendo a `http://localhost:2375/images/json`.
 
-> **Repositoy Name**: `miguelarmasabt/<repository>`
->
-> **Tag**: `0.0.1-SNAPSHOT`
-
-El siguiente campo requiere que expongamos el Daemon Docker del host. Para ello, ubíquese en Docker Desktop y diríjase a
-`Settings > General`, active la opción `Expose daemon on tcp://localhost:2375 without TLS` y reinicie Docker Desktop. 
-A continuación, usted puede validar que el Daemon Docker fue expuesto exitosamente accediendo a `http://localhost:2375/images/json`.
 > **Docker Host URI**: `tcp://host.docker.internal:2375`
 
-Finalmente presione el botón `Avanzado...` y especifique el siguiente campo con el servicio web correspondiente.
-> **Build Context**: `application/backend/business/menu-v1/`
+- Presione el botón `Avanzado...` y especifique el siguiente campo considerando el nombre del proyecto que está configurando:
+> **Build Context**: `./application/backend/infrastructure/registry-discovery-server-v1/`
 
 # 7. Integrar con Kubernetes
 Ubíquese en Jenkins e instale el plugin `Kubernetes`.

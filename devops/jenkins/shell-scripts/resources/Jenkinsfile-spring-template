@@ -16,8 +16,8 @@ pipeline {
         }
         stage('Deploy') {
           steps {
-            withCredentials(bindings: [ string(credentialsId: 'k8s-cluster-token', variable: 'api_token') ]) {
-                sh 'kubectl apply -f devops/k8s/manifests/menu-v2/ --server https://f247-179-6-212-27.ngrok-free.app --token $api_token --insecure-skip-tls-verify=true'
+            withCredentials(bindings: [ string(credentialsId: 'K8S_CLUSTER_TOKEN_NAME', variable: 'api_token') ]) {
+                sh 'kubectl apply -f devops/k8s/manifests/APP_NAME/ --server K8S_CLUSTER_URL --token $api_token --insecure-skip-tls-verify=true'
             }
           }
         }

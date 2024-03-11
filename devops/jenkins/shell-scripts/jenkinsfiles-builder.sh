@@ -2,25 +2,34 @@
 
 CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
 
-JENKINSFILE_TEMPLATE=./resources/Jenkinsfile-template
+JENKINSFILE_SPRING_TEMPLATE=./resources/Jenkinsfile-spring-template
+JENKINSFILE_GO_TEMPLATE=./resources/Jenkinsfile-go-template
 PARAMETERS_CSV=./resources/jenkinsfiles-parameters.csv
-VARIABLES_PATH=./../../environment
-
 K8S_CLUSTER_TOKEN_NAME=k8s-cluster-token
 
 echo "Enter the public url of k8s cluster:"
 read K8S_CLUSTER_URL
 
-while IFS=',' read -r APP_NAME || [ -n "$APP_NAME" ]; do
+while IFS=',' read -r APP_NAME TYPE || [ -n "$APP_NAME" ]; do
   # Ignore headers
   if $firstline; then
       firstline=false
       continue
+  fi\
+
+  jenkinsfile_template=""
+  if [[ "$TYPE" == *"GO"* ]]; then
+    jenkinsfile_template=$(<"$JENKINSFILE_GO_TEMPLATE")
+  fi
+  if [[ "$TYPE" == *"SPRING"* ]]; then
+    jenkinsfile_template=$(<"$JENKINSFILE_SPRING_TEMPLATE")
+  fi
+  if [[ "$TYPE" == *"QUARKUS"* ]]; then
+    jenkinsfile_template=$(<"$JENKINSFILE_SPRING_TEMPLATE")
   fi
 
   # Ignore comments
   if [[ $APP_NAME != "#"* ]]; then
-    jenkinsfile_template=$(<"$JENKINSFILE_TEMPLATE")
     jenkinsfile_template="${jenkinsfile_template//APP_NAME/$APP_NAME}"
     jenkinsfile_template="${jenkinsfile_template//K8S_CLUSTER_TOKEN_NAME/$K8S_CLUSTER_TOKEN_NAME}"
     jenkinsfile_template="${jenkinsfile_template//K8S_CLUSTER_URL/$K8S_CLUSTER_URL}"
@@ -33,6 +42,6 @@ while IFS=',' read -r APP_NAME || [ -n "$APP_NAME" ]; do
       mkdir -p "$OUTPUT_DIR"
   fi
   echo -e "$jenkinsfile_template" > "$OUTPUT_DIR/$OUTPUT_FILE"
-  echo -e "${CHECK_SYMBOL} created: $OUTPUT_FILE"
+  echo -e "${CHECK_SYMBOL} created: $APP_NAME"
 
 done < <(sed 's/\r//g' "$PARAMETERS_CSV")
