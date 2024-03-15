@@ -4,7 +4,7 @@ pipeline {
         stage('Compile') {
             steps {
                 script {
-                    def rootDir = "application/backend/business/auth-adapter-v1"
+                    def rootDir = "application/backend/business/APP_NAME"
                     echo "Changing directory to: ${rootDir}"
                     dir(rootDir) {
                         sh "ls -la"
@@ -21,8 +21,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                withCredentials(bindings: [ string(credentialsId: 'k8s-cluster-token', variable: 'api_token') ]) {
-                    sh 'kubectl apply -f devops/k8s/manifests/auth-adapter-v1/ --server https://e1bd-2800-200-ed50-2d5-51f4-16f6-f21f-a5f9.ngrok-free.app --token $api_token --insecure-skip-tls-verify=true'
+                withCredentials(bindings: [ string(credentialsId: 'K8S_CLUSTER_TOKEN_NAME', variable: 'api_token') ]) {
+                    sh 'kubectl apply -f devops/k8s/manifests/APP_NAME/ --server K8S_CLUSTER_URL --token $api_token --insecure-skip-tls-verify=true'
                 }
             }
         }

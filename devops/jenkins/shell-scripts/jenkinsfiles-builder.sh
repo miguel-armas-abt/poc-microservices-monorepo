@@ -2,7 +2,8 @@
 
 CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
 
-JENKINSFILE_SPRING_TEMPLATE=./resources/Jenkinsfile-spring-template
+JENKINSFILE_JAVA_TEMPLATE=./resources/Jenkinsfile-java-template
+JENKINSFILE_COMPONENT_TEMPLATE=./resources/Jenkinsfile-component-template
 JENKINSFILE_GO_TEMPLATE=./resources/Jenkinsfile-go-template
 PARAMETERS_CSV=./resources/jenkinsfiles-parameters.csv
 K8S_CLUSTER_TOKEN_NAME=k8s-cluster-token
@@ -21,11 +22,11 @@ while IFS=',' read -r APP_NAME TYPE || [ -n "$APP_NAME" ]; do
   if [[ "$TYPE" == *"GO"* ]]; then
     jenkinsfile_template=$(<"$JENKINSFILE_GO_TEMPLATE")
   fi
-  if [[ "$TYPE" == *"SPRING"* ]]; then
-    jenkinsfile_template=$(<"$JENKINSFILE_SPRING_TEMPLATE")
+  if [[ "$TYPE" == *"JAVA"* ]]; then
+    jenkinsfile_template=$(<"$JENKINSFILE_JAVA_TEMPLATE")
   fi
-  if [[ "$TYPE" == *"QUARKUS"* ]]; then
-    jenkinsfile_template=$(<"$JENKINSFILE_SPRING_TEMPLATE")
+  if [[ "$TYPE" == *"COMPONENT"* ]]; then
+    jenkinsfile_template=$(<"$JENKINSFILE_COMPONENT_TEMPLATE")
   fi
 
   # Ignore comments

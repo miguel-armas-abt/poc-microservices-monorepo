@@ -51,7 +51,7 @@
 
 > ⚠️ **Conectar Jenkins a la red de Minikube**
 > <br>Desconéctelo antes de apagar Minikube, ya que podría tener problemas al encender el clúster la siguiente vez. 
-> Para este propósito utilice `disconnect`.
+> Para tal propósito utilice `disconnect`.
 > ```shell script 
 > docker network connect minikube bbq-jenkins
 > ```

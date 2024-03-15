@@ -4,22 +4,27 @@ pipeline {
         stage('Compile') {
             steps {
                 script {
-                    def mvnCmd = 'mvn clean package'
-                    def mvnOutput = sh(script: mvnCmd, returnStdout: true).trim()
-                    if (mvnOutput.contains('BUILD SUCCESS')) {
-                        echo 'Maven build successful'
-                    } else {
-                        error 'Maven build failed'
+                    def rootDir = "application/backend/business/registry-discovery-server-v1"
+                    echo "Changing directory to: ${rootDir}"
+                    dir(rootDir) {
+                        sh "ls -la"
+                        def mvnCmd = 'mvn clean package'
+                        def mvnOutput = sh(script: mvnCmd, returnStdout: true).trim()
+                        if (mvnOutput.contains('BUILD SUCCESS')) {
+                            echo 'Maven build successful'
+                        } else {
+                            error 'Maven build failed'
+                        }
                     }
                 }
             }
         }
         stage('Deploy') {
-          steps {
-            withCredentials(bindings: [ string(credentialsId: 'k8s-cluster-token', variable: 'api_token') ]) {
-                sh 'kubectl apply -f devops/k8s/manifests/registry-discovery-server-v1/ --server https://f247-179-6-212-27.ngrok-free.app --token $api_token --insecure-skip-tls-verify=true'
+            steps {
+                withCredentials(bindings: [ string(credentialsId: 'k8s-cluster-token', variable: 'api_token') ]) {
+                    sh 'kubectl apply -f devops/k8s/manifests/registry-discovery-server-v1/ --server https://e1bd-2800-200-ed50-2d5-51f4-16f6-f21f-a5f9.ngrok-free.app --token $api_token --insecure-skip-tls-verify=true'
+                }
             }
-          }
         }
     }
 }

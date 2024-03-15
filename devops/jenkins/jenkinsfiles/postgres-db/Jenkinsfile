@@ -1,25 +1,12 @@
 pipeline {
     agent any
     stages {
-        stage('Compile') {
+        stage('Deploy') {
             steps {
-                script {
-                    def mvnCmd = 'mvn clean package'
-                    def mvnOutput = sh(script: mvnCmd, returnStdout: true).trim()
-                    if (mvnOutput.contains('BUILD SUCCESS')) {
-                        echo 'Maven build successful'
-                    } else {
-                        error 'Maven build failed'
-                    }
+                withCredentials(bindings: [ string(credentialsId: 'k8s-cluster-token', variable: 'api_token') ]) {
+                    sh 'kubectl apply -f devops/k8s/manifests/postgres-db/ --server https://e1bd-2800-200-ed50-2d5-51f4-16f6-f21f-a5f9.ngrok-free.app --token $api_token --insecure-skip-tls-verify=true'
                 }
             }
-        }
-        stage('Deploy') {
-          steps {
-            withCredentials(bindings: [ string(credentialsId: 'k8s-cluster-token', variable: 'api_token') ]) {
-                sh 'kubectl apply -f devops/k8s/manifests/postgres-db/ --server https://f247-179-6-212-27.ngrok-free.app --token $api_token --insecure-skip-tls-verify=true'
-            }
-          }
         }
     }
 }
