@@ -60,7 +60,7 @@
 > <br>Conceda privilegios a Kubernetes y reserve el token de autenticación k8s
 > ```shell script 
 > kubectl describe secret/jenkins-token-rk2mg
-> kubectl apply -f ./k8s-jenkins/
+> kubectl apply -f ./deploy/k8s-authorization/
 > ```
 
 - **🔓 Creación de secreto - Token de autenticación k8s**
