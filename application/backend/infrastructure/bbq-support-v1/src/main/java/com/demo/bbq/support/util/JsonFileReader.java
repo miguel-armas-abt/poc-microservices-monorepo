@@ -1,36 +1,44 @@
 package com.demo.bbq.support.util;
 
+import com.demo.bbq.support.exception.model.ApiException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.io.ByteStreams;
-import com.google.gson.Gson;
 import java.io.IOException;
-import java.util.Arrays;
+import java.io.InputStream;
 import java.util.List;
-import java.util.Objects;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.function.Function;
 
-@Slf4j
-@NoArgsConstructor
-public class JsonFileReader {
+public class JsonFileReader<T> {
 
-  private static final ObjectMapper mapper = new ObjectMapper();
+  private final ObjectMapper objectMapper = new ObjectMapper();
+  private final Class<T> type;
 
-  public static <T> T getAnElement(String filePath, Class<T> className) throws IOException {
-    return new Gson().fromJson(getJson(filePath), className);
+  public JsonFileReader(Class<T> type) {
+    this.type = type;
   }
 
-  public static <T> List<T> getList(String filePath, Class<T[]> className) throws IOException {
-    return Arrays.asList(new Gson().fromJson(getJson(filePath), className));
+  public T readObjectFromFile(String filePath) {
+    try {
+      InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filePath);
+      return objectMapper.readValue(inputStream, type);
+    } catch (IOException ioException) {
+      throw buildException.apply(ioException);
+    }
   }
 
-  public static String getJson(String filePath) throws IOException {
-    byte[] byteArray = ByteStreams.toByteArray(Objects.requireNonNull(JsonFileReader.class.getClassLoader().getResourceAsStream(filePath)));
-    return new String(byteArray);
+  public List<T> readListFromFile(String filePath) throws IOException {
+    try {
+      InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filePath);
+      TypeReference<List<T>> typeReference = new TypeReference<List<T>>() {};
+      return objectMapper.readValue(inputStream, typeReference);
+    } catch (IOException ioException) {
+      throw buildException.apply(ioException);
+    }
   }
 
-  public static <T> List<T> getList2(String filePath, Class<T[]> clazz) throws IOException {
-    return Arrays.asList(mapper.readValue(JsonFileReader.class.getClassLoader().getResourceAsStream(filePath), clazz));
-  }
-
+  private static final Function<IOException, ApiException> buildException = ioException ->
+      ApiException.builder()
+          .cause(ioException)
+          .message("Error reading JSON file")
+          .build();
 }

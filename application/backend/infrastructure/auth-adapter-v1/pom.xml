@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.demo.bbq.business</groupId>
-		<artifactId>business-application-common-v1</artifactId>
+		<groupId>com.demo.parent</groupId>
+		<artifactId>spring-boot-rxjava-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
@@ -14,13 +14,45 @@
 	<name>Auth Adapter V1</name>
 	<description>Auth Adapter V1</description>
 
+	<properties>
+		<spring-cloud-dependencies.version>2021.0.0</spring-cloud-dependencies.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
+		<!-- Spring Cloud -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+
+		<!-- BBQ Support -->
 		<dependency>
 			<groupId>com.demo.bbq.support</groupId>
 			<artifactId>bbq-support-v1</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<!-- oauth protocol -->
+
+		<!-- Oauth protocol -->
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>jwks-rsa</artifactId>
@@ -32,33 +64,5 @@
 			<version>3.8.3</version>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<!-- build docker image -->
-			<!--			<plugin>-->
-			<!--				<groupId>com.spotify</groupId>-->
-			<!--				<artifactId>dockerfile-maven-plugin</artifactId>-->
-			<!--				<version>${dockerfile-maven-version}</version>-->
-			<!--				<executions>-->
-			<!--					<execution>-->
-			<!--						<id>build-docker-image</id>-->
-			<!--						<phase>package</phase>-->
-			<!--						<goals>-->
-			<!--							<goal>build</goal>-->
-			<!--							<goal>push</goal>-->
-			<!--						</goals>-->
-			<!--					</execution>-->
-			<!--				</executions>-->
-			<!--				<configuration>-->
-			<!--					<repository>bbq/${project.artifactId}-image</repository>-->
-			<!--					<tag>${project.version}</tag>-->
-			<!--					<buildArgs>-->
-			<!--						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>-->
-			<!--					</buildArgs>-->
-			<!--				</configuration>-->
-			<!--			</plugin>-->
-		</plugins>
-	</build>
 
 </project>

@@ -4,27 +4,55 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.demo.bbq.business</groupId>
-    <artifactId>business-application-common-v1</artifactId>
+    <groupId>com.demo.parent</groupId>
+    <artifactId>spring-boot-rxjava-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-
-  <properties>
-    <endorsed.dir>${project.build.directory}</endorsed.dir>
-    <dockerfile-maven-version>1.4.13</dockerfile-maven-version>
-  </properties>
 
   <artifactId>payment-v1</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Payment V1</name>
   <description>Payment V1</description>
 
+  <properties>
+    <spring-cloud-dependencies.version>2021.0.0</spring-cloud-dependencies.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud-dependencies.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
+    <!-- Spring Cloud -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-bootstrap</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-config</artifactId>
+    </dependency>
+
+    <!-- Supports -->
     <dependency>
       <groupId>com.demo.bbq.support</groupId>
       <artifactId>bbq-support-v1</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+
+    <!-- Message Broker -->
     <dependency>
       <groupId>org.springframework.kafka</groupId>
       <artifactId>spring-kafka</artifactId>
@@ -38,39 +66,6 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>${mysql-version}</version>
     </dependency>
-    <dependency> <!-- springdoc -->
-      <groupId>org.springdoc</groupId>
-      <artifactId>springdoc-openapi-ui</artifactId>
-      <version>1.6.4</version>
-    </dependency>
   </dependencies>
-
-  <build>
-    <plugins>
-      <!-- build docker image -->
-      <!--			<plugin>-->
-      <!--				<groupId>com.spotify</groupId>-->
-      <!--				<artifactId>dockerfile-maven-plugin</artifactId>-->
-      <!--				<version>${dockerfile-maven-version}</version>-->
-      <!--				<executions>-->
-      <!--					<execution>-->
-      <!--						<id>build-docker-image</id>-->
-      <!--						<phase>package</phase>-->
-      <!--						<goals>-->
-      <!--							<goal>build</goal>-->
-      <!--							<goal>push</goal>-->
-      <!--						</goals>-->
-      <!--					</execution>-->
-      <!--				</executions>-->
-      <!--				<configuration>-->
-      <!--					<repository>bbq/${project.artifactId}-image</repository>-->
-      <!--					<tag>${project.version}</tag>-->
-      <!--					<buildArgs>-->
-      <!--						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>-->
-      <!--					</buildArgs>-->
-      <!--				</configuration>-->
-      <!--			</plugin>-->
-    </plugins>
-  </build>
 
 </project>

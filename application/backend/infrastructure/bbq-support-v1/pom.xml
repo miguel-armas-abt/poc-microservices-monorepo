@@ -4,18 +4,27 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.demo.bbq.support</groupId>
-		<artifactId>support-application-common-v1</artifactId>
+		<groupId>com.demo.parent</groupId>
+		<artifactId>spring-boot-reactive-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-
-	<properties>
-		<endorsed.dir>${project.build.directory}</endorsed.dir>
-	</properties>
 
 	<artifactId>bbq-support-v1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>BBQ Support V1</name>
 	<description>BBQ Support V1</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
+		<dependency><!-- logstash -->
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>7.0.1</version>
+		</dependency>
+	</dependencies>
 
 </project>

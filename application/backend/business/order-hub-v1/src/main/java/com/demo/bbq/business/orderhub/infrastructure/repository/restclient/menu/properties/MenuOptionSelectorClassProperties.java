@@ -12,6 +12,4 @@ import org.springframework.stereotype.Component;
 public class MenuOptionSelectorClassProperties {
 
   private Class<?> selectorClass;
-
-  private Class<?> selectorClassFallback;
 }

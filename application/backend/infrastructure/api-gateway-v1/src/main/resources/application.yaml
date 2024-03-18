@@ -12,6 +12,8 @@ eureka:
       defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
 
 spring:
+  main:
+    web-application-type: reactive
   application:
     name: api-gateway-v1
   cloud:

@@ -1,7 +1,6 @@
 package com.demo.bbq.support.httpclient.retrofit.reactive;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Emitter;
 import io.reactivex.Flowable;
@@ -14,7 +13,6 @@ import okio.BufferedSource;
 import org.reactivestreams.Publisher;
 
 @FunctionalInterface
-@SuppressFBWarnings(value = {"RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE", "REC_CATCH_EXCEPTION", "UPM_UNCALLED_PRIVATE_METHOD"}, justification = "False positive JDK 11")
 public interface HttpStreamingTransformer<T>
     extends ObservableTransformer<ResponseBody, T>, FlowableTransformer<ResponseBody, T> {
 

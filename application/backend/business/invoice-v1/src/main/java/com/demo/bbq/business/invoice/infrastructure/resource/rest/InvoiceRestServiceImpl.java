@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/bbq/business/invoice/v1")
-public class InvoiceRestServiceImpl implements InvoiceRestService{
+public class InvoiceRestServiceImpl {
 
   private final ProformaInvoiceService proformaInvoiceService;
   private final InvoicePaymentService invoicePaymentService;

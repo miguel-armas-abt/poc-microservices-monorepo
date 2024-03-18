@@ -4,36 +4,60 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.demo.bbq.business</groupId>
-    <artifactId>business-application-common-v1</artifactId>
+    <groupId>com.demo.parent</groupId>
+    <artifactId>spring-boot-rxjava-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-
-  <properties>
-    <endorsed.dir>${project.build.directory}</endorsed.dir>
-    <dockerfile-maven-version>1.4.13</dockerfile-maven-version>
-  </properties>
 
   <artifactId>order-hub-v1</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Order Hub V1</name>
   <description>Order HubV1</description>
 
+  <properties>
+    <spring-cloud-dependencies.version>2021.0.0</spring-cloud-dependencies.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud-dependencies.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
+    <!-- Spring Cloud -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-bootstrap</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-config</artifactId>
+    </dependency>
+
+    <!-- BBQ Support -->
     <dependency>
       <groupId>com.demo.bbq.support</groupId>
       <artifactId>bbq-support-v1</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+
+    <!-- Redis Cache -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
     </dependency>
-    <dependency> <!-- springdoc -->
-      <groupId>org.springdoc</groupId>
-      <artifactId>springdoc-openapi-ui</artifactId>
-      <version>1.6.4</version>
-    </dependency>
+
   </dependencies>
 
 </project>
