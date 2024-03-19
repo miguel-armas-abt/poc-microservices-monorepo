@@ -41,9 +41,3 @@
 > ```shell script 
 > ./05_start_business_services.bat
 > ```
-
-> 💾 **Insertar data**
-> ```shell script 
-> ./06_insert_data.bat
-> ```
-

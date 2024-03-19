@@ -12,7 +12,6 @@ import com.demo.bbq.business.menu.domain.model.request.MenuOptionSaveRequest;
 import com.demo.bbq.business.menu.domain.model.response.MenuOption;
 import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
-import java.io.IOException;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -43,7 +42,7 @@ public class MenuOptionRestServiceTest {
   private List<MenuOption> expectedSavedMenuOptionList;
 
   @Before
-  public void setup() throws IOException {
+  public void setup() {
     expectedSavedMenuOptionList = JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOption[].class);
     URI = "/bbq/business/menu/v1/menu-options";
   }

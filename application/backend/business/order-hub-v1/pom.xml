@@ -47,7 +47,7 @@
 
     <!-- BBQ Support -->
     <dependency>
-      <groupId>com.demo.bbq.support</groupId>
+      <groupId>com.demo.parent</groupId>
       <artifactId>bbq-support-v1</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>

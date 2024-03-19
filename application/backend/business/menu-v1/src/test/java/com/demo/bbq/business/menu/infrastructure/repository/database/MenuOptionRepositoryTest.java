@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.demo.bbq.business.menu.infrastructure.repository.database.entity.MenuOptionEntity;
 import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.Ignore;
@@ -33,7 +32,7 @@ public class MenuOptionRepositoryTest {
   private List<MenuOptionEntity> expectedSavedMenuOptionList;
 
   @BeforeEach
-  public void setup() throws IOException {
+  public void setup() {
     expectedSavedMenuOptionList = JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class);
   }
 
@@ -66,7 +65,7 @@ public class MenuOptionRepositoryTest {
 
 //  @Rollback(value = false) // no revertir los cambios en BD tras la ejecución del test
   @Test
-  public void save() throws IOException {
+  public void save() {
     int rowsNumberBefore = repository.findAll().size();
     MenuOptionEntity menuOptionToSave = JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class).get(0);
     menuOptionToSave.setProductCode("MENU0004");

@@ -13,7 +13,6 @@ import com.demo.bbq.business.menu.infrastructure.repository.restclient.dto.Produ
 import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
 import io.reactivex.Single;
-import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +43,7 @@ public class MenuOptionRepositoryHandlerTest {
   }
 
   @Test
-  public void givenTwoSourcesInfo_WhenSearchAllMenuOptions_ThenMapResponse() throws IOException {
+  public void givenTwoSourcesInfo_WhenSearchAllMenuOptions_ThenMapResponse() {
     when(productApi.findByScope(anyString()))
         .thenReturn(Single.just(JsonFileReader.getList("data/product/ProductDto_Array.json", ProductDto[].class)));
 
@@ -53,7 +52,6 @@ public class MenuOptionRepositoryHandlerTest {
 
     String expected = new Gson().toJson(JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOption[].class));
     String actual = new Gson().toJson(menuOptionRepositoryHandler.findAll());
-
     assertEquals(expected, actual);
   }
 

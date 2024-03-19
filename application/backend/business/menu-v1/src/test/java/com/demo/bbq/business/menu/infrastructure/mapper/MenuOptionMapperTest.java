@@ -8,7 +8,6 @@ import com.demo.bbq.business.menu.infrastructure.repository.database.entity.Menu
 import com.demo.bbq.business.menu.infrastructure.repository.restclient.dto.ProductDto;
 import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
-import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +30,7 @@ public class MenuOptionMapperTest {
     private MenuOptionSaveRequest menuOptionSaveRequest;
 
     @BeforeEach
-    public void setup() throws IOException {
+    public void setup() {
 
         menuOptionEntity = JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class).get(0);
         productDto = JsonFileReader.getList("data/product/ProductDto_Array.json", ProductDto[].class).get(0);

@@ -4,8 +4,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.demo.parent.spring-boot</groupId>
-    <artifactId>spring-boot-base-parent-v1</artifactId>
+    <groupId>com.demo.parent</groupId>
+    <artifactId>spring-boot-base-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
@@ -47,7 +47,7 @@
 
     <!-- BBQ Support -->
     <dependency>
-      <groupId>com.demo.bbq.support</groupId>
+      <groupId>com.demo.parent</groupId>
       <artifactId>bbq-support-v1</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
