@@ -11,13 +11,13 @@ CREATE TABLE IF NOT EXISTS db_products.products(
 );
 INSERT INTO db_products.products (id, is_active, code, unit_price, scope) VALUES
 (1, 1, 'MENU0001', 19.9, 'MENU'),
-(2, 1, 'MENU0003', 39.9, 'MENU'),
-(3, 1, 'MENU0004', 49.9, 'MENU'),
-(4, 1, 'MENU0005', 59.9, 'MENU'),
-(5, 1, 'MENU0006', 19.9, 'MENU'),
-(6, 1, 'MENU0007', 19.9, 'MENU'),
-(7, 0, 'MENU0008', 19.9, 'MENU'),
-(8, 0, 'MENU0009', 19.9, 'MENU');
+(2, 1, 'MENU0002', 39.9, 'MENU'),
+(3, 1, 'MENU0003', 39.9, 'MENU'),
+(4, 1, 'MENU0004', 49.9, 'MENU'),
+(5, 1, 'MENU0005', 59.9, 'MENU'),
+(6, 1, 'MENU0006', 19.9, 'MENU'),
+(7, 1, 'MENU0007', 19.9, 'MENU'),
+(8, 0, 'MENU0008', 19.9, 'MENU');
 CREATE DATABASE IF NOT EXISTS db_menu_options;
 CREATE TABLE IF NOT EXISTS db_menu_options.menu_options(
     id bigint auto_increment primary key,

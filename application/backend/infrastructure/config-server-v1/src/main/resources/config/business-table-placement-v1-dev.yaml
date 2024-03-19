@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_URL:mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement}

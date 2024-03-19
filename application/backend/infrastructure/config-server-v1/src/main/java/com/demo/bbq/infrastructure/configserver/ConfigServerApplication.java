@@ -1,4 +1,4 @@
-package com.demo.bbq.infrastructure.authadapter;
+package com.demo.bbq.infrastructure.configserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

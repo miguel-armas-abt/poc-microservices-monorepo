@@ -1,4 +1,4 @@
-package com.demo.bbq.infrastructure.bbqservicediscovery;
+package com.demo.bbq.infrastructure.discovery;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

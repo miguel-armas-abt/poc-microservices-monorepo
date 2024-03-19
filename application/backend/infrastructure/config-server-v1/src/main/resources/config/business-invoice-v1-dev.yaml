@@ -1,0 +1,39 @@
+kafka-broker:
+  topic:
+    invoice: invoice-topic
+    payment: paid-topic
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: bbq
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: false
+        format_sql: true
+
+  datasource:
+    url: ${POSTGRESQL_URL:jdbc:postgresql://127.0.0.1:5432/db_invoices?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
+    driverClassName: org.postgresql.Driver
+    username: ${POSTGRESQL_USERNAME:bbq_user}
+    password: ${POSTGRESQL_PASSWORD:qwerty}
+
+application:
+  http-client:
+    product:
+      base-url: ${PRODUCT_V1_BASE_URL:http://localhost:8017/bbq/business/product/v1/}
+
+business:
+  invoice:
+    igv: 0.18
+  rules:
+    discount-rules:
+      ruleClass: DiscountRule
+      ruleFile: discount_rules.drl
