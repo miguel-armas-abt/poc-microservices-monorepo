@@ -5,13 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.demo.bbq.business.menu.infrastructure.repository.database.entity.MenuOptionEntity;
+import com.demo.bbq.business.menu.domain.repository.database.MenuOptionRepository;
+import com.demo.bbq.business.menu.domain.repository.database.entity.MenuOptionEntity;
 import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 //@AutoConfigureTestDatabase(replace = NONE) //use real database
-@Ignore
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 @DataJpaTest
@@ -65,6 +65,7 @@ public class MenuOptionRepositoryTest {
 
 //  @Rollback(value = false) // no revertir los cambios en BD tras la ejecución del test
   @Test
+  @Disabled("Disabled because doesn't add a row")
   public void save() {
     int rowsNumberBefore = repository.findAll().size();
     MenuOptionEntity menuOptionToSave = JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class).get(0);
