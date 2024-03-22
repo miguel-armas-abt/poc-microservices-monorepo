@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-import com.demo.bbq.business.menu.application.dto.response.MenuOption;
+import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponse;
 import com.demo.bbq.business.menu.domain.repository.handler.MenuOptionRepositoryHandler;
 import com.demo.bbq.business.menu.application.mapper.MenuOptionMapper;
 import com.demo.bbq.business.menu.domain.repository.database.MenuOptionRepository;
 import com.demo.bbq.business.menu.domain.repository.database.entity.MenuOptionEntity;
-import com.demo.bbq.business.menu.domain.repository.restclient.ProductApi;
-import com.demo.bbq.business.menu.domain.repository.restclient.wrapper.ProductWrapper;
+import com.demo.bbq.business.menu.domain.repository.restclient.product.ProductApi;
+import com.demo.bbq.business.menu.domain.repository.restclient.product.wrapper.response.ProductResponseWrapper;
 import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
 import io.reactivex.Single;
@@ -46,12 +46,12 @@ public class MenuOptionRepositoryHandlerTest {
   @Test
   public void givenTwoSourcesInfo_WhenSearchAllMenuOptions_ThenMapResponse() {
     when(productApi.findByScope(anyString()))
-        .thenReturn(Single.just(JsonFileReader.getList("data/product/ProductDto_Array.json", ProductWrapper[].class)));
+        .thenReturn(Single.just(JsonFileReader.getList("data/product/ProductDto_Array.json", ProductResponseWrapper[].class)));
 
     when(menuOptionRepository.findAll())
         .thenReturn(JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class));
 
-    String expected = new Gson().toJson(JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOption[].class));
+    String expected = new Gson().toJson(JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponse[].class));
     String actual = new Gson().toJson(menuOptionRepositoryHandler.findAll());
     assertEquals(expected, actual);
   }

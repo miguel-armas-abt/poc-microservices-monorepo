@@ -2,14 +2,15 @@ package com.demo.bbq.business.menu.application.service;
 
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequest;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequest;
-import com.demo.bbq.business.menu.application.dto.response.MenuOption;
+import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponse;
+
 import java.util.List;
 
 public interface MenuOptionService {
 
-  List<MenuOption> findByCategory(String categoryCode);
+  List<MenuOptionResponse> findByCategory(String categoryCode);
 
-  MenuOption findByProductCode(String productCode);
+  MenuOptionResponse findByProductCode(String productCode);
 
   void save (MenuOptionSaveRequest menuOption);
 

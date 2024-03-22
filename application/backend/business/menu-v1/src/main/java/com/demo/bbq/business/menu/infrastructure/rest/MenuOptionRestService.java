@@ -1,11 +1,11 @@
 package com.demo.bbq.business.menu.infrastructure.rest;
 
+import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponse;
 import com.demo.bbq.business.menu.infrastructure.doc.DocumentationConfig.DocumentationExample;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequest;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequest;
-import com.demo.bbq.business.menu.application.dto.response.MenuOption;
 import com.demo.bbq.business.menu.infrastructure.doc.DocumentationConfig;
 import com.demo.bbq.support.exception.documentation.ApiExceptionJsonExample;
 import com.demo.bbq.support.exception.model.dto.ApiExceptionDto;
@@ -29,13 +29,13 @@ public interface MenuOptionRestService {
 
   @Operation(summary = "Get a menu by ID", tags = DocumentationConfig.TAG)
   @ApiResponse(responseCode = "200")
-  ResponseEntity<MenuOption> findByProductCode(HttpServletRequest servletRequest,
-                                               @Parameter(example = DocumentationExample.PRODUCT_CODE) String productCode);
+  ResponseEntity<MenuOptionResponse> findByProductCode(HttpServletRequest servletRequest,
+                                                       @Parameter(example = DocumentationExample.PRODUCT_CODE) String productCode);
 
   @Operation(summary = "Get a menu list by category", tags = DocumentationConfig.TAG)
   @ApiResponse(responseCode = "200")
-  ResponseEntity<List<MenuOption>> findByCategory(HttpServletRequest servletRequest,
-                                                  @Parameter(description = "Menu category", examples = {
+  ResponseEntity<List<MenuOptionResponse>> findByCategory(HttpServletRequest servletRequest,
+                                                          @Parameter(description = "Menu category", examples = {
                                                       @ExampleObject(value = DocumentationExample.CATEGORY_MAIN_DISH),
                                                       @ExampleObject(value = DocumentationExample.CATEGORY_DRINK),
                                                       @ExampleObject(value = DocumentationExample.CATEGORY_DESSERT),

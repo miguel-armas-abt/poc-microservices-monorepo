@@ -7,9 +7,9 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
+import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponse;
 import com.demo.bbq.business.menu.application.service.MenuOptionService;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequest;
-import com.demo.bbq.business.menu.application.dto.response.MenuOption;
 import com.demo.bbq.business.menu.infrastructure.rest.MenuOptionRestServiceImpl;
 import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
@@ -38,11 +38,11 @@ public class MenuOptionRestServiceTest {
   private MenuOptionService menuOptionService;
 
   private String URI;
-  private List<MenuOption> expectedSavedMenuOptionList;
+  private List<MenuOptionResponse> expectedSavedMenuOptionList;
 
   @Before
   public void setup() {
-    expectedSavedMenuOptionList = JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOption[].class);
+    expectedSavedMenuOptionList = JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponse[].class);
     URI = "/bbq/business/menu/v1/menu-options";
   }
 
@@ -82,7 +82,7 @@ public class MenuOptionRestServiceTest {
 
   @Test
   public void givenProductCode_WhenSearchMenuOptionByProductCode_ThenReturnSearchedMenuOption() throws Exception {
-    MenuOption expectedMenuOption = JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOption[].class).get(0);
+    MenuOptionResponse expectedMenuOption = JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponse[].class).get(0);
     when(menuOptionService.findByProductCode(anyString())).thenReturn(expectedMenuOption);
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders

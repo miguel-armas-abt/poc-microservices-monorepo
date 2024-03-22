@@ -1,9 +1,9 @@
 package com.demo.bbq.business.menu.infrastructure.rest;
 
+import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponse;
 import com.demo.bbq.business.menu.application.service.MenuOptionService;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequest;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequest;
-import com.demo.bbq.business.menu.application.dto.response.MenuOption;
 import com.demo.bbq.support.logstash.Markers;
 import java.net.URI;
 import java.util.List;
@@ -35,17 +35,17 @@ public class MenuOptionRestServiceImpl implements MenuOptionRestService {
   private final MenuOptionService service;
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/{productCode}")
-  public ResponseEntity<MenuOption> findByProductCode(HttpServletRequest servletRequest,
-                                             @PathVariable(name = "productCode") String productCode) {
+  public ResponseEntity<MenuOptionResponse> findByProductCode(HttpServletRequest servletRequest,
+                                                              @PathVariable(name = "productCode") String productCode) {
     logRequest.accept(servletRequest);
     return ResponseEntity.ok(service.findByProductCode(productCode));
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<MenuOption>> findByCategory(HttpServletRequest servletRequest,
-                                                         @RequestParam(value = "category", required = false) String categoryCode) {
+  public ResponseEntity<List<MenuOptionResponse>> findByCategory(HttpServletRequest servletRequest,
+                                                                 @RequestParam(value = "category", required = false) String categoryCode) {
     logRequest.accept(servletRequest);
-    List<MenuOption> menuOptionList = service.findByCategory(categoryCode);
+    List<MenuOptionResponse> menuOptionList = service.findByCategory(categoryCode);
     return (menuOptionList == null || menuOptionList.isEmpty())
         ? ResponseEntity.noContent().build()
         : ResponseEntity.ok(service.findByCategory(categoryCode));

@@ -1,12 +1,12 @@
 package com.demo.bbq.business.invoice.application.service;
 
-import com.demo.bbq.business.invoice.domain.model.request.ProductRequest;
-import com.demo.bbq.business.invoice.domain.model.response.ProformaInvoice;
+import com.demo.bbq.business.invoice.application.dto.request.ProductRequest;
+import com.demo.bbq.business.invoice.application.dto.response.ProformaInvoiceResponse;
 import io.reactivex.Single;
 import java.util.List;
 
 public interface ProformaInvoiceService {
 
-  Single<ProformaInvoice> generateProformaInvoice(List<ProductRequest> products);
+  Single<ProformaInvoiceResponse> generateProformaInvoice(List<ProductRequest> products);
 
 }

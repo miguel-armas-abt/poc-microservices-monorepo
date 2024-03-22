@@ -3,10 +3,10 @@ package com.demo.bbq.business.menu.infrastructure.mapper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequest;
-import com.demo.bbq.business.menu.application.dto.response.MenuOption;
+import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponse;
 import com.demo.bbq.business.menu.application.mapper.MenuOptionMapper;
 import com.demo.bbq.business.menu.domain.repository.database.entity.MenuOptionEntity;
-import com.demo.bbq.business.menu.domain.repository.restclient.wrapper.ProductWrapper;
+import com.demo.bbq.business.menu.domain.repository.restclient.product.wrapper.response.ProductResponseWrapper;
 import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,9 +24,9 @@ public class MenuOptionMapperTest {
     private final MenuOptionMapper mapper = Mappers.getMapper(MenuOptionMapper.class);
 
     private MenuOptionEntity menuOptionEntity;
-    private ProductWrapper productWrapper;
+    private ProductResponseWrapper productWrapper;
 
-    private MenuOption menuOption;
+    private MenuOptionResponse menuOption;
 
     private MenuOptionSaveRequest menuOptionSaveRequest;
 
@@ -34,8 +34,8 @@ public class MenuOptionMapperTest {
     public void setup() {
 
         menuOptionEntity = JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class).get(0);
-        productWrapper = JsonFileReader.getList("data/product/ProductDto_Array.json", ProductWrapper[].class).get(0);
-        menuOption = JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOption[].class).get(0);
+        productWrapper = JsonFileReader.getList("data/product/ProductDto_Array.json", ProductResponseWrapper[].class).get(0);
+        menuOption = JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponse[].class).get(0);
         menuOptionSaveRequest = JsonFileReader.getAnElement("data/menuoption/MenuOptionSaveRequest.json", MenuOptionSaveRequest.class);
     }
 

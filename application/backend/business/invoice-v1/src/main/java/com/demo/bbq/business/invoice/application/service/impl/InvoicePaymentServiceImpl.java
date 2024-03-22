@@ -1,13 +1,13 @@
 package com.demo.bbq.business.invoice.application.service.impl;
 
+import com.demo.bbq.business.invoice.application.dto.response.ProformaInvoiceResponse;
 import com.demo.bbq.business.invoice.application.service.InvoicePaymentService;
 import com.demo.bbq.business.invoice.application.service.ProformaInvoiceService;
 import com.demo.bbq.business.invoice.domain.exception.InvoiceException;
-import com.demo.bbq.business.invoice.domain.model.request.PaymentRequest;
-import com.demo.bbq.business.invoice.domain.model.response.ProformaInvoice;
-import com.demo.bbq.business.invoice.infrastructure.broker.producer.InvoiceProducer;
-import com.demo.bbq.business.invoice.infrastructure.mapper.InvoiceMapper;
-import com.demo.bbq.business.invoice.infrastructure.repository.database.InvoiceRepositoryHelper;
+import com.demo.bbq.business.invoice.application.dto.request.PaymentRequest;
+import com.demo.bbq.business.invoice.application.events.producer.InvoiceProducer;
+import com.demo.bbq.business.invoice.application.mapper.InvoiceMapper;
+import com.demo.bbq.business.invoice.domain.repository.database.InvoiceRepositoryHelper;
 import com.google.gson.Gson;
 import io.reactivex.Completable;
 import java.math.BigDecimal;
@@ -40,7 +40,7 @@ public class InvoicePaymentServiceImpl implements InvoicePaymentService {
         .ignoreElement();
   }
 
-  private static final Consumer<ProformaInvoice> validateProforma = proforma -> {
+  private static final Consumer<ProformaInvoiceResponse> validateProforma = proforma -> {
     if(proforma.getTotal().compareTo(BigDecimal.ZERO) == 0) {
       throw InvoiceException.ERROR0000.buildException();
     }

@@ -1,8 +1,7 @@
 package com.demo.bbq.business.menu.application.service;
 
-import com.demo.bbq.business.menu.application.service.MenuOptionService;
+import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponse;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequest;
-import com.demo.bbq.business.menu.application.dto.response.MenuOption;
 import com.demo.bbq.business.menu.application.catalog.MenuCategory;
 import com.demo.bbq.business.menu.domain.exception.MenuOptionException;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequest;
@@ -24,13 +23,13 @@ public class MenuOptionServiceImpl implements MenuOptionService {
   private final MenuOptionRepositoryHandler menuOptionRepositoryHandler;
 
   @Override
-  public List<MenuOption> findByCategory(String categoryCode) {
+  public List<MenuOptionResponse> findByCategory(String categoryCode) {
     return Optional.ofNullable(categoryCode).isEmpty()
           ? menuOptionRepositoryHandler.findAll()
           : this.validateMenuOptionAndFindByCategory(categoryCode);
   }
 
-  private List<MenuOption> validateMenuOptionAndFindByCategory(String categoryCode) {
+  private List<MenuOptionResponse> validateMenuOptionAndFindByCategory(String categoryCode) {
     MenuCategory.validateCategory.accept(categoryCode);
     return menuOptionRepositoryHandler.findAll().stream()
         .filter(menu -> menu.getCategory().equals(categoryCode))
@@ -38,7 +37,7 @@ public class MenuOptionServiceImpl implements MenuOptionService {
   }
 
   @Override
-  public MenuOption findByProductCode(String productCode) {
+  public MenuOptionResponse findByProductCode(String productCode) {
     return menuOptionRepositoryHandler.findAll().stream()
         .filter(menuOption -> productCode.equals(menuOption.getProductCode()))
         .peek(menuOption -> log.info(Markers.SENSITIVE_JSON, "findByProductCode: {}", new Gson().toJson(menuOption)))

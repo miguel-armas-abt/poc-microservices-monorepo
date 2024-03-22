@@ -3,11 +3,11 @@ package com.demo.bbq.business.menu.domain.repository.handler;
 import com.demo.bbq.business.menu.domain.exception.MenuOptionException;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequest;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequest;
-import com.demo.bbq.business.menu.application.dto.response.MenuOption;
+import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponse;
 import com.demo.bbq.business.menu.domain.repository.database.MenuOptionRepository;
 import com.demo.bbq.business.menu.application.mapper.MenuOptionMapper;
 import com.demo.bbq.business.menu.domain.repository.database.entity.MenuOptionEntity;
-import com.demo.bbq.business.menu.domain.repository.restclient.ProductApi;
+import com.demo.bbq.business.menu.domain.repository.restclient.product.ProductApi;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -25,7 +25,7 @@ public class MenuOptionRepositoryHandler {
   private final MenuOptionRepository menuOptionRepository;
   private final MenuOptionMapper menuOptionMapper;
 
-  public List<MenuOption> findAll() {
+  public List<MenuOptionResponse> findAll() {
     Map<String, MenuOptionEntity> menuOptionMap = menuOptionRepository.findAll().stream()
         .collect(Collectors.toMap(MenuOptionEntity::getProductCode, Function.identity()));
 
