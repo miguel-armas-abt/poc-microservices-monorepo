@@ -12,45 +12,11 @@ eureka:
       defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
 
 spring:
-  main:
-    web-application-type: reactive
   application:
     name: api-gateway-v1
   cloud:
     gateway:
       routes:
-        - id: menu-v1
-          uri: lb://menu-v1 #If the URL has a scheme of lb (such as lb://myservice), it uses the Spring Cloud LoadBalancerClient to resolve the name (myservice in this case)
-          predicates:
-            - Path=/bbq/business/menu/v1/** #- Path=/** #to access swagger doc of the service through the api gateway
-            - Method=GET,POST,PUT,DELETE,PATCH
-#          filters:
-#            - name: AuthenticationFilter
-
-        - id: table-placement-v1
-          uri: lb://table-placement-v1
-          predicates:
-            - Path=/bbq/business/table-placement/v1/**
-            - Method=GET,POST,PUT,DELETE,PATCH
-#          filters:
-#            - name: AuthenticationFilter
-
-        - id: invoice-v1
-          uri: lb://invoice-v1
-          predicates:
-            - Path=/bbq/business/invoice/v1/**
-            - Method=GET,POST,PUT,DELETE,PATCH
-#          filters:
-#            - name: AuthenticationFilter
-
-        - id: payment-v1
-          uri: lb://payment-v1
-          predicates:
-            - Path=/bbq/business/payment/v1/**
-            - Method=GET,POST,PUT,DELETE,PATCH
-#          filters:
-#            - name: AuthenticationFilter
-
         - id: order-hub-v1
           uri: lb://order-hub-v1
           predicates:
@@ -65,12 +31,12 @@ application:
       base-url: ${AUTH_ADAPTER:http://localhost:8011/bbq/infrastructure/v1/auth/}
   user-roles: '{0:"partners"}' #separate items with comma
 
-# actuator
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*' #gateway,info,health,metrics
-  endpoint:
-    health:
-      show-details: always
+## actuator
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*' #gateway,info,health,metrics
+#  endpoint:
+#    health:
+#      show-details: always
