@@ -9,7 +9,7 @@ spring:
     config:
       uri: ${CONFIG_SERVER:http://localhost:8888}
       failFast: true
-      name: business-table-placement-v1 #prefix, API name
+      name: business-menu-v1 #prefix, API name
       profile: dev #suffix, indicate the execution environment
       retry:
         max-attempts: 1

@@ -12,11 +12,11 @@ import com.google.gson.Gson;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -34,9 +34,11 @@ public class MenuOptionRepositoryTest {
   @BeforeEach
   public void setup() {
     expectedSavedMenuOptionList = JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class);
+    repository.saveAll(expectedSavedMenuOptionList);
   }
 
   @Test
+  @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
   public void findAll() {
     String expected = new Gson().toJson(expectedSavedMenuOptionList);
     String actual = new Gson().toJson(repository.findAll());
@@ -44,6 +46,7 @@ public class MenuOptionRepositoryTest {
   }
 
   @Test
+  @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
   public void findByProductCode() {
     MenuOptionEntity expectedSavedMenuOptionThreeEntity = expectedSavedMenuOptionList.get(0);
     String expected = new Gson().toJson(expectedSavedMenuOptionThreeEntity);
@@ -52,6 +55,7 @@ public class MenuOptionRepositoryTest {
   }
 
   @Test
+  @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
   public void findByCategory() {
     List<MenuOptionEntity> expectedFilteredMenuOptionListEntity = expectedSavedMenuOptionList
         .stream()
@@ -63,18 +67,20 @@ public class MenuOptionRepositoryTest {
     assertEquals(expected, actual);
   }
 
-//  @Rollback(value = false) // no revertir los cambios en BD tras la ejecución del test
+  //  @Rollback(value = false) // no revertir los cambios en BD tras la ejecución del test
   @Test
-  @Disabled("Disabled because doesn't add a row")
+  @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
   public void save() {
     int rowsNumberBefore = repository.findAll().size();
+
     MenuOptionEntity menuOptionToSave = JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class).get(0);
+    menuOptionToSave.setId(4L);
     menuOptionToSave.setProductCode("MENU0004");
-
     repository.save(menuOptionToSave);
-    int rowsNumberAfter = repository.findAll().size();
-    MenuOptionEntity savedMenuOption = repository.findByProductCode("MENU0004").get();
 
+    int rowsNumberAfter = repository.findAll().size();
+
+    MenuOptionEntity savedMenuOption = repository.findByProductCode("MENU0004").get();
     String expected = new Gson().toJson(menuOptionToSave);
     String actual = new Gson().toJson(savedMenuOption);
 
@@ -85,6 +91,7 @@ public class MenuOptionRepositoryTest {
   }
 
   @Test
+  @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
   public void deleteByProductCode() {
     int rowsNumberBefore = repository.findAll().size();
     String PRODUCT_CODE = "MENU0001";

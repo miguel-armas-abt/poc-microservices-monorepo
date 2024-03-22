@@ -1,4 +1,0 @@
-eureka:
-  instance:
-    preferIpAddress: false
-    hostname: ${spring.application.name} #to identify k8s service

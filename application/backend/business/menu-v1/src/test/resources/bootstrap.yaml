@@ -14,7 +14,3 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password:
-
-eureka:
-  client:
-    enabled: false
