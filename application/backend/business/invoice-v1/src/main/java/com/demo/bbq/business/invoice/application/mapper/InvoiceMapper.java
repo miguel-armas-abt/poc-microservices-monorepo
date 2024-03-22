@@ -1,12 +1,12 @@
 package com.demo.bbq.business.invoice.application.mapper;
 
-import com.demo.bbq.business.invoice.application.dto.request.Customer;
-import com.demo.bbq.business.invoice.application.dto.response.Payment;
-import com.demo.bbq.business.invoice.application.dto.request.ProductRequest;
-import com.demo.bbq.business.invoice.application.dto.response.Product;
-import com.demo.bbq.business.invoice.application.dto.response.ProformaInvoiceResponse;
-import com.demo.bbq.business.invoice.domain.repository.database.catalog.PaymentMethod;
-import com.demo.bbq.business.invoice.domain.repository.database.entity.InvoiceEntity;
+import com.demo.bbq.business.invoice.application.dto.invoicepayment.request.Customer;
+import com.demo.bbq.business.invoice.application.events.producer.message.PaymentMessage;
+import com.demo.bbq.business.invoice.application.dto.proformainvoice.request.ProductRequest;
+import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProductResponse;
+import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProformaInvoiceResponse;
+import com.demo.bbq.business.invoice.domain.repository.database.invoice.entity.PaymentMethod;
+import com.demo.bbq.business.invoice.domain.repository.database.invoice.entity.InvoiceEntity;
 import java.math.BigDecimal;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,10 +20,10 @@ public interface InvoiceMapper {
 
   @Mapping(target = "paymentMethod", expression = "java(invoiceEntity.getPaymentMethod().name())")
   @Mapping(target = "invoiceId", source = "invoiceEntity.id")
-  Payment invoiceToPayment(InvoiceEntity invoiceEntity, BigDecimal totalAmount);
+  PaymentMessage invoiceToPayment(InvoiceEntity invoiceEntity, BigDecimal totalAmount);
 
   @Mapping(target = "subtotal", expression = "java(getSubtotal(request, unitPrice, discount))")
-  Product toProduct(ProductRequest request, BigDecimal unitPrice, BigDecimal discount);
+  ProductResponse toProduct(ProductRequest request, BigDecimal unitPrice, BigDecimal discount);
 
   default BigDecimal getSubtotal(ProductRequest request, BigDecimal unitPrice, BigDecimal discount) {
     BigDecimal subtotal = unitPrice.multiply(new BigDecimal(request.getQuantity()));

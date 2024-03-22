@@ -1,5 +1,4 @@
 server:
-#  port: 0 #eureka set a random port
   port: 8014
 
 spring:

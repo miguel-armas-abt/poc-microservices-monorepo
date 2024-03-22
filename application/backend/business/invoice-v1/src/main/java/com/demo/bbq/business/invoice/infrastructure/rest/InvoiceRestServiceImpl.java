@@ -1,10 +1,10 @@
 package com.demo.bbq.business.invoice.infrastructure.rest;
 
-import com.demo.bbq.business.invoice.application.dto.response.ProformaInvoiceResponse;
+import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProformaInvoiceResponse;
 import com.demo.bbq.business.invoice.application.service.InvoicePaymentService;
 import com.demo.bbq.business.invoice.application.service.ProformaInvoiceService;
-import com.demo.bbq.business.invoice.application.dto.request.PaymentRequest;
-import com.demo.bbq.business.invoice.application.dto.request.ProductRequest;
+import com.demo.bbq.business.invoice.application.dto.invoicepayment.request.PaymentRequest;
+import com.demo.bbq.business.invoice.application.dto.proformainvoice.request.ProductRequest;
 import com.demo.bbq.support.logstash.Markers;
 import io.reactivex.Completable;
 import io.reactivex.Single;

@@ -1,5 +1,4 @@
 server:
-#  port: 0 #eureka set a random port
   port: 8015
 
 spring:
@@ -7,30 +6,10 @@ spring:
     name: payment-v1
   cloud:
     config:
-      discovery:
-        enabled: true
-        service-id: config-server-v1
+      uri: ${CONFIG_SERVER:http://localhost:8888}
       failFast: true
       name: business-payment-v1 #prefix, name of API type
       profile: dev #sufix, indicate the execution environment
-      username: admin
-      password: 123
       retry:
         max-attempts: 1
         max-interval: 1000
-
-springdoc:
-  swagger-ui:
-    path: /swagger/index.html
-    enabled: true
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"

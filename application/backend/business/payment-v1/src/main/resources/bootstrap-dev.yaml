@@ -1,4 +1,0 @@
-eureka:
-  instance:
-    preferIpAddress: false
-    hostname: payment-v1 #to identify k8s service

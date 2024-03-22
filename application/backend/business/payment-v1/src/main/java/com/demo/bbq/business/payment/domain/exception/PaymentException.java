@@ -13,8 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 public enum PaymentException {
 
-  ERROR1000(ApiExceptionType.NO_DATA, "The dining room table does not exist"),
-  ERROR1001(ApiExceptionType.BUSINESS_RULES, "The requested menu order doesn't exist");
+  ERROR1000(ApiExceptionType.NO_DATA, "Generic error");
 
   private final String SERVICE_NAME = "payment-v1";
   private final ApiExceptionType type;

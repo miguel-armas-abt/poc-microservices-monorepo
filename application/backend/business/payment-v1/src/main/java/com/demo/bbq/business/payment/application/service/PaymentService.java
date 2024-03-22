@@ -1,11 +1,11 @@
 package com.demo.bbq.business.payment.application.service;
 
-import com.demo.bbq.business.payment.domain.model.response.Payment;
+import com.demo.bbq.business.payment.application.events.consumer.message.PaymentMessage;
 import io.reactivex.Observable;
 
 public interface PaymentService {
 
-  Observable<Payment> findAll();
+  Observable<PaymentMessage> findAll();
 
 
 }

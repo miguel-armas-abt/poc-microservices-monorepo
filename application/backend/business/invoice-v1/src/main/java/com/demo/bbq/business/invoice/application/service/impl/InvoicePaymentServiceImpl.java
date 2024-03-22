@@ -1,14 +1,13 @@
 package com.demo.bbq.business.invoice.application.service.impl;
 
-import com.demo.bbq.business.invoice.application.dto.response.ProformaInvoiceResponse;
+import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProformaInvoiceResponse;
 import com.demo.bbq.business.invoice.application.service.InvoicePaymentService;
 import com.demo.bbq.business.invoice.application.service.ProformaInvoiceService;
 import com.demo.bbq.business.invoice.domain.exception.InvoiceException;
-import com.demo.bbq.business.invoice.application.dto.request.PaymentRequest;
+import com.demo.bbq.business.invoice.application.dto.invoicepayment.request.PaymentRequest;
 import com.demo.bbq.business.invoice.application.events.producer.InvoiceProducer;
 import com.demo.bbq.business.invoice.application.mapper.InvoiceMapper;
 import com.demo.bbq.business.invoice.domain.repository.database.InvoiceRepositoryHelper;
-import com.google.gson.Gson;
 import io.reactivex.Completable;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicReference;
@@ -36,7 +35,7 @@ public class InvoicePaymentServiceImpl implements InvoicePaymentService {
         .map(invoice -> invoiceMapper.toEntity(invoice, paymentRequest.getCustomer(), paymentRequest.getPayment().getMethod()))
         .map(repositoryHelper::buildEntity)
         .map(invoice -> invoiceMapper.invoiceToPayment(invoice, totalAmount.get()))
-        .doOnSuccess(payment-> invoiceProducer.sendMessage(new Gson().toJson(payment)))
+        .doOnSuccess(invoiceProducer::sendMessage)
         .ignoreElement();
   }
 

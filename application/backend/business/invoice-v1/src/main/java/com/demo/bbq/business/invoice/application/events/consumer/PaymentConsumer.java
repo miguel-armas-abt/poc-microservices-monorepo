@@ -1,9 +1,9 @@
 package com.demo.bbq.business.invoice.application.events.consumer;
 
 import com.demo.bbq.business.invoice.domain.exception.InvoiceException;
-import com.demo.bbq.business.invoice.application.dto.response.PaidTransaction;
-import com.demo.bbq.business.invoice.domain.repository.database.InvoiceRepository;
-import com.demo.bbq.business.invoice.domain.repository.database.catalog.PaymentStatus;
+import com.demo.bbq.business.invoice.application.events.consumer.message.PaidTransactionMessage;
+import com.demo.bbq.business.invoice.domain.repository.database.invoice.InvoiceRepository;
+import com.demo.bbq.business.invoice.domain.repository.database.invoice.entity.PaymentStatus;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ public class PaymentConsumer {
   public void listen(Message<String> message) {
     String payload = message.getPayload();
     log.info(payload);
-    PaidTransaction paidTransaction = new Gson().fromJson(payload, PaidTransaction.class);
+    PaidTransactionMessage paidTransaction = new Gson().fromJson(payload, PaidTransactionMessage.class);
 
     invoiceRepository.findById(paidTransaction.getInvoiceId())
         .map(invoice -> {
