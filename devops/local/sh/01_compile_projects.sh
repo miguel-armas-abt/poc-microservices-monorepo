@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source ./00_local_path_variables.sh
-SERVICES_CSV=./resources/services-to-install.csv
+PROJECTS_CSV=./resources/01_projects-to-compile.csv
 
 echo "$(date +"%F %T"): Installation script started" > "$LOG_FILE"
 
@@ -26,4 +26,4 @@ while IFS=',' read -r APP_NAME TYPE || [ -n "$APP_NAME" ]; do
     echo "$(date +"%F %T"): $APP_NAME executed" >> "$LOG_FILE"
   fi
 
-done < <(sed 's/\r//g' "$SERVICES_CSV")
+done < <(sed 's/\r//g' "$PROJECTS_CSV")
