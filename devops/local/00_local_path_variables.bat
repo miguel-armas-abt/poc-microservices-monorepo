@@ -6,7 +6,7 @@ set JAVA_PATH=C:\dev-environment\java\jdk-11.0.2\bin\java
 set MVN_HOME_PATH=C:\dev-environment\maven\apache-maven-3.9.1
 set MVN_REPOSITORY_PATH=C:\Users\User\.m2\repository
 
-@REM specify your Go version
+@REM specify your GO version
 set GO_PATH=C:\dev-environment\go\go1.21.4\bin\go
 
 @REM specify your Kafka configuration (keep tmp path at default value)
