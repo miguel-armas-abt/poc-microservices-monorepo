@@ -1,6 +1,0 @@
-SERVER_NAME
-kafka
-zookeeper
-redis
-postgres-db
-mysql-db

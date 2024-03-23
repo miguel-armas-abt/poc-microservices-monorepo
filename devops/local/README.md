@@ -1,7 +1,7 @@
 # Despliegue local
 > 📋 **Pre requisitos**
-> - Instalar GO, Java 11+, Kafka, Zookeeper, Maven 3.9+, MySQL, PostgreSQL, Redis.
-    > <br>⚠️ **Importante:** Guarde los binarios en directorios con nombres sin espaciados para evitar inconsistencias con los scripts. Por ejemplo:
+> <br>Instalar GO, Java 11+, Kafka, Zookeeper, Maven 3.9+, MySQL, PostgreSQL, Redis.
+> <br>⚠️ **Importante:** Guarde los binarios en directorios con nombres sin espaciados para evitar inconsistencias con los scripts. Por ejemplo:
 > ```javascript
 >   C:
 >   │───dev-environment
@@ -15,31 +15,34 @@
 >   └───dev-workspace
 >       └───bbq-monorepo
 > ```
-> - Editar las variables del archivo `./devops/local/00_local_path_variables.bat` de acuerdo a su espacio de trabajo.
+> 📄 Editar las variables del archivo `./parameters/00_local_path_variables.sh` de acuerdo a su espacio de trabajo.
 
-> 🔨 **Compilar los proyectos**
-<br>📄 Edite `./resources/01_projects-to-compile.csv` con los proyectos que desea compilar
-<br>💻 Utilice una shell compatible con Unix (PowerShell o Git bash)
-> ```shell script 
-> ./01_install_services.bat
-> ```
+💻 Utilice una shell compatible con Unix (PowerShell o Git bash) para ejecutar los siguientes comandos.
 
-> ▶️ **Iniciar servicios de infraestructura**
+> ▶️ **Compilar los proyectos**
+<br>📄 Edite `./parameters/01_projects-to-compile.csv` con los proyectos que desea compilar
+<br>
 > ```shell script 
-> ./02_start_infra_services.bat
+> cd ./shell-scripts
+> ./01_compile_projects.sh
 > ```
 
 > ▶️ **Iniciar servidores (Kafka, Redis, PostgreSQL, MySQL)**
+<br>📄 Edite `./parameters/02_servers-to-start.csv` con los servidores que desea iniciar
 > ```shell script 
-> ./03_start_servers.bat
+> cd ./shell-scripts
+> ./02_start_servers.sh
 > ```
 
-> 🔧 **Crear bases de datos**
+> ▶️ **Crear bases de datos**
 > ```shell script 
-> ./04_create_databases.bat
+> cd ./shell-scripts
+> ./03_create_database.sh
 > ```
 
-> ▶️ **Iniciar servicios de negocio**
+> ▶️ **Iniciar servicios**
+<br>📄 Edite `./parameters/04_services-to-start.csv` con los servicios que desea iniciar
 > ```shell script 
-> ./05_start_business_services.bat
+> cd ./shell-scripts
+> ./04_start_services.sh
 > ```

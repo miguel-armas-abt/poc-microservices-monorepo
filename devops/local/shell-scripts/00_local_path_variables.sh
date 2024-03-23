@@ -37,7 +37,7 @@ MYSQL_COMMAND="$MYSQL_PATH/mysql -u root -p$MYSQL_ROOT_PASSWORD"
 BBQ_PATH="C:/dev-workspace/bbq/bbq-monorepo"
 BUSINESS_PATH="$BBQ_PATH/application/backend/business"
 INFRASTRUCTURE_PATH="$BBQ_PATH/application/backend/infrastructure"
-LOG_FILE="./output.log"
+LOG_FILE="$BBQ_PATH/devops/local/output.log"
 
 # symbols
 CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
