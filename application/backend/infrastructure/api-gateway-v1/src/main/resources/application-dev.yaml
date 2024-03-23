@@ -1,4 +1,0 @@
-eureka:
-  instance:
-    preferIpAddress: false
-    hostname: api-gateway-v1 #to identify k8s service

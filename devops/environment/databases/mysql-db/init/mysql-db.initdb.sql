@@ -35,3 +35,10 @@ INSERT INTO db_menu_options.menu_options (description, category, product_code) V
 ('Jarra de maracuyá', 'DRINK', 'MENU0006'),
 ('Torta de chocolate', 'DESSERT', 'MENU0007'),
 ('Pie de manzana', 'DESSERT', 'MENU0008');
+CREATE DATABASE IF NOT EXISTS db_payments;
+CREATE TABLE IF NOT EXISTS db_payments.payments(
+    id bigint auto_increment primary key,
+    invoice_id bigint null,
+    payment_method varchar(255) null,
+    total_amount decimal(19, 2) null
+);

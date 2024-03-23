@@ -21,7 +21,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none #create-drop
     database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
       hibernate:

@@ -1,2 +1,0 @@
-CREATE USER bbq_user WITH PASSWORD 'qwerty';
-ALTER USER bbq_user WITH SUPERUSER;
