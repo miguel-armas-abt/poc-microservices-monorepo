@@ -18,6 +18,8 @@
 > - Editar las variables del archivo `./devops/local/00_local_path_variables.bat` de acuerdo a su espacio de trabajo.
 
 > 🔨 **Compilar los proyectos**
+<br>📄 Edite `./resources/01_projects-to-compile.csv` con los proyectos que desea compilar
+<br>💻 Utilice una shell compatible con Unix (PowerShell o Git bash)
 > ```shell script 
 > ./01_install_services.bat
 > ```

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source ./00_local_path_variables.sh
-SERVICES_CSV=./resources/03_services-to-start.csv
+SERVICES_CSV=./resources/04_services-to-start.csv
 
 echo "$(date +"%F %T"): Services execution script started" > "$LOG_FILE"
 
