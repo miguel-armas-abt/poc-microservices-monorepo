@@ -9,4 +9,4 @@ VOLUME /tmp
 ARG JAR_FILE="menu-v1-0.0.1-SNAPSHOT.jar"
 ADD target/${JAR_FILE} app.jar
 ENV JAVA_OPTS=""
-ENTRYPOINT [ "sh","-c","java $JAVA_OPTS -Dspring.profiles.active=dev -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
+ENTRYPOINT [ "sh","-c","java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]

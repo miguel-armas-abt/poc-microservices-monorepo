@@ -23,14 +23,13 @@ services:
     image: miguelarmasabt/menu:v1.0.1
     restart: always
     environment: 
-      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
+      - CONFIG_SERVER_DOMAIN=http://config-server-v1:8888
       - MYSQL_URL=jdbc:mysql://mysql-db:3306/db_menu_options?useUnicode=trueSERVICESuseJDBCCompliantTimezoneShift=trueSERVICESuseLegacyDatetimeCode=falseSERVICESserverTimezone=UTC
-      - PRODUCT_V1_BASE_URL=http://product-v1:8017/bbq/business/product/v1/
+      - PRODUCT_BASE_URL=http://product-v1:8017/bbq/business/product/v1/
       - MYSQL_USERNAME=bbq_user
       - MYSQL_PASSWORD=qwerty
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
-      - registry-discovery-server-v1
       - config-server-v1
       - mysql-db
     
@@ -62,11 +61,10 @@ services:
     image: miguelarmasabt/table-placement:v1.0.1
     restart: always
     environment: 
-      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
+      - CONFIG_SERVER_DOMAIN=http://config-server-v1:8888
       - MONGODB_URL=mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
-      - registry-discovery-server-v1
       - config-server-v1
       - mongo-db
     
@@ -75,28 +73,13 @@ services:
     ports:
       - "8013:8013"
 
-  registry-discovery-server-v1:
-    container_name: registry-discovery-server-v1
-    image: miguelarmasabt/registry-discovery-server:v1.0.1
-    restart: always
-    environment: 
-      - JAVA_OPTS=-Xms256M -Xmx256M
-    
-    
-    networks:
-      - dev_environment
-    ports:
-      - "8761:8761"
-
   config-server-v1:
     container_name: config-server-v1
     image: miguelarmasabt/config-server:v1.0.1
     restart: always
     environment: 
-      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
       - JAVA_OPTS=-Xms256M -Xmx256M
-    depends_on:
-      - registry-discovery-server-v1
+    
     
     networks:
       - dev_environment
@@ -108,11 +91,10 @@ services:
     image: miguelarmasabt/api-gateway:v1.0.1
     restart: always
     environment: 
-      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
-      - AUTH_ADAPTER=http://auth-adapter-v1:8011/bbq/infrastructure/v1/auth/
+      - AUTH_ADAPTER_URL=http://auth-adapter-v1:8011/bbq/infrastructure/v1/auth/
+      - ORDER_HUB_DOMAIN=http://order-hub-v1:8018
       - JAVA_OPTS=-Xms256M -Xmx256M
-    depends_on:
-      - registry-discovery-server-v1
+    
     
     networks:
       - dev_environment
@@ -124,12 +106,10 @@ services:
     image: miguelarmasabt/auth-adapter:v1.0.1
     restart: always
     environment: 
-      - EUREKA_SERVER=http://registry-discovery-server-v1:8761/eureka/
       - KEYCLOACK_SERVER=http://keycloak-server:8080/auth/realms
       - KEYCLOACK_KEY_RS256=mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo
       - JAVA_OPTS=-Xms256M -Xmx256M
-    depends_on:
-      - registry-discovery-server-v1
+    
     
     networks:
       - dev_environment
@@ -150,6 +130,50 @@ services:
       - dev_environment
     ports:
       - "8091:8080"
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: always
+    environment: 
+      - DUMMY=dummy
+    
+    
+    networks:
+      - dev_environment
+    ports:
+      - "6379:6379"
+
+  kafka:
+    container_name: kafka
+    image: confluentinc/cp-kafka:latest
+    restart: always
+    environment: 
+      - KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka:9093,OUTSIDE://localhost:9092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      - KAFKA_LISTENERS=INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
+      - KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+    depends_on:
+      - zookeeper
+    
+    networks:
+      - dev_environment
+    ports:
+      - "9092:9092"
+
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:latest
+    restart: always
+    environment: 
+      - ZOOKEEPER_CLIENT_PORT=2181
+    
+    
+    networks:
+      - dev_environment
+    ports:
+      - "2181:2181"
 
   mysql-db:
     container_name: mysql-db

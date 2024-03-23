@@ -12,7 +12,6 @@
 
 > 🔨 **Construir imágenes**
 > ```shell script 
-> docker build -t miguelarmasabt/registry-discovery-server:v1.0.1 ./../../application/backend/infrastructure/registry-discovery-server-v1
 > docker build -t miguelarmasabt/config-server:v1.0.1 ./../../application/backend/infrastructure/config-server-v1
 > docker build -t miguelarmasabt/auth-adapter:v1.0.1 ./../../application/backend/infrastructure/auth-adapter-v1
 > docker build -t miguelarmasabt/api-gateway:v1.0.1 ./../../application/backend/infrastructure/api-gateway-v1
@@ -25,7 +24,8 @@
 > 🔧 **Crear docker-compose.yml**
 > <br>Utilice una shell compatible con Unix (PowerShell o Git bash)
 > ```shell script
-> ./shell-scripts/docker-compose-builder.sh
+> cd ./shell-scripts
+> ./docker-compose-builder.sh
 > ```
 
 > ▶️ **Iniciar orquestación**
