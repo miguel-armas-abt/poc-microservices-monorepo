@@ -67,6 +67,8 @@ while IFS=',' read -r SERVER_NAME || [ -n "$SERVER_NAME" ]; do
       fi
     fi
 
+    echo "$(date +"%F %T"): $EXECUTION_COMMAND" >> "$LOG_FILE"
+
     if [ "$port_in_use" == "false" ]; then
       cd "$SERVER_PATH" || exit
       eval start "$EXECUTION_COMMAND"

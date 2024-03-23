@@ -17,7 +17,7 @@ KAFKA_PORT="9092"
 ZOOKEEPER_PORT="2181"
 
 # specify your Redis config
-REDIS_PATH="C:/dev-environment/redis-3.2.100"
+REDIS_PATH="C:/dev-environment/redis/Redis-x64-3.0.504"
 REDIS_PORT="6379"
 
 # specify your PostgreSQL config

@@ -19,7 +19,7 @@
 > docker build -t miguelarmasabt/api-gateway:v1.0.1 ./../../application/backend/infrastructure/api-gateway-v1
 > Invoke-Expression ((minikube docker-env) -join "`n")
 > ```
-> - Instalar `ngrok`. [Revisar anexos](#configuracion-de-ngrok)
+> - Instalar `ngrok`. [Revisar anexo](#configuracion-de-ngrok)
 
 # 1. Iniciar Jenkins
 > 🔨 **Ejecutar contenedor de Jenkins**
@@ -119,7 +119,7 @@
 
 ---
 
-# Anexos
+# Anexo
 ## Configuracion de Ngrok
 Ngrok permite realizar port forward de una URL local hacia una URL pública.
 - Ingrese a https://ngrok.com/ y haga login
