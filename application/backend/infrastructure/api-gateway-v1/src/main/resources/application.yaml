@@ -6,11 +6,6 @@ logging:
     org.springframework.cloud.gateway: DEBUG
     reactor.netty.http.client: DEBUG
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
-
 spring:
   application:
     name: api-gateway-v1
@@ -18,9 +13,9 @@ spring:
     gateway:
       routes:
         - id: order-hub-v1
-          uri: lb://order-hub-v1
+          uri: ${ORDER_HUB_DOMAIN:http://localhost:8018}
           predicates:
-            - Path=/bbq/experience/order-hub/v1/**
+            - Path=/bbq/bff/order-hub/v1/**
             - Method=GET,POST,PUT,DELETE,PATCH
 #          filters:
 #            - name: AuthenticationFilter
@@ -28,15 +23,15 @@ spring:
 application:
   http-client:
     auth-adapter:
-      base-url: ${AUTH_ADAPTER:http://localhost:8011/bbq/infrastructure/v1/auth/}
+      base-url: ${AUTH_ADAPTER_URL:http://localhost:8011/bbq/infrastructure/v1/auth/}
   user-roles: '{0:"partners"}' #separate items with comma
 
-## actuator
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: '*' #gateway,info,health,metrics
-#  endpoint:
-#    health:
-#      show-details: always
+# actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' #gateway,info,health,metrics
+  endpoint:
+    health:
+      show-details: always

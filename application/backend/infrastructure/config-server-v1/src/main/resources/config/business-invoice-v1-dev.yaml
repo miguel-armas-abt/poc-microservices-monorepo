@@ -28,7 +28,7 @@ spring:
 application:
   http-client:
     product:
-      base-url: ${PRODUCT_V1_BASE_URL:http://localhost:8017/bbq/business/product/v1/}
+      base-url: ${PRODUCT_BASE_URL:http://localhost:8017/bbq/business/product/v1/}
 
 business:
   invoice:

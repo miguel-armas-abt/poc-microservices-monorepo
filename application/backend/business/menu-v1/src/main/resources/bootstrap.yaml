@@ -7,7 +7,7 @@ spring:
 
   cloud:
     config:
-      uri: ${CONFIG_SERVER:http://localhost:8888}
+      uri: ${CONFIG_SERVER_DOMAIN:http://localhost:8888}
       failFast: true
       name: business-menu-v1 #prefix, API name
       profile: dev #suffix, indicate the execution environment

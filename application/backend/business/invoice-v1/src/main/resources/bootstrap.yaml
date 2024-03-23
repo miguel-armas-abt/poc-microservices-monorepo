@@ -6,7 +6,7 @@ spring:
     name: invoice-v1
   cloud:
     config:
-      uri: ${CONFIG_SERVER:http://localhost:8888}
+      uri: ${CONFIG_SERVER_DOMAIN:http://localhost:8888}
       failFast: true
       name: business-invoice-v1 #prefix, name of API type
       profile: dev #sufix, indicate the execution environment
