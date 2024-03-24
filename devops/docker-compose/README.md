@@ -1,14 +1,7 @@
 # Despliegue con docker-compose
 
 > 📋 **Pre requisitos**
-> - Instalar e iniciar Docker.
-> - **Opcional**. Para aumentar los recursos asignados a Docker Desktop, cree un archivo `.wslconfig` en la ruta
-    > `C:\Users\<username>\`, agregue el siguiente contenido en dependencia de su entorno y reinicie Docker Desktop.
-> ```javascript
-> [wsl2]
-> memory=3072MB
-> processors=5
-> ```
+> - Instalar e iniciar Docker ([Revisar anexo](#anexo))
 
 > 🔨 **Construir imágenes**
 > ```shell script 
@@ -41,4 +34,17 @@
 > <br>Para eliminar la orquestación utilice `down -v` en lugar de `stop`
 > ```shell script 
 > docker-compose -f ./docker-compose.yml stop
+> ```
+
+---
+
+# Anexo
+
+> ### Docker Desktop
+> Para aumentar los recursos asignados a Docker Desktop, cree un archivo `.wslconfig` en la ruta
+> `C:\Users\<username>\`, agregue el siguiente contenido en dependencia de los recursos de su entorno y reinicie Docker Desktop.
+> ```javascript
+> [wsl2]
+> memory=3072MB
+> processors=5
 > ```

@@ -14,36 +14,6 @@ services:
     ports:
       - "8888:8888"
 
-  api-gateway-v1:
-    container_name: api-gateway-v1
-    image: miguelarmasabt/api-gateway:v1.0.1
-    restart: always
-    environment: 
-      - AUTH_ADAPTER_DOMAIN=auth-adapter-v1:8011
-      - ORDER_HUB_DOMAIN=order-hub-v1:8018
-      - JAVA_OPTS=-Xms256M -Xmx256M
-    
-    
-    networks:
-      - dev_environment
-    ports:
-      - "8010:8010"
-
-  auth-adapter-v1:
-    container_name: auth-adapter-v1
-    image: miguelarmasabt/auth-adapter:v1.0.1
-    restart: always
-    environment: 
-      - KEYCLOACK_DOMAIN=keycloak-server:8080
-      - KEYCLOACK_KEY_RS256=mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo
-      - JAVA_OPTS=-Xms256M -Xmx256M
-    
-    
-    networks:
-      - dev_environment
-    ports:
-      - "8011:8011"
-
   product-v1:
     container_name: product-v1
     image: miguelarmasabt/product:v1.0.1
@@ -61,68 +31,13 @@ services:
     ports:
       - "8017:8017"
 
-  menu-v1:
-    container_name: menu-v1
-    image: miguelarmasabt/menu:v1.0.1
-    restart: always
-    environment: 
-      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
-      - MYSQL_DOMAIN=mysql-db:3306
-      - MYSQL_USERNAME=bbq_user
-      - MYSQL_PASSWORD=qwerty
-      - PRODUCT_DOMAIN=product-v1:8017
-      - JAVA_OPTS=-Xms256M -Xmx256M
-    depends_on:
-      - config-server-v1
-      - mysql-db
-    
-    networks:
-      - dev_environment
-    ports:
-      - "8012:8012"
-
-  menu-v2:
-    container_name: menu-v2
-    image: miguelarmasabt/menu:v2.0.1
-    restart: always
-    environment: 
-      - MYSQL_DOMAIN=mysql-db:3306
-      - PRODUCT_DOMAIN=product-v1:8017
-      - MYSQL_USERNAME=bbq_user
-      - MYSQL_PASSWORD=qwerty
-      - JAVA_OPTS=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev
-    depends_on:
-      - mysql-db
-    
-    networks:
-      - dev_environment
-    ports:
-      - "8016:8016"
-
-  table-placement-v1:
-    container_name: table-placement-v1
-    image: miguelarmasabt/table-placement:v1.0.1
-    restart: always
-    environment: 
-      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
-      - MONGODB_URL=mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement
-      - JAVA_OPTS=-Xms256M -Xmx256M
-    depends_on:
-      - config-server-v1
-      - mongo-db
-    
-    networks:
-      - dev_environment
-    ports:
-      - "8013:8013"
-
   invoice-v1:
     container_name: invoice-v1
     image: miguelarmasabt/invoice:v1.0.1
     restart: always
     environment: 
       - CONFIG_SERVER_DOMAIN=config-server-v1:8888
-      - KAFKA_DOMAIN=kafka:9092
+      - KAFKA_DOMAIN=kafka-server:9093
       - POSTGRESQL_DOMAIN=postgres-db:5432
       - POSTGRESQL_USERNAME=bbq_user
       - POSTGRESQL_PASSWORD=qwerty
@@ -131,7 +46,7 @@ services:
     depends_on:
       - config-server-v1
       - postgres-db
-      - kafka
+      - kafka-server
     
     networks:
       - dev_environment
@@ -147,88 +62,39 @@ services:
       - MYSQL_DOMAIN=mysql-db:3306
       - MYSQL_USERNAME=bbq_user
       - MYSQL_PASSWORD=qwerty
-      - KAFKA_DOMAIN=kafka:9092
+      - KAFKA_DOMAIN=kafka-server:9093
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - config-server-v1
       - mysql-db
-      - kafka
+      - kafka-server
     
     networks:
       - dev_environment
     ports:
       - "8015:8015"
 
-  order-hub-v1:
-    container_name: order-hub-v1
-    image: miguelarmasabt/order-hub:v1.0.1
+  kafka-server:
+    container_name: kafka-server
+    image: confluentinc/cp-kafka:6.2.1
     restart: always
     environment: 
-      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
-      - MENU_V1_DOMAIN=menu-v1:8012
-      - MENU_V2_DOMAIN=menu-v2:8016
-      - TABLE_PLACEMENT_DOMAIN=table-placement-v1:8013
-      - INVOICE_DOMAIN=invoice-v1:8014
-      - REDIS_DOMAIN=redis
-      - JAVA_OPTS=-Xms256M -Xmx256M
-    depends_on:
-      - config-server-v1
-      - redis
-    
-    networks:
-      - dev_environment
-    ports:
-      - "8018:8018"
-
-  keycloak-server:
-    container_name: keycloak-server
-    image: jboss/keycloak:16.0.0
-    restart: always
-    environment: 
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
-      - DB_VENDOR=H2
-    
-    
-    networks:
-      - dev_environment
-    ports:
-      - "8091:8080"
-
-  redis:
-    container_name: redis
-    image: redis:latest
-    restart: always
-    environment: 
-      - DUMMY=dummy
-    
-    
-    networks:
-      - dev_environment
-    ports:
-      - "6379:6379"
-
-  kafka:
-    container_name: kafka
-    image: confluentinc/cp-kafka:latest
-    restart: always
-    environment: 
-      - KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka:9093,OUTSIDE://localhost:9092
+      - KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka-server:9093,OUTSIDE://localhost:9092
       - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       - KAFKA_LISTENERS=INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
       - KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper-server:2181
     depends_on:
-      - zookeeper
+      - zookeeper-server
     
     networks:
       - dev_environment
     ports:
       - "9092:9092"
 
-  zookeeper:
-    container_name: zookeeper
-    image: confluentinc/cp-zookeeper:latest
+  zookeeper-server:
+    container_name: zookeeper-server
+    image: confluentinc/cp-zookeeper:6.2.1
     restart: always
     environment: 
       - ZOOKEEPER_CLIENT_PORT=2181
@@ -271,23 +137,6 @@ services:
       - dev_environment
     ports:
       - "5432:5432"
-
-  mongo-db:
-    container_name: mongo-db
-    image: mongo:latest
-    restart: always
-    environment: 
-      - MONGO_INITDB_ROOT_USERNAME=bbq-user
-      - MONGO_INITDB_ROOT_PASSWORD=qwerty
-      - MONGO_INITDB_DATABASE=tablePlacement
-    
-    volumes:
-      - ./../environment/databases/mongo-db/init:/docker-entrypoint-initdb.d
-      - ./../environment/databases/mongo-db/data:/data/db
-    networks:
-      - dev_environment
-    ports:
-      - "27017:27017"
 
 
 networks:
