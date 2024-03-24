@@ -1,0 +1,186 @@
+openapi: 3.0.1
+info:
+  title: table-placement-v1
+  description: |
+    Servicio web de propósito general, responsable de agregar pedidos en cada mesa y consultarlos.
+  version: v1
+servers:
+  - url: http://localhost:8013/bbq/business/table-placement/v1
+paths:
+  /table-orders:
+    patch:
+      summary: Agrega pedidos a una mesa.
+      operationId: generateTableOrder
+      tags:
+        - table-orders
+      parameters:
+        - $ref: '#/components/parameters/HeaderTraceId'
+        - $ref: '#/components/parameters/QueryParamTableNumber'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/MenuOrderRequest'
+      responses:
+        201:
+          description: Respuesta exitosa
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+
+    get:
+      summary: Obtiene los pedidos de una mesa.
+      operationId: findByTableNumber
+      tags:
+        - table-orders
+      parameters:
+        - $ref: '#/components/parameters/HeaderTraceId'
+        - $ref: '#/components/parameters/QueryParamTableNumber'
+      responses:
+        200:
+          description: Respuesta exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TablePlacementResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+
+    delete:
+      summary: Elimina todos los pedidos asignados a una mesa.
+      operationId: cleanTable
+      tags:
+        - table-orders
+      parameters:
+        - $ref: '#/components/parameters/HeaderTraceId'
+        - $ref: '#/components/parameters/QueryParamTableNumber'
+      responses:
+        200:
+          description: Respuesta exitosa
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+
+  /tables:
+    post:
+      summary: Crea una nueva mesa.
+      operationId: createTable
+      tags:
+        - tables
+      parameters:
+        - $ref: '#/components/parameters/HeaderTraceId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/TableRegistrationRequest'
+      responses:
+        201:
+          description: Respuesta exitosa
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+
+components:
+
+  parameters:
+    HeaderTraceId:
+      in: header
+      name: trace-id
+      description: Identificador único de la petición.
+      schema:
+        type: string
+        example: 3f2504e0-4f89-11e9-9107-d9e11d295109
+      required: true
+
+    QueryParamTableNumber:
+      in: query
+      name: tableNumber
+      description: Número de mesa.
+      schema:
+        type: integer
+        minimum: 1
+        example: 1
+      required: true
+
+  schemas:
+    MenuOrderRequest:
+      type: object
+      properties:
+        quantity:
+          type: number
+          description: Número de unidades del producto solicitado.
+          example: 2
+        productCode:
+          type: string
+          description: Código del producto.
+          example: MENU0005
+
+    TablePlacementResponse:
+      type: object
+      properties:
+        menuOrderList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuOrderResponse'
+        tableNumber:
+          type: number
+          description: Número de mesa.
+          example: 2
+
+    MenuOrderResponse:
+      type: object
+      properties:
+        productCode:
+          type: string
+          description: Código del producto.
+          example: MENU0005
+        quantity:
+          type: number
+          description: Número de unidades del producto solicitado.
+          example: 2
+
+    TableRegistrationRequest:
+      type: object
+      properties:
+        tableNumber:
+          type: number
+          description: Número de mesa.
+          example: 2
+        capacity:
+          type: number
+          description: Capacidad de usuarios que admite la mesa.
+          example: 4
+
+    ApiException:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Tipo de error
+          example: /errors/no-data
+        code:
+          type: string
+          description: Código de error
+          example: Default
+        message:
+          type: string
+          description: Mensaje de error
+          example: Product not found

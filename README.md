@@ -14,36 +14,24 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
 - Delivery
 
 > 📝 Atención en el comedor
-
-| Mesero                                                | Chef de cocina                                                |
-|-------------------------------------------------------|---------------------------------------------------------------|
-| El mesero toma el pedido en el comedor                | El chef de cocina prepara un pedido                           |
-| El mesero notifica al chef de cocina del nuevo pedido | El chef de cocina notifica al mesero que el pedido está listo |
-| El mesero entrega el pedido en el comedor             | -                                                             |
-| El mesero cobra el pago de un pedido en el comedor    | -                                                             |
+>
+![Proceso de atención en el restaurante](./docs/diagrams/restaurant-process.jpg)
 
 > 📝 Reserva en línea
 
-| Cliente en línea                     | Anfitrión                                                         |
-|--------------------------------------|-------------------------------------------------------------------|
-| El cliente en línea hace una reserva | El anfitrión verifica la reserva y asienta al cliente con reserva |
+![Proceso de reserva](./docs/diagrams/reservation-process.jpg)
 
-El proceso continúa con la atención en el comedor.
 
 > 📝 Delivery
 
-| Cliente en línea                                          | Chef de cocina                                                               | Conductor de delivery                           |
-|-----------------------------------------------------------|------------------------------------------------------------------------------|-------------------------------------------------|
-| El cliente en línea agrega elementos del menú a un pedido | El chef de cocina es notificado de un pedido para delivery                   | El conductor recoge un pedido en el restaurante |
-| El cliente en línea realiza el pago de un pedido          | El chef de cocina prepara un pedido                                          | El conductor entrega un pedido al cliente       |
-| -                                                         | El chef de cocina notifica al conductor de delivery que el pedido está listo | -                                               |
+![Proceso de delivery](./docs/diagrams/delivery-process.jpg)
 
 # 2. Disenio del software
 > 📌 **Glosario**
 > - **Dominio**: Área de conocimiento (conceptos, reglas, requisitos) que el software está destinado a abordar. Por lo general, cada `servicio web` aborda un `dominio` específico.
 
 ## 2.1. Arquitectura de software
-![Texto alternativo](./docs/diagrams/software-architecture.jpg)
+![Arquitectura de software](./docs/diagrams/software-architecture.jpg)
 
 | Servicio web                   | Descripción                                                                                                                   | Puerto | Stack                                                         |   
 |--------------------------------|-------------------------------------------------------------------------------------------------------------------------------|--------|---------------------------------------------------------------|

@@ -1,0 +1,179 @@
+openapi: 3.0.1
+info:
+  title: invoice-v1
+  description: |
+    Servicio web de propósito general, responsable de generar una factura de proforma y enviarla a pagar.
+  version: v1
+servers:
+  - url: http://localhost:8014/bbq/business/invoice/v1
+paths:
+  /proformas:
+    post:
+      summary: Genera una proforma de acuerdo a los productos solicitados.
+      operationId: generateProforma
+      parameters:
+        - $ref: '#/components/parameters/HeaderTraceId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductRequest'
+      responses:
+        200:
+          description: Respuesta exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProformaInvoiceResponse'
+
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+
+  /payments:
+    post:
+      summary: Envía a pagar los productos solicitados.
+      operationId: sendToPay
+      parameters:
+        - $ref: '#/components/parameters/HeaderTraceId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        200:
+          description: Respuesta exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProformaInvoiceResponse'
+
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+
+components:
+
+  parameters:
+    HeaderTraceId:
+      in: header
+      name: trace-id
+      description: Identificador único de la petición.
+      schema:
+        type: string
+        example: 3f2504e0-4f89-11e9-9107-d9e11d295109
+      required: true
+
+  schemas:
+    ProductRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Descripción del producto.
+          example: Alitas de pollo BBQ
+        quantity:
+          type: number
+          description: Número de unidades del producto solicitado.
+          example: 2
+        productCode:
+          type: string
+          description: Código del producto.
+          example: MENU0005
+
+    ProformaInvoiceResponse:
+      type: object
+      properties:
+        productList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductResponse'
+        subtotal:
+          type: number
+          description: Monto subtotal de la venta.
+          example: 127.730
+        igv:
+          type: number
+          description: Impuesto general a la venta.
+          example: 0.18
+        total:
+          type: number
+          description: Monto total de la venta, aplicado IGV.
+          example: 150.72140
+
+    ProductResponse:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Descripción del producto.
+          example: Alitas de pollo BBQ
+        quantity:
+          type: number
+          description: Número de unidades del producto solicitado.
+          example: 1
+        unitPrice:
+          type: number
+          description: Precio unitario del producto.
+          example: 39.9
+        subtotal:
+          type: number
+          description: Monto subtotal por la cantidad de productos del mismo tipo.
+          example: 39.9
+
+    PaymentRequest:
+      type: object
+      properties:
+        productList:
+          $ref: '#/components/schemas/ProductRequest'
+        customer:
+          $ref: '#/components/schemas/Customer'
+        payment:
+          $ref: '#/components/schemas/Payment'
+
+    Customer:
+      type: object
+      properties:
+        documentType:
+          type: string
+          description: Tipo de documento del cliente (DNI o PASSPORT).
+          example: DNI
+        documentNumber:
+          type: string
+          description: Número de documento del cliente.
+          example: 76510938
+
+    Payment:
+      type: object
+      properties:
+        method:
+          type: string
+          description: Tipo de método de pago.
+          example: DEBITO
+
+    ApiException:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Tipo de error
+          example: /errors/no-data
+        code:
+          type: string
+          description: Código de error
+          example: Default
+        message:
+          type: string
+          description: Mensaje de error
+          example: Product not found
