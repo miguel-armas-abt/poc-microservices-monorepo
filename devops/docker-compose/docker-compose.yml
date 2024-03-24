@@ -1,6 +1,49 @@
 version: '3.1'
 
 services:
+  config-server-v1:
+    container_name: config-server-v1
+    image: miguelarmasabt/config-server:v1.0.1
+    restart: always
+    environment: 
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    
+    
+    networks:
+      - dev_environment
+    ports:
+      - "8888:8888"
+
+  api-gateway-v1:
+    container_name: api-gateway-v1
+    image: miguelarmasabt/api-gateway:v1.0.1
+    restart: always
+    environment: 
+      - AUTH_ADAPTER_DOMAIN=auth-adapter-v1:8011
+      - ORDER_HUB_DOMAIN=order-hub-v1:8018
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    
+    
+    networks:
+      - dev_environment
+    ports:
+      - "8010:8010"
+
+  auth-adapter-v1:
+    container_name: auth-adapter-v1
+    image: miguelarmasabt/auth-adapter:v1.0.1
+    restart: always
+    environment: 
+      - KEYCLOACK_DOMAIN=keycloak-server:8080
+      - KEYCLOACK_KEY_RS256=mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    
+    
+    networks:
+      - dev_environment
+    ports:
+      - "8011:8011"
+
   product-v1:
     container_name: product-v1
     image: miguelarmasabt/product:v1.0.1
@@ -23,11 +66,11 @@ services:
     image: miguelarmasabt/menu:v1.0.1
     restart: always
     environment: 
-      - CONFIG_SERVER_DOMAIN=http://config-server-v1:8888
-      - MYSQL_URL=jdbc:mysql://mysql-db:3306/db_menu_options?useUnicode=trueSERVICESuseJDBCCompliantTimezoneShift=trueSERVICESuseLegacyDatetimeCode=falseSERVICESserverTimezone=UTC
-      - PRODUCT_BASE_URL=http://product-v1:8017/bbq/business/product/v1/
+      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
+      - MYSQL_DOMAIN=mysql-db:3306
       - MYSQL_USERNAME=bbq_user
       - MYSQL_PASSWORD=qwerty
+      - PRODUCT_DOMAIN=product-v1:8017
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - config-server-v1
@@ -43,8 +86,8 @@ services:
     image: miguelarmasabt/menu:v2.0.1
     restart: always
     environment: 
-      - MYSQL_URL=mysql://mysql-db:3306/db_menu_options
-      - PRODUCT_V1_BASE_URL=http://product-v1:8017/bbq/business/product/v1
+      - MYSQL_DOMAIN=mysql-db:3306
+      - PRODUCT_DOMAIN=product-v1:8017
       - MYSQL_USERNAME=bbq_user
       - MYSQL_PASSWORD=qwerty
       - JAVA_OPTS=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev
@@ -61,7 +104,7 @@ services:
     image: miguelarmasabt/table-placement:v1.0.1
     restart: always
     environment: 
-      - CONFIG_SERVER_DOMAIN=http://config-server-v1:8888
+      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
       - MONGODB_URL=mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
@@ -73,48 +116,69 @@ services:
     ports:
       - "8013:8013"
 
-  config-server-v1:
-    container_name: config-server-v1
-    image: miguelarmasabt/config-server:v1.0.1
+  invoice-v1:
+    container_name: invoice-v1
+    image: miguelarmasabt/invoice:v1.0.1
     restart: always
     environment: 
+      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
+      - KAFKA_DOMAIN=kafka:9092
+      - POSTGRESQL_DOMAIN=postgres-db:5432
+      - POSTGRESQL_USERNAME=bbq_user
+      - POSTGRESQL_PASSWORD=qwerty
+      - PRODUCT_DOMAIN=product-v1:8017
       - JAVA_OPTS=-Xms256M -Xmx256M
-    
+    depends_on:
+      - config-server-v1
+      - postgres-db
+      - kafka
     
     networks:
       - dev_environment
     ports:
-      - "8888:8888"
+      - "8014:8014"
 
-  api-gateway-v1:
-    container_name: api-gateway-v1
-    image: miguelarmasabt/api-gateway:v1.0.1
+  payment-v1:
+    container_name: payment-v1
+    image: miguelarmasabt/payment:v1.0.1
     restart: always
     environment: 
-      - AUTH_ADAPTER_URL=http://auth-adapter-v1:8011/bbq/infrastructure/v1/auth/
-      - ORDER_HUB_DOMAIN=http://order-hub-v1:8018
+      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
+      - MYSQL_DOMAIN=mysql-db:3306
+      - MYSQL_USERNAME=bbq_user
+      - MYSQL_PASSWORD=qwerty
+      - KAFKA_DOMAIN=kafka:9092
       - JAVA_OPTS=-Xms256M -Xmx256M
-    
+    depends_on:
+      - config-server-v1
+      - mysql-db
+      - kafka
     
     networks:
       - dev_environment
     ports:
-      - "8010:8010"
+      - "8015:8015"
 
-  auth-adapter-v1:
-    container_name: auth-adapter-v1
-    image: miguelarmasabt/auth-adapter:v1.0.1
+  order-hub-v1:
+    container_name: order-hub-v1
+    image: miguelarmasabt/order-hub:v1.0.1
     restart: always
     environment: 
-      - KEYCLOACK_SERVER=http://keycloak-server:8080/auth/realms
-      - KEYCLOACK_KEY_RS256=mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo
+      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
+      - MENU_V1_DOMAIN=menu-v1:8012
+      - MENU_V2_DOMAIN=menu-v2:8016
+      - TABLE_PLACEMENT_DOMAIN=table-placement-v1:8013
+      - INVOICE_DOMAIN=invoice-v1:8014
+      - REDIS_DOMAIN=redis
       - JAVA_OPTS=-Xms256M -Xmx256M
-    
+    depends_on:
+      - config-server-v1
+      - redis
     
     networks:
       - dev_environment
     ports:
-      - "8011:8011"
+      - "8018:8018"
 
   keycloak-server:
     container_name: keycloak-server
@@ -190,6 +254,23 @@ services:
       - dev_environment
     ports:
       - "3306:3306"
+
+  postgres-db:
+    container_name: postgres-db
+    image: postgres:latest
+    restart: always
+    environment: 
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qwerty
+    
+    volumes:
+      - ./../environment/databases/postgres-db/init:/docker-entrypoint-initdb.d
+      - ./../environment/databases/postgres-db/data:/data/db
+    networks:
+      - dev_environment
+    ports:
+      - "5432:5432"
 
   mongo-db:
     container_name: mongo-db

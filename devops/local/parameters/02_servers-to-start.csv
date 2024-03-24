@@ -1,6 +1,6 @@
 SERVER_NAME
-kafka
-zookeeper
+#kafka
+#zookeeper
 #redis
 #postgres-db
-#mysql-db
+mysql-db

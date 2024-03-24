@@ -13,7 +13,7 @@ spring:
     gateway:
       routes:
         - id: order-hub-v1
-          uri: ${ORDER_HUB_DOMAIN:http://localhost:8018}
+          uri: http://${ORDER_HUB_DOMAIN:localhost:8018}
           predicates:
             - Path=/bbq/bff/order-hub/v1/**
             - Method=GET,POST,PUT,DELETE,PATCH
@@ -23,7 +23,7 @@ spring:
 application:
   http-client:
     auth-adapter:
-      base-url: ${AUTH_ADAPTER_URL:http://localhost:8011/bbq/infrastructure/v1/auth/}
+      base-url: http://${AUTH_ADAPTER_DOMAIN:localhost:8011}/bbq/infrastructure/v1/auth/
   user-roles: '{0:"partners"}' #separate items with comma
 
 # actuator

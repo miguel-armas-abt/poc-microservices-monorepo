@@ -2,14 +2,14 @@ application:
   http-client:
     menu:
       v1:
-        base-url: ${MENU_V1_URL:http://localhost:8012/bbq/business/menu/v1/}
+        base-url: http://${MENU_V1_DOMAIN:localhost:8012}/bbq/business/menu/v1/
       v2:
-        base-url: ${MENU_V2_URL:http://localhost:8016/bbq/business/menu/v2/}
+        base-url: http://${MENU_V2_DOMAIN:localhost:8016}/bbq/business/menu/v2/
       selector-class: com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.connector.menuv1.retrofit.MenuV1ApiConnectorRetrofitImpl
     table-placement:
-      base-url: ${TABLE_PLACEMENT_URL:http://localhost:8013/bbq/business/table-placement/v1/}
+      base-url: http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/bbq/business/table-placement/v1/
     invoice:
-      base-url: ${INVOICE_URL:http://localhost:8014/bbq/business/invoice/v1/}
+      base-url: http://${INVOICE_DOMAIN:localhost:8014}/bbq/business/invoice/v1/
 
 spring:
   cache:

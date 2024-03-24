@@ -1,7 +1,7 @@
 # Despliegue local
 
 > 📋 **Pre requisitos**
-> - Instalar las siguientes tecnologías (Revisar anexo):
+> - Instalar las siguientes tecnologías ([Revisar anexo](#anexo)):
 >   - Java 11+
 >   - GO 1.21+
 >   - Kafka & Zookeeper

@@ -12,7 +12,7 @@ spring:
         format_sql: true
 
   datasource:
-    url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/db_menu_options?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
+    url: jdbc:mysql://${MYSQL_DOMAIN:127.0.0.1:3306}/db_menu_options?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     driverClassName: com.mysql.cj.jdbc.Driver
     username: ${MYSQL_USERNAME:bbq_user}
     password: ${MYSQL_PASSWORD:qwerty}
@@ -20,4 +20,4 @@ spring:
 application:
   http-client:
     product:
-      base-url: ${PRODUCT_BASE_URL:http://localhost:8017/bbq/business/product/v1/}
+      base-url: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/

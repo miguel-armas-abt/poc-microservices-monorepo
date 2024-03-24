@@ -6,7 +6,7 @@ spring:
     name: payment-v1
   cloud:
     config:
-      uri: ${CONFIG_SERVER_DOMAIN:http://localhost:8888}
+      uri: http://${CONFIG_SERVER_DOMAIN:localhost:8888}
       failFast: true
       name: business-payment-v1 #prefix, name of API type
       profile: dev #sufix, indicate the execution environment

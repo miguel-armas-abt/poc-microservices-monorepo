@@ -22,7 +22,7 @@ public class DroolFileGeneratorApplication {
 
     DroolFileGeneratorApplication xlsToDrlUtil = new DroolFileGeneratorApplication();
 
-    xlsToDrlUtil.getDLR("C:\\dev-workspace\\bbq\\bbq-monorepo\\services\\business-services\\invoice-v1\\src\\main\\resources\\rules\\",
+    xlsToDrlUtil.getDLR("C:\\dev-workspace\\bbq\\bbq-monorepo\\application\\backend\\business\\invoice-v1\\src\\main\\resources\\rules\\",
         "discount_rules");
   }
   public  void getDLR(String basePath, String nameRule) {

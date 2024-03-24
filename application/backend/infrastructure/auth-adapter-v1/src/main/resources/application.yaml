@@ -6,8 +6,8 @@ spring:
     name: auth-adapter-v1
 
 keycloak:
-  server: ${KEYCLOACK_SERVER:http://localhost:8091}
-  base-uri: ${keycloak.server}/auth/realms/bbq-management/protocol/openid-connect/
+  server: http://${KEYCLOACK_DOMAIN:localhost:8091}/auth/realms
+  base-uri: ${keycloak.server}/bbq-management/protocol/openid-connect/
   authorization-uri: ${keycloak.base-uri}auth
   jwk-set-uri: ${keycloak.base-uri}certs
   certs-id: ${KEYCLOACK_KEY_RS256:QFCHD-SBU98gPppoKWA0q8wxDAMDMyf3EMUevfExOT4}
