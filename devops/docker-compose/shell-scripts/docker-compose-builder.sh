@@ -2,9 +2,9 @@
 
 CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
 
-PARAMETERS_CSV=./resources/docker-compose-parameters.csv
-DOCKER_COMPOSE_TEMPLATE=./resources/templates/docker-compose.template.yml
-SERVICE_TEMPLATE=./resources/templates/service.template.yml
+PARAMETERS_CSV=./../parameters/docker-compose-parameters.csv
+DOCKER_COMPOSE_TEMPLATE=./templates/docker-compose.template.yml
+SERVICE_TEMPLATE=./templates/service.template.yml
 VARIABLES_PATH=./../../environment
 
 docker_compose_template=$(<"$DOCKER_COMPOSE_TEMPLATE")
