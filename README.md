@@ -6,12 +6,10 @@
 - [4. Despliegue](#4-despliegue)
 
 # 1. Caso de estudio
-BBQ Restaurant es una cadena global de restaurantes que planea implementar de arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
+BBQ Restaurant es una cadena global de restaurantes que planea implementar una arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
 
 Los expertos en el dominio "restaurante" utilizan los siguientes procesos para prestar servicios a sus clientes.
-- Atención en el comedor
-- Reserva en línea
-- Delivery
+
 
 > 📝 Atención en el comedor
 >
@@ -64,13 +62,7 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
     application-name
     │───`infrastructure` // Receives the requests and handles the implementation details
     │   ├───rest
-    │   │   ├───_ContextName_RestService.java // RestController or RouterFunction implementation
-    │   │   └───_ContextName_Handler.java // Converts ServerRequest and ServerResponse to DTO
-    │   ├───graphql
-    │   │   └───_ContextName_GraphQLService.java
-    │   ├───event
-    │   │   ├───_EventName_Consumer.java
-    │   │   └───_EventName_Producer.java
+    │   │   └───_ContextName_RestService.java // RestController or RouterFunction implementation
     │   └───exception.handler
     │       └───ApiExceptionHandler.java // Intercepts exceptions to show in HTTP response
     ├───`application` // Contributes with the domain logic and application logic
@@ -88,24 +80,26 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
     │   │           └───_ContextName_Response.java
     │   ├───enums
     │   │   └───_EnumName_Enum.java
-    │   ├───exception
-    │   │   └───_ApplicationName_Exception.java // Application specific exceptions
-    │   └───aspect
-    │       └───_cross-cutting-concern_
-    │           └───_CrossCuttingConcern_Aspect.java // Cross-cutting concern aspect
+    │   ├───aspect
+    │   │   └───_cross-cutting-concern_
+    │   │       └───_CrossCuttingConcern_Aspect.java // Cross-cutting concern aspect
+    │   ├───event
+    │   │   ├───_EventName_Consumer.java
+    │   │   └───_EventName_Producer.java
     └───`domain` // Handles the domain data
+        ├───exception
+        │   └───_ApplicationName_Exception.java // Application specific exceptions
         └───repository
             └───data-model-name
                 ├───_DataModelName_Repository.java
                 └───(entity | document | request | response)
                       └───_DataModelName_(Entity | Document | RequestWrapper | ResponseWrapper).java
 ```
-> ✅ **Ventajas**: 
->   - Define una clara separación de responsabilidades. 
->   - Facilita a los desarrolladores seguir los principios de Inversión de dependencias y clean architecture. "Un componente de una capa inferior no debe llamar a uno de una capa superior".
->
-> ⚠️ **Desventajas**:
->   - En arquitecturas de microservicios, donde los servicios web tienden a ser menos complejos, esta estructura de paquetes podría introducir una complejidad adicional.
+✅ **Ventajas**: 
+<br>Define una clara separación de responsabilidades y facilita que los desarrolladores sigan los principios de Inversión de dependencias y clean architecture. "Un componente de una capa inferior no debe llamar a uno de una capa superior".
+
+⚠️ **Desventajas**:
+<br>Considerando que los servicios web tienden a ser menos complejos en las arquitecturas de microservicios, esta capa adicional podría introducir una complejidad adicional.
 
 # 3. Gestion del repositorio
 
