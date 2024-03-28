@@ -31,16 +31,12 @@ while IFS=',' read -r APP_NAME IMAGE PORT SUB_PATH_INIT_DB CLUSTER_IP NODE_PORT 
     MOUNT_PATH_INIT_DB=/docker-entrypoint-initdb.d/$SUB_PATH_INIT_DB
     HOST_MOUNT_PATH=\"/mnt/data/\"
 
-    ./shell-scripts/controller-builder.sh "$APP_NAME" "$PORT" "$IMAGE" null "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" "$REPLICA_COUNT" true "$MOUNT_PATH_DATA" "$MOUNT_PATH_INIT_DB" "$SUB_PATH_INIT_DB"
-    ./shell-scripts/persistent-builder.sh "$APP_NAME" $HOST_MOUNT_PATH "$PV_TEMPLATE" PV
-    ./shell-scripts/persistent-builder.sh "$APP_NAME" null "$PVC_TEMPLATE" PVC
-    ./shell-scripts/service-builder.sh "$APP_NAME" "$PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" "$CLUSTER_IP"
-    ./shell-scripts/config-map-builder.sh "$APP_NAME" "$INIT_DB_FILE" "$CONFIG_MAP_TEMPLATE" true "$SUB_PATH_INIT_DB"
-    ./shell-scripts/secret-builder.sh "$APP_NAME" "$ENV_FILE" "$SECRET_TEMPLATE"
+    ./builders/controller-builder.sh "$APP_NAME" "$PORT" "$IMAGE" null "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" "$REPLICA_COUNT" true "$MOUNT_PATH_DATA" "$MOUNT_PATH_INIT_DB" "$SUB_PATH_INIT_DB"
+    ./builders/persistent-builder.sh "$APP_NAME" $HOST_MOUNT_PATH "$PV_TEMPLATE" PV
+    ./builders/persistent-builder.sh "$APP_NAME" null "$PVC_TEMPLATE" PVC
+    ./builders/service-builder.sh "$APP_NAME" "$PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" "$CLUSTER_IP"
+    ./builders/config-map-builder.sh "$APP_NAME" "$INIT_DB_FILE" "$CONFIG_MAP_TEMPLATE" true "$SUB_PATH_INIT_DB"
+    ./builders/secret-builder.sh "$APP_NAME" "$ENV_FILE" "$SECRET_TEMPLATE"
   fi
 
-done < ./shell-scripts/databases/k8s-db-parameters.csv
-
-
-
-
+done < ./../parameters/k8s-db-parameters.csv

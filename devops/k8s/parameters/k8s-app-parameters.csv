@@ -4,5 +4,4 @@ config-server-v1,8888,30088,miguelarmasabt/config-server:v1.0.1,DEP,1
 menu-v1,8012,30012,miguelarmasabt/menu:v1.0.1,DEP,1
 menu-v2,8016,30016,miguelarmasabt/menu:v2.0.1,DEP,1
 product-v1,8017,30017,miguelarmasabt/product:v1.0.1,DEP,1
-registry-discovery-server-v1,8761,30061,miguelarmasabt/registry-discovery-server:v1.0.1,DEP,1
 table-placement-v1,8013,30013,miguelarmasabt/table-placement:v1.0.1,DEP,1

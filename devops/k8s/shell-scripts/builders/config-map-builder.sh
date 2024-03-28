@@ -14,7 +14,7 @@ IS_DATABASE=$4
 SUB_PATH_INIT_DB=$5
 
 # Replace occurrences
-template=$(<./shell-scripts/templates/$CONFIG_MAP_TEMPLATE)
+template=$(<./templates/$CONFIG_MAP_TEMPLATE)
 template="${template//APP_NAME/$APP_NAME}"
 
 if [ "$IS_DATABASE" = true ]; then
@@ -46,7 +46,7 @@ else
     done
 fi
 
-OUTPUT_DIR="./manifests/$APP_NAME"
+OUTPUT_DIR="./../manifests/$APP_NAME"
 OUTPUT_FILE="cm-$APP_NAME.yaml"
 
 if [ ! -d "$OUTPUT_DIR" ]; then

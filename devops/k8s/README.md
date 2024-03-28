@@ -28,6 +28,7 @@
 
 > 🔧 **Crear manifiestos**
 > ```shell script
+> cd ./shell-scripts
 > ./k8s-manifests-builder.sh
 > ```
 

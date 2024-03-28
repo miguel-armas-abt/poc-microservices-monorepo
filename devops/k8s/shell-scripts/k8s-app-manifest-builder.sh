@@ -22,9 +22,9 @@ while IFS=',' read -r APP_NAME PORT NODE_PORT IMAGE CONTROLLER_TYPE REPLICA_COUN
   # Ignore comments
   if [[ $APP_NAME != "#"* ]]; then
     DATA_FILE="$VARIABLES_PATH/$APP_NAME.env"
-    ./shell-scripts/config-map-builder.sh "$APP_NAME" "$DATA_FILE" "$CONFIG_MAP_TEMPLATE" false
-    ./shell-scripts/service-builder.sh "$APP_NAME" "$PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" null
-    ./shell-scripts/controller-builder.sh "$APP_NAME" "$PORT" "$IMAGE" "$DATA_FILE" "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" "$REPLICA_COUNT" false
+    ./builders/config-map-builder.sh "$APP_NAME" "$DATA_FILE" "$CONFIG_MAP_TEMPLATE" false
+    ./builders/service-builder.sh "$APP_NAME" "$PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" null
+    ./builders/controller-builder.sh "$APP_NAME" "$PORT" "$IMAGE" "$DATA_FILE" "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" "$REPLICA_COUNT" false
   fi
 
-done < ./shell-scripts/apps/k8s-app-parameters.csv
+done < ./../parameters/k8s-app-parameters.csv

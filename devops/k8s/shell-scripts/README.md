@@ -15,8 +15,8 @@ El proyecto cuenta con un script que automatiza la generación de manifiestos de
 > <br><br> Utilice `nano` para Unix
 > ```shell script 
 > #Windows
-> notepad ./apps/k8s-app-parameters.csv
-> notepad ./databases/k8s-db-parameters.csv
+> notepad ./../parameters/k8s-app-parameters.csv
+> notepad ./../parameters/databases/k8s-db-parameters.csv
 > ```
 >
 > 💡 **Notas**:
@@ -40,5 +40,5 @@ El proyecto cuenta con un script que automatiza la generación de manifiestos de
 
 > ▶️ **Crear Manifiestos de k8s**
 > ```shell script 
-> ./../k8s-manifests-builder.sh
+> ./k8s-manifests-builder.sh
 > ```
