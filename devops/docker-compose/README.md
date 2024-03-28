@@ -30,10 +30,10 @@
 > docker-compose -f ./docker-compose.yml up -d
 > ```
 
-> ⏸️️ **Detener orquestación**
-> <br>Para eliminar la orquestación utilice `down -v` en lugar de `stop`
+> ⏸️️ **Eliminar orquestación**
+> <br>Para detener la orquestación utilice `stop` en lugar de `down -v`
 > ```shell script 
-> docker-compose -f ./docker-compose.yml stop
+> docker-compose -f ./docker-compose.yml down -v
 > ```
 
 ---

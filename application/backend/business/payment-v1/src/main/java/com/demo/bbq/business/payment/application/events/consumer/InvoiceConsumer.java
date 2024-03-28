@@ -21,15 +21,13 @@ public class InvoiceConsumer {
 
   private final PaymentRepository paymentRepository;
   private final PaymentMapper paymentMapper;
-
   private final PaymentGatewayApi paymentGatewayApi;
-
   private final PaymentProducer paymentProducer;
 
   @KafkaListener(topics = "${kafka-broker.topic.invoice}")
   public void listen(Message<String> message) {
     String payload = message.getPayload();
-    log.info(payload);
+    log.info("listening message: " + payload);
     PaymentMessage payment = new Gson().fromJson(payload, PaymentMessage.class);
 
     if(paymentGatewayApi.process(PaymentGatewayRequest.builder().amount(payment.getTotalAmount()).clientCompany("BBQ").build()).getIsSuccessfulTransaction()) {

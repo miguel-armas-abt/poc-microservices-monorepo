@@ -16,7 +16,7 @@ spring:
     admin:
       properties:
         spring.kafka.admin.properties:
-          auto.create.topics.enable: false
+          auto.create.topics.enable: ${CREATE_TOPICS:false}
 
   jpa:
     show-sql: true

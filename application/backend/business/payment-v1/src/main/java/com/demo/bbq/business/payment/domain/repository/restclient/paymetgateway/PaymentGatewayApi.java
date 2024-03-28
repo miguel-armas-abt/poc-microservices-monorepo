@@ -12,14 +12,14 @@ import org.springframework.stereotype.Component;
 public class PaymentGatewayApi {
 
   public PaymentGatewayResponse process(PaymentGatewayRequest request) {
-    CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-      try {
-        TimeUnit.SECONDS.sleep(5);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    });
-    future.join();
+//    CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+//      try {
+//        TimeUnit.SECONDS.sleep(5);
+//      } catch (InterruptedException e) {
+//        e.printStackTrace();
+//      }
+//    });
+//    future.join();
     return PaymentGatewayResponse.builder()
         .isSuccessfulTransaction(Boolean.TRUE)
         .build();

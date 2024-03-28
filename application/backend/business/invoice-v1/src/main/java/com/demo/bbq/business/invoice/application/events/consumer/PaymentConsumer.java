@@ -21,7 +21,7 @@ public class PaymentConsumer {
   @KafkaListener(topics = "${kafka-broker.topic.payment}")
   public void listen(Message<String> message) {
     String payload = message.getPayload();
-    log.info(payload);
+    log.info("listening message: " + payload);
     PaidTransactionMessage paidTransaction = new Gson().fromJson(payload, PaidTransactionMessage.class);
 
     invoiceRepository.findById(paidTransaction.getInvoiceId())
