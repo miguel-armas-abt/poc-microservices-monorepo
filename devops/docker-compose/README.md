@@ -8,7 +8,7 @@
 
 > 🔨 **Construir imágenes**
 > ```shell script 
-> cd ./../environment/images
+> cd ./../environment/docker/shell-scripts
 > ./images-builder.sh
 > ```
 

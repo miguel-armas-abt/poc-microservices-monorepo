@@ -11,7 +11,7 @@
 > nuestra línea de comandos y sobre ella construiremos las imágenes en el clúster de Minikube.
 >
 > ```shell script 
-> cd ./../environment/images
+> cd ./../environment/docker/shell-scripts
 > eval $(minikube docker-env --shell bash)
 > ./images-builder.sh
 > ```

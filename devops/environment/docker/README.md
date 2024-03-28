@@ -19,5 +19,5 @@
 
 > ▶️ **Construir imágenes**
 > ```shell script 
-> ./images-builder.sh
+> ./shell-scripts/images-builder.sh
 > ```

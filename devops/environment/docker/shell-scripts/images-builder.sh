@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source ./../../local/parameters/00_local_path_variables.sh
-IMAGES_ENABLED_CSV=./images-to-build.csv
+source ./../../../local/parameters/00_local_path_variables.sh
+IMAGES_ENABLED_CSV=./../images-to-build.csv
 
 SERVICE_PATH=""
 firstline=true
@@ -19,9 +19,9 @@ while IFS=',' read -r APP_NAME TAG_VERSION TYPE DOCKERFILE_PATH || [ -n "$APP_NA
     APP_FOLDER=$APP_NAME-$VERSION
 
     if [[ "$TYPE" == "INF" ]]; then
-      SERVICE_PATH="./../../../$INF_PATH/$APP_FOLDER"
+      SERVICE_PATH="./../../../../$INF_PATH/$APP_FOLDER"
     elif [[ "$TYPE" == "BS" ]]; then
-      SERVICE_PATH="./../../../$BS_PATH/$APP_FOLDER"
+      SERVICE_PATH="./../../../../$BS_PATH/$APP_FOLDER"
     fi
 
     USER_PREFIX=miguelarmasabt
