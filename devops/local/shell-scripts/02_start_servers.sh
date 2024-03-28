@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./00_local_path_variables.sh
+source ./../parameters/00_local_path_variables.sh
 SERVERS_CSV=./../parameters/02_servers-to-start.csv
 
 echo "$(date +"%F %T"): Servers execution script started" > "$LOG_FILE"

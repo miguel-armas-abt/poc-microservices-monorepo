@@ -1,8 +1,8 @@
-# CREAR / ACTUALIZAR DOCKER COMPOSE
+# 1. Crear / Actualizar docker-compose.yml
 
 El proyecto cuenta con un script que automatiza la generación del docker compose.
 
-> ⚙️ **Actualizar las variables de entorno**
+> ⚙️ **Actualizar variables de entorno**
 > <br>Las variables de entorno y scripts de inicialización de BD para cada uno de los servicios están definidas en el siguiente directorio.
 > ```shell script 
 > cd ./../../environment
@@ -11,8 +11,8 @@ El proyecto cuenta con un script que automatiza la generación del docker compos
 > ⚙️ **Actualizar parámetros de Docker Compose**
 > <br>Los parámetros de configuración Docker Compose para cada uno de los servicios están definidos en el siguiente archivo `csv`.
 > ```shell script 
-> nano ./resources/docker-compose-parameters.csv #Linux
-> notepad ./resources/docker-compose-parameters.csv #Windows
+> nano ./../parameters/docker-compose-parameters.csv #Linux
+> notepad ./../parameters/docker-compose-parameters.csv #Windows
 > ```
 >
 > 💡 **Notas**:
@@ -29,4 +29,27 @@ El proyecto cuenta con un script que automatiza la generación del docker compos
 > <br>Utilice una shell compatible con Unix (PowerShell o Git bash)
 > ```shell script 
 > ./docker-compose-builder.sh
+> ```
+
+# 2. Construir imágenes
+
+> ⚙️ **Actualizar las imágenes que desea construir**
+> <br>Los parámetros para la construcción de imágenes están en el siguiente archivo `csv`.
+> ```shell script 
+> nano ./../../environment/images-to-build.csv #Linux
+> notepad ./../../environment/images-to-build.csv #Windows
+> ```
+>
+> 💡 **Notas**:
+> - Puede utilizar `#` para comentar las líneas que desea ignorar.
+> - El archivo `.csv` cuenta con las siguientes columnas.
+>   - `APP_NAME`: Nombre del servicio sin la versión.
+>   - `TAG_VERSION`: Tag de la imagen.
+>   - `TYPE`: Tipo de servicio (`BS` o `INF`).
+>   - `DOCKERFILE_PATH`: Ruta del Dockerfile. Si el archivo está en la raíz del proyecto utilizar `Default`.
+
+> ▶️ **Construir imágenes**
+> <br>Utilice una shell compatible con Unix (PowerShell o Git bash)
+> ```shell script 
+> ./images-builder.sh
 > ```

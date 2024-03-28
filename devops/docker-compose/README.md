@@ -5,16 +5,8 @@
 
 > 🔨 **Construir imágenes**
 > ```shell script 
-> docker build -t miguelarmasabt/config-server:v1.0.1 ./../../application/backend/infrastructure/config-server-v1
-> docker build -t miguelarmasabt/auth-adapter:v1.0.1 ./../../application/backend/infrastructure/auth-adapter-v1
-> docker build -t miguelarmasabt/api-gateway:v1.0.1 ./../../application/backend/infrastructure/api-gateway-v1
-> docker build -t miguelarmasabt/product:v1.0.1 ./../../application/backend/business/product-v1
-> docker build -t miguelarmasabt/menu:v1.0.1 ./../../application/backend/business/menu-v1
-> docker build -f ./../../application/backend/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./../../application/backend/business/menu-v2
-> docker build -t miguelarmasabt/table-placement:v1.0.1 ./../../application/backend/business/table-placement-v1
-> docker build -t miguelarmasabt/invoice:v1.0.1 ./../../application/backend/business/invoice-v1
-> docker build -t miguelarmasabt/payment:v1.0.1 ./../../application/backend/business/payment-v1
-> docker build -t miguelarmasabt/order-hub:v1.0.1 ./../../application/backend/business/order-hub-v1
+> cd ./shell-scripts
+> ./images-builder.sh
 > ```
 
 > 🔧 **Crear docker-compose.yml**

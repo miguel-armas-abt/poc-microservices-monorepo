@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./00_local_path_variables.sh
+source ./../parameters/00_local_path_variables.sh
 PROJECTS_CSV=./../parameters/01_projects-to-compile.csv
 
 echo "$(date +"%F %T"): Installation script started" > "$LOG_FILE"
