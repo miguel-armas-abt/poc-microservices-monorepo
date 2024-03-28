@@ -1,4 +1,6 @@
-# Despliegue local
+> 📌 Utilice una shell compatible con Unix (PowerShell o Git bash) para ejecutar scripts `.sh`
+
+# DESPLIEGUE LOCAL
 
 > 📋 **Pre requisitos**
 > - Instalar las siguientes tecnologías ([Revisar anexo](#anexo)):
@@ -10,8 +12,6 @@
 >   - PostgreSQL
 >   - Redis
 > - ⚙️ Editar las variables del archivo `./parameters/00_local_path_variables.sh` de acuerdo a su espacio de trabajo.
-
-💻 Utilice una shell compatible con Unix (PowerShell o Git bash) para ejecutar los siguientes comandos.
 
 > ▶️ **Compilar los proyectos**
 <br>📄 Edite `./parameters/01_projects-to-compile.csv` con los proyectos que desea compilar

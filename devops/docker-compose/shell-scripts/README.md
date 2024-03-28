@@ -1,6 +1,6 @@
-# 1. Crear / Actualizar docker-compose.yml
+> 📌 Utilice una shell compatible con Unix (PowerShell o Git bash) para ejecutar scripts `.sh`
 
-El proyecto cuenta con un script que automatiza la generación del docker compose.
+# 1. CREAR DOCKER-COMPOSE
 
 > ⚙️ **Actualizar variables de entorno**
 > <br>Las variables de entorno y scripts de inicialización de BD para cada uno de los servicios están definidas en el siguiente directorio.
@@ -26,12 +26,11 @@ El proyecto cuenta con un script que automatiza la generación del docker compos
 >   - `VOLUMES`: Volúmenes (separados por punto y coma `;`). Coloque `null` si es que no aplica.
 
 > ▶️ **Crear / Actualizar Docker Compose**
-> <br>Utilice una shell compatible con Unix (PowerShell o Git bash)
 > ```shell script 
 > ./docker-compose-builder.sh
 > ```
 
-# 2. Construir imágenes
+# 2. CONSTRUIR IMÁGENES
 
 > ⚙️ **Actualizar las imágenes que desea construir**
 > <br>Los parámetros para la construcción de imágenes están en el siguiente archivo `csv`.
@@ -49,7 +48,6 @@ El proyecto cuenta con un script que automatiza la generación del docker compos
 >   - `DOCKERFILE_PATH`: Ruta del Dockerfile. Si el archivo está en la raíz del proyecto utilizar `Default`.
 
 > ▶️ **Construir imágenes**
-> <br>Utilice una shell compatible con Unix (PowerShell o Git bash)
 > ```shell script 
 > ./images-builder.sh
 > ```

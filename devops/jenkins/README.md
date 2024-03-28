@@ -1,4 +1,6 @@
-# JENKINS
+> 📌 Utilice una shell compatible con Unix (PowerShell o Git bash) para ejecutar scripts `.sh`
+
+# Jenkins
 
 > 📋 **Pre requisitos**
 > - **Encender el clúster de Minikube**
@@ -93,7 +95,6 @@
 > - **Credentials**: `k8s-cluster-token`
 
 # 3. Crear Jenkinsfiles
-> - Utilice una shell compatible con Unix (PowerShell o Git bash)
 > - El script solicitará la URL pública k8s
 > ```shell script
 > ./shell-scripts/jenkinsfiles-builder.sh

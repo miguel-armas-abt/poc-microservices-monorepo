@@ -1,3 +1,5 @@
+> 📌 Utilice una shell compatible con Unix (PowerShell o Git bash) para ejecutar scripts `.sh`
+
 # CREAR MANIFIESTOS K8S
 
 El proyecto cuenta con un script que automatiza la generación de manifiestos de k8s.
@@ -40,7 +42,6 @@ El proyecto cuenta con un script que automatiza la generación de manifiestos de
 
 
 > ▶️ **Crear Manifiestos de k8s**
-> <br>Utilice una shell compatible con Unix (PowerShell o Git bash)
 > ```shell script 
 > ./../k8s-manifests-builder.sh
 > ```

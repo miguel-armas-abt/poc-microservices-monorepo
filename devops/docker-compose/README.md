@@ -1,4 +1,6 @@
-# Despliegue con docker-compose
+> 📌 Utilice una shell compatible con Unix (PowerShell o Git bash) para ejecutar scripts `.sh`
+
+# DESPLIEGUE CON DOCKER COMPOSE
 
 > 📋 **Pre requisitos**
 > - Instalar e iniciar Docker ([Revisar anexo](#anexo))
@@ -10,7 +12,6 @@
 > ```
 
 > 🔧 **Crear docker-compose.yml**
-> <br>Utilice una shell compatible con Unix (PowerShell o Git bash)
 > ```shell script
 > cd ./shell-scripts
 > ./docker-compose-builder.sh

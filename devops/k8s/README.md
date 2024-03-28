@@ -1,4 +1,6 @@
-# Despliegue con k8s
+> 📌 Utilice una shell compatible con Unix (PowerShell o Git bash) para ejecutar scripts `.sh`
+
+# DESPLIEGUE CON K8S
 
 > 📋 **Pre requisitos**
 > - Instalar Minikube y Kubectl.
@@ -34,7 +36,6 @@
 > ```
 
 > 🔧 **Crear manifiestos**
-> <br>Utilice una shell compatible con Unix (PowerShell o Git bash)
 > ```shell script
 > ./k8s-manifests-builder.sh
 > ```
