@@ -2,12 +2,13 @@
 
 # DESPLIEGUE CON DOCKER COMPOSE
 
-> 📋 **Pre requisitos**
-> - Instalar e iniciar Docker ([Revisar anexo](#anexo))
+> 📋 **Pre requisitos** ([Revisar anexo](#anexo))
+> - Instalar e iniciar Docker
+> - Compilar proyectos
 
 > 🔨 **Construir imágenes**
 > ```shell script 
-> cd ./shell-scripts
+> cd ./../environment/images
 > ./images-builder.sh
 > ```
 
@@ -34,10 +35,16 @@
 # Anexo
 
 > ### Docker Desktop
-> Para aumentar los recursos asignados a Docker Desktop, cree un archivo `.wslconfig` en la ruta
+> Para especificar los recursos asignados a Docker Desktop, cree un archivo `.wslconfig` en la ruta
 > `C:\Users\<username>\`, agregue el siguiente contenido en dependencia de los recursos de su entorno y reinicie Docker Desktop.
 > ```javascript
 > [wsl2]
 > memory=3072MB
 > processors=5
+> ```
+
+> ### Compilar proyectos
+> ```shell script 
+> cd ./../local/shell-scripts
+> ./01_compile_projects.sh
 > ```

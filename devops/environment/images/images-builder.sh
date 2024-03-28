@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source ./../../local/parameters/00_local_path_variables.sh
-IMAGES_ENABLED_CSV=./../../environment/images-to-build.csv
+IMAGES_ENABLED_CSV=./images-to-build.csv
 
 SERVICE_PATH=""
 firstline=true

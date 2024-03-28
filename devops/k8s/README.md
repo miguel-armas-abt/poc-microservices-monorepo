@@ -2,18 +2,9 @@
 
 # DESPLIEGUE CON K8S
 
-> 📋 **Pre requisitos**
-> - Instalar Minikube y Kubectl.
-> - Encender el clúster de Minikube. Puede especificar la cantidad de recursos con `--memory=2816 --cpus=4`
-> ```shell script
-> minikube start
-> docker context use default
-> ```
-> - 🔨 Compilar los proyectos
-> ```shell script 
-> ./01_install_services.bat
-> cd ./../local/
-> ```
+> 📋 **Pre requisitos** ([Revisar anexo](#anexo))
+> - Instalar Kubectl, Minikube e iniciar el clúster
+> - Compilar proyectos
 
 > 🔨 **Construir imágenes en Minikube**
 > <br>Las imágenes deben estar disponibles en el clúster de Minikube. Para ello estableceremos el Docker de Minikube en
@@ -82,3 +73,20 @@
 > kubectl delete -f ./manifests/table-placement-v1/ -n restaurant
 > ```
 
+---
+
+# Anexo
+
+> ### Minikube
+> - Para especificar los recursos asignados a Minukube, puede indicar `--memory=2816 --cpus=4` al iniciar el clúster de Minikube.
+> - Utilice el contexto default de Docker.
+> ```shell script
+> docker context use default
+> minikube start
+> ```
+
+> ### Compilar proyectos
+> ```shell script 
+> cd ./../local/shell-scripts
+> ./01_compile_projects.sh
+> ```

@@ -2,8 +2,8 @@
 
 # DESPLIEGUE LOCAL
 
-> 📋 **Pre requisitos**
-> - Instalar las siguientes tecnologías ([Revisar anexo](#anexo)):
+> 📋 **Pre requisitos** ([Revisar anexo](#anexo))
+> - Instalar las siguientes tecnologías:
 >   - Java 11+
 >   - GO 1.21+
 >   - Kafka & Zookeeper
@@ -11,7 +11,9 @@
 >   - MySQL
 >   - PostgreSQL
 >   - Redis
-> - ⚙️ Editar las variables del archivo `./parameters/00_local_path_variables.sh` de acuerdo a su espacio de trabajo.
+
+> ⚙️ **Configurar espacio de trabajo**
+> <br>📄Edite el archivo `./parameters/00_local_path_variables.sh` de acuerdo a su espacio de trabajo.
 
 > ▶️ **Compilar los proyectos**
 <br>📄 Edite `./parameters/01_projects-to-compile.csv` con los proyectos que desea compilar
