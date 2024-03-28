@@ -4,7 +4,7 @@
 
 > ⚙️ **Actualizar las imágenes que desea construir**
 > <br>Los parámetros para la construcción de imágenes están en el siguiente archivo `csv`.
-> <br><br> Utilice `nano` para Linux
+> <br><br> Utilice `nano` para Unix
 > ```shell script 
 > notepad ./images-to-build.csv #Windows
 > ```

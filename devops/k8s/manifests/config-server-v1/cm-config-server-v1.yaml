@@ -4,4 +4,3 @@ metadata:
   name: cm-config-server-v1
 data:
   java-opts: -Xms256M -Xmx256M
-  eureka-server: http://registry-discovery-server-v1:8761/eureka/

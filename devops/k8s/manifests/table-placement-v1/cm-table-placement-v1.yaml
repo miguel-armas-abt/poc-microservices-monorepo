@@ -4,5 +4,5 @@ metadata:
   name: cm-table-placement-v1
 data:
   mongodb-url: mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement
+  config-server-domain: config-server-v1:8888
   java-opts: -Xms256M -Xmx256M
-  eureka-server: http://registry-discovery-server-v1:8761/eureka/

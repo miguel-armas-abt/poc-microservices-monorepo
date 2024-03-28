@@ -12,7 +12,7 @@ El proyecto cuenta con un script que automatiza la generación de manifiestos de
 
 > ⚙️ **Actualizar parámetros de k8s**
 > <br>Los parámetros de configuración k8s para cada uno de los servicios están definidos en los siguientes archivos `csv`.
-> <br><br> Utilice `nano` para Linux
+> <br><br> Utilice `nano` para Unix
 > ```shell script 
 > #Windows
 > notepad ./apps/k8s-app-parameters.csv

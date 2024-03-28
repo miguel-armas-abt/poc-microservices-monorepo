@@ -5,7 +5,7 @@ metadata:
 data:
   mysql-username: bbq_user
   mysql-password: qwerty
-  product-v1-base-url: http://product-v1:8017/bbq/business/product/v1/
-  mysql-url: jdbc:mysql://mysql-db:3306/db_menu_options?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  product-domain: product-v1:8017
+  mysql-domain: mysql-db:3306
+  config-server-domain: config-server-v1:8888
   java-opts: -Xms256M -Xmx256M
-  eureka-server: http://registry-discovery-server-v1:8761/eureka/

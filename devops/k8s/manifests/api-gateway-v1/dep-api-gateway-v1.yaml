@@ -27,16 +27,16 @@ spec:
               memory: "640Mi"
               cpu: "1"
           env: 
-            - name: EUREKA_SERVER
+            - name: AUTH_ADAPTER_DOMAIN
               valueFrom:
                 configMapKeyRef:
                   name: cm-api-gateway-v1
-                  key: eureka-server
-            - name: AUTH_ADAPTER
+                  key: auth-adapter-domain
+            - name: ORDER_HUB_DOMAIN
               valueFrom:
                 configMapKeyRef:
                   name: cm-api-gateway-v1
-                  key: auth-adapter
+                  key: order-hub-domain
             - name: JAVA_OPTS
               valueFrom:
                 configMapKeyRef:

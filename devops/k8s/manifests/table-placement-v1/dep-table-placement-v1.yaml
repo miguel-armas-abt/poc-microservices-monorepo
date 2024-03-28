@@ -27,11 +27,11 @@ spec:
               memory: "640Mi"
               cpu: "1"
           env: 
-            - name: EUREKA_SERVER
+            - name: CONFIG_SERVER_DOMAIN
               valueFrom:
                 configMapKeyRef:
                   name: cm-table-placement-v1
-                  key: eureka-server
+                  key: config-server-domain
             - name: MONGODB_URL
               valueFrom:
                 configMapKeyRef:

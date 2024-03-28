@@ -27,16 +27,16 @@ spec:
               memory: "640Mi"
               cpu: "1"
           env: 
-            - name: MYSQL_URL
+            - name: MYSQL_DOMAIN
               valueFrom:
                 configMapKeyRef:
                   name: cm-menu-v2
-                  key: mysql-url
-            - name: PRODUCT_V1_BASE_URL
+                  key: mysql-domain
+            - name: PRODUCT_DOMAIN
               valueFrom:
                 configMapKeyRef:
                   name: cm-menu-v2
-                  key: product-v1-base-url
+                  key: product-domain
             - name: MYSQL_USERNAME
               valueFrom:
                 configMapKeyRef:

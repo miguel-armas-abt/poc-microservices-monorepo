@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: config-server-v1
+  name: registry-discovery-server-v1
 spec:
   replicas: 1
   
   selector:
     matchLabels:
-      app: config-server-v1
+      app: registry-discovery-server-v1
   template:
     metadata:
       labels:
-        app: config-server-v1
+        app: registry-discovery-server-v1
     spec:
       containers:
-        - name: config-server-v1
-          image: miguelarmasabt/config-server:v1.0.1
+        - name: registry-discovery-server-v1
+          image: miguelarmasabt/registry-discovery-server:v1.0.1
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8888
+            - containerPort: 8761
           resources:
             requests:
               memory: "256Mi"
@@ -27,8 +27,3 @@ spec:
               memory: "640Mi"
               cpu: "1"
           env: 
-            - name: JAVA_OPTS
-              valueFrom:
-                configMapKeyRef:
-                  name: cm-config-server-v1
-                  key: java-opts

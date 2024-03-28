@@ -27,21 +27,16 @@ spec:
               memory: "640Mi"
               cpu: "1"
           env: 
-            - name: EUREKA_SERVER
+            - name: CONFIG_SERVER_DOMAIN
               valueFrom:
                 configMapKeyRef:
                   name: cm-menu-v1
-                  key: eureka-server
-            - name: MYSQL_URL
+                  key: config-server-domain
+            - name: MYSQL_DOMAIN
               valueFrom:
                 configMapKeyRef:
                   name: cm-menu-v1
-                  key: mysql-url
-            - name: PRODUCT_V1_BASE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: cm-menu-v1
-                  key: product-v1-base-url
+                  key: mysql-domain
             - name: MYSQL_USERNAME
               valueFrom:
                 configMapKeyRef:
@@ -52,6 +47,11 @@ spec:
                 configMapKeyRef:
                   name: cm-menu-v1
                   key: mysql-password
+            - name: PRODUCT_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: product-domain
             - name: JAVA_OPTS
               valueFrom:
                 configMapKeyRef:
