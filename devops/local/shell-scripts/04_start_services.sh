@@ -3,7 +3,7 @@
 source ./../parameters/00_local_path_variables.sh
 SERVICES_CSV=./../parameters/04_services-to-start.csv
 
-echo "$(date +"%F %T"): Services execution script started" > "$LOG_FILE"
+echo "Services execution script started" > "$LOCAL_LOG_FILE"
 
 SERVICE_PATH=""
 firstline=true
@@ -39,9 +39,9 @@ while IFS=',' read -r APP_NAME TYPE || [ -n "$APP_NAME" ]; do
         fi
     done
 
-    echo $EXECUTION_COMMAND
-
+    echo "$(get_timestamp) .......... $APP_NAME .......... $EXECUTION_COMMAND" >> "$LOCAL_LOG_FILE"
     eval start "$EXECUTION_COMMAND"
+
   fi
 
 done < <(sed 's/\r//g' "$SERVICES_CSV")

@@ -36,4 +36,6 @@ build/
 /devops/environment/databases/mongo-db/data/
 /devops/environment/databases/mysql-db/data/
 /devops/environment/databases/postgres-db/data/
-/devops/output.log
+/devops/output-local.log
+/devops/output-docker-compose.log
+/devops/output-k8s.log

@@ -3,7 +3,7 @@
 source ./../parameters/00_local_path_variables.sh
 SERVERS_CSV=./../parameters/02_servers-to-start.csv
 
-echo "$(date +"%F %T"): Servers execution script started" > "$LOG_FILE"
+echo "# Servers execution script started" > "$LOCAL_LOG_FILE"
 
 firstline=true
 while IFS=',' read -r SERVER_NAME || [ -n "$SERVER_NAME" ]; do
@@ -63,17 +63,17 @@ while IFS=',' read -r SERVER_NAME || [ -n "$SERVER_NAME" ]; do
     if [[ "$SERVER_NAME" == "kafka" ]]; then
       if [[ "$port_in_use" == "false" &&  -d "$KAFKA_TMP_PATH" ]]; then
         rm -rf "$KAFKA_TMP_PATH"
-        echo "$(date +"%F %T"): tmp directory was removed" >> "$LOG_FILE"
+        echo "$(get_timestamp) .......... /tmp folder was removed" >> "$LOCAL_LOG_FILE"
       fi
     fi
 
-    echo "$(date +"%F %T"): $EXECUTION_COMMAND" >> "$LOG_FILE"
+    echo "$(get_timestamp) .......... $SERVER_NAME .......... $EXECUTION_COMMAND" >> "$LOCAL_LOG_FILE"
 
     if [ "$port_in_use" == "false" ]; then
       cd "$SERVER_PATH" || exit
       eval start "$EXECUTION_COMMAND"
     else
-      echo "$(date +"%F %T"): $SERVER_NAME is already started" >> "$LOG_FILE"
+      echo "$(get_timestamp) .......... $SERVER_NAME .......... port $SERVER_PORT is currently in use" >> "$LOCAL_LOG_FILE"
     fi
 
   fi

@@ -3,7 +3,7 @@
 source ./../parameters/00_local_path_variables.sh
 PROJECTS_CSV=./../parameters/01_projects-to-compile.csv
 
-echo "$(date +"%F %T"): Installation script started" > "$LOG_FILE"
+echo "# Installation script started" > "$LOCAL_LOG_FILE"
 
 SERVICE_PATH=""
 firstline=true
@@ -22,8 +22,11 @@ while IFS=',' read -r APP_NAME TYPE || [ -n "$APP_NAME" ]; do
       SERVICE_PATH="$BUSINESS_PATH/$APP_NAME"
     fi
     cd "$SERVICE_PATH"
-    mvn clean install -Dmaven.home="$MVN_HOME_PATH" -Dmaven.repo.local="$MVN_REPOSITORY_PATH"
-    echo "$(date +"%F %T"): $APP_NAME executed" >> "$LOG_FILE"
+
+    EXECUTION_COMMAND="mvn clean install -Dmaven.home=\"$MVN_HOME_PATH\" -Dmaven.repo.local=\"$MVN_REPOSITORY_PATH\""
+    echo "$(get_timestamp) .......... $APP_NAME .......... $EXECUTION_COMMAND" >> "$LOCAL_LOG_FILE"
+    eval "$EXECUTION_COMMAND"
+
   fi
 
 done < <(sed 's/\r//g' "$PROJECTS_CSV")

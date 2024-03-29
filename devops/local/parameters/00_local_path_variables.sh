@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./../../environment/common-script.sh
+
 # specify your Java version
 JAVA_PATH="C:/dev-environment/java/jdk-11.0.2/bin/java"
 
@@ -35,12 +37,6 @@ MYSQL_COMMAND="$MYSQL_PATH/mysql -u root -p$MYSQL_ROOT_PASSWORD"
 
 # specify your workspace path
 BBQ_PATH="C:/dev-workspace/bbq/bbq-monorepo"
-BS_PATH="application/backend/business"
-INF_PATH="application/backend/infrastructure"
 BUSINESS_PATH="$BBQ_PATH/$BS_PATH"
 INFRASTRUCTURE_PATH="$BBQ_PATH/$INF_PATH"
-
-LOG_FILE="$BBQ_PATH/devops/output.log"
-
-# symbols
-CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
+LOCAL_LOG_FILE="$BBQ_PATH/devops/$LOCAL_LOG_FILE"
