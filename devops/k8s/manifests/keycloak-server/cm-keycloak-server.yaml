@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: cm-keycloak-server
 data:
-  keycloak-user: admin
-  keycloak-password: admin
-  db-vendor: H2
+  keycloak-user: "admin"
+  keycloak-password: "admin"
+  db-vendor: "H2"

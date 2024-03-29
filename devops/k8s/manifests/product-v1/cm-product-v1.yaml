@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: cm-product-v1
 data:
-  mysql-username: bbq_user
-  mysql-host: mysql-db:3306
-  mysql-password: qwerty
-  database: db_products
+  mysql-username: "bbq_user"
+  mysql-host: "mysql-db:3306"
+  mysql-password: "qwerty"
+  database: "db_products"

@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: cm-zookeeper-server
 data:
-  zookeeper-client-port: 2181
-  zookeeper-servers: zookeeper-server:2888:3888
-  zookeeper-server-id: 1
+  zookeeper-client-port: "2181"
+  zookeeper-servers: "zookeeper-server:2888:3888"
+  zookeeper-server-id: "1"

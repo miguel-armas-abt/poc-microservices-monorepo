@@ -3,10 +3,10 @@ kind: ConfigMap
 metadata:
   name: cm-order-hub-v1
 data:
-  menu-v1-domain: menu-v1:8012
-  table-placement-domain: table-placement-v1:8013
-  redis-domain: redis-server
-  config-server-domain: config-server-v1:8888
-  java-opts: -Xms256M -Xmx256M
-  menu-v2-domain: menu-v2:8016
-  invoice-domain: invoice-v1:8014
+  menu-v1-domain: "menu-v1:8012"
+  table-placement-domain: "table-placement-v1:8013"
+  redis-domain: "redis-server"
+  config-server-domain: "config-server-v1:8888"
+  java-opts: "-Xms256M -Xmx256M"
+  menu-v2-domain: "menu-v2:8016"
+  invoice-domain: "invoice-v1:8014"

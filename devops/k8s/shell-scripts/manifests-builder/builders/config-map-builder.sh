@@ -40,7 +40,9 @@ else
             continue
         fi
         key=$(echo "$key" | tr '[:upper:]' '[:lower:]' | tr '_' '-')
-        env_vars["$key"]="$value"
+
+        trimValue=$(echo "$value" | sed 's/[[:space:]]*$//')
+        env_vars["$key"]="\"$trimValue\""
     done < "$DATA_FILE"
 
     # Iterate over the environment variables and append them to the template

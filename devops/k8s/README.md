@@ -37,19 +37,11 @@
 > kubectl create namespace restaurant
 > ```
 
-> ▶️ **Crear recursos k8s**
-> <br> Iniciamos la orquestación aplicando los siguientes manifiestos.
+> ▶️ **Aplicar recursos k8s**
+> <br> Iniciamos la orquestación aplicando los manifiestos creados previamente.
 > ```shell script 
-> kubectl apply -f ./manifests/mongo-db/ -n restaurant
-> kubectl apply -f ./manifests/mysql-db/ -n restaurant
-> kubectl apply -f ./manifests/postgres-db/ -n restaurant
-> kubectl apply -f ./manifests/registry-discovery-server-v1/ -n restaurant
-> kubectl apply -f ./manifests/config-server-v1/ -n restaurant
-> kubectl apply -f ./manifests/api-gateway-v1/ -n restaurant
-> kubectl apply -f ./manifests/product-v1/ -n restaurant
-> kubectl apply -f ./manifests/menu-v1/ -n restaurant
-> kubectl apply -f ./manifests/menu-v2/ -n restaurant
-> kubectl apply -f ./manifests/table-placement-v1/ -n restaurant
+> cd ./shell-scripts/k8s-operations
+> ./apply-manifests.sh apply
 > ```
 
 > 🔃 **Port forwarding**
@@ -61,17 +53,9 @@
 
 > ⏸️ **Eliminar recursos k8s**
 > <br> Finalizamos la orquestación eliminando los recursos creados previamente.
->  ```shell script 
-> kubectl delete -f ./manifests/mongo-db/ -n restaurant
-> kubectl delete -f ./manifests/mysql-db/ -n restaurant
-> kubectl delete -f ./manifests/postgres-db/ -n restaurant
-> kubectl delete -f ./manifests/registry-discovery-server-v1/ -n restaurant
-> kubectl delete -f ./manifests/config-server-v1/ -n restaurant
-> kubectl delete -f ./manifests/api-gateway-v1/ -n restaurant
-> kubectl delete -f ./manifests/product-v1/ -n restaurant
-> kubectl delete -f ./manifests/menu-v1/ -n restaurant
-> kubectl delete -f ./manifests/menu-v2/ -n restaurant
-> kubectl delete -f ./manifests/table-placement-v1/ -n restaurant
+> ```shell script 
+> cd ./shell-scripts/k8s-operations
+> ./apply-manifests.sh delete
 > ```
 
 ---

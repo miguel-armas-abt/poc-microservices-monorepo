@@ -3,10 +3,10 @@ kind: ConfigMap
 metadata:
   name: cm-payment-v1
 data:
-  mysql-username: bbq_user
-  mysql-password: qwerty
-  kafka-domain: kafka-server:9093
-  create-topics: true
-  mysql-domain: mysql-db:3306
-  config-server-domain: config-server-v1:8888
-  java-opts: -Xms256M -Xmx256M
+  mysql-username: "bbq_user"
+  mysql-password: "qwerty"
+  kafka-domain: "kafka-server:9093"
+  create-topics: "true"
+  mysql-domain: "mysql-db:3306"
+  config-server-domain: "config-server-v1:8888"
+  java-opts: "-Xms256M -Xmx256M"

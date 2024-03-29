@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: cm-redis-server
 data:
-  dummy: dummy
+  dummy: "dummy"

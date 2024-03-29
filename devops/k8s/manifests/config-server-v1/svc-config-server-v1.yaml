@@ -11,4 +11,4 @@ spec:
   ports:
     - name: config-server-v1
       port: 8888
-      nodePort: DEP
+      nodePort: 30088
