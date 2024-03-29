@@ -7,6 +7,7 @@
 > - Compilar proyectos
 
 > 🔨 **Construir imágenes**
+> <br>📄 Edite `./../environment/docker/images-to-build.csv` con los proyectos que desea compilar e incluir en el `docker-compose.yml`.
 > ```shell script 
 > cd ./../environment/docker/shell-scripts
 > ./images-builder.sh

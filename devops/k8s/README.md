@@ -27,6 +27,9 @@
 > ```
 
 > 🔧 **Crear manifiestos**
+> <br>📄 Edite los siguientes archivos con las aplicaciones que desea incluir en el despliegue. 
+> - `./parameters/k8s-app-manifests.csv`
+> - `./parameters/k8s-db-manifests.csv`
 > ```shell script
 > cd ./shell-scripts/manifests-builder
 > ./k8s-manifests-builder.sh
