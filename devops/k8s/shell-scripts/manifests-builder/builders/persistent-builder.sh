@@ -2,8 +2,8 @@
 
 CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
 
-if [ "$#" -ne 4 ]; then
-    echo "Usage: $0 <APP_NAME> <HOST_MOUNT_PATH> <PERSISTENT_TEMPLATE> <PERSISTENT_TYPE>"
+if [ "$#" -ne 5 ]; then
+    echo "Usage: $0 <APP_NAME> <HOST_MOUNT_PATH> <PERSISTENT_TEMPLATE> <PERSISTENT_TYPE> <MANIFESTS_PATH>"
     exit 1
 fi
 
@@ -11,6 +11,7 @@ APP_NAME=$1
 HOST_MOUNT_PATH=$2
 PERSISTENT_TEMPLATE=$3
 PERSISTENT_TYPE=$4
+MANIFESTS_PATH=$5
 
 template=$(<./templates/$PERSISTENT_TEMPLATE)
 template="${template//APP_NAME/$APP_NAME}"
@@ -24,7 +25,7 @@ if [ "$PERSISTENT_TYPE" = "PVC" ]; then
   suffix=pvc
 fi
 
-OUTPUT_DIR="./../manifests/$APP_NAME"
+OUTPUT_DIR="$MANIFESTS_PATH/$APP_NAME"
 OUTPUT_FILE="$suffix-$APP_NAME.yaml"
 
 if [ ! -d "$OUTPUT_DIR" ]; then

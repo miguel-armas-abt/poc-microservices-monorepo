@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ "$#" -ne 4 ]; then
-    echo "Usage: $0 <VARIABLES_PATH> <CONFIG_MAP_TEMPLATE> <SERVICE_TEMPLATE> <CONTROLLER_TEMPLATE>"
+if [ "$#" -ne 7 ]; then
+    echo "Usage: $0 <VARIABLES_PATH> <CONFIG_MAP_TEMPLATE> <SERVICE_TEMPLATE> <CONTROLLER_TEMPLATE> <K8S_PARAMETERS_CSV> <CONTAINERS_CSV> <MANIFESTS_PATH>"
     exit 1
 fi
 
@@ -9,6 +9,9 @@ VARIABLES_PATH=$1
 CONFIG_MAP_TEMPLATE=$2
 SERVICE_TEMPLATE=$3
 CONTROLLER_TEMPLATE=$4
+K8S_PARAMETERS_CSV=$5
+CONTAINERS_CSV=$6
+MANIFESTS_PATH=$7
 
 #loop - read csv
 containers_firstline=true
@@ -38,16 +41,14 @@ while IFS=',' read -r CONTAINER_NAME DOCKER_IMAGE DEPENDENCIES HOST_PORT CONTAIN
         if [[ $APP_NAME == "$CONTAINER_NAME" ]]; then
 
           DATA_FILE="$VARIABLES_PATH/$APP_NAME.env"
-          ./builders/config-map-builder.sh "$APP_NAME" "$DATA_FILE" "$CONFIG_MAP_TEMPLATE" false
-          ./builders/service-builder.sh "$APP_NAME" "$CONTAINER_PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" null
-          ./builders/controller-builder.sh "$APP_NAME" "$CONTAINER_PORT" "$DOCKER_IMAGE" "$DATA_FILE" "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" "$REPLICA_COUNT" false
+          ./builders/config-map-builder.sh "$APP_NAME" "$DATA_FILE" "$CONFIG_MAP_TEMPLATE" false "$MANIFESTS_PATH" null
+          ./builders/service-builder.sh "$APP_NAME" "$CONTAINER_PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" "$MANIFESTS_PATH" null
+          ./builders/controller-builder.sh "$APP_NAME" "$CONTAINER_PORT" "$DOCKER_IMAGE" "$DATA_FILE" "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" "$REPLICA_COUNT" "$MANIFESTS_PATH" false
 
         fi
 
       fi
-      done < ./../parameters/k8s-app-parameters.csv
+      done < "$K8S_PARAMETERS_CSV"
 
   fi
-done < ./../../environment/docker/containers-to-run.csv
-
-
+done < "$CONTAINERS_CSV"

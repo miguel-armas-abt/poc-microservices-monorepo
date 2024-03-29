@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ "$#" -ne 7 ]; then
-    echo "Usage: $0 <RESOURCES_PATH> <SECRET_TEMPLATE> <PV_TEMPLATE> <PVC_TEMPLATE> <CONFIG_MAP_TEMPLATE> <SERVICE_TEMPLATE> <CONTROLLER_TEMPLATE>"
+if [ "$#" -ne 10 ]; then
+    echo "Usage: $0 <RESOURCES_PATH> <SECRET_TEMPLATE> <PV_TEMPLATE> <PVC_TEMPLATE> <CONFIG_MAP_TEMPLATE> <SERVICE_TEMPLATE> <CONTROLLER_TEMPLATE> <K8S_PARAMETERS_CSV> <CONTAINERS_CSV> <MANIFESTS_PATH>"
     exit 1
 fi
 
@@ -12,6 +12,9 @@ PVC_TEMPLATE=$4
 CONFIG_MAP_TEMPLATE=$5
 SERVICE_TEMPLATE=$6
 CONTROLLER_TEMPLATE=$7
+K8S_PARAMETERS_CSV=$8
+CONTAINERS_CSV=$9
+MANIFESTS_PATH=${10}
 
 #loop - read csv
 containers_firstline=true
@@ -47,18 +50,17 @@ while IFS=',' read -r CONTAINER_NAME DOCKER_IMAGE DEPENDENCIES HOST_PORT CONTAIN
           MOUNT_PATH_INIT_DB=/docker-entrypoint-initdb.d/$SUB_PATH_INIT_DB
           HOST_MOUNT_PATH=\"/mnt/data/\"
 
-          ./builders/controller-builder.sh "$APP_NAME" "$CONTAINER_PORT" "$DOCKER_IMAGE" null "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" "$REPLICA_COUNT" true "$MOUNT_PATH_DATA" "$MOUNT_PATH_INIT_DB" "$SUB_PATH_INIT_DB"
-          ./builders/persistent-builder.sh "$APP_NAME" $HOST_MOUNT_PATH "$PV_TEMPLATE" PV
-          ./builders/persistent-builder.sh "$APP_NAME" null "$PVC_TEMPLATE" PVC
-          ./builders/service-builder.sh "$APP_NAME" "$CONTAINER_PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" "$CLUSTER_IP"
-          ./builders/config-map-builder.sh "$APP_NAME" "$INIT_DB_FILE" "$CONFIG_MAP_TEMPLATE" true "$SUB_PATH_INIT_DB"
-          ./builders/secret-builder.sh "$APP_NAME" "$ENV_FILE" "$SECRET_TEMPLATE"
+          ./builders/controller-builder.sh "$APP_NAME" "$CONTAINER_PORT" "$DOCKER_IMAGE" null "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" "$REPLICA_COUNT" "$MANIFESTS_PATH" true "$MOUNT_PATH_DATA" "$MOUNT_PATH_INIT_DB" "$SUB_PATH_INIT_DB"
+          ./builders/persistent-builder.sh "$APP_NAME" $HOST_MOUNT_PATH "$PV_TEMPLATE" PV "$MANIFESTS_PATH"
+          ./builders/persistent-builder.sh "$APP_NAME" null "$PVC_TEMPLATE" PVC "$MANIFESTS_PATH"
+          ./builders/service-builder.sh "$APP_NAME" "$CONTAINER_PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" "$MANIFESTS_PATH" "$CLUSTER_IP"
+          ./builders/config-map-builder.sh "$APP_NAME" "$INIT_DB_FILE" "$CONFIG_MAP_TEMPLATE" true "$MANIFESTS_PATH" "$SUB_PATH_INIT_DB"
+          ./builders/secret-builder.sh "$APP_NAME" "$ENV_FILE" "$SECRET_TEMPLATE" "$MANIFESTS_PATH"
         fi
 
       fi
 
-    done < ./../parameters/k8s-db-parameters.csv
+    done < "$K8S_PARAMETERS_CSV"
 
   fi
-done < ./../../environment/docker/containers-to-run.csv
-
+done < "$CONTAINERS_CSV"

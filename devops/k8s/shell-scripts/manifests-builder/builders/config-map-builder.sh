@@ -2,8 +2,8 @@
 
 CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
 
-if [ "$#" -ne 4 ] && [ "$#" -ne 5 ]; then
-    echo "Usage: $0 <APP_NAME> <DATA_FILE> <CONFIG_MAP_TEMPLATE> <IS_DATABASE> <SUB_PATH_INIT_DB>"
+if [ "$#" -ne 5 ] && [ "$#" -ne 6 ]; then
+    echo "Usage: $0 <APP_NAME> <DATA_FILE> <CONFIG_MAP_TEMPLATE> <IS_DATABASE> <MANIFESTS_PATH> <SUB_PATH_INIT_DB>"
     exit 1
 fi
 
@@ -11,7 +11,8 @@ APP_NAME=$1
 DATA_FILE=$2
 CONFIG_MAP_TEMPLATE=$3
 IS_DATABASE=$4
-SUB_PATH_INIT_DB=$5
+MANIFESTS_PATH=$5
+SUB_PATH_INIT_DB=$6
 
 # Replace occurrences
 template=$(<./templates/$CONFIG_MAP_TEMPLATE)
@@ -46,7 +47,7 @@ else
     done
 fi
 
-OUTPUT_DIR="./../manifests/$APP_NAME"
+OUTPUT_DIR="$MANIFESTS_PATH/$APP_NAME"
 OUTPUT_FILE="cm-$APP_NAME.yaml"
 
 if [ ! -d "$OUTPUT_DIR" ]; then

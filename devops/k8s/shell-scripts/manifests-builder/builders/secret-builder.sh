@@ -2,14 +2,15 @@
 
 CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
 
-if [ "$#" -ne 3 ]; then
-    echo "Usage: $0 <APP_NAME> <ENV_FILE> <SECRET_TEMPLATE>"
+if [ "$#" -ne 4 ]; then
+    echo "Usage: $0 <APP_NAME> <ENV_FILE> <SECRET_TEMPLATE> <MANIFESTS_PATH>"
     exit 1
 fi
 
 APP_NAME=$1
 ENV_FILE=$2
 SECRET_TEMPLATE=$3
+MANIFESTS_PATH=$4
 
 template=$(<./templates/"$SECRET_TEMPLATE")
 
@@ -28,7 +29,7 @@ for key in "${!env_vars[@]}"; do
     template+="\n  $key: ${env_vars[$key]}"
 done
 
-OUTPUT_DIR="./../manifests/$APP_NAME"
+OUTPUT_DIR="$MANIFESTS_PATH/$APP_NAME"
 OUTPUT_FILE="secret-$APP_NAME.yaml"
 
 if [ ! -d "$OUTPUT_DIR" ]; then
