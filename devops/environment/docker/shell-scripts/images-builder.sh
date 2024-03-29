@@ -1,7 +1,10 @@
 #!/bin/bash
 
-source ./../../../local/parameters/00_local_path_variables.sh
+source ./../../common-script.sh
+DOCKER_LOG_FILE=./../../../$DOCKER_LOG_FILE
 IMAGES_ENABLED_CSV=./../images-to-build.csv
+
+echo "# Docker images construction started" > "$DOCKER_LOG_FILE"
 
 SERVICE_PATH=""
 firstline=true
@@ -27,13 +30,16 @@ while IFS=',' read -r APP_NAME TAG_VERSION TYPE DOCKERFILE_PATH || [ -n "$APP_NA
     USER_PREFIX=miguelarmasabt
     DOCKER_TAG="-t $USER_PREFIX/$APP_NAME:$TAG_VERSION $SERVICE_PATH"
 
+    EXECUTION_COMMAND=""
     if [[ $DOCKERFILE_PATH != "Default"* ]]; then
       DOCKER_FILE="-f $SERVICE_PATH/$DOCKERFILE_PATH"
-
-      docker build $DOCKER_FILE $DOCKER_TAG
+      EXECUTION_COMMAND="docker build $DOCKER_FILE $DOCKER_TAG"
     else
-      docker build $DOCKER_TAG
+      EXECUTION_COMMAND="docker build $DOCKER_TAG"
     fi
+
+    echo "$(get_timestamp) .......... $APP_NAME .......... $EXECUTION_COMMAND" >> "$DOCKER_LOG_FILE"
+    eval "$EXECUTION_COMMAND"
 
   fi
 

@@ -18,6 +18,7 @@
 >   - `DOCKERFILE_PATH`: Ruta del Dockerfile. Si el archivo está en la raíz del proyecto utilizar `Default`.
 
 > ▶️ **Construir imágenes**
-> ```shell script 
-> ./shell-scripts/images-builder.sh
+> ```shell script
+> cd ./shell-scripts
+> ./images-builder.sh
 > ```

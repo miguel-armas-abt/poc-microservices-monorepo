@@ -11,7 +11,7 @@ INF_PATH="application/backend/infrastructure"
 #log files
 LOCAL_LOG_FILE="output-local.log"
 K8S_LOG_FILE="output-k8s.log"
-DOCKER_LOG_FILE="output-docker-compose.log"
+DOCKER_LOG_FILE="output-docker.log"
 
 #timestamps
 function get_timestamp {

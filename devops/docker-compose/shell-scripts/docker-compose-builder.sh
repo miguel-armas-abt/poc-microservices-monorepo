@@ -1,11 +1,14 @@
 #!/bin/bash
 
-CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
+source ./../../environment/common-script.sh
+DOCKER_LOG_FILE=./../../$DOCKER_LOG_FILE
 
 PARAMETERS_CSV=./../../environment/docker/containers-to-run.csv
 DOCKER_COMPOSE_TEMPLATE=./templates/docker-compose.template.yml
 SERVICE_TEMPLATE=./templates/service.template.yml
 VARIABLES_PATH=./../../environment
+
+echo "# Docker Compose construction started" > "$DOCKER_LOG_FILE"
 
 docker_compose_template=$(<"$DOCKER_COMPOSE_TEMPLATE")
 
@@ -82,11 +85,16 @@ while IFS=',' read -r APP_NAME DOCKER_IMAGE DEPENDENCIES HOST_PORT CONTAINER_POR
     services+="$service_template"$'\n\n'
 
     fi
+
+    echo "$(get_timestamp) .......... $APP_NAME .......... Image: $DOCKER_IMAGE" >> "$DOCKER_LOG_FILE"
+    echo "$(get_timestamp) .......... $APP_NAME .......... Host port: $HOST_PORT" >> "$DOCKER_LOG_FILE"
+    echo "$(get_timestamp) .......... $APP_NAME .......... Container port: $CONTAINER_PORT" >> "$DOCKER_LOG_FILE"
+    echo "$(get_timestamp) .......... $APP_NAME .......... Dependencies: $DEPENDENCIES" >> "$DOCKER_LOG_FILE"
+    echo "$(get_timestamp) .......... $APP_NAME .......... Volumes: $VOLUMES" >> "$DOCKER_LOG_FILE"
+
 done < <(sed 's/\r//g' "$PARAMETERS_CSV")
 
 docker_compose_template="${docker_compose_template//SERVICES/$services}"
 OUTPUT_FILE="./../docker-compose.yml"
 echo -e "$docker_compose_template" > "$OUTPUT_FILE"
 echo -e "${CHECK_SYMBOL} created: $OUTPUT_FILE"
-
-
