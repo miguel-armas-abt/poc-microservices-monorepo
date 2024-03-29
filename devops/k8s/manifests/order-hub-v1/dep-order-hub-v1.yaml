@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-hub-v1
+spec:
+  replicas: 1
+  
+  selector:
+    matchLabels:
+      app: order-hub-v1
+  template:
+    metadata:
+      labels:
+        app: order-hub-v1
+    spec:
+      containers:
+        - name: order-hub-v1
+          image: miguelarmasabt/order-hub:v1.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8018
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "640Mi"
+              cpu: "1"
+          env: 
+            - name: CONFIG_SERVER_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-order-hub-v1
+                  key: config-server-domain
+            - name: MENU_V1_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-order-hub-v1
+                  key: menu-v1-domain
+            - name: MENU_V2_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-order-hub-v1
+                  key: menu-v2-domain
+            - name: TABLE_PLACEMENT_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-order-hub-v1
+                  key: table-placement-domain
+            - name: INVOICE_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-order-hub-v1
+                  key: invoice-domain
+            - name: REDIS_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-order-hub-v1
+                  key: redis-domain
+            - name: JAVA_OPTS
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-order-hub-v1
+                  key: java-opts

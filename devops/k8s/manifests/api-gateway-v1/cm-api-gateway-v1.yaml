@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-api-gateway-v1
+data:
+  auth-adapter-domain: auth-adapter-v1:8011
+  order-hub-domain: order-hub-v1:8018
+  java-opts: -Xms256M -Xmx256M

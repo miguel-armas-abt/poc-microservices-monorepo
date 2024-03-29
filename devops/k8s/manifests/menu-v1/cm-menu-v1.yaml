@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-menu-v1
+data:
+  mysql-username: bbq_user
+  mysql-password: qwerty
+  product-domain: product-v1:8017
+  mysql-domain: mysql-db:3306
+  config-server-domain: config-server-v1:8888
+  java-opts: -Xms256M -Xmx256M

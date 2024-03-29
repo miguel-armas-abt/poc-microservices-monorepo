@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: config-server-v1
+  labels:
+    app: config-server-v1
+spec:
+  type: NodePort
+  selector:
+    app: config-server-v1
+  ports:
+    - name: config-server-v1
+      port: 8888
+      nodePort: DEP

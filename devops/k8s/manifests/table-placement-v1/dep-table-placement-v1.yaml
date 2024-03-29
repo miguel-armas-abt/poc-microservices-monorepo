@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: table-placement-v1
+spec:
+  replicas: 1
+  
+  selector:
+    matchLabels:
+      app: table-placement-v1
+  template:
+    metadata:
+      labels:
+        app: table-placement-v1
+    spec:
+      containers:
+        - name: table-placement-v1
+          image: miguelarmasabt/table-placement:v1.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8013
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "640Mi"
+              cpu: "1"
+          env: 
+            - name: CONFIG_SERVER_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-table-placement-v1
+                  key: config-server-domain
+            - name: MONGODB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-table-placement-v1
+                  key: mongodb-url
+            - name: JAVA_OPTS
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-table-placement-v1
+                  key: java-opts

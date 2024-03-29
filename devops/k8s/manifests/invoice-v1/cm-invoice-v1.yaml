@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-invoice-v1
+data:
+  kafka-domain: kafka-server:9093
+  product-domain: product-v1:8017
+  postgresql-domain: postgres-db:5432
+  postgresql-username: bbq_user
+  config-server-domain: config-server-v1:8888
+  java-opts: -Xms256M -Xmx256M
+  postgresql-password: qwerty

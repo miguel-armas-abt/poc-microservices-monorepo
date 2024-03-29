@@ -1,18 +1,19 @@
 #!/bin/bash
 
 CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
+SECRET_TEMPLATE=secret.template.yaml
 
 if [ "$#" -ne 4 ]; then
-    echo "Usage: $0 <APP_NAME> <ENV_FILE> <SECRET_TEMPLATE> <MANIFESTS_PATH>"
+    echo "Usage: $0 <APP_NAME> <ENV_FILE> <TEMPLATES_PATH> <MANIFESTS_PATH>"
     exit 1
 fi
 
 APP_NAME=$1
 ENV_FILE=$2
-SECRET_TEMPLATE=$3
+TEMPLATES_PATH=$3
 MANIFESTS_PATH=$4
 
-template=$(<./templates/"$SECRET_TEMPLATE")
+template=$(<"$TEMPLATES_PATH"/"$SECRET_TEMPLATE")
 
 # Read the environment variables file and store it in an associative array
 declare -A env_vars

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-db
+  labels:
+    app: postgres-db
+spec:
+  replicas: 1 #number of pods replicas
+  
+  selector: #define how the Deployment identify the pods that it could manage
+    matchLabels:
+      app: postgres-db
+  template: #pod template specification
+    metadata:
+      labels: #define the labels for all pods
+        app: postgres-db
+    spec:
+      containers:
+        - name: postgres-db
+          image: postgres:latest
+          imagePullPolicy: IfNotPresent
+          ports: #open the port to allow send and receive traffic in the container
+            - containerPort: 5432
+          envFrom: #read envars from secret file
+            - secretRef:
+                name: secret-postgres-db
+          volumeMounts:
+            #this is the path in the container on which the mounting will take place.
+            - mountPath: /var/lib/postgres-db/data
+              name: postgres-db-volume-data
+            - mountPath: /docker-entrypoint-initdb.d/initdb.sh
+              subPath: initdb.sh
+              name: postgres-db-volume-script
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+      volumes:
+        - name: postgres-db-volume-data
+          persistentVolumeClaim:
+            claimName: pvc-postgres-db
+        - name: postgres-db-volume-script
+          configMap:
+            name: cm-postgres-db

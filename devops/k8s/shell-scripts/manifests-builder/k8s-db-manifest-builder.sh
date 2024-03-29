@@ -1,18 +1,18 @@
 #!/bin/bash
 
-if [ "$#" -ne 8 ]; then
-    echo "Usage: $0 <RESOURCES_PATH> <SECRET_TEMPLATE> <TEMPLATES_PATH> <SERVICE_TEMPLATE> <CONTROLLER_TEMPLATE> <K8S_PARAMETERS_CSV> <CONTAINERS_CSV> <MANIFESTS_PATH>"
+SERVICE_TEMPLATE=db.service.template.yaml
+CONTROLLER_TEMPLATE=db.deployment.template.yaml
+
+if [ "$#" -ne 5 ]; then
+    echo "Usage: $0 <RESOURCES_PATH> <TEMPLATES_PATH> <K8S_PARAMETERS_CSV> <CONTAINERS_CSV> <MANIFESTS_PATH>"
     exit 1
 fi
 
 RESOURCES_PATH=$1
-SECRET_TEMPLATE=$2
-TEMPLATES_PATH=$3
-SERVICE_TEMPLATE=$4
-CONTROLLER_TEMPLATE=$5
-K8S_PARAMETERS_CSV=$6
-CONTAINERS_CSV=$7
-MANIFESTS_PATH=$8
+TEMPLATES_PATH=$2
+K8S_PARAMETERS_CSV=$3
+CONTAINERS_CSV=$4
+MANIFESTS_PATH=$5
 
 #loop - read csv
 containers_firstline=true
@@ -53,7 +53,7 @@ while IFS=',' read -r CONTAINER_NAME DOCKER_IMAGE DEPENDENCIES HOST_PORT CONTAIN
           ./builders/persistent-builder.sh "$APP_NAME" null "$TEMPLATES_PATH" PVC "$MANIFESTS_PATH"
           ./builders/service-builder.sh "$APP_NAME" "$CONTAINER_PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" "$MANIFESTS_PATH" "$CLUSTER_IP"
           ./builders/config-map-builder.sh "$APP_NAME" "$INIT_DB_FILE" "$TEMPLATES_PATH" true "$MANIFESTS_PATH" "$SUB_PATH_INIT_DB"
-          ./builders/secret-builder.sh "$APP_NAME" "$ENV_FILE" "$SECRET_TEMPLATE" "$MANIFESTS_PATH"
+          ./builders/secret-builder.sh "$APP_NAME" "$ENV_FILE" "$TEMPLATES_PATH" "$MANIFESTS_PATH"
         fi
 
       fi

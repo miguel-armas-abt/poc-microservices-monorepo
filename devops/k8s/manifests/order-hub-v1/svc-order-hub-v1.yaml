@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: order-hub-v1
+  labels:
+    app: order-hub-v1
+spec:
+  type: NodePort
+  selector:
+    app: order-hub-v1
+  ports:
+    - name: order-hub-v1
+      port: 8018
+      nodePort: 30018

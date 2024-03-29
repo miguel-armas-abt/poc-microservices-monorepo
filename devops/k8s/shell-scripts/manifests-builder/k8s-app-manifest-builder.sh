@@ -1,17 +1,18 @@
 #!/bin/bash
 
-if [ "$#" -ne 7 ]; then
+SERVICE_TEMPLATE=app.service.template.yaml
+CONTROLLER_TEMPLATE=app.controller.template.yaml
+
+if [ "$#" -ne 5 ]; then
     echo "Usage: $0 <VARIABLES_PATH> <TEMPLATES_PATH> <SERVICE_TEMPLATE> <CONTROLLER_TEMPLATE> <K8S_PARAMETERS_CSV> <CONTAINERS_CSV> <MANIFESTS_PATH>"
     exit 1
 fi
 
 VARIABLES_PATH=$1
 TEMPLATES_PATH=$2
-SERVICE_TEMPLATE=$3
-CONTROLLER_TEMPLATE=$4
-K8S_PARAMETERS_CSV=$5
-CONTAINERS_CSV=$6
-MANIFESTS_PATH=$7
+K8S_PARAMETERS_CSV=$3
+CONTAINERS_CSV=$4
+MANIFESTS_PATH=$5
 
 #loop - read csv
 containers_firstline=true

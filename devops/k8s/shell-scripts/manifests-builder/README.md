@@ -7,7 +7,7 @@ El proyecto cuenta con un script que automatiza la generación de manifiestos de
 > ⚙️ **Actualizar las variables de entorno**
 > <br>Las variables de entorno y scripts de inicialización de BD para cada uno de los servicios están definidas en el siguiente directorio.
 > ```shell script 
-> cd ./../../environment
+> cd ./../../../environment
 > ```
 
 > ⚙️ **Actualizar parámetros de k8s**
@@ -15,19 +15,19 @@ El proyecto cuenta con un script que automatiza la generación de manifiestos de
 > <br><br> Utilice `nano` para Unix
 > ```shell script 
 > #Windows
-> notepad ./../parameters/k8s-app-parameters.csv
-> notepad ./../parameters/databases/k8s-db-parameters.csv
+> notepad ./../../parameters/k8s-app-manifests.csv
+> notepad ./../../parameters/k8s-db-manifests.csv
 > ```
 >
 > 💡 **Notas**:
 > - Puede utilizar `#` para comentar las líneas que desea ignorar.
-> - El archivo `k8s-app-parameters.csv` cuenta con las siguientes columnas.
+> - El archivo `k8s-app-manifests.csv` cuenta con las siguientes columnas.
 >   - `APP_NAME`: Nombre del servicio.
 >   - `PORT`: Puerto del contenedor.
 >   - `NODE_PORT`: Puerto del nodo.
 >   - `IMAGE`: Imagen de Docker.
 >   - `CONTROLLER_TYPE`: Tipo de controlador (`STS`: Statefulset, `DEP`: Deployment).
-> - El archivo `k8s-db-parameters.csv` cuenta con las siguientes columnas.
+> - El archivo `k8s-db-manifests.csv` cuenta con las siguientes columnas.
 >   - `APP_NAME`: Nombre del servicio.
 >   - `CONTAINER_NAME`: Nombre del contenedor.
 >   - `IMAGE`: Imagen de Docker.

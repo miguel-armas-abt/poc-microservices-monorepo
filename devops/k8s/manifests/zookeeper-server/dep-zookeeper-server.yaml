@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper-server
+spec:
+  replicas: 1
+  
+  selector:
+    matchLabels:
+      app: zookeeper-server
+  template:
+    metadata:
+      labels:
+        app: zookeeper-server
+    spec:
+      containers:
+        - name: zookeeper-server
+          image: confluentinc/cp-zookeeper:7.3.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 2181
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "640Mi"
+              cpu: "1"
+          env: 
+            - name: ZOOKEEPER_CLIENT_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-zookeeper-server
+                  key: zookeeper-client-port
+            - name: ZOOKEEPER_SERVER_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-zookeeper-server
+                  key: zookeeper-server-id
+            - name: ZOOKEEPER_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-zookeeper-server
+                  key: zookeeper-servers
