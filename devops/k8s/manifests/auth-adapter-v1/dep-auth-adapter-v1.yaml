@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: table-placement-v1
+  name: auth-adapter-v1
 spec:
   replicas: 1
   
   selector:
     matchLabels:
-      app: table-placement-v1
+      app: auth-adapter-v1
   template:
     metadata:
       labels:
-        app: table-placement-v1
+        app: auth-adapter-v1
     spec:
       containers:
-        - name: table-placement-v1
-          image: miguelarmasabt/table-placement:v1.0.1
+        - name: auth-adapter-v1
+          image: miguelarmasabt/auth-adapter:v1.0.1
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8013
+            - containerPort: 8011
           resources:
             requests:
               memory: "256Mi"
@@ -27,18 +27,18 @@ spec:
               memory: "640Mi"
               cpu: "1"
           env: 
-            - name: CONFIG_SERVER_DOMAIN
+            - name: KEYCLOACK_DOMAIN
               valueFrom:
                 configMapKeyRef:
-                  name: cm-table-placement-v1
-                  key: config-server-domain
-            - name: MONGODB_URL
+                  name: cm-auth-adapter-v1
+                  key: keycloack-domain
+            - name: KEYCLOACK_KEY_RS256
               valueFrom:
                 configMapKeyRef:
-                  name: cm-table-placement-v1
-                  key: mongodb-url
+                  name: cm-auth-adapter-v1
+                  key: keycloack-key-rs256
             - name: JAVA_OPTS
               valueFrom:
                 configMapKeyRef:
-                  name: cm-table-placement-v1
+                  name: cm-auth-adapter-v1
                   key: java-opts

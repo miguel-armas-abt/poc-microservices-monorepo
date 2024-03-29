@@ -13,30 +13,52 @@ CONFIG_MAP_TEMPLATE=$5
 SERVICE_TEMPLATE=$6
 CONTROLLER_TEMPLATE=$7
 
-#read csv
-firstline=true
-while IFS=',' read -r APP_NAME IMAGE PORT SUB_PATH_INIT_DB CLUSTER_IP NODE_PORT CONTROLLER_TYPE REPLICA_COUNT || [ -n "$APP_NAME" ]; do
+#loop - read csv
+containers_firstline=true
+while IFS=',' read -r CONTAINER_NAME DOCKER_IMAGE DEPENDENCIES HOST_PORT CONTAINER_PORT VOLUMES || [ -n "$CONTAINER_NAME" ]; do
   # Ignore headers
-  if $firstline; then
-      firstline=false
+  if $containers_firstline; then
+      containers_firstline=false
       continue
   fi
 
   # Ignore comments
-  if [[ $APP_NAME != "#"* ]]; then
-    ENV_FILE="$RESOURCES_PATH/$APP_NAME/$APP_NAME.env"
-    extensionFile="${SUB_PATH_INIT_DB##*.}"
-    INIT_DB_FILE="$RESOURCES_PATH/$APP_NAME/init/$APP_NAME.initdb.$extensionFile"
-    MOUNT_PATH_DATA=/var/lib/$APP_NAME/data
-    MOUNT_PATH_INIT_DB=/docker-entrypoint-initdb.d/$SUB_PATH_INIT_DB
-    HOST_MOUNT_PATH=\"/mnt/data/\"
+  if [[ $CONTAINER_NAME != "#"* ]]; then
 
-    ./builders/controller-builder.sh "$APP_NAME" "$PORT" "$IMAGE" null "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" "$REPLICA_COUNT" true "$MOUNT_PATH_DATA" "$MOUNT_PATH_INIT_DB" "$SUB_PATH_INIT_DB"
-    ./builders/persistent-builder.sh "$APP_NAME" $HOST_MOUNT_PATH "$PV_TEMPLATE" PV
-    ./builders/persistent-builder.sh "$APP_NAME" null "$PVC_TEMPLATE" PVC
-    ./builders/service-builder.sh "$APP_NAME" "$PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" "$CLUSTER_IP"
-    ./builders/config-map-builder.sh "$APP_NAME" "$INIT_DB_FILE" "$CONFIG_MAP_TEMPLATE" true "$SUB_PATH_INIT_DB"
-    ./builders/secret-builder.sh "$APP_NAME" "$ENV_FILE" "$SECRET_TEMPLATE"
+    #loop - read csv
+    firstline=true
+    while IFS=',' read -r APP_NAME SUB_PATH_INIT_DB CLUSTER_IP NODE_PORT CONTROLLER_TYPE REPLICA_COUNT || [ -n "$APP_NAME" ]; do
+      # Ignore headers
+      if $firstline; then
+          firstline=false
+          continue
+      fi
+
+      # Ignore comments
+      if [[ $APP_NAME != "#"* ]]; then
+
+        # container name equals to k8s app
+        if [[ $APP_NAME == "$CONTAINER_NAME" ]]; then
+
+          ENV_FILE="$RESOURCES_PATH/$APP_NAME/$APP_NAME.env"
+          extensionFile="${SUB_PATH_INIT_DB##*.}"
+          INIT_DB_FILE="$RESOURCES_PATH/$APP_NAME/init/$APP_NAME.initdb.$extensionFile"
+          MOUNT_PATH_DATA=/var/lib/$APP_NAME/data
+          MOUNT_PATH_INIT_DB=/docker-entrypoint-initdb.d/$SUB_PATH_INIT_DB
+          HOST_MOUNT_PATH=\"/mnt/data/\"
+
+          ./builders/controller-builder.sh "$APP_NAME" "$CONTAINER_PORT" "$DOCKER_IMAGE" null "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" "$REPLICA_COUNT" true "$MOUNT_PATH_DATA" "$MOUNT_PATH_INIT_DB" "$SUB_PATH_INIT_DB"
+          ./builders/persistent-builder.sh "$APP_NAME" $HOST_MOUNT_PATH "$PV_TEMPLATE" PV
+          ./builders/persistent-builder.sh "$APP_NAME" null "$PVC_TEMPLATE" PVC
+          ./builders/service-builder.sh "$APP_NAME" "$CONTAINER_PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" "$CLUSTER_IP"
+          ./builders/config-map-builder.sh "$APP_NAME" "$INIT_DB_FILE" "$CONFIG_MAP_TEMPLATE" true "$SUB_PATH_INIT_DB"
+          ./builders/secret-builder.sh "$APP_NAME" "$ENV_FILE" "$SECRET_TEMPLATE"
+        fi
+
+      fi
+
+    done < ./../parameters/k8s-db-parameters.csv
+
   fi
+done < ./../../environment/docker/containers-to-run.csv
 
-done < ./../parameters/k8s-db-parameters.csv

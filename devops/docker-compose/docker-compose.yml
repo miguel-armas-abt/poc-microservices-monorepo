@@ -14,22 +14,72 @@ services:
     ports:
       - "8888:8888"
 
-  product-v1:
-    container_name: product-v1
-    image: miguelarmasabt/product:v1.0.1
+  api-gateway-v1:
+    container_name: api-gateway-v1
+    image: miguelarmasabt/api-gateway:v1.0.1
     restart: always
     environment: 
-      - MYSQL_HOST=mysql-db:3306
+      - AUTH_ADAPTER_DOMAIN=auth-adapter-v1:8011
+      - ORDER_HUB_DOMAIN=order-hub-v1:8018
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    
+    
+    networks:
+      - dev_environment
+    ports:
+      - "8010:8010"
+
+  auth-adapter-v1:
+    container_name: auth-adapter-v1
+    image: miguelarmasabt/auth-adapter:v1.0.1
+    restart: always
+    environment: 
+      - KEYCLOACK_DOMAIN=keycloak-server:8080
+      - KEYCLOACK_KEY_RS256=mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    
+    
+    networks:
+      - dev_environment
+    ports:
+      - "8011:8011"
+
+  menu-v1:
+    container_name: menu-v1
+    image: miguelarmasabt/menu:v1.0.1
+    restart: always
+    environment: 
+      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
+      - MYSQL_DOMAIN=mysql-db:3306
       - MYSQL_USERNAME=bbq_user
       - MYSQL_PASSWORD=qwerty
-      - DATABASE=db_products
+      - PRODUCT_DOMAIN=product-v1:8017
+      - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
+      - config-server-v1
       - mysql-db
     
     networks:
       - dev_environment
     ports:
-      - "8017:8017"
+      - "8012:8012"
+
+  table-placement-v1:
+    container_name: table-placement-v1
+    image: miguelarmasabt/table-placement:v1.0.1
+    restart: always
+    environment: 
+      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
+      - MONGODB_URL=mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    depends_on:
+      - config-server-v1
+      - mongo-db
+    
+    networks:
+      - dev_environment
+    ports:
+      - "8013:8013"
 
   invoice-v1:
     container_name: invoice-v1
@@ -74,6 +124,90 @@ services:
       - dev_environment
     ports:
       - "8015:8015"
+
+  menu-v2:
+    container_name: menu-v2
+    image: miguelarmasabt/menu:v2.0.1
+    restart: always
+    environment: 
+      - MYSQL_DOMAIN=mysql-db:3306
+      - PRODUCT_DOMAIN=product-v1:8017
+      - MYSQL_USERNAME=bbq_user
+      - MYSQL_PASSWORD=qwerty
+      - JAVA_OPTS=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev
+    depends_on:
+      - mysql-db
+    
+    networks:
+      - dev_environment
+    ports:
+      - "8016:8016"
+
+  product-v1:
+    container_name: product-v1
+    image: miguelarmasabt/product:v1.0.1
+    restart: always
+    environment: 
+      - MYSQL_HOST=mysql-db:3306
+      - MYSQL_USERNAME=bbq_user
+      - MYSQL_PASSWORD=qwerty
+      - DATABASE=db_products
+    depends_on:
+      - mysql-db
+    
+    networks:
+      - dev_environment
+    ports:
+      - "8017:8017"
+
+  order-hub-v1:
+    container_name: order-hub-v1
+    image: miguelarmasabt/order-hub:v1.0.1
+    restart: always
+    environment: 
+      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
+      - MENU_V1_DOMAIN=menu-v1:8012
+      - MENU_V2_DOMAIN=menu-v2:8016
+      - TABLE_PLACEMENT_DOMAIN=table-placement-v1:8013
+      - INVOICE_DOMAIN=invoice-v1:8014
+      - REDIS_DOMAIN=redis-server
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    depends_on:
+      - config-server-v1
+      - redis-server
+    
+    networks:
+      - dev_environment
+    ports:
+      - "8018:8018"
+
+  keycloak-server:
+    container_name: keycloak-server
+    image: jboss/keycloak:16.0.0
+    restart: always
+    environment: 
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - DB_VENDOR=H2
+    
+    
+    networks:
+      - dev_environment
+    ports:
+      - "8091:8080"
+
+  redis-server:
+    container_name: redis-server
+    image: redis:latest
+    restart: always
+    environment: 
+      - DUMMY=dummy
+    
+    
+    networks:
+      - dev_environment
+    ports:
+      - "6379:6379"
 
   kafka-server:
     container_name: kafka-server
@@ -148,6 +282,23 @@ services:
       - dev_environment
     ports:
       - "5432:5432"
+
+  mongo-db:
+    container_name: mongo-db
+    image: mongo:latest
+    restart: always
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=bbq-user
+      - MONGO_INITDB_ROOT_PASSWORD=qwerty
+      - MONGO_INITDB_DATABASE=tablePlacement
+    
+    volumes:
+      - ./../environment/databases/mongo-db/init:/docker-entrypoint-initdb.d
+      - ./../environment/databases/mongo-db/data:/data/db
+    networks:
+      - dev_environment
+    ports:
+      - "27017:27017"
 
 
 networks:

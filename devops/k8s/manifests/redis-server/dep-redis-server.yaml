@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: config-server-v1
+  name: redis-server
 spec:
   replicas: 1
   
   selector:
     matchLabels:
-      app: config-server-v1
+      app: redis-server
   template:
     metadata:
       labels:
-        app: config-server-v1
+        app: redis-server
     spec:
       containers:
-        - name: config-server-v1
-          image: miguelarmasabt/config-server:v1.0.1
+        - name: redis-server
+          image: redis:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8888
+            - containerPort: 6379
           resources:
             requests:
               memory: "256Mi"
@@ -27,8 +27,8 @@ spec:
               memory: "640Mi"
               cpu: "1"
           env: 
-            - name: JAVA_OPTS
+            - name: DUMMY
               valueFrom:
                 configMapKeyRef:
-                  name: cm-config-server-v1
-                  key: java-opts
+                  name: cm-redis-server
+                  key: dummy

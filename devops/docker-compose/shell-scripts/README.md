@@ -12,7 +12,7 @@
 > <br>Los parámetros de configuración Docker Compose para cada uno de los servicios están definidos en el siguiente archivo `csv`.
 > <br><br>Utilice `nano` para Unix
 > ```shell script 
-> notepad ./../parameters/docker-compose-parameters.csv #Windows
+> notepad ./../../environment/docker/containers-to-run.csv #Windows
 > ```
 >
 > 💡 **Notas**:
