@@ -47,8 +47,11 @@
 > 🔃 **Port forwarding**
 > <br> Haciendo un port forward podremos acceder desde nuestro entorno local a los services disponibles en el clúster de Kubernetes.
 >
+> Utilice la opción `allowPublicKeyRetrieval=true` para establecer las conexiones SQL.
+> 
 > ```shell script 
-> kubectl port-forward svc/<service-name> <local-port>:<pod-port> -n <namespace>
+> cd ./shell-scripts/k8s-operations
+> ./port-forward.sh
 > ```
 
 > ⏸️ **Eliminar recursos k8s**

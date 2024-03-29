@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: menu-v1
+spec:
+  replicas: 1
+  
+  selector:
+    matchLabels:
+      app: menu-v1
+  template:
+    metadata:
+      labels:
+        app: menu-v1
+    spec:
+      containers:
+        - name: menu-v1
+          image: miguelarmasabt/menu:v1.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8012
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "640Mi"
+              cpu: "1"
+          env: 
+            - name: CONFIG_SERVER_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: config-server-domain
+            - name: MYSQL_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: mysql-domain
+            - name: MYSQL_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: mysql-username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: mysql-password
+            - name: PRODUCT_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: product-domain
+            - name: JAVA_OPTS
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-menu-v1
+                  key: java-opts

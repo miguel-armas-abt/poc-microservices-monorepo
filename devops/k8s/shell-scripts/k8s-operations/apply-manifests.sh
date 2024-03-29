@@ -11,8 +11,8 @@ fi
 OPERATION=$1
 
 for folder in "$MANIFESTS_FOLDER"/*/; do
-    folder_name=$(basename "$folder")
-    echo -e "${WRENCH_SYMBOL} ........................ $folder_name"
+    app_name=$(basename "$folder")
+    echo -e "${WRENCH_SYMBOL} ........................ $app_name"
 
     if [[ $OPERATION == "apply"* ]]; then
       kubectl apply -f "$folder" -n restaurant
