@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cm-auth-adapter-v1
-data:
-  keycloack-domain: keycloak-server:8080
-  keycloack-key-rs256: mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo
-  java-opts: -Xms256M -Xmx256M

@@ -3,19 +3,21 @@
 CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
 
 if [ "$#" -ne 5 ] && [ "$#" -ne 6 ]; then
-    echo "Usage: $0 <APP_NAME> <DATA_FILE> <CONFIG_MAP_TEMPLATE> <IS_DATABASE> <MANIFESTS_PATH> <SUB_PATH_INIT_DB>"
+    echo "Usage: $0 <APP_NAME> <DATA_FILE> <TEMPLATES_PATH> <IS_DATABASE> <MANIFESTS_PATH> <SUB_PATH_INIT_DB>"
     exit 1
 fi
 
 APP_NAME=$1
 DATA_FILE=$2
-CONFIG_MAP_TEMPLATE=$3
+TEMPLATES_PATH=$3
 IS_DATABASE=$4
 MANIFESTS_PATH=$5
 SUB_PATH_INIT_DB=$6
 
+CONFIG_MAP_TEMPLATE=$TEMPLATES_PATH/config-map.template.yaml
+
 # Replace occurrences
-template=$(<./templates/$CONFIG_MAP_TEMPLATE)
+template=$(<$CONFIG_MAP_TEMPLATE)
 template="${template//APP_NAME/$APP_NAME}"
 
 if [ "$IS_DATABASE" = true ]; then
