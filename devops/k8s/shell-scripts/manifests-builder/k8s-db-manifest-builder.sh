@@ -49,7 +49,7 @@ while IFS=',' read -r CONTAINER_NAME DOCKER_IMAGE DEPENDENCIES HOST_PORT CONTAIN
           HOST_MOUNT_PATH=\"/mnt/data/\"
 
           ./builders/controller-builder.sh "$APP_NAME" "$CONTAINER_PORT" "$DOCKER_IMAGE" null "$CONTROLLER_TEMPLATE" "$CONTROLLER_TYPE" "$REPLICA_COUNT" "$MANIFESTS_PATH" true "$MOUNT_PATH_DATA" "$MOUNT_PATH_INIT_DB" "$SUB_PATH_INIT_DB"
-          ./builders/persistent-builder.sh "$APP_NAME" $HOST_MOUNT_PATH "$TEMPLATES_PATH" PV "$MANIFESTS_PATH"
+          ./builders/persistent-builder.sh "$APP_NAME" "$HOST_MOUNT_PATH" "$TEMPLATES_PATH" PV "$MANIFESTS_PATH"
           ./builders/persistent-builder.sh "$APP_NAME" null "$TEMPLATES_PATH" PVC "$MANIFESTS_PATH"
           ./builders/service-builder.sh "$APP_NAME" "$CONTAINER_PORT" "$NODE_PORT" "$SERVICE_TEMPLATE" "$MANIFESTS_PATH" "$CLUSTER_IP"
           ./builders/config-map-builder.sh "$APP_NAME" "$INIT_DB_FILE" "$TEMPLATES_PATH" true "$MANIFESTS_PATH" "$SUB_PATH_INIT_DB"
