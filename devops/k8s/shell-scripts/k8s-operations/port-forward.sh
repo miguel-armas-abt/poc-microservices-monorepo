@@ -23,7 +23,7 @@ for folder in "$MANIFESTS_FOLDER"/*/; do
         # container name equals to folder name
         if [[ "$CONTAINER_NAME" == "$app_name" ]]; then
           execution_command="kubectl port-forward svc/"$app_name" "$HOST_PORT":"$CONTAINER_PORT" -n restaurant"
-          eval start "$execution_command"
+          start bash -c "echo -ne \"\\033]0;$app_name\\007\";$execution_command" #set title in the emergent windows
         fi
         
       fi
