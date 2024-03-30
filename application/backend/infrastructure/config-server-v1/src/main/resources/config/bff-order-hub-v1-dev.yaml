@@ -5,16 +5,8 @@ application:
         base-url: http://${MENU_V1_DOMAIN:localhost:8012}/bbq/business/menu/v1/
       v2:
         base-url: http://${MENU_V2_DOMAIN:localhost:8016}/bbq/business/menu/v2/
-      selector-class: com.demo.bbq.business.orderhub.infrastructure.repository.restclient.menu.connector.menuv1.retrofit.MenuV1ApiConnectorRetrofitImpl
+      selector-class: com.demo.bbq.business.orderhub.domain.repository.menu.menuv1.MenuV1Repository
     table-placement:
       base-url: http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/bbq/business/table-placement/v1/
     invoice:
       base-url: http://${INVOICE_DOMAIN:localhost:8014}/bbq/business/invoice/v1/
-
-spring:
-  cache:
-    type: redis
-  redis:
-    host: ${REDIS_DOMAIN:localhost}
-    port: 6379
-    ssl: false
