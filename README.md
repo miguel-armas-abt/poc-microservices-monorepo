@@ -1,119 +1,98 @@
-# DEMO MICROSERVICIOS BBQ
+# BBQ RESTAURANT
 
-- [1. Caso de estudio](#1-caso-de-estudio)
-- [2. Diseño del software](#2-disenio-del-software)
-- [3. Gestión del repositorio](#3-gestion-del-repositorio)
-- [4. Despliegue](#4-despliegue)
-
-# 1. Caso de estudio
-BBQ Restaurant es una cadena global de restaurantes que planea implementar una arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
-
+# 1. CASO DE ESTUDIO
+BBQ Restaurant es una cadena de restaurantes que planea implementar una arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
 Los expertos en el dominio "restaurante" utilizan los siguientes procesos para prestar servicios a sus clientes.
 
 
-> 📝 Atención en el comedor
+> 💡 **Atención en el comedor**
 >
 ![Proceso de atención en el restaurante](./docs/diagrams/restaurant-process.jpg)
 
-> 📝 Reserva en línea
+> 💡 **Reserva en línea**
 
 ![Proceso de reserva](./docs/diagrams/reservation-process.jpg)
 
 
-> 📝 Delivery
+> 💡 **Delivery**
 
 ![Proceso de delivery](./docs/diagrams/delivery-process.jpg)
 
-# 2. Disenio del software
-> 📌 **Glosario**
-> - **Dominio**: Área de conocimiento (conceptos, reglas, requisitos) que el software está destinado a abordar. Por lo general, cada `servicio web` aborda un `dominio` específico.
+# 2. DISENIO DEL SOFTWARE
 
-## 2.1. Arquitectura de software
+> 📌 **Glosario**
+- **Dominio**: Área de conocimiento (conceptos, reglas, requisitos) que el software está destinado a abordar. Por lo general, cada `servicio web` aborda un `dominio` específico.
+- **Subdominio**: Área de conocimiento más específica dentro del dominio principal. Por lo general, los `subdominios` de cada servicio web son representados por los `modelos de datos` de sus fuentes de información.
+- **Modelo de datos**: Modelo que captura la estructura y el significado de los datos en un subdominio específico.
+- **Contexto**: Funcionalidad del sistema que puede abarcar uno o más subdominios. Los contextos ayudan a delimitar las responsabilidades entre los componentes del sistema.
+
+> 🔍 **Ejemplo**
+- **Dominio**: `Colocación de pedidos en mesa` .................. Es el alcance funcional que aborda el servicio web.
+- **Subdominios**: `Mesas` y `pedidos` ................................. Son los modelos de datos de la capa `repository`.
+- **Contextos**: ........................................................................ Son las funcionalidades que implementa el servicio web.
+  - `Colocación de pedidos`: Se encarga de tomar los pedidos de los clientes y asignarlos a una mesa específica.
+  - `Gestión de estado de mesa`: Controla el estado de ocupación de las mesas, indicando si están disponibles, ocupadas o reservadas.
+
+> ⚙️ **Diagrama de arquitectura de software**
+
 ![Arquitectura de software](./docs/diagrams/software-architecture.jpg)
 
-| Servicio web                   | Descripción                                                                                                                   | Puerto | Stack                                                         |   
-|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------|--------|---------------------------------------------------------------|
-| `product-v1`                   | Permite gestionar los productos que ofrece el restaurante BBQ (CRUD).                                                         | 8017   | **GO**: `GORM`                                                |
-| `menu-v1`                      | Permite gestionar las opciones de menú que ofrece el restaurante BBQ (CRUD), siendo las opciones de menú un tipo de producto. | 8012   | **Spring Boot**: `JPA, Retrofit`                              |
-| `menu-v2`                      | Cumple el mismo propósito que menu-v1 (CRUD).                                                                                 | 8016   | **Quarkus**: `Panache Entity, RestClient, Multiny, GraphQL`   |
-| `table-placement-v1`           | Permite realizar la colocación de la mesa, es decir que permite agregar pedidos en cada mesa y consultarlos.                  | 8013   | **Spring Boot**: `MongoDB Reactive, Webflux, RouterFunctions` |
-| `invoice-v1`                   | Permite generar una factura de proforma y enviarla a pagar.                                                                   | 8014   | **Spring Boot**: `JPA, RxJava2, Retrofit, Kafka`              |
-| `payment-v1`                   | Recibe las facturas y las procesa.                                                                                            | 8015   | **Spring Boot**: `JPA, Kafka`                                 |
-| `order-hub-v1`                 | `Backend for Frontend` Construye la experiencia de generación de pedidos.                                                     | 8018   | **Spring Boot**: `Retrofit, Redis, Circuit Breaker`           |
-| `registry-discovery-server-v1` | Servicio de registro y descubrimiento.                                                                                        | 8761   | **Spring Cloud**                                              |
-| `config-server-v1`             | Servicio de configuraciones.                                                                                                  | 8888   | **Spring Cloud**                                              |
-| `api-gateway-v1`               | API Gateway.                                                                                                                  | 8010   | **Spring Cloud**                                              |
-| `auth-adapter-v1`              | Adaptador de autenticación.                                                                                                   | 8011   | **Spring Boot**: Retrofit                                     |
+> 📝 **Descripción de los servicios web**
 
-## 2.2. Arquitectura de paquetes
-> 📌 **Glosario**
-> - **Subdominio**: Área de conocimiento más específica dentro del dominio principal. Por lo general, los `subdominios` de cada servicio web son representados por los `modelos de datos` de sus fuentes de información.
-> - **Modelo de datos**: Modelo que captura la estructura y el significado de los datos en un subdominio específico.
-> - **Contexto**: Funcionalidad en el sistema que puede abarcar uno o más subdominios. Los contextos ayudan a delimitar las responsabilidades entre los componentes del sistema.
->
-> 🔍 **Ejemplo**
-> - **Dominio**: `Colocación de pedidos en mesa`
-> - **Subdominios**: `Mesas` y `pedidos`
-> - **Contextos**:
->   - `Colocación de pedidos`: Se encarga de tomar los pedidos de los clientes y asignarlos a una mesa específica.
->   - `Gestión de estado de mesa`: Controla el estado de ocupación de las mesas, indicando si están disponibles, ocupadas o reservadas.
+| Servicio web                   | Descripción                                                                                                                   | Stack                                                         |   
+|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
+| `product-v1`                   | Permite gestionar los productos que ofrece el restaurante BBQ (CRUD).                                                         | **GO**: `GORM`                                                |
+| `menu-v1`                      | Permite gestionar las opciones de menú que ofrece el restaurante BBQ (CRUD), siendo las opciones de menú un tipo de producto. | **Spring Boot**: `JPA, Retrofit`                              |
+| `menu-v2`                      | Cumple el mismo propósito que menu-v1 (CRUD).                                                                                 | **Quarkus**: `Panache Entity, RestClient, Multiny, GraphQL`   |
+| `table-placement-v1`           | Permite realizar la colocación de la mesa, es decir que permite agregar pedidos en cada mesa y consultarlos.                  | **Spring Boot**: `MongoDB Reactive, Webflux, RouterFunctions` |
+| `invoice-v1`                   | Permite generar una factura de proforma y enviarla a pagar.                                                                   | **Spring Boot**: `JPA, RxJava2, Retrofit, Kafka`              |
+| `payment-v1`                   | Recibe las facturas y las procesa.                                                                                            | **Spring Boot**: `JPA, Kafka`                                 |
+| `order-hub-v1`                 | `Backend for Frontend` Construye la experiencia de generación de pedidos.                                                     | **Spring Boot**: `Retrofit, Redis, Circuit Breaker`           |
+| `config-server-v1`             | Servicio de configuraciones.                                                                                                  | **Spring Cloud**                                              |
+| `api-gateway-v1`               | API Gateway.                                                                                                                  | **Spring Cloud**                                              |
+| `auth-adapter-v1`              | Adaptador de autenticación.                                                                                                   | **Spring Boot**: Retrofit                                     |
+
+> ♻️ **Plantilla de arquitectura de paquetes**
 
 ```javascript
-    application-name
-    │───`infrastructure` // Receives the requests and handles the implementation details
-    │   ├───rest
-    │   │   └───_ContextName_RestService.java // RestController or RouterFunction implementation
-    │   └───exception.handler
-    │       └───ApiExceptionHandler.java // Intercepts exceptions to show in HTTP response
-    ├───`application` // Contributes with the domain logic and application logic
-    │   ├───service
-    │   │   ├───_ContextName_Service.java
-    │   │   └───impl
-    │   │       └───_ContextName_ServiceImpl.java
-    │   ├───mapper
-    │   │   └───_ContextName_Mapper.java
+    web-service
+    │───`infrastructure`
+    │   ├───config                  //*Config
+    │   ├───rest                    //*RestService
+    │   └───exception.handler       //*ExceptionHandler & *ExcepionInterceptor
+    ├───`application`
+    │   ├───aspect                  //*Aspect
+    │   ├───constants               //*Constant
     │   ├───dto
-    │   │   └───_context-name_
-    │   │       ├───request
-    │   │       │   └───_ContextName_Request.java
-    │   │       └───response
-    │   │           └───_ContextName_Response.java
-    │   ├───enums
-    │   │   └───_EnumName_Enum.java
-    │   ├───aspect
-    │   │   └───_cross-cutting-concern_
-    │   │       └───_CrossCuttingConcern_Aspect.java // Cross-cutting concern aspect
-    │   ├───event
-    │   │   ├───_EventName_Consumer.java
-    │   │   └───_EventName_Producer.java
-    └───`domain` // Handles the domain data
-        ├───exception
-        │   └───_ApplicationName_Exception.java // Application specific exceptions
+    │   │   └───`<context>`
+    │   │       ├───request         //*RequestDTO
+    │   │       └───response        //*ResponseDTO
+    │   ├───enums                   //*Category | *Type | *Catalog
+    │   ├───events
+    │   │   ├───consumer
+    │   │   │   └───`<context>`     //*Consumer
+    │   │   │       └───message     //*Message
+    │   │   └───producer
+    │   │       └───`<context>`     //*Producer
+    │   │           └───message     //*Message
+    │   ├───mapper                  //*Mapper
+    │   ├───properties              //*Properties
+    │   └───service                 
+    │       └───`<context>`         //*Service & *ServiceImpl
+    └───`domain`
+        ├───exception               //*Exception
         └───repository
-            └───data-model-name
-                ├───_DataModelName_Repository.java
-                └───(entity | document | request | response)
-                      └───_DataModelName_(Entity | Document | RequestWrapper | ResponseWrapper).java
+            └───`<data-model>`      //*Repository
+                └───entity | document | request | response  //*Entity | *Document | *RequestWrapper | *ResponseWrapper
+
 ```
-✅ **Ventajas**: 
+✅ **Ventaja**: 
 <br>Define una clara separación de responsabilidades y facilita que los desarrolladores sigan los principios de Inversión de dependencias y clean architecture. "Un componente de una capa inferior no debe llamar a uno de una capa superior".
 
-⚠️ **Desventajas**:
-<br>Considerando que los servicios web tienden a ser menos complejos en las arquitecturas de microservicios, esta capa adicional podría introducir una complejidad adicional.
+⚠️ **Desventaja**:
+<br>Considerando que los servicios web en las arquitecturas de microservicios tienden a ser lo menos complejos posible, las capas `infrastructure`, `application` y `domain` podrían introducir un nivel de complejidad adicional.
 
-# 3. Gestion del repositorio
-
-## 3.1. Ramas
-
-> 💾 **Código fuente**
-> - `main`: Contiene el código fuente del monorepo en su versión estable.
-> - `feature/<feature-name>`: Contiene el código fuente del monorepo en su versión de desarrollo
-
-> ⚙️ **Archivos de configuración**
-> - `config-server`: Contiene los archivos de configuración en su versión estable.
-> - `config-server/<feature-name>`: Contiene los archivos de configuración en su versión de desarrollo.
-
-## 3.2. Estructura de carpetas
+# 3. ESTRUCTURA DEL REPOSITORIO
 
 ```javascript
     bbq-monorepo
@@ -139,7 +118,7 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
         └───postman // postman collection and environment
 ```
 
-# 4. Despliegue
+# 4. DESPLIEGUE
 Revise las instrucciones de despliegue para cada uno de los siguientes entornos.
 - Local: `devops/local/README.md`
 - Docker Compose: `devops/docker-compose/README.md`
