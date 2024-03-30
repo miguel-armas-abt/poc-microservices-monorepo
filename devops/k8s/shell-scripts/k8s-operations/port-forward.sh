@@ -1,6 +1,7 @@
 #!/bin/bash
 
-CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
+source ./../../../environment/common-script.sh
+K8S_LOG_FILE=./../../../$K8S_LOG_FILE
 MANIFESTS_FOLDER="./../../manifests"
 CONTAINERS_CSV="./../../../environment/docker/containers-to-run.csv"
 
@@ -23,6 +24,7 @@ for folder in "$MANIFESTS_FOLDER"/*/; do
         # container name equals to folder name
         if [[ "$CONTAINER_NAME" == "$app_name" ]]; then
           execution_command="kubectl port-forward svc/"$app_name" "$HOST_PORT":"$CONTAINER_PORT" -n restaurant"
+          echo "$(get_timestamp) .......... $app_name .......... $execution_command" >> "$K8S_LOG_FILE"
           start bash -c "echo -ne \"\\033]0;$app_name\\007\";$execution_command" #set title in the emergent windows
         fi
         

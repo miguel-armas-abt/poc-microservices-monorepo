@@ -18,7 +18,7 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
 
 ![Proceso de delivery](./docs/diagrams/delivery-process.jpg)
 
-# 2. DISENIO DEL SOFTWARE
+# 2. DISEÑO DEL SOFTWARE
 
 > 📌 **Glosario**
 - **Dominio**: Área de conocimiento (conceptos, reglas, requisitos) que el software está destinado a abordar. Por lo general, cada `servicio web` aborda un `dominio` específico.
