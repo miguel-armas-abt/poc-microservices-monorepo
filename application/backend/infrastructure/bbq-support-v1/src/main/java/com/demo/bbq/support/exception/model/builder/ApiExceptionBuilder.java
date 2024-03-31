@@ -1,6 +1,5 @@
 package com.demo.bbq.support.exception.model.builder;
 
-import com.demo.bbq.support.exception.constant.ApiExceptionConstant;
 import com.demo.bbq.support.exception.model.ApiExceptionDetail;
 import com.demo.bbq.support.exception.model.ApiException;
 import java.util.ArrayList;
@@ -38,7 +37,6 @@ public class ApiExceptionBuilder {
 
   public ApiExceptionBuilder errorCode(String errorCode) {
     toOptional.apply(errorCode)
-        .filter(error -> error.matches(ApiExceptionConstant.ERROR_CODE_REGEX))
         .ifPresent(actualErrorCode -> this.errorCode = actualErrorCode);
     return this;
   }

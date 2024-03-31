@@ -7,8 +7,7 @@ import java.util.List;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequest;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequest;
 import com.demo.bbq.business.menu.infrastructure.doc.DocumentationConfig;
-import com.demo.bbq.support.exception.documentation.ApiExceptionJsonExample;
-import com.demo.bbq.support.exception.model.dto.ApiExceptionDto;
+import com.demo.bbq.support.exception.model.dto.ApiExceptionDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -21,9 +20,7 @@ import org.springframework.http.ResponseEntity;
 
 @ApiResponses(value = {
     @ApiResponse(responseCode = "400",
-        content = @Content(schema = @Schema(implementation = ApiExceptionDto.class), examples = @ExampleObject(value = ApiExceptionJsonExample.BAD_REQUEST))),
-    @ApiResponse(responseCode = "404",
-        content = @Content(schema = @Schema(implementation = ApiExceptionDto.class), examples = @ExampleObject(value = ApiExceptionJsonExample.NOT_FOUND))),
+        content = @Content(schema = @Schema(implementation = ApiExceptionDTO.class)))
 })
 public interface MenuOptionRestService {
 

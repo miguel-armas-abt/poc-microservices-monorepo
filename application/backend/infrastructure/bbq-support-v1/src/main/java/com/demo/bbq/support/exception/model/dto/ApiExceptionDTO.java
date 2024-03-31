@@ -1,11 +1,9 @@
 package com.demo.bbq.support.exception.model.dto;
 
-import com.demo.bbq.support.exception.constant.ApiExceptionConstant;
 import com.demo.bbq.support.exception.model.ApiExceptionDetail;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.List;
-import javax.validation.constraints.Pattern;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -21,13 +19,12 @@ import lombok.Getter;
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @Getter
 @Builder
-public class ApiExceptionDto implements Serializable {
+public class ApiExceptionDTO implements Serializable {
 
   private final String type;
 
   private final String message;
 
-  @Pattern(regexp = ApiExceptionConstant.ERROR_CODE_REGEX, message = "Invalid error code")
   private final String errorCode;
 
   private final List<ApiExceptionDetail> details;

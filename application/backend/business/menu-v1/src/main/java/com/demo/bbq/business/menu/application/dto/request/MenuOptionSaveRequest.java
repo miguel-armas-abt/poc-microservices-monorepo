@@ -2,7 +2,6 @@ package com.demo.bbq.business.menu.application.dto.request;
 
 import com.demo.bbq.business.menu.infrastructure.doc.DocumentationConfig.DocumentationExample;
 import com.demo.bbq.business.menu.application.constant.MenuRegex;
-import com.demo.bbq.support.constant.RegexConstant;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -27,7 +26,6 @@ public class MenuOptionSaveRequest implements Serializable {
   private String productCode;
 
   @Schema(example = DocumentationExample.DESCRIPTION)
-  @Pattern(regexp = RegexConstant.ANY_STRING, message = "Name has invalid format")
   @Size(min = 3, max = 300)
   @NotNull(message = "description cannot be null")
   private String description;

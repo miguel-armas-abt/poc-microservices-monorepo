@@ -1,12 +1,11 @@
 package com.demo.bbq.support.httpclient.retrofit.util;
 
+import com.demo.bbq.support.exception.model.ApiException;
+import com.demo.bbq.support.exception.model.dto.ApiExceptionDTO;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.function.BiFunction;
-
-import com.demo.bbq.support.exception.model.ApiException;
-import com.demo.bbq.support.exception.model.dto.ApiExceptionDto;
-import com.google.gson.Gson;
 import okhttp3.Interceptor;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -15,11 +14,11 @@ import org.springframework.http.HttpStatus;
 public class RetrofitInterceptorUtil {
   private RetrofitInterceptorUtil() {}
 
-  private static final BiFunction<ApiExceptionDto, Integer, ApiException> mapToApiException = (apiExceptionDto, httpCode) ->
+  private static final BiFunction<ApiExceptionDTO, Integer, ApiException> mapToApiException = (apiExceptionDTO, httpCode) ->
       ApiException.builder()
-          .type(apiExceptionDto.getType())
-          .message(apiExceptionDto.getMessage())
-          .errorCode(apiExceptionDto.getErrorCode())
+          .type(apiExceptionDTO.getType())
+          .message(apiExceptionDTO.getMessage())
+          .errorCode(apiExceptionDTO.getErrorCode())
           .status(HttpStatus.resolve(httpCode))
           .build();
 
@@ -32,7 +31,7 @@ public class RetrofitInterceptorUtil {
         }
         ResponseBody responseBody = response.body();
         String jsonExceptionResponse = responseBody != null ? responseBody.string() : "";
-        ApiExceptionDto exceptionResponse = new Gson().fromJson(jsonExceptionResponse, ApiExceptionDto.class);
+        ApiExceptionDTO exceptionResponse = new Gson().fromJson(jsonExceptionResponse, ApiExceptionDTO.class);
         throw mapToApiException.apply(exceptionResponse, response.code());
       }
       return response;

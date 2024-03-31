@@ -1,7 +1,7 @@
 package com.demo.bbq.business.orderhub.domain.exception;
 
+import com.demo.bbq.support.exception.enums.ApiExceptionType;
 import com.demo.bbq.support.exception.util.ApiExceptionUtil;
-import com.demo.bbq.support.exception.catalog.ApiExceptionType;
 import com.demo.bbq.support.exception.model.ApiException;
 import com.demo.bbq.support.exception.model.builder.ApiExceptionBuilder;
 import lombok.AllArgsConstructor;
@@ -34,9 +34,9 @@ public enum OrderHubException {
 
   private ApiExceptionBuilder buildApiException() {
     return ApiException.builder()
-        .errorCode(ApiExceptionUtil.generateErrorCode(type, SERVICE_NAME, this.name()))
-        .message(this.message)
+        .errorCode(ApiExceptionUtil.buildErrorCode(SERVICE_NAME, this.name()))
         .type(this.type.getDescription())
+        .message(this.message)
         .status(this.type.getHttpStatus());
   }
 }

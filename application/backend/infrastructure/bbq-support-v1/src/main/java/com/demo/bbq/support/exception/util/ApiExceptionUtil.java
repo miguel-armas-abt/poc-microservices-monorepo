@@ -1,16 +1,11 @@
 package com.demo.bbq.support.exception.util;
 
-import com.demo.bbq.support.constant.CharacterConstant;
-import com.demo.bbq.support.exception.catalog.ApiExceptionType;
-
 public class ApiExceptionUtil {
   private ApiExceptionUtil() {}
 
-  public static String generateErrorCode(ApiExceptionType exceptionType, String serviceName, String errorCode) {
+  public static String buildErrorCode(String serviceName, String errorCode) {
     return serviceName
-        .concat(CharacterConstant.DOT)
-        .concat(exceptionType.getCode())
-        .concat(CharacterConstant.DOT)
+        .concat(".")
         .concat(errorCode.substring(5));
   }
 }

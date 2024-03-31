@@ -1,4 +1,4 @@
-package com.demo.bbq.support.exception.catalog;
+package com.demo.bbq.support.exception.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +11,7 @@ import org.springframework.http.HttpStatus;
 public enum ApiExceptionType {
 
   BUSINESS_RULES("01", "/errors/business-rules", HttpStatus.BAD_REQUEST),
-
   AUTH_RULES("02", "/errors/auth-rules", HttpStatus.UNAUTHORIZED),
-
   NO_DATA("03", "/errors/no-data", HttpStatus.NOT_FOUND),
   GATEWAY_CONNECTION("04", "/errors/gateway-connection", HttpStatus.BAD_GATEWAY),
   MALFORMED_REQUEST("05", "/errors/malformed-request", HttpStatus.BAD_GATEWAY),

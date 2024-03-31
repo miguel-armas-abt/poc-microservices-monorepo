@@ -1,7 +1,7 @@
 package com.demo.bbq.infrastructure.apigateway.domain.exception;
 
 import com.demo.bbq.support.exception.util.ApiExceptionUtil;
-import com.demo.bbq.support.exception.catalog.ApiExceptionType;
+import com.demo.bbq.support.exception.enums.ApiExceptionType;
 import com.demo.bbq.support.exception.model.ApiException;
 import com.demo.bbq.support.exception.model.builder.ApiExceptionBuilder;
 import lombok.Getter;
@@ -35,7 +35,7 @@ public enum ApiGatewayException {
 
   private ApiExceptionBuilder buildApiException() {
     return ApiException.builder()
-        .errorCode(ApiExceptionUtil.generateErrorCode(type, SERVICE_NAME, this.name()))
+        .errorCode(ApiExceptionUtil.buildErrorCode(SERVICE_NAME, this.name()))
         .message(this.message)
         .type(this.type.getDescription())
         .status(this.type.getHttpStatus());

@@ -1,7 +1,7 @@
 package com.demo.bbq.business.invoice.infrastructure.exception;
 
 import com.demo.bbq.support.exception.model.ApiException;
-import com.demo.bbq.support.exception.model.dto.ApiExceptionDto;
+import com.demo.bbq.support.exception.model.dto.ApiExceptionDTO;
 import com.demo.bbq.support.exception.util.ApiExceptionHandlerUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(ApiException.class)
-  public final ResponseEntity<ApiExceptionDto> handleApiException(ApiException ex, WebRequest request) {
+  public final ResponseEntity<ApiExceptionDTO> handleApiException(ApiException ex, WebRequest request) {
     return ApiExceptionHandlerUtil.handleApiException.apply(ex);
   }
 

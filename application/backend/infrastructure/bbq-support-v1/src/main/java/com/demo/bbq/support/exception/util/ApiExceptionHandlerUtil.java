@@ -1,9 +1,9 @@
 package com.demo.bbq.support.exception.util;
 
-import com.demo.bbq.support.exception.catalog.ApiExceptionType;
+import com.demo.bbq.support.exception.enums.ApiExceptionType;
 import com.demo.bbq.support.exception.model.ApiException;
 import com.demo.bbq.support.exception.model.ApiExceptionDetail;
-import com.demo.bbq.support.exception.model.dto.ApiExceptionDto;
+import com.demo.bbq.support.exception.model.dto.ApiExceptionDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -17,7 +17,7 @@ public class ApiExceptionHandlerUtil {
   private ApiExceptionHandlerUtil() {}
 
   public static Function<HttpMessageNotReadableException, ResponseEntity<Object>> handleHttpMessageNotReadable = exception -> {
-    ApiExceptionDto apiException = ApiExceptionDto.builder()
+    ApiExceptionDTO apiException = ApiExceptionDTO.builder()
         .type(ApiExceptionType.MALFORMED_REQUEST.getDescription())
         .message(exception.getCause().getMessage())
         .build();
@@ -35,15 +35,15 @@ public class ApiExceptionHandlerUtil {
       detailList.add(ApiExceptionDetail.builder().message(errorMessage).build());
     }
 
-    ApiExceptionDto apiException = ApiExceptionDto.builder()
+    ApiExceptionDTO apiException = ApiExceptionDTO.builder()
         .type(ApiExceptionType.MALFORMED_REQUEST.getDescription())
         .details(detailList)
         .build();
     return new ResponseEntity<>(apiException, ApiExceptionType.MALFORMED_REQUEST.getHttpStatus());
   };
 
-  public static Function<ApiException, ResponseEntity<ApiExceptionDto>> handleApiException = exception -> {
-    ApiExceptionDto apiException = ApiExceptionDto.builder()
+  public static Function<ApiException, ResponseEntity<ApiExceptionDTO>> handleApiException = exception -> {
+    ApiExceptionDTO apiException = ApiExceptionDTO.builder()
         .type(exception.getType())
         .message(exception.getMessage())
         .errorCode(exception.getErrorCode())

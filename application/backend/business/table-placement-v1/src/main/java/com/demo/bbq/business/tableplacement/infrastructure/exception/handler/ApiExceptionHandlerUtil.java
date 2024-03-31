@@ -1,8 +1,8 @@
 package com.demo.bbq.business.tableplacement.infrastructure.exception.handler;
 
-import com.demo.bbq.support.exception.catalog.ApiExceptionType;
+import com.demo.bbq.support.exception.enums.ApiExceptionType;
 import com.demo.bbq.support.exception.model.ApiException;
-import com.demo.bbq.support.exception.model.dto.ApiExceptionDto;
+import com.demo.bbq.support.exception.model.dto.ApiExceptionDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
@@ -38,7 +38,7 @@ public class ApiExceptionHandlerUtil {
   }
 
   private byte[] serializeExceptionResponseToBytes(Throwable throwable) {
-    ApiExceptionDto exceptionResponse = (throwable instanceof ApiException)
+    ApiExceptionDTO exceptionResponse = (throwable instanceof ApiException)
         ? buildApiException.apply(throwable)
         : buildDefaultExceptionResponse.apply(throwable);
     try {
@@ -48,13 +48,13 @@ public class ApiExceptionHandlerUtil {
     }
   }
 
-  private static final Function<Throwable, ApiExceptionDto> buildApiException = throwable -> {
+  private static final Function<Throwable, ApiExceptionDTO> buildApiException = throwable -> {
     ApiException apiException = (ApiException) throwable;
-    return ApiExceptionDto.builder().type(apiException.getType()).message(apiException.getMessage()).errorCode(apiException.getErrorCode()).details(apiException.getDetails()).build();
+    return ApiExceptionDTO.builder().type(apiException.getType()).message(apiException.getMessage()).errorCode(apiException.getErrorCode()).details(apiException.getDetails()).build();
   };
 
-  private static final Function<Throwable, ApiExceptionDto> buildDefaultExceptionResponse = throwable ->
-      ApiExceptionDto.builder()
+  private static final Function<Throwable, ApiExceptionDTO> buildDefaultExceptionResponse = throwable ->
+      ApiExceptionDTO.builder()
           .message(throwable.getMessage())
           .type(ApiExceptionType.UNEXPECTED.getDescription())
           .build();
