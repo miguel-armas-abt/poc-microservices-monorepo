@@ -12,14 +12,12 @@
   <description>POM parent project for spring cloud projects</description>
 
   <properties>
-    <spring-boot.version>2.6.2</spring-boot.version>
-    <spring-boot-maven-plugin.version>2.6.2</spring-boot-maven-plugin.version>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <!-- base -->
+    <java.version>17</java.version>
+    <spring-boot.version>3.2.4</spring-boot.version>
+    <spring-cloud-dependencies.version>2023.0.0</spring-cloud-dependencies.version>
     <maven-compiler-version>3.8.1</maven-compiler-version>
-    <java.version>11</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spring-cloud-dependencies.version>2021.0.0</spring-cloud-dependencies.version>
   </properties>
 
   <dependencyManagement>
@@ -58,7 +56,7 @@
       <plugin> <!-- executable application -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring-boot-maven-plugin.version}</version>
+        <version>${spring-boot.version}</version>
         <executions>
           <execution>
             <goals>
