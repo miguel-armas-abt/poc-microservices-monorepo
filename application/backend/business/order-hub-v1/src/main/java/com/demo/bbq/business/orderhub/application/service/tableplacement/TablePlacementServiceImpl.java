@@ -5,9 +5,9 @@ import com.demo.bbq.business.orderhub.domain.repository.menu.MenuRepositoryHelpe
 import com.demo.bbq.business.orderhub.domain.repository.menu.wrapper.response.MenuOptionResponseWrapper;
 import com.demo.bbq.business.orderhub.domain.repository.tableorder.TableOrderRepository;
 import com.demo.bbq.business.orderhub.application.dto.tableorder.request.MenuOrderRequestDTO;
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

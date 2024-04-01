@@ -4,6 +4,7 @@ import com.demo.bbq.business.menuoption.application.service.MenuOptionService;
 import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionSaveRequest;
 import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionUpdateRequest;
 import com.demo.bbq.business.menuoption.domain.model.response.MenuOption;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import lombok.extern.slf4j.Slf4j;
 import javax.inject.Inject;
@@ -12,7 +13,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
-import java.util.List;
 import java.util.function.Function;
 
 @Slf4j
@@ -31,7 +31,7 @@ public class MenuOptionRestService {
   }
 
   @GET
-  public Uni<List<MenuOption>> findByCategory(@QueryParam("category") String categoryCode) {
+  public Multi<MenuOption> findByCategory(@QueryParam("category") String categoryCode) {
     return menuOptionService.findByCategory(categoryCode);
   }
 

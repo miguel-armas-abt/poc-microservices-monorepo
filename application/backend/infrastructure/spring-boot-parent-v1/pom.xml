@@ -156,7 +156,7 @@
     </dependency>
     <dependency>
       <groupId>com.squareup.retrofit2</groupId>
-      <artifactId>adapter-rxjava2</artifactId>
+      <artifactId>adapter-rxjava3</artifactId>
       <version>${retrofit.version}</version>
     </dependency>
     <dependency>

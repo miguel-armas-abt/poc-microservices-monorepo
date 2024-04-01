@@ -2,7 +2,7 @@ package com.demo.bbq.business.orderhub.domain.repository.tableorder;
 
 import com.demo.bbq.business.orderhub.domain.repository.tableorder.wrapper.TableOrderRequestWrapper;
 import com.demo.bbq.business.orderhub.application.dto.tableorder.request.MenuOrderRequestDTO;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Response;

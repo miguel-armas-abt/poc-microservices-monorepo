@@ -6,6 +6,7 @@ import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionUpdateReq
 import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionSaveRequest;
 import com.demo.bbq.business.menuoption.domain.model.response.MenuOption;
 import com.demo.bbq.business.menuoption.infrastructure.repository.handler.MenuOptionRepositoryHandler;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import java.util.List;
 import java.util.Optional;
@@ -22,10 +23,13 @@ public class MenuOptionServiceImpl implements MenuOptionService {
   MenuOptionRepositoryHandler menuOptionRepositoryHandler;
 
   @Override
-  public Uni<List<MenuOption>> findByCategory(String categoryCode) {
-    return Optional.ofNullable(categoryCode).isEmpty()
+  public Multi<MenuOption> findByCategory(String categoryCode) {
+    return (Optional.ofNullable(categoryCode).isEmpty()
         ? menuOptionRepositoryHandler.findAll()
-        : this.validateMenuOptionAndFindByCategory(categoryCode);
+        : this.validateMenuOptionAndFindByCategory(categoryCode))
+        .onItem()
+        .transformToMulti(list -> Multi.createFrom().iterable(list))
+        .flatMap(item -> Multi.createFrom().item(item));
   }
 
   private Uni<List<MenuOption>> validateMenuOptionAndFindByCategory(String categoryCode) {

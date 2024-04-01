@@ -1,11 +1,10 @@
-package com.demo.bbq.business.orderhub.domain.repository.menu.menuv2;
+package com.demo.bbq.business.orderhub.domain.repository.menu.menuv1;
 
 import com.demo.bbq.business.orderhub.domain.exception.OrderHubException;
 import com.demo.bbq.business.orderhub.domain.repository.menu.MenuRepository;
-import com.demo.bbq.business.orderhub.domain.repository.menu.wrapper.response.MenuOptionResponseWrapper;
 import com.demo.bbq.business.orderhub.domain.repository.menu.wrapper.request.MenuOptionSaveRequestWrapper;
 import com.demo.bbq.business.orderhub.domain.repository.menu.wrapper.request.MenuOptionUpdateRequestWrapper;
-import com.demo.bbq.support.httpclient.retrofit.reactive.HttpStreamingTransformer;
+import com.demo.bbq.business.orderhub.domain.repository.menu.wrapper.response.MenuOptionResponseWrapper;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
@@ -15,33 +14,33 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class MenuV2RepositoryImpl implements MenuRepository {
+public class MenuV1RepositoryImpl implements MenuRepository {
 
-  private final MenuV2Repository menuV2Repository;
+  private final MenuV1Repository menuV1Repository;
 
   @Override
   public Observable<MenuOptionResponseWrapper> findByCategory(String category) {
-    return menuV2Repository.findByCategory(category).compose(HttpStreamingTransformer.of(MenuOptionResponseWrapper.class));
+    return menuV1Repository.findByCategory(category).flatMapObservable(Observable::fromIterable);
   }
 
   @Override
   public Maybe<MenuOptionResponseWrapper> findByProductCode(String productCode) {
-    return menuV2Repository.findByProductCode(productCode).toMaybe();
+    return menuV1Repository.findByProductCode(productCode).toMaybe();
   }
 
   @Override
   public Completable save(MenuOptionSaveRequestWrapper menuOption) {
-    return menuV2Repository.save(menuOption).ignoreElement();
+    return menuV1Repository.save(menuOption).ignoreElement();
   }
 
   @Override
   public Completable update(String productCode, MenuOptionUpdateRequestWrapper menuOption) {
-    return menuV2Repository.update(productCode, menuOption).ignoreElement();
+    return menuV1Repository.update(productCode, menuOption).ignoreElement();
   }
 
   @Override
   public Completable delete(String productCode) {
-    return menuV2Repository
+    return menuV1Repository
         .delete(productCode)
         .ignoreElement()
         .onErrorResumeNext(throwable -> Optional.ofNullable(((Exception) throwable).getMessage())

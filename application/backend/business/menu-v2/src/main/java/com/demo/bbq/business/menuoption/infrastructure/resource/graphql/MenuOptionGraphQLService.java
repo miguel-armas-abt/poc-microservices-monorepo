@@ -21,7 +21,8 @@ public class MenuOptionGraphQLService {
   @Query("findByCategory")
   @Description("Get menu options by category")
   public Uni<List<MenuOption>> findByCategory(@Name("categoryCode") String categoryCode) {
-    return menuOptionService.findByCategory(categoryCode);
+    return null;
+//    return menuOptionService.findByCategory(categoryCode);
   }
 
 //  @Mutation

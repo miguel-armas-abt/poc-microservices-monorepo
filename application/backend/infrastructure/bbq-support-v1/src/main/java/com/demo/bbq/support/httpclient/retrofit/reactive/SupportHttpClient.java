@@ -20,7 +20,7 @@ import retrofit2.CallAdapter;
 import retrofit2.Converter;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
@@ -86,7 +86,7 @@ public class SupportHttpClient {
       builder.addCallAdapterFactory((this.responsePredicate != null) ?
           (CallAdapter.Factory)CircuitBreakerCallAdapter.of(this.circuitBreaker, this.responsePredicate) :
           (CallAdapter.Factory)CircuitBreakerCallAdapter.of(this.circuitBreaker));
-    return (T)builder.addCallAdapterFactory((CallAdapter.Factory)RxJava2CallAdapterFactory.create())
+    return (T)builder.addCallAdapterFactory((CallAdapter.Factory)RxJava3CallAdapterFactory.create())
         .addConverterFactory(Optional.<Converter.Factory>ofNullable(this.converterFactory)
             .orElseGet(ScalarsConverterFactory::create))
         .addConverterFactory(Optional.<Converter.Factory>ofNullable(this.converterFactory)

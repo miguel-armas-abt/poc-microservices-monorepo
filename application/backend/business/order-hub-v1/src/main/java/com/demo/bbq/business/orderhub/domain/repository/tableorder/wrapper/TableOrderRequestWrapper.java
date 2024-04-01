@@ -15,5 +15,5 @@ public class TableOrderRequestWrapper implements Serializable{
 
   private Integer tableNumber;
 
-  private Long id;
+  private String id;
 }

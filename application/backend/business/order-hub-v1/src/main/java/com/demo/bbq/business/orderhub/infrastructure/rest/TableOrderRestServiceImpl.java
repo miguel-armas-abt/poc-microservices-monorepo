@@ -4,12 +4,12 @@ import com.demo.bbq.business.orderhub.application.service.tableplacement.TablePl
 import com.demo.bbq.business.orderhub.domain.repository.tableorder.TableOrderRepository;
 import com.demo.bbq.business.orderhub.application.dto.tableorder.request.MenuOrderRequestDTO;
 import com.demo.bbq.business.orderhub.domain.repository.tableorder.wrapper.TableOrderRequestWrapper;
-import io.reactivex.Completable;
-import io.reactivex.Single;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
 import java.util.List;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;

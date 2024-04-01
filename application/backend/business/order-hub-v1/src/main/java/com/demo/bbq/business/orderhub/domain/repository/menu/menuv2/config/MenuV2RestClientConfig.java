@@ -15,7 +15,7 @@ public class MenuV2RestClientConfig {
   private final MenuV2RestClientProperties properties;
 
   @Bean
-  MenuV2Repository menuOptionV2Api(OkHttpClient.Builder builder) {
+  MenuV2Repository buildMenuV2Repository(OkHttpClient.Builder builder) {
     return SupportHttpClient.builder()
         .clientBuilder(builder)
         .baseUrl(properties.getBaseURL())

@@ -14,8 +14,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <reactor-adapter.version>3.4.1</reactor-adapter.version>
-    <rxjava.version>2.2.19</rxjava.version>
+    <rxjava.version>3.1.8</rxjava.version>
   </properties>
 
   <modules>
@@ -29,13 +28,8 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
-    <dependency><!-- reactor adapter -->
-      <groupId>io.projectreactor.addons</groupId>
-      <artifactId>reactor-adapter</artifactId>
-      <version>${reactor-adapter.version}</version>
-    </dependency>
     <dependency><!-- rxjava2 -->
-      <groupId>io.reactivex.rxjava2</groupId>
+      <groupId>io.reactivex.rxjava3</groupId>
       <artifactId>rxjava</artifactId>
       <version>${rxjava.version}</version>
     </dependency>

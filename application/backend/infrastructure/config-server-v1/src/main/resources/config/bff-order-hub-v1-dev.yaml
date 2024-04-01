@@ -5,7 +5,7 @@ application:
         base-url: http://${MENU_V1_DOMAIN:localhost:8012}/bbq/business/menu/v1/
       v2:
         base-url: http://${MENU_V2_DOMAIN:localhost:8016}/bbq/business/menu/v2/
-      selector-class: com.demo.bbq.business.orderhub.domain.repository.menu.menuv1.MenuV1Repository
+      selector-class: com.demo.bbq.business.orderhub.domain.repository.menu.menuv2.MenuV2RepositoryImpl
     table-placement:
       base-url: http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/bbq/business/table-placement/v1/
     invoice:
