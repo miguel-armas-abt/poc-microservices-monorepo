@@ -1,7 +1,7 @@
 package com.demo.bbq.business.invoice.domain.repository.restclient.product;
 
 import com.demo.bbq.business.invoice.domain.repository.restclient.product.response.ProductResponseWrapper;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;

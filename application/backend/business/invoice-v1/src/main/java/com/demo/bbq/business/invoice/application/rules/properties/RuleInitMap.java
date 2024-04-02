@@ -1,9 +1,9 @@
 package com.demo.bbq.business.invoice.application.rules.properties;
 
 import lombok.Getter;
-import javax.annotation.PostConstruct;
 import java.util.Map;
 import java.util.stream.Collectors;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

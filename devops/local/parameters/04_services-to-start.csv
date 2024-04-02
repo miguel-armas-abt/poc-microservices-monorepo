@@ -2,9 +2,9 @@ APP_NAME,TYPE
 config-server-v1,INF
 #api-gateway-v1,INF
 #auth-adapter-v1,INF
-#menu-v1,BS
+menu-v1,BS
 table-placement-v1,BS
-#order-hub-v1,BS
+order-hub-v1,BS
 #invoice-v1,BS
 #payment-v1,BS
 menu-v2,BS

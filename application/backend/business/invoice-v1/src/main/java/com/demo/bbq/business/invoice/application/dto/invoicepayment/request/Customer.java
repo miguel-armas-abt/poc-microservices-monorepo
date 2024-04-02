@@ -2,7 +2,7 @@ package com.demo.bbq.business.invoice.application.dto.invoicepayment.request;
 
 import com.demo.bbq.business.invoice.application.constant.InvoiceRegex;
 import java.io.Serializable;
-import javax.validation.constraints.Pattern;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 @Builder

@@ -9,7 +9,7 @@ import com.demo.bbq.business.invoice.application.properties.InvoiceProperties;
 import com.demo.bbq.business.invoice.application.service.ProformaInvoiceService;
 import com.demo.bbq.business.invoice.domain.repository.restclient.product.ProductApi;
 import com.demo.bbq.business.invoice.application.rules.service.RuleService;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;

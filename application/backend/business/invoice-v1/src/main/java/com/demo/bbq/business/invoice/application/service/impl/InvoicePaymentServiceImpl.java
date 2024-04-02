@@ -8,7 +8,7 @@ import com.demo.bbq.business.invoice.application.dto.invoicepayment.request.Paym
 import com.demo.bbq.business.invoice.application.events.producer.InvoiceProducer;
 import com.demo.bbq.business.invoice.application.mapper.InvoiceMapper;
 import com.demo.bbq.business.invoice.domain.repository.database.InvoiceRepositoryHelper;
-import io.reactivex.Completable;
+import io.reactivex.rxjava3.core.Completable;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;

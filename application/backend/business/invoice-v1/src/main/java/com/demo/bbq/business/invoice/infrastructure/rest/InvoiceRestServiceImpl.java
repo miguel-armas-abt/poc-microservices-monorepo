@@ -6,13 +6,13 @@ import com.demo.bbq.business.invoice.application.service.ProformaInvoiceService;
 import com.demo.bbq.business.invoice.application.dto.invoicepayment.request.PaymentRequest;
 import com.demo.bbq.business.invoice.application.dto.proformainvoice.request.ProductRequest;
 import com.demo.bbq.support.logstash.Markers;
-import io.reactivex.Completable;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
 import java.util.List;
 import java.util.function.Consumer;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -34,7 +34,7 @@ public class InvoiceRestServiceImpl {
     return proformaInvoiceService.generateProformaInvoice(productList);
   }
 
-  @PostMapping("/payments")
+  @PostMapping("/send-to-pay")
   public Completable sendToPay(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
                                @Valid @RequestBody PaymentRequest paymentRequest) {
     logRequest.accept(servletRequest);

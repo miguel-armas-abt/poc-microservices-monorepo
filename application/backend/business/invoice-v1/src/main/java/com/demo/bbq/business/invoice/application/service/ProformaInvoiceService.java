@@ -2,7 +2,7 @@ package com.demo.bbq.business.invoice.application.service;
 
 import com.demo.bbq.business.invoice.application.dto.proformainvoice.request.ProductRequest;
 import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProformaInvoiceResponse;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import java.util.List;
 
 public interface ProformaInvoiceService {

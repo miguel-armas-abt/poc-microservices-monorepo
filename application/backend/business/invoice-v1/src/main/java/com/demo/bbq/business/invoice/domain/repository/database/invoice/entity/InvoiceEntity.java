@@ -1,12 +1,24 @@
 package com.demo.bbq.business.invoice.domain.repository.database.invoice.entity;
 
-import javax.persistence.*;
+import com.demo.bbq.business.invoice.domain.repository.database.customer.entity.CustomerEntity;
+import com.demo.bbq.business.invoice.domain.repository.database.product.entity.ProductEntity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.demo.bbq.business.invoice.domain.repository.database.customer.entity.CustomerEntity;
-import com.demo.bbq.business.invoice.domain.repository.database.product.entity.ProductEntity;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.*;
 
 @Builder
