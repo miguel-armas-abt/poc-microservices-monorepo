@@ -28,12 +28,12 @@ public class InvoiceRepositoryHelper {
 
     invoice.setBillingDate(currentDate.format(formatter));
     invoice.setPaymentStatus(PaymentStatus.PENDING);
-    invoice.setCustomerEntity(validateCustomer(invoice.getCustomerEntity()));
+    invoice.setCustomerEntity(getOrCreateCustomer(invoice.getCustomerEntity()));
     productRepository.saveAll(invoice.getProductList());
     return invoiceRepository.save(invoice);
   }
 
-  private CustomerEntity validateCustomer(CustomerEntity customerEntity) {
+  private CustomerEntity getOrCreateCustomer(CustomerEntity customerEntity) {
     return customerRepository.findByDocumentNumber(customerEntity.getDocumentNumber())
         .orElseGet(() -> customerRepository.save(customerEntity));
   }

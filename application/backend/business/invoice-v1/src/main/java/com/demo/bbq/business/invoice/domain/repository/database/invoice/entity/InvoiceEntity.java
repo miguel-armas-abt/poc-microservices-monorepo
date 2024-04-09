@@ -5,20 +5,7 @@ import com.demo.bbq.business.invoice.domain.repository.database.product.entity.P
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Builder
@@ -38,7 +25,7 @@ public class InvoiceEntity implements Serializable {
   @Column(name = "billing_date")
   private String billingDate;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "customer_id")
   private CustomerEntity customerEntity;
 
