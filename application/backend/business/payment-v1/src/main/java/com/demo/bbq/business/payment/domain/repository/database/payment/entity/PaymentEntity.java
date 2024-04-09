@@ -1,8 +1,8 @@
 package com.demo.bbq.business.payment.domain.repository.database.payment.entity;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Builder

@@ -1,7 +1,7 @@
 package com.demo.bbq.business.payment.application.service;
 
 import com.demo.bbq.business.payment.application.events.consumer.message.PaymentMessage;
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
 
 public interface PaymentService {
 

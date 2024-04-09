@@ -34,6 +34,5 @@ public class InvoiceConsumer {
       paymentRepository.save(paymentMapper.toEntity(payment));
       paymentProducer.sendMessage(new Gson().toJson(PaidTransactionResponse.builder().invoiceId(payment.getInvoiceId()).paidAmount(payment.getTotalAmount())));
     }
-    log.error(payload); //if the process wasn't successful, then send a notification to resend the payment
   }
 }
