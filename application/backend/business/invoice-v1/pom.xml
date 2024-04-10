@@ -14,10 +14,6 @@
   <name>Invoice V1</name>
   <description>Invoice V1</description>
 
-  <properties>
-    <spring-cloud-dependencies.version>2023.0.0</spring-cloud-dependencies.version>
-  </properties>
-
   <dependencyManagement>
     <dependencies>
       <dependency>

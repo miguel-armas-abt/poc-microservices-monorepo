@@ -1,4 +1,4 @@
-package com.demo.bbq.infrastructure.apigateway.infrastructure.properties;
+package com.demo.bbq.infrastructure.apigateway.application.properties;
 
 import java.util.HashMap;
 import java.util.Map;

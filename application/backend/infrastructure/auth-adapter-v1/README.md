@@ -9,7 +9,7 @@ tokens de acceso.
 siguiente comando.
 
 ```shell script
-docker-compose -f ./../../../devops/docker-compose/docker-compose.yml up -d --force-recreate keycloak-server
+docker-compose -f ./../../../../devops/docker-compose/docker-compose.yml up -d --force-recreate keycloak-server
 ```
 
 ### 1.2. Configuración

@@ -1,4 +1,4 @@
-package com.demo.bbq.infrastructure.apigateway.infrastructure.repository.restclient.config;
+package com.demo.bbq.infrastructure.apigateway.domain.repository.config;
 
 import com.demo.bbq.infrastructure.apigateway.domain.exception.ApiGatewayException;
 import com.demo.bbq.support.httpclient.retrofit.util.RetrofitInterceptorUtil;

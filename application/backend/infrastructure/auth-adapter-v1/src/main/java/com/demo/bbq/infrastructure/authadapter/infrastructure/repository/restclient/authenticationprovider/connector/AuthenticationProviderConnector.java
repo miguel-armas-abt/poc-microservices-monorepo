@@ -3,8 +3,8 @@ package com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restcl
 import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.dto.UserInfoResponse;
 import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.properties.KeycloackProperties;
 import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.dto.TokenResponse;
-import io.reactivex.Completable;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

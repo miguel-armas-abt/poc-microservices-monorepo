@@ -17,8 +17,8 @@ spring:
           predicates:
             - Path=/bbq/bff/order-hub/v1/**
             - Method=GET,POST,PUT,DELETE,PATCH
-#          filters:
-#            - name: AuthenticationFilter
+          filters:
+            - name: AuthenticationFilter
 
 application:
   http-client:

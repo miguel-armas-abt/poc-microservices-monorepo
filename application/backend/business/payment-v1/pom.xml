@@ -14,10 +14,6 @@
   <name>Payment V1</name>
   <description>Payment V1</description>
 
-  <properties>
-    <spring-cloud-dependencies.version>2023.0.0</spring-cloud-dependencies.version>
-  </properties>
-
   <dependencyManagement>
     <dependencies>
       <dependency>

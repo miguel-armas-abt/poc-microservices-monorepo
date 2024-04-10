@@ -1,11 +1,10 @@
 package com.demo.bbq.infrastructure.apigateway.application.filter;
 
+import com.demo.bbq.infrastructure.apigateway.domain.repository.authadapter.AuthAdapterRepository;
 import com.demo.bbq.infrastructure.apigateway.infrastructure.exception.HandleErrorUtil;
-import com.demo.bbq.infrastructure.apigateway.infrastructure.repository.restclient.authadapter.AuthAdapterApi;
-import com.demo.bbq.infrastructure.apigateway.infrastructure.properties.RolesProperties;
+import com.demo.bbq.infrastructure.apigateway.application.properties.RolesProperties;
 import com.demo.bbq.infrastructure.apigateway.domain.exception.ApiGatewayException;
 import com.demo.bbq.support.exception.model.ApiException;
-import io.reactivex.BackpressureStrategy;
 import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -14,19 +13,18 @@ import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFac
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
-import reactor.adapter.rxjava.RxJava2Adapter;
 import reactor.core.publisher.Flux;
 
 @Slf4j
 @Component
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
-  private final AuthAdapterApi authAdapterApi;
+  private final AuthAdapterRepository authAdapterRepository;
   private final RolesProperties properties;
 
-  public AuthenticationFilter(AuthAdapterApi authAdapterApi, RolesProperties properties) {
+  public AuthenticationFilter(AuthAdapterRepository authAdapterRepository, RolesProperties properties) {
     super(Config.class);
-    this.authAdapterApi = authAdapterApi;
+    this.authAdapterRepository = authAdapterRepository;
     this.properties = properties;
   }
 
@@ -36,7 +34,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
       ArrayList<String> rolesList = new ArrayList<>(properties.getRolesList().values());
 
       return Flux.fromIterable(rolesList)
-          .flatMap(expectedRol -> RxJava2Adapter.observableToFlux(authAdapterApi.getRoles(getAuthToken(serverWebExchange)), BackpressureStrategy.BUFFER)
+          .flatMap(expectedRol -> authAdapterRepository.getRoles(getAuthToken(serverWebExchange))
               .map(hashMap -> {
                 if(!hashMap.containsKey(expectedRol)) {
                   throw ApiGatewayException.ERROR0002.buildException();

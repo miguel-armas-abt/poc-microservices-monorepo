@@ -4,9 +4,9 @@ import com.demo.bbq.infrastructure.authadapter.application.service.Authenticatio
 import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.dto.TokenResponse;
 import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.dto.UserInfoResponse;
 import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.JsonWebTokenConnector;
-import io.reactivex.Completable;
-import io.reactivex.Single;
-import javax.servlet.http.HttpServletResponse;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ public class AuthAdapterRestService {
 
   @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
   public Single<TokenResponse> login(HttpServletResponse servletResponse,
-                                     String username, String password) {
+                                     @RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
     return authenticationService.getToken(username, password)
         .doOnSuccess(token -> servletResponse.setStatus(201));
   }
