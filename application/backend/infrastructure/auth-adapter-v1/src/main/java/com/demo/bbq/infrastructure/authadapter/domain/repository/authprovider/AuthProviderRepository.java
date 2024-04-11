@@ -1,7 +1,7 @@
-package com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector;
+package com.demo.bbq.infrastructure.authadapter.domain.repository.authprovider;
 
-import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.dto.TokenResponse;
-import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.dto.UserInfoResponse;
+import com.demo.bbq.infrastructure.authadapter.domain.repository.authprovider.wrapper.TokenResponseWrapper;
+import com.demo.bbq.infrastructure.authadapter.domain.repository.authprovider.wrapper.UserInfoResponseWrapper;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Field;
@@ -9,11 +9,11 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
-public interface AuthenticationProviderApi {
+public interface AuthProviderRepository {
 
   @FormUrlEncoded
   @POST("token")
-  Single<TokenResponse> getToken(
+  Single<TokenResponseWrapper> getToken(
       @Field("username") String username,
       @Field("password") String password,
       @Field("client_id") String clientId,
@@ -23,13 +23,13 @@ public interface AuthenticationProviderApi {
 
   @FormUrlEncoded
   @POST("token")
-  Single<TokenResponse> refresh(
+  Single<TokenResponseWrapper> refresh(
       @Field("client_id") String clientId,
       @Field("grant_type") String grantType,
       @Field("refresh_token") String refreshToken);
 
   @POST("userinfo")
-  Single<UserInfoResponse> getUserInfo(@Header("Authorization") String token);
+  Single<UserInfoResponseWrapper> getUserInfo(@Header("Authorization") String token);
 
   @FormUrlEncoded
   @POST("logout")

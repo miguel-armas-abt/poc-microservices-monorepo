@@ -1,4 +1,4 @@
-package com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.properties;
+package com.demo.bbq.infrastructure.authadapter.domain.repository.authprovider.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,7 +10,10 @@ import org.springframework.context.annotation.Configuration;
 @RefreshScope
 @ConfigurationProperties
 @Configuration
-public class KeycloackProperties {
+public class AuthProviderRestClientProperties {
+
+  @Value("${keycloak.base-url}")
+  private String baseURL;
 
   @Value("${keycloak.client-id}")
   private String clientId;

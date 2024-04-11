@@ -4,10 +4,10 @@ import com.auth0.jwk.Jwk;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.AuthenticationProviderConnector;
-import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.JsonWebTokenConnector;
-import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.dto.TokenResponse;
-import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.dto.UserInfoResponse;
+import com.demo.bbq.infrastructure.authadapter.domain.repository.authprovider.AuthProviderConnector;
+import com.demo.bbq.infrastructure.authadapter.domain.repository.authprovider.JsonWebTokenConnector;
+import com.demo.bbq.infrastructure.authadapter.domain.repository.authprovider.wrapper.TokenResponseWrapper;
+import com.demo.bbq.infrastructure.authadapter.domain.repository.authprovider.wrapper.UserInfoResponseWrapper;
 import com.demo.bbq.infrastructure.authadapter.domain.exception.AuthAdapterException;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
@@ -23,25 +23,25 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-  private final AuthenticationProviderConnector authenticationProviderConnector;
+  private final AuthProviderConnector authProviderConnector;
   private final JsonWebTokenConnector jsonWebTokenConnector;
 
-  public Single<TokenResponse> getToken(String username, String password) {
-    return authenticationProviderConnector.getToken(username, password);
+  public Single<TokenResponseWrapper> getToken(String username, String password) {
+    return authProviderConnector.getToken(username, password);
   }
 
   public Completable logout(String refreshToken) {
-    return authenticationProviderConnector.logout(refreshToken)
+    return authProviderConnector.logout(refreshToken)
         .doOnError(AuthAdapterException.ERROR0001::buildException);
   }
 
-  public Single<TokenResponse> refreshToken(String refreshToken) {
-    return authenticationProviderConnector.refreshToken(refreshToken)
+  public Single<TokenResponseWrapper> refreshToken(String refreshToken) {
+    return authProviderConnector.refreshToken(refreshToken)
         .doOnError(AuthAdapterException.ERROR0002::buildException);
   }
 
-  public Single<UserInfoResponse> getUserInfo(String authToken) {
-    return authenticationProviderConnector.getUserInfo(authToken);
+  public Single<UserInfoResponseWrapper> getUserInfo(String authToken) {
+    return authProviderConnector.getUserInfo(authToken);
   }
 
   public Map<String, Integer> getRoles(String authToken) {

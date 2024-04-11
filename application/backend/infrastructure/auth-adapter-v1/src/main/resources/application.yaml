@@ -7,9 +7,9 @@ spring:
 
 keycloak:
   server: http://${KEYCLOACK_DOMAIN:localhost:8091}/auth/realms
-  base-uri: ${keycloak.server}/bbq-management/protocol/openid-connect/
-  authorization-uri: ${keycloak.base-uri}auth
-  jwk-set-uri: ${keycloak.base-uri}certs
+  base-url: ${keycloak.server}/bbq-management/protocol/openid-connect/
+  authorization-uri: ${keycloak.base-url}auth
+  jwk-set-uri: ${keycloak.base-url}certs
   certs-id: ${KEYCLOACK_KEY_RS256:HyN8eTuKg02Lx3iSaKjsZHKor2ouz2WQ_i50fhMy0bk}
   client-id: front-bbq-app
   client-secret: qwerty

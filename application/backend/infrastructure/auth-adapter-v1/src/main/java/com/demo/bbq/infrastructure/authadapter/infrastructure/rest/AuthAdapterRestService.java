@@ -1,9 +1,9 @@
-package com.demo.bbq.infrastructure.authadapter.infrastructure.resource.rest;
+package com.demo.bbq.infrastructure.authadapter.infrastructure.rest;
 
 import com.demo.bbq.infrastructure.authadapter.application.service.AuthenticationService;
-import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.dto.TokenResponse;
-import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.dto.UserInfoResponse;
-import com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.JsonWebTokenConnector;
+import com.demo.bbq.infrastructure.authadapter.domain.repository.authprovider.wrapper.TokenResponseWrapper;
+import com.demo.bbq.infrastructure.authadapter.domain.repository.authprovider.wrapper.UserInfoResponseWrapper;
+import com.demo.bbq.infrastructure.authadapter.domain.repository.authprovider.JsonWebTokenConnector;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,8 +24,8 @@ public class AuthAdapterRestService {
   private final AuthenticationService authenticationService;
 
   @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Single<TokenResponse> login(HttpServletResponse servletResponse,
-                                     @RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
+  public Single<TokenResponseWrapper> login(HttpServletResponse servletResponse,
+                                            @RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
     return authenticationService.getToken(username, password)
         .doOnSuccess(token -> servletResponse.setStatus(201));
   }
@@ -39,14 +39,14 @@ public class AuthAdapterRestService {
   }
 
   @PostMapping(value = "/refresh", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Single<TokenResponse> refresh(HttpServletResponse servletResponse,
-                                       @RequestParam(value = "refresh_token", name = "refresh_token") String refreshToken) {
+  public Single<TokenResponseWrapper> refresh(HttpServletResponse servletResponse,
+                                              @RequestParam(value = "refresh_token", name = "refresh_token") String refreshToken) {
     return authenticationService.refreshToken(refreshToken)
         .doOnSuccess(token -> servletResponse.setStatus(201));
   }
 
   @GetMapping("/valid")
-  public Single<UserInfoResponse> valid(@RequestHeader("Authorization") String authToken) {
+  public Single<UserInfoResponseWrapper> valid(@RequestHeader("Authorization") String authToken) {
     return authenticationService.getUserInfo(authToken);
   }
 

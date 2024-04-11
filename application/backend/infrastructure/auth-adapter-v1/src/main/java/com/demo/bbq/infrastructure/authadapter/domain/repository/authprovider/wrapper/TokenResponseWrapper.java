@@ -1,11 +1,11 @@
-package com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector.dto;
+package com.demo.bbq.infrastructure.authadapter.domain.repository.authprovider.wrapper;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TokenResponse implements Serializable {
+public class TokenResponseWrapper implements Serializable {
 
   @JsonProperty("access_token")
   private String accessToken;

@@ -1,4 +1,4 @@
-package com.demo.bbq.infrastructure.authadapter.infrastructure.repository.restclient.authenticationprovider.connector;
+package com.demo.bbq.infrastructure.authadapter.domain.repository.authprovider;
 
 import com.auth0.jwk.Jwk;
 import com.auth0.jwk.UrlJwkProvider;
