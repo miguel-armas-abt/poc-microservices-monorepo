@@ -17,6 +17,6 @@ public interface InvoiceRepository {
 
   @Streaming
   @Headers({"Accept: application/stream+json"})
-  @POST("payments")
+  @POST("send-to-pay")
   Single<ResponseBody> sendToPay(@Body PaymentRequestWrapper paymentRequestWrapper);
 }
