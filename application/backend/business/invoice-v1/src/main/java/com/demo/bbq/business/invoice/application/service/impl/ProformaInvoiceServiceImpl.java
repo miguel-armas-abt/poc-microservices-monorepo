@@ -7,7 +7,7 @@ import com.demo.bbq.business.invoice.application.dto.rules.DiscountRule;
 import com.demo.bbq.business.invoice.application.mapper.InvoiceMapper;
 import com.demo.bbq.business.invoice.application.properties.InvoiceProperties;
 import com.demo.bbq.business.invoice.application.service.ProformaInvoiceService;
-import com.demo.bbq.business.invoice.domain.repository.restclient.product.ProductApi;
+import com.demo.bbq.business.invoice.domain.repository.product.ProductRepository;
 import com.demo.bbq.business.invoice.application.rules.service.RuleService;
 import io.reactivex.rxjava3.core.Single;
 import java.math.BigDecimal;
@@ -27,7 +27,7 @@ public class ProformaInvoiceServiceImpl implements ProformaInvoiceService {
 
   private final InvoiceMapper proformaInvoiceMapper;
 
-  private final ProductApi productApi;
+  private final ProductRepository productRepository;
 
   private final RuleService ruleService;
 
@@ -36,7 +36,7 @@ public class ProformaInvoiceServiceImpl implements ProformaInvoiceService {
     AtomicReference<BigDecimal> subtotalInvoice = new AtomicReference<>(BigDecimal.ZERO);
     List<ProductResponse> productList = products.stream()
         .map(productRequest -> {
-          BigDecimal unitPrice = productApi.findByProductCode(productRequest.getProductCode()).blockingGet().getUnitPrice();
+          BigDecimal unitPrice = productRepository.findByProductCode(productRequest.getProductCode()).blockingGet().getUnitPrice();
           return proformaInvoiceMapper.toProduct(productRequest, unitPrice, applyDiscount(productRequest));
         })
         .peek(product -> subtotalInvoice.set(subtotalInvoice.get().add(product.getSubtotal()))).collect(Collectors.toList());

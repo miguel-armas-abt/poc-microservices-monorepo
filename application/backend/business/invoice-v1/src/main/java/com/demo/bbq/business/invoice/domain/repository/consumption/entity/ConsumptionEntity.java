@@ -1,4 +1,4 @@
-package com.demo.bbq.business.invoice.domain.repository.database.product.entity;
+package com.demo.bbq.business.invoice.domain.repository.consumption.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -17,7 +17,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "products")
-public class ProductEntity implements Serializable {
+public class ConsumptionEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

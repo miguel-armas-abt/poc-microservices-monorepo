@@ -1,4 +1,4 @@
-package com.demo.bbq.business.invoice.domain.repository.restclient.product.config;
+package com.demo.bbq.business.invoice.domain.repository.product.config;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 @Setter
-public class ProductApiProperties {
+public class ProductRestClientProperties {
 
   @Value("${application.http-client.product.base-url}")
-  private String productBaseUrl;
+  private String baseURL;
 
 }

@@ -2,8 +2,8 @@ package com.demo.bbq.business.invoice.application.events.consumer;
 
 import com.demo.bbq.business.invoice.domain.exception.InvoiceException;
 import com.demo.bbq.business.invoice.application.events.consumer.message.PaidTransactionMessage;
-import com.demo.bbq.business.invoice.domain.repository.database.invoice.InvoiceRepository;
-import com.demo.bbq.business.invoice.domain.repository.database.invoice.entity.PaymentStatus;
+import com.demo.bbq.business.invoice.domain.repository.invoice.InvoiceRepository;
+import com.demo.bbq.business.invoice.domain.repository.invoice.entity.PaymentStatus;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

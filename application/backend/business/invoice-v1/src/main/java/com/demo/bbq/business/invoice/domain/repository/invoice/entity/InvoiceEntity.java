@@ -1,7 +1,7 @@
-package com.demo.bbq.business.invoice.domain.repository.database.invoice.entity;
+package com.demo.bbq.business.invoice.domain.repository.invoice.entity;
 
-import com.demo.bbq.business.invoice.domain.repository.database.customer.entity.CustomerEntity;
-import com.demo.bbq.business.invoice.domain.repository.database.product.entity.ProductEntity;
+import com.demo.bbq.business.invoice.domain.repository.customer.entity.CustomerEntity;
+import com.demo.bbq.business.invoice.domain.repository.consumption.entity.ConsumptionEntity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -31,7 +31,7 @@ public class InvoiceEntity implements Serializable {
 
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(referencedColumnName = "invoice_id", name = "invoice_id")
-  private List<ProductEntity> productList;
+  private List<ConsumptionEntity> productList;
 
   @Column(name = "igv")
   private BigDecimal igv;

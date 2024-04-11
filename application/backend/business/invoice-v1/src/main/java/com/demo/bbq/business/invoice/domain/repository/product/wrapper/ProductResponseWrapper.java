@@ -1,4 +1,4 @@
-package com.demo.bbq.business.invoice.domain.repository.restclient.product.response;
+package com.demo.bbq.business.invoice.domain.repository.product.wrapper;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

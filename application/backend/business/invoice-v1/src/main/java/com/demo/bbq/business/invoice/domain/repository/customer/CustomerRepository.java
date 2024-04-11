@@ -1,6 +1,6 @@
-package com.demo.bbq.business.invoice.domain.repository.database.customer;
+package com.demo.bbq.business.invoice.domain.repository.customer;
 
-import com.demo.bbq.business.invoice.domain.repository.database.customer.entity.CustomerEntity;
+import com.demo.bbq.business.invoice.domain.repository.customer.entity.CustomerEntity;
 import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 

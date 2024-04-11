@@ -5,8 +5,8 @@ import com.demo.bbq.business.invoice.application.events.producer.message.Payment
 import com.demo.bbq.business.invoice.application.dto.proformainvoice.request.ProductRequest;
 import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProductResponse;
 import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProformaInvoiceResponse;
-import com.demo.bbq.business.invoice.domain.repository.database.invoice.entity.PaymentMethod;
-import com.demo.bbq.business.invoice.domain.repository.database.invoice.entity.InvoiceEntity;
+import com.demo.bbq.business.invoice.domain.repository.invoice.entity.PaymentMethod;
+import com.demo.bbq.business.invoice.domain.repository.invoice.entity.InvoiceEntity;
 import java.math.BigDecimal;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

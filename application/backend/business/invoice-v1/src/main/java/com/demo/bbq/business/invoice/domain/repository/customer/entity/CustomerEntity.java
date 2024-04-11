@@ -1,4 +1,4 @@
-package com.demo.bbq.business.invoice.domain.repository.database.customer.entity;
+package com.demo.bbq.business.invoice.domain.repository.customer.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.Column;
