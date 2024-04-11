@@ -1,20 +1,20 @@
 package com.demo.bbq.business.menuoption.application.service;
 
-import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionSaveRequest;
-import com.demo.bbq.business.menuoption.domain.model.request.MenuOptionUpdateRequest;
-import com.demo.bbq.business.menuoption.domain.model.response.MenuOption;
+import com.demo.bbq.business.menuoption.application.dto.request.MenuOptionSaveRequestDTO;
+import com.demo.bbq.business.menuoption.application.dto.request.MenuOptionUpdateRequestDTO;
+import com.demo.bbq.business.menuoption.application.dto.response.MenuOptionResponseDTO;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
 public interface MenuOptionService {
 
-  Multi<MenuOption> findByCategory(String categoryCode);
+  Multi<MenuOptionResponseDTO> findByCategory(String categoryCode);
 
-  Uni<MenuOption> findByProductCode(String productCode);
+  Uni<MenuOptionResponseDTO> findByProductCode(String productCode);
 
-  Uni<Void> save(MenuOptionSaveRequest menuOptionRequest);
+  Uni<Void> save(MenuOptionSaveRequestDTO menuOptionRequest);
 
-  Uni<Void> update(MenuOptionUpdateRequest menuOptionRequest, String productCode);
+  Uni<Void> update(MenuOptionUpdateRequestDTO menuOptionRequest, String productCode);
 
   Uni<Void> deleteByProductCode(String productCode);
 }
