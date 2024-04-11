@@ -1,7 +1,7 @@
 package com.demo.bbq.business.tableplacement.application.service.impl;
 
-import com.demo.bbq.business.tableplacement.application.dto.tableregistration.request.TableRegistrationRequest;
-import com.demo.bbq.business.tableplacement.application.dto.tableregistration.response.TableRegistrationResponse;
+import com.demo.bbq.business.tableplacement.application.dto.tableregistration.request.TableRegistrationRequestDTO;
+import com.demo.bbq.business.tableplacement.application.dto.tableregistration.response.TableRegistrationResponseDTO;
 import com.demo.bbq.business.tableplacement.application.mapper.TableRegistrationMapper;
 import com.demo.bbq.business.tableplacement.application.service.TableRegistrationService;
 import com.demo.bbq.business.tableplacement.domain.repository.tableorder.TableOrderRepository;
@@ -17,9 +17,9 @@ public class TableRegistrationServiceImpl implements TableRegistrationService {
   private final TableRegistrationMapper tableRegistrationMapper;
 
   @Override
-  public Mono<TableRegistrationResponse> save(TableRegistrationRequest tableRegistrationRequest) {
-    return tableOrderRepository.save(tableRegistrationMapper.fromRequestToDocument(tableRegistrationRequest))
-        .map(tableRegistrationMapper::fromDocumentToResponse);
+  public Mono<TableRegistrationResponseDTO> save(TableRegistrationRequestDTO tableRegistrationRequest) {
+    return tableOrderRepository.save(tableRegistrationMapper.toDocument(tableRegistrationRequest))
+        .map(tableRegistrationMapper::toResponseDTO);
   }
 
 }

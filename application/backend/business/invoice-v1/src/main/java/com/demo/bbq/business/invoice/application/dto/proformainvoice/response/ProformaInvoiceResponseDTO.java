@@ -2,6 +2,7 @@ package com.demo.bbq.business.invoice.application.dto.proformainvoice.response;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import lombok.*;
 
 @Builder
@@ -9,11 +10,11 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductResponse implements Serializable {
+public class ProformaInvoiceResponseDTO implements Serializable {
 
-  private String description;
-  private Integer quantity;
-  private BigDecimal unitPrice;
+  private List<ProductResponseDTO> productList;
   private BigDecimal subtotal;
+  private BigDecimal igv;
+  private BigDecimal total;
 
 }

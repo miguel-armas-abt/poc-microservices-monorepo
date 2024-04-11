@@ -1,8 +1,8 @@
 package com.demo.bbq.business.invoice.application.service.impl;
 
-import com.demo.bbq.business.invoice.application.dto.proformainvoice.request.ProductRequest;
-import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProductResponse;
-import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProformaInvoiceResponse;
+import com.demo.bbq.business.invoice.application.dto.proformainvoice.request.ProductRequestDTO;
+import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProductResponseDTO;
+import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProformaInvoiceResponseDTO;
 import com.demo.bbq.business.invoice.application.dto.rules.DiscountRule;
 import com.demo.bbq.business.invoice.application.mapper.InvoiceMapper;
 import com.demo.bbq.business.invoice.application.properties.InvoiceProperties;
@@ -32,20 +32,20 @@ public class ProformaInvoiceServiceImpl implements ProformaInvoiceService {
   private final RuleService ruleService;
 
   @Override
-  public Single<ProformaInvoiceResponse> generateProformaInvoice(List<ProductRequest> products) {
+  public Single<ProformaInvoiceResponseDTO> generateProformaInvoice(List<ProductRequestDTO> products) {
     AtomicReference<BigDecimal> subtotalInvoice = new AtomicReference<>(BigDecimal.ZERO);
-    List<ProductResponse> productList = products.stream()
+    List<ProductResponseDTO> productList = products.stream()
         .map(productRequest -> {
           BigDecimal unitPrice = productRepository.findByProductCode(productRequest.getProductCode()).blockingGet().getUnitPrice();
-          return proformaInvoiceMapper.toProduct(productRequest, unitPrice, applyDiscount(productRequest));
+          return proformaInvoiceMapper.toResponseDTO(productRequest, unitPrice, applyDiscount(productRequest));
         })
         .peek(product -> subtotalInvoice.set(subtotalInvoice.get().add(product.getSubtotal()))).collect(Collectors.toList());
     return Single.just(toProformaInvoice(productList, subtotalInvoice.get()));
   }
 
-  private ProformaInvoiceResponse toProformaInvoice(List<ProductResponse> productList, BigDecimal subtotal) {
+  private ProformaInvoiceResponseDTO toProformaInvoice(List<ProductResponseDTO> productList, BigDecimal subtotal) {
     BigDecimal igv = properties.getIgv();
-    return ProformaInvoiceResponse.builder()
+    return ProformaInvoiceResponseDTO.builder()
         .igv(igv)
         .subtotal(subtotal)
         .productList(productList)
@@ -53,7 +53,7 @@ public class ProformaInvoiceServiceImpl implements ProformaInvoiceService {
         .build();
   }
 
-  private BigDecimal applyDiscount(ProductRequest request) {
+  private BigDecimal applyDiscount(ProductRequestDTO request) {
     DiscountRule discountRule = ruleService.process(DiscountRule.builder()
         .quantity(request.getQuantity())
         .productCode(request.getProductCode())

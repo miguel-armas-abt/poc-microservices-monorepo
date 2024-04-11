@@ -10,7 +10,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer implements Serializable {
+public class CustomerDTO implements Serializable {
 
   @Pattern(regexp = InvoiceRegex.DOCUMENT_TYPE, message = "Invalid document type")
   private String documentType;

@@ -8,6 +8,6 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Payment implements Serializable {
+public class PaymentDTO implements Serializable {
   private String method;
 }

@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TableRegistrationRequest implements Serializable {
+public class TableRegistrationRequestDTO implements Serializable {
 
   @NotNull
   private Integer tableNumber;

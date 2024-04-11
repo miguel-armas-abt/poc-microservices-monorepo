@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TableRegistrationResponse implements Serializable{
+public class TableRegistrationResponseDTO implements Serializable{
 
   private String id;
 

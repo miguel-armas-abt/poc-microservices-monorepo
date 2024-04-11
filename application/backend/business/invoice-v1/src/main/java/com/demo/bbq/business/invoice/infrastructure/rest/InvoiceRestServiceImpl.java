@@ -1,10 +1,10 @@
 package com.demo.bbq.business.invoice.infrastructure.rest;
 
-import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProformaInvoiceResponse;
+import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProformaInvoiceResponseDTO;
 import com.demo.bbq.business.invoice.application.service.InvoicePaymentService;
 import com.demo.bbq.business.invoice.application.service.ProformaInvoiceService;
-import com.demo.bbq.business.invoice.application.dto.invoicepayment.request.PaymentRequest;
-import com.demo.bbq.business.invoice.application.dto.proformainvoice.request.ProductRequest;
+import com.demo.bbq.business.invoice.application.dto.invoicepayment.request.PaymentRequestDTO;
+import com.demo.bbq.business.invoice.application.dto.proformainvoice.request.ProductRequestDTO;
 import com.demo.bbq.support.logstash.Markers;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
@@ -28,15 +28,15 @@ public class InvoiceRestServiceImpl {
   private final InvoicePaymentService invoicePaymentService;
 
   @PostMapping(value = "/proformas", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-  public Single<ProformaInvoiceResponse> generateProforma(HttpServletRequest servletRequest,
-                                                          @Valid @RequestBody List<ProductRequest> productList) {
+  public Single<ProformaInvoiceResponseDTO> generateProforma(HttpServletRequest servletRequest,
+                                                             @Valid @RequestBody List<ProductRequestDTO> productList) {
     logRequest.accept(servletRequest);
     return proformaInvoiceService.generateProformaInvoice(productList);
   }
 
   @PostMapping("/send-to-pay")
   public Completable sendToPay(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-                               @Valid @RequestBody PaymentRequest paymentRequest) {
+                               @Valid @RequestBody PaymentRequestDTO paymentRequest) {
     logRequest.accept(servletRequest);
     return invoicePaymentService.sendToPay(paymentRequest)
         .doOnComplete(() -> servletResponse.setStatus(201));

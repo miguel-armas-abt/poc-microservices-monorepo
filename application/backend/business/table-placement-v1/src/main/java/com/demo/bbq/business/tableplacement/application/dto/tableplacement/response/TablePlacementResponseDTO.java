@@ -2,16 +2,18 @@ package com.demo.bbq.business.tableplacement.application.dto.tableplacement.resp
 
 import lombok.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Builder
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuOrderResponse implements Serializable {
+public class TablePlacementResponseDTO implements Serializable{
 
-  private String productCode;
+  private List<MenuOrderResponseDTO> menuOrderList;
 
-  private Integer quantity;
+  private Integer tableNumber;
 
+  private String id;
 }

@@ -1,4 +1,4 @@
-package com.demo.bbq.business.tableplacement.application.dto.tableplacement.request;
+package com.demo.bbq.business.invoice.application.dto.proformainvoice.request;
 
 import java.io.Serializable;
 import lombok.*;
@@ -8,9 +8,10 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuOrderRequest implements Serializable{
+public class ProductRequestDTO implements Serializable {
 
   private String productCode;
-
+  private String description;
   private Integer quantity;
+
 }

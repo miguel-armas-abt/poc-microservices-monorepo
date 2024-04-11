@@ -1,8 +1,8 @@
 package com.demo.bbq.business.tableplacement.infrastructure.rest.handler;
 
+import com.demo.bbq.business.tableplacement.application.dto.tableregistration.request.TableRegistrationRequestDTO;
+import com.demo.bbq.business.tableplacement.application.dto.tableregistration.response.TableRegistrationResponseDTO;
 import com.demo.bbq.business.tableplacement.application.service.TableRegistrationService;
-import com.demo.bbq.business.tableplacement.application.dto.tableregistration.request.TableRegistrationRequest;
-import com.demo.bbq.business.tableplacement.application.dto.tableregistration.response.TableRegistrationResponse;
 import com.demo.bbq.business.tableplacement.infrastructure.rest.common.BuilderServerResponse;
 import com.demo.bbq.business.tableplacement.infrastructure.rest.common.RequestValidator;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +16,12 @@ import reactor.core.publisher.Mono;
 public class TableRegistrationHandler {
 
   private final TableRegistrationService tableRegistrationService;
-  private final BuilderServerResponse<TableRegistrationResponse> buildTableOrderResponse;
-  private final RequestValidator<TableRegistrationRequest> requestValidator;
+  private final BuilderServerResponse<TableRegistrationResponseDTO> buildTableOrderResponse;
+  private final RequestValidator<TableRegistrationRequestDTO> requestValidator;
 
   public Mono<ServerResponse> createTable(ServerRequest serverRequest) {
-    return serverRequest.bodyToMono(TableRegistrationRequest.class)
-        .doOnSuccess(request -> requestValidator.validateRequest(request, TableRegistrationRequest.class))
+    return serverRequest.bodyToMono(TableRegistrationRequestDTO.class)
+        .doOnSuccess(request -> requestValidator.validateRequest(request, TableRegistrationRequestDTO.class))
         .flatMap(tableRegistrationService::save)
         .flatMap(buildTableOrderResponse::build);
   }

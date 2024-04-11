@@ -1,10 +1,10 @@
 package com.demo.bbq.business.invoice.application.service.impl;
 
-import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProformaInvoiceResponse;
+import com.demo.bbq.business.invoice.application.dto.proformainvoice.response.ProformaInvoiceResponseDTO;
 import com.demo.bbq.business.invoice.application.service.InvoicePaymentService;
 import com.demo.bbq.business.invoice.application.service.ProformaInvoiceService;
 import com.demo.bbq.business.invoice.domain.exception.InvoiceException;
-import com.demo.bbq.business.invoice.application.dto.invoicepayment.request.PaymentRequest;
+import com.demo.bbq.business.invoice.application.dto.invoicepayment.request.PaymentRequestDTO;
 import com.demo.bbq.business.invoice.application.events.producer.InvoiceProducer;
 import com.demo.bbq.business.invoice.application.mapper.InvoiceMapper;
 import com.demo.bbq.business.invoice.domain.repository.invoice.InvoiceRepositoryHelper;
@@ -26,7 +26,7 @@ public class InvoicePaymentServiceImpl implements InvoicePaymentService {
   private final InvoiceMapper invoiceMapper;
 
   @Override
-  public Completable sendToPay(PaymentRequest paymentRequest) {
+  public Completable sendToPay(PaymentRequestDTO paymentRequest) {
     AtomicReference<BigDecimal> totalAmount = new AtomicReference<>();
 
     return proformaInvoiceService.generateProformaInvoice(paymentRequest.getProductList())
@@ -34,12 +34,12 @@ public class InvoicePaymentServiceImpl implements InvoicePaymentService {
         .doOnSuccess(proforma -> totalAmount.set(proforma.getTotal()))
         .map(invoice -> invoiceMapper.toEntity(invoice, paymentRequest.getCustomer(), paymentRequest.getPayment().getMethod()))
         .map(repositoryHelper::buildEntity)
-        .map(invoice -> invoiceMapper.invoiceToPayment(invoice, totalAmount.get()))
+        .map(invoice -> invoiceMapper.toMessage(invoice, totalAmount.get()))
         .doOnSuccess(invoiceProducer::sendMessage)
         .ignoreElement();
   }
 
-  private static final Consumer<ProformaInvoiceResponse> validateProforma = proforma -> {
+  private static final Consumer<ProformaInvoiceResponseDTO> validateProforma = proforma -> {
     if(proforma.getTotal().compareTo(BigDecimal.ZERO) == 0) {
       throw InvoiceException.ERROR0000.buildException();
     }

@@ -1,7 +1,7 @@
 package com.demo.bbq.business.tableplacement.application.mapper;
 
-import com.demo.bbq.business.tableplacement.application.dto.tableplacement.request.MenuOrderRequest;
-import com.demo.bbq.business.tableplacement.application.dto.tableplacement.response.TablePlacementResponse;
+import com.demo.bbq.business.tableplacement.application.dto.tableplacement.request.MenuOrderRequestDTO;
+import com.demo.bbq.business.tableplacement.application.dto.tableplacement.response.TablePlacementResponseDTO;
 import com.demo.bbq.business.tableplacement.domain.repository.tableorder.document.MenuOrderDocument;
 import com.demo.bbq.business.tableplacement.domain.repository.tableorder.document.TableDocument;
 import org.mapstruct.Mapper;
@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
 public interface TablePlacementMapper {
 
   @Mapping(target = "id", source = "id")
-  TablePlacementResponse fromDocumentToResponse(TableDocument diningRoomOrder);
+  TablePlacementResponseDTO toResponseDTO(TableDocument diningRoomOrder);
 
-  MenuOrderDocument fromRequestToDocument(MenuOrderRequest menuOrder);
+  MenuOrderDocument toDocument(MenuOrderRequestDTO menuOrder);
 }
