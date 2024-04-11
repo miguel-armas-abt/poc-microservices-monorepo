@@ -33,7 +33,7 @@ while IFS=',' read -r APP_NAME TYPE || [ -n "$APP_NAME" ]; do
             if [ "$file" == "go.mod" ]; then
               EXECUTION_COMMAND="$GO_PATH run main.go"
             elif [ "$file" == "pom.xml" ]; then
-              EXECUTION_COMMAND="$JAVA_PATH -jar $SERVICE_PATH/target/$APP_NAME-0.0.1-SNAPSHOT.jar"
+              EXECUTION_COMMAND="$JAVA_COMMAND -jar $SERVICE_PATH/target/$APP_NAME-0.0.1-SNAPSHOT.jar"
             fi
             break
         fi

@@ -3,4 +3,4 @@ kafka
 zookeeper
 #redis
 postgres-db
-#mysql-db
+mysql-db

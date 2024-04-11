@@ -4,10 +4,10 @@
 
 > 📋 **Pre requisitos** ([Revisar anexo](#anexo))
 > - Instalar las siguientes tecnologías:
->   - Java 11+
+>   - Java 17+
+>   - Maven 3.9.1+
 >   - GO 1.21+
 >   - Kafka & Zookeeper
->   - Maven 3.9+
 >   - MySQL
 >   - PostgreSQL
 >   - Redis
