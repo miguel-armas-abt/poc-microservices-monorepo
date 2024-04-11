@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 public interface TableRegistrationMapper {
 
   @Mapping(target = "isAvailable", expression = "java(getDefaultAvailableStatus())")
+  @Mapping(target = "menuOrderList", expression = "java(new java.util.ArrayList<>())")
   TableDocument fromRequestToDocument(TableRegistrationRequest tableRegistrationRequest);
 
   TableRegistrationResponse fromDocumentToResponse(TableDocument tableOrder);
