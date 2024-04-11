@@ -10,90 +10,8 @@
 			"name": "infrastructure-services",
 			"item": [
 				{
-					"name": "registry-discovery-server",
-					"item": [
-						{
-							"name": "getInfoApps",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8761/eureka/apps",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8761",
-									"path": [
-										"eureka",
-										"apps"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "config-server",
 					"item": [
-						{
-							"name": "login",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "password",
-											"value": "123",
-											"type": "string"
-										},
-										{
-											"key": "username",
-											"value": "admin",
-											"type": "string"
-										},
-										{
-											"key": "showPassword",
-											"value": false,
-											"type": "boolean"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "username",
-											"value": "admin",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "123",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://localhost:8888/login",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8888",
-									"path": [
-										"login"
-									]
-								}
-							},
-							"response": []
-						},
 						{
 							"name": "bs-menu-option-v1-dev",
 							"protocolProfileBehavior": {
@@ -101,41 +19,13 @@
 							},
 							"request": {
 								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "password",
-											"value": "123",
-											"type": "string"
-										},
-										{
-											"key": "username",
-											"value": "admin",
-											"type": "string"
-										},
-										{
-											"key": "showPassword",
-											"value": false,
-											"type": "boolean"
-										}
-									]
+									"type": "noauth"
 								},
 								"method": "GET",
 								"header": [],
 								"body": {
 									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "username",
-											"value": "admin",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "123",
-											"type": "text"
-										}
-									]
+									"urlencoded": []
 								},
 								"url": {
 									"raw": "http://localhost:8888/business/menu-v1-dev",
@@ -158,18 +48,7 @@
 										"header": [],
 										"body": {
 											"mode": "urlencoded",
-											"urlencoded": [
-												{
-													"key": "username",
-													"value": "admin",
-													"type": "text"
-												},
-												{
-													"key": "password",
-													"value": "123",
-													"type": "text"
-												}
-											]
+											"urlencoded": []
 										},
 										"url": {
 											"raw": "http://localhost:8888/business/invoice-v1-dev",
@@ -255,18 +134,7 @@
 										"header": [],
 										"body": {
 											"mode": "urlencoded",
-											"urlencoded": [
-												{
-													"key": "username",
-													"value": "admin",
-													"type": "text"
-												},
-												{
-													"key": "password",
-													"value": "123",
-													"type": "text"
-												}
-											]
+											"urlencoded": []
 										},
 										"url": {
 											"raw": "http://localhost:8888/business/payment-v1-dev",
@@ -378,7 +246,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{api-gateway-domain}}/actuator/gateway/routes/menu-v1/",
+									"raw": "{{api-gateway-domain}}/actuator/gateway/routes/order-hub-v1/",
 									"host": [
 										"{{api-gateway-domain}}"
 									],
@@ -386,7 +254,7 @@
 										"actuator",
 										"gateway",
 										"routes",
-										"menu-v1",
+										"order-hub-v1",
 										""
 									]
 								}
@@ -1031,10 +899,12 @@
 									]
 								},
 								"url": {
-									"raw": "{{auth-adapter-domain}}/bbq/infrastructure/v1/auth/login",
+									"raw": "http://localhost:8011/bbq/infrastructure/v1/auth/login",
+									"protocol": "http",
 									"host": [
-										"{{auth-adapter-domain}}"
+										"localhost"
 									],
+									"port": "8011",
 									"path": [
 										"bbq",
 										"infrastructure",
@@ -1120,7 +990,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJtSDZLVEJPdEczQjhfVWNyT3ZBNnpQbjIzU2RHZXFwcDVZT3AtTUhSMEZvIn0.eyJleHAiOjE2OTg2MzA0MjYsImlhdCI6MTY5ODYyODYyNiwianRpIjoiNTg0NGM2OTktMjYwMy00ZjFiLWFkNDEtNjJhNzhmMWQ3MzQ3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjE1ZDE0ZTExLWY3ODYtNDIxZC1iOTdiLWU4M2JiZGE4NWNkYiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMjAwZTEzMTEtOGM3OC00ZTAwLTg2YmMtYzQ2Y2NiNmE0MjUyIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiMjAwZTEzMTEtOGM3OC00ZTAwLTg2YmMtYzQ2Y2NiNmE0MjUyIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.eyQBVbshAs-edDaSFiO9aRn5hOC4dR_RkmZoRREiX53Pbw4IBRThFFAqR4mxwhhjD-WZ0FUmu8zhesbjcZPtKBuHC7ZyypJq97VO-v7AaESPN4f0-Xmeaak6P0WDcpxQDtb5kw41xZeCkUmsnVursfI22FNnRI47rxXvK99ODXO95SNSIZtVR7uvIrVtx_fEgbcJ-ZkopkC9o6z8c5zkXkQhJLcJYj_tJgDfJDQNdt-GYeI67L_GqTEsYO-TFHChNyfhJAx3E9AaATK2krhH5aES6xSl1DvltqT24fxLXKdopGIG_M_E4hhd6GFZneKaw32tCpwy5T_cypMeULix5g",
+											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJIeU44ZVR1S2cwMkx4M2lTYUtqc1pIS29yMm91ejJXUV9pNTBmaE15MGJrIn0.eyJleHAiOjE3MTI3ODY1ODMsImlhdCI6MTcxMjc4NDc4MywianRpIjoiOTkzNDY5MDMtMDVjMi00NWMyLWI3NTMtZWI2ZTBjYmFiMjc4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjI4N2QwMzBiLTM1ODUtNDA0ZS1hY2I1LTQ3Y2JiNWI2NWEzNyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMTU3NTM0ODUtN2Q4MC00NDgxLTkwZmEtYjFmOTA0NzFhNGJkIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiMTU3NTM0ODUtN2Q4MC00NDgxLTkwZmEtYjFmOTA0NzFhNGJkIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.bOq6OmGVtBcvMUsEVoYUxo7Yqjdw1Ib18Ln-385OzfW7-EEbAODPdV8JoNGpPh2MwbEkBWnFI-k1PYOwCW7cF6CyEG4dIijGW_HnFnvkWSny1hkmcTCuqQZv_fpbZ1nXcDXJ0fo739mglbjJfQmVFjjHY_6O601UNCv3WfPgmEY-uLVyhZTrBI5DUA-4_tAhLOvpWWzxNT0gnZ4IbI_xFuzR45sA5eD2Le7s8FcEu2MQcysnkDB42aYjwgn45E9kbPEsHoJ423NIMzpdFiu6f0YgTfis19qlgmsEiWcDD8aTwqipkbdCI8pGwG7nIPfnEzO74z7mLEuYrPxsgdxpQA",
 											"type": "string"
 										}
 									]
@@ -1132,10 +1002,12 @@
 									"urlencoded": []
 								},
 								"url": {
-									"raw": "{{auth-adapter-domain}}/bbq/infrastructure/v1/auth/roles",
+									"raw": "http://localhost:8011/bbq/infrastructure/v1/auth/roles",
+									"protocol": "http",
 									"host": [
-										"{{auth-adapter-domain}}"
+										"localhost"
 									],
+									"port": "8011",
 									"path": [
 										"bbq",
 										"infrastructure",
@@ -1253,7 +1125,7 @@
 					"name": "menu-v1",
 					"item": [
 						{
-							"name": "menu v1",
+							"name": "menu-v1 - findByCategory",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -1272,7 +1144,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"description\": \"Tamales de cerdo\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 89.90\r\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1280,10 +1152,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{api-gateway-domain}}/bbq/business/menu/v1/menu-options",
+									"raw": "http://localhost:8012/bbq/business/menu/v1/menu-options?category=MAIN",
+									"protocol": "http",
 									"host": [
-										"{{api-gateway-domain}}"
+										"localhost"
 									],
+									"port": "8012",
 									"path": [
 										"bbq",
 										"business",
@@ -1294,9 +1168,51 @@
 									"query": [
 										{
 											"key": "category",
-											"value": "MAIN",
-											"disabled": true
+											"value": "MAIN"
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "menu-v1 - update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"Costillitas a la BBQ\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 9.90\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8012/bbq/business/menu/v1/menu-options/MENU0004",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8012",
+									"path": [
+										"bbq",
+										"business",
+										"menu",
+										"v1",
+										"menu-options",
+										"MENU0004"
 									]
 								}
 							},
@@ -1308,7 +1224,7 @@
 					"name": "product-v1",
 					"item": [
 						{
-							"name": "product v1",
+							"name": "product v1 - findAll",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -1365,7 +1281,7 @@
 					"name": "menu-v2",
 					"item": [
 						{
-							"name": "menu v2",
+							"name": "menu v2 - findByCategory",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -1398,7 +1314,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options",
+									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options?category=MAIN",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1414,8 +1330,7 @@
 									"query": [
 										{
 											"key": "category",
-											"value": "main-dish",
-											"disabled": true
+											"value": "MAIN"
 										}
 									]
 								}
@@ -1428,7 +1343,69 @@
 					"name": "table-placement-v1",
 					"item": [
 						{
-							"name": "table placement",
+							"name": "table-placement-v1 - generateTableOrder",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/stream+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/stream+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"productCode\": \"MENU0007\",\r\n        \"quantity\": 1\r\n    },\r\n        {\r\n        \"productCode\": \"MENU0005\",\r\n        \"quantity\": 10\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8013/bbq/business/table-placement/v1/table-orders?tableNumber=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8013",
+									"path": [
+										"bbq",
+										"business",
+										"table-placement",
+										"v1",
+										"table-orders"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "table-placement-v1 - findByTableNumber",
 							"protocolProfileBehavior": {
 								"disabledSystemHeaders": {},
 								"disableBodyPruning": true
@@ -1459,7 +1436,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\r\n    {\r\n        \"productCode\": \"MENU0007\",\r\n        \"quantity\": 1\r\n    },\r\n        {\r\n        \"productCode\": \"MENU0005\",\r\n        \"quantity\": 10\r\n    }\r\n]",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1467,7 +1444,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8013/bbq/business/table-placement/v2/table-orders?tableNumber=90",
+									"raw": "http://localhost:8013/bbq/business/table-placement/v1/table-orders?tableNumber=1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1477,13 +1454,13 @@
 										"bbq",
 										"business",
 										"table-placement",
-										"v2",
+										"v1",
 										"table-orders"
 									],
 									"query": [
 										{
 											"key": "tableNumber",
-											"value": "90"
+											"value": "1"
 										}
 									]
 								}
@@ -1491,13 +1468,75 @@
 							"response": []
 						},
 						{
-							"name": "Save table",
+							"name": "table-placement-v1 - cleanTable",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/stream+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/stream+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8013/bbq/business/table-placement/v1/table-orders?tableNumber=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8013",
+									"path": [
+										"bbq",
+										"business",
+										"table-placement",
+										"v1",
+										"table-orders"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "table-placement-v1 - createTable",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"capacity\": 4\r\n}",
+									"raw": "{\r\n    \"capacity\": 8,\r\n    \"tableNumber\": 101\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1528,7 +1567,7 @@
 					"name": "invoice-v1",
 					"item": [
 						{
-							"name": "proformas",
+							"name": "invoice-v1 - proformas",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -1558,10 +1597,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{api-gateway-domain}}/bbq/business/invoice/v1/proformas",
+									"raw": "http://localhost:8014/bbq/business/invoice/v1/proformas",
+									"protocol": "http",
 									"host": [
-										"{{api-gateway-domain}}"
+										"localhost"
 									],
+									"port": "8014",
 									"path": [
 										"bbq",
 										"business",
@@ -1574,7 +1615,7 @@
 							"response": []
 						},
 						{
-							"name": "payments",
+							"name": "invoice-v1 - sendToPay",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -1586,7 +1627,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"productList\": [\r\n    {\r\n        \"description\": \"Ají de gallina\",\r\n        \"quantity\": 2,\r\n        \"productCode\": \"MENU0002\"\r\n    },\r\n    {\r\n        \"description\": \"Pollo a la brasa\",\r\n        \"quantity\": 1,\r\n        \"productCode\": \"MENU0002\"\r\n    }\r\n],\r\n    \"customer\": {\r\n        \"documentType\": \"DNI\",\r\n        \"documentNumber\": \"76517368\"\r\n    },\r\n    \"payment\": {\r\n        \"method\": \"DEBITO\"\r\n    }\r\n}",
+									"raw": "{\r\n    \"productList\": [\r\n    {\r\n        \"description\": \"Flan\",\r\n        \"quantity\": 2,\r\n        \"productCode\": \"MENU0001\"\r\n    },\r\n    {\r\n        \"description\": \"Pachamanca\",\r\n        \"quantity\": 1,\r\n        \"productCode\": \"MENU0003\"\r\n    }\r\n],\r\n    \"customer\": {\r\n        \"documentType\": \"DNI\",\r\n        \"documentNumber\": \"76517368\"\r\n    },\r\n    \"payment\": {\r\n        \"method\": \"CREDITO\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1594,16 +1635,18 @@
 									}
 								},
 								"url": {
-									"raw": "{{api-gateway-domain}}/bbq/business/invoice/v1/payments",
+									"raw": "http://localhost:8014/bbq/business/invoice/v1/send-to-pay",
+									"protocol": "http",
 									"host": [
-										"{{api-gateway-domain}}"
+										"localhost"
 									],
+									"port": "8014",
 									"path": [
 										"bbq",
 										"business",
 										"invoice",
 										"v1",
-										"payments"
+										"send-to-pay"
 									]
 								}
 							},
@@ -1615,13 +1658,29 @@
 					"name": "order-hub-v1",
 					"item": [
 						{
-							"name": "/menu-options",
+							"name": "menu-options - findByCategory",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJIeU44ZVR1S2cwMkx4M2lTYUtqc1pIS29yMm91ejJXUV9pNTBmaE15MGJrIn0.eyJleHAiOjE3MTI3ODc2NDAsImlhdCI6MTcxMjc4NTg0MCwianRpIjoiZTQ4YTBmMjQtZTlmYS00MjNiLWE5NmQtZGY1YjAyYzM2YzUyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjI4N2QwMzBiLTM1ODUtNDA0ZS1hY2I1LTQ3Y2JiNWI2NWEzNyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMDNlOWM1MDktYWQxZi00MTI1LTkxOWItNTU1OGZhMjc1Njg1IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiMDNlOWM1MDktYWQxZi00MTI1LTkxOWItNTU1OGZhMjc1Njg1IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.Sga9k4gN99ANHxNrOLYSwzzLSOaNJh_4Gx5T9N4GERJ6lOALg1i6KRtuQn8btYD8Bk1Lz_WXrTUmH78ORkI-XMn06GvSOOsqQ7riewvxM7YyoWPoqXyun4LYr6PiY4XP1bugtJsaD5le1VO7tByh6shCsZfbfVwQKe1HQDKoVawVAlg_btX6dH8iYXobDNHIvN72sdXGL2HtEDxELuK93SBD3bpxOOMx8hKjtn7qbo6GKbQ30_memnQDNGcPqp9IatDmozJI6bxpm2MKOdzmdsdlsAYMHocjrWePnLRNmaZK29O_gPIOhV8LzNBKRIGlx01K6yufattZfF1A4O862A",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/stream+json",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "",
@@ -1632,13 +1691,15 @@
 									}
 								},
 								"url": {
-									"raw": "{{api-gateway-domain}}/bbq/experience/order-hub/v1/menu-options",
+									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/menu-options?category=MAIN",
+									"protocol": "http",
 									"host": [
-										"{{api-gateway-domain}}"
+										"localhost"
 									],
+									"port": "8018",
 									"path": [
 										"bbq",
-										"experience",
+										"bff",
 										"order-hub",
 										"v1",
 										"menu-options"
@@ -1646,8 +1707,7 @@
 									"query": [
 										{
 											"key": "category",
-											"value": "MAIN",
-											"disabled": true
+											"value": "MAIN"
 										}
 									]
 								}
@@ -1655,7 +1715,7 @@
 							"response": []
 						},
 						{
-							"name": "/table-orders",
+							"name": "table-orders - findByTableNumber",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -1672,13 +1732,15 @@
 									}
 								},
 								"url": {
-									"raw": "{{api-gateway-domain}}/bbq/experience/order-hub/v1/table-orders?tableNumber=3",
+									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/table-orders?tableNumber=1",
+									"protocol": "http",
 									"host": [
-										"{{api-gateway-domain}}"
+										"localhost"
 									],
+									"port": "8018",
 									"path": [
 										"bbq",
-										"experience",
+										"bff",
 										"order-hub",
 										"v1",
 										"table-orders"
@@ -1686,67 +1748,50 @@
 									"query": [
 										{
 											"key": "tableNumber",
-											"value": "3"
+											"value": "1"
 										}
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "get table orders",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{api-gateway-domain}}/bbq/experience/order-hub/v1/table-orders?tableNumber=3",
-											"host": [
-												"{{api-gateway-domain}}"
-											],
-											"path": [
-												"bbq",
-												"experience",
-												"order-hub",
-												"v1",
-												"table-orders"
-											],
-											"query": [
-												{
-													"key": "tableNumber",
-													"value": "3"
-												}
-											]
+							"response": []
+						},
+						{
+							"name": "table-orders - generateTableOrder",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"productCode\": \"MENU0007\",\r\n        \"quantity\": 1\r\n    },\r\n        {\r\n        \"productCode\": \"MENU0005\",\r\n        \"quantity\": 10\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
 										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "transfer-encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Date",
-											"value": "Fri, 10 Nov 2023 22:42:45 GMT"
-										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/table-orders?tableNumber=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
 									],
-									"cookie": [],
-									"body": "{\n    \"menuOrderList\": [],\n    \"tableNumber\": 3,\n    \"id\": 3\n}"
+									"port": "8018",
+									"path": [
+										"bbq",
+										"bff",
+										"order-hub",
+										"v1",
+										"table-orders"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "1"
+										}
+									]
 								}
-							]
+							},
+							"response": []
 						},
 						{
 							"name": "/invoice-payments",
@@ -1769,10 +1814,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{api-gateway-domain}}/bbq/experience/order-hub/v1/invoice-payments",
+									"raw": "http://localhost:8018/bbq/experience/order-hub/v1/invoice-payments",
+									"protocol": "http",
 									"host": [
-										"{{api-gateway-domain}}"
+										"localhost"
 									],
+									"port": "8018",
 									"path": [
 										"bbq",
 										"experience",
