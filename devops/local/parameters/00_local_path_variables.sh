@@ -5,7 +5,7 @@ source ./../../environment/common-script.sh
 # specify your Java version
 JAVA_PATH="C:/dev-environment/java/jdk-17"
 export JAVA_HOME=$JAVA_PATH
-JAVA_COMMAND="$JAVA_PATH/jdk-17/bin/java"
+JAVA_COMMAND="$JAVA_PATH/bin/java"
 
 # specify your Maven configuration
 MVN_HOME_PATH="C:/dev-environment/maven/apache-maven-3.9.1"

@@ -1,5 +1,5 @@
 APP_NAME,TYPE
-#config-server-v1,INF
+config-server-v1,INF
 #api-gateway-v1,INF
 #auth-adapter-v1,INF
 #menu-v1,BS

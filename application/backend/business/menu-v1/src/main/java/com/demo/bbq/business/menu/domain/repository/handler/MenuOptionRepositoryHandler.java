@@ -7,7 +7,7 @@ import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponse;
 import com.demo.bbq.business.menu.domain.repository.database.MenuOptionRepository;
 import com.demo.bbq.business.menu.application.mapper.MenuOptionMapper;
 import com.demo.bbq.business.menu.domain.repository.database.entity.MenuOptionEntity;
-import com.demo.bbq.business.menu.domain.repository.restclient.product.ProductApi;
+import com.demo.bbq.business.menu.domain.repository.restclient.product.ProductRepository;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MenuOptionRepositoryHandler {
 
   private final String PRODUCT_SCOPE = "MENU";
-  private final ProductApi productApi;
+  private final ProductRepository productRepository;
   private final MenuOptionRepository menuOptionRepository;
   private final MenuOptionMapper menuOptionMapper;
 
@@ -29,13 +29,13 @@ public class MenuOptionRepositoryHandler {
     Map<String, MenuOptionEntity> menuOptionMap = menuOptionRepository.findAll().stream()
         .collect(Collectors.toMap(MenuOptionEntity::getProductCode, Function.identity()));
 
-    return productApi.findByScope(PRODUCT_SCOPE).blockingGet().stream()
+    return productRepository.findByScope(PRODUCT_SCOPE).stream()
         .map(product -> menuOptionMapper.fromProductToResponse(menuOptionMap.get(product.getCode()), product))
         .collect(Collectors.toList());
   }
 
   public void save(MenuOptionSaveRequest menuOption) {
-    productApi.save(menuOptionMapper.fromSaveRequestToProduct(menuOption, PRODUCT_SCOPE)).blockingGet();
+    productRepository.save(menuOptionMapper.fromSaveRequestToProduct(menuOption, PRODUCT_SCOPE));
     menuOptionRepository.save(menuOptionMapper.fromSaveRequestToEntity(menuOption));
   }
 
@@ -47,7 +47,7 @@ public class MenuOptionRepositoryHandler {
           return menuOptionRepository.save(menuOptionEntity);
         })
         .orElseThrow(MenuOptionException.ERROR0000::buildException);
-    productApi.update(productCode, menuOptionMapper.fromUpdateRequestToProduct(menuOption, PRODUCT_SCOPE)).blockingGet();
+    productRepository.update(productCode, menuOptionMapper.fromUpdateRequestToProduct(menuOption, PRODUCT_SCOPE));
   }
 
   @Transactional
@@ -58,7 +58,7 @@ public class MenuOptionRepositoryHandler {
           return menuOptionFound;
         })
         .orElseThrow(MenuOptionException.ERROR0000::buildException);
-    productApi.delete(productCode).blockingGet();
+    productRepository.delete(productCode);
   }
 
 }

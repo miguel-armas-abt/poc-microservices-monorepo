@@ -13,6 +13,6 @@ import org.springframework.stereotype.Component;
 public class ProductApiProperties {
 
   @Value("${application.http-client.product.base-url}")
-  private String productBaseUrl;
+  private String baseURL;
 
 }

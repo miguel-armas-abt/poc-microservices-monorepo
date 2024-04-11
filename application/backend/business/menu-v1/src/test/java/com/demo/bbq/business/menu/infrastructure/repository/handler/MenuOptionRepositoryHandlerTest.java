@@ -9,11 +9,10 @@ import com.demo.bbq.business.menu.domain.repository.handler.MenuOptionRepository
 import com.demo.bbq.business.menu.application.mapper.MenuOptionMapper;
 import com.demo.bbq.business.menu.domain.repository.database.MenuOptionRepository;
 import com.demo.bbq.business.menu.domain.repository.database.entity.MenuOptionEntity;
-import com.demo.bbq.business.menu.domain.repository.restclient.product.ProductApi;
+import com.demo.bbq.business.menu.domain.repository.restclient.product.ProductRepository;
 import com.demo.bbq.business.menu.domain.repository.restclient.product.wrapper.response.ProductResponseWrapper;
 import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
-import io.reactivex.Single;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +29,7 @@ public class MenuOptionRepositoryHandlerTest {
   private MenuOptionRepositoryHandler menuOptionRepositoryHandler;
 
   @Mock
-  private ProductApi productApi;
+  private ProductRepository productRepository;
 
   @Mock
   private MenuOptionRepository menuOptionRepository;
@@ -45,8 +44,8 @@ public class MenuOptionRepositoryHandlerTest {
 
   @Test
   public void givenTwoSourcesInfo_WhenSearchAllMenuOptions_ThenMapResponse() {
-    when(productApi.findByScope(anyString()))
-        .thenReturn(Single.just(JsonFileReader.getList("data/product/ProductDto_Array.json", ProductResponseWrapper[].class)));
+    when(productRepository.findByScope(anyString()))
+        .thenReturn(JsonFileReader.getList("data/product/ProductDto_Array.json", ProductResponseWrapper[].class));
 
     when(menuOptionRepository.findAll())
         .thenReturn(JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class));
