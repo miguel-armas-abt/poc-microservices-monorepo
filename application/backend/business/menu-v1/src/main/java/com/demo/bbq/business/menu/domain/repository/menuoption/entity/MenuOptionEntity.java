@@ -1,4 +1,4 @@
-package com.demo.bbq.business.menu.domain.repository.database.entity;
+package com.demo.bbq.business.menu.domain.repository.menuoption.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

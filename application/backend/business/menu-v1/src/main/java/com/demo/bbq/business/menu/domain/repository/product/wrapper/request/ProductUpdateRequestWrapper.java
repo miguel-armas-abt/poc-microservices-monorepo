@@ -1,4 +1,4 @@
-package com.demo.bbq.business.menu.domain.repository.restclient.product.wrapper.response;
+package com.demo.bbq.business.menu.domain.repository.product.wrapper.request;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -9,8 +9,8 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductResponseWrapper implements Serializable {
+public class ProductUpdateRequestWrapper implements Serializable {
 
-  private String code;
   private BigDecimal unitPrice;
+  private String scope;
 }

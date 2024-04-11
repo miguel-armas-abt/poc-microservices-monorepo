@@ -1,9 +1,9 @@
-package com.demo.bbq.business.menu.domain.repository.restclient.product;
+package com.demo.bbq.business.menu.domain.repository.product;
 
-import com.demo.bbq.business.menu.domain.repository.restclient.product.config.ProductApiProperties;
-import com.demo.bbq.business.menu.domain.repository.restclient.product.wrapper.request.ProductSaveRequestWrapper;
-import com.demo.bbq.business.menu.domain.repository.restclient.product.wrapper.request.ProductUpdateRequestWrapper;
-import com.demo.bbq.business.menu.domain.repository.restclient.product.wrapper.response.ProductResponseWrapper;
+import com.demo.bbq.business.menu.domain.repository.product.config.ProductApiProperties;
+import com.demo.bbq.business.menu.domain.repository.product.wrapper.request.ProductSaveRequestWrapper;
+import com.demo.bbq.business.menu.domain.repository.product.wrapper.request.ProductUpdateRequestWrapper;
+import com.demo.bbq.business.menu.domain.repository.product.wrapper.response.ProductResponseWrapper;
 import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

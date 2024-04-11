@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuOptionResponse implements Serializable {
+public class MenuOptionResponseDTO implements Serializable {
 
   @Schema(example = DocumentationExample.PRODUCT_CODE)
   private String productCode;

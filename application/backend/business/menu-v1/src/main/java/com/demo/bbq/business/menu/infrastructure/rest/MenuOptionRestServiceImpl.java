@@ -1,9 +1,9 @@
 package com.demo.bbq.business.menu.infrastructure.rest;
 
-import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponse;
+import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponseDTO;
 import com.demo.bbq.business.menu.application.service.MenuOptionService;
-import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequest;
-import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequest;
+import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequestDTO;
+import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequestDTO;
 import com.demo.bbq.support.logstash.Markers;
 import java.net.URI;
 import java.util.List;
@@ -35,17 +35,17 @@ public class MenuOptionRestServiceImpl implements MenuOptionRestService {
   private final MenuOptionService service;
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/{productCode}")
-  public ResponseEntity<MenuOptionResponse> findByProductCode(HttpServletRequest servletRequest,
-                                                              @PathVariable(name = "productCode") String productCode) {
+  public ResponseEntity<MenuOptionResponseDTO> findByProductCode(HttpServletRequest servletRequest,
+                                                                 @PathVariable(name = "productCode") String productCode) {
     logRequest.accept(servletRequest);
     return ResponseEntity.ok(service.findByProductCode(productCode));
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<MenuOptionResponse>> findByCategory(HttpServletRequest servletRequest,
-                                                                 @RequestParam(value = "category", required = false) String categoryCode) {
+  public ResponseEntity<List<MenuOptionResponseDTO>> findByCategory(HttpServletRequest servletRequest,
+                                                                    @RequestParam(value = "category", required = false) String categoryCode) {
     logRequest.accept(servletRequest);
-    List<MenuOptionResponse> menuOptionList = service.findByCategory(categoryCode);
+    List<MenuOptionResponseDTO> menuOptionList = service.findByCategory(categoryCode);
     return (menuOptionList == null || menuOptionList.isEmpty())
         ? ResponseEntity.noContent().build()
         : ResponseEntity.ok(service.findByCategory(categoryCode));
@@ -53,7 +53,7 @@ public class MenuOptionRestServiceImpl implements MenuOptionRestService {
 
   @PostMapping
   public ResponseEntity<Void> save(HttpServletRequest servletRequest,
-                                   @Valid @RequestBody MenuOptionSaveRequest menuOption) {
+                                   @Valid @RequestBody MenuOptionSaveRequestDTO menuOption) {
     logRequest.accept(servletRequest);
     service.save(menuOption);
     return ResponseEntity.created(buildPostUriLocation.apply(menuOption.getProductCode())).build();
@@ -61,7 +61,7 @@ public class MenuOptionRestServiceImpl implements MenuOptionRestService {
 
   @PutMapping(value = "/{productCode}")
   public ResponseEntity<Void> update(HttpServletRequest servletRequest,
-                                     @Valid @RequestBody MenuOptionUpdateRequest menuOption, @PathVariable("productCode") String productCode) {
+                                     @Valid @RequestBody MenuOptionUpdateRequestDTO menuOption, @PathVariable("productCode") String productCode) {
     logRequest.accept(servletRequest);
     service.update(productCode, menuOption);
     return ResponseEntity.created(buildUriLocation.apply(productCode)).build();

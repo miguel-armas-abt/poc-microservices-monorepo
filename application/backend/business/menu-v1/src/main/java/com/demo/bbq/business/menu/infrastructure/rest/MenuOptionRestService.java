@@ -1,10 +1,11 @@
 package com.demo.bbq.business.menu.infrastructure.rest;
 
-import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponse;
+import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequestDTO;
+import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequestDTO;
+import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponseDTO;
 import com.demo.bbq.business.menu.infrastructure.doc.DocumentationConfig.DocumentationExample;
 import java.util.List;
-import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequest;
-import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequest;
+
 import com.demo.bbq.business.menu.infrastructure.doc.DocumentationConfig;
 import com.demo.bbq.support.exception.model.dto.ApiExceptionDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,13 +27,13 @@ public interface MenuOptionRestService {
 
   @Operation(summary = "Get a menu by ID", tags = DocumentationConfig.TAG)
   @ApiResponse(responseCode = "200")
-  ResponseEntity<MenuOptionResponse> findByProductCode(HttpServletRequest servletRequest,
-                                                       @Parameter(example = DocumentationExample.PRODUCT_CODE) String productCode);
+  ResponseEntity<MenuOptionResponseDTO> findByProductCode(HttpServletRequest servletRequest,
+                                                          @Parameter(example = DocumentationExample.PRODUCT_CODE) String productCode);
 
   @Operation(summary = "Get a menu list by category", tags = DocumentationConfig.TAG)
   @ApiResponse(responseCode = "200")
-  ResponseEntity<List<MenuOptionResponse>> findByCategory(HttpServletRequest servletRequest,
-                                                          @Parameter(description = "Menu category", examples = {
+  ResponseEntity<List<MenuOptionResponseDTO>> findByCategory(HttpServletRequest servletRequest,
+                                                             @Parameter(description = "Menu category", examples = {
                                                       @ExampleObject(value = DocumentationExample.CATEGORY_MAIN_DISH),
                                                       @ExampleObject(value = DocumentationExample.CATEGORY_DRINK),
                                                       @ExampleObject(value = DocumentationExample.CATEGORY_DESSERT),
@@ -41,12 +42,12 @@ public interface MenuOptionRestService {
   @Operation(summary = "Save a menu", tags = DocumentationConfig.TAG)
   @ApiResponse(responseCode = "201")
   ResponseEntity<Void> save(HttpServletRequest servletRequest,
-                            @RequestBody(content = {@Content(schema = @Schema(implementation = MenuOptionSaveRequest.class))}) MenuOptionSaveRequest menuOption);
+                            @RequestBody(content = {@Content(schema = @Schema(implementation = MenuOptionSaveRequestDTO.class))}) MenuOptionSaveRequestDTO menuOption);
 
   @Operation(summary = "Update a menu", tags = DocumentationConfig.TAG)
   @ApiResponse(responseCode = "201")
   ResponseEntity<Void> update(HttpServletRequest servletRequest,
-                              @RequestBody(content = {@Content(schema = @Schema(implementation = MenuOptionUpdateRequest.class))}) MenuOptionUpdateRequest menuOption,
+                              @RequestBody(content = {@Content(schema = @Schema(implementation = MenuOptionUpdateRequestDTO.class))}) MenuOptionUpdateRequestDTO menuOption,
                               @Parameter(example = DocumentationExample.PRODUCT_CODE) String productCode);
 
   @Operation(summary = "Delete a menu", tags = DocumentationConfig.TAG)

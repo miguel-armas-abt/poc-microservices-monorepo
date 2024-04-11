@@ -3,19 +3,27 @@ package com.demo.bbq.business.menu.application.dto.request;
 import com.demo.bbq.business.menu.infrastructure.doc.DocumentationConfig.DocumentationExample;
 import com.demo.bbq.business.menu.application.constant.MenuRegex;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
+import java.math.BigDecimal;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Builder
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuOptionUpdateRequest implements Serializable {
+public class MenuOptionSaveRequestDTO implements Serializable {
+
+  @Schema(example = DocumentationExample.PRODUCT_CODE)
+  @NotNull(message = "productCode cannot be null")
+  private String productCode;
 
   @Schema(example = DocumentationExample.DESCRIPTION)
   @Size(min = 3, max = 300)

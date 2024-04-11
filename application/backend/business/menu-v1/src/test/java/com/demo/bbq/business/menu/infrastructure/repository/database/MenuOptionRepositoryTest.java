@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.demo.bbq.business.menu.domain.repository.database.MenuOptionRepository;
-import com.demo.bbq.business.menu.domain.repository.database.entity.MenuOptionEntity;
+import com.demo.bbq.business.menu.domain.repository.menuoption.MenuOptionRepository;
+import com.demo.bbq.business.menu.domain.repository.menuoption.entity.MenuOptionEntity;
 import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
 import java.util.List;

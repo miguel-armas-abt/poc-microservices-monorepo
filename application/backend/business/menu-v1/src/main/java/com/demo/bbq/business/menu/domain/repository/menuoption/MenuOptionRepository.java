@@ -1,6 +1,6 @@
-package com.demo.bbq.business.menu.domain.repository.database;
+package com.demo.bbq.business.menu.domain.repository.menuoption;
 
-import com.demo.bbq.business.menu.domain.repository.database.entity.MenuOptionEntity;
+import com.demo.bbq.business.menu.domain.repository.menuoption.entity.MenuOptionEntity;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;

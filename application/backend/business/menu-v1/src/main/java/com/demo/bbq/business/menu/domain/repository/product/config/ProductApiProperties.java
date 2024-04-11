@@ -1,4 +1,4 @@
-package com.demo.bbq.business.menu.domain.repository.restclient.product.config;
+package com.demo.bbq.business.menu.domain.repository.product.config;
 
 import lombok.Getter;
 import lombok.Setter;

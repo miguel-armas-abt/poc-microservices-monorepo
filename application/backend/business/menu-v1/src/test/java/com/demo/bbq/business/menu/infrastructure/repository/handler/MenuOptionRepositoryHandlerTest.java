@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponse;
-import com.demo.bbq.business.menu.domain.repository.handler.MenuOptionRepositoryHandler;
+import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponseDTO;
+import com.demo.bbq.business.menu.domain.repository.MenuOptionRepositoryHandler;
 import com.demo.bbq.business.menu.application.mapper.MenuOptionMapper;
-import com.demo.bbq.business.menu.domain.repository.database.MenuOptionRepository;
-import com.demo.bbq.business.menu.domain.repository.database.entity.MenuOptionEntity;
-import com.demo.bbq.business.menu.domain.repository.restclient.product.ProductRepository;
-import com.demo.bbq.business.menu.domain.repository.restclient.product.wrapper.response.ProductResponseWrapper;
+import com.demo.bbq.business.menu.domain.repository.menuoption.MenuOptionRepository;
+import com.demo.bbq.business.menu.domain.repository.menuoption.entity.MenuOptionEntity;
+import com.demo.bbq.business.menu.domain.repository.product.ProductRepository;
+import com.demo.bbq.business.menu.domain.repository.product.wrapper.response.ProductResponseWrapper;
 import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
 import org.junit.Before;
@@ -50,7 +50,7 @@ public class MenuOptionRepositoryHandlerTest {
     when(menuOptionRepository.findAll())
         .thenReturn(JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class));
 
-    String expected = new Gson().toJson(JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponse[].class));
+    String expected = new Gson().toJson(JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class));
     String actual = new Gson().toJson(menuOptionRepositoryHandler.findAll());
     assertEquals(expected, actual);
   }
