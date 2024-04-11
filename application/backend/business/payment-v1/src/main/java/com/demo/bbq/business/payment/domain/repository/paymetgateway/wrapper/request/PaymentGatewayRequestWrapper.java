@@ -1,4 +1,4 @@
-package com.demo.bbq.business.payment.domain.repository.restclient.paymetgateway.wrapper.request;
+package com.demo.bbq.business.payment.domain.repository.paymetgateway.wrapper.request;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentGatewayRequest implements Serializable {
+public class PaymentGatewayRequestWrapper implements Serializable {
 
   private String clientCompany;
   private BigDecimal amount;

@@ -1,7 +1,7 @@
-package com.demo.bbq.business.payment.domain.repository.restclient.paymetgateway;
+package com.demo.bbq.business.payment.domain.repository.paymetgateway;
 
-import com.demo.bbq.business.payment.domain.repository.restclient.paymetgateway.wrapper.request.PaymentGatewayRequest;
-import com.demo.bbq.business.payment.domain.repository.restclient.paymetgateway.wrapper.response.PaymentGatewayResponse;
+import com.demo.bbq.business.payment.domain.repository.paymetgateway.wrapper.request.PaymentGatewayRequestWrapper;
+import com.demo.bbq.business.payment.domain.repository.paymetgateway.wrapper.response.PaymentGatewayResponseWrapper;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class PaymentGatewayApi {
+public class PaymentGatewayRepository {
 
-  public PaymentGatewayResponse process(PaymentGatewayRequest request) {
+  public PaymentGatewayResponseWrapper process(PaymentGatewayRequestWrapper request) {
     CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
       try {
         TimeUnit.SECONDS.sleep(5);
@@ -20,7 +20,7 @@ public class PaymentGatewayApi {
       }
     });
     future.join();
-    return PaymentGatewayResponse.builder()
+    return PaymentGatewayResponseWrapper.builder()
         .isSuccessfulTransaction(Boolean.TRUE)
         .build();
   }

@@ -1,4 +1,4 @@
-package com.demo.bbq.business.payment.domain.repository.database.payment.entity;
+package com.demo.bbq.business.payment.domain.repository.payment.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaidTransactionResponse implements Serializable {
+public class PaidTransactionResponseDTO implements Serializable {
   private BigDecimal paidAmount;
   private Long invoiceId;
 }

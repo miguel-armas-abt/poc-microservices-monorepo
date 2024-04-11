@@ -1,12 +1,12 @@
 package com.demo.bbq.business.payment.application.events.consumer;
 
-import com.demo.bbq.business.payment.application.dto.response.PaidTransactionResponse;
+import com.demo.bbq.business.payment.application.dto.response.PaidTransactionResponseDTO;
 import com.demo.bbq.business.payment.application.events.consumer.message.PaymentMessage;
 import com.demo.bbq.business.payment.application.events.producer.PaymentProducer;
 import com.demo.bbq.business.payment.application.mapper.PaymentMapper;
-import com.demo.bbq.business.payment.domain.repository.database.payment.PaymentRepository;
-import com.demo.bbq.business.payment.domain.repository.restclient.paymetgateway.PaymentGatewayApi;
-import com.demo.bbq.business.payment.domain.repository.restclient.paymetgateway.wrapper.request.PaymentGatewayRequest;
+import com.demo.bbq.business.payment.domain.repository.payment.PaymentRepository;
+import com.demo.bbq.business.payment.domain.repository.paymetgateway.PaymentGatewayRepository;
+import com.demo.bbq.business.payment.domain.repository.paymetgateway.wrapper.request.PaymentGatewayRequestWrapper;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class InvoiceConsumer {
 
   private final PaymentRepository paymentRepository;
   private final PaymentMapper paymentMapper;
-  private final PaymentGatewayApi paymentGatewayApi;
+  private final PaymentGatewayRepository paymentGatewayRepository;
   private final PaymentProducer paymentProducer;
 
   @KafkaListener(topics = "${kafka-broker.topic.invoice}")
@@ -30,9 +30,9 @@ public class InvoiceConsumer {
     log.info("listening message: " + payload);
     PaymentMessage payment = new Gson().fromJson(payload, PaymentMessage.class);
 
-    if(paymentGatewayApi.process(PaymentGatewayRequest.builder().amount(payment.getTotalAmount()).clientCompany("BBQ").build()).getIsSuccessfulTransaction()) {
+    if(paymentGatewayRepository.process(PaymentGatewayRequestWrapper.builder().amount(payment.getTotalAmount()).clientCompany("BBQ").build()).getIsSuccessfulTransaction()) {
       paymentRepository.save(paymentMapper.toEntity(payment));
-      paymentProducer.sendMessage(new Gson().toJson(PaidTransactionResponse.builder().invoiceId(payment.getInvoiceId()).paidAmount(payment.getTotalAmount())));
+      paymentProducer.sendMessage(new Gson().toJson(PaidTransactionResponseDTO.builder().invoiceId(payment.getInvoiceId()).paidAmount(payment.getTotalAmount())));
     }
   }
 }
