@@ -2,18 +2,25 @@
 
 # DESPLIEGUE CON DOCKER COMPOSE
 
-> 📋 **Pre requisitos** ([Revisar anexo](#anexo))
-> - Instalar e iniciar Docker
-> - Compilar proyectos
+> 📋 **Pre requisitos** ()
+> - [Iniciar Docker](#configurar-docker-desktop)
+> - [Compilar proyectos](./../local/README.md)
 
+> 📄 **Editar archivo** - [Lista de imágenes a construir](./../environment/docker/README.md)
+> ```shell script
+> notepad ./../environment/docker/images-to-build.csv
+> ```
 > 🔨 **Construir imágenes**
-> <br>📄 Edite `./../environment/docker/images-to-build.csv` con los proyectos que desea compilar e incluir en el `docker-compose.yml`.
 > ```shell script 
 > cd ./../environment/docker/shell-scripts
 > ./images-builder.sh
 > ```
 
-> 🔧 **Crear docker-compose.yml**
+> 📄 **Editar archivo** - [Lista de contenedores a incluir en el docker-compose](./../environment/docker/README.md)
+> ```shell script
+> notepad ./../environment/docker/containers-to-run.csv
+> ```
+> ⚙️ **Crear docker-compose.yml**
 > ```shell script
 > cd ./shell-scripts
 > ./docker-compose-builder.sh
@@ -33,19 +40,13 @@
 
 ---
 
-# Anexo
+# Anexos
 
-> ### Docker Desktop
+> ### Configurar Docker Desktop
 > Para especificar los recursos asignados a Docker Desktop, cree un archivo `.wslconfig` en la ruta
 > `C:\Users\<username>\`, agregue el siguiente contenido en dependencia de los recursos de su entorno y reinicie Docker Desktop.
 > ```javascript
 > [wsl2]
 > memory=3072MB
 > processors=5
-> ```
-
-> ### Compilar proyectos
-> ```shell script 
-> cd ./../local/shell-scripts
-> ./01_compile_projects.sh
 > ```

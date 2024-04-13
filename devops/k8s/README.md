@@ -2,9 +2,10 @@
 
 # DESPLIEGUE CON K8S
 
-> 📋 **Pre requisitos** ([Revisar anexo](#anexo))
-> - Instalar Kubectl, Minikube e iniciar el clúster
-> - Compilar proyectos
+> 📋 **Pre requisitos**
+> - [Compilar proyectos](./../local/README.md)
+> - Instalar Kubectl y Minikube
+> - [Iniciar el clúster de Minikube - Anexos](#iniciar-el-cluster-de-minikube)
 
 > 🔨 **Construir imágenes en Minikube**
 > <br>Las imágenes deben estar disponibles en el clúster de Minikube. Para ello estableceremos el Docker de Minikube en
@@ -26,10 +27,15 @@
 > docker images
 > ```
 
-> 🔧 **Crear manifiestos**
-> <br>📄 Edite los siguientes archivos con las aplicaciones que desea incluir en el despliegue. 
-> - `./parameters/k8s-app-manifests.csv`
-> - `./parameters/k8s-db-manifests.csv`
+> 📄 **Editar archivo** - [Lista de manifiestos de tipo APP](./parameters/README.md)
+> ```shell script 
+> notepad ./parameters/k8s-app-manifests.csv
+> ```
+> 📄 **Editar archivo** - [Lista de manifiestos de tipo DB](./parameters/README.md)
+> ```shell script 
+> notepad ./parameters/k8s-db-manifests.csv
+> ```
+> ▶️ **Crear manifiestos**
 > ```shell script
 > cd ./shell-scripts/manifests-builder
 > ./k8s-manifests-builder.sh
@@ -66,26 +72,24 @@
 
 ---
 
-# Anexo
+# Anexos
 
-> ### Minikube
-> - Para especificar los recursos asignados a Minukube, puede indicar `--memory=2816 --cpus=4` al iniciar el clúster de Minikube.
+> ### Iniciar el cluster de Minikube
+> - Para especificar los recursos asignados a Minukube, puede indicar `--memory=2816 --cpus=4`.
 > - Utilice el contexto default de Docker.
 > ```shell script
 > docker context use default
 > minikube start
 > ```
 
-> ### Compilar proyectos
-> ```shell script 
-> cd ./../local/shell-scripts
-> ./01_compile_projects.sh
-> ```
-
 > ### Acceder al Docker de Minikube
+> Windows:
 > ```shell script 
-> eval $(minikube docker-env --shell bash) #Unix
-> Invoke-Expression ((minikube docker-env) -join "`n") #Windows
+> Invoke-Expression ((minikube docker-env) -join "`n")
+> ```
+> Unix:
+> ```shell script 
+> eval $(minikube docker-env --shell bash)
 > ```
 
 

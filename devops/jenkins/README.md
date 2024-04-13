@@ -3,25 +3,9 @@
 # Jenkins
 
 > 📋 **Pre requisitos**
-> - **Encender el clúster de Minikube**
-> ```shell script
-> minikube start
-> docker context use default
-> ```
-> - **Construir imágenes en Minikube**
-> <br>*ToBe: Jenkinsfile - Las imágenes deben ser construidas, pusheadas a DockerHub y obtenidas desde allí.*
-> ```shell script 
-> docker build -t miguelarmasabt/product:v1.0.1 ./../../application/backend/business/product-v1
-> docker build -t miguelarmasabt/menu:v1.0.1 ./../../application/backend/business/menu-v1
-> docker build -f ./../../application/backend/business/menu-v2/src/main/docker/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./../../application/backend/business/menu-v2
-> docker build -t miguelarmasabt/table-placement:v1.0.1 ./../../application/backend/business/table-placement-v1
-> docker build -t miguelarmasabt/registry-discovery-server:v1.0.1 ./../../application/backend/infrastructure/registry-discovery-server-v1
-> docker build -t miguelarmasabt/config-server:v1.0.1 ./../../application/backend/infrastructure/config-server-v1
-> docker build -t miguelarmasabt/auth-adapter:v1.0.1 ./../../application/backend/infrastructure/auth-adapter-v1
-> docker build -t miguelarmasabt/api-gateway:v1.0.1 ./../../application/backend/infrastructure/api-gateway-v1
-> Invoke-Expression ((minikube docker-env) -join "`n")
-> ```
-> - Instalar `ngrok`. [Revisar anexo](#configuracion-de-ngrok)
+> - [Encender el clúster de Minikube](./../k8s/README.md.#iniciar-el-cluster-de-minikube)
+> - [Construir imágenes en Minikube](./../k8s/README.md) <br>ToBe: Jenkinsfile - Las imágenes deben ser pusheadas y obtenidas desde DockerHub.
+> - [Instalar ngrok - Anexos](#configuracion-de-ngrok)
 
 # 1. Iniciar Jenkins
 > 🔨 **Ejecutar contenedor de Jenkins**
@@ -120,16 +104,17 @@
 
 ---
 
-# Anexo
-## Configuracion de Ngrok
-Ngrok permite realizar port forward de una URL local hacia una URL pública.
-- Ingrese a https://ngrok.com/ y haga login
-- Descargue el archivo ejecutable `ngrok.exe`
-- Ejecute solo la primera vez el comando provisto por Ngrok para autenticarse.
- ```shell script 
- ngrok config add-authtoken <ngrok-auth-token>
- ```
-- Realice port forward de su URL local.
- ```shell script 
- ngrok http http://localhost:8080
- ```
+# Anexos
+
+> ### Configuracion de Ngrok
+> Ngrok permite realizar port forward de una URL local hacia una URL pública.
+> - Ingrese a https://ngrok.com/ y haga login
+> - Descargue el archivo ejecutable `ngrok.exe`
+> - Ejecute solo la primera vez el comando provisto por Ngrok para autenticarse.
+> ```shell script 
+>  ngrok config add-authtoken <ngrok-auth-token>
+> ```
+> - Realice port forward de su URL local.
+> ```shell script 
+>  ngrok http http://localhost:8080
+> ```

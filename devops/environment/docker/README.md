@@ -1,24 +1,17 @@
-> 📌 Utilice una shell compatible con Unix (PowerShell o Git bash) para ejecutar scripts `.sh`
+> 📌 Puede utilizar `#` para comentar las líneas que desea ignorar.
 
-# CONSTRUIR IMÁGENES
+# PARÁMETROS DOCKER
 
-> ⚙️ **Actualizar las imágenes que desea construir**
-> <br>Los parámetros para la construcción de imágenes están en el siguiente archivo `csv`.
-> <br><br> Utilice `nano` para Unix
-> ```shell script 
-> notepad ./images-to-build.csv #Windows
-> ```
->
-> 💡 **Notas**:
-> - Puede utilizar `#` para comentar las líneas que desea ignorar.
-> - El archivo `.csv` cuenta con las siguientes columnas.
+> 📄 **containers-to-run.csv** - Lista de contenedores
+>   - `APP_NAME`: Nombre del servicio.
+>   - `DOCKER_IMAGE`: Imagen con tag.
+>   - `DEPENDENCIES`: Servicios requeridos separados por `;`. En su ausencia especifique `null`.
+>   - `HOST_PORT`: Puerto de escucha local.
+>   - `CONTAINER_PORT`: Puerto de escucha del contenedor.
+>   - `VOLUMES`: Volúmenes requeridos separados por `;`. En su ausencia especifique `null`.
+
+> 📄 **images-to-build.csv** - Lista de imágenes
 >   - `APP_NAME`: Nombre del servicio sin la versión.
 >   - `TAG_VERSION`: Tag de la imagen.
->   - `TYPE`: Tipo de servicio (`BS` o `INF`).
->   - `DOCKERFILE_PATH`: Ruta del Dockerfile. Si el archivo está en la raíz del proyecto utilizar `Default`.
-
-> ▶️ **Construir imágenes**
-> ```shell script
-> cd ./shell-scripts
-> ./images-builder.sh
-> ```
+>   - `TYPE`: Tipo de servicio (business: `BS`, infraestructura: `INF`).
+>   - `DOCKERFILE_PATH`: Ruta del Dockerfile. Si está en la raíz del proyecto, especifique `Default`

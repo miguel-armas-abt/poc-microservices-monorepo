@@ -9,15 +9,6 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
 >
 ![Proceso de atención en el restaurante](./docs/diagrams/restaurant-process.jpg)
 
-> 💡 **Reserva en línea**
-
-![Proceso de reserva](./docs/diagrams/reservation-process.jpg)
-
-
-> 💡 **Delivery**
-
-![Proceso de delivery](./docs/diagrams/delivery-process.jpg)
-
 # 2. DISEÑO DEL SOFTWARE
 
 > 📌 **Glosario**
@@ -39,18 +30,18 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
 
 > 📝 **Descripción de los servicios web**
 
-| Servicio web                   | Descripción                                                                                                                   | Stack                                                         |   
-|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
-| `product-v1`                   | Permite gestionar los productos que ofrece el restaurante BBQ (CRUD).                                                         | **GO**: `GORM`                                                |
-| `menu-v1`                      | Permite gestionar las opciones de menú que ofrece el restaurante BBQ (CRUD), siendo las opciones de menú un tipo de producto. | **Spring Boot**: `JPA, Retrofit`                              |
-| `menu-v2`                      | Cumple el mismo propósito que menu-v1 (CRUD).                                                                                 | **Quarkus**: `Panache Entity, RestClient, Multiny, GraphQL`   |
-| `table-placement-v1`           | Permite realizar la colocación de la mesa, es decir que permite agregar pedidos en cada mesa y consultarlos.                  | **Spring Boot**: `MongoDB Reactive, Webflux, RouterFunctions` |
-| `invoice-v1`                   | Permite generar una factura de proforma y enviarla a pagar.                                                                   | **Spring Boot**: `JPA, RxJava2, Retrofit, Kafka`              |
-| `payment-v1`                   | Recibe las facturas y las procesa.                                                                                            | **Spring Boot**: `JPA, Kafka`                                 |
-| `order-hub-v1`                 | `Backend for Frontend` Construye la experiencia de generación de pedidos.                                                     | **Spring Boot**: `Retrofit, Redis, Circuit Breaker`           |
-| `config-server-v1`             | Servicio de configuraciones.                                                                                                  | **Spring Cloud**                                              |
-| `api-gateway-v1`               | API Gateway.                                                                                                                  | **Spring Cloud**                                              |
-| `auth-adapter-v1`              | Adaptador de autenticación.                                                                                                   | **Spring Boot**: Retrofit                                     |
+| Servicio web                   | Descripción                                                                                                                   | Stack                                                             |   
+|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| `product-v1`                   | Permite gestionar los productos que ofrece el restaurante BBQ (CRUD).                                                         | **GO**: `GORM`                                                    |
+| `menu-v1`                      | Permite gestionar las opciones de menú que ofrece el restaurante BBQ (CRUD), siendo las opciones de menú un tipo de producto. | **Spring Boot**: `JPA`, `Rest Template`                           |
+| `menu-v2`                      | Cumple el mismo propósito que menu-v1 (CRUD).                                                                                 | **Quarkus**: `Panache Entity`, `RestClient`, `Multiny`, `GraphQL` |
+| `table-placement-v1`           | Permite realizar la colocación de la mesa, es decir que permite agregar pedidos en cada mesa y consultarlos.                  | **Spring Boot**: `MongoDB Reactive`, `Webflux`, `RouterFunctions` |
+| `invoice-v1`                   | Permite generar una factura de proforma y enviarla a pagar.                                                                   | **Spring Boot**: `JPA`, `RxJava3`, `Retrofit`, `Kafka`, `Drools`  |
+| `payment-v1`                   | Recibe las facturas y las procesa.                                                                                            | **Spring Boot**: `JPA`, `Kafka`                                   |
+| `order-hub-v1`                 | `Backend for Frontend` Construye la experiencia de generación de pedidos.                                                     | **Spring Boot**: `Retrofit`                                       |
+| `config-server-v1`             | Servicio de configuraciones.                                                                                                  | **Spring Cloud**                                                  |
+| `api-gateway-v1`               | API Gateway.                                                                                                                  | **Spring Cloud**: `Webflux`, `WebClient`                          |
+| `auth-adapter-v1`              | Adaptador de autenticación.                                                                                                   | **Spring Boot**: `Retrofit`                                       |
 
 > ♻️ **Plantilla de arquitectura de paquetes**
 
@@ -98,30 +89,30 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
     bbq-monorepo
     │───`application`
     │   ├───backend
-    │   │   ├───business // web services containing business logic 
+    │   │   ├───business // servicios web con lógica de negocio 
     │   │   │   ├───product-v1
     │   │   │   ├───menu-v1
     │   │   │   └─── ...
-    │   │   └───infrastructure // infrastructure web services
+    │   │   └───infrastructure // servicios web de infraestructura
     │   │       ├───api-gateway-v1
     │   │       ├───config-server-v1
     │   │       └─── ...
     │   └───frontend
     │       └───bbq-restaurant-web
     │───`devops`
-    │   ├───docker-compose // to deploy in docker-compose
-    │   ├───jenkins // to deploy in Jenkins
-    │   ├───k8s // to deploy in k8s
-    │   └───local // to deploy in local
+    │   ├───docker-compose
+    │   ├───jenkins
+    │   ├───k8s
+    │   └───local
     └───`docs`
-        ├───diagrams // draw.io file diagrams
-        └───postman // postman collection and environment
+        ├───diagrams // imágenes y archivos draw.io
+        ├───load-testing // scripts de prueba de carga en JMeter e informes
+        └───postman
 ```
 
 # 4. DESPLIEGUE
 Revise las instrucciones de despliegue para cada uno de los siguientes entornos.
-- Local: `devops/local/README.md`
-- Docker Compose: `devops/docker-compose/README.md`
-- Kubernetes: `devops/k8s/README.md`
-- Jenkins: `devops/jenkins/README.md`
-
+- [Local](./devops/local/README.md)
+- [Docker Compose](./devops/docker-compose/README.md)
+- [Kubernetes](./devops/k8s/README.md)
+- [Jenkins](./devops/jenkins/README.md)

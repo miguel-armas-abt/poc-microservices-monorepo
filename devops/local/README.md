@@ -2,29 +2,30 @@
 
 # DESPLIEGUE LOCAL
 
-> 📋 **Pre requisitos** ([Revisar anexo](#anexo))
+> 📋 **Pre requisitos** ([Revisar anexos](#anexos))
 > - Instalar las siguientes tecnologías:
->   - Java 17+
->   - Maven 3.9.1+
->   - GO 1.21+
->   - Kafka & Zookeeper
->   - MySQL
->   - PostgreSQL
->   - Redis
+>   <br>`Java 17+`, `Maven 3.9.1+`, `GO 1.21+`, `Kafka & Zookeeper`, `MySQL`, `PostgreSQL`
 
-> ⚙️ **Configurar espacio de trabajo**
-> <br>📄Edite el archivo `./parameters/00_local_path_variables.sh` de acuerdo a su espacio de trabajo.
+> 📄 **Editar archivo** - Rutas de instalación (Java, Maven, GO, etc)
+> ```shell script 
+> notepad ./parameters/00_local_path_variables.sh
+> ```
 
-> ▶️ **Compilar los proyectos**
-<br>📄 Edite `./parameters/01_projects-to-compile.csv` con los proyectos que desea compilar
-<br>
+> 📄 **Editar archivo** - [Lista de proyectos a compilar](./parameters/README.md)
+> ```shell script 
+> notepad ./parameters/01_projects-to-compile.csv
+> ```
+> ▶️ **Compilar proyectos**
 > ```shell script 
 > cd ./shell-scripts
 > ./01_compile_projects.sh
 > ```
 
-> ▶️ **Iniciar servidores (Kafka, Redis, PostgreSQL, MySQL)**
-<br>📄 Edite `./parameters/02_servers-to-start.csv` con los servidores que desea iniciar
+> 📄 **Editar archivo** - [Lista de servidores a iniciar (kafka, mysql-db, etc)](./parameters/README.md)
+> ```shell script 
+> notepad ./parameters/02_servers-to-start.csv
+> ```
+> ▶️ **Iniciar servidores**
 > ```shell script 
 > cd ./shell-scripts
 > ./02_start_servers.sh
@@ -36,8 +37,11 @@
 > ./03_create_database.sh
 > ```
 
+> 📄 **Editar archivo** - [Lista de servicios a iniciar](./parameters/README.md)
+> ```shell script 
+> notepad ./parameters/04_services-to-start.csv
+> ```
 > ▶️ **Iniciar servicios**
-<br>📄 Edite `./parameters/04_services-to-start.csv` con los servicios que desea iniciar
 > ```shell script 
 > cd ./shell-scripts
 > ./04_start_services.sh
@@ -46,7 +50,7 @@
 
 ---
 
-# Anexo
+# Anexos
 
 <br>Guarde los binarios en directorios con nombres sin espaciados para evitar inconsistencias con los scripts. Por ejemplo:
 ```javascript
