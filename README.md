@@ -22,14 +22,14 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
 
 > 📌 **Glosario**
 - **Dominio**: Área de conocimiento (conceptos, reglas, requisitos) que el software está destinado a abordar. Por lo general, cada `servicio web` aborda un `dominio` específico.
-- **Subdominio**: Área de conocimiento más específica dentro del dominio principal. Por lo general, los `subdominios` de cada servicio web son representados por los `modelos de datos` de sus fuentes de información.
+- **Subdominio**: Área de conocimiento más específica dentro del dominio principal. Por lo general, los `subdominios` de cada servicio web son representados por los `modelos de datos` de sus fuentes de información (capa `repository`).
 - **Modelo de datos**: Modelo que captura la estructura y el significado de los datos en un subdominio específico.
 - **Contexto**: Funcionalidad del sistema que puede abarcar uno o más subdominios. Los contextos ayudan a delimitar las responsabilidades entre los componentes del sistema.
 
 > 🔍 **Ejemplo**
-- **Dominio**: `Colocación de pedidos en mesa` .................. Es el alcance funcional que aborda el servicio web.
-- **Subdominios**: `Mesas` y `pedidos` ................................. Son los modelos de datos de la capa `repository`.
-- **Contextos**: ........................................................................ Son las funcionalidades que implementa el servicio web.
+- **Dominio**: `Colocación de pedidos en mesa`
+- **Subdominios**: `Mesas` y `pedidos`
+- **Contextos**:
   - `Colocación de pedidos`: Se encarga de tomar los pedidos de los clientes y asignarlos a una mesa específica.
   - `Gestión de estado de mesa`: Controla el estado de ocupación de las mesas, indicando si están disponibles, ocupadas o reservadas.
 
