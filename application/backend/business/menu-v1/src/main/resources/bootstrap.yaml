@@ -19,3 +19,13 @@ springdoc:
   swagger-ui:
     path: /swagger/index.html
     enabled: true
+
+# actuator endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus, beans, env, loggers, flyway
+  endpoint:
+    health:
+      show-details: always

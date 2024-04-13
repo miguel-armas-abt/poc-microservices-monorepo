@@ -13,3 +13,13 @@ spring:
       retry:
         max-attempts: 1
         max-interval: 1000
+
+# actuator endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus, beans, env, loggers, flyway
+  endpoint:
+    health:
+      show-details: always
