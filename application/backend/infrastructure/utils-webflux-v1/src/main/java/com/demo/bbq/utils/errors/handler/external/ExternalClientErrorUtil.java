@@ -12,7 +12,7 @@ public class ExternalClientErrorUtil {
 
   private ExternalClientErrorUtil() {}
 
-  public static Mono<? extends Throwable> handleError(ClientResponse clientResponse,
+  public static Mono<ExternalServiceException> handleError(ClientResponse clientResponse,
                                                       Class<?> errorWrapperClass,
                                                       String serviceName,
                                                       List<WebfluxClientErrorService> serviceList,

@@ -1,0 +1,34 @@
+[
+  {
+    "code": "MENU0001",
+    "unitPrice": 19.9
+  },
+  {
+    "code": "MENU0002",
+    "unitPrice": 39.9
+  },
+  {
+    "code": "MENU0003",
+    "unitPrice": 39.9
+  },
+  {
+    "code": "MENU0004",
+    "unitPrice": 9.9
+  },
+  {
+    "code": "MENU0005",
+    "unitPrice": 59.9
+  },
+  {
+    "code": "MENU0006",
+    "unitPrice": 19.9
+  },
+  {
+    "code": "MENU0007",
+    "unitPrice": 19.9
+  },
+  {
+    "code": "MENU0008",
+    "unitPrice": 19.9
+  }
+]

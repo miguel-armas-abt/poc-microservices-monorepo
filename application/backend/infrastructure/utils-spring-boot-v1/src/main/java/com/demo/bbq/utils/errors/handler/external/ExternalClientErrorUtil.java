@@ -11,7 +11,7 @@ public class ExternalClientErrorUtil {
 
   private ExternalClientErrorUtil() {}
 
-  public static Throwable handleError(HttpStatusCodeException httpException,
+  public static ExternalServiceException handleError(HttpStatusCodeException httpException,
                                       Class<?> errorWrapperClass,
                                       String serviceName,
                                       List<RestClientErrorService> serviceList,

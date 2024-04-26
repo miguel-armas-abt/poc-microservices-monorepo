@@ -7,6 +7,8 @@ import com.demo.bbq.utils.errors.exceptions.ExternalServiceException;
 import com.demo.bbq.utils.errors.exceptions.SystemException;
 import com.demo.bbq.utils.errors.handler.matcher.ErrorMatcherUtil;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
+
+import java.net.ConnectException;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.context.request.WebRequest;
 
 public class ResponseErrorUtil {
@@ -24,22 +27,26 @@ public class ResponseErrorUtil {
     ErrorDTO error = ErrorMatcherUtil.getDefaultError(properties);
     HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
-    if( ex instanceof ExternalServiceException externalServiceException) {
+    if(ex instanceof ResourceAccessException) {
+      httpStatus = HttpStatus.REQUEST_TIMEOUT;
+    }
+
+    if(ex instanceof ExternalServiceException externalServiceException) {
       error = externalServiceException.getErrorDetail();
       httpStatus = HttpStatus.valueOf(externalServiceException.getHttpStatusCode().value());
     }
 
-    if( ex instanceof BusinessException businessException) {
+    if(ex instanceof BusinessException businessException) {
       error = ErrorMatcherUtil.replaceWithMatchError(properties, businessException);
       httpStatus = HttpStatus.BAD_REQUEST;
     }
 
-    if( ex instanceof SystemException systemException) {
+    if(ex instanceof SystemException systemException) {
       error = ErrorMatcherUtil.replaceWithMatchError(properties, systemException);
       httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
     }
 
-    if( ex instanceof AuthorizationException authException) {
+    if(ex instanceof AuthorizationException authException) {
       error = ErrorMatcherUtil.replaceWithMatchError(properties, authException);
       httpStatus = HttpStatus.UNAUTHORIZED;
     }

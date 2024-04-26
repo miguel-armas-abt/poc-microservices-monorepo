@@ -21,9 +21,9 @@ configuration:
   show-custom-messages: false
 
   rest-clients:
-    auth-adapter-v1:
+    product-v1:
       request:
-        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/
+        endpoint: http://${PRODUCT_DOMAIN:localhost:8080}/bbq/business/product/v1/
         headers:
           Accept: application/json
 

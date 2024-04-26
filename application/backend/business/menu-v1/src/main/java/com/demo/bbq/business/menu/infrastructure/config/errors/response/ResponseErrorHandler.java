@@ -7,6 +7,7 @@ import com.demo.bbq.utils.errors.exceptions.ExternalServiceException;
 import com.demo.bbq.utils.errors.exceptions.SystemException;
 import com.demo.bbq.utils.errors.handler.response.ResponseErrorUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.hc.client5.http.HttpHostConnectException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,7 +20,7 @@ public class ResponseErrorHandler extends ResponseEntityExceptionHandler {
 
   private final ServiceConfigurationProperties properties;
 
-  @ExceptionHandler({SystemException.class, BusinessException.class, ExternalServiceException.class})
+  @ExceptionHandler({SystemException.class, BusinessException.class, ExternalServiceException.class, HttpHostConnectException.class})
   public final ResponseEntity<ErrorDTO> handleException(Throwable exception, WebRequest request) {
     return ResponseErrorUtil.handleException(properties, exception, request);
   }

@@ -1,21 +1,22 @@
-package com.demo.bbq.infraestructure.mockservice.service.authadapter;
+package com.demo.bbq.infraestructure.mockservice.service.product;
 
-import static org.mockserver.model.Header.header;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
-import static com.demo.bbq.infraestructure.mockservice.common.TemplateConfig.readJSON;
-
-import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
+import com.demo.bbq.infraestructure.mockservice.common.MockRuleProvider;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
 import org.mockserver.model.HttpStatusCode;
 import org.springframework.stereotype.Component;
-import com.demo.bbq.infraestructure.mockservice.common.MockRuleProvider;
+
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
+
+import static com.demo.bbq.infraestructure.mockservice.common.TemplateConfig.readJSON;
+import static org.mockserver.model.Header.header;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
 
 @Component
-public class AuthAdapterServiceMock implements MockRuleProvider {
+public class ProductServiceMock implements MockRuleProvider {
 
   private static final String CONTENT_TYPE_NAME = "Content-Type";
   private static final String CONTENT_TYPE_VALUE_JSON = "application/json";
@@ -26,7 +27,7 @@ public class AuthAdapterServiceMock implements MockRuleProvider {
     mockServer
         .when(request()
             .withMethod("GET")
-            .withPath("/bbq/infrastructure/v1/auth/roles"))
+            .withPath("/bbq/business/product/v1/products"))
         .respond(request -> {
           long randomDelay = buildDelayWithProbabilityDensity();
           Header traceIdHeader = buildTraceId();
@@ -34,7 +35,7 @@ public class AuthAdapterServiceMock implements MockRuleProvider {
               .withStatusCode(HttpStatusCode.BAD_REQUEST_400.code())
               .withHeader(header(CONTENT_TYPE_NAME, CONTENT_TYPE_VALUE_JSON))
               .withHeader(traceIdHeader)
-              .withBody(readJSON("mocks/auth-adapter-v1/get-roles.400.json"))
+              .withBody(readJSON("mocks/product-v1/get-products.400.json"))
               .withDelay(TimeUnit.MILLISECONDS, randomDelay);
         });
   }
