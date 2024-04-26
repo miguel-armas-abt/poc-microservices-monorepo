@@ -1,13 +1,13 @@
 package com.demo.bbq.business.menu.domain.repository;
 
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequestDTO;
-import com.demo.bbq.business.menu.domain.exception.MenuOptionException;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequestDTO;
 import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponseDTO;
 import com.demo.bbq.business.menu.domain.repository.menuoption.MenuOptionRepository;
 import com.demo.bbq.business.menu.application.mapper.MenuOptionMapper;
 import com.demo.bbq.business.menu.domain.repository.menuoption.entity.MenuOptionEntity;
 import com.demo.bbq.business.menu.domain.repository.product.ProductRepository;
+import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -46,7 +46,7 @@ public class MenuOptionRepositoryHandler {
           menuOptionEntity.setId(menuOptionFound.getId());
           return menuOptionRepository.save(menuOptionEntity);
         })
-        .orElseThrow(MenuOptionException.ERROR0000::buildException);
+        .orElseThrow(() -> new BusinessException("MenuOptionNotFound", "The menu option does not exist"));
     productRepository.update(productCode, menuOptionMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE));
   }
 
@@ -57,7 +57,7 @@ public class MenuOptionRepositoryHandler {
           menuOptionRepository.deleteByProductCode(productCode);
           return menuOptionFound;
         })
-        .orElseThrow(MenuOptionException.ERROR0000::buildException);
+        .orElseThrow(() -> new BusinessException("MenuOptionNotFound", "The menu option does not exist"));
     productRepository.delete(productCode);
   }
 

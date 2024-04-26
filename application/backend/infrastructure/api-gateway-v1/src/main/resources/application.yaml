@@ -1,11 +1,6 @@
 server:
   port: 8010
 
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
-    reactor.netty.http.client: DEBUG
-
 spring:
   application:
     name: api-gateway-v1
@@ -20,11 +15,18 @@ spring:
           filters:
             - name: AuthenticationFilter
 
-application:
-  http-client:
-    auth-adapter:
-      base-url: http://${AUTH_ADAPTER_DOMAIN:localhost:8011}/bbq/infrastructure/v1/auth/
-  user-roles: '{0:"partners"}' #separate items with comma
+configuration:
+  show-custom-messages: false
+  rest-clients:
+    auth-adapter-v1:
+      request:
+        endpoint: http://${AUTH_ADAPTER_DOMAIN:localhost:8080}/bbq/infrastructure/v1/auth/
+        headers:
+          Accept: application/json
+      variables:
+        expected-roles: partners #separate items with comma
+  errors:
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
 # actuator endpoints
 management:
@@ -35,3 +37,16 @@ management:
   endpoint:
     health:
       show-details: always
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+
+custom-logging:
+  project-name: ${spring.application.name}
+  enabled: true
+  sensitive-headers: ["Authorization"]
+  sensitive-body-fields: ["accessToken", "report[*].id"]
+  header-obfuscation-strategies:
+    "Authorization": STANDARD

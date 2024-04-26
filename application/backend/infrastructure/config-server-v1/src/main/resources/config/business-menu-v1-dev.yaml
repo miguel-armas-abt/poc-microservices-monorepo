@@ -17,7 +17,15 @@ spring:
     username: ${MYSQL_USERNAME:bbq_user}
     password: ${MYSQL_PASSWORD:qwerty}
 
-application:
-  http-client:
-    product:
-      base-url: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/
+configuration:
+  show-custom-messages: false
+
+  rest-clients:
+    auth-adapter-v1:
+      request:
+        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/
+        headers:
+          Accept: application/json
+
+  errors:
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.

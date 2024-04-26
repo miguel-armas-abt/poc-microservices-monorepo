@@ -3,11 +3,9 @@ package com.demo.bbq.business.menu.infrastructure.rest;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequestDTO;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequestDTO;
 import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponseDTO;
-import com.demo.bbq.business.menu.infrastructure.doc.DocumentationConfig.DocumentationExample;
-import java.util.List;
-
-import com.demo.bbq.business.menu.infrastructure.doc.DocumentationConfig;
-import com.demo.bbq.support.exception.model.dto.ApiExceptionDTO;
+import com.demo.bbq.business.menu.infrastructure.config.doc.DocumentationConfig.DocumentationExample;
+import com.demo.bbq.business.menu.infrastructure.config.doc.DocumentationConfig;
+import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,12 +14,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import java.util.List;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 
 @ApiResponses(value = {
     @ApiResponse(responseCode = "400",
-        content = @Content(schema = @Schema(implementation = ApiExceptionDTO.class)))
+        content = @Content(schema = @Schema(implementation = ErrorDTO.class)))
 })
 public interface MenuOptionRestService {
 

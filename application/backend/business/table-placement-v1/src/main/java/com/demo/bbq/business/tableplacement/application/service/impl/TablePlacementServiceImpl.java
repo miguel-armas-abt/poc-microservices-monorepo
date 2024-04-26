@@ -4,11 +4,10 @@ import com.demo.bbq.business.tableplacement.application.dto.tableplacement.reque
 import com.demo.bbq.business.tableplacement.application.dto.tableplacement.response.TablePlacementResponseDTO;
 import com.demo.bbq.business.tableplacement.application.service.TablePlacementService;
 import com.demo.bbq.business.tableplacement.domain.repository.tableorder.TableOrderRepository;
-import com.demo.bbq.business.tableplacement.domain.exception.TablePlacementExceptionEnum;
 import com.demo.bbq.business.tableplacement.application.mapper.TablePlacementMapper;
 import com.demo.bbq.business.tableplacement.domain.repository.tableorder.document.MenuOrderDocument;
 import com.demo.bbq.business.tableplacement.domain.repository.tableorder.document.TableDocument;
-
+import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -32,7 +31,7 @@ public class TablePlacementServiceImpl implements TablePlacementService {
   public Mono<TablePlacementResponseDTO> findByTableNumber(Integer tableNumber) {
     return tableOrderRepository.findByTableNumber(tableNumber)
         .map(tablePlacementMapper::toResponseDTO)
-        .switchIfEmpty(Mono.error(TablePlacementExceptionEnum.ERROR0000.buildException()));
+        .switchIfEmpty(Mono.error(() -> new BusinessException("TableNotFound", "The table does not exist")));
   }
 
   @Override

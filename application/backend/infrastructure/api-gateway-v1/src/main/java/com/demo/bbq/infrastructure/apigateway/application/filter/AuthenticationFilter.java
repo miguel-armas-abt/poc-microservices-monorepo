@@ -1,11 +1,12 @@
 package com.demo.bbq.infrastructure.apigateway.application.filter;
 
+import com.demo.bbq.infrastructure.apigateway.application.properties.ServiceConfigurationProperties;
 import com.demo.bbq.infrastructure.apigateway.domain.repository.authadapter.AuthAdapterRepository;
-import com.demo.bbq.infrastructure.apigateway.infrastructure.exception.HandleErrorUtil;
-import com.demo.bbq.infrastructure.apigateway.application.properties.RolesProperties;
-import com.demo.bbq.infrastructure.apigateway.domain.exception.ApiGatewayException;
-import com.demo.bbq.support.exception.model.ApiException;
+import com.demo.bbq.utils.errors.exceptions.AuthorizationException;
+import com.demo.bbq.utils.errors.handler.response.ResponseErrorUtil;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.OrderedGatewayFilter;
@@ -20,49 +21,49 @@ import reactor.core.publisher.Flux;
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
   private final AuthAdapterRepository authAdapterRepository;
-  private final RolesProperties properties;
+  private final ServiceConfigurationProperties configurationProperties;
 
-  public AuthenticationFilter(AuthAdapterRepository authAdapterRepository, RolesProperties properties) {
+  public AuthenticationFilter(AuthAdapterRepository authAdapterRepository,
+                              ServiceConfigurationProperties configurationProperties) {
     super(Config.class);
     this.authAdapterRepository = authAdapterRepository;
-    this.properties = properties;
+    this.configurationProperties = configurationProperties;
   }
 
   @Override
   public GatewayFilter apply(Config config) {
-    return new OrderedGatewayFilter((serverWebExchange, chain) -> {
-      ArrayList<String> rolesList = new ArrayList<>(properties.getRolesList().values());
-
-      return Flux.fromIterable(rolesList)
-          .flatMap(expectedRol -> authAdapterRepository.getRoles(getAuthToken(serverWebExchange))
-              .map(hashMap -> {
-                if(!hashMap.containsKey(expectedRol)) {
-                  throw ApiGatewayException.ERROR0002.buildException();
-                }
-                return hashMap;
-              }))
-          .ignoreElements()
-          .then(chain.filter(serverWebExchange))
-          .onErrorResume(ApiException.class, e -> HandleErrorUtil.handleError(serverWebExchange, e))
-          .onErrorResume(Throwable.class, e -> HandleErrorUtil.handleError(serverWebExchange, e));
-    },1);
+    return new OrderedGatewayFilter((exchange, chain) -> Flux.fromIterable(getExpectedRoles())
+        .flatMap(expectedRol -> authAdapterRepository.getRoles(getAuthToken(exchange))
+            .map(roles -> {
+              if(!roles.containsKey(expectedRol)) {
+                throw new AuthorizationException("ExpectedRoleNotFound", "The expected role was not found");
+              }
+              return roles;
+            }))
+        .ignoreElements()
+        .then(chain.filter(exchange))
+        .onErrorResume(Exception.class, exception -> ResponseErrorUtil.handleException(configurationProperties, exception, exchange)),1);
   }
 
   private String getAuthToken(ServerWebExchange serverWebExchange) {
     HttpHeaders httpHeaders = serverWebExchange.getRequest().getHeaders();
 
     if (!httpHeaders.containsKey(HttpHeaders.AUTHORIZATION)) {
-      throw ApiGatewayException.ERROR0000.buildException();
+      throw new AuthorizationException("MissingAuthorizationHeader", "Missing Authorization header");
     }
 
     String authorizationHeader = httpHeaders.get(HttpHeaders.AUTHORIZATION).get(0);
     String[] authElements = authorizationHeader.split(" ");
-
     if (authElements.length != 2 || !"Bearer".equals(authElements[0])) {
-      throw ApiGatewayException.ERROR0001.buildException();
+      throw new AuthorizationException("InvalidAuthorizationStructure", "Invalid authorization structure");
     }
 
     return authElements[1];
+  }
+
+  private List<String> getExpectedRoles() {
+    String[] roles = authAdapterRepository.getVariables().get("expected-roles").split(",");
+    return new ArrayList<>(Arrays.asList(roles));
   }
 
   public static class Config {}

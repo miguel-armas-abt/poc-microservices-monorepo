@@ -1,6 +1,6 @@
 package com.demo.bbq.business.menu.application.catalog;
 
-import com.demo.bbq.business.menu.domain.exception.MenuOptionException;
+import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import lombok.AllArgsConstructor;
@@ -22,6 +22,6 @@ public enum MenuCategory {
       menuOptionCategoryCode -> Arrays.stream(MenuCategory.values())
           .filter(menuCategory -> menuCategory.name().equals(menuOptionCategoryCode))
           .findFirst()
-          .orElseThrow(MenuOptionException.ERROR0001::buildException);
+          .orElseThrow(() -> new BusinessException("CategoryNotFound", "The menu category is not defined"));
 
 }

@@ -1,6 +1,6 @@
 package com.demo.bbq.business.menu.application.dto.request;
 
-import com.demo.bbq.business.menu.infrastructure.doc.DocumentationConfig.DocumentationExample;
+import com.demo.bbq.business.menu.infrastructure.config.doc.DocumentationConfig.DocumentationExample;
 import com.demo.bbq.business.menu.application.constant.MenuRegex;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;

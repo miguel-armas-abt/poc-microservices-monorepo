@@ -10,7 +10,7 @@ keycloak:
   base-url: ${keycloak.server}/bbq-management/protocol/openid-connect/
   authorization-uri: ${keycloak.base-url}auth
   jwk-set-uri: ${keycloak.base-url}certs
-  certs-id: ${KEYCLOACK_KEY_RS256:HyN8eTuKg02Lx3iSaKjsZHKor2ouz2WQ_i50fhMy0bk}
+  certs-id: ${KEYCLOACK_KEY_RS256:_t8Avn1u-Dc9fk7Gw_-za6j1g5iL44C6X3N6Rayp59A}
   client-id: front-bbq-app
   client-secret: qwerty
   scope: profile

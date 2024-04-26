@@ -1,0 +1,5 @@
+{
+  "code": "JWTNotValid",
+  "message": "Ocurrió un error durante la autenticación.",
+  "type": "BUSINES"
+}

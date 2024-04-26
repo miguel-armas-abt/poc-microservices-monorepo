@@ -1,6 +1,6 @@
 package com.demo.bbq.business.menu.application.dto.response;
 
-import com.demo.bbq.business.menu.infrastructure.doc.DocumentationConfig.DocumentationExample;
+import com.demo.bbq.business.menu.infrastructure.config.doc.DocumentationConfig.DocumentationExample;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import io.swagger.v3.oas.annotations.media.Schema;

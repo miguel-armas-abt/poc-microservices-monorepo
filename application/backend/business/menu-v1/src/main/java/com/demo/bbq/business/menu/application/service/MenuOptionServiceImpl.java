@@ -4,9 +4,8 @@ import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequestD
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequestDTO;
 import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponseDTO;
 import com.demo.bbq.business.menu.application.catalog.MenuCategory;
-import com.demo.bbq.business.menu.domain.exception.MenuOptionException;
 import com.demo.bbq.business.menu.domain.repository.MenuOptionRepositoryHandler;
-import com.demo.bbq.support.logstash.Markers;
+import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import com.google.gson.Gson;
 import java.util.List;
 import java.util.Optional;
@@ -40,9 +39,9 @@ public class MenuOptionServiceImpl implements MenuOptionService {
   public MenuOptionResponseDTO findByProductCode(String productCode) {
     return menuOptionRepositoryHandler.findAll().stream()
         .filter(menuOption -> productCode.equals(menuOption.getProductCode()))
-        .peek(menuOption -> log.info(Markers.SENSITIVE_JSON, "findByProductCode: {}", new Gson().toJson(menuOption)))
+        .peek(menuOption -> log.info("{}", new Gson().toJson(menuOption)))
         .findFirst()
-        .orElseThrow(MenuOptionException.ERROR0000::buildException);
+        .orElseThrow(() -> new BusinessException("MenuOptionNotFound", "The menu option does not exist"));
   }
 
   @Override

@@ -1,0 +1,63 @@
+# Application name
+spring:
+  application:
+    name: smp-web-mock-service
+  profiles:
+    active: ${PROFILE:dev}
+  jmx:
+    enabled: false
+  main:
+    # Lazy load beans
+    lazy-initialization: false
+    # Override beans
+    allow-bean-definition-overriding: true
+  config:
+    # Specific location
+    location: file://./src/main/resources/application.yaml
+  reactor:
+    debug-agent:
+      enabled: true
+
+
+# Server
+server:
+  port: 8082
+  undertow:
+    accesslog:
+      enabled: true
+      pattern: "%t %a \"%r\" %s (%D ms)"
+    threads:
+      io: 4
+      worker: 32
+
+# Metrics related configurations
+management:
+  endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: "/"
+      path-mapping:
+        metrics: metric
+        prometheus: metrics
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+# Performance Spring
+logging:
+  level:
+    root: ${LOG_LEVEL:INFO}
+    org.springframework.web: ${LOG_LEVEL:ERROR}
+    com.netflix.config.sources.URLConfigurationSource: ${LOG_LEVEL:ERROR}
+

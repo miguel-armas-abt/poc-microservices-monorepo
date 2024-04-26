@@ -11,7 +11,7 @@ import com.demo.bbq.business.menu.domain.repository.menuoption.MenuOptionReposit
 import com.demo.bbq.business.menu.domain.repository.menuoption.entity.MenuOptionEntity;
 import com.demo.bbq.business.menu.domain.repository.product.ProductRepository;
 import com.demo.bbq.business.menu.domain.repository.product.wrapper.response.ProductResponseWrapper;
-import com.demo.bbq.support.util.JsonFileReader;
+import com.demo.bbq.utils.files.JsonFileReaderUtil;
 import com.google.gson.Gson;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,12 +45,12 @@ public class MenuOptionRepositoryHandlerTest {
   @Test
   public void givenTwoSourcesInfo_WhenSearchAllMenuOptions_ThenMapResponse() {
     when(productRepository.findByScope(anyString()))
-        .thenReturn(JsonFileReader.getList("data/product/ProductDto_Array.json", ProductResponseWrapper[].class));
+        .thenReturn(JsonFileReaderUtil.getList("data/product/ProductDto_Array.json", ProductResponseWrapper[].class));
 
     when(menuOptionRepository.findAll())
-        .thenReturn(JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class));
+        .thenReturn(JsonFileReaderUtil.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class));
 
-    String expected = new Gson().toJson(JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class));
+    String expected = new Gson().toJson(JsonFileReaderUtil.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class));
     String actual = new Gson().toJson(menuOptionRepositoryHandler.findAll());
     assertEquals(expected, actual);
   }

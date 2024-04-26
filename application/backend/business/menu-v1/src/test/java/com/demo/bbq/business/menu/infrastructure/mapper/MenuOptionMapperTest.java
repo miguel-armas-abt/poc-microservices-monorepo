@@ -7,7 +7,7 @@ import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponseDTO
 import com.demo.bbq.business.menu.application.mapper.MenuOptionMapper;
 import com.demo.bbq.business.menu.domain.repository.menuoption.entity.MenuOptionEntity;
 import com.demo.bbq.business.menu.domain.repository.product.wrapper.response.ProductResponseWrapper;
-import com.demo.bbq.support.util.JsonFileReader;
+import com.demo.bbq.utils.files.JsonFileReaderUtil;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,10 +33,10 @@ public class MenuOptionMapperTest {
     @BeforeEach
     public void setup() {
 
-        menuOptionEntity = JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class).get(0);
-        productWrapper = JsonFileReader.getList("data/product/ProductDto_Array.json", ProductResponseWrapper[].class).get(0);
-        menuOption = JsonFileReader.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class).get(0);
-        menuOptionSaveRequest = JsonFileReader.getAnElement("data/menuoption/MenuOptionSaveRequest.json", MenuOptionSaveRequestDTO.class);
+        menuOptionEntity = JsonFileReaderUtil.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class).get(0);
+        productWrapper = JsonFileReaderUtil.getList("data/product/ProductDto_Array.json", ProductResponseWrapper[].class).get(0);
+        menuOption = JsonFileReaderUtil.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class).get(0);
+        menuOptionSaveRequest = JsonFileReaderUtil.getAnElement("data/menuoption/MenuOptionSaveRequest.json", MenuOptionSaveRequestDTO.class);
     }
 
     @Test

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.demo.bbq.business.menu.domain.repository.menuoption.MenuOptionRepository;
 import com.demo.bbq.business.menu.domain.repository.menuoption.entity.MenuOptionEntity;
-import com.demo.bbq.support.util.JsonFileReader;
+import com.demo.bbq.utils.files.JsonFileReaderUtil;
 import com.google.gson.Gson;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +33,7 @@ public class MenuOptionRepositoryTest {
 
   @BeforeEach
   public void setup() {
-    expectedSavedMenuOptionList = JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class);
+    expectedSavedMenuOptionList = JsonFileReaderUtil.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class);
     repository.saveAll(expectedSavedMenuOptionList);
   }
 
@@ -73,7 +73,7 @@ public class MenuOptionRepositoryTest {
   public void save() {
     int rowsNumberBefore = repository.findAll().size();
 
-    MenuOptionEntity menuOptionToSave = JsonFileReader.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class).get(0);
+    MenuOptionEntity menuOptionToSave = JsonFileReaderUtil.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class).get(0);
     menuOptionToSave.setId(4L);
     menuOptionToSave.setProductCode("MENU0004");
     repository.save(menuOptionToSave);

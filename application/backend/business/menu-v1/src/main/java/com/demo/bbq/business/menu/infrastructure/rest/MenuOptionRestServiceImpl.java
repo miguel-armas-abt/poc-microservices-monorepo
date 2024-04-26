@@ -4,7 +4,6 @@ import com.demo.bbq.business.menu.application.dto.response.MenuOptionResponseDTO
 import com.demo.bbq.business.menu.application.service.MenuOptionService;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionSaveRequestDTO;
 import com.demo.bbq.business.menu.application.dto.request.MenuOptionUpdateRequestDTO;
-import com.demo.bbq.support.logstash.Markers;
 import java.net.URI;
 import java.util.List;
 import java.util.function.Consumer;
@@ -75,7 +74,7 @@ public class MenuOptionRestServiceImpl implements MenuOptionRestService {
   }
 
   private final static Consumer<HttpServletRequest> logRequest = servletRequest->
-      log.info(Markers.SENSITIVE_JSON, "{}", servletRequest.getMethod() + ": " + servletRequest.getRequestURI());
+      log.info("{}", servletRequest.getMethod() + ": " + servletRequest.getRequestURI());
 
   private final static Function<String, URI> buildPostUriLocation = productCode ->
       ServletUriComponentsBuilder.fromCurrentRequest()

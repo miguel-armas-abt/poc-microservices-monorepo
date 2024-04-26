@@ -33,7 +33,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.demo.parent</groupId>
-			<artifactId>bbq-support-v1</artifactId>
+			<artifactId>utils-webflux-v1</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

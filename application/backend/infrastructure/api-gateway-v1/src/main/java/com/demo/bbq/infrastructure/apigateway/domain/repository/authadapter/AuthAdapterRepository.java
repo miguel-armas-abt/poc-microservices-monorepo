@@ -1,36 +1,37 @@
 package com.demo.bbq.infrastructure.apigateway.domain.repository.authadapter;
 
-import com.demo.bbq.infrastructure.apigateway.domain.repository.authadapter.properties.AuthAdapterRestClientProperties;
-import com.demo.bbq.infrastructure.apigateway.infrastructure.config.restclient.WebClientFactory;
+import com.demo.bbq.infrastructure.apigateway.application.properties.ServiceConfigurationProperties;
+import com.demo.bbq.infrastructure.apigateway.infrastructure.config.errors.handler.external.ExternalServiceErrorHandler;
+import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 
 @Repository
+@RequiredArgsConstructor
 public class AuthAdapterRepository {
 
-  private final WebClient webClient;
-  private final AuthAdapterRestClientProperties properties;
+  private static final String SERVICE_NAME = "auth-adapter-v1";
 
-  public AuthAdapterRepository(WebClientFactory webClientFactory,
-                               AuthAdapterRestClientProperties properties) {
-    this.webClient = webClientFactory.createWebClient();
-    this.properties = properties;
-  }
+  private final WebClient webClient;
+  private final ServiceConfigurationProperties properties;
+  private final ExternalServiceErrorHandler externalServiceErrorHandler;
 
   public Flux<HashMap<String, Integer>> getRoles(String authToken) {
     return webClient.get()
-        .uri(properties.getBaseURL().concat("/roles"))
+        .uri(properties.getRestClients().get(SERVICE_NAME).getRequest().getEndpoint().concat("/roles"))
         .headers(buildHttpHeaders().andThen(buildAuthorizationHeader(authToken)))
         .retrieve()
+        .onStatus(HttpStatusCode::isError, clientResponse -> externalServiceErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME))
         .bodyToFlux(HashMap.class)
         .map(this::castHashMapToIntegerValues);
-
   }
 
   private static Consumer<HttpHeaders> buildHttpHeaders() {
@@ -48,6 +49,10 @@ public class AuthAdapterRepository {
     HashMap<String, Integer> result = new HashMap<>();
     input.forEach((key, value) -> result.put(key, (Integer) value));
     return result;
+  }
+
+  public Map<String, String> getVariables() {
+    return properties.getRestClients().get(SERVICE_NAME).getVariables();
   }
 
 }

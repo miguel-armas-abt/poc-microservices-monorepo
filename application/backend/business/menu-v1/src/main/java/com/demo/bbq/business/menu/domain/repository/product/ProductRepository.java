@@ -1,6 +1,6 @@
 package com.demo.bbq.business.menu.domain.repository.product;
 
-import com.demo.bbq.business.menu.domain.repository.product.config.ProductApiProperties;
+import com.demo.bbq.business.menu.application.properties.ServiceConfigurationProperties;
 import com.demo.bbq.business.menu.domain.repository.product.wrapper.request.ProductSaveRequestWrapper;
 import com.demo.bbq.business.menu.domain.repository.product.wrapper.request.ProductUpdateRequestWrapper;
 import com.demo.bbq.business.menu.domain.repository.product.wrapper.response.ProductResponseWrapper;
@@ -15,12 +15,14 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class ProductRepository {
 
+  private static final String SERVICE_NAME = "product-v1";
+
   private final RestTemplate restTemplate;
-  private final ProductApiProperties properties;
+  private final ServiceConfigurationProperties properties;
 
   public ProductResponseWrapper findByCode(String code) {
     ResponseEntity<ProductResponseWrapper> response = restTemplate.exchange(
-        properties.getBaseURL().concat("/products/{code}"),
+        getEndpoint().concat("/products/{code}"),
         HttpMethod.GET,
         null,
         ProductResponseWrapper.class,
@@ -31,7 +33,7 @@ public class ProductRepository {
 
   public List<ProductResponseWrapper> findByScope(String scope) {
     ResponseEntity<ProductResponseWrapper[]> response = restTemplate.exchange(
-        properties.getBaseURL().concat("/products?scope={scope}"),
+        getEndpoint().concat("/products?scope={scope}"),
         HttpMethod.GET,
         null,
         ProductResponseWrapper[].class,
@@ -45,7 +47,7 @@ public class ProductRepository {
     headers.setContentType(MediaType.APPLICATION_JSON);
     HttpEntity<ProductSaveRequestWrapper> requestEntity = new HttpEntity<>(productRequest, headers);
     restTemplate.exchange(
-        properties.getBaseURL().concat("/products"),
+        getEndpoint().concat("/products"),
         HttpMethod.POST,
         requestEntity,
         Void.class
@@ -57,7 +59,7 @@ public class ProductRepository {
     headers.setContentType(MediaType.APPLICATION_JSON);
     HttpEntity<ProductUpdateRequestWrapper> requestEntity = new HttpEntity<>(productRequest, headers);
     restTemplate.exchange(
-        properties.getBaseURL().concat("/products/{code}"),
+        getEndpoint().concat("/products/{code}"),
         HttpMethod.PUT,
         requestEntity,
         Void.class,
@@ -67,12 +69,16 @@ public class ProductRepository {
 
   public void delete(String code) {
     restTemplate.exchange(
-        properties.getBaseURL().concat("/products/{code}"),
+        getEndpoint().concat("/products/{code}"),
         HttpMethod.DELETE,
         null,
         Void.class,
         code
     );
+  }
+
+  private String getEndpoint() {
+    return properties.getRestClients().get(SERVICE_NAME).getRequest().getEndpoint();
   }
 
 }
