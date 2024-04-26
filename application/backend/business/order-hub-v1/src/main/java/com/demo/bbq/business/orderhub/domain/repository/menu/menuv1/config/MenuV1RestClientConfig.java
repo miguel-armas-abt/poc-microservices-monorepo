@@ -1,8 +1,7 @@
 package com.demo.bbq.business.orderhub.domain.repository.menu.menuv1.config;
 
+import com.demo.bbq.business.orderhub.application.properties.ServiceConfigurationProperties;
 import com.demo.bbq.business.orderhub.domain.repository.menu.menuv1.MenuV1Repository;
-import com.demo.bbq.support.httpclient.retrofit.reactive.SupportHttpClient;
-import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
 import org.springframework.context.annotation.Bean;
@@ -15,23 +14,13 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 @RequiredArgsConstructor
 public class MenuV1RestClientConfig {
 
-  private final MenuV1RestClientProperties properties;
+  private static final String SERVICE_NAME = "menu-v1";
 
-//  @Bean
-//  MenuV1Repository buildMenuV1Repository(OkHttpClient.Builder builder) {
-//    return SupportHttpClient.builder()
-//        .clientBuilder(builder)
-//        .baseUrl(properties.getBaseURL())
-//        .connectTimeout(Duration.ofMillis(300L))
-//        .readTimeout(Duration.ofMillis(1200L))
-//        .writeTimeout(Duration.ofMillis(700L))
-//        .buildProxy(MenuV1Repository.class);
-//  }
-
-  @Bean
-  MenuV1Repository buildMenuV1Repository(OkHttpClient.Builder builder) {
+  @Bean(SERVICE_NAME)
+  MenuV1Repository create(OkHttpClient.Builder builder,
+                          ServiceConfigurationProperties properties) {
     return new Retrofit.Builder()
-        .baseUrl(properties.getBaseURL())
+        .baseUrl(properties.searchEndpoint(SERVICE_NAME))
         .client(builder.build())
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .addConverterFactory(JacksonConverterFactory.create())

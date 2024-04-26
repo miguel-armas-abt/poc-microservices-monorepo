@@ -2,7 +2,7 @@ package com.demo.bbq.business.tableplacement.infrastructure.config.errors.handle
 
 import com.demo.bbq.business.tableplacement.application.properties.ServiceConfigurationProperties;
 import com.demo.bbq.utils.errors.handler.external.ExternalClientErrorUtil;
-import com.demo.bbq.utils.errors.handler.external.service.WebfluxClientErrorService;
+import com.demo.bbq.utils.errors.handler.external.service.RestClientErrorService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class ExternalServiceErrorHandler {
 
-  private final List<WebfluxClientErrorService> services;
+  private final List<RestClientErrorService> services;
   private final ServiceConfigurationProperties properties;
 
   public Mono<? extends Throwable> handleError(ClientResponse clientResponse,

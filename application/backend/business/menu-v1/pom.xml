@@ -5,7 +5,7 @@
 
   <parent>
     <groupId>com.demo.parent</groupId>
-    <artifactId>spring-boot-base-parent</artifactId>
+    <artifactId>parent-springboot-v1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
@@ -39,7 +39,7 @@
 
     <dependency>
       <groupId>com.demo.parent</groupId>
-      <artifactId>utils-spring-boot-v1</artifactId>
+      <artifactId>utils-springboot-v1</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
 

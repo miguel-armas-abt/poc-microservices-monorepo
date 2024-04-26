@@ -1,6 +1,6 @@
 package com.demo.bbq.business.orderhub.application.helper.serviceselector;
 
-import com.demo.bbq.support.exception.model.ApiException;
+import com.demo.bbq.utils.errors.exceptions.SystemException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,8 +15,6 @@ public class ServiceSelectorHelper<T extends SelectedServiceBase> {
     return serviceList.stream()
         .filter(service -> service.supports(selectorClass))
         .findFirst()
-        .orElseThrow(() -> ApiException.builder()
-            .message("No service implementation found")
-            .build());
+        .orElseThrow(() -> new SystemException("ServiceImplNotFound"));
   }
 }

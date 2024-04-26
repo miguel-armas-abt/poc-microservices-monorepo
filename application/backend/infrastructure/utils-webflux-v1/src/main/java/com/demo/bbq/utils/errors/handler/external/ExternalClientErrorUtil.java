@@ -1,7 +1,7 @@
 package com.demo.bbq.utils.errors.handler.external;
 
 import com.demo.bbq.utils.errors.exceptions.ExternalServiceException;
-import com.demo.bbq.utils.errors.handler.external.service.WebfluxClientErrorService;
+import com.demo.bbq.utils.errors.handler.external.service.RestClientErrorService;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import java.util.List;
 import org.apache.commons.lang3.tuple.Pair;
@@ -13,10 +13,10 @@ public class ExternalClientErrorUtil {
   private ExternalClientErrorUtil() {}
 
   public static Mono<ExternalServiceException> handleError(ClientResponse clientResponse,
-                                                      Class<?> errorWrapperClass,
-                                                      String serviceName,
-                                                      List<WebfluxClientErrorService> serviceList,
-                                                      ConfigurationBaseProperties properties) {
+                                                           Class<?> errorWrapperClass,
+                                                           String serviceName,
+                                                           List<RestClientErrorService> serviceList,
+                                                           ConfigurationBaseProperties properties) {
 
     return selectService(errorWrapperClass, serviceList)
         .getCodeAndMessage(clientResponse)
@@ -38,7 +38,7 @@ public class ExternalClientErrorUtil {
     return showMessage ? properties.getRestClients().get(serviceName).getErrors().get(errorCode) : errorMessage;
   }
 
-  private static WebfluxClientErrorService selectService(Class<?> errorWrapperClass, List<WebfluxClientErrorService> serviceList) {
+  private static RestClientErrorService selectService(Class<?> errorWrapperClass, List<RestClientErrorService> serviceList) {
     return serviceList
         .stream()
         .filter(service -> service.supports(errorWrapperClass))

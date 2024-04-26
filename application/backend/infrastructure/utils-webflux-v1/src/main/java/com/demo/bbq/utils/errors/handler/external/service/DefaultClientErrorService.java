@@ -6,7 +6,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import reactor.core.publisher.Mono;
 
-public class DefaultClientErrorService implements WebfluxClientErrorService<ErrorDTO> {
+public class DefaultClientErrorService implements RestClientErrorService<ErrorDTO> {
 
   @Override
   public Mono<Pair<String, String>> getCodeAndMessage(ClientResponse clientResponse) {

@@ -1,10 +1,10 @@
 package com.demo.bbq.business.orderhub.application.service.tableplacement;
 
-import com.demo.bbq.business.orderhub.domain.exception.OrderHubException;
 import com.demo.bbq.business.orderhub.domain.repository.menu.MenuRepositoryHelper;
 import com.demo.bbq.business.orderhub.domain.repository.menu.wrapper.response.MenuOptionResponseWrapper;
 import com.demo.bbq.business.orderhub.domain.repository.tableorder.TableOrderRepository;
 import com.demo.bbq.business.orderhub.application.dto.tableorder.request.MenuOrderRequestDTO;
+import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
@@ -32,7 +32,7 @@ public class TablePlacementServiceImpl implements TablePlacementService {
 
   private Maybe<MenuOptionResponseWrapper> existsMenuOption(MenuOrderRequestDTO menuOrderRequest) {
     return menuRepositoryHelper.getService().findByProductCode(menuOrderRequest.getProductCode())
-        .switchIfEmpty(Maybe.error(OrderHubException.ERROR0001.buildException()));
+        .switchIfEmpty(Maybe.error(new BusinessException("MenuOptionNotFound")));
   }
 
 }

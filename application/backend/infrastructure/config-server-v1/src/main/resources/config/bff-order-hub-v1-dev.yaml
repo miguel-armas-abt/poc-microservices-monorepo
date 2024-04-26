@@ -1,12 +1,30 @@
-application:
-  http-client:
-    menu:
-      v1:
-        base-url: http://${MENU_V1_DOMAIN:localhost:8012}/bbq/business/menu/v1/
-      v2:
-        base-url: http://${MENU_V2_DOMAIN:localhost:8016}/bbq/business/menu/v2/
-      selector-class: com.demo.bbq.business.orderhub.domain.repository.menu.menuv2.MenuV2RepositoryImpl
-    table-placement:
-      base-url: http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/bbq/business/table-placement/v1/
-    invoice:
-      base-url: http://${INVOICE_DOMAIN:localhost:8014}/bbq/business/invoice/v1/
+configuration:
+  show-custom-messages: false
+
+  rest-clients:
+    menu-v1:
+      request:
+        endpoint: http://${MENU_V1_DOMAIN:localhost:8080}/bbq/business/menu/v1/
+        headers:
+          Accept: application/json
+    menu-v2:
+      request:
+        endpoint: http://${MENU_V2_DOMAIN:localhost:8016}/bbq/business/menu/v2/
+        headers:
+          Accept: application/json
+    table-placement-v1:
+      request:
+        endpoint: http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/bbq/business/table-placement/v1/
+        headers:
+          Accept: application/json
+    invoice-v1:
+      request:
+        endpoint: http://${INVOICE_DOMAIN:localhost:8014}/bbq/business/invoice/v1/
+        headers:
+          Accept: application/json
+
+  variables:
+    menu-selector-class: com.demo.bbq.business.orderhub.domain.repository.menu.menuv1.MenuV1RepositoryImpl
+
+  errors:
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.

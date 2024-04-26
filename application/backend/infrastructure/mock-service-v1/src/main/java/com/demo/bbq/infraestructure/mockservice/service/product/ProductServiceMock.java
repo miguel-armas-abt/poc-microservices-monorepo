@@ -32,10 +32,10 @@ public class ProductServiceMock implements MockRuleProvider {
           long randomDelay = buildDelayWithProbabilityDensity();
           Header traceIdHeader = buildTraceId();
           return response()
-              .withStatusCode(HttpStatusCode.BAD_REQUEST_400.code())
+              .withStatusCode(HttpStatusCode.OK_200.code())
               .withHeader(header(CONTENT_TYPE_NAME, CONTENT_TYPE_VALUE_JSON))
               .withHeader(traceIdHeader)
-              .withBody(readJSON("mocks/product-v1/get-products.400.json"))
+              .withBody(readJSON("mocks/product-v1/get-products.200.json"))
               .withDelay(TimeUnit.MILLISECONDS, randomDelay);
         });
   }

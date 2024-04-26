@@ -1,7 +1,8 @@
 package com.demo.bbq.business.orderhub.domain.repository.menu.menuv2.config;
 
+import com.demo.bbq.business.orderhub.application.properties.ServiceConfigurationProperties;
 import com.demo.bbq.business.orderhub.domain.repository.menu.menuv2.MenuV2Repository;
-import com.demo.bbq.support.httpclient.retrofit.reactive.SupportHttpClient;
+import com.demo.bbq.utils.config.retrofit.HttpReactiveClient;
 import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
@@ -12,13 +13,14 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class MenuV2RestClientConfig {
 
-  private final MenuV2RestClientProperties properties;
+  private static final String SERVICE_NAME = "menu-v2";
 
-  @Bean
-  MenuV2Repository buildMenuV2Repository(OkHttpClient.Builder builder) {
-    return SupportHttpClient.builder()
+  @Bean(SERVICE_NAME)
+  MenuV2Repository create(OkHttpClient.Builder builder,
+                          ServiceConfigurationProperties properties) {
+    return HttpReactiveClient.builder()
         .clientBuilder(builder)
-        .baseUrl(properties.getBaseURL())
+        .baseUrl(properties.searchEndpoint(SERVICE_NAME))
         .connectTimeout(Duration.ofMillis(300L))
         .readTimeout(Duration.ofMillis(1200L))
         .writeTimeout(Duration.ofMillis(700L))

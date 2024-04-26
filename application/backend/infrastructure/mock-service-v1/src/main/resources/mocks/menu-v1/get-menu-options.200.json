@@ -1,0 +1,26 @@
+[
+  {
+    "productCode": "MENU0001",
+    "unitPrice": 19.9,
+    "description": "Costillas de cerdo ahumadas",
+    "category": "MAIN"
+  },
+  {
+    "productCode": "MENU0002",
+    "unitPrice": 39.9,
+    "description": "Pollo a la parrilla",
+    "category": "MAIN"
+  },
+  {
+    "productCode": "MENU0003",
+    "unitPrice": 39.9,
+    "description": "Alitas de pollo BBQ",
+    "category": "MAIN"
+  },
+  {
+    "productCode": "MENU0004",
+    "unitPrice": 9.9,
+    "description": "Pachamanca a la olla",
+    "category": "MAIN"
+  }
+]

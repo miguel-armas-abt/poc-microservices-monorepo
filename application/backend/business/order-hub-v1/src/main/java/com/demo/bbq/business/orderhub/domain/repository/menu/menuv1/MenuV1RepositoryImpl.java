@@ -1,10 +1,10 @@
 package com.demo.bbq.business.orderhub.domain.repository.menu.menuv1;
 
-import com.demo.bbq.business.orderhub.domain.exception.OrderHubException;
 import com.demo.bbq.business.orderhub.domain.repository.menu.MenuRepository;
 import com.demo.bbq.business.orderhub.domain.repository.menu.wrapper.request.MenuOptionSaveRequestWrapper;
 import com.demo.bbq.business.orderhub.domain.repository.menu.wrapper.request.MenuOptionUpdateRequestWrapper;
 import com.demo.bbq.business.orderhub.domain.repository.menu.wrapper.response.MenuOptionResponseWrapper;
+import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
@@ -45,7 +45,7 @@ public class MenuV1RepositoryImpl implements MenuRepository {
         .ignoreElement()
         .onErrorResumeNext(throwable -> Optional.ofNullable(((Exception) throwable).getMessage())
             .filter(error -> error.equals("HTTP 400 Bad Request"))
-            .map(error -> Completable.error(OrderHubException.ERROR0000.buildException()))
+            .map(error -> Completable.error(new BusinessException("MenuOrderNotExists")))
             .orElse(Completable.complete()));
   }
 
