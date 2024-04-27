@@ -5,17 +5,31 @@ spring:
   application:
     name: auth-adapter-v1
 
-keycloak:
-  server: http://${KEYCLOACK_DOMAIN:localhost:8091}/auth/realms
-  base-url: ${keycloak.server}/bbq-management/protocol/openid-connect/
-  authorization-uri: ${keycloak.base-url}auth
-  jwk-set-uri: ${keycloak.base-url}certs
-  certs-id: ${KEYCLOACK_KEY_RS256:_t8Avn1u-Dc9fk7Gw_-za6j1g5iL44C6X3N6Rayp59A}
-  client-id: front-bbq-app
-  client-secret: qwerty
-  scope: profile
-  authorization-grant-type: password
-  authorization-grant-type-refresh: refresh_token
+configuration:
+  show-custom-messages: false
+
+  rest-clients:
+    keycloak:
+      request:
+        endpoint: http://${KEYCLOAK_DOMAIN:localhost:8091}/auth/realms/bbq-management/protocol/openid-connect
+        headers:
+          Accept: application/json
+      variables:
+        authorization-uri: ${configuration.rest-clients.keycloak.request.endpoint}/auth
+        jwk-set-uri: ${configuration.rest-clients.keycloak.request.endpoint}/certs
+        certs-id: ${KEYCLOAK_KEY_RS256:_t8Avn1u-Dc9fk7Gw_-za6j1g5iL44C6X3N6Rayp59A}
+        client-id: front-bbq-app
+        client-secret: qwerty
+        scope: profile
+        authorization-grant-type: password
+        authorization-grant-type-refresh: refresh_token
+
+      errors:
+        ExpiredToken: Ocurrió un error durante la autenticación.
+        InvalidJWT: Ocurrió un error durante la autenticación.
+
+  errors:
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
 # actuator endpoints
 management:

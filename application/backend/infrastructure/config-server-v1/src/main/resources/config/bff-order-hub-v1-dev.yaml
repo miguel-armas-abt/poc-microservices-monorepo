@@ -24,7 +24,7 @@ configuration:
           Accept: application/json
 
   variables:
-    menu-selector-class: com.demo.bbq.business.orderhub.domain.repository.menu.menuv1.MenuV1RepositoryImpl
+    menu-selector-class: com.demo.bbq.repository.menu.menuv1.MenuV1RepositoryImpl
 
   errors:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.

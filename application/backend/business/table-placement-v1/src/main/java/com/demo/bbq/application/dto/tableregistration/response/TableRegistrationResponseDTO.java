@@ -1,0 +1,20 @@
+package com.demo.bbq.application.dto.tableregistration.response;
+
+import lombok.*;
+import java.io.Serializable;
+
+@Builder
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class TableRegistrationResponseDTO implements Serializable{
+
+  private String id;
+
+  private Integer tableNumber;
+
+  private Integer capacity;
+
+  private Boolean isAvailable;
+}
