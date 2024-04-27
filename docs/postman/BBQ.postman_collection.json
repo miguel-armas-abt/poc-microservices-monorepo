@@ -1251,7 +1251,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8017/bbq/business/product/v1/products",
+									"raw": "http://localhost:8017/bbq/business/product/v1/products?scope=MENU",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1267,8 +1267,7 @@
 									"query": [
 										{
 											"key": "scope",
-											"value": "MENU",
-											"disabled": true
+											"value": "MENU"
 										}
 									]
 								}
@@ -1343,68 +1342,6 @@
 					"name": "table-placement-v1",
 					"item": [
 						{
-							"name": "table-placement-v1 - generateTableOrder",
-							"protocolProfileBehavior": {
-								"disabledSystemHeaders": {}
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{auth-token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/stream+json",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/stream+json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "[\r\n    {\r\n        \"productCode\": \"MENU0007\",\r\n        \"quantity\": 1\r\n    },\r\n        {\r\n        \"productCode\": \"MENU0005\",\r\n        \"quantity\": 10\r\n    }\r\n]",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8013/bbq/business/table-placement/v1/table-orders?tableNumber=1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8013",
-									"path": [
-										"bbq",
-										"business",
-										"table-placement",
-										"v1",
-										"table-orders"
-									],
-									"query": [
-										{
-											"key": "tableNumber",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "table-placement-v1 - findByTableNumber",
 							"protocolProfileBehavior": {
 								"disabledSystemHeaders": {},
@@ -1437,6 +1374,68 @@
 								"body": {
 									"mode": "raw",
 									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8013/bbq/business/table-placement/v1/table-orders?tableNumber=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8013",
+									"path": [
+										"bbq",
+										"business",
+										"table-placement",
+										"v1",
+										"table-orders"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "table-placement-v1 - generateTableOrder",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/stream+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/stream+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"productCode\": \"MENU0007\",\r\n        \"quantity\": 1\r\n    },\r\n        {\r\n        \"productCode\": \"MENU0005\",\r\n        \"quantity\": 10\r\n    }\r\n]",
 									"options": {
 										"raw": {
 											"language": "json"

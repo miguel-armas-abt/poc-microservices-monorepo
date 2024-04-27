@@ -4,7 +4,7 @@ configuration:
   rest-clients:
     menu-v1:
       request:
-        endpoint: http://${MENU_V1_DOMAIN:localhost:8080}/bbq/business/menu/v1/
+        endpoint: http://${MENU_V1_DOMAIN:localhost:8012}/bbq/business/menu/v1/
         headers:
           Accept: application/json
     menu-v2:
