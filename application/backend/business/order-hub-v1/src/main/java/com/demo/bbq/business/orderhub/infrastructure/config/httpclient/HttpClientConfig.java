@@ -1,8 +1,8 @@
 package com.demo.bbq.business.orderhub.infrastructure.config.httpclient;
 
 import com.demo.bbq.business.orderhub.application.properties.ServiceConfigurationProperties;
-import com.demo.bbq.business.orderhub.infrastructure.config.intercept.HttpExchangeInterceptor;
-import com.demo.bbq.utils.errors.handler.external.service.RestClientErrorService;
+import com.demo.bbq.business.orderhub.infrastructure.config.intercept.ExchangeInterceptor;
+import com.demo.bbq.utils.errors.external.RestClientErrorService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
@@ -22,6 +22,6 @@ public class HttpClientConfig {
     interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
     return new OkHttpClient.Builder()
         .addInterceptor(interceptor)
-        .addInterceptor(new HttpExchangeInterceptor(services, properties));
+        .addInterceptor(new ExchangeInterceptor(services, properties));
   }
 }

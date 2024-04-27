@@ -2,8 +2,8 @@ package com.demo.bbq.business.orderhub.infrastructure.config.errors.handler;
 
 import com.demo.bbq.business.orderhub.application.properties.ServiceConfigurationProperties;
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
-import com.demo.bbq.utils.errors.handler.external.service.RestClientErrorService;
-import com.demo.bbq.utils.errors.handler.response.ResponseErrorUtil;
+import com.demo.bbq.utils.errors.external.RestClientErrorService;
+import com.demo.bbq.utils.errors.handler.ResponseErrorUtil;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

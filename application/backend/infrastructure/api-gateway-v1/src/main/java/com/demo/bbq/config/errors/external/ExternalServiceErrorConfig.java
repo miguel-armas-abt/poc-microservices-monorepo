@@ -1,4 +1,4 @@
-package com.demo.bbq.business.orderhub.infrastructure.config.errors.external;
+package com.demo.bbq.config.errors.external;
 
 import com.demo.bbq.utils.errors.external.DefaultClientErrorService;
 import org.springframework.context.annotation.Bean;

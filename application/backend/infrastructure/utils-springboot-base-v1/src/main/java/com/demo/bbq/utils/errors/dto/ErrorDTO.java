@@ -1,6 +1,6 @@
 package com.demo.bbq.utils.errors.dto;
 
-import com.demo.bbq.utils.errors.handler.external.ExternalClientErrorWrapper;
+import com.demo.bbq.utils.errors.external.ExternalClientErrorWrapper;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
