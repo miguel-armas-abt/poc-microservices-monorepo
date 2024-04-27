@@ -25,15 +25,23 @@ spring:
     username: ${POSTGRESQL_USERNAME:bbq_user}
     password: ${POSTGRESQL_PASSWORD:qwerty}
 
-application:
-  http-client:
-    product:
-      base-url: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/
+configuration:
+  show-custom-messages: false
 
-business:
-  invoice:
+  rest-clients:
+    product-v1:
+      request:
+        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/
+        headers:
+          Accept: application/json
+
+  variables:
     igv: 0.18
+
   rules:
     discount-rules:
-      ruleClass: DiscountRule
-      ruleFile: discount_rules.drl
+      class-name: DiscountRule
+      drool-file: discount_rules.drl
+
+  errors:
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
