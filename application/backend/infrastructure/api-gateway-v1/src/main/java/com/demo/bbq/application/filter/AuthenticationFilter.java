@@ -1,6 +1,6 @@
 package com.demo.bbq.application.filter;
 
-import com.demo.bbq.application.properties.ServiceConfigurationProperties;
+import com.demo.bbq.config.properties.ServiceConfigurationProperties;
 import com.demo.bbq.application.utils.TokenValidatorUtil;
 import com.demo.bbq.repository.authadapter.AuthAdapterRepository;
 import com.demo.bbq.utils.errors.exceptions.AuthorizationException;

@@ -1,6 +1,6 @@
 package com.demo.bbq.config.errors.handler;
 
-import com.demo.bbq.application.properties.ServiceConfigurationProperties;
+import com.demo.bbq.config.properties.ServiceConfigurationProperties;
 import com.demo.bbq.utils.errors.handler.ResponseErrorUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

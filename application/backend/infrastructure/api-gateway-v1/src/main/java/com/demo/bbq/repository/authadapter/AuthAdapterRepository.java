@@ -2,7 +2,7 @@ package com.demo.bbq.repository.authadapter;
 
 import static com.demo.bbq.utils.restclient.headers.HeadersBuilderUtil.buildHeaders;
 
-import com.demo.bbq.application.properties.ServiceConfigurationProperties;
+import com.demo.bbq.config.properties.ServiceConfigurationProperties;
 import com.demo.bbq.config.errors.external.ExternalServiceErrorHandler;
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import java.util.HashMap;
