@@ -1,6 +1,5 @@
 package com.demo.bbq.utils.properties.dto;
 
-import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,5 +8,5 @@ import lombok.Setter;
 public class RequestTemplate {
 
   private String endpoint;
-  private Map<String, String> headers;
+  private HeaderTemplate headers;
 }

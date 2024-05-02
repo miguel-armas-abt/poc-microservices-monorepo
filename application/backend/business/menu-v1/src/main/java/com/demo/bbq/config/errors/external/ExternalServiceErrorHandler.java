@@ -1,6 +1,6 @@
 package com.demo.bbq.config.errors.external;
 
-import com.demo.bbq.application.properties.ServiceConfigurationProperties;
+import com.demo.bbq.config.properties.ServiceConfigurationProperties;
 import com.demo.bbq.utils.errors.external.RestClientErrorService;
 import com.demo.bbq.utils.errors.matcher.ExternalErrorMatcherUtil;
 import java.util.List;

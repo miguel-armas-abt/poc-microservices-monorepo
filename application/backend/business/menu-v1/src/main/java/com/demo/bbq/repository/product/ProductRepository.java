@@ -1,13 +1,14 @@
 package com.demo.bbq.repository.product;
 
-import com.demo.bbq.application.properties.ServiceConfigurationProperties;
+import com.demo.bbq.config.properties.ServiceConfigurationProperties;
 import com.demo.bbq.repository.product.wrapper.request.ProductSaveRequestWrapper;
 import com.demo.bbq.repository.product.wrapper.request.ProductUpdateRequestWrapper;
 import com.demo.bbq.repository.product.wrapper.response.ProductResponseWrapper;
-import com.demo.bbq.config.resttemplate.CustomRestTemplate;
+import com.demo.bbq.config.restclient.CustomRestTemplate;
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import com.demo.bbq.utils.restclient.resttemplate.dto.ExchangeRequestDTO;
 import java.util.*;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Repository;
@@ -21,67 +22,64 @@ public class ProductRepository {
   private final CustomRestTemplate restTemplate;
   private final ServiceConfigurationProperties properties;
 
-  public ProductResponseWrapper findByCode(String code) {
+  public ProductResponseWrapper findByCode(HttpServletRequest servletRequest, String code) {
     return restTemplate.exchange(
-        ExchangeRequestDTO.<Void>builder()
+        ExchangeRequestDTO.<Void, ProductResponseWrapper>builder()
             .url(getEndpoint().concat("/products/{code}"))
             .httpMethod(HttpMethod.GET)
             .uriVariables(Collections.singletonMap("code", code))
             .responseClass(ProductResponseWrapper.class)
             .errorWrapperClass(ErrorDTO.class)
+            .httpServletRequest(servletRequest)
             .build(), SERVICE_NAME);
   }
 
-  public List<ProductResponseWrapper> findByScope(String scope) {
+  public List<ProductResponseWrapper> findByScope(HttpServletRequest servletRequest, String scope) {
     return Arrays.asList(restTemplate.exchange(
-        ExchangeRequestDTO.<Void>builder()
+        ExchangeRequestDTO.<Void, ProductResponseWrapper[]>builder()
             .url(getEndpoint().concat("/products?scope={scope}"))
             .httpMethod(HttpMethod.GET)
             .uriVariables(Collections.singletonMap("scope", scope))
             .responseClass(ProductResponseWrapper[].class)
             .errorWrapperClass(ErrorDTO.class)
+            .httpServletRequest(servletRequest)
             .build(), SERVICE_NAME));
   }
 
-  public void save(ProductSaveRequestWrapper productRequest) {
-    HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.APPLICATION_JSON);
-    HttpEntity<ProductSaveRequestWrapper> requestEntity = new HttpEntity<>(productRequest, headers);
-
+  public void save(HttpServletRequest servletRequest, ProductSaveRequestWrapper productRequest) {
     restTemplate.exchange(
-        ExchangeRequestDTO.<ProductSaveRequestWrapper>builder()
+        ExchangeRequestDTO.<ProductSaveRequestWrapper, Void>builder()
             .url(getEndpoint().concat("/products"))
             .httpMethod(HttpMethod.POST)
-            .httpEntity(requestEntity)
+            .requestBody(productRequest)
             .responseClass(Void.class)
             .errorWrapperClass(ErrorDTO.class)
+            .httpServletRequest(servletRequest)
             .build(), SERVICE_NAME);
   }
 
-  public void update(String code, ProductUpdateRequestWrapper productRequest) {
-    HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.APPLICATION_JSON);
-    HttpEntity<ProductUpdateRequestWrapper> requestEntity = new HttpEntity<>(productRequest, headers);
-
+  public void update(HttpServletRequest servletRequest, String code, ProductUpdateRequestWrapper productRequest) {
     restTemplate.exchange(
-        ExchangeRequestDTO.<ProductUpdateRequestWrapper>builder()
+        ExchangeRequestDTO.<ProductUpdateRequestWrapper, Void>builder()
             .url(getEndpoint().concat("/products/{code}"))
             .httpMethod(HttpMethod.POST)
             .uriVariables(Collections.singletonMap("code", code))
-            .httpEntity(requestEntity)
+            .requestBody(productRequest)
             .responseClass(Void.class)
             .errorWrapperClass(ErrorDTO.class)
+            .httpServletRequest(servletRequest)
             .build(), SERVICE_NAME);
   }
 
-  public void delete(String code) {
+  public void delete(HttpServletRequest servletRequest, String code) {
     restTemplate.exchange(
-        ExchangeRequestDTO.<Void>builder()
+        ExchangeRequestDTO.<Void, Void>builder()
             .url(getEndpoint().concat("/products/{code}"))
             .httpMethod(HttpMethod.DELETE)
             .uriVariables(Collections.singletonMap("code", code))
             .responseClass(Void.class)
             .errorWrapperClass(ErrorDTO.class)
+            .httpServletRequest(servletRequest)
             .build(), SERVICE_NAME);
   }
 

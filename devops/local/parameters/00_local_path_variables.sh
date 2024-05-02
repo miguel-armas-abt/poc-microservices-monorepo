@@ -38,7 +38,7 @@ MYSQL_ROOT_PASSWORD="qwerty"
 MYSQL_COMMAND="$MYSQL_PATH/mysql -u root -p$MYSQL_ROOT_PASSWORD"
 
 # specify your workspace path
-BBQ_PATH="C:/dev-workspace/bbq/bbq-monorepo"
+BBQ_PATH="C:/dev-workspace/bbq-monorepo"
 BUSINESS_PATH="$BBQ_PATH/$BS_PATH"
 INFRASTRUCTURE_PATH="$BBQ_PATH/$INF_PATH"
 LOCAL_LOG_FILE="$BBQ_PATH/devops/$LOCAL_LOG_FILE"

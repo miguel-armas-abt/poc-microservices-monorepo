@@ -1,6 +1,8 @@
 package com.demo.bbq.infrastructure.repository.handler;
 
+import static com.demo.bbq.infrastructure.rest.rest.HttpServletRequestBase.buildHttpServletRequest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -44,14 +46,14 @@ public class MenuOptionRepositoryHandlerTest {
 
   @Test
   public void givenTwoSourcesInfo_WhenSearchAllMenuOptions_ThenMapResponse() {
-    when(productRepository.findByScope(anyString()))
+    when(productRepository.findByScope(any(), anyString()))
         .thenReturn(JsonFileReaderUtil.getList("data/product/ProductDto_Array.json", ProductResponseWrapper[].class));
 
     when(menuOptionRepository.findAll())
         .thenReturn(JsonFileReaderUtil.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class));
 
     String expected = new Gson().toJson(JsonFileReaderUtil.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class));
-    String actual = new Gson().toJson(menuOptionRepositoryHandler.findAll());
+    String actual = new Gson().toJson(menuOptionRepositoryHandler.findAll(buildHttpServletRequest()));
     assertEquals(expected, actual);
   }
 

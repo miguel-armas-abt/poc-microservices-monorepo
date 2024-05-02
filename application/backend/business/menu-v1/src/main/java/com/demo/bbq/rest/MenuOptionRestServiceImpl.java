@@ -37,24 +37,24 @@ public class MenuOptionRestServiceImpl implements MenuOptionRestService {
   public ResponseEntity<MenuOptionResponseDTO> findByProductCode(HttpServletRequest servletRequest,
                                                                  @PathVariable(name = "productCode") String productCode) {
     logRequest.accept(servletRequest);
-    return ResponseEntity.ok(service.findByProductCode(productCode));
+    return ResponseEntity.ok(service.findByProductCode(servletRequest, productCode));
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<MenuOptionResponseDTO>> findByCategory(HttpServletRequest servletRequest,
                                                                     @RequestParam(value = "category", required = false) String categoryCode) {
     logRequest.accept(servletRequest);
-    List<MenuOptionResponseDTO> menuOptionList = service.findByCategory(categoryCode);
+    List<MenuOptionResponseDTO> menuOptionList = service.findByCategory(servletRequest, categoryCode);
     return (menuOptionList == null || menuOptionList.isEmpty())
         ? ResponseEntity.noContent().build()
-        : ResponseEntity.ok(service.findByCategory(categoryCode));
+        : ResponseEntity.ok(service.findByCategory(servletRequest, categoryCode));
   }
 
   @PostMapping
   public ResponseEntity<Void> save(HttpServletRequest servletRequest,
                                    @Valid @RequestBody MenuOptionSaveRequestDTO menuOption) {
     logRequest.accept(servletRequest);
-    service.save(menuOption);
+    service.save(servletRequest, menuOption);
     return ResponseEntity.created(buildPostUriLocation.apply(menuOption.getProductCode())).build();
   }
 
@@ -62,14 +62,14 @@ public class MenuOptionRestServiceImpl implements MenuOptionRestService {
   public ResponseEntity<Void> update(HttpServletRequest servletRequest,
                                      @Valid @RequestBody MenuOptionUpdateRequestDTO menuOption, @PathVariable("productCode") String productCode) {
     logRequest.accept(servletRequest);
-    service.update(productCode, menuOption);
+    service.update(servletRequest, productCode, menuOption);
     return ResponseEntity.created(buildUriLocation.apply(productCode)).build();
   }
 
   @DeleteMapping(value = "/{productCode}")
   public ResponseEntity<Void> delete(HttpServletRequest servletRequest, @PathVariable("productCode") String productCode) {
     logRequest.accept(servletRequest);
-    service.deleteByProductCode(productCode);
+    service.deleteByProductCode(servletRequest, productCode);
     return ResponseEntity.noContent().location(buildUriLocation.apply(productCode)).build();
   }
 

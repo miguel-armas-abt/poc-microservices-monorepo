@@ -1,4 +1,4 @@
-package com.demo.bbq.application.catalog;
+package com.demo.bbq.application.enums;
 
 import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import java.util.Arrays;

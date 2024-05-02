@@ -25,7 +25,13 @@ configuration:
       request:
         endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/
         headers:
-          Accept: application/json
+          provided:
+            Accept: application/json
+          generated:
+            parentId: PARENT_ID
+            timestamp: TIMESTAMP_V2
+          forwarded:
+            traceId: traceId
 
   errors:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.

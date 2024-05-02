@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,21 +26,22 @@ public class MenuOptionRepositoryHandler {
   private final MenuOptionRepository menuOptionRepository;
   private final MenuOptionMapper menuOptionMapper;
 
-  public List<MenuOptionResponseDTO> findAll() {
+  public List<MenuOptionResponseDTO> findAll(HttpServletRequest servletRequest) {
     Map<String, MenuOptionEntity> menuOptionMap = menuOptionRepository.findAll().stream()
         .collect(Collectors.toMap(MenuOptionEntity::getProductCode, Function.identity()));
 
-    return productRepository.findByScope(PRODUCT_SCOPE).stream()
+    return productRepository.findByScope(servletRequest, PRODUCT_SCOPE)
+        .stream()
         .map(product -> menuOptionMapper.toResponseDTO(menuOptionMap.get(product.getCode()), product))
         .collect(Collectors.toList());
   }
 
-  public void save(MenuOptionSaveRequestDTO menuOption) {
-    productRepository.save(menuOptionMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE));
+  public void save(HttpServletRequest servletRequest, MenuOptionSaveRequestDTO menuOption) {
+    productRepository.save(servletRequest, menuOptionMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE));
     menuOptionRepository.save(menuOptionMapper.toEntity(menuOption));
   }
 
-  public void update(String productCode, MenuOptionUpdateRequestDTO menuOption) {
+  public void update(HttpServletRequest servletRequest, String productCode, MenuOptionUpdateRequestDTO menuOption) {
     menuOptionRepository.findByProductCode(productCode)
         .map(menuOptionFound -> {
           MenuOptionEntity menuOptionEntity = menuOptionMapper.toEntity(menuOption, productCode);
@@ -47,18 +49,18 @@ public class MenuOptionRepositoryHandler {
           return menuOptionRepository.save(menuOptionEntity);
         })
         .orElseThrow(() -> new BusinessException("MenuOptionNotFound", "The menu option does not exist"));
-    productRepository.update(productCode, menuOptionMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE));
+    productRepository.update(servletRequest, productCode, menuOptionMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE));
   }
 
   @Transactional
-  public void deleteByProductCode(String productCode) {
+  public void deleteByProductCode(HttpServletRequest servletRequest, String productCode) {
     menuOptionRepository.findByProductCode(productCode)
         .map(menuOptionFound -> {
           menuOptionRepository.deleteByProductCode(productCode);
           return menuOptionFound;
         })
         .orElseThrow(() -> new BusinessException("MenuOptionNotFound", "The menu option does not exist"));
-    productRepository.delete(productCode);
+    productRepository.delete(servletRequest, productCode);
   }
 
 }

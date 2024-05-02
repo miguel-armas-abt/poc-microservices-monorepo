@@ -1,4 +1,4 @@
-package com.demo.bbq.application.properties;
+package com.demo.bbq.config.properties;
 
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import lombok.Getter;

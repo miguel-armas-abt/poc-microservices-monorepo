@@ -51,7 +51,7 @@ public class MenuOptionRestServiceTest {
   @Ignore
   @Test
   public void givenCategoryNull_WhenSearchMenuOptions_ThenReturnAllItems() throws Exception {
-    when(menuOptionService.findByCategory(any())).thenReturn(expectedSavedMenuOptionList);
+    when(menuOptionService.findByCategory(any(), any())).thenReturn(expectedSavedMenuOptionList);
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders
         .get(URI)
@@ -69,7 +69,7 @@ public class MenuOptionRestServiceTest {
   @Ignore
   @Test
   public void givenCategory_WhenSearchMenuOptions_ThenReturnFilteredItems() throws Exception {
-    when(menuOptionService.findByCategory(anyString())).thenReturn(expectedSavedMenuOptionList);
+    when(menuOptionService.findByCategory(any(), anyString())).thenReturn(expectedSavedMenuOptionList);
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders
         .get(URI)
@@ -88,7 +88,7 @@ public class MenuOptionRestServiceTest {
   @Test
   public void givenProductCode_WhenSearchMenuOptionByProductCode_ThenReturnSearchedMenuOption() throws Exception {
     MenuOptionResponseDTO expectedMenuOption = JsonFileReaderUtil.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class).get(0);
-    when(menuOptionService.findByProductCode(anyString())).thenReturn(expectedMenuOption);
+    when(menuOptionService.findByProductCode(any(), anyString())).thenReturn(expectedMenuOption);
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders
         .get(URI.concat("/MENU0001"))
@@ -107,7 +107,7 @@ public class MenuOptionRestServiceTest {
   @Test
   public void givenSaveRequest_WhenSaveMenuOption_ThenResponseShowTheAffectedResource() throws Exception {
     MenuOptionSaveRequestDTO saveRequest = JsonFileReaderUtil.getAnElement("data/menuoption/MenuOptionSaveRequest.json", MenuOptionSaveRequestDTO.class);
-    doNothing().when(menuOptionService).save(any(MenuOptionSaveRequestDTO.class));
+    doNothing().when(menuOptionService).save(any(), any(MenuOptionSaveRequestDTO.class));
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders
         .post(URI)
