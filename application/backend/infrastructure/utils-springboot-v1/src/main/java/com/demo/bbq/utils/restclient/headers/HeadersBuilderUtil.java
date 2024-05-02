@@ -1,4 +1,4 @@
-package com.demo.bbq.utils.restclient.resttemplate.headers;
+package com.demo.bbq.utils.restclient.headers;
 
 import com.demo.bbq.utils.properties.dto.GeneratedHeaderType;
 import com.demo.bbq.utils.properties.dto.HeaderTemplate;

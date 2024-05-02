@@ -5,7 +5,7 @@ import com.demo.bbq.utils.restclient.resttemplate.dto.ExchangeRequestDTO;
 import com.demo.bbq.utils.errors.matcher.ExternalErrorMatcherUtil;
 import com.demo.bbq.utils.errors.external.RestClientErrorService;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
-import com.demo.bbq.utils.restclient.resttemplate.headers.HeadersBuilderUtil;
+import com.demo.bbq.utils.restclient.headers.HeadersBuilderUtil;
 import java.util.List;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

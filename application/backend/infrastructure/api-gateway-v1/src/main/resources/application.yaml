@@ -22,7 +22,14 @@ configuration:
       request:
         endpoint: http://${AUTH_ADAPTER_DOMAIN:localhost:8080}/bbq/infrastructure/v1/auth/
         headers:
-          Accept: application/json
+          provided:
+            Accept: application/json
+          generated:
+            parentId: PARENT_ID
+            timestamp: TIMESTAMP_V2
+          forwarded:
+            Authorization: Authorization
+            traceId: traceId
       variables:
         expected-roles: partners #separate items with comma
   errors:

@@ -1,15 +1,16 @@
 package com.demo.bbq.repository.authadapter;
 
+import static com.demo.bbq.utils.restclient.headers.HeadersBuilderUtil.buildHeaders;
+
 import com.demo.bbq.application.properties.ServiceConfigurationProperties;
 import com.demo.bbq.config.errors.external.ExternalServiceErrorHandler;
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-import java.util.function.Consumer;
+import com.demo.bbq.utils.properties.dto.HeaderTemplate;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -24,25 +25,14 @@ public class AuthAdapterRepository {
   private final ServiceConfigurationProperties properties;
   private final ExternalServiceErrorHandler externalServiceErrorHandler;
 
-  public Flux<HashMap<String, Integer>> getRoles(String authToken) {
+  public Flux<HashMap<String, Integer>> getRoles(ServerHttpRequest serverRequest) {
     return webClient.get()
         .uri(properties.getRestClients().get(SERVICE_NAME).getRequest().getEndpoint().concat("/roles"))
-        .headers(buildHttpHeaders().andThen(buildAuthorizationHeader(authToken)))
+        .headers(buildHeaders(getHeaderTemplate(), serverRequest))
         .retrieve()
         .onStatus(HttpStatusCode::isError, clientResponse -> externalServiceErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME))
         .bodyToFlux(HashMap.class)
         .map(this::castHashMapToIntegerValues);
-  }
-
-  private static Consumer<HttpHeaders> buildHttpHeaders() {
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return httpHeaders -> Optional.of(headers)
-        .ifPresent(headerMap -> headerMap.forEach(httpHeaders::set));
-  }
-
-  private static Consumer<HttpHeaders> buildAuthorizationHeader(String authToken) {
-    return httpHeaders -> httpHeaders.set("Authorization", "Bearer ".concat(authToken));
   }
 
   private HashMap<String, Integer> castHashMapToIntegerValues(HashMap<String, ?> input) {
@@ -55,4 +45,7 @@ public class AuthAdapterRepository {
     return properties.getRestClients().get(SERVICE_NAME).getVariables();
   }
 
+  private HeaderTemplate getHeaderTemplate() {
+    return properties.getRestClients().get(SERVICE_NAME).getRequest().getHeaders();
+  }
 }
