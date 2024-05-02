@@ -1,6 +1,6 @@
 package com.demo.bbq.config.httpclient;
 
-import com.demo.bbq.application.properties.ServiceConfigurationProperties;
+import com.demo.bbq.config.properties.ServiceConfigurationProperties;
 import com.demo.bbq.config.interceptor.ExchangeInterceptor;
 import com.demo.bbq.utils.errors.external.RestClientErrorService;
 import java.util.List;

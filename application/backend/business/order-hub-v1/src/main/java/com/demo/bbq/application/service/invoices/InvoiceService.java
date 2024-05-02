@@ -5,11 +5,14 @@ import com.demo.bbq.repository.invoice.wrapper.request.ProductRequestWrapper;
 import com.demo.bbq.repository.invoice.wrapper.response.ProformaInvoiceResponseWrapper;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface InvoiceService {
 
-  Single<ProformaInvoiceResponseWrapper> generateProforma(List<ProductRequestWrapper> productList);
+  Single<ProformaInvoiceResponseWrapper> generateProforma(HttpServletRequest httpRequest,
+                                                          List<ProductRequestWrapper> productList);
 
-  Completable sendToPay(InvoicePaymentRequestDTO invoicePaymentRequestDTO);
+  Completable sendToPay(HttpServletRequest httpRequest,
+                        InvoicePaymentRequestDTO invoicePaymentRequestDTO);
 }

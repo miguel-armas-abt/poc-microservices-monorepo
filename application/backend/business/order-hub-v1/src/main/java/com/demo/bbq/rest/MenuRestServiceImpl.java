@@ -1,6 +1,6 @@
 package com.demo.bbq.rest;
 
-import com.demo.bbq.repository.menu.MenuRepositoryHelper;
+import com.demo.bbq.repository.menu.MenuRepositoryStrategy;
 import com.demo.bbq.repository.menu.wrapper.response.MenuOptionResponseWrapper;
 import io.reactivex.rxjava3.core.Observable;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class MenuRestServiceImpl extends OrderHubRestService {
 
-  private final MenuRepositoryHelper menuRepositoryHelper;
+  private final MenuRepositoryStrategy menuRepositoryStrategy;
 
   @GetMapping(value = "/menu-options", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
   public Observable<MenuOptionResponseWrapper> findMenuByCategory(HttpServletRequest servletRequest,
                                                                   @RequestParam(value = "category") String categoryCode) {
-    return menuRepositoryHelper.getService().findByCategory(categoryCode);
+    return menuRepositoryStrategy.getService()
+        .findByCategory(servletRequest, categoryCode);
   }
 }

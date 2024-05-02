@@ -6,25 +6,49 @@ configuration:
       request:
         endpoint: http://${MENU_V1_DOMAIN:localhost:8012}/bbq/business/menu/v1/
         headers:
-          Accept: application/json
+          provided:
+            Accept: application/json
+          generated:
+            parentId: PARENT_ID
+            timestamp: TIMESTAMP_V2
+          forwarded:
+            traceId: traceId
     menu-v2:
       request:
         endpoint: http://${MENU_V2_DOMAIN:localhost:8016}/bbq/business/menu/v2/
         headers:
-          Accept: application/json
+          provided:
+            Accept: application/stream+json
+          generated:
+            parentId: PARENT_ID
+            timestamp: TIMESTAMP_V2
+          forwarded:
+            traceId: traceId
     table-placement-v1:
       request:
         endpoint: http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/bbq/business/table-placement/v1/
         headers:
-          Accept: application/json
+          provided:
+            Accept: application/stream+json
+          generated:
+            parentId: PARENT_ID
+            timestamp: TIMESTAMP_V2
+          forwarded:
+            traceId: traceId
     invoice-v1:
       request:
         endpoint: http://${INVOICE_DOMAIN:localhost:8014}/bbq/business/invoice/v1/
         headers:
-          Accept: application/json
+          provided:
+            Accept: application/stream+json
+          generated:
+            parentId: PARENT_ID
+            timestamp: TIMESTAMP_V2
+          forwarded:
+            traceId: traceId
 
   variables:
-    menu-selector-class: com.demo.bbq.repository.menu.menuv1.MenuV1RepositoryImpl
+    menu-selector-class: com.demo.bbq.repository.menu.menuv1.MenuV1RepositoryHelper
 
   errors:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.

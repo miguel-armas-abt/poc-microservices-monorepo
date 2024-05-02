@@ -12,8 +12,6 @@ configuration:
     keycloak:
       request:
         endpoint: http://${KEYCLOAK_DOMAIN:localhost:8091}/auth/realms/bbq-management/protocol/openid-connect/
-        headers:
-          Accept: application/json
       variables:
         authorization-uri: ${configuration.rest-clients.keycloak.request.endpoint}auth
         jwk-set-uri: ${configuration.rest-clients.keycloak.request.endpoint}certs

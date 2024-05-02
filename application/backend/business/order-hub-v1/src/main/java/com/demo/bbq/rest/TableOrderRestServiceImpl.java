@@ -1,7 +1,6 @@
 package com.demo.bbq.rest;
 
 import com.demo.bbq.application.service.tableplacement.TablePlacementService;
-import com.demo.bbq.repository.tableorder.TableOrderRepository;
 import com.demo.bbq.application.dto.tableorder.request.MenuOrderRequestDTO;
 import com.demo.bbq.repository.tableorder.wrapper.TableOrderRequestWrapper;
 import io.reactivex.rxjava3.core.Completable;
@@ -22,14 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class TableOrderRestServiceImpl extends OrderHubRestService {
 
   private final TablePlacementService tablePlacementService;
-  private final TableOrderRepository tableOrderRepository;
 
   @PatchMapping("/table-orders")
   public Completable generateTableOrder(HttpServletRequest servletRequest,
                                         HttpServletResponse servletResponse,
                                         @Valid @RequestBody List<MenuOrderRequestDTO> requestedMenuOrderList,
                                         @RequestParam(value = "tableNumber") Integer tableNumber) {
-    return tablePlacementService.generateTableOrder(requestedMenuOrderList, tableNumber)
+    return tablePlacementService.generateTableOrder(servletRequest, requestedMenuOrderList, tableNumber)
         .doOnComplete(() -> servletResponse.setStatus(201));
   }
 
@@ -37,6 +35,6 @@ public class TableOrderRestServiceImpl extends OrderHubRestService {
   public Single<TableOrderRequestWrapper> findByTableNumber(HttpServletRequest servletRequest,
                                                             HttpServletResponse servletResponse,
                                                             @RequestParam(value = "tableNumber") Integer tableNumber) {
-    return tableOrderRepository.findByTableNumber(tableNumber);
+    return tablePlacementService.findByTableNumber(servletRequest, tableNumber);
   }
 }
