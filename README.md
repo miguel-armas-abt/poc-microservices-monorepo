@@ -110,6 +110,7 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
         └───postman
 ```
 
+
 # 4. DESPLIEGUE
 Revise las instrucciones de despliegue para cada uno de los siguientes entornos.
 - [Local](./devops/local/README.md)
