@@ -35,3 +35,7 @@ configuration:
 
   errors:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+    InvalidRequestBody: Mensaje personalizado.
+    InvalidQueryParams: Mensaje personalizado.
+
+
