@@ -1,9 +1,9 @@
-package com.demo.bbq.config.errors.handler;
+package com.demo.bbq.config.errors.handler.response;
 
 import com.demo.bbq.application.properties.ServiceConfigurationProperties;
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
-import com.demo.bbq.utils.errors.external.RestClientErrorService;
-import com.demo.bbq.utils.errors.handler.ResponseErrorUtil;
+import com.demo.bbq.utils.errors.handler.external.strategy.RestClientErrorStrategy;
+import com.demo.bbq.utils.errors.handler.response.ResponseErrorHandlerUtil;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +17,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ResponseErrorHandler extends ResponseEntityExceptionHandler {
 
   private final ServiceConfigurationProperties properties;
-  private final  List<RestClientErrorService> errorServices;
+  private final  List<RestClientErrorStrategy> errorServices;
 
   @ExceptionHandler({Throwable.class})
   public final ResponseEntity<ErrorDTO> handleException(Throwable exception, WebRequest request) {
-    return ResponseErrorUtil.handleException(properties, errorServices, exception, request);
+    return ResponseErrorHandlerUtil.handleException(properties, errorServices, exception, request);
   }
 }
