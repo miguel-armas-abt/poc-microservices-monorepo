@@ -1,7 +1,7 @@
 package com.demo.bbq.config.interceptor;
 
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
-import com.demo.bbq.utils.errors.external.RestClientErrorService;
+import com.demo.bbq.utils.errors.handler.external.strategy.RestClientErrorStrategy;
 import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ExchangeInterceptor implements Interceptor {
 
-  private final List<RestClientErrorService> services;
+  private final List<RestClientErrorStrategy> strategies;
   private final ServiceConfigurationProperties properties;
 
   @Override

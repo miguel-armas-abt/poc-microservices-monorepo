@@ -4,7 +4,7 @@ import com.demo.bbq.config.properties.ServiceConfigurationProperties;
 import com.demo.bbq.application.utils.TokenValidatorUtil;
 import com.demo.bbq.repository.authadapter.AuthAdapterRepository;
 import com.demo.bbq.utils.errors.exceptions.AuthorizationException;
-import com.demo.bbq.utils.errors.handler.ResponseErrorUtil;
+import com.demo.bbq.utils.errors.handler.response.ResponseErrorHandlerUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +42,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
               }))
           .ignoreElements()
           .then(chain.filter(exchange))
-          .onErrorResume(Exception.class, exception -> ResponseErrorUtil.handleException(configurationProperties, exception, exchange));
+          .onErrorResume(Exception.class, exception -> ResponseErrorHandlerUtil.handleException(configurationProperties, exception, exchange));
     } ,1);
   }
 

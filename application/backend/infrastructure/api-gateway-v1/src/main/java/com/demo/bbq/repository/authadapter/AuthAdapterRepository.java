@@ -3,7 +3,7 @@ package com.demo.bbq.repository.authadapter;
 import static com.demo.bbq.utils.restclient.headers.HeadersBuilderUtil.buildHeaders;
 
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
-import com.demo.bbq.config.errors.external.ExternalServiceErrorHandler;
+import com.demo.bbq.config.errors.handler.external.ExternalErrorHandler;
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,14 +23,14 @@ public class AuthAdapterRepository {
 
   private final WebClient webClient;
   private final ServiceConfigurationProperties properties;
-  private final ExternalServiceErrorHandler externalServiceErrorHandler;
+  private final ExternalErrorHandler externalErrorHandler;
 
   public Flux<HashMap<String, Integer>> getRoles(ServerHttpRequest serverRequest) {
     return webClient.get()
         .uri(properties.getRestClients().get(SERVICE_NAME).getRequest().getEndpoint().concat("/roles"))
         .headers(buildHeaders(getHeaderTemplate(), serverRequest))
         .retrieve()
-        .onStatus(HttpStatusCode::isError, clientResponse -> externalServiceErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME))
+        .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME))
         .bodyToFlux(HashMap.class)
         .map(this::castHashMapToIntegerValues);
   }
