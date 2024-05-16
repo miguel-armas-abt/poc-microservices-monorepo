@@ -1,7 +1,7 @@
-package com.demo.bbq.config.errors.handler;
+package com.demo.bbq.config.errors.handler.response;
 
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
-import com.demo.bbq.utils.errors.handler.ResponseErrorUtil;
+import com.demo.bbq.utils.errors.handler.response.ResponseErrorHandlerUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ public class ResponseErrorHandler {
   @Bean
   public WebFilter exceptionHandlingFilter() {
     return (exchange, next) -> next.filter(exchange)
-        .onErrorResume(Exception.class, exception -> ResponseErrorUtil.handleException(properties, exception, exchange));
+        .onErrorResume(Exception.class, exception -> ResponseErrorHandlerUtil.handleException(properties, exception, exchange));
   }
 
 }
