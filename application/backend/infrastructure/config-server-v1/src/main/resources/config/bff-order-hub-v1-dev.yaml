@@ -1,5 +1,9 @@
 configuration:
-  show-custom-messages: false
+
+  error-messages:
+    enabled: false
+    messages:
+      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
   rest-clients:
     menu-v1:
@@ -49,6 +53,3 @@ configuration:
 
   variables:
     menu-selector-class: com.demo.bbq.repository.menu.menuv1.MenuV1RepositoryHelper
-
-  errors:
-    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.

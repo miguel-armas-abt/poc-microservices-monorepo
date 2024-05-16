@@ -20,7 +20,7 @@ public abstract class ResponseErrorHandlerBaseUtil {
     if (matchingMessage == null && currentError.getMessage() == null)
       currentError.setMessage(ErrorDTO.getDefaultError(properties).getMessage());
 
-    if (properties.isShowCustomMessages() && matchingMessage != null)
+    if (properties.getErrorMessages().isEnabled() && matchingMessage != null)
       currentError.setMessage(matchingMessage);
 
     return currentError;

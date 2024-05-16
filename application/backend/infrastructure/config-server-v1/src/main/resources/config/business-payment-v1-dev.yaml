@@ -1,3 +1,10 @@
+configuration:
+
+  error-messages:
+    enabled: false
+    messages:
+      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+
 kafka-broker:
   topic:
     invoice: invoice-topic
@@ -34,9 +41,3 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     username: ${MYSQL_USERNAME:bbq_user}
     password: ${MYSQL_PASSWORD:qwerty}
-
-configuration:
-  show-custom-messages: false
-
-  errors:
-    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.

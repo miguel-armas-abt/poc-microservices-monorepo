@@ -1,3 +1,25 @@
+configuration:
+
+  error-messages:
+    enabled: false
+    messages:
+      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+      InvalidRequestBody: Cuerpo de la solicitud inválido.
+      InvalidQueryParams: Parámetros de la solicitud inválidos.
+
+  rest-clients:
+    product-v1:
+      request:
+        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/
+        headers:
+          provided:
+            Accept: application/json
+          generated:
+            parentId: PARENT_ID
+            timestamp: TIMESTAMP_V2
+          forwarded:
+            traceId: traceId
+
 spring:
 
   jpa:
@@ -16,26 +38,3 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     username: ${MYSQL_USERNAME:bbq_user}
     password: ${MYSQL_PASSWORD:qwerty}
-
-configuration:
-  show-custom-messages: false
-
-  rest-clients:
-    product-v1:
-      request:
-        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/
-        headers:
-          provided:
-            Accept: application/json
-          generated:
-            parentId: PARENT_ID
-            timestamp: TIMESTAMP_V2
-          forwarded:
-            traceId: traceId
-
-  errors:
-    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
-    InvalidRequestBody: Mensaje personalizado.
-    InvalidQueryParams: Mensaje personalizado.
-
-

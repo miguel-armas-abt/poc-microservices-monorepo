@@ -16,7 +16,12 @@ spring:
             - name: AuthenticationFilter
 
 configuration:
-  show-custom-messages: false
+
+  error-messages:
+    enabled: false
+    messages:
+      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+
   rest-clients:
     auth-adapter-v1:
       request:
@@ -32,8 +37,6 @@ configuration:
             traceId: traceId
       variables:
         expected-roles: partners #separate items with comma
-  errors:
-    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
 # actuator endpoints
 management:

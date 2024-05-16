@@ -6,7 +6,11 @@ spring:
     name: auth-adapter-v1
 
 configuration:
-  show-custom-messages: false
+
+  error-messages:
+    enabled: false
+    messages:
+      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
   rest-clients:
     keycloak:
@@ -25,9 +29,6 @@ configuration:
       errors:
         ExpiredToken: Ocurrió un error durante la autenticación.
         InvalidJWT: Ocurrió un error durante la autenticación.
-
-  errors:
-    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
 # actuator endpoints
 management:

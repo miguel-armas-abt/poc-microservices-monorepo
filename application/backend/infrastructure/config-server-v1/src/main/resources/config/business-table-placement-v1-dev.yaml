@@ -1,14 +1,16 @@
+configuration:
+
+  error-messages:
+    enabled: true
+    messages:
+      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+      InvalidRequestBody: Cuerpo de la solicitud inválido.
+
 spring:
   data:
     mongodb:
-      uri: ${MONGODB_URL:mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement}
-#      uri: mongodb+srv://miguelarmasabt:l21m01j16M01L13@cluster0.t2pidzg.mongodb.net/tablePlacement
-
-configuration:
-  show-custom-messages: false
-
-  errors:
-    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+#      uri: ${MONGODB_URL:mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement}
+      uri: mongodb+srv://miguelarmasabt:l21m01j16M01L13@cluster0.t2pidzg.mongodb.net/tablePlacement
 
 logging:
   level:

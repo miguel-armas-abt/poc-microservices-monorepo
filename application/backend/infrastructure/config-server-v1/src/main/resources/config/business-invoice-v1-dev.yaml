@@ -1,3 +1,25 @@
+configuration:
+
+  error-messages:
+    enabled: false
+    messages:
+      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+
+  rest-clients:
+    product-v1:
+      request:
+        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/
+        headers:
+          Accept: application/json
+
+  variables:
+    igv: 0.18
+
+  rules:
+    discount-rules:
+      class-name: DiscountRule
+      drool-file: discount_rules.drl
+
 kafka-broker:
   topic:
     invoice: invoice-topic
@@ -24,24 +46,3 @@ spring:
     driverClassName: org.postgresql.Driver
     username: ${POSTGRESQL_USERNAME:bbq_user}
     password: ${POSTGRESQL_PASSWORD:qwerty}
-
-configuration:
-  show-custom-messages: false
-
-  rest-clients:
-    product-v1:
-      request:
-        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/
-        headers:
-          Accept: application/json
-
-  variables:
-    igv: 0.18
-
-  rules:
-    discount-rules:
-      class-name: DiscountRule
-      drool-file: discount_rules.drl
-
-  errors:
-    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
