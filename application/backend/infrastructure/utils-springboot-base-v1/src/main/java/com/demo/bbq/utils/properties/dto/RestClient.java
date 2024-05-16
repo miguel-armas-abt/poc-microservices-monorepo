@@ -10,6 +10,6 @@ public class RestClient {
 
   private RequestTemplate request;
   private Map<String, String> variables;
-  private Map<String, String> errors;
+  private Map<String, RestClientError> errors;
 
 }

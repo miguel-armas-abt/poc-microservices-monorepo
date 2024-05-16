@@ -1,12 +1,11 @@
-package com.demo.bbq.utils.errors.handler;
+package com.demo.bbq.utils.errors.handler.response;
 
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import com.demo.bbq.utils.errors.exceptions.AuthorizationException;
 import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import com.demo.bbq.utils.errors.exceptions.SystemException;
-import com.demo.bbq.utils.errors.external.RestClientErrorService;
-import com.demo.bbq.utils.errors.matcher.ErrorMatcherUtil;
-import com.demo.bbq.utils.errors.matcher.ExternalErrorMatcherUtil;
+import com.demo.bbq.utils.errors.handler.external.strategy.RestClientErrorStrategy;
+import com.demo.bbq.utils.errors.handler.external.ExternalErrorHandlerUtil;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import java.net.ConnectException;
 import java.util.List;
@@ -16,19 +15,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.WebRequest;
 import retrofit2.HttpException;
 
-public class ResponseErrorUtil {
+public class ResponseErrorHandlerUtil {
 
-  private ResponseErrorUtil() {}
+  private ResponseErrorHandlerUtil() {}
 
   public static ResponseEntity<ErrorDTO> handleException(ConfigurationBaseProperties properties,
-                                                         List<RestClientErrorService> errorServices,
+                                                         List<RestClientErrorStrategy> errorServices,
                                                          Throwable ex,
                                                          WebRequest request) {
-    ErrorDTO error = ErrorMatcherUtil.getDefaultError(properties);
+    ErrorDTO error = ErrorDTO.getDefaultError(properties);
     HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
     if(ex instanceof HttpException httpException) {
-      Pair<ErrorDTO, HttpStatus> pairError = ExternalErrorMatcherUtil.build(httpException.response(), errorServices, properties);
+      Pair<ErrorDTO, HttpStatus> pairError = ExternalErrorHandlerUtil.build(httpException.response(), errorServices, properties);
       httpStatus = pairError.getRight();
       error = pairError.getLeft();
     }
@@ -38,17 +37,17 @@ public class ResponseErrorUtil {
     }
 
     if(ex instanceof BusinessException businessException) {
-      error = ErrorMatcherUtil.build(properties, businessException);
+      error = ResponseErrorHandlerBaseUtil.build(properties, businessException);
       httpStatus = HttpStatus.BAD_REQUEST;
     }
 
     if(ex instanceof SystemException systemException) {
-      error = ErrorMatcherUtil.build(properties, systemException);
+      error = ResponseErrorHandlerBaseUtil.build(properties, systemException);
       httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
     }
 
     if(ex instanceof AuthorizationException authException) {
-      error = ErrorMatcherUtil.build(properties, authException);
+      error = ResponseErrorHandlerBaseUtil.build(properties, authException);
       httpStatus = HttpStatus.UNAUTHORIZED;
     }
 

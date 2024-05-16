@@ -1,6 +1,6 @@
 package com.demo.bbq.utils.restclient.resttemplate.dto;
 
-import com.demo.bbq.utils.errors.external.ExternalClientErrorWrapper;
+import com.demo.bbq.utils.errors.handler.external.strategy.ExternalErrorWrapper;
 import java.io.Serializable;
 import java.util.Map;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,5 +26,5 @@ public class ExchangeRequestDTO<I,O> implements Serializable {
 
   private Class<O> responseClass;
 
-  private Class<? extends ExternalClientErrorWrapper> errorWrapperClass;
+  private Class<? extends ExternalErrorWrapper> errorWrapperClass;
 }

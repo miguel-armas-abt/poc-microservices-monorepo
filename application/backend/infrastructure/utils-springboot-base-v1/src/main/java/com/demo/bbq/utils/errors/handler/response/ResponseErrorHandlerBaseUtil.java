@@ -1,27 +1,26 @@
-package com.demo.bbq.utils.errors.matcher;
+package com.demo.bbq.utils.errors.handler.response;
 
 import static com.demo.bbq.utils.errors.dto.ErrorDTO.CODE_DEFAULT;
 
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
-import com.demo.bbq.utils.errors.dto.ErrorType;
 import com.demo.bbq.utils.errors.exceptions.AuthorizationException;
 import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import com.demo.bbq.utils.errors.exceptions.SystemException;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import java.util.Optional;
 
-public abstract class ErrorMatcherUtil {
+public abstract class ResponseErrorHandlerBaseUtil {
 
   public static <T extends Throwable> ErrorDTO build(ConfigurationBaseProperties properties, T exception) {
     ErrorDTO currentError = getError(exception);
 
     String errorCode = Optional.of(currentError.getCode()).orElseGet(() -> CODE_DEFAULT);
 
-    String matchingMessage = getMatchMessage(properties, errorCode);
-    if (matchingMessage == null)
-      matchingMessage = getDefaultError(properties).getMessage();
+    String matchingMessage = ErrorDTO.getMatchMessage(properties, errorCode);
+    if (matchingMessage == null && currentError.getMessage() == null)
+      currentError.setMessage(ErrorDTO.getDefaultError(properties).getMessage());
 
-    if (properties.isShowCustomMessages())
+    if (properties.isShowCustomMessages() && matchingMessage != null)
       currentError.setMessage(matchingMessage);
 
     return currentError;
@@ -41,20 +40,4 @@ public abstract class ErrorMatcherUtil {
 
     return error;
   }
-
-  private static String getMatchMessage(ConfigurationBaseProperties properties, String errorCode) {
-    return properties
-        .getErrors()
-        .get(errorCode);
-  }
-
-  public static ErrorDTO getDefaultError(ConfigurationBaseProperties properties) {
-    return ErrorDTO
-        .builder()
-        .code(CODE_DEFAULT)
-        .message(getMatchMessage(properties, CODE_DEFAULT))
-        .type(ErrorType.SYSTEM)
-        .build();
-  }
-
 }

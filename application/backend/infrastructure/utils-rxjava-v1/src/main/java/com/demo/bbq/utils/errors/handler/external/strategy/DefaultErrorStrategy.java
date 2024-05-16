@@ -1,4 +1,4 @@
-package com.demo.bbq.utils.errors.external;
+package com.demo.bbq.utils.errors.handler.external.strategy;
 
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import com.demo.bbq.utils.errors.serializer.ErrorSerializerUtil;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import okhttp3.ResponseBody;
 import org.apache.commons.lang3.tuple.Pair;
 
-public class DefaultClientErrorService implements RestClientErrorService<ErrorDTO> {
+public class DefaultErrorStrategy implements RestClientErrorStrategy {
 
   @Override
   public Optional<Pair<String, String>> getCodeAndMessage(ResponseBody errorBody) {
@@ -16,7 +16,7 @@ public class DefaultClientErrorService implements RestClientErrorService<ErrorDT
   }
 
   @Override
-  public boolean supports(Class<?> wrapperClass) {
-    return wrapperClass.isAssignableFrom(ErrorDTO.class);
+  public boolean supports(Class<? extends ExternalErrorWrapper> errorWrapperClass) {
+    return errorWrapperClass.isAssignableFrom(ErrorDTO.class);
   }
 }

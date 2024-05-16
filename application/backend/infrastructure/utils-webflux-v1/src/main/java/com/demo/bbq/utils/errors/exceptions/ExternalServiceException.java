@@ -15,10 +15,10 @@ public class ExternalServiceException extends RuntimeException {
   private final ErrorDTO errorDetail;
   private final HttpStatusCode httpStatusCode;
 
-  public ExternalServiceException(String code, String message, HttpStatusCode httpStatusCode) {
+  public ExternalServiceException(String code, String message, ErrorType errorType, HttpStatusCode httpStatusCode) {
     super(message);
     this.errorDetail = ErrorDTO.builder()
-        .type(ErrorType.EXTERNAL)
+        .type(errorType)
         .code(code)
         .message(message)
         .build();

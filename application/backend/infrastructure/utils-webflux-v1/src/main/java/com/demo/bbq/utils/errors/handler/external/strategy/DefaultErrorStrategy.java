@@ -1,4 +1,4 @@
-package com.demo.bbq.utils.errors.external;
+package com.demo.bbq.utils.errors.handler.external.strategy;
 
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import com.google.gson.Gson;
@@ -6,7 +6,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import reactor.core.publisher.Mono;
 
-public class DefaultClientErrorService implements RestClientErrorService<ErrorDTO> {
+public class DefaultErrorStrategy implements RestClientErrorStrategy {
 
   @Override
   public Mono<Pair<String, String>> getCodeAndMessage(ClientResponse clientResponse) {
@@ -17,7 +17,8 @@ public class DefaultClientErrorService implements RestClientErrorService<ErrorDT
   }
 
   @Override
-  public boolean supports(Class<?> wrapperClass) {
+  public boolean supports(Class<? extends ExternalErrorWrapper> wrapperClass) {
     return wrapperClass.isAssignableFrom(ErrorDTO.class);
   }
+
 }

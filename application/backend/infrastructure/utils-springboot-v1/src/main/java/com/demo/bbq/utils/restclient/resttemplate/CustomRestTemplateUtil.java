@@ -2,8 +2,8 @@ package com.demo.bbq.utils.restclient.resttemplate;
 
 import com.demo.bbq.utils.properties.dto.HeaderTemplate;
 import com.demo.bbq.utils.restclient.resttemplate.dto.ExchangeRequestDTO;
-import com.demo.bbq.utils.errors.matcher.ExternalErrorMatcherUtil;
-import com.demo.bbq.utils.errors.external.RestClientErrorService;
+import com.demo.bbq.utils.errors.handler.external.ExternalErrorHandlerUtil;
+import com.demo.bbq.utils.errors.handler.external.strategy.RestClientErrorStrategy;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import com.demo.bbq.utils.restclient.headers.HeadersBuilderUtil;
 import java.util.List;
@@ -16,7 +16,7 @@ public class CustomRestTemplateUtil {
 
   public static <I,O> O exchange(ExchangeRequestDTO<I,O> request,
                                  String serviceName,
-                                 List<RestClientErrorService> errorServices,
+                                 List<RestClientErrorStrategy> errorServices,
                                  ConfigurationBaseProperties properties) {
     try {
       return RestTemplateFactory
@@ -29,7 +29,7 @@ public class CustomRestTemplateUtil {
           .getBody();
 
     } catch (HttpStatusCodeException httpException) {
-      throw ExternalErrorMatcherUtil.build(httpException, request.getErrorWrapperClass(), serviceName, errorServices, properties);
+      throw ExternalErrorHandlerUtil.build(httpException, request.getErrorWrapperClass(), serviceName, errorServices, properties);
     }
   }
 

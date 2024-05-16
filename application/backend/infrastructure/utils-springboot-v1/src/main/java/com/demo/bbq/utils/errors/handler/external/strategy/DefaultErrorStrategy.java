@@ -1,11 +1,11 @@
-package com.demo.bbq.utils.errors.external;
+package com.demo.bbq.utils.errors.handler.external.strategy;
 
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import com.google.gson.Gson;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.web.client.HttpStatusCodeException;
 
-public class DefaultClientErrorService implements RestClientErrorService<ErrorDTO> {
+public class DefaultErrorStrategy implements RestClientErrorStrategy {
 
   @Override
   public Pair<String, String> getCodeAndMessage(HttpStatusCodeException httpException) {
@@ -14,7 +14,7 @@ public class DefaultClientErrorService implements RestClientErrorService<ErrorDT
   }
 
   @Override
-  public boolean supports(Class<?> wrapperClass) {
-    return wrapperClass.isAssignableFrom(ErrorDTO.class);
+  public boolean supports(Class<? extends ExternalErrorWrapper> errorWrapperClass) {
+    return errorWrapperClass.isAssignableFrom(ErrorDTO.class);
   }
 }

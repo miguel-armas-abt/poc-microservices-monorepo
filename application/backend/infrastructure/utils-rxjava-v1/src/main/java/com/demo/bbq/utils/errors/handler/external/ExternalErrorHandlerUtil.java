@@ -1,8 +1,8 @@
-package com.demo.bbq.utils.errors.matcher;
+package com.demo.bbq.utils.errors.handler.external;
 
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import com.demo.bbq.utils.errors.dto.ErrorType;
-import com.demo.bbq.utils.errors.external.RestClientErrorService;
+import com.demo.bbq.utils.errors.handler.external.strategy.RestClientErrorStrategy;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import java.util.List;
 import java.util.Optional;
@@ -11,12 +11,12 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.http.HttpStatus;
 import retrofit2.Response;
 
-public class ExternalErrorMatcherUtil extends ErrorMatcherUtil {
+public class ExternalErrorHandlerUtil {
 
-  private ExternalErrorMatcherUtil() {}
+  private ExternalErrorHandlerUtil() {}
 
   public static Pair<ErrorDTO, HttpStatus> build(Response response,
-                                                 List<RestClientErrorService> serviceList,
+                                                 List<RestClientErrorStrategy> serviceList,
                                                  ConfigurationBaseProperties properties) {
 
     AtomicReference<Pair<String, String>> atomicPair = new AtomicReference<>();
@@ -41,7 +41,7 @@ public class ExternalErrorMatcherUtil extends ErrorMatcherUtil {
             .message(pairCodeAndMessage.getRight())
             .build(), HttpStatus.valueOf(response.code())))
         .orElseGet(() -> {
-          ErrorDTO error = ErrorMatcherUtil.getDefaultError(properties);
+          ErrorDTO error = ErrorDTO.getDefaultError(properties);
           error.setType(ErrorType.EXTERNAL);
           return Pair.of(error, HttpStatus.BAD_REQUEST);
         });

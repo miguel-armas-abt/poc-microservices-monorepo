@@ -1,4 +1,4 @@
-package com.demo.bbq.utils.errors.handler;
+package com.demo.bbq.utils.errors.handler.response;
 
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import com.demo.bbq.utils.errors.exceptions.AuthorizationException;
@@ -6,7 +6,6 @@ import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import com.demo.bbq.utils.errors.exceptions.ExternalServiceException;
 import com.demo.bbq.utils.errors.exceptions.SystemException;
 import com.demo.bbq.utils.errors.serializer.ErrorSerializerUtil;
-import com.demo.bbq.utils.errors.matcher.ErrorMatcherUtil;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import java.net.ConnectException;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -17,13 +16,13 @@ import org.springframework.web.reactive.function.client.WebClientRequestExceptio
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-public class ResponseErrorUtil {
+public class ResponseErrorHandlerUtil {
 
-  private ResponseErrorUtil() {}
+  private ResponseErrorHandlerUtil() {}
 
   public static Mono<Void> handleException(ConfigurationBaseProperties properties, Throwable ex, ServerWebExchange exchange) {
 
-    ErrorDTO error = ErrorMatcherUtil.getDefaultError(properties);
+    ErrorDTO error = ErrorDTO.getDefaultError(properties);
     HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
     if (ex instanceof WebClientRequestException || ex instanceof ConnectException)
@@ -35,17 +34,17 @@ public class ResponseErrorUtil {
     }
 
     if( ex instanceof BusinessException businessException) {
-      error = ErrorMatcherUtil.build(properties, businessException);
+      error = ResponseErrorHandlerBaseUtil.build(properties, businessException);
       httpStatus = HttpStatus.BAD_REQUEST;
     }
 
     if( ex instanceof SystemException systemException) {
-      error = ErrorMatcherUtil.build(properties, systemException);
+      error = ResponseErrorHandlerBaseUtil.build(properties, systemException);
       httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
     }
 
     if( ex instanceof AuthorizationException authException) {
-      error = ErrorMatcherUtil.build(properties, authException);
+      error = ResponseErrorHandlerBaseUtil.build(properties, authException);
       httpStatus = HttpStatus.UNAUTHORIZED;
     }
 
