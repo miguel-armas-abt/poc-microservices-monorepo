@@ -2,7 +2,7 @@
 
 # DESPLIEGUE CON DOCKER COMPOSE
 
-> 📋 **Pre requisitos** ()
+> 📋 **Pre requisitos**
 > - [Iniciar Docker](#configurar-docker-desktop)
 > - [Compilar proyectos](./../local/README.md)
 

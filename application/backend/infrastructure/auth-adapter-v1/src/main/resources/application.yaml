@@ -11,6 +11,8 @@ configuration:
     enabled: false
     messages:
       Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+      ExpiredToken: Ocurrió un error durante la autenticación.
+      InvalidJWT: Ocurrió un error durante la autenticación.
 
   rest-clients:
     keycloak:
@@ -25,10 +27,6 @@ configuration:
         scope: profile
         authorization-grant-type: password
         authorization-grant-type-refresh: refresh_token
-
-      errors:
-        ExpiredToken: Ocurrió un error durante la autenticación.
-        InvalidJWT: Ocurrió un error durante la autenticación.
 
 # actuator endpoints
 management:
