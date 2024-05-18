@@ -2,9 +2,8 @@ package com.demo.bbq.config.httpclient;
 
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
 import com.demo.bbq.config.interceptor.ExchangeInterceptor;
-import java.util.List;
-
 import com.demo.bbq.utils.errors.handler.external.strategy.RestClientErrorStrategy;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

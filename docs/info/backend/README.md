@@ -39,7 +39,7 @@ específicas de cada proyecto.
 
 ```javascript
 {
-	"type": "System",
+	"type": "SYSTEM",
 	"code": "Default",
 	"message": "No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente."
 }
