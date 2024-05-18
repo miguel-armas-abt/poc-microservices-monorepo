@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TableOrderRequestWrapper implements Serializable{
+public class TableOrderResponseWrapper implements Serializable{
 
   private List<MenuOrderWrapper> menuOrderList;
 

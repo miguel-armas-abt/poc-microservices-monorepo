@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 public class ProformaInvoiceResponseWrapper implements Serializable {
 
-  private List<ProductResponseWrapper> productResponseWrapperList;
+  private List<ProductResponseWrapper> productList;
   private BigDecimal subtotal;
   private BigDecimal igv;
   private BigDecimal total;

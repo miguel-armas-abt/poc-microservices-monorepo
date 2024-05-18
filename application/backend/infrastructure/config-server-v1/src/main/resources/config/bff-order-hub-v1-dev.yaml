@@ -51,5 +51,10 @@ configuration:
           forwarded:
             traceId: traceId
 
+  obfuscation:
+    body-fields: []
+    headers: []
+    header-obfuscation-type: {}
+
   variables:
-    menu-selector-class: com.demo.bbq.repository.menu.menuv1.MenuV1RepositoryHelper
+    menu-selector-class: com.demo.bbq.repository.menu.MenuV1Repository

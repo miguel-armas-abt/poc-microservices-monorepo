@@ -6,6 +6,7 @@ import com.demo.bbq.utils.restclient.webclient.WebClientFactory;
 import com.demo.bbq.utils.restclient.webclient.obfuscation.header.strategy.HeaderObfuscationMultipleStrategy;
 import com.demo.bbq.utils.restclient.webclient.obfuscation.header.strategy.HeaderObfuscationStandardStrategy;
 import com.demo.bbq.utils.restclient.webclient.obfuscation.header.strategy.HeaderObfuscationStrategy;
+import io.micrometer.observation.ObservationRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -25,8 +26,9 @@ public class WebClientConfig {
 
   @Bean
   public WebClient createWebClient(ExchangeRequestFilter exchangeRequestFilter,
-                                   ExchangeResponseFilter exchangeResponseFilter) {
-    return WebClientFactory.createWebClient(exchangeRequestFilter, exchangeResponseFilter);
+                                   ExchangeResponseFilter exchangeResponseFilter,
+                                   ObservationRegistry observationRegistry) {
+    return WebClientFactory.createWebClient(exchangeRequestFilter, exchangeResponseFilter, observationRegistry);
   }
 
 }

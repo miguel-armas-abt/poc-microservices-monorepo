@@ -8,6 +8,6 @@ import reactor.core.publisher.Mono;
 
 public interface ProformaInvoiceService {
 
-  Mono<ProformaInvoiceResponseDTO> generateProformaInvoice(ServerRequest serverRequest, Flux<ProductRequestDTO> products);
+  Mono<ProformaInvoiceResponseDTO> generateProforma(ServerRequest serverRequest, Flux<ProductRequestDTO> products);
 
 }

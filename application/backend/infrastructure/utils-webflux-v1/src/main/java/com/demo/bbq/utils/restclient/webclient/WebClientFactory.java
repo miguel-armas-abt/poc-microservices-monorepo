@@ -6,6 +6,7 @@ import static io.netty.handler.ssl.util.InsecureTrustManagerFactory.INSTANCE;
 import com.demo.bbq.utils.restclient.webclient.dto.Pool;
 import com.demo.bbq.utils.restclient.webclient.dto.Timeout;
 import com.demo.bbq.utils.errors.exceptions.SystemException;
+import io.micrometer.observation.ObservationRegistry;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
@@ -14,6 +15,7 @@ import io.netty.handler.timeout.WriteTimeoutHandler;
 import javax.net.ssl.SSLException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.web.reactive.function.client.DefaultClientRequestObservationConvention;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
@@ -24,7 +26,8 @@ import reactor.netty.transport.logging.AdvancedByteBufFormat;
 public class WebClientFactory {
 
   public static WebClient createWebClient(ExchangeFilterFunction exchangeRequestFilter,
-                                          ExchangeFilterFunction exchangeResponseFilter) {
+                                          ExchangeFilterFunction exchangeResponseFilter,
+                                          ObservationRegistry observationRegistry) {
     Pool pool = new Pool();
     Timeout timeout = new Timeout();
 
@@ -34,6 +37,8 @@ public class WebClientFactory {
           .clientConnector(new ReactorClientHttpConnector(httpClient))
           .filter(exchangeRequestFilter)
           .filter(exchangeResponseFilter)
+          .observationRegistry(observationRegistry)
+          .observationConvention(new DefaultClientRequestObservationConvention())
           .build();
     } catch (SSLException ex) {
       throw new SystemException("SSLWebclientError");

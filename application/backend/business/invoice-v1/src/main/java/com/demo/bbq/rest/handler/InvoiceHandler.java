@@ -23,7 +23,7 @@ public class InvoiceHandler {
 
   @Trace(dispatcher = true)
   public Mono<ServerResponse> generateProforma(ServerRequest serverRequest) {
-    return proformaInvoiceService.generateProformaInvoice(serverRequest, serverRequest.bodyToFlux(ProductRequestDTO.class))
+    return proformaInvoiceService.generateProforma(serverRequest, serverRequest.bodyToFlux(ProductRequestDTO.class))
         .flatMap(builderServerResponse::build);
   }
 

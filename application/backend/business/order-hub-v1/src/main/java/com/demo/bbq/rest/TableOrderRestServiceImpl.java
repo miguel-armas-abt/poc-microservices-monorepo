@@ -1,40 +1,30 @@
 package com.demo.bbq.rest;
 
-import com.demo.bbq.application.service.tableplacement.TablePlacementService;
-import com.demo.bbq.application.dto.tableorder.request.MenuOrderRequestDTO;
-import com.demo.bbq.repository.tableorder.wrapper.TableOrderRequestWrapper;
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Single;
-import java.util.List;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import static org.springframework.http.MediaType.APPLICATION_STREAM_JSON;
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+import static org.springframework.web.reactive.function.server.RequestPredicates.path;
+import static org.springframework.web.reactive.function.server.RouterFunctions.nest;
+import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
-@Component
-@RequiredArgsConstructor
-public class TableOrderRestServiceImpl extends OrderHubRestService {
+import com.demo.bbq.rest.handler.TablePlacementHandler;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
-  private final TablePlacementService tablePlacementService;
+@Configuration
+public class TableOrderRestServiceImpl {
 
-  @PatchMapping("/table-orders")
-  public Completable generateTableOrder(HttpServletRequest servletRequest,
-                                        HttpServletResponse servletResponse,
-                                        @Valid @RequestBody List<MenuOrderRequestDTO> requestedMenuOrderList,
-                                        @RequestParam(value = "tableNumber") Integer tableNumber) {
-    return tablePlacementService.generateTableOrder(servletRequest, requestedMenuOrderList, tableNumber)
-        .doOnComplete(() -> servletResponse.setStatus(201));
-  }
+  private static final String BASE_URI = "/bbq/bff/order-hub/v1/";
 
-  @GetMapping("/table-orders")
-  public Single<TableOrderRequestWrapper> findByTableNumber(HttpServletRequest servletRequest,
-                                                            HttpServletResponse servletResponse,
-                                                            @RequestParam(value = "tableNumber") Integer tableNumber) {
-    return tablePlacementService.findByTableNumber(servletRequest, tableNumber);
+  @Bean("table-orders")
+  public RouterFunction<ServerResponse> build(TablePlacementHandler tablePlacementHandler) {
+    return nest(
+        path(BASE_URI),
+        route()
+            .PATCH("table-orders", accept(APPLICATION_STREAM_JSON) , tablePlacementHandler::generateTableOrder)
+            .GET("table-orders", accept(APPLICATION_STREAM_JSON), tablePlacementHandler::findByTableNumber)
+            .build()
+    );
   }
 }

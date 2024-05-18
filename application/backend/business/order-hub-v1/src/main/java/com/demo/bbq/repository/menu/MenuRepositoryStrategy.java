@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MenuRepositoryStrategy {
 
-  private final ServiceSelectorHelper<MenuRepositoryHelper> serviceSelectorHelper;
+  private final ServiceSelectorHelper<MenuRepository> serviceSelectorHelper;
   private final ServiceConfigurationProperties properties;
 
-  public MenuRepositoryHelper getService() {
+  public MenuRepository getService() {
     return serviceSelectorHelper.getService(getSelectorClass());
   }
 

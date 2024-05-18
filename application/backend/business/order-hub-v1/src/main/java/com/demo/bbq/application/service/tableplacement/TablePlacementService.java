@@ -1,18 +1,14 @@
 package com.demo.bbq.application.service.tableplacement;
 
 import com.demo.bbq.application.dto.tableorder.request.MenuOrderRequestDTO;
-import com.demo.bbq.repository.tableorder.wrapper.TableOrderRequestWrapper;
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Single;
-import jakarta.servlet.http.HttpServletRequest;
+import com.demo.bbq.repository.tableorder.wrapper.TableOrderResponseWrapper;
 import java.util.List;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import reactor.core.publisher.Mono;
 
 public interface TablePlacementService {
 
-  Completable generateTableOrder(HttpServletRequest httpRequest,
-                                 List<MenuOrderRequestDTO> requestedMenuOrderList,
-                                 Integer tableNumber);
+  Mono<Void> generateTableOrder(ServerRequest serverRequest, List<MenuOrderRequestDTO> requestedMenuOrderList, Integer tableNumber);
 
-  Single<TableOrderRequestWrapper> findByTableNumber(HttpServletRequest httpRequest,
-                                                     Integer tableNumber);
+  Mono<TableOrderResponseWrapper> findByTableNumber(ServerRequest serverRequest, Integer tableNumber);
 }

@@ -6,7 +6,6 @@ import com.demo.bbq.application.properties.ServiceConfigurationProperties;
 import com.demo.bbq.config.errors.handler.external.ExternalErrorHandler;
 import com.demo.bbq.repository.product.wrapper.ProductResponseWrapper;
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
-import com.demo.bbq.utils.properties.dto.HeaderTemplate;
 import com.newrelic.api.agent.Trace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -33,15 +32,11 @@ public class ProductRepository {
         .uri(UriComponentsBuilder
             .fromUriString(properties.searchEndpoint(SERVICE_NAME).concat("{productCode}"))
             .buildAndExpand(productCode).toUriString())
-        .headers(buildHeaders(getHeaderTemplate(), serverRequest))
+        .headers(buildHeaders(properties.searchHeaderTemplate(SERVICE_NAME), serverRequest))
         .retrieve()
         .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME))
         .toEntity(ProductResponseWrapper.class)
         .mapNotNull(HttpEntity::getBody);
-  }
-
-  private HeaderTemplate getHeaderTemplate() {
-    return properties.getRestClients().get(SERVICE_NAME).getRequest().getHeaders();
   }
 }
 

@@ -1,37 +1,30 @@
 package com.demo.bbq.rest;
 
-import com.demo.bbq.application.service.invoices.InvoiceService;
-import com.demo.bbq.application.dto.invoices.InvoicePaymentRequestDTO;
-import com.demo.bbq.repository.invoice.wrapper.request.ProductRequestWrapper;
-import com.demo.bbq.repository.invoice.wrapper.response.ProformaInvoiceResponseWrapper;
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Single;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import static org.springframework.http.MediaType.APPLICATION_STREAM_JSON;
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+import static org.springframework.web.reactive.function.server.RequestPredicates.path;
+import static org.springframework.web.reactive.function.server.RouterFunctions.nest;
+import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
-@Component
-@RequiredArgsConstructor
-public class InvoiceRestServiceImpl extends OrderHubRestService {
+import com.demo.bbq.rest.handler.InvoiceHandler;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
-  private final InvoiceService invoiceService;
+@Configuration
+public class InvoiceRestServiceImpl {
 
-  @PostMapping(value = "/proforma-invoices", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-  public Single<ProformaInvoiceResponseWrapper> generateProforma(HttpServletRequest servletRequest,
-                                                                 @Valid @RequestBody List<ProductRequestWrapper> productList) {
-    return invoiceService.generateProforma(servletRequest, productList);
-  }
+  private static final String BASE_URI = "/bbq/bff/order-hub/v1/invoices/";
 
-  @PostMapping("/invoice-payments")
-  public Completable sendToPay(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-                              @Valid @RequestBody InvoicePaymentRequestDTO invoicePaymentRequestDTO) {
-    return invoiceService.sendToPay(servletRequest, invoicePaymentRequestDTO)
-        .doOnComplete(() -> servletResponse.setStatus(201));
+  @Bean("invoices")
+  public RouterFunction<ServerResponse> build(InvoiceHandler invoiceHandler) {
+    return nest(
+        path(BASE_URI),
+        route()
+            .POST("proformas", accept(APPLICATION_STREAM_JSON) , invoiceHandler::generateProforma)
+            .POST("send-to-pay", accept(APPLICATION_STREAM_JSON), invoiceHandler::sendToPay)
+            .build()
+    );
   }
 }

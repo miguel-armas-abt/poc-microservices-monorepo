@@ -2,57 +2,50 @@ package com.demo.bbq.application.service.invoices;
 
 import com.demo.bbq.application.dto.invoices.InvoicePaymentRequestDTO;
 import com.demo.bbq.application.mapper.InvoiceMapper;
-import com.demo.bbq.repository.invoice.InvoiceRepositoryHelper;
+import com.demo.bbq.repository.invoice.InvoiceRepository;
 import com.demo.bbq.repository.invoice.wrapper.request.PaymentRequestWrapper;
 import com.demo.bbq.repository.invoice.wrapper.request.ProductRequestWrapper;
 import com.demo.bbq.repository.invoice.wrapper.response.ProformaInvoiceResponseWrapper;
 import com.demo.bbq.repository.menu.MenuRepositoryStrategy;
-import com.demo.bbq.repository.tableorder.TableOrderRepositoryHelper;
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Single;
-import jakarta.servlet.http.HttpServletRequest;
+import com.demo.bbq.repository.tableorder.TableOrderRepository;
+import com.demo.bbq.repository.tableorder.wrapper.TableOrderResponseWrapper;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
 public class InvoiceServiceImpl implements InvoiceService {
 
-  private final InvoiceRepositoryHelper invoiceRepository;
-  private final TableOrderRepositoryHelper tableOrderRepository;
+  private final InvoiceRepository invoiceRepository;
+  private final TableOrderRepository tableOrderRepository;
   private final MenuRepositoryStrategy menuRepositoryStrategy;
   private final InvoiceMapper invoiceMapper;
 
   @Override
-  public Single<ProformaInvoiceResponseWrapper> generateProforma(HttpServletRequest httpRequest,
-                                                                 List<ProductRequestWrapper> productList) {
-    return invoiceRepository.generateProforma(httpRequest, productList);
+  public Mono<ProformaInvoiceResponseWrapper> generateProforma(ServerRequest serverRequest, List<ProductRequestWrapper> productList) {
+    return invoiceRepository.generateProforma(serverRequest, productList);
   }
 
   @Override
-  public Completable sendToPay(HttpServletRequest httpRequest,
-                               InvoicePaymentRequestDTO invoicePaymentRequest) {
+  public Mono<Void> sendToPay(ServerRequest serverRequest, InvoicePaymentRequestDTO invoicePaymentRequest) {
+    int tableNumber = invoicePaymentRequest.getTableNumber();
+    PaymentRequestWrapper paymentRequest = invoiceMapper.toPaymentRequest(invoicePaymentRequest);
 
-    List<ProductRequestWrapper> productList = tableOrderRepository
-        .findByTableNumber(httpRequest, invoicePaymentRequest.getTableNumber())
-        .blockingGet()
-        .getMenuOrderList()
-        .stream()
-        .map(menuOrder -> Optional.ofNullable(menuRepositoryStrategy.getService().findByProductCode(httpRequest, menuOrder.getProductCode()).blockingGet())
+    return tableOrderRepository.findByTableNumber(serverRequest, tableNumber)
+        .flatMapIterable(TableOrderResponseWrapper::getMenuOrderList)
+        .flatMap(menuOrder -> menuRepositoryStrategy
+            .getService()
+            .findByProductCode(serverRequest, menuOrder.getProductCode())
             .map(menuOption -> invoiceMapper.toProduct(menuOrder, menuOption))
-            .get())
-        .collect(Collectors.toList());
-
-    PaymentRequestWrapper paymentRequestWrapper = invoiceMapper.toPaymentRequest(invoicePaymentRequest);
-    paymentRequestWrapper.setProductList(productList);
-
-    return invoiceRepository.sendToPay(httpRequest, paymentRequestWrapper)
-        .ignoreElement()
-        .andThen(tableOrderRepository
-            .cleanTable(httpRequest, invoicePaymentRequest.getTableNumber())
-            .ignoreElement());
+        )
+        .reduce(paymentRequest, (currentPaymentRequest, product) -> {
+          currentPaymentRequest.getProductList().add(product);
+          return currentPaymentRequest;
+        })
+        .flatMap(currentPaymentRequest -> invoiceRepository.sendToPay(serverRequest, currentPaymentRequest))
+        .then(tableOrderRepository.cleanTable(serverRequest, tableNumber));
   }
 }

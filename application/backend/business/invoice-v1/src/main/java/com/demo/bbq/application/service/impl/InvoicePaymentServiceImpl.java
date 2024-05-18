@@ -33,7 +33,7 @@ public class InvoicePaymentServiceImpl implements InvoicePaymentService {
 
     AtomicReference<BigDecimal> totalAmount = new AtomicReference<>();
 
-    return proformaInvoiceService.generateProformaInvoice(serverRequest, Flux.fromIterable(paymentRequest.getProductList()))
+    return proformaInvoiceService.generateProforma(serverRequest, Flux.fromIterable(paymentRequest.getProductList()))
         .doOnSuccess(validateProforma::accept)
         .doOnSuccess(proforma -> totalAmount.set(proforma.getTotal()))
         .map(invoice -> invoiceMapper.toEntity(invoice, paymentRequest.getCustomer(), paymentRequest.getPayment().getMethod()))

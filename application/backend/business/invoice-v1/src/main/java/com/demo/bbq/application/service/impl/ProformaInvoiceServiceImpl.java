@@ -30,7 +30,7 @@ public class ProformaInvoiceServiceImpl implements ProformaInvoiceService {
   private final RuleService ruleService;
 
   @Override
-  public Mono<ProformaInvoiceResponseDTO> generateProformaInvoice(ServerRequest serverRequest, Flux<ProductRequestDTO> products) {
+  public Mono<ProformaInvoiceResponseDTO> generateProforma(ServerRequest serverRequest, Flux<ProductRequestDTO> products) {
     ProformaInvoiceResponseDTO initialProforma = ProformaInvoiceResponseDTO.builder()
         .subtotal(BigDecimal.ZERO)
         .productList(new ArrayList<>())

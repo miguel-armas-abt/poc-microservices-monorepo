@@ -1,25 +1,29 @@
 package com.demo.bbq.rest;
 
-import com.demo.bbq.repository.menu.MenuRepositoryStrategy;
-import com.demo.bbq.repository.menu.wrapper.response.MenuOptionResponseWrapper;
-import io.reactivex.rxjava3.core.Observable;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import static org.springframework.http.MediaType.APPLICATION_STREAM_JSON;
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+import static org.springframework.web.reactive.function.server.RequestPredicates.path;
+import static org.springframework.web.reactive.function.server.RouterFunctions.nest;
+import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
-@Component
-@RequiredArgsConstructor
-public class MenuRestServiceImpl extends OrderHubRestService {
+import com.demo.bbq.rest.handler.MenuHandler;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
-  private final MenuRepositoryStrategy menuRepositoryStrategy;
+@Configuration
+public class MenuRestServiceImpl {
 
-  @GetMapping(value = "/menu-options", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-  public Observable<MenuOptionResponseWrapper> findMenuByCategory(HttpServletRequest servletRequest,
-                                                                  @RequestParam(value = "category") String categoryCode) {
-    return menuRepositoryStrategy.getService()
-        .findByCategory(servletRequest, categoryCode);
+  private static final String BASE_URI = "/bbq/bff/order-hub/v1/";
+
+  @Bean(name = "menu-options")
+  public RouterFunction<ServerResponse> build(MenuHandler menuHandler) {
+    return nest(
+        path(BASE_URI),
+        route()
+            .GET("menu-options", accept(APPLICATION_STREAM_JSON) , menuHandler::findMenuByCategory)
+            .build()
+    );
   }
 }
