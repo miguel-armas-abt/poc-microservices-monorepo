@@ -5,6 +5,8 @@ import com.demo.bbq.application.service.TablePlacementService;
 import com.demo.bbq.application.dto.tableplacement.response.TablePlacementResponseDTO;
 import com.demo.bbq.rest.common.BuilderServerResponse;
 import java.util.Optional;
+
+import com.newrelic.api.agent.Trace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -21,6 +23,7 @@ public class TableOrderHandler {
   private final TablePlacementService tablePlacementService;
   private final BuilderServerResponse<TablePlacementResponseDTO> buildTableOrderResponse;
 
+  @Trace(dispatcher = true)
   public Mono<ServerResponse> findByTableNumber(ServerRequest serverRequest) {
     Optional<Integer> tableNumber = serverRequest.queryParam(PARAM_TABLE_NUMBER).map(Integer::parseInt);
 
@@ -28,12 +31,14 @@ public class TableOrderHandler {
         .flatMap(buildTableOrderResponse::build);
   }
 
+  @Trace(dispatcher = true)
   public Mono<ServerResponse> cleanTable(ServerRequest serverRequest) {
     Optional<Integer> tableNumber = serverRequest.queryParam(PARAM_TABLE_NUMBER).map(Integer::parseInt);
 
     return buildTableOrderResponse.buildVoid(tablePlacementService.cleanTable(tableNumber.get()));
   }
 
+  @Trace(dispatcher = true)
   public Mono<ServerResponse> generateTableOrder(ServerRequest serverRequest) {
     Flux<MenuOrderRequestDTO> requestedMenuOrders = serverRequest.bodyToFlux(MenuOrderRequestDTO.class);
     Optional<Integer> tableNumber = serverRequest.queryParam(PARAM_TABLE_NUMBER).map(Integer::parseInt);

@@ -1,8 +1,10 @@
-package com.demo.bbq.utils.restclient.webclient.logging.constants;
+package com.demo.bbq.utils.interceptor.logging.constants;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoggingConstant {
-
-  private LoggingConstant() {}
 
   public static final String HEADER_TRACE = "traceId";
   public static final String HEADER_PARENT = "parentId";

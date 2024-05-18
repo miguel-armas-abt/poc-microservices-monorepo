@@ -5,6 +5,7 @@ import com.demo.bbq.application.dto.tableregistration.response.TableRegistration
 import com.demo.bbq.application.service.TableRegistrationService;
 import com.demo.bbq.rest.common.BuilderServerResponse;
 import com.demo.bbq.application.helper.RequestValidatorHelper;
+import com.newrelic.api.agent.Trace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -19,6 +20,7 @@ public class TableRegistrationHandler {
   private final BuilderServerResponse<TableRegistrationResponseDTO> buildTableOrderResponse;
   private final RequestValidatorHelper<TableRegistrationRequestDTO> requestValidatorHelper;
 
+  @Trace(dispatcher = true)
   public Mono<ServerResponse> createTable(ServerRequest serverRequest) {
     return serverRequest.bodyToMono(TableRegistrationRequestDTO.class)
         .doOnSuccess(requestValidatorHelper::validateRequestBody)

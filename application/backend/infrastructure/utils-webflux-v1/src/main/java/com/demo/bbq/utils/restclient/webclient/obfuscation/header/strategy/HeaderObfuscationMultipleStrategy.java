@@ -1,8 +1,6 @@
 package com.demo.bbq.utils.restclient.webclient.obfuscation.header.strategy;
 
-import static com.demo.bbq.utils.restclient.webclient.obfuscation.header.enums.HeaderObfuscationType.MULTI;
-
-import com.demo.bbq.utils.restclient.webclient.obfuscation.header.enums.HeaderObfuscationType;
+import com.demo.bbq.utils.properties.dto.HeaderObfuscationType;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +31,6 @@ public class HeaderObfuscationMultipleStrategy implements HeaderObfuscationStrat
 
     @Override
     public boolean supports(HeaderObfuscationType strategy) {
-        return MULTI.equals(strategy);
+        return HeaderObfuscationType.MULTI.equals(strategy);
     }
 }

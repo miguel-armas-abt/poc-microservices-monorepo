@@ -1,4 +1,5 @@
 configuration:
+  application-name: ${spring.application.name}
 
   error-messages:
     enabled: false
@@ -8,12 +9,23 @@ configuration:
   rest-clients:
     product-v1:
       request:
-        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/
+        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/products/
         headers:
-          Accept: application/json
+          provided:
+            Accept: application/json
+          generated:
+            parentId: PARENT_ID
+            timestamp: TIMESTAMP_V2
+          forwarded:
+            traceId: traceId
 
   variables:
     igv: 0.18
+
+  obfuscation:
+    body-fields: []
+    headers: []
+    header-obfuscation-type: {}
 
   rules:
     discount-rules:

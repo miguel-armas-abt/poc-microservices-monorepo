@@ -1,27 +1,22 @@
 package com.demo.bbq.config.errors.handler.response;
 
 import com.demo.bbq.application.properties.ServiceConfigurationProperties;
-import com.demo.bbq.utils.errors.dto.ErrorDTO;
-import java.util.List;
-
-import com.demo.bbq.utils.errors.handler.external.strategy.RestClientErrorStrategy;
 import com.demo.bbq.utils.errors.handler.response.ResponseErrorHandlerUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.server.WebFilter;
 
-@RestControllerAdvice
 @RequiredArgsConstructor
-public class ResponseErrorHandler extends ResponseEntityExceptionHandler {
+@Configuration
+public class ResponseErrorHandler {
 
   private final ServiceConfigurationProperties properties;
-  private final  List<RestClientErrorStrategy> errorServices;
 
-  @ExceptionHandler({Throwable.class})
-  public final ResponseEntity<ErrorDTO> handleException(Throwable exception, WebRequest request) {
-    return ResponseErrorHandlerUtil.handleException(properties, errorServices, exception, request);
+  @Bean
+  public WebFilter exceptionHandlingFilter() {
+    return (exchange, next) -> next.filter(exchange)
+        .onErrorResume(Exception.class, exception -> ResponseErrorHandlerUtil.handleException(properties, exception, exchange));
   }
+
 }

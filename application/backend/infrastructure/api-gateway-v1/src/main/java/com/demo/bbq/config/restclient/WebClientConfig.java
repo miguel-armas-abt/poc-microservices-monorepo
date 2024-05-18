@@ -1,4 +1,4 @@
-package com.demo.bbq.config.webclient;
+package com.demo.bbq.config.restclient;
 
 import com.demo.bbq.config.interceptor.logging.ExchangeRequestFilter;
 import com.demo.bbq.config.interceptor.logging.ExchangeResponseFilter;

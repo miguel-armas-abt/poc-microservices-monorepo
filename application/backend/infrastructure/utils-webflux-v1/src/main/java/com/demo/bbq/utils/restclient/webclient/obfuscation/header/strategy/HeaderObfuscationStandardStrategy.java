@@ -1,9 +1,7 @@
 package com.demo.bbq.utils.restclient.webclient.obfuscation.header.strategy;
 
 import static com.demo.bbq.utils.restclient.webclient.obfuscation.constants.ObfuscationConstant.OBFUSCATION_MASK;
-import static com.demo.bbq.utils.restclient.webclient.obfuscation.header.enums.HeaderObfuscationType.STANDARD;
-
-import com.demo.bbq.utils.restclient.webclient.obfuscation.header.enums.HeaderObfuscationType;
+import com.demo.bbq.utils.properties.dto.HeaderObfuscationType;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -20,6 +18,6 @@ public class HeaderObfuscationStandardStrategy implements HeaderObfuscationStrat
 
     @Override
     public boolean supports(HeaderObfuscationType strategy) {
-        return STANDARD.equals(strategy);
+        return HeaderObfuscationType.STANDARD.equals(strategy);
     }
 }

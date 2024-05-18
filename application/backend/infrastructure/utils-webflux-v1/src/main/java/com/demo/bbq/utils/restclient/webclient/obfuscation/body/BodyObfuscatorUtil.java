@@ -3,7 +3,7 @@ package com.demo.bbq.utils.restclient.webclient.obfuscation.body;
 import static com.demo.bbq.utils.restclient.webclient.obfuscation.constants.ObfuscationConstant.WILD_CARD;
 
 import com.demo.bbq.utils.errors.exceptions.SystemException;
-import com.demo.bbq.utils.restclient.webclient.properties.LoggingBaseProperties;
+import com.demo.bbq.utils.properties.dto.ObfuscationTemplate;
 import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
@@ -12,12 +12,12 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 public class BodyObfuscatorUtil {
 
-    public static String process(LoggingBaseProperties loggingProperties, String value) {
+    public static String process(ObfuscationTemplate obfuscation, String value) {
         try {
             if (StringUtils.isEmpty(value)) {
                 return value;
             }
-            Set<String> sensitiveFields = loggingProperties.getSensitiveBodyFields();
+            Set<String> sensitiveFields = obfuscation.getBodyFields();
             if (sensitiveFields == null || sensitiveFields.isEmpty()) {
                 return value;
             }

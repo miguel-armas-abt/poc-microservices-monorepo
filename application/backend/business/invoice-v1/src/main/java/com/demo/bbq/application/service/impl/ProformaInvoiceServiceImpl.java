@@ -9,14 +9,15 @@ import com.demo.bbq.application.properties.ServiceConfigurationProperties;
 import com.demo.bbq.application.service.ProformaInvoiceService;
 import com.demo.bbq.repository.product.ProductRepository;
 import com.demo.bbq.application.rules.service.RuleService;
-import io.reactivex.rxjava3.core.Single;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,33 +25,35 @@ import org.springframework.stereotype.Service;
 public class ProformaInvoiceServiceImpl implements ProformaInvoiceService {
 
   private final ServiceConfigurationProperties properties;
-
   private final InvoiceMapper proformaInvoiceMapper;
-
   private final ProductRepository productRepository;
-
   private final RuleService ruleService;
 
   @Override
-  public Single<ProformaInvoiceResponseDTO> generateProformaInvoice(List<ProductRequestDTO> products) {
-    AtomicReference<BigDecimal> subtotalInvoice = new AtomicReference<>(BigDecimal.ZERO);
-    List<ProductResponseDTO> productList = products.stream()
-        .map(productRequest -> {
-          BigDecimal unitPrice = productRepository.findByProductCode(productRequest.getProductCode()).blockingGet().getUnitPrice();
-          return proformaInvoiceMapper.toResponseDTO(productRequest, unitPrice, applyDiscount(productRequest));
+  public Mono<ProformaInvoiceResponseDTO> generateProformaInvoice(ServerRequest serverRequest, Flux<ProductRequestDTO> products) {
+    ProformaInvoiceResponseDTO initialProforma = ProformaInvoiceResponseDTO.builder()
+        .subtotal(BigDecimal.ZERO)
+        .productList(new ArrayList<>())
+        .build();
+
+    return products
+        .flatMap(product -> productRepository
+            .findByProductCode(serverRequest, product.getProductCode())
+            .map(productFound -> Pair.of(product, productFound.getUnitPrice())))
+        .reduce(initialProforma, (proforma, productWithPrice) -> {
+          ProductResponseDTO product = proformaInvoiceMapper.toResponseDTO(productWithPrice.getKey(), productWithPrice.getValue(), applyDiscount(productWithPrice.getKey()));
+          proforma.getProductList().add(product);
+          proforma.setSubtotal(proforma.getSubtotal().add(product.getSubtotal()));
+          return proforma;
         })
-        .peek(product -> subtotalInvoice.set(subtotalInvoice.get().add(product.getSubtotal()))).collect(Collectors.toList());
-    return Single.just(toProformaInvoice(productList, subtotalInvoice.get()));
+        .map(this::completeFields);
   }
 
-  private ProformaInvoiceResponseDTO toProformaInvoice(List<ProductResponseDTO> productList, BigDecimal subtotal) {
+  private ProformaInvoiceResponseDTO completeFields(ProformaInvoiceResponseDTO proforma) {
     BigDecimal igv = new BigDecimal(properties.getVariables().get("igv"));
-    return ProformaInvoiceResponseDTO.builder()
-        .igv(igv)
-        .subtotal(subtotal)
-        .productList(productList)
-        .total(subtotal.add(subtotal.multiply(igv)))
-        .build();
+    proforma.setIgv(igv);
+    proforma.setTotal(proforma.getSubtotal().add(proforma.getSubtotal().multiply(igv)));
+    return proforma;
   }
 
   private BigDecimal applyDiscount(ProductRequestDTO request) {

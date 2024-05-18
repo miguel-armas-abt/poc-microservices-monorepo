@@ -1,7 +1,7 @@
-package com.demo.bbq.config.webclient;
+package com.demo.bbq.config.restclient;
 
-import com.demo.bbq.config.interceptor.ExchangeRequestFilter;
-import com.demo.bbq.config.interceptor.ExchangeResponseFilter;
+import com.demo.bbq.config.interceptor.logging.ExchangeRequestFilter;
+import com.demo.bbq.config.interceptor.logging.ExchangeResponseFilter;
 import com.demo.bbq.utils.restclient.webclient.WebClientFactory;
 import com.demo.bbq.utils.restclient.webclient.obfuscation.header.strategy.HeaderObfuscationMultipleStrategy;
 import com.demo.bbq.utils.restclient.webclient.obfuscation.header.strategy.HeaderObfuscationStandardStrategy;

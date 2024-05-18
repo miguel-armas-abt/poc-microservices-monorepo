@@ -1,6 +1,6 @@
 package com.demo.bbq.utils.restclient.webclient.obfuscation.header.strategy;
 
-import com.demo.bbq.utils.restclient.webclient.obfuscation.header.enums.HeaderObfuscationType;
+import com.demo.bbq.utils.properties.dto.HeaderObfuscationType;
 
 public interface HeaderObfuscationStrategy {
 

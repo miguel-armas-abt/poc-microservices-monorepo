@@ -1,8 +1,8 @@
 package com.demo.bbq.utils.restclient.webclient.obfuscation.header;
 
-import com.demo.bbq.utils.restclient.webclient.obfuscation.header.enums.HeaderObfuscationType;
+import com.demo.bbq.utils.properties.dto.HeaderObfuscationType;
+import com.demo.bbq.utils.properties.dto.ObfuscationTemplate;
 import com.demo.bbq.utils.restclient.webclient.obfuscation.header.strategy.HeaderObfuscationStrategy;
-import com.demo.bbq.utils.restclient.webclient.properties.LoggingBaseProperties;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,12 +11,12 @@ import org.springframework.http.HttpHeaders;
 
 public class HeaderObfuscatorUtil {
 
-    public static String process(LoggingBaseProperties loggingProperties,
-                          List<HeaderObfuscationStrategy> strategies,
-                          HttpHeaders headers) {
+    public static String process(ObfuscationTemplate obfuscation,
+                                 List<HeaderObfuscationStrategy> strategies,
+                                 HttpHeaders headers) {
 
-        Set<String> sensitiveHeaders = loggingProperties.getSensitiveHeaders();
-        Map<String, HeaderObfuscationType> strategiesMap = loggingProperties.getHeaderObfuscationStrategies();
+        Set<String> sensitiveHeaders = obfuscation.getHeaders();
+        Map<String, HeaderObfuscationType> strategiesMap = obfuscation.getHeaderObfuscationType();
         return headers.toSingleValueMap().entrySet().stream()
                 .map(entry -> obfuscateHeader(strategies, entry, sensitiveHeaders, strategiesMap))
                 .collect(Collectors.joining(", "));

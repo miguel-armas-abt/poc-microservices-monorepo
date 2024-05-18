@@ -1,4 +1,4 @@
-package rule_table;
+package rules;
 //generated from Decision Table
 import com.demo.bbq.application.dto.rules.DiscountRule;
 import java.util.Arrays;

@@ -27,10 +27,6 @@
     <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
     <gson.version>2.8.9</gson.version>
     <apache-commons.version>3.11</apache-commons.version>
-    <retrofit.version>2.9.0</retrofit.version>
-    <retrofit-jackson.version>2.3.0</retrofit-jackson.version>
-    <resilience-retrofit.version>1.5.0</resilience-retrofit.version>
-    <okhttp.version>3.14.9</okhttp.version>
     <drools.version>7.73.0.Final</drools.version>
     <commons-io.version>2.11.0</commons-io.version>
     <mysql-version>8.0.25</mysql-version>
@@ -89,6 +85,26 @@
       <artifactId>micrometer-registry-prometheus</artifactId>
       <version>${micrometer.version}</version>
     </dependency>
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.newrelic.agent.java</groupId>
+      <artifactId>newrelic-api</artifactId>
+      <version>8.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.newrelic.logging</groupId>
+      <artifactId>logback</artifactId>
+      <version>2.6.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.newrelic.telemetry</groupId>
+      <artifactId>telemetry-http-okhttp</artifactId>
+      <version>0.10.0</version>
+    </dependency>
 
     <!-- ========================= Utils ========================= -->
     <dependency>
@@ -136,44 +152,6 @@
       <artifactId>commons-io</artifactId>
       <version>${commons-io.version}</version>
     </dependency>
-
-    <!-- ========================= HTTP Client ========================= -->
-    <dependency><!-- retrofit -->
-      <groupId>com.squareup.retrofit2</groupId>
-      <artifactId>retrofit</artifactId>
-      <version>${retrofit.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.retrofit2</groupId>
-      <artifactId>converter-scalars</artifactId>
-      <version>${retrofit.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.retrofit2</groupId>
-      <artifactId>converter-jackson</artifactId>
-      <version>${retrofit-jackson.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.okhttp3</groupId>
-      <artifactId>okhttp</artifactId>
-      <version>${okhttp.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.okhttp3</groupId>
-      <artifactId>logging-interceptor</artifactId>
-      <version>${okhttp.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.retrofit2</groupId>
-      <artifactId>adapter-rxjava3</artifactId>
-      <version>${retrofit.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.github.resilience4j</groupId>
-      <artifactId>resilience4j-retrofit</artifactId>
-      <version>${resilience-retrofit.version}</version>
-    </dependency>
-
   </dependencies>
 
   <build>

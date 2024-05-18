@@ -1,17 +1,47 @@
 package com.demo.bbq.repository.product;
 
+import static com.demo.bbq.utils.restclient.headers.HeadersBuilderUtil.buildHeaders;
+
+import com.demo.bbq.application.properties.ServiceConfigurationProperties;
+import com.demo.bbq.config.errors.handler.external.ExternalErrorHandler;
 import com.demo.bbq.repository.product.wrapper.ProductResponseWrapper;
-import io.reactivex.rxjava3.core.Single;
-import retrofit2.http.GET;
-import retrofit2.http.Headers;
-import retrofit2.http.Path;
-import retrofit2.http.Streaming;
+import com.demo.bbq.utils.errors.dto.ErrorDTO;
+import com.demo.bbq.utils.properties.dto.HeaderTemplate;
+import com.newrelic.api.agent.Trace;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.util.UriComponentsBuilder;
+import reactor.core.publisher.Mono;
 
-public interface ProductRepository {
+@Repository
+@RequiredArgsConstructor
+public class ProductRepository {
 
-  @Streaming
-  @Headers({"Accept: application/stream+json"})
-  @GET("products/{productCode}")
-  Single<ProductResponseWrapper> findByProductCode(@Path(value = "productCode") String productCode);
+  private static final String SERVICE_NAME = "product-v1";
+
+  private final WebClient webClient;
+  private final ServiceConfigurationProperties properties;
+  private final ExternalErrorHandler externalErrorHandler;
+
+  @Trace(async = true)
+  public Mono<ProductResponseWrapper> findByProductCode(ServerRequest serverRequest, String productCode) {
+    return webClient.get()
+        .uri(UriComponentsBuilder
+            .fromUriString(properties.searchEndpoint(SERVICE_NAME).concat("{productCode}"))
+            .buildAndExpand(productCode).toUriString())
+        .headers(buildHeaders(getHeaderTemplate(), serverRequest))
+        .retrieve()
+        .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME))
+        .toEntity(ProductResponseWrapper.class)
+        .mapNotNull(HttpEntity::getBody);
+  }
+
+  private HeaderTemplate getHeaderTemplate() {
+    return properties.getRestClients().get(SERVICE_NAME).getRequest().getHeaders();
+  }
 }
 
