@@ -2,7 +2,7 @@
 
 # Jenkins
 
-> 📋 **Pre requisitos**
+> ✅ **Pre requisitos**
 > - [Encender el clúster de Minikube](./../k8s/README.md.#iniciar-el-cluster-de-minikube)
 > - [Construir imágenes en Minikube](./../k8s/README.md) <br>ToBe: Jenkinsfile - Las imágenes deben ser pusheadas y obtenidas desde DockerHub.
 > - [Instalar ngrok - Anexos](#configuracion-de-ngrok)

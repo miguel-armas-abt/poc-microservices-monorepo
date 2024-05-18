@@ -1,6 +1,6 @@
 > 📌 Puede utilizar `#` para comentar las líneas que desea ignorar.
 
-# PARÁMETROS LOCAL
+# PARÁMETROS LOCALES
 
 > 📄 **01_projects-to-compile.csv** - Lista de proyectos a compilar
 >   - `APP_NAME`: Nombre del servicio.
