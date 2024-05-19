@@ -22,7 +22,7 @@ configuration:
         endpoint: http://${MENU_V2_DOMAIN:localhost:8016}/bbq/business/menu/v2/
         headers:
           provided:
-            Accept: application/stream+json
+            Accept: application/x-ndjson
           generated:
             parentId: PARENT_ID
             timestamp: TIMESTAMP_V2

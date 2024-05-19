@@ -2,5 +2,5 @@ SERVER_NAME
 kafka
 zookeeper
 #redis
-#postgres-db
+postgres-db
 #mysql-db

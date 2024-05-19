@@ -1,6 +1,7 @@
 package com.demo.bbq.application.dto.invoices;
 
 import java.io.Serializable;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Builder
@@ -10,7 +11,12 @@ import lombok.*;
 @NoArgsConstructor
 public class InvoicePaymentRequestDTO implements Serializable {
 
+  @NotNull
   private Integer tableNumber;
-  private CustomerDTO customerDTO;
-  private PaymentDTO paymentDTO;
+
+  @NotNull
+  private CustomerDTO customer;
+
+  @NotNull
+  private PaymentDTO payment;
 }

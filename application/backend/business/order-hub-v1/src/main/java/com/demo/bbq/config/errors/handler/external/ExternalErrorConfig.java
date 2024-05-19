@@ -1,6 +1,6 @@
 package com.demo.bbq.config.errors.handler.external;
 
-import org.antlr.v4.runtime.DefaultErrorStrategy;
+import com.demo.bbq.utils.errors.handler.external.strategy.DefaultErrorStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

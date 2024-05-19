@@ -17,7 +17,8 @@ import java.util.function.Function;
 
 @Slf4j
 @Path("/bbq/business/menu/v2/menu-options")
-@Produces("application/stream+json")
+@Produces("application/x-ndjson")
+//@Produces("application/stream+json")
 @Consumes(MediaType.APPLICATION_JSON)
 public class MenuOptionRestService {
 

@@ -1,27 +1,22 @@
-package com.demo.bbq.application.helper;
+package com.demo.bbq.utils.toolkit;
 
 import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import java.util.function.Function;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-@Slf4j
-@Component
-@RequiredArgsConstructor
-public class RequestValidatorHelper<T> {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class RequestValidatorUtil {
 
-  private final Validator validator;
-
-  public void validateRequestBody(T requestBody) {
-    validateObjectRecursively(requestBody);
+  public static <T> void validateRequestBody(T requestBody, Validator validator) {
+    validateObjectRecursively(requestBody, validator);
   }
 
-  private void validateObjectRecursively(Object obj) {
+  private static void validateObjectRecursively(Object obj, Validator validator) {
     Errors errors = new BeanPropertyBindingResult(obj, obj.getClass().getName());
     validator.validate(obj, errors);
     if (errors.hasErrors()) {
@@ -35,7 +30,7 @@ public class RequestValidatorHelper<T> {
         try {
           Object fieldValue = field.get(obj);
           if (fieldValue != null && !field.getType().isPrimitive() && !field.getType().getName().startsWith("java.")) {
-            validateObjectRecursively(fieldValue);
+            validateObjectRecursively(fieldValue, validator);
           }
         } catch (IllegalAccessException e) {
           throw throwInvalidRequest.apply(e.getMessage());
