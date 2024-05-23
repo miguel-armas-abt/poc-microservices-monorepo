@@ -6,7 +6,7 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
 
 
 > 💡 **Atención en el comedor**
->
+
 ![Proceso de atención en el restaurante](./docs/diagrams/restaurant-process.jpg)
 
 # 2. DISEÑO DEL SOFTWARE

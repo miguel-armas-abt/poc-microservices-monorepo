@@ -9,11 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 import com.demo.bbq.utils.properties.dto.HeaderTemplate;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Repository
 @RequiredArgsConstructor
@@ -25,14 +26,15 @@ public class AuthAdapterRepository {
   private final ServiceConfigurationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
 
-  public Flux<HashMap<String, Integer>> getRoles(ServerHttpRequest serverRequest) {
+  public Mono<HashMap<String, Integer>> getRoles(ServerHttpRequest serverRequest) {
     return webClient.get()
         .uri(properties.getRestClients().get(SERVICE_NAME).getRequest().getEndpoint().concat("/roles"))
         .headers(buildHeaders(getHeaderTemplate(), serverRequest))
         .retrieve()
         .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME))
-        .bodyToFlux(HashMap.class)
-        .map(this::castHashMapToIntegerValues);
+        .toEntity(HashMap.class)
+        .mapNotNull(HttpEntity::getBody)
+        .mapNotNull(this::castHashMapToIntegerValues);
   }
 
   private HashMap<String, Integer> castHashMapToIntegerValues(HashMap<String, ?> input) {

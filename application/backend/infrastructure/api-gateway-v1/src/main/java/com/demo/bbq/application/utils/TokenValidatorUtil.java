@@ -9,7 +9,7 @@ import org.springframework.web.server.ServerWebExchange;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TokenValidatorUtil {
 
-  public static void getAuthToken(ServerWebExchange serverWebExchange) {
+  public static void validateAuthToken(ServerWebExchange serverWebExchange) {
     HttpHeaders httpHeaders = serverWebExchange.getRequest().getHeaders();
 
     if (!httpHeaders.containsKey(HttpHeaders.AUTHORIZATION))

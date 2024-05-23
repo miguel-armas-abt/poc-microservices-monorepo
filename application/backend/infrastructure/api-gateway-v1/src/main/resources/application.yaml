@@ -16,6 +16,7 @@ spring:
             - name: AuthenticationFilter
 
 configuration:
+  enable-auth: ${ENABLE_AUTH:false}
 
   error-messages:
     enabled: false
@@ -38,6 +39,12 @@ configuration:
       variables:
         expected-roles: partners #separate items with comma
 
+  obfuscation:
+    body-fields: ["accessToken"]
+    headers: ["Authorization"]
+    header-obfuscation-type:
+      "Authorization": STANDARD
+
 # actuator endpoints
 management:
   endpoints:
@@ -53,10 +60,3 @@ logging:
     org.springframework.cloud.gateway: DEBUG
     reactor.netty.http.client: DEBUG
 
-custom-logging:
-  project-name: ${spring.application.name}
-  enabled: true
-  sensitive-headers: ["Authorization"]
-  sensitive-body-fields: ["accessToken", "report[*].id"]
-  header-obfuscation-strategies:
-    "Authorization": STANDARD

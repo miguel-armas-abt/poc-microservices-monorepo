@@ -12,4 +12,5 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "configuration")
 public class ServiceConfigurationProperties extends ConfigurationBaseProperties {
 
+  private boolean enableAuth;
 }

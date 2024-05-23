@@ -1,6 +1,6 @@
 > 📌 Utilice una shell compatible con Unix (PowerShell o Git bash) para ejecutar scripts `.sh`
 
-# Jenkins
+# JENKINS
 
 > ✅ **Pre requisitos**
 > - [Encender el clúster de Minikube](./../k8s/README.md.#iniciar-el-cluster-de-minikube)
