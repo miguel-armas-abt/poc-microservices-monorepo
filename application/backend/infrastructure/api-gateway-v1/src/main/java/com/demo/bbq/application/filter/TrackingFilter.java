@@ -33,13 +33,9 @@ public class TrackingFilter extends AbstractGatewayFilterFactory<TrackingFilter.
   }
 
   private static ServerWebExchange updateHeaders(ServerWebExchange exchange) {
-    ServerWebExchange currentExchange = Optional.ofNullable(exchange.getRequest().getHeaders().getFirst(TRACE_ID.getKey())).isPresent()
+    return Optional.ofNullable(exchange.getRequest().getHeaders().getFirst(TRACE_ID.getKey())).isPresent()
         ? exchange
         : mutateExchangeRequest(exchange);
-
-    String traceId = currentExchange.getRequest().getHeaders().getFirst(TRACE_ID.getKey());
-    currentExchange.getResponse().getHeaders().add(TRACE_ID.getKey(), traceId);
-    return currentExchange;
   }
 
   private static ServerWebExchange mutateExchangeRequest(ServerWebExchange exchange) {
