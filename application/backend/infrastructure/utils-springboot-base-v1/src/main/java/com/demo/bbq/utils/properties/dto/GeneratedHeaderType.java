@@ -15,10 +15,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum GeneratedHeaderType {
 
-  TIMESTAMP(() -> String.valueOf(getGregorianCalendar())),
-  TIMESTAMP_V2(() -> getFormattedDate.apply(DEFAULT_DATE_PATTERN)),
-  TRACE_ID(() -> getTrace(TRACE_ID_SIZE)),
-  PARENT_ID(() -> getTrace(PARENT_ID_SIZE));
+  TIMESTAMP("timestamp", () -> String.valueOf(getGregorianCalendar())),
+  TIMESTAMP_V2("timestamp", () -> getFormattedDate.apply(DEFAULT_DATE_PATTERN)),
+  TRACE_ID("traceId", () -> getTrace(TRACE_ID_SIZE)),
+  PARENT_ID("parentId", () -> getTrace(PARENT_ID_SIZE));
 
+  private final String key;
   private final HeaderGenerator headerGenerator;
 }

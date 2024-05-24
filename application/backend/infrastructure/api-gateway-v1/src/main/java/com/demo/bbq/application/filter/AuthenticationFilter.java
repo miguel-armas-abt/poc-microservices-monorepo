@@ -32,14 +32,13 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
   public GatewayFilter apply(Config config) {
     return new OrderedGatewayFilter((exchange, chain) ->
         validateRequest(exchange)
-          .then(chain.filter(exchange))
-          .onErrorResume(Exception.class, exception -> ResponseErrorHandlerUtil.handleException(configurationProperties, exception, exchange))
+            .then(chain.filter(exchange))
+            .onErrorResume(Exception.class, exception -> ResponseErrorHandlerUtil.handleException(configurationProperties, exception, exchange))
         ,1);
   }
 
   Mono<Boolean> validateRequest(ServerWebExchange exchange) {
     Set<Boolean> status = new HashSet<>();
-
     return !configurationProperties.isEnableAuth()
         ? Mono.just(Boolean.TRUE)
         : authAdapterRepository.getRoles(exchange.getRequest())

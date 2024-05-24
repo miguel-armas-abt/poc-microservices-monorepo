@@ -32,7 +32,7 @@
   </properties>
 
   <modules>
-    <module>parent-springboot-v1</module>
+    <module>parent-springboot-app-base-v1</module>
     <module>parent-rxjava-base-v1</module>
     <module>parent-webflux-base-v1</module>
   </modules>

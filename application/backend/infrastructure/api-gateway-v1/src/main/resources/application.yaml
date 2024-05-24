@@ -14,6 +14,7 @@ spring:
             - Method=GET,POST,PUT,DELETE,PATCH
           filters:
             - name: AuthenticationFilter
+            - name: TrackingFilter
 
 configuration:
   enable-auth: ${ENABLE_AUTH:false}

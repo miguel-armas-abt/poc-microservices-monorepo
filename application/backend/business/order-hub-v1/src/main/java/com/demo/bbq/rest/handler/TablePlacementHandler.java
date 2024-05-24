@@ -2,9 +2,8 @@ package com.demo.bbq.rest.handler;
 
 import com.demo.bbq.application.dto.tableorder.request.MenuOrderRequestDTO;
 import com.demo.bbq.application.service.tableplacement.TablePlacementService;
-import com.demo.bbq.repository.tableorder.wrapper.TableOrderResponseWrapper;
-import com.demo.bbq.rest.common.BuilderServerResponse;
 import com.demo.bbq.utils.errors.exceptions.BusinessException;
+import com.demo.bbq.utils.toolkit.ServerResponseBuilderUtil;
 import com.newrelic.api.agent.Trace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,19 +16,23 @@ import reactor.core.publisher.Mono;
 public class TablePlacementHandler {
 
   private final TablePlacementService tablePlacementService;
-  private final BuilderServerResponse<TableOrderResponseWrapper> builderServerResponse;
 
   @Trace(dispatcher = true)
   public Mono<ServerResponse> generateTableOrder(ServerRequest serverRequest) {
-    return builderServerResponse.buildVoid(serverRequest.bodyToFlux(MenuOrderRequestDTO.class)
-        .collectList()
-        .flatMap(requestedMenuOrders -> tablePlacementService.generateTableOrder(serverRequest, requestedMenuOrders, getTableNumber(serverRequest))));
+    return ServerResponseBuilderUtil
+        .buildEmpty(
+            ServerResponse.ok(),
+            serverRequest.headers(),
+            serverRequest.bodyToFlux(MenuOrderRequestDTO.class)
+                .collectList()
+                .flatMap(requestedMenuOrders -> tablePlacementService.generateTableOrder(serverRequest, requestedMenuOrders, getTableNumber(serverRequest)))
+        );
   }
 
   @Trace(dispatcher = true)
   public Mono<ServerResponse> findByTableNumber(ServerRequest serverRequest) {
     return tablePlacementService.findByTableNumber(serverRequest, getTableNumber(serverRequest))
-        .flatMap(builderServerResponse::build);
+        .flatMap(response -> ServerResponseBuilderUtil.buildMono(ServerResponse.ok(), serverRequest.headers(), response));
   }
 
   private int getTableNumber(ServerRequest serverRequest) {
