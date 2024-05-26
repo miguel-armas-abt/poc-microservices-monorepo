@@ -9,7 +9,6 @@ import com.demo.bbq.repository.invoice.wrapper.request.ProductRequestWrapper;
 import com.demo.bbq.repository.invoice.wrapper.response.ProformaInvoiceResponseWrapper;
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import com.demo.bbq.utils.properties.dto.HeaderTemplate;
-import com.newrelic.api.agent.Trace;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -32,7 +31,6 @@ public class InvoiceRepository {
   private final ServiceConfigurationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
 
-  @Trace(async = true)
   public Mono<ProformaInvoiceResponseWrapper> generateProforma(ServerRequest serverRequest,
                                                                List<ProductRequestWrapper> productList) {
     return webClient.post()
@@ -46,7 +44,6 @@ public class InvoiceRepository {
         .mapNotNull(HttpEntity::getBody);
   }
 
-  @Trace(async = true)
   public Mono<Void> sendToPay(ServerRequest serverRequest,
                                      PaymentRequestWrapper paymentRequest) {
     return webClient.post()

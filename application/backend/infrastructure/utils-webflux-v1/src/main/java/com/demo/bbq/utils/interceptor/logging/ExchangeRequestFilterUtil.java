@@ -6,7 +6,7 @@ import static com.demo.bbq.utils.interceptor.logging.constants.LoggingConstant.M
 import static com.demo.bbq.utils.interceptor.logging.constants.LoggingConstant.MDC_REQ_HEADERS;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
-import com.demo.bbq.utils.interceptor.logging.mdc.MDCUtil;
+import com.demo.bbq.utils.interceptor.logging.mdc.TracingGeneratorUtil;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import com.demo.bbq.utils.restclient.webclient.obfuscation.body.BodyObfuscatorUtil;
 import com.demo.bbq.utils.restclient.webclient.obfuscation.header.HeaderObfuscatorUtil;
@@ -75,7 +75,7 @@ public class ExchangeRequestFilterUtil {
       var uri = clientRequest.url().toString();
       var httpHeaders = clientRequest.headers();
 
-      MDCUtil.generateTracking(properties.getApplicationName(), httpHeaders);
+      TracingGeneratorUtil.generateTrace(httpHeaders);
 
       ThreadContext.put(MDC_REQ_METHOD, method);
       ThreadContext.put(MDC_REQ_URI, uri);

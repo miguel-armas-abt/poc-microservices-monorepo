@@ -8,7 +8,6 @@ import com.demo.bbq.repository.menu.wrapper.response.MenuOptionResponseWrapper;
 import com.demo.bbq.repository.menu.wrapper.request.MenuOptionSaveRequestWrapper;
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
 import com.demo.bbq.utils.properties.dto.HeaderTemplate;
-import com.newrelic.api.agent.Trace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatusCode;
@@ -32,7 +31,6 @@ public class MenuV2Repository implements MenuRepository {
   private final ServiceConfigurationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
 
-  @Trace(async = true)
   @Override
   public Mono<MenuOptionResponseWrapper> findByProductCode(ServerRequest serverRequest, String productCode) {
     return webClient.get()
@@ -46,7 +44,6 @@ public class MenuV2Repository implements MenuRepository {
         .mapNotNull(HttpEntity::getBody);
   }
 
-  @Trace(async = true)
   @Override
   public Flux<MenuOptionResponseWrapper> findByCategory(ServerRequest serverRequest, String category) {
     return webClient.get()
@@ -60,7 +57,6 @@ public class MenuV2Repository implements MenuRepository {
         .bodyToFlux(MenuOptionResponseWrapper.class);
   }
 
-  @Trace(async = true)
   @Override
   public Mono<Void> save(ServerRequest serverRequest, MenuOptionSaveRequestWrapper menuOption) {
     return webClient.post()
@@ -75,7 +71,6 @@ public class MenuV2Repository implements MenuRepository {
         .mapNotNull(HttpEntity::getBody);
   }
 
-  @Trace(async = true)
   @Override
   public Mono<Void> update(ServerRequest serverRequest, String productCode, MenuOptionSaveRequestWrapper menuOption) {
     return webClient.post()
@@ -91,7 +86,6 @@ public class MenuV2Repository implements MenuRepository {
         .mapNotNull(HttpEntity::getBody);
   }
 
-  @Trace(async = true)
   @Override
   public Mono<Void> delete(ServerRequest serverRequest, String productCode, MenuOptionSaveRequestWrapper menuOption) {
     return webClient.delete()

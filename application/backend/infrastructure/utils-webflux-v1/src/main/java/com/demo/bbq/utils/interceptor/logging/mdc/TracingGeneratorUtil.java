@@ -1,6 +1,5 @@
 package com.demo.bbq.utils.interceptor.logging.mdc;
 
-import static com.demo.bbq.utils.interceptor.logging.constants.LoggingConstant.MDC_NAME_COMPONENT;
 import static com.demo.bbq.utils.interceptor.logging.constants.LoggingConstant.HEADER_TRACE;
 import static com.demo.bbq.utils.interceptor.logging.constants.LoggingConstant.MDC_TRACE_ID;
 import static com.demo.bbq.utils.interceptor.logging.constants.LoggingConstant.HEADER_PARENT;
@@ -12,11 +11,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.ThreadContext;
 import org.springframework.http.HttpHeaders;
 
-public class MDCUtil {
+public class TracingGeneratorUtil {
 
-  public static void generateTracking(String applicationName, HttpHeaders httpHeaders) {
+  public static void generateTrace(HttpHeaders httpHeaders) {
 
-    ThreadContext.put(MDC_NAME_COMPONENT, applicationName);
     putHeader(httpHeaders, HEADER_TRACE, MDC_TRACE_ID);
     putHeader(httpHeaders, HEADER_PARENT, MDC_PARENT_ID);
     putHeader(httpHeaders, HEADER_TRACEPARENT, MDC_TRACEPARENT);

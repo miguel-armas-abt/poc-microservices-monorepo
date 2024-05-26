@@ -4,7 +4,6 @@ import com.demo.bbq.application.dto.tableorder.request.MenuOrderRequestDTO;
 import com.demo.bbq.application.service.tableplacement.TablePlacementService;
 import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import com.demo.bbq.utils.toolkit.ServerResponseBuilderUtil;
-import com.newrelic.api.agent.Trace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -17,7 +16,6 @@ public class TablePlacementHandler {
 
   private final TablePlacementService tablePlacementService;
 
-  @Trace(dispatcher = true)
   public Mono<ServerResponse> generateTableOrder(ServerRequest serverRequest) {
     return ServerResponseBuilderUtil
         .buildEmpty(
@@ -29,7 +27,6 @@ public class TablePlacementHandler {
         );
   }
 
-  @Trace(dispatcher = true)
   public Mono<ServerResponse> findByTableNumber(ServerRequest serverRequest) {
     return tablePlacementService.findByTableNumber(serverRequest, getTableNumber(serverRequest))
         .flatMap(response -> ServerResponseBuilderUtil.buildMono(ServerResponse.ok(), serverRequest.headers(), response));

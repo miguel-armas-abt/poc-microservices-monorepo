@@ -9,7 +9,6 @@ public class LoggingConstant {
   public static final String HEADER_TRACE = "traceId";
   public static final String HEADER_PARENT = "parentId";
   public static final String HEADER_TRACEPARENT = "traceparent";
-  public static final String MDC_NAME_COMPONENT = "tracking.nameComponent";
   public static final String MDC_TRACE_ID = "tracking.traceId";
   public static final String MDC_PARENT_ID = "tracking.parentId";
   public static final String MDC_TRACEPARENT = "tracking.traceParent";

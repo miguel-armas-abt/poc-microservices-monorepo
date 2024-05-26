@@ -6,7 +6,6 @@ import com.demo.bbq.application.properties.ServiceConfigurationProperties;
 import com.demo.bbq.config.errors.handler.external.ExternalErrorHandler;
 import com.demo.bbq.repository.product.wrapper.ProductResponseWrapper;
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
-import com.newrelic.api.agent.Trace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatusCode;
@@ -26,7 +25,6 @@ public class ProductRepository {
   private final ServiceConfigurationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
 
-  @Trace(async = true)
   public Mono<ProductResponseWrapper> findByProductCode(ServerRequest serverRequest, String productCode) {
     return webClient.get()
         .uri(UriComponentsBuilder

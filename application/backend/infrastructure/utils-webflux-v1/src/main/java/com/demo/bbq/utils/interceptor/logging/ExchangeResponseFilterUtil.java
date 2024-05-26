@@ -7,7 +7,7 @@ import static com.demo.bbq.utils.interceptor.logging.constants.LoggingConstant.M
 import static com.demo.bbq.utils.interceptor.logging.constants.LoggingConstant.MDC_RES_BODY;
 import static com.demo.bbq.utils.interceptor.logging.constants.LoggingConstant.MDC_RES_STATUS;
 
-import com.demo.bbq.utils.interceptor.logging.mdc.MDCUtil;
+import com.demo.bbq.utils.interceptor.logging.mdc.TracingGeneratorUtil;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import com.demo.bbq.utils.restclient.webclient.obfuscation.body.BodyObfuscatorUtil;
 import com.demo.bbq.utils.restclient.webclient.obfuscation.header.HeaderObfuscatorUtil;
@@ -60,7 +60,7 @@ public class ExchangeResponseFilterUtil {
                                     Context context) {
         try {
             context.getOrEmpty(TRACKING_INFO)
-                .ifPresent(httpHeaders -> MDCUtil.generateTracking(properties.getApplicationName(), (HttpHeaders) httpHeaders));
+                .ifPresent(httpHeaders -> TracingGeneratorUtil.generateTrace((HttpHeaders) httpHeaders));
 
             putStatusCode(response);
             ThreadContext.put(MDC_REQ_METHOD, clientRequest.method().toString());

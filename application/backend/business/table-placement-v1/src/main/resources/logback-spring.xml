@@ -1,17 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+
+    <springProperty name="name" source="spring.application.name" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="com.newrelic.logging.logback.NewRelicEncoder">
         </encoder>
     </appender>
 
-    <appender name="ASYNC" class="com.newrelic.logging.logback.NewRelicAsyncAppender">
-        <queueSize>512</queueSize>
-        <discardingThreshold>0</discardingThreshold>
-        <appender-ref ref="STDOUT"/>
+    <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
+        <http>
+            <url>http://localhost:3100/loki/api/v1/push</url>
+        </http>
+        <format>
+            <label>
+                <pattern>
+                    app=${name}
+                    host=${HOSTNAME}
+                    level=%level
+                    traceId=%mdc{tracking.traceId:-none}
+                    reqUri=%mdc{req.uri:-none}
+                </pattern>
+                <pairSeparator>regex:(\n|//[^\n]+)+</pairSeparator> <!-- comments and line break for labels -->
+            </label>
+            <message class="com.github.loki4j.logback.JsonLayout" />
+        </format>
     </appender>
 
     <root level="INFO">
-        <appender-ref ref="ASYNC"/>
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="LOKI" />
     </root>
+
 </configuration>

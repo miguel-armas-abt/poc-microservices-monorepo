@@ -241,21 +241,39 @@
 							"response": []
 						},
 						{
-							"name": "routes/menu-v1",
+							"name": "/actuator/prometheus",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{api-gateway-domain}}/actuator/gateway/routes/order-hub-v1/",
+									"raw": "http://localhost:8018/actuator/prometheus",
+									"protocol": "http",
 									"host": [
-										"{{api-gateway-domain}}"
+										"localhost"
 									],
+									"port": "8018",
 									"path": [
 										"actuator",
-										"gateway",
-										"routes",
-										"order-hub-v1",
-										""
+										"prometheus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/actuator",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8018/actuator",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8018",
+									"path": [
+										"actuator"
 									]
 								}
 							},
@@ -882,7 +900,12 @@
 							"name": "login",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
 								"body": {
 									"mode": "urlencoded",
 									"urlencoded": [
@@ -996,7 +1019,12 @@
 									]
 								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
 								"body": {
 									"mode": "urlencoded",
 									"urlencoded": []
@@ -1141,7 +1169,12 @@
 									]
 								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "",
@@ -1189,7 +1222,12 @@
 									]
 								},
 								"method": "PUT",
-								"header": [],
+								"header": [
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"description\": \"Costillitas a la BBQ\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 9.90\r\n}",
@@ -1240,7 +1278,12 @@
 									]
 								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"unitPrice\": 69.90,\r\n    \"scope\": \"MENU\",\r\n    \"code\": \"MENU0006\"\r\n}",
@@ -1251,7 +1294,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8017/bbq/business/product/v1/products?scope=MENU",
+									"raw": "http://localhost:8017/bbq/business/product/v1/products/MENU0002",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1262,12 +1305,14 @@
 										"business",
 										"product",
 										"v1",
-										"products"
+										"products",
+										"MENU0002"
 									],
 									"query": [
 										{
 											"key": "scope",
-											"value": "MENU"
+											"value": "MENU",
+											"disabled": true
 										}
 									]
 								}
@@ -1300,7 +1345,15 @@
 									{
 										"key": "Accept",
 										"value": "application/stream+json",
-										"type": "text"
+										"disabled": true
+									},
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson"
+									},
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
 									}
 								],
 								"body": {
@@ -1362,13 +1415,11 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
-										"type": "text"
+										"value": "application/stream+json"
 									},
 									{
-										"key": "Content-Type",
-										"value": "application/stream+json",
-										"type": "text"
+										"key": "traceId",
+										"value": "{{$guid}}"
 									}
 								],
 								"body": {
@@ -1381,7 +1432,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8013/bbq/business/table-placement/v1/table-orders?tableNumber=1",
+									"raw": "http://localhost:8013/bbq/business/table-placement/v1/table-orders?tableNumber=1012",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1397,7 +1448,7 @@
 									"query": [
 										{
 											"key": "tableNumber",
-											"value": "1"
+											"value": "1012"
 										}
 									]
 								}
@@ -1424,13 +1475,11 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
-										"type": "text"
+										"value": "application/stream+json"
 									},
 									{
-										"key": "Content-Type",
-										"value": "application/stream+json",
-										"type": "text"
+										"key": "traceId",
+										"value": "{{$guid}}"
 									}
 								],
 								"body": {
@@ -1486,13 +1535,11 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
-										"type": "text"
+										"value": "application/stream+json"
 									},
 									{
-										"key": "Content-Type",
-										"value": "application/stream+json",
-										"type": "text"
+										"key": "traceId",
+										"value": "{{$guid}}"
 									}
 								],
 								"body": {
@@ -1532,7 +1579,12 @@
 							"name": "table-placement-v1 - createTable",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"capacity\": 8,\r\n    \"tableNumber\": 101\r\n}",
@@ -1582,8 +1634,11 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
-										"type": "text"
+										"value": "application/stream+json"
+									},
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
 									}
 								],
 								"body": {
@@ -1620,8 +1675,11 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
-										"type": "text"
+										"value": "application/stream+json"
+									},
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
 									}
 								],
 								"body": {
@@ -1676,8 +1734,11 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
-										"type": "text"
+										"value": "application/stream+json"
+									},
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
 									}
 								],
 								"body": {
@@ -1720,7 +1781,12 @@
 							},
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "[\r\n    {\r\n        \"productCode\": \"MENU0004\",\r\n        \"quantity\": 11\r\n    }\r\n]",
@@ -1758,7 +1824,12 @@
 							"name": "table-orders - generateTableOrder",
 							"request": {
 								"method": "PATCH",
-								"header": [],
+								"header": [
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "[\r\n    {\r\n        \"productCode\": \"MENU0007\",\r\n        \"quantity\": 1\r\n    },\r\n        {\r\n        \"productCode\": \"MENU0005\",\r\n        \"quantity\": 10\r\n    }\r\n]",
@@ -1793,19 +1864,22 @@
 							"response": []
 						},
 						{
-							"name": "/invoice-payments",
+							"name": "invoices - sendToPay",
 							"request": {
 								"method": "POST",
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
-										"type": "text"
+										"value": "application/stream+json"
+									},
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"tableNumber\": 3,\r\n    \"customer\": {\r\n        \"documentType\": \"DNI\",\r\n        \"documentNumber\": \"76517369\"\r\n    },\r\n    \"payment\": {\r\n        \"method\": \"DEBITO\"\r\n    }\r\n}",
+									"raw": "{\r\n    \"tableNumber\": 1,\r\n    \"customer\": {\r\n        \"documentType\": \"DNI\",\r\n        \"documentNumber\": \"76517369\"\r\n    },\r\n    \"payment\": {\r\n        \"method\": \"DEBITO\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1813,7 +1887,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8018/bbq/experience/order-hub/v1/invoice-payments",
+									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/invoices/send-to-pay",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1821,10 +1895,53 @@
 									"port": "8018",
 									"path": [
 										"bbq",
-										"experience",
+										"bff",
 										"order-hub",
 										"v1",
-										"invoice-payments"
+										"invoices",
+										"send-to-pay"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "invoices - proformas",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/stream+json"
+									},
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"description\": \"Ají de gallina\",\r\n        \"quantity\": 2,\r\n        \"productCode\": \"MENU0002\"\r\n    },\r\n    {\r\n        \"description\": \"Pollo a la brasa\",\r\n        \"quantity\": 1,\r\n        \"productCode\": \"MENU0005\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/invoices/proformas",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8018",
+									"path": [
+										"bbq",
+										"bff",
+										"order-hub",
+										"v1",
+										"invoices",
+										"proformas"
 									]
 								}
 							},

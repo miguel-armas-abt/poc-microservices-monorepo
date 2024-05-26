@@ -4,7 +4,6 @@ import com.demo.bbq.repository.menu.MenuRepositoryStrategy;
 import com.demo.bbq.repository.menu.wrapper.response.MenuOptionResponseWrapper;
 import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import com.demo.bbq.utils.toolkit.ServerResponseBuilderUtil;
-import com.newrelic.api.agent.Trace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -17,7 +16,6 @@ public class MenuHandler {
 
   private final MenuRepositoryStrategy menuRepository;
 
-  @Trace(dispatcher = true)
   public Mono<ServerResponse> findMenuByCategory(ServerRequest serverRequest) {
     String category = serverRequest.queryParam("category")
         .orElseThrow(() -> new BusinessException("Invalid category"));

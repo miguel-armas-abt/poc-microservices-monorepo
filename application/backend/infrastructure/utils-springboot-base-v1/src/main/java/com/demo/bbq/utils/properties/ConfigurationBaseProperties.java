@@ -11,8 +11,6 @@ import lombok.Setter;
 @Setter
 public abstract class ConfigurationBaseProperties {
 
-  protected String applicationName;
-
   protected ErrorMessage errorMessages;
 
   protected Map<String, RestClient> restClients;

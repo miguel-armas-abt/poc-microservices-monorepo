@@ -1,6 +1,4 @@
 configuration:
-  application-name: ${spring.application.name}
-
   error-messages:
     enabled: false
     messages:
