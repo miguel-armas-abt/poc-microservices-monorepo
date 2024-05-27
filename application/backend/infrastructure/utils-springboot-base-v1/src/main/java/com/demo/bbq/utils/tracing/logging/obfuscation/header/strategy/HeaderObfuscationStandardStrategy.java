@@ -1,6 +1,7 @@
 package com.demo.bbq.utils.tracing.logging.obfuscation.header.strategy;
 
 import static com.demo.bbq.utils.tracing.logging.obfuscation.constants.ObfuscationConstant.OBFUSCATION_MASK;
+
 import com.demo.bbq.utils.properties.dto.HeaderObfuscationType;
 import lombok.NoArgsConstructor;
 

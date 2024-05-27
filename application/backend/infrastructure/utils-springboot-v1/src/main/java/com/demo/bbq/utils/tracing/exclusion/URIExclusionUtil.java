@@ -1,11 +1,11 @@
-package com.demo.bbq.utils.interceptor.tracing;
+package com.demo.bbq.utils.tracing.exclusion;
 
 import io.micrometer.tracing.exporter.SpanExportingPredicate;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TraceExclusionUtil {
+public class URIExclusionUtil {
 
   public static SpanExportingPredicate noActuator() {
     return span -> span.getTags().get("uri") == null || !span.getTags().get("uri").startsWith("/actuator");

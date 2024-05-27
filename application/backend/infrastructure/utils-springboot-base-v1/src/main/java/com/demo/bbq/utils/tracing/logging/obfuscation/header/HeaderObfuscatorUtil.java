@@ -7,17 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.springframework.http.HttpHeaders;
 
 public class HeaderObfuscatorUtil {
 
     public static String process(ObfuscationTemplate obfuscation,
                                  List<HeaderObfuscationStrategy> strategies,
-                                 HttpHeaders headers) {
+                                 Map<String, String> headers) {
 
         Set<String> sensitiveHeaders = obfuscation.getHeaders();
         Map<String, HeaderObfuscationType> strategiesMap = obfuscation.getHeaderObfuscationType();
-        return headers.toSingleValueMap().entrySet().stream()
+        return headers.entrySet().stream()
                 .map(entry -> obfuscateHeader(strategies, entry, sensitiveHeaders, strategiesMap))
                 .collect(Collectors.joining(", "));
     }

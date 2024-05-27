@@ -73,7 +73,7 @@ public class ClientRequestLoggingUtil {
       var method = clientRequest.method().toString();
       var uri = clientRequest.url().toString();
       var httpHeaders = clientRequest.headers();
-      var headers = HeaderObfuscatorUtil.process(properties.getObfuscation(), headerObfuscationStrategies, httpHeaders);
+      var headers = HeaderObfuscatorUtil.process(properties.getObfuscation(), headerObfuscationStrategies, httpHeaders.toSingleValueMap());
       var body = BodyObfuscatorUtil.process(properties.getObfuscation(), requestBody);
 
       ThreadContextInjectorUtil.populateFromHeaders(HeaderMapperUtil.recoverTraceHeaders(httpHeaders));
