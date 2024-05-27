@@ -1,4 +1,0 @@
-# GRAFANA
-
-[← Regresar](./../README.md)
-

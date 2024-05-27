@@ -68,3 +68,4 @@ Revise las instrucciones de despliegue para cada uno de los siguientes entornos.
 
 # 5. DOCUMENTACION
 - [Backend](./docs/info/backend/README.md)
+- [Observabilidad y monitoreo](./docs/info/monitoring/README.md)
