@@ -12,6 +12,7 @@
         <http>
             <url>http://localhost:3100/loki/api/v1/push</url>
         </http>
+        <filter class="com.demo.bbq.utils.tracing.filter.LokiAvailabilityFilter" />
         <format>
             <label>
                 <pattern>
