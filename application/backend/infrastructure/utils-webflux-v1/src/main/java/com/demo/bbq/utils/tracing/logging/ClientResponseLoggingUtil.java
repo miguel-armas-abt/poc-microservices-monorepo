@@ -1,7 +1,7 @@
 package com.demo.bbq.utils.tracing.logging;
 
 import static com.demo.bbq.utils.tracing.logging.constants.LoggingMessage.HTTP_ERROR_RESPONSE;
-import static com.demo.bbq.utils.tracing.logging.constants.LoggingMessage.HTTP_SUCCESSFUL_RESPONSE;
+import static com.demo.bbq.utils.tracing.logging.constants.LoggingMessage.HTTP_RESPONSE;
 import static com.demo.bbq.utils.tracing.logging.constants.ThreadContextConstant.TRACKING_INFO;
 
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
@@ -64,7 +64,7 @@ public class ClientResponseLoggingUtil {
             var body = BodyObfuscatorUtil.process(properties.getObfuscation(), responseBody);
 
             ThreadContextInjectorUtil.populateFromClientResponse(method, uri, headers, body, getHttpCode(response));
-            log.info(HTTP_SUCCESSFUL_RESPONSE);
+            log.info(HTTP_RESPONSE);
 
         } catch (Exception ex) {
             log.error(HTTP_ERROR_RESPONSE + ex.getClass(), ex);

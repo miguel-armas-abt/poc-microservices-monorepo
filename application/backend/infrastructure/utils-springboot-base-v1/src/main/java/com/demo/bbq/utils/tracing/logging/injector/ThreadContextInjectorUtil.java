@@ -9,9 +9,7 @@ import org.apache.logging.log4j.ThreadContext;
 public class ThreadContextInjectorUtil {
 
   public static void populateFromHeaders(Map<String, String> traceHeaders) {
-    ThreadContext.put(TRACE_ID, getNullableHeader(traceHeaders.get(TRACE_ID)));
-    ThreadContext.put(PARENT_ID, getNullableHeader(traceHeaders.get(PARENT_ID)));
-    ThreadContext.put(TRACE_PARENT, getNullableHeader(traceHeaders.get(TRACE_PARENT)));
+    traceHeaders.forEach((key, value) -> ThreadContext.put(key, getNullableHeader(value)));
   }
 
   private static String getNullableHeader(String header) {

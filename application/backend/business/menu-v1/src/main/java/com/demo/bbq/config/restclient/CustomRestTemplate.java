@@ -6,6 +6,7 @@ import com.demo.bbq.utils.restclient.resttemplate.CustomRestTemplateUtil;
 import com.demo.bbq.utils.restclient.resttemplate.dto.ExchangeRequestDTO;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,10 +15,10 @@ public class CustomRestTemplate {
 
   private final ServiceConfigurationProperties properties;
   private final List<RestClientErrorStrategy> strategies;
-
+  private final List<ClientHttpRequestInterceptor> interceptors;
   public <I,O> O exchange(ExchangeRequestDTO<I, O> request, String serviceName) {
     return CustomRestTemplateUtil
-        .exchange(request, serviceName, strategies, properties);
+        .exchange(request, serviceName, strategies, properties, interceptors);
   }
 
 }

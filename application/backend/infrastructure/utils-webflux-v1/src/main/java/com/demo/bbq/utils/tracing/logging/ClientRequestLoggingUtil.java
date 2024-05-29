@@ -1,7 +1,7 @@
 package com.demo.bbq.utils.tracing.logging;
 
 import static com.demo.bbq.utils.tracing.logging.constants.LoggingMessage.HTTP_ERROR_REQUEST;
-import static com.demo.bbq.utils.tracing.logging.constants.LoggingMessage.HTTP_SUCCESSFUL_REQUEST;
+import static com.demo.bbq.utils.tracing.logging.constants.LoggingMessage.HTTP_REQUEST;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
@@ -78,7 +78,7 @@ public class ClientRequestLoggingUtil {
 
       ThreadContextInjectorUtil.populateFromHeaders(HeaderMapperUtil.recoverTraceHeaders(httpHeaders));
       ThreadContextInjectorUtil.populateFromClientRequest(method, uri, headers, body);
-      log.info(HTTP_SUCCESSFUL_REQUEST);
+      log.info(HTTP_REQUEST);
 
     } catch (Exception ex) {
       log.error(HTTP_ERROR_REQUEST + ex.getClass(), ex);

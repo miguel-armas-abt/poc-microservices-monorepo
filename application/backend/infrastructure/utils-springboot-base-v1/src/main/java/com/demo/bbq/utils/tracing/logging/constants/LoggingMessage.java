@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoggingMessage {
 
-  public static final String HTTP_SUCCESSFUL_REQUEST = "HTTP Successful Request";
+  public static final String HTTP_REQUEST = "HTTP Request";
 
-  public static final String HTTP_SUCCESSFUL_RESPONSE = "HTTP Successful Response";
+  public static final String HTTP_RESPONSE = "HTTP Response";
 
   public static final String HTTP_ERROR_REQUEST = "HTTP Request Error - Exception class: ";
 

@@ -19,6 +19,11 @@ configuration:
           forwarded:
             traceId: traceId
 
+  obfuscation:
+    body-fields: []
+    headers: []
+    header-obfuscation-type: {}
+
 spring:
 
   jpa:

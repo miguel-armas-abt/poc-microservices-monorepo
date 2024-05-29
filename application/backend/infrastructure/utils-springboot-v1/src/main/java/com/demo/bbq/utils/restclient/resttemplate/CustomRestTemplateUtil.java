@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.HttpStatusCodeException;
 
 public class CustomRestTemplateUtil {
@@ -17,10 +18,11 @@ public class CustomRestTemplateUtil {
   public static <I,O> O exchange(ExchangeRequestDTO<I,O> request,
                                  String serviceName,
                                  List<RestClientErrorStrategy> errorServices,
-                                 ConfigurationBaseProperties properties) {
+                                 ConfigurationBaseProperties properties,
+                                 List<ClientHttpRequestInterceptor> requestInterceptors) {
     try {
       return RestTemplateFactory
-          .createRestTemplate()
+          .createRestTemplate(requestInterceptors)
           .exchange(request.getUrl(),
               request.getHttpMethod(),
               buildHttpEntity(request, properties.getRestClients().get(serviceName).getRequest().getHeaders()),

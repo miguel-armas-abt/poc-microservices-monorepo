@@ -62,7 +62,7 @@ public class ProductRepository {
     restTemplate.exchange(
         ExchangeRequestDTO.<ProductUpdateRequestWrapper, Void>builder()
             .url(getEndpoint().concat("/products/{code}"))
-            .httpMethod(HttpMethod.POST)
+            .httpMethod(HttpMethod.PUT)
             .uriVariables(Collections.singletonMap("code", code))
             .requestBody(productRequest)
             .responseClass(Void.class)
