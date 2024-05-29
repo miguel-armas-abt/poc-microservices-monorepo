@@ -13,17 +13,21 @@ public abstract class ResponseErrorHandlerBaseUtil {
 
   public static <T extends Throwable> ErrorDTO build(ConfigurationBaseProperties properties, T exception) {
     ErrorDTO currentError = getError(exception);
-
+    String defaultMessage = ErrorDTO.getDefaultError(properties).getMessage();
     String errorCode = Optional.of(currentError.getCode()).orElseGet(() -> CODE_DEFAULT);
-
     String matchingMessage = ErrorDTO.getMatchMessage(properties, errorCode);
-    if (matchingMessage == null && currentError.getMessage() == null)
-      currentError.setMessage(ErrorDTO.getDefaultError(properties).getMessage());
+    boolean showCustomMessages = properties.getErrorMessages().isEnabled();
 
-    if (properties.getErrorMessages().isEnabled() && matchingMessage != null)
-      currentError.setMessage(matchingMessage);
-
+    String selectedMessage = selectMessage(showCustomMessages, defaultMessage, currentError.getMessage(), matchingMessage);
+    currentError.setMessage(selectedMessage);
     return currentError;
+  }
+
+  private static String selectMessage(boolean showCustomMessages, String defaultMessage,
+                                      String currentMessage, String matchingMessage) {
+    return showCustomMessages
+        ? Optional.ofNullable(matchingMessage).orElse(defaultMessage)
+        : Optional.ofNullable(currentMessage).orElse(defaultMessage);
   }
 
   private static <T extends Throwable> ErrorDTO getError(T exception) {
