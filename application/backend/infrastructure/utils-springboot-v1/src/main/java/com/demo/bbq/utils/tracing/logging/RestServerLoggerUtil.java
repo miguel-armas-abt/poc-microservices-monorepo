@@ -24,7 +24,7 @@ public class RestServerLoggerUtil {
                               List<HeaderObfuscationStrategy> headerObfuscationStrategies,
                               HttpServletRequest request) {
     String method = request.getMethod();
-    String url = request.getRequestURL().toString();
+    String url = getFullRequestURL(request);
     String requestBody = BodyObfuscatorUtil.process(properties.getObfuscation(), extractRequestBody(request));
     Map<String, String> requestHeaders = extractRequestHeaders(request);
     String obfuscatedHeaders = HeaderObfuscatorUtil.process(properties.getObfuscation(), headerObfuscationStrategies, requestHeaders);
@@ -39,7 +39,7 @@ public class RestServerLoggerUtil {
                                HttpServletRequest request,
                                HttpServletResponse response) {
     String method = request.getMethod();
-    String url = request.getRequestURL().toString();
+    String url = getFullRequestURL(request);
     Map<String, String> responseHeaders = extractResponseHeaders(response);
     String obfuscatedHeaders = HeaderObfuscatorUtil.process(properties.getObfuscation(), headerObfuscationStrategies, responseHeaders);
     String httpCode = String.valueOf(response.getStatus());
@@ -74,5 +74,18 @@ public class RestServerLoggerUtil {
     Collection<String> headerNames = response.getHeaderNames();
     headerNames.forEach(headerName -> headers.put(headerName, response.getHeader(headerName)));
     return headers;
+  }
+
+  private static String getFullRequestURL(HttpServletRequest request) {
+    String url = Optional.of(request)
+        .map(HttpServletRequest::getRequestURL)
+        .map(StringBuffer::toString)
+        .orElse(StringUtils.EMPTY);
+
+    String queryString = request.getQueryString();
+    if (StringUtils.isNotBlank(queryString))
+      url += "?" + queryString;
+
+    return url;
   }
 }

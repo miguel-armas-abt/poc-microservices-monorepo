@@ -6,12 +6,10 @@ import com.demo.bbq.application.dto.response.MenuOptionResponseDTO;
 import com.demo.bbq.application.enums.MenuCategory;
 import com.demo.bbq.repository.MenuOptionRepositoryHandler;
 import com.demo.bbq.utils.errors.exceptions.BusinessException;
-import com.google.gson.Gson;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -43,7 +41,6 @@ public class MenuOptionServiceImpl implements MenuOptionService {
     return menuOptionRepositoryHandler.findAll(servletRequest)
         .stream()
         .filter(menuOption -> productCode.equals(menuOption.getProductCode()))
-        .peek(menuOption -> log.info("{}", new Gson().toJson(menuOption)))
         .findFirst()
         .orElseThrow(() -> new BusinessException("MenuOptionNotFound", "The menu option does not exist"));
   }
