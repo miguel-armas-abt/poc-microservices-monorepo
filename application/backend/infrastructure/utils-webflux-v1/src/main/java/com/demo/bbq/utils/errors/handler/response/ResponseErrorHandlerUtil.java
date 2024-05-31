@@ -6,7 +6,7 @@ import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import com.demo.bbq.utils.errors.exceptions.ExternalServiceException;
 import com.demo.bbq.utils.errors.exceptions.SystemException;
 import com.demo.bbq.utils.errors.serializer.ErrorSerializerUtil;
-import com.demo.bbq.utils.tracing.logging.ErrorLoggingUtil;
+import com.demo.bbq.utils.tracing.logging.ErrorLoggerUtil;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import java.net.ConnectException;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -22,7 +22,7 @@ public class ResponseErrorHandlerUtil {
   private ResponseErrorHandlerUtil() {}
 
   public static Mono<Void> handleException(ConfigurationBaseProperties properties, Throwable ex, ServerWebExchange exchange) {
-    ErrorLoggingUtil.generateTrace(ex, exchange);
+    ErrorLoggerUtil.generateTrace(ex, exchange);
 
     ErrorDTO error = ErrorDTO.getDefaultError(properties);
     HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;

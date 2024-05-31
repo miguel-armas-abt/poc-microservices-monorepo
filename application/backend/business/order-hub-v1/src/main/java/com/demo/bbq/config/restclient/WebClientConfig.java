@@ -1,7 +1,7 @@
 package com.demo.bbq.config.restclient;
 
-import com.demo.bbq.config.tracing.logging.ClientRequestLogging;
-import com.demo.bbq.config.tracing.logging.ClientResponseLogging;
+import com.demo.bbq.config.tracing.logging.RestClientRequestLogger;
+import com.demo.bbq.config.tracing.logging.RestClientResponseLogger;
 import com.demo.bbq.utils.restclient.webclient.WebClientFactory;
 import com.demo.bbq.utils.tracing.logging.obfuscation.header.strategy.HeaderObfuscationMultipleStrategy;
 import com.demo.bbq.utils.tracing.logging.obfuscation.header.strategy.HeaderObfuscationStandardStrategy;
@@ -25,10 +25,10 @@ public class WebClientConfig {
   }
 
   @Bean
-  public WebClient createWebClient(ClientRequestLogging clientRequestLogging,
-                                   ClientResponseLogging clientResponseLogging,
+  public WebClient createWebClient(RestClientRequestLogger restClientRequestLogger,
+                                   RestClientResponseLogger restClientResponseLogger,
                                    ObservationRegistry observationRegistry) {
-    return WebClientFactory.createWebClient(clientRequestLogging, clientResponseLogging, observationRegistry);
+    return WebClientFactory.createWebClient(restClientRequestLogger, restClientResponseLogger, observationRegistry);
   }
 
 }

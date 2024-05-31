@@ -22,7 +22,7 @@ import org.springframework.util.StreamUtils;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ClientResponseLoggingUtil {
+public class RestClientResponseLoggerUtil {
 
   public static ClientHttpResponse decorateResponse(ConfigurationBaseProperties properties,
                                                     List<HeaderObfuscationStrategy> headerObfuscationStrategies,

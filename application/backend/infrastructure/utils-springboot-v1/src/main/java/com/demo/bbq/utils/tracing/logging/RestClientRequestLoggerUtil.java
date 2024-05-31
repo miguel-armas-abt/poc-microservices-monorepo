@@ -22,7 +22,7 @@ import org.springframework.http.client.ClientHttpResponse;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ClientRequestLoggingUtil {
+public class RestClientRequestLoggerUtil {
 
   public static ClientHttpResponse decorateRequest(ConfigurationBaseProperties properties,
                                                    List<HeaderObfuscationStrategy> headerObfuscationStrategies,

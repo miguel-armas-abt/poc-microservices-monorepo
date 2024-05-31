@@ -12,7 +12,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.context.request.WebRequest;
 
 @Slf4j
-public class ErrorLoggingUtil {
+public class ErrorLoggerUtil {
 
   public static void generateTrace(Throwable ex, WebRequest request) {
     ThreadContextInjectorUtil.populateFromHeaders(HeaderMapperUtil.recoverTraceHeaders(request));

@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono;
 import reactor.util.context.Context;
 
 @Slf4j
-public class ClientResponseLoggingUtil {
+public class RestClientResponseLoggerUtil {
 
     public static Context captureRequest(ClientRequest request) {
         var httpHeaders = request.headers();

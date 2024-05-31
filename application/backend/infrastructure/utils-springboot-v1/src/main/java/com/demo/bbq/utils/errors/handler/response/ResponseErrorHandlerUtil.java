@@ -8,7 +8,7 @@ import com.demo.bbq.utils.errors.exceptions.SystemException;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import java.util.Objects;
 import java.util.function.BiFunction;
-import com.demo.bbq.utils.tracing.logging.ErrorLoggingUtil;
+import com.demo.bbq.utils.tracing.logging.ErrorLoggerUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -23,7 +23,7 @@ import org.springframework.web.context.request.WebRequest;
 public class ResponseErrorHandlerUtil {
 
   public static ResponseEntity<ErrorDTO> handleException(ConfigurationBaseProperties properties, Throwable ex, WebRequest request) {
-    ErrorLoggingUtil.generateTrace(ex, request);
+    ErrorLoggerUtil.generateTrace(ex, request);
 
     ErrorDTO error = ErrorDTO.getDefaultError(properties);
     HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;

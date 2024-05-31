@@ -4,7 +4,7 @@ import static com.demo.bbq.utils.tracing.logging.constants.LoggingMessage.EXCEPT
 import static com.demo.bbq.utils.tracing.logging.constants.ThreadContextConstant.REQ_METHOD;
 import static com.demo.bbq.utils.tracing.logging.constants.ThreadContextConstant.REQ_URI;
 
-import com.demo.bbq.utils.tracing.logging.constants.LoggingExceptionMessage;
+import com.demo.bbq.utils.tracing.logging.constants.ExceptionLoggingMessage;
 import com.demo.bbq.utils.tracing.logging.injector.ThreadContextInjectorUtil;
 import com.demo.bbq.utils.tracing.logging.util.HeaderMapperUtil;
 import java.util.Optional;
@@ -14,7 +14,7 @@ import org.springframework.web.reactive.function.client.WebClientRequestExceptio
 import org.springframework.web.server.ServerWebExchange;
 
 @Slf4j
-public class ErrorLoggingUtil {
+public class ErrorLoggerUtil {
 
   public static void generateTrace(Throwable ex, ServerWebExchange exchange) {
     ThreadContextInjectorUtil.populateFromHeaders(HeaderMapperUtil.recoverTraceHeaders(exchange.getRequest().getHeaders()));
@@ -25,7 +25,7 @@ public class ErrorLoggingUtil {
       ThreadContext.put(REQ_URI, webClientRequestException.getUri().toString());
 
       Throwable cause = webClientRequestException.getCause();
-      message = LoggingExceptionMessage
+      message = ExceptionLoggingMessage
           .getExceptionMessages()
           .getOrDefault(cause.getClass(), Optional.ofNullable(cause.getMessage()).orElse("WebClientRequestException with an unspecified cause"));
     }

@@ -1,7 +1,7 @@
 package com.demo.bbq.config.tracing.logging;
 
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
-import com.demo.bbq.utils.tracing.logging.ClientResponseLoggingUtil;
+import com.demo.bbq.utils.tracing.logging.RestClientResponseLoggerUtil;
 import com.demo.bbq.utils.tracing.logging.obfuscation.header.strategy.HeaderObfuscationStrategy;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -14,16 +14,17 @@ import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-public class ClientResponseLogging implements ExchangeFilterFunction {
+public class RestClientResponseLogger implements ExchangeFilterFunction {
 
   private final ConfigurationBaseProperties properties;
   private final List<HeaderObfuscationStrategy> headerObfuscationStrategies;
 
   @Override
   public Mono<ClientResponse> filter(ClientRequest request, ExchangeFunction next) {
-    var context = ClientResponseLoggingUtil.captureRequest(request);
+    var context = RestClientResponseLoggerUtil.captureRequest(request);
     return next.exchange(request)
         .contextWrite(context)
-        .flatMap(response -> ClientResponseLoggingUtil.decorateResponse(properties, headerObfuscationStrategies, request, response, context));
+        .flatMap(response -> RestClientResponseLoggerUtil.decorateResponse(properties, headerObfuscationStrategies, request, response, context));
   }
+
 }

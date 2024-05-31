@@ -10,7 +10,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class LoggingExceptionMessage {
+public class ExceptionLoggingMessage {
 
   public static Map<Class<? extends Throwable>, String> getExceptionMessages() {
     Map<Class<? extends Throwable>, String> exceptionMessages = BASE_EXCEPTION_MESSAGES;

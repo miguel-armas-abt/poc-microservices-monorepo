@@ -24,7 +24,7 @@ import org.springframework.web.reactive.function.client.ClientRequest;
 import reactor.core.publisher.Mono;
 
 @Slf4j
-public class ClientRequestLoggingUtil {
+public class RestClientRequestLoggerUtil {
 
   public static ClientRequest decorateRequest(ConfigurationBaseProperties properties,
                                               List<HeaderObfuscationStrategy> headerObfuscationStrategies,
