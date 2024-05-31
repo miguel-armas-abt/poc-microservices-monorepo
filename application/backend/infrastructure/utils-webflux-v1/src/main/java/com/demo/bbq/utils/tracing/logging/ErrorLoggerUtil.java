@@ -1,8 +1,8 @@
 package com.demo.bbq.utils.tracing.logging;
 
 import static com.demo.bbq.utils.tracing.logging.constants.LoggingMessage.EXCEPTION_WITHOUT_MESSAGE;
-import static com.demo.bbq.utils.tracing.logging.constants.ThreadContextConstant.REQ_METHOD;
-import static com.demo.bbq.utils.tracing.logging.constants.ThreadContextConstant.REQ_URI;
+import static com.demo.bbq.utils.tracing.logging.constants.ThreadContextConstant.REST_CLIENT_REQ_METHOD;
+import static com.demo.bbq.utils.tracing.logging.constants.ThreadContextConstant.REST_CLIENT_REQ_URI;
 
 import com.demo.bbq.utils.tracing.logging.constants.ExceptionLoggingMessage;
 import com.demo.bbq.utils.tracing.logging.injector.ThreadContextInjectorUtil;
@@ -21,8 +21,8 @@ public class ErrorLoggerUtil {
     String message = Optional.ofNullable(ex.getMessage()).orElse(EXCEPTION_WITHOUT_MESSAGE);
 
     if (ex instanceof WebClientRequestException webClientRequestException) {
-      ThreadContext.put(REQ_METHOD, webClientRequestException.getMethod().toString());
-      ThreadContext.put(REQ_URI, webClientRequestException.getUri().toString());
+      ThreadContext.put(REST_CLIENT_REQ_METHOD, webClientRequestException.getMethod().toString());
+      ThreadContext.put(REST_CLIENT_REQ_URI, webClientRequestException.getUri().toString());
 
       Throwable cause = webClientRequestException.getCause();
       message = ExceptionLoggingMessage

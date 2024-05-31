@@ -10,13 +10,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoggingMessage {
 
-  public static final String HTTP_REQUEST = "HTTP Request";
+  public static final String REST_SERVER_REQUEST = "REST Server Request";
+  public static final String REST_SERVER_RESPONSE = "REST Server Response";
 
-  public static final String HTTP_RESPONSE = "HTTP Response";
+  public static final String REST_CLIENT_REQUEST = "REST Client Request";
+  public static final String REST_CLIENT_REQUEST_ERROR = "REST Client Request Error - Exception class: ";
 
-  public static final String HTTP_ERROR_REQUEST = "HTTP Request Error - Exception class: ";
+  public static final String REST_CLIENT_RESPONSE = "REST Client Response";
 
-  public static final String HTTP_ERROR_RESPONSE = "HTTP Response Error - Exception class: ";
+  public static final String REST_CLIENT_RESPONSE_ERROR = "REST Client Response Error - Exception class: ";
 
   public static final String EXCEPTION_WITHOUT_MESSAGE = "Exception without message";
 

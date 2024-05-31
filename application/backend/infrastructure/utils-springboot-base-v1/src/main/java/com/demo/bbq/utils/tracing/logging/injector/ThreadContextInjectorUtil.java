@@ -8,29 +8,47 @@ import org.apache.logging.log4j.ThreadContext;
 
 public class ThreadContextInjectorUtil {
 
+  private static void putInContext(String key, String value) {
+    ThreadContext.put(key, StringUtils.defaultString(value));
+  }
+
   public static void populateFromHeaders(Map<String, String> traceHeaders) {
-    traceHeaders.forEach((key, value) -> ThreadContext.put(key, getNullableHeader(value)));
+    traceHeaders.forEach(ThreadContextInjectorUtil::putInContext);
   }
 
-  private static String getNullableHeader(String header) {
-    return header != null ? header : StringUtils.EMPTY;
+  public static void populateFromRestClientRequest(String method, String uri,
+                                                   String headers, String body) {
+    putInContext(REST_CLIENT_REQ_METHOD, method);
+    putInContext(REST_CLIENT_REQ_URI, uri);
+    putInContext(REST_CLIENT_REQ_HEADERS, headers);
+    putInContext(REST_CLIENT_REQ_BODY, body);
   }
 
-  public static void populateFromClientRequest(String method, String uri,
-                                               String headers, String body) {
-    ThreadContext.put(REQ_METHOD, method);
-    ThreadContext.put(REQ_URI, uri);
-    ThreadContext.put(REQ_HEADERS, headers);
-    ThreadContext.put(REQ_BODY, body);
+  public static void populateFromRestClientResponse(String method, String uri,
+                                                    String headers, String body,
+                                                    String httpCode) {
+    putInContext(REST_CLIENT_REQ_METHOD, method);
+    putInContext(REST_CLIENT_REQ_URI, uri);
+    putInContext(REST_CLIENT_RES_HEADERS, headers);
+    putInContext(REST_CLIENT_RES_BODY, body);
+    putInContext(REST_CLIENT_RES_STATUS, httpCode);
   }
 
-  public static void populateFromClientResponse(String method, String uri,
-                                                String headers, String body,
-                                                String httpCode) {
-    ThreadContext.put(REQ_METHOD, method);
-    ThreadContext.put(REQ_URI, uri);
-    ThreadContext.put(RES_HEADERS, headers);
-    ThreadContext.put(RES_BODY, body);
-    ThreadContext.put(RES_STATUS, httpCode);
+  public static void populateFromRestServerRequest(String method, String uri,
+                                                   String headers, String body) {
+    putInContext(REST_SERVER_REQ_METHOD, method);
+    putInContext(REST_SERVER_REQ_URI, uri);
+    putInContext(REST_SERVER_REQ_HEADERS, headers);
+    putInContext(REST_SERVER_REQ_BODY, body);
+  }
+
+  public static void populateFromRestServerResponse(String method, String uri,
+                                                    String headers, String body,
+                                                    String httpCode) {
+    putInContext(REST_SERVER_REQ_METHOD, method);
+    putInContext(REST_SERVER_REQ_URI, uri);
+    putInContext(REST_SERVER_RES_HEADERS, headers);
+    putInContext(REST_SERVER_RES_BODY, body);
+    putInContext(REST_SERVER_RES_STATUS, httpCode);
   }
 }

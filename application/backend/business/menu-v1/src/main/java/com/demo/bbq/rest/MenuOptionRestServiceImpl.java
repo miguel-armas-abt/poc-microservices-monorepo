@@ -6,7 +6,6 @@ import com.demo.bbq.application.dto.request.MenuOptionSaveRequestDTO;
 import com.demo.bbq.application.dto.request.MenuOptionUpdateRequestDTO;
 import java.net.URI;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -36,24 +35,21 @@ public class MenuOptionRestServiceImpl implements MenuOptionRestService {
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/{productCode}")
   public ResponseEntity<MenuOptionResponseDTO> findByProductCode(HttpServletRequest servletRequest,
                                                                  @PathVariable(name = "productCode") String productCode) {
-    logRequest.accept(servletRequest);
     return ResponseEntity.ok(service.findByProductCode(servletRequest, productCode));
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<MenuOptionResponseDTO>> findByCategory(HttpServletRequest servletRequest,
                                                                     @RequestParam(value = "category", required = false) String categoryCode) {
-    logRequest.accept(servletRequest);
     List<MenuOptionResponseDTO> menuOptionList = service.findByCategory(servletRequest, categoryCode);
     return (menuOptionList == null || menuOptionList.isEmpty())
         ? ResponseEntity.noContent().build()
-        : ResponseEntity.ok(service.findByCategory(servletRequest, categoryCode));
+        : ResponseEntity.ok(menuOptionList);
   }
 
   @PostMapping
   public ResponseEntity<Void> save(HttpServletRequest servletRequest,
                                    @Valid @RequestBody MenuOptionSaveRequestDTO menuOption) {
-    logRequest.accept(servletRequest);
     service.save(servletRequest, menuOption);
     return ResponseEntity.created(buildPostUriLocation.apply(menuOption.getProductCode())).build();
   }
@@ -61,20 +57,15 @@ public class MenuOptionRestServiceImpl implements MenuOptionRestService {
   @PutMapping(value = "/{productCode}")
   public ResponseEntity<Void> update(HttpServletRequest servletRequest,
                                      @Valid @RequestBody MenuOptionUpdateRequestDTO menuOption, @PathVariable("productCode") String productCode) {
-    logRequest.accept(servletRequest);
     service.update(servletRequest, productCode, menuOption);
     return ResponseEntity.created(buildUriLocation.apply(productCode)).build();
   }
 
   @DeleteMapping(value = "/{productCode}")
   public ResponseEntity<Void> delete(HttpServletRequest servletRequest, @PathVariable("productCode") String productCode) {
-    logRequest.accept(servletRequest);
     service.deleteByProductCode(servletRequest, productCode);
     return ResponseEntity.noContent().location(buildUriLocation.apply(productCode)).build();
   }
-
-  private final static Consumer<HttpServletRequest> logRequest = servletRequest->
-      log.info("{}", servletRequest.getMethod() + ": " + servletRequest.getRequestURI());
 
   private final static Function<String, URI> buildPostUriLocation = productCode ->
       ServletUriComponentsBuilder.fromCurrentRequest()

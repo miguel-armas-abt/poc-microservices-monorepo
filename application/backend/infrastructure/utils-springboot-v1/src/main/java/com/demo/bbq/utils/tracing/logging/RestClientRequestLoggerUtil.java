@@ -1,7 +1,7 @@
 package com.demo.bbq.utils.tracing.logging;
 
-import static com.demo.bbq.utils.tracing.logging.constants.LoggingMessage.HTTP_ERROR_REQUEST;
-import static com.demo.bbq.utils.tracing.logging.constants.LoggingMessage.HTTP_REQUEST;
+import static com.demo.bbq.utils.tracing.logging.constants.LoggingMessage.REST_CLIENT_REQUEST_ERROR;
+import static com.demo.bbq.utils.tracing.logging.constants.LoggingMessage.REST_CLIENT_REQUEST;
 
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import com.demo.bbq.utils.tracing.logging.injector.ThreadContextInjectorUtil;
@@ -45,11 +45,11 @@ public class RestClientRequestLoggerUtil {
       var body = BodyObfuscatorUtil.process(properties.getObfuscation(), requestBody);
 
       ThreadContextInjectorUtil.populateFromHeaders(HeaderMapperUtil.recoverTraceHeaders(httpHeaders));
-      ThreadContextInjectorUtil.populateFromClientRequest(method, uri, headers, body);
-      log.info(HTTP_REQUEST);
+      ThreadContextInjectorUtil.populateFromRestClientRequest(method, uri, headers, body);
+      log.info(REST_CLIENT_REQUEST);
 
     } catch (Exception ex) {
-      log.error(HTTP_ERROR_REQUEST + ex.getClass(), ex);
+      log.error(REST_CLIENT_REQUEST_ERROR + ex.getClass(), ex);
     }
     ThreadContext.clearAll();
   }
