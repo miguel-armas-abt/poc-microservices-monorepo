@@ -12,6 +12,7 @@ import com.demo.bbq.utils.tracing.logging.obfuscation.header.strategy.HeaderObfu
 import com.demo.bbq.utils.tracing.logging.util.HeaderMapperUtil;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.ThreadContext;
 import org.reactivestreams.Publisher;
@@ -21,14 +22,26 @@ import org.springframework.http.client.reactive.ClientHttpRequest;
 import org.springframework.http.client.reactive.ClientHttpRequestDecorator;
 import org.springframework.web.reactive.function.BodyInserter;
 import org.springframework.web.reactive.function.client.ClientRequest;
+import org.springframework.web.reactive.function.client.ClientResponse;
+import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
+import org.springframework.web.reactive.function.client.ExchangeFunction;
 import reactor.core.publisher.Mono;
 
 @Slf4j
-public class RestClientRequestLoggerUtil {
+@RequiredArgsConstructor
+public class RestClientRequestLogger implements ExchangeFilterFunction {
 
-  public static ClientRequest decorateRequest(ConfigurationBaseProperties properties,
-                                              List<HeaderObfuscationStrategy> headerObfuscationStrategies,
-                                              ClientRequest clientRequest) {
+  private final ConfigurationBaseProperties properties;
+  private final List<HeaderObfuscationStrategy> headerObfuscationStrategies;
+
+  @Override
+  public Mono<ClientResponse> filter(ClientRequest request, ExchangeFunction next) {
+    return next.exchange(decorateRequest(properties, headerObfuscationStrategies, request));
+  }
+
+  private static ClientRequest decorateRequest(ConfigurationBaseProperties properties,
+                                               List<HeaderObfuscationStrategy> headerObfuscationStrategies,
+                                               ClientRequest clientRequest) {
 
     BodyInserter<?, ? super ClientHttpRequest> requestBody = clientRequest.body();
 

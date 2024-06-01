@@ -12,6 +12,7 @@ import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
+import java.util.List;
 import javax.net.ssl.SSLException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -25,8 +26,7 @@ import reactor.netty.transport.logging.AdvancedByteBufFormat;
 @Slf4j
 public class WebClientFactory {
 
-  public static WebClient createWebClient(ExchangeFilterFunction exchangeRequestFilter,
-                                          ExchangeFilterFunction exchangeResponseFilter,
+  public static WebClient createWebClient(List<ExchangeFilterFunction> filters,
                                           ObservationRegistry observationRegistry) {
     Pool pool = new Pool();
     Timeout timeout = new Timeout();
@@ -35,8 +35,7 @@ public class WebClientFactory {
       HttpClient httpClient = buildHttpClient(timeout, pool);
       return WebClient.builder()
           .clientConnector(new ReactorClientHttpConnector(httpClient))
-          .filter(exchangeRequestFilter)
-          .filter(exchangeResponseFilter)
+          .filters(extraFilters -> extraFilters.addAll(filters))
           .observationRegistry(observationRegistry)
           .observationConvention(new DefaultClientRequestObservationConvention())
           .build();

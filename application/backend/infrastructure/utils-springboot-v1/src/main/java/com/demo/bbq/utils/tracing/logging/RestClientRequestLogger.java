@@ -12,23 +12,24 @@ import com.demo.bbq.utils.tracing.logging.util.HeaderMapperUtil;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.ThreadContext;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 
 @Slf4j
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RestClientRequestLoggerUtil {
+@RequiredArgsConstructor
+public class RestClientRequestLogger implements ClientHttpRequestInterceptor {
 
-  public static ClientHttpResponse decorateRequest(ConfigurationBaseProperties properties,
-                                                   List<HeaderObfuscationStrategy> headerObfuscationStrategies,
-                                                   HttpRequest request,
-                                                   byte[] body,
-                                                   ClientHttpRequestExecution execution) throws IOException {
+  private final ConfigurationBaseProperties properties;
+  private final List<HeaderObfuscationStrategy> headerObfuscationStrategies;
+
+  @Override
+  public ClientHttpResponse intercept(HttpRequest request, byte[] body,
+                                      ClientHttpRequestExecution execution) throws IOException {
     generateLog(properties, headerObfuscationStrategies, request, new String(body, StandardCharsets.UTF_8));
     return execution.execute(request, body);
   }

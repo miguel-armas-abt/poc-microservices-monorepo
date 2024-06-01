@@ -7,22 +7,24 @@ import com.demo.bbq.utils.errors.handler.external.strategy.RestClientErrorStrate
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import com.demo.bbq.utils.restclient.headers.HeadersBuilderUtil;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.HttpStatusCodeException;
 
-public class CustomRestTemplateUtil {
+@RequiredArgsConstructor
+public class CustomRestTemplate {
 
-  public static <I,O> O exchange(ExchangeRequestDTO<I,O> request,
-                                 String serviceName,
-                                 List<RestClientErrorStrategy> errorServices,
-                                 ConfigurationBaseProperties properties,
-                                 List<ClientHttpRequestInterceptor> requestInterceptors) {
+  private final ConfigurationBaseProperties properties;
+  private final List<RestClientErrorStrategy> errorStrategies;
+  private final List<ClientHttpRequestInterceptor> interceptors;
+
+  public <I,O> O exchange(ExchangeRequestDTO<I,O> request, String serviceName) {
     try {
       return RestTemplateFactory
-          .createRestTemplate(requestInterceptors)
+          .createRestTemplate(interceptors)
           .exchange(request.getUrl(),
               request.getHttpMethod(),
               buildHttpEntity(request, properties.getRestClients().get(serviceName).getRequest().getHeaders()),
@@ -31,7 +33,7 @@ public class CustomRestTemplateUtil {
           .getBody();
 
     } catch (HttpStatusCodeException httpException) {
-      throw ExternalErrorHandlerUtil.build(httpException, request.getErrorWrapperClass(), serviceName, errorServices, properties);
+      throw ExternalErrorHandlerUtil.build(httpException, request.getErrorWrapperClass(), serviceName, errorStrategies, properties);
     }
   }
 

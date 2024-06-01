@@ -12,23 +12,30 @@ import com.demo.bbq.utils.tracing.logging.wrapper.BufferingResponseWrapper;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.ThreadContext;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.StreamUtils;
 
 @Slf4j
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RestClientResponseLoggerUtil {
+@RequiredArgsConstructor
+public class RestClientResponseLogger implements ClientHttpRequestInterceptor {
 
-  public static ClientHttpResponse decorateResponse(ConfigurationBaseProperties properties,
-                                                    List<HeaderObfuscationStrategy> headerObfuscationStrategies,
-                                                    HttpRequest request,
-                                                    ClientHttpResponse response) throws IOException {
+  private final ConfigurationBaseProperties properties;
+  private final List<HeaderObfuscationStrategy> headerObfuscationStrategies;
 
+  @Override
+  public ClientHttpResponse intercept(HttpRequest request, byte[] body,
+                                      ClientHttpRequestExecution execution) throws IOException {
+    ClientHttpResponse response = execution.execute(request, body);
+    return decorateResponse(request, response);
+  }
+
+  public ClientHttpResponse decorateResponse(HttpRequest request, ClientHttpResponse response) throws IOException {
     BufferingResponseWrapper bufferedResponse = new BufferingResponseWrapper(response);
     String responseBody = StreamUtils.copyToString(bufferedResponse.getBody(), StandardCharsets.UTF_8);
     generateLog(properties, headerObfuscationStrategies, request, bufferedResponse, responseBody);

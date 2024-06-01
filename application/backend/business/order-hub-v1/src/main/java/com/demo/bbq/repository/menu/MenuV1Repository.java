@@ -2,11 +2,11 @@ package com.demo.bbq.repository.menu;
 
 import static com.demo.bbq.utils.restclient.headers.HeadersBuilderUtil.buildHeaders;
 
-import com.demo.bbq.config.errors.handler.external.ExternalErrorHandler;
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
 import com.demo.bbq.repository.menu.wrapper.response.MenuOptionResponseWrapper;
 import com.demo.bbq.repository.menu.wrapper.request.MenuOptionSaveRequestWrapper;
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
+import com.demo.bbq.utils.errors.handler.external.ExternalErrorHandler;
 import com.demo.bbq.utils.properties.dto.HeaderTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;

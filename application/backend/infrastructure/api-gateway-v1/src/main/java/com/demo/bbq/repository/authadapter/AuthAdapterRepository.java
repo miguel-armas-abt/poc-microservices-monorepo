@@ -3,11 +3,11 @@ package com.demo.bbq.repository.authadapter;
 import static com.demo.bbq.utils.restclient.headers.HeadersBuilderUtil.buildHeaders;
 
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
-import com.demo.bbq.config.errors.handler.external.ExternalErrorHandler;
 import com.demo.bbq.utils.errors.dto.ErrorDTO;
+import com.demo.bbq.utils.errors.handler.external.ExternalErrorHandler;
+import com.demo.bbq.utils.properties.dto.HeaderTemplate;
 import java.util.HashMap;
 import java.util.Map;
-import com.demo.bbq.utils.properties.dto.HeaderTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatusCode;

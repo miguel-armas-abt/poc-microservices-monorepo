@@ -11,16 +11,30 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.*;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 @Slf4j
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RestServerLoggerUtil {
+@RequiredArgsConstructor
+public class RestServerLogger implements HandlerInterceptor {
 
-  public static void decorateRequest(ConfigurationBaseProperties properties,
+  private final ConfigurationBaseProperties properties;
+  private final List<HeaderObfuscationStrategy> headerObfuscationStrategies;
+
+  @Override
+  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    decorateRequest(properties, headerObfuscationStrategies, request);
+    return true;
+  }
+
+  @Override
+  public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    decorateResponse(properties, headerObfuscationStrategies, request, response);
+  }
+
+  private static void decorateRequest(ConfigurationBaseProperties properties,
                               List<HeaderObfuscationStrategy> headerObfuscationStrategies,
                               HttpServletRequest request) {
     String method = request.getMethod();
@@ -34,7 +48,8 @@ public class RestServerLoggerUtil {
     log.info(LoggingMessage.REST_SERVER_REQUEST);
   }
 
-  public static void decorateResponse(ConfigurationBaseProperties properties,
+  //ToDo: Add responseBody in logs
+  private static void decorateResponse(ConfigurationBaseProperties properties,
                                List<HeaderObfuscationStrategy> headerObfuscationStrategies,
                                HttpServletRequest request,
                                HttpServletResponse response) {

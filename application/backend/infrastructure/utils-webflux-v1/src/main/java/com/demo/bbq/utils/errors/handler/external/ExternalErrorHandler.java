@@ -12,21 +12,21 @@ import com.demo.bbq.utils.errors.handler.external.strategy.ExternalErrorWrapper;
 import com.demo.bbq.utils.errors.handler.external.strategy.RestClientErrorStrategy;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import reactor.core.publisher.Mono;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ExternalErrorHandlerUtil {
+@RequiredArgsConstructor
+public class ExternalErrorHandler {
 
-  public static Mono<ExternalServiceException> build(ClientResponse clientResponse,
-                                                     Class<? extends ExternalErrorWrapper> errorWrapperClass,
-                                                     String serviceName,
-                                                     List<RestClientErrorStrategy> serviceList,
-                                                     ConfigurationBaseProperties properties) {
+  private final List<RestClientErrorStrategy> serviceList;
+  private final ConfigurationBaseProperties properties;
+
+  public Mono<ExternalServiceException> handleError(ClientResponse clientResponse,
+                                                    Class<? extends ExternalErrorWrapper> errorWrapperClass,
+                                                    String serviceName) {
     return selectService(errorWrapperClass, serviceList)
         .getCodeAndMessage(clientResponse)
         .switchIfEmpty(Mono.just(Pair.of(ErrorDTO.CODE_EMPTY, ErrorDTO.getDefaultError(properties).getMessage())))

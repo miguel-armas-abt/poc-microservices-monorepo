@@ -19,14 +19,19 @@
                     app=${name}
                     host=${HOSTNAME}
                     level=%level
-                    traceId=%mdc{tracking.traceId:-none}
-                    reqUri=%mdc{req.uri:-none}
+                    traceId=%mdc{traceId:-none}
+                    restServerReqUri=%mdc{rest.server.req.uri:-none}
+                    restClientReqUri=%mdc{rest.client.req.uri:-none}
                 </pattern>
                 <pairSeparator>regex:(\n|//[^\n]+)+</pairSeparator> <!-- comments and line break for labels -->
             </label>
             <message class="com.github.loki4j.logback.JsonLayout" />
         </format>
     </appender>
+
+    <!-- zipkin level logs -->
+    <logger name="zipkin2" level="ERROR"/>
+    <logger name="zipkin2.reporter.AsyncReporter$BoundedAsyncReporter" level="ERROR"/>
 
     <root level="INFO">
         <appender-ref ref="STDOUT" />

@@ -5,6 +5,7 @@ import static com.demo.bbq.utils.tracing.logging.constants.LoggingMessage.BASE_E
 import io.netty.channel.ConnectTimeoutException;
 import io.netty.handler.timeout.ReadTimeoutException;
 import io.netty.handler.timeout.TimeoutException;
+import java.util.HashMap;
 import java.util.Map;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class ExceptionLoggingMessage {
 
   public static Map<Class<? extends Throwable>, String> getExceptionMessages() {
-    Map<Class<? extends Throwable>, String> exceptionMessages = BASE_EXCEPTION_MESSAGES;
+    Map<Class<? extends Throwable>, String> exceptionMessages = new HashMap<>(BASE_EXCEPTION_MESSAGES);
     exceptionMessages.put(TimeoutException.class, "Timeout occurred while processing request");
     exceptionMessages.put(ConnectTimeoutException.class, "Connection timeout while attempting to connect to the server");
     exceptionMessages.put(ReadTimeoutException.class, "Read timeout occurred while waiting for the server's response");

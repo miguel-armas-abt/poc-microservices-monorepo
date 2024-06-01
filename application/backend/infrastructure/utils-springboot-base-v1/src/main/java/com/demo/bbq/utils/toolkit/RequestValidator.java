@@ -2,21 +2,22 @@ package com.demo.bbq.utils.toolkit;
 
 import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import java.util.function.Function;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RequestValidatorUtil {
+@RequiredArgsConstructor
+public class RequestValidator {
 
-  public static <T> void validateRequestBody(T requestBody, Validator validator) {
-    validateObjectRecursively(requestBody, validator);
+  private final Validator validator;
+
+  public <T> void validateRequestBody(T requestBody) {
+    validateObjectRecursively(requestBody);
   }
 
-  private static void validateObjectRecursively(Object obj, Validator validator) {
+  private void validateObjectRecursively(Object obj) {
     Errors errors = new BeanPropertyBindingResult(obj, obj.getClass().getName());
     validator.validate(obj, errors);
     if (errors.hasErrors()) {
@@ -30,7 +31,7 @@ public class RequestValidatorUtil {
         try {
           Object fieldValue = field.get(obj);
           if (fieldValue != null && !field.getType().isPrimitive() && !field.getType().getName().startsWith("java.")) {
-            validateObjectRecursively(fieldValue, validator);
+            validateObjectRecursively(fieldValue);
           }
         } catch (IllegalAccessException e) {
           throw throwInvalidRequest.apply(e.getMessage());
