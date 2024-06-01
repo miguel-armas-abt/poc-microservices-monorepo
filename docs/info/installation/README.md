@@ -13,7 +13,7 @@
       ├───kafka\bin
       ├───loki
       │     ├───loki
-      │     └───promptail
+      │     └───promtail
       ├───maven\apache-maven-3.9.6\bin
       ├───mysql\mysql-8.2.0\bin
       ├───postgresql\postgresql-16.1\bin
@@ -120,7 +120,7 @@
 >   ├───loki
 >   │   ├───loki-windows-amd64.exe
 >   │   └───loki-local-config.yaml
->   └───promptail
+>   └───prompail
 >       ├───promtail-windows-amd64.exe
 >       └───promtail-local-config.yaml
 > ```

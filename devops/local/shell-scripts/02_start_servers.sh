@@ -51,6 +51,36 @@ while IFS=',' read -r SERVER_NAME || [ -n "$SERVER_NAME" ]; do
       EXECUTION_COMMAND="./mysqld --console"
     fi
 
+    if [[ "$SERVER_NAME" == "prometheus" ]]; then
+      SERVER_PORT=$PROMETHEUS_PORT
+      SERVER_PATH=$PROMETHEUS_PATH
+      EXECUTION_COMMAND="./prometheus.exe"
+    fi
+
+    if [[ "$SERVER_NAME" == "zipkin" ]]; then
+      SERVER_PORT=$ZIPKIN_PORT
+      SERVER_PATH=$ZIPKIN_PATH
+      EXECUTION_COMMAND="$JAVA_COMMAND -jar ./zipkin-server-3.3.0-exec.jar"
+    fi
+
+    if [[ "$SERVER_NAME" == "grafana" ]]; then
+      SERVER_PORT=$GRAFANA_PORT
+      SERVER_PATH=$GRAFANA_PATH
+      EXECUTION_COMMAND="./grafana-server.exe"
+    fi
+
+    if [[ "$SERVER_NAME" == "loki" ]]; then
+      SERVER_PORT=$LOKI_PORT
+      SERVER_PATH=$LOKI_PATH
+      EXECUTION_COMMAND="./loki-windows-amd64.exe --config.file=loki-local-config.yaml"
+    fi
+
+    if [[ "$SERVER_NAME" == "promtail" ]]; then
+      SERVER_PORT=$PROMTAIL_PORT
+      SERVER_PATH=$PROMTAIL_PATH
+      EXECUTION_COMMAND="./promtail-windows-amd64.exe --config.file=promtail-local-config.yaml"
+    fi
+
     #verify port
     netstat -an | grep LISTEN | grep -q ":$SERVER_PORT "
     if [ $? -eq 0 ]; then

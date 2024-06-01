@@ -37,6 +37,24 @@ MYSQL_PORT="3306"
 MYSQL_ROOT_PASSWORD="qwerty"
 MYSQL_COMMAND="$MYSQL_PATH/mysql -u root -p$MYSQL_ROOT_PASSWORD"
 
+# specify your Prometheus config
+PROMETHEUS_PATH="C:/dev-environment/prometheus/prometheus-2.51.1"
+PROMETHEUS_PORT="9090"
+
+# specify your Zipkin config
+ZIPKIN_PATH="C:/dev-environment/zipkin"
+ZIPKIN_PORT="9411"
+
+# specify your Grafana config
+GRAFANA_PATH="C:/dev-environment/grafana/grafana-v10.4.2/bin"
+GRAFANA_PORT="3000"
+
+# specify your Loki config
+LOKI_PATH="C:/dev-environment/loki/loki"
+LOKI_PORT="3100"
+PROMTAIL_PATH="C:/dev-environment/loki/promtail"
+PROMTAIL_PORT="9080"
+
 # specify your workspace path
 BBQ_PATH="C:/dev-workspace/bbq-monorepo"
 BUSINESS_PATH="$BBQ_PATH/$BS_PATH"
