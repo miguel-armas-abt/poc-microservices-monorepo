@@ -1,6 +1,17 @@
 # BBQ RESTAURANT
 
-# 1. CASO DE ESTUDIO
+# 1. DESPLIEGUE
+Revise las instrucciones de despliegue para cada uno de los siguientes entornos.
+- [Local](./devops/local/README.md)
+- [Docker Compose](./devops/docker-compose/README.md)
+- [Kubernetes](./devops/k8s/README.md)
+- [Jenkins](./devops/jenkins/README.md)
+
+# 2. DOCUMENTACION
+- [Backend](./docs/info/backend/README.md)
+- [Observabilidad y monitoreo](./docs/info/monitoring/README.md)
+
+# 3. CASO DE ESTUDIO
 BBQ Restaurant es una cadena de restaurantes que planea implementar una arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
 Los expertos en el dominio "restaurante" utilizan los siguientes procesos para prestar servicios a sus clientes.
 
@@ -9,7 +20,7 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
 
 ![Proceso de atención en el restaurante](./docs/diagrams/restaurant-process.jpg)
 
-# 2. DISEÑO DEL SOFTWARE
+# 4. DISEÑO DEL SOFTWARE
 
 > ⚙️ **Diagrama de arquitectura de software**
 
@@ -30,7 +41,7 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
 | `api-gateway-v1`     | API Gateway.                                                                                                                  | **WebFlux**: `Webflux`, `WebClient`                               |
 | `auth-adapter-v1`    | Adaptador de autenticación.                                                                                                   | **RxJava**: `Retrofit`                                            |
 
-# 3. ESTRUCTURA DEL REPOSITORIO
+# 5. ESTRUCTURA DEL REPOSITORIO
 
 ```javascript
     bbq-monorepo
@@ -59,13 +70,3 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
 ```
 
 
-# 4. DESPLIEGUE
-Revise las instrucciones de despliegue para cada uno de los siguientes entornos.
-- [Local](./devops/local/README.md)
-- [Docker Compose](./devops/docker-compose/README.md)
-- [Kubernetes](./devops/k8s/README.md)
-- [Jenkins](./devops/jenkins/README.md)
-
-# 5. DOCUMENTACION
-- [Backend](./docs/info/backend/README.md)
-- [Observabilidad y monitoreo](./docs/info/monitoring/README.md)

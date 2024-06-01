@@ -2,7 +2,7 @@
 
 # PARÁMETROS LOCALES
 
-[← Regresar](./../README.md)
+[← Regresar Local](./../README.md)
 
 > ### Lista de proyectos a compilar
 > 📄 `01_projects-to-compile.csv`

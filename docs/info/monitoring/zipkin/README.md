@@ -1,6 +1,6 @@
 # ZIPKIN
 
-[← Regresar](./../README.md)
+[← Regresar Monitoreo](./../README.md)
 
 # Trazabilidad
 Podemos rastrear la trazabilidad de nuestras peticiones desde el tab `Find a trace`.

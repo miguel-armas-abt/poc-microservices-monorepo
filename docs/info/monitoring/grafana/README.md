@@ -1,6 +1,6 @@
 # GRAFANA
 
-[← Regresar](./../README.md)
+[← Regresar Monitoreo](./../README.md)
 
 # Fuentes de datos
 En la sección `Data sources` podemos administrar nuestras fuentes de datos (Prometheus y Loki)

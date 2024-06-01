@@ -2,7 +2,7 @@
 
 # DESPLIEGUE CON DOCKER COMPOSE
 
-[← Regresar](./../../README.md)
+[← Regresar Principal](./../../README.md)
 
 > ✅ **Pre requisitos**
 > - Iniciar Docker

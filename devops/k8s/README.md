@@ -2,7 +2,7 @@
 
 # DESPLIEGUE CON K8S
 
-[← Regresar](./../../README.md)
+[← Regresar Principal](./../../README.md)
 
 > ✅ **Pre requisitos**
 > - [Compilar proyectos](./../local/README.md)

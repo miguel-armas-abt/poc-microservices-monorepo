@@ -1,6 +1,6 @@
 # PROMETHEUS
 
-[← Regresar](./../README.md)
+[← Regresar Monitoreo](./../README.md)
 
 # Endpoints de Actuator
 Accediendo a la opción `Targets` podemos visualizar los servicios que tienen un enpoint activo de Actuator.

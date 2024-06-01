@@ -2,7 +2,9 @@
 
 # DESPLIEGUE LOCAL
 
-[← Regresar](./../../README.md)
+[← Regresar Principal](./../../README.md) <br>
+[← Regresar Docker Compose](./../docker-compose/README.md) <br>
+[← Regresar K8S](./../k8s/README.md)
 
 > ✅ **Pre requisitos**
 > - [Instalar las siguientes tecnologías:](./../../docs/info/installation/README.md)
