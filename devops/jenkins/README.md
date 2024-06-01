@@ -2,10 +2,14 @@
 
 # JENKINS
 
+[← Regresar](./../../README.md)
+
+**ToDo**: Los Jenkinsfiles deben pushear y recuperar las imágenes desde DockerHub.
+
 > ✅ **Pre requisitos**
-> - [Encender el clúster de Minikube](./../k8s/README.md.#iniciar-el-cluster-de-minikube)
-> - [Construir imágenes en Minikube](./../k8s/README.md) <br>ToBe: Jenkinsfile - Las imágenes deben ser pusheadas y obtenidas desde DockerHub.
-> - [Instalar ngrok - Anexos](#configuracion-de-ngrok)
+> - Iniciar el clúster de Minikube
+> - [Construir imágenes en Minikube](./../k8s/README.md)
+> - [Instalar Ngrok](./../../docs/info/installation/README.md)
 
 # 1. Iniciar Jenkins
 > 🔨 **Ejecutar contenedor de Jenkins**
@@ -101,20 +105,3 @@
 - Digite el nombre de su nuevo pipeline en el campo `Enter an item name`.
 - Ubique la sección `Copy from`, digite el nombre del pipeline que copiará, selecciónelo y presiones `OK`.
 - Ajuste las configuraciones revisadas durante la creación de un pipeline.
-
----
-
-# Anexos
-
-> ### Configuracion de Ngrok
-> Ngrok permite realizar port forward de una URL local hacia una URL pública.
-> - Ingrese a https://ngrok.com/ y haga login
-> - Descargue el archivo ejecutable `ngrok.exe`
-> - Ejecute solo la primera vez el comando provisto por Ngrok para autenticarse.
-> ```shell script 
->  ngrok config add-authtoken <ngrok-auth-token>
-> ```
-> - Realice port forward de su URL local.
-> ```shell script 
->  ngrok http http://localhost:8080
-> ```
