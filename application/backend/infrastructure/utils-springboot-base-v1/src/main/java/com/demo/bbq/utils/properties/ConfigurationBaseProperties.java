@@ -15,7 +15,5 @@ public abstract class ConfigurationBaseProperties {
 
   protected Map<String, RestClient> restClients;
 
-  protected Map<String, String> variables;
-
   protected ObfuscationTemplate obfuscation;
 }

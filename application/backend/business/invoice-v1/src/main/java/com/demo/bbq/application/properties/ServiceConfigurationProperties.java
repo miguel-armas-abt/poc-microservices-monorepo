@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "configuration")
 public class ServiceConfigurationProperties extends ConfigurationBaseProperties {
 
+  private BusinessInfo businessInfo;
   private Map<String, RuleInfo> rules;
 
   public String searchEndpoint(String serviceName) {

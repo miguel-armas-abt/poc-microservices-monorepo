@@ -22,7 +22,6 @@ configuration:
   obfuscation:
     body-fields: []
     headers: []
-    header-obfuscation-type: {}
 
 spring:
 

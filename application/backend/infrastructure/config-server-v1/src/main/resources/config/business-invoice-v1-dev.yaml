@@ -17,13 +17,12 @@ configuration:
           forwarded:
             traceId: traceId
 
-  variables:
-    igv: 0.18
-
   obfuscation:
     body-fields: []
     headers: []
-    header-obfuscation-type: {}
+
+  business-info:
+    igv: 0.18
 
   rules:
     discount-rules:

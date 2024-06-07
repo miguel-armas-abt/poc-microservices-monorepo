@@ -7,11 +7,9 @@ import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import com.demo.bbq.utils.tracing.logging.injector.ThreadContextInjectorUtil;
 import com.demo.bbq.utils.tracing.logging.obfuscation.body.BodyObfuscatorUtil;
 import com.demo.bbq.utils.tracing.logging.obfuscation.header.HeaderObfuscatorUtil;
-import com.demo.bbq.utils.tracing.logging.obfuscation.header.strategy.HeaderObfuscationStrategy;
 import com.demo.bbq.utils.tracing.logging.util.HeaderMapperUtil;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.ThreadContext;
@@ -25,24 +23,22 @@ import org.springframework.http.client.ClientHttpResponse;
 public class RestClientRequestLogger implements ClientHttpRequestInterceptor {
 
   private final ConfigurationBaseProperties properties;
-  private final List<HeaderObfuscationStrategy> headerObfuscationStrategies;
 
   @Override
   public ClientHttpResponse intercept(HttpRequest request, byte[] body,
                                       ClientHttpRequestExecution execution) throws IOException {
-    generateLog(properties, headerObfuscationStrategies, request, new String(body, StandardCharsets.UTF_8));
+    generateLog(properties, request, new String(body, StandardCharsets.UTF_8));
     return execution.execute(request, body);
   }
 
   private static void generateLog(ConfigurationBaseProperties properties,
-                                  List<HeaderObfuscationStrategy> headerObfuscationStrategies,
                                   HttpRequest request,
                                   String requestBody) {
     try {
       var method = request.getMethod().toString();
       var uri = request.getURI().toString();
       var httpHeaders = request.getHeaders();
-      var headers = HeaderObfuscatorUtil.process(properties.getObfuscation(), headerObfuscationStrategies, httpHeaders.toSingleValueMap());
+      var headers = HeaderObfuscatorUtil.process(properties.getObfuscation(), httpHeaders.toSingleValueMap());
       var body = BodyObfuscatorUtil.process(properties.getObfuscation(), requestBody);
 
       ThreadContextInjectorUtil.populateFromHeaders(HeaderMapperUtil.recoverTraceHeaders(httpHeaders));

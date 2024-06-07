@@ -8,11 +8,7 @@ import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import com.demo.bbq.utils.tracing.logging.injector.ThreadContextInjectorUtil;
 import com.demo.bbq.utils.tracing.logging.obfuscation.body.BodyObfuscatorUtil;
 import com.demo.bbq.utils.tracing.logging.obfuscation.header.HeaderObfuscatorUtil;
-import com.demo.bbq.utils.tracing.logging.obfuscation.header.strategy.HeaderObfuscationStrategy;
 import com.demo.bbq.utils.tracing.logging.util.HeaderMapperUtil;
-
-import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -30,14 +26,13 @@ import reactor.util.context.Context;
 public class RestClientResponseLogger implements ExchangeFilterFunction {
 
   private final ConfigurationBaseProperties properties;
-  private final List<HeaderObfuscationStrategy> headerObfuscationStrategies;
 
   @Override
   public Mono<ClientResponse> filter(ClientRequest request, ExchangeFunction next) {
     var context = captureRequest(request);
     return next.exchange(request)
         .contextWrite(context)
-        .flatMap(response -> decorateResponse(properties, headerObfuscationStrategies, request, response, context));
+        .flatMap(response -> decorateResponse(properties, request, response, context));
   }
 
   private static Context captureRequest(ClientRequest request) {
@@ -46,7 +41,6 @@ public class RestClientResponseLogger implements ExchangeFilterFunction {
   }
 
   private static Mono<ClientResponse> decorateResponse(ConfigurationBaseProperties properties,
-                                                       List<HeaderObfuscationStrategy> headerObfuscationStrategies,
                                                        ClientRequest clientRequest,
                                                        ClientResponse clientResponse,
                                                        Context context) {
@@ -55,7 +49,7 @@ public class RestClientResponseLogger implements ExchangeFilterFunction {
         .defaultIfEmpty(StringUtils.EMPTY)
         .flatMap(responseBody -> {
 
-          generateLog(properties, headerObfuscationStrategies, clientRequest, clientResponse, responseBody, context);
+          generateLog(properties, clientRequest, clientResponse, responseBody, context);
           var responseHeaders = clientResponse.headers().asHttpHeaders();
 
           return Mono.just(ClientResponse.create(clientResponse.statusCode())
@@ -66,7 +60,6 @@ public class RestClientResponseLogger implements ExchangeFilterFunction {
   }
 
   private static void generateLog(ConfigurationBaseProperties properties,
-                                  List<HeaderObfuscationStrategy> headerObfuscationStrategies,
                                   ClientRequest clientRequest,
                                   ClientResponse response,
                                   String responseBody,
@@ -77,7 +70,7 @@ public class RestClientResponseLogger implements ExchangeFilterFunction {
 
       var method = clientRequest.method().toString();
       var uri = clientRequest.url().toString();
-      var headers = HeaderObfuscatorUtil.process(properties.getObfuscation(), headerObfuscationStrategies, response.headers().asHttpHeaders().toSingleValueMap());
+      var headers = HeaderObfuscatorUtil.process(properties.getObfuscation(), response.headers().asHttpHeaders().toSingleValueMap());
       var body = BodyObfuscatorUtil.process(properties.getObfuscation(), responseBody);
 
       ThreadContextInjectorUtil.populateFromRestClientResponse(method, uri, headers, body, getHttpCode(response));

@@ -4,8 +4,6 @@ import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import com.demo.bbq.utils.tracing.logging.RestClientRequestLogger;
 import com.demo.bbq.utils.tracing.logging.RestClientResponseLogger;
 import com.demo.bbq.utils.tracing.logging.RestServerLogger;
-import com.demo.bbq.utils.tracing.logging.obfuscation.header.strategy.HeaderObfuscationStrategy;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,21 +15,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class LoggingConfig {
 
   @Bean
-  public ClientHttpRequestInterceptor restClientRequestLogger(ConfigurationBaseProperties properties,
-                                                              List<HeaderObfuscationStrategy> headerObfuscationStrategies) {
-    return new RestClientRequestLogger(properties, headerObfuscationStrategies);
+  public ClientHttpRequestInterceptor restClientRequestLogger(ConfigurationBaseProperties properties) {
+    return new RestClientRequestLogger(properties);
   }
 
   @Bean
-  public ClientHttpRequestInterceptor restClientResponseLogger(ConfigurationBaseProperties properties,
-                                                               List<HeaderObfuscationStrategy> headerObfuscationStrategies) {
-    return new RestClientResponseLogger(properties, headerObfuscationStrategies);
+  public ClientHttpRequestInterceptor restClientResponseLogger(ConfigurationBaseProperties properties) {
+    return new RestClientResponseLogger(properties);
   }
 
   @Bean
-  public RestServerLogger restServerLogger(ConfigurationBaseProperties properties,
-                                             List<HeaderObfuscationStrategy> headerObfuscationStrategies) {
-    return new RestServerLogger(properties, headerObfuscationStrategies);
+  public RestServerLogger restServerLogger(ConfigurationBaseProperties properties) {
+    return new RestServerLogger(properties);
   }
 
   @Configuration

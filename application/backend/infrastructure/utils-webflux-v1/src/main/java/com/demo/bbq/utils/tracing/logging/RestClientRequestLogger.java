@@ -8,10 +8,8 @@ import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import com.demo.bbq.utils.tracing.logging.injector.ThreadContextInjectorUtil;
 import com.demo.bbq.utils.tracing.logging.obfuscation.body.BodyObfuscatorUtil;
 import com.demo.bbq.utils.tracing.logging.obfuscation.header.HeaderObfuscatorUtil;
-import com.demo.bbq.utils.tracing.logging.obfuscation.header.strategy.HeaderObfuscationStrategy;
 import com.demo.bbq.utils.tracing.logging.util.HeaderMapperUtil;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.ThreadContext;
@@ -32,15 +30,13 @@ import reactor.core.publisher.Mono;
 public class RestClientRequestLogger implements ExchangeFilterFunction {
 
   private final ConfigurationBaseProperties properties;
-  private final List<HeaderObfuscationStrategy> headerObfuscationStrategies;
 
   @Override
   public Mono<ClientResponse> filter(ClientRequest request, ExchangeFunction next) {
-    return next.exchange(decorateRequest(properties, headerObfuscationStrategies, request));
+    return next.exchange(decorateRequest(properties, request));
   }
 
   private static ClientRequest decorateRequest(ConfigurationBaseProperties properties,
-                                               List<HeaderObfuscationStrategy> headerObfuscationStrategies,
                                                ClientRequest clientRequest) {
 
     BodyInserter<?, ? super ClientHttpRequest> requestBody = clientRequest.body();
@@ -57,7 +53,7 @@ public class RestClientRequestLogger implements ExchangeFilterFunction {
                   .flatMap(buffer -> {
 
                     var requestBody = buffer.toString(StandardCharsets.UTF_8);
-                    generateLog(properties, headerObfuscationStrategies, clientRequest, requestBody);
+                    generateLog(properties, clientRequest, requestBody);
 
                     // buffer release
                     DataBuffer replicaBuffer = buffer.factory().wrap(buffer.asByteBuffer());
@@ -68,7 +64,7 @@ public class RestClientRequestLogger implements ExchangeFilterFunction {
 
             @Override
             public Mono<Void> setComplete() {
-              generateLog(properties, headerObfuscationStrategies, clientRequest, EMPTY);
+              generateLog(properties, clientRequest, EMPTY);
               return super.setComplete();
             }
 
@@ -79,14 +75,13 @@ public class RestClientRequestLogger implements ExchangeFilterFunction {
   }
 
   private static void generateLog(ConfigurationBaseProperties properties,
-                                  List<HeaderObfuscationStrategy> headerObfuscationStrategies,
                                   ClientRequest clientRequest,
                                   String requestBody) {
     try {
       var method = clientRequest.method().toString();
       var uri = clientRequest.url().toString();
       var httpHeaders = clientRequest.headers();
-      var headers = HeaderObfuscatorUtil.process(properties.getObfuscation(), headerObfuscationStrategies, httpHeaders.toSingleValueMap());
+      var headers = HeaderObfuscatorUtil.process(properties.getObfuscation(), httpHeaders.toSingleValueMap());
       var body = BodyObfuscatorUtil.process(properties.getObfuscation(), requestBody);
 
       ThreadContextInjectorUtil.populateFromHeaders(HeaderMapperUtil.recoverTraceHeaders(httpHeaders));

@@ -5,7 +5,6 @@ import com.demo.bbq.utils.tracing.logging.constants.LoggingMessage;
 import com.demo.bbq.utils.tracing.logging.injector.ThreadContextInjectorUtil;
 import com.demo.bbq.utils.tracing.logging.obfuscation.body.BodyObfuscatorUtil;
 import com.demo.bbq.utils.tracing.logging.obfuscation.header.HeaderObfuscatorUtil;
-import com.demo.bbq.utils.tracing.logging.obfuscation.header.strategy.HeaderObfuscationStrategy;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
@@ -21,27 +20,24 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class RestServerLogger implements HandlerInterceptor {
 
   private final ConfigurationBaseProperties properties;
-  private final List<HeaderObfuscationStrategy> headerObfuscationStrategies;
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-    decorateRequest(properties, headerObfuscationStrategies, request);
+    decorateRequest(properties, request);
     return true;
   }
 
   @Override
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-    decorateResponse(properties, headerObfuscationStrategies, request, response);
+    decorateResponse(properties, request, response);
   }
 
-  private static void decorateRequest(ConfigurationBaseProperties properties,
-                              List<HeaderObfuscationStrategy> headerObfuscationStrategies,
-                              HttpServletRequest request) {
+  private static void decorateRequest(ConfigurationBaseProperties properties, HttpServletRequest request) {
     String method = request.getMethod();
     String url = getFullRequestURL(request);
     String requestBody = BodyObfuscatorUtil.process(properties.getObfuscation(), extractRequestBody(request));
     Map<String, String> requestHeaders = extractRequestHeaders(request);
-    String obfuscatedHeaders = HeaderObfuscatorUtil.process(properties.getObfuscation(), headerObfuscationStrategies, requestHeaders);
+    String obfuscatedHeaders = HeaderObfuscatorUtil.process(properties.getObfuscation(), requestHeaders);
 
     ThreadContextInjectorUtil.populateFromHeaders(requestHeaders);
     ThreadContextInjectorUtil.populateFromRestServerRequest(method, url, obfuscatedHeaders, requestBody);
@@ -50,13 +46,12 @@ public class RestServerLogger implements HandlerInterceptor {
 
   //ToDo: Add responseBody in logs
   private static void decorateResponse(ConfigurationBaseProperties properties,
-                               List<HeaderObfuscationStrategy> headerObfuscationStrategies,
-                               HttpServletRequest request,
-                               HttpServletResponse response) {
+                                       HttpServletRequest request,
+                                       HttpServletResponse response) {
     String method = request.getMethod();
     String url = getFullRequestURL(request);
     Map<String, String> responseHeaders = extractResponseHeaders(response);
-    String obfuscatedHeaders = HeaderObfuscatorUtil.process(properties.getObfuscation(), headerObfuscationStrategies, responseHeaders);
+    String obfuscatedHeaders = HeaderObfuscatorUtil.process(properties.getObfuscation(), responseHeaders);
     String httpCode = String.valueOf(response.getStatus());
 
     ThreadContextInjectorUtil.populateFromHeaders(responseHeaders);

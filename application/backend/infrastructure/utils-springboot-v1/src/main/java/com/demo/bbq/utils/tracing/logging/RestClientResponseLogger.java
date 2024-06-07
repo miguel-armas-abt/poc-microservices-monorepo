@@ -7,11 +7,9 @@ import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import com.demo.bbq.utils.tracing.logging.injector.ThreadContextInjectorUtil;
 import com.demo.bbq.utils.tracing.logging.obfuscation.body.BodyObfuscatorUtil;
 import com.demo.bbq.utils.tracing.logging.obfuscation.header.HeaderObfuscatorUtil;
-import com.demo.bbq.utils.tracing.logging.obfuscation.header.strategy.HeaderObfuscationStrategy;
 import com.demo.bbq.utils.tracing.logging.wrapper.BufferingResponseWrapper;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.ThreadContext;
@@ -26,7 +24,6 @@ import org.springframework.util.StreamUtils;
 public class RestClientResponseLogger implements ClientHttpRequestInterceptor {
 
   private final ConfigurationBaseProperties properties;
-  private final List<HeaderObfuscationStrategy> headerObfuscationStrategies;
 
   @Override
   public ClientHttpResponse intercept(HttpRequest request, byte[] body,
@@ -38,19 +35,18 @@ public class RestClientResponseLogger implements ClientHttpRequestInterceptor {
   public ClientHttpResponse decorateResponse(HttpRequest request, ClientHttpResponse response) throws IOException {
     BufferingResponseWrapper bufferedResponse = new BufferingResponseWrapper(response);
     String responseBody = StreamUtils.copyToString(bufferedResponse.getBody(), StandardCharsets.UTF_8);
-    generateLog(properties, headerObfuscationStrategies, request, bufferedResponse, responseBody);
+    generateLog(properties, request, bufferedResponse, responseBody);
     return bufferedResponse;
   }
 
   private static void generateLog(ConfigurationBaseProperties properties,
-                                  List<HeaderObfuscationStrategy> headerObfuscationStrategies,
                                   HttpRequest request,
                                   ClientHttpResponse response,
                                   String responseBody) {
     try {
       var method = request.getMethod().toString();
       var uri = request.getURI().toString();
-      var headers = HeaderObfuscatorUtil.process(properties.getObfuscation(), headerObfuscationStrategies, response.getHeaders().toSingleValueMap());
+      var headers = HeaderObfuscatorUtil.process(properties.getObfuscation(), response.getHeaders().toSingleValueMap());
       var body = BodyObfuscatorUtil.process(properties.getObfuscation(), responseBody);
 
       ThreadContextInjectorUtil.populateFromRestClientResponse(method, uri, headers, body, getHttpCode(response));

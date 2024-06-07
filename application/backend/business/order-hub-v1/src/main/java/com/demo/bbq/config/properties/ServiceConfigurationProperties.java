@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "configuration")
 public class ServiceConfigurationProperties extends ConfigurationBaseProperties {
 
+  private MenuInfo menuInfo;
+
   public String searchEndpoint(String serviceName) {
     return this.getRestClients().get(serviceName).getRequest().getEndpoint();
   }

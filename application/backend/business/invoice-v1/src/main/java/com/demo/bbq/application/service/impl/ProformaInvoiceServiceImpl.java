@@ -50,7 +50,7 @@ public class ProformaInvoiceServiceImpl implements ProformaInvoiceService {
   }
 
   private ProformaInvoiceResponseDTO completeFields(ProformaInvoiceResponseDTO proforma) {
-    BigDecimal igv = new BigDecimal(properties.getVariables().get("igv"));
+    BigDecimal igv = new BigDecimal(properties.getBusinessInfo().getIgv());
     proforma.setIgv(igv);
     proforma.setTotal(proforma.getSubtotal().add(proforma.getSubtotal().multiply(igv)));
     return proforma;

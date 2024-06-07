@@ -4,8 +4,6 @@ import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import com.demo.bbq.utils.tracing.logging.constants.LoggingMessage;
 import com.demo.bbq.utils.tracing.logging.injector.ThreadContextInjectorUtil;
 import com.demo.bbq.utils.tracing.logging.obfuscation.header.HeaderObfuscatorUtil;
-import com.demo.bbq.utils.tracing.logging.obfuscation.header.strategy.HeaderObfuscationStrategy;
-import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +18,6 @@ import reactor.core.publisher.Mono;
 public class RestServerLogger implements WebFilter {
 
   private final ConfigurationBaseProperties properties;
-  private final List<HeaderObfuscationStrategy> headerObfuscationStrategies;
 
   //ToDo: Add requestBody && responseBody in logs
   @Override
@@ -28,7 +25,7 @@ public class RestServerLogger implements WebFilter {
     String method = exchange.getRequest().getMethod().toString();
     String url = exchange.getRequest().getURI().toString();
     Map<String, String> requestHeaders = exchange.getRequest().getHeaders().toSingleValueMap();
-    String obfuscatedRequestHeaders = HeaderObfuscatorUtil.process(properties.getObfuscation(), headerObfuscationStrategies, requestHeaders);
+    String obfuscatedRequestHeaders = HeaderObfuscatorUtil.process(properties.getObfuscation(), requestHeaders);
 
     ThreadContextInjectorUtil.populateFromHeaders(requestHeaders);
     ThreadContextInjectorUtil.populateFromRestServerRequest(method, url, obfuscatedRequestHeaders, StringUtils.EMPTY);
@@ -37,7 +34,7 @@ public class RestServerLogger implements WebFilter {
     return chain.filter(exchange)
         .doOnSuccess(aVoid -> {
           Map<String, String> responseHeaders = exchange.getResponse().getHeaders().toSingleValueMap();
-          String obfuscatedResponseHeaders = HeaderObfuscatorUtil.process(properties.getObfuscation(), headerObfuscationStrategies, requestHeaders);
+          String obfuscatedResponseHeaders = HeaderObfuscatorUtil.process(properties.getObfuscation(), requestHeaders);
           String httpCode = exchange.getResponse().getStatusCode().toString();
 
           ThreadContextInjectorUtil.populateFromHeaders(responseHeaders);

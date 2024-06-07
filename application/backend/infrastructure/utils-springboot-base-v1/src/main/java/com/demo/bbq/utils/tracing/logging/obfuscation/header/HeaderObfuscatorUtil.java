@@ -1,41 +1,39 @@
 package com.demo.bbq.utils.tracing.logging.obfuscation.header;
 
-import com.demo.bbq.utils.properties.dto.HeaderObfuscationType;
+import static com.demo.bbq.utils.tracing.logging.obfuscation.constants.ObfuscationConstant.OBFUSCATION_MASK;
+import static com.demo.bbq.utils.tracing.logging.obfuscation.constants.ObfuscationConstant.OBFUSCATION_WARNING;
+
 import com.demo.bbq.utils.properties.dto.ObfuscationTemplate;
-import com.demo.bbq.utils.tracing.logging.obfuscation.header.strategy.HeaderObfuscationStrategy;
-import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class HeaderObfuscatorUtil {
 
     public static String process(ObfuscationTemplate obfuscation,
-                                 List<HeaderObfuscationStrategy> strategies,
                                  Map<String, String> headers) {
 
-        Set<String> sensitiveHeaders = obfuscation.getHeaders();
-        Map<String, HeaderObfuscationType> strategiesMap = obfuscation.getHeaderObfuscationType();
-        return headers.entrySet().stream()
-                .map(entry -> obfuscateHeader(strategies, entry, sensitiveHeaders, strategiesMap))
-                .collect(Collectors.joining(", "));
+        return headers
+            .entrySet()
+            .stream()
+            .map(entry -> obfuscateHeader(entry, obfuscation.getHeaders()))
+            .collect(Collectors.joining(", "));
     }
 
-    private static String obfuscateHeader(List<HeaderObfuscationStrategy> headerObfuscationStrategies,
-                                          Map.Entry<String, String> header,
-                                          Set<String> sensitiveHeaders,
-                                          Map<String, HeaderObfuscationType> strategies) {
+    private static String obfuscateHeader(Map.Entry<String, String> header,
+                                          Set<String> sensitiveHeaders) {
         String key = header.getKey();
-        if (sensitiveHeaders.contains(key)) {
-            HeaderObfuscationType strategyType = strategies.getOrDefault(key, HeaderObfuscationType.STANDARD);
+        return !sensitiveHeaders.contains(key)
+            ? key + "=" + header.getValue()
+            : Optional.ofNullable(header.getValue())
+                .map(value -> key + "=" + partiallyObfuscate(value))
+                .orElse(key + "=" + OBFUSCATION_WARNING);
+    }
 
-            return headerObfuscationStrategies
-                    .stream()
-                    .filter(strategy -> strategy.supports(strategyType))
-                    .findFirst()
-                    .map(strategy -> key + "=" + strategy.obfuscate(header.getValue()))
-                    .orElse(key + "=<obfuscation_failed>");
-        }
-        return key + "=" + header.getValue();
+    private static String partiallyObfuscate(String value) {
+        return value.length() <= 6
+            ? OBFUSCATION_MASK
+            : value.substring(0, 3) + OBFUSCATION_MASK + value.substring(value.length() - 3);
     }
 }
