@@ -1,0 +1,4 @@
+quarkus:
+  spring-cloud-config:
+    enabled: true
+    url: http://localhost:8888

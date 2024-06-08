@@ -1,0 +1,5 @@
+quarkus:
+  application:
+    name: menu-v2
+  http:
+    port: 8016

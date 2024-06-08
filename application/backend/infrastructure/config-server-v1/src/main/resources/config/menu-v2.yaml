@@ -1,0 +1,26 @@
+quarkus:
+  datasource:
+    db-kind: mysql
+    username: ${MYSQL_USERNAME:bbq_user}
+    password: ${MYSQL_PASSWORD:qwerty}
+    jdbc: false
+    reactive:
+      url: mysql://${MYSQL_DOMAIN:localhost:3306}/db_menu_options
+      max-size: 20
+  hibernate-orm:
+    log:
+      sql: true
+  rest-client:
+    products:
+      url: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1
+      verify-host: false
+
+products:
+  mp-graphql:
+    url: http://localhost:8017/graphql
+
+configuration:
+  error-messages:
+    enabled: false
+    messages:
+      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
