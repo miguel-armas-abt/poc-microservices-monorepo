@@ -16,7 +16,7 @@ public class ResponseErrorHandlerBaseUtil {
     String defaultMessage = ErrorDTO.getDefaultError(properties).getMessage();
     String errorCode = Optional.of(currentError.getCode()).orElseGet(() -> CODE_DEFAULT);
     String matchingMessage = ErrorDTO.getMatchMessage(properties, errorCode);
-    boolean showCustomMessages = properties.isErrorMessagesEnabled();
+    boolean showCustomMessages = properties.errorMessages().get().enabled();
 
     String selectedMessage = selectMessage(showCustomMessages, defaultMessage, currentError.getMessage(), matchingMessage);
     currentError.setMessage(selectedMessage);

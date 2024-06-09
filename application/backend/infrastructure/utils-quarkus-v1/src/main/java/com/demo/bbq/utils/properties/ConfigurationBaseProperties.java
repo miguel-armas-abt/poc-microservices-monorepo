@@ -1,20 +1,10 @@
 package com.demo.bbq.utils.properties;
 
-import java.util.Map;
-import javax.enterprise.context.ApplicationScoped;
-import lombok.Getter;
-import lombok.Setter;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import com.demo.bbq.utils.properties.dto.ErrorMessage;
+import java.util.Optional;
 
-@Getter
-@Setter
-@ApplicationScoped
-public class ConfigurationBaseProperties {
+public interface ConfigurationBaseProperties {
 
-  @ConfigProperty(name = "configuration.error-messages.enabled")
-  boolean errorMessagesEnabled;
-
-  @ConfigProperty(name = "configuration.error-messages.messages")
-  Map<String, String> errorMessages;
+  Optional<ErrorMessage> errorMessages();
 
 }

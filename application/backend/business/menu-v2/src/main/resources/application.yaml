@@ -7,4 +7,4 @@ quarkus:
     console:
       enable: true
       json:
-        pretty-print: true
+        pretty-print: false

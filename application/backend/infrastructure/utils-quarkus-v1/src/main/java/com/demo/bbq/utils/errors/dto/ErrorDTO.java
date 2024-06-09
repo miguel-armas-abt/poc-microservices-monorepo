@@ -34,7 +34,9 @@ public class ErrorDTO implements Serializable  {
 
     public static String getMatchMessage(ConfigurationBaseProperties properties, String errorCode) {
         return properties
-            .getErrorMessages()
+            .errorMessages()
+            .get()
+            .messages()
             .get(errorCode);
     }
 }

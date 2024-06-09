@@ -7,21 +7,15 @@ import com.demo.bbq.utils.errors.exceptions.ExternalServiceException;
 import com.demo.bbq.utils.errors.exceptions.SystemException;
 import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import com.demo.bbq.utils.tracing.logging.ErrorLoggingUtil;
-import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+import lombok.RequiredArgsConstructor;
 
-@Provider
-public class ResponseErrorHandler implements ExceptionMapper<Throwable> {
+@RequiredArgsConstructor
+public class ResponseErrorHandlerUtil {
 
-  @Inject
-  ConfigurationBaseProperties properties;
-
-  @Override
-  public Response toResponse(Throwable throwable) {
+  public static Response toResponse(Throwable throwable, ConfigurationBaseProperties properties) {
     ErrorLoggingUtil.generateTrace(throwable);
 
     ErrorDTO error = ErrorDTO.getDefaultError(properties);

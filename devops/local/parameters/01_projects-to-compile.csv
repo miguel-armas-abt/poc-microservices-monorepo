@@ -5,6 +5,7 @@ utils-springboot-base-v1,INF
 utils-springboot-v1,INF
 utils-webflux-v1,INF
 utils-rxjava-v1,INF
+utils-quarkus-v1,INF
 mock-service-v1,INF
 config-server-v1,INF
 api-gateway-v1,INF

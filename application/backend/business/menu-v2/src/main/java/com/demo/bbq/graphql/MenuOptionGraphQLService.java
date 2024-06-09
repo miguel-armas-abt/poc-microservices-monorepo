@@ -3,19 +3,20 @@ package com.demo.bbq.graphql;
 import com.demo.bbq.application.dto.response.MenuOptionResponseDTO;
 import com.demo.bbq.application.service.MenuOptionService;
 import io.smallrye.mutiny.Uni;
+import java.util.HashMap;
 import java.util.List;
-import javax.inject.Inject;
+import lombok.RequiredArgsConstructor;
 import org.eclipse.microprofile.graphql.*;
 
 @GraphQLApi
+@RequiredArgsConstructor
 public class MenuOptionGraphQLService {
 
-  @Inject
-  MenuOptionService menuOptionService;
+  private final MenuOptionService menuOptionService;
 
   @Query
   public Uni<MenuOptionResponseDTO> findById(@Name("productCode") String productCode) {
-    return menuOptionService.findByProductCode(productCode);
+    return menuOptionService.findByProductCode(productCode, new HashMap<>());
   }
 
   @Query("findByCategory")

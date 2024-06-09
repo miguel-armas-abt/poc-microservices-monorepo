@@ -1,6 +1,6 @@
 package com.demo.bbq.application.enums;
 
-import com.demo.bbq.config.utils.errors.exceptions.BusinessException;
+import com.demo.bbq.utils.errors.exceptions.BusinessException;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import lombok.AllArgsConstructor;
@@ -22,4 +22,3 @@ public enum MenuCategory {
           .findFirst()
           .orElseThrow(() -> new BusinessException("The menu category is not defined"));
 }
-

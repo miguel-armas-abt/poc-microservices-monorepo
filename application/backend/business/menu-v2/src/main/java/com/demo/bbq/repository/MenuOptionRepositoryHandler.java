@@ -10,28 +10,27 @@ import com.demo.bbq.repository.product.ProductRepository;
 import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactional;
 import io.smallrye.mutiny.Uni;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 @ApplicationScoped
+@RequiredArgsConstructor
 public class MenuOptionRepositoryHandler {
 
   private final String PRODUCT_SCOPE = "MENU";
 
-  @Inject
-  MenuOptionRepository menuOptionRepository;
+  private final MenuOptionRepository menuOptionRepository;
+
+  private final MenuOptionMapper menuOptionMapper;
 
   @RestClient
   ProductRepository productRepository;
 
-  @Inject
-  MenuOptionMapper menuOptionMapper;
-
-  public Uni<List<MenuOptionResponseDTO>> findAll() {
+  public Uni<List<MenuOptionResponseDTO>> findAll(Map<String, String> headers) {
     Uni<Map<String, MenuOptionEntity>> menuOptionUni = menuOptionRepository.findAllMenuOptions()
         .collect().asList()
         .map(list -> list.stream()
@@ -46,7 +45,7 @@ public class MenuOptionRepositoryHandler {
                     .collect(Collectors.toList())));
   }
 
-  public Uni<Void> save(MenuOptionSaveRequestDTO menuOption) {
+  public Uni<Void> save(MenuOptionSaveRequestDTO menuOption, Map<String, String> headers) {
     return productRepository.save(menuOptionMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE))
         .onItem()
         .transformToUni(ignore -> menuOptionRepository.saveMenuOption(menuOptionMapper.toEntity(menuOption)))
@@ -55,7 +54,7 @@ public class MenuOptionRepositoryHandler {
         .andContinueWithNull();
   }
 
-  public Uni<Void> update(String productCode, MenuOptionUpdateRequestDTO menuOption) {
+  public Uni<Void> update(String productCode, MenuOptionUpdateRequestDTO menuOption, Map<String, String> headers) {
     return menuOptionRepository.update(menuOptionMapper.toEntity(menuOption, productCode), productCode)
         .onItem()
         .transformToUni(ignore -> productRepository.update(productCode, menuOptionMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE)))
@@ -65,7 +64,7 @@ public class MenuOptionRepositoryHandler {
   }
 
   @ReactiveTransactional
-  public Uni<Void> deleteByProductCode(String productCode) {
+  public Uni<Void> deleteByProductCode(String productCode, Map<String, String> headers) {
     return menuOptionRepository.findByProductCode(productCode)
         .flatMap(menuOptionFound -> menuOptionRepository.deleteByProductCode(productCode))
         .onItem()
