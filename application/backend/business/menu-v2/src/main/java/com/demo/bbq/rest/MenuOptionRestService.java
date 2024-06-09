@@ -4,7 +4,6 @@ import com.demo.bbq.application.service.MenuOptionService;
 import com.demo.bbq.application.dto.request.MenuOptionSaveRequestDTO;
 import com.demo.bbq.application.dto.request.MenuOptionUpdateRequestDTO;
 import com.demo.bbq.application.dto.response.MenuOptionResponseDTO;
-import com.demo.bbq.utils.toolkit.HeaderPlanerUtil;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
 import java.net.URI;
-import java.util.Map;
 import java.util.function.Function;
 
 @Slf4j
@@ -36,26 +32,20 @@ public class MenuOptionRestService {
 
   private final MenuOptionService menuOptionService;
 
-  @Context
-  HttpHeaders httpHeaders;
-
   @GET
   @Path("/{productCode}")
   public Uni<MenuOptionResponseDTO> findByProductCode(@PathParam("productCode") String productCode) {
-    Map<String, String> headers = HeaderPlanerUtil.flatHeaders(httpHeaders.getRequestHeaders());
-    return menuOptionService.findByProductCode(productCode, headers);
+    return menuOptionService.findByProductCode(productCode);
   }
 
   @GET
   public Multi<MenuOptionResponseDTO> findByCategory(@QueryParam("category") String categoryCode) {
-    Map<String, String> headers = HeaderPlanerUtil.flatHeaders(httpHeaders.getRequestHeaders());
-    return menuOptionService.findByCategory(categoryCode, headers);
+    return menuOptionService.findByCategory(categoryCode);
   }
 
   @POST
   public Uni<Response> save(MenuOptionSaveRequestDTO menuOptionRequest) {
-    Map<String, String> headers = HeaderPlanerUtil.flatHeaders(httpHeaders.getRequestHeaders());
-    return menuOptionService.save(menuOptionRequest, headers)
+    return menuOptionService.save(menuOptionRequest)
         .onItem()
         .ifNotNull()
         .transform(ignore -> Response.created(buildPostUriLocation.apply(menuOptionRequest.getProductCode())).build());
@@ -64,16 +54,14 @@ public class MenuOptionRestService {
   @DELETE
   @Path("/{productCode}")
   public Uni<Response> delete(@PathParam("productCode") String productCode) {
-    Map<String, String> headers = HeaderPlanerUtil.flatHeaders(httpHeaders.getRequestHeaders());
-    return menuOptionService.deleteByProductCode(productCode, headers)
+    return menuOptionService.deleteByProductCode(productCode)
         .map(isDeleted -> Response.noContent().build());
   }
 
   @PUT
   @Path("/{productCode}")
   public Uni<Response> update(@PathParam("productCode") String productCode, MenuOptionUpdateRequestDTO menuOptionRequest) {
-    Map<String, String> headers = HeaderPlanerUtil.flatHeaders(httpHeaders.getRequestHeaders());
-    return menuOptionService.update(menuOptionRequest, productCode, headers)
+    return menuOptionService.update(menuOptionRequest, productCode)
         .onItem()
         .ifNotNull()
         .transform(ignore -> Response.created(buildPostUriLocation.apply(productCode)).build());

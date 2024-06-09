@@ -30,7 +30,7 @@ public class MenuOptionRepositoryHandler {
   @RestClient
   ProductRepository productRepository;
 
-  public Uni<List<MenuOptionResponseDTO>> findAll(Map<String, String> headers) {
+  public Uni<List<MenuOptionResponseDTO>> findAll() {
     Uni<Map<String, MenuOptionEntity>> menuOptionUni = menuOptionRepository.findAllMenuOptions()
         .collect().asList()
         .map(list -> list.stream()
@@ -45,7 +45,7 @@ public class MenuOptionRepositoryHandler {
                     .collect(Collectors.toList())));
   }
 
-  public Uni<Void> save(MenuOptionSaveRequestDTO menuOption, Map<String, String> headers) {
+  public Uni<Void> save(MenuOptionSaveRequestDTO menuOption) {
     return productRepository.save(menuOptionMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE))
         .onItem()
         .transformToUni(ignore -> menuOptionRepository.saveMenuOption(menuOptionMapper.toEntity(menuOption)))
@@ -54,7 +54,7 @@ public class MenuOptionRepositoryHandler {
         .andContinueWithNull();
   }
 
-  public Uni<Void> update(String productCode, MenuOptionUpdateRequestDTO menuOption, Map<String, String> headers) {
+  public Uni<Void> update(String productCode, MenuOptionUpdateRequestDTO menuOption) {
     return menuOptionRepository.update(menuOptionMapper.toEntity(menuOption, productCode), productCode)
         .onItem()
         .transformToUni(ignore -> productRepository.update(productCode, menuOptionMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE)))
@@ -64,7 +64,7 @@ public class MenuOptionRepositoryHandler {
   }
 
   @ReactiveTransactional
-  public Uni<Void> deleteByProductCode(String productCode, Map<String, String> headers) {
+  public Uni<Void> deleteByProductCode(String productCode) {
     return menuOptionRepository.findByProductCode(productCode)
         .flatMap(menuOptionFound -> menuOptionRepository.deleteByProductCode(productCode))
         .onItem()

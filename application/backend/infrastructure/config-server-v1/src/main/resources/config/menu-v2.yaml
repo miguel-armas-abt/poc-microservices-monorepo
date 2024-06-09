@@ -1,3 +1,22 @@
+configuration:
+  error-messages:
+    enabled: false
+    messages:
+      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+
+  rest-clients:
+    product-v1:
+      request:
+        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/
+        headers:
+          provided:
+            Accept: application/json
+          generated:
+            parentId: PARENT_ID
+            timestamp: TIMESTAMP_V2
+          forwarded:
+            traceId: traceId
+
 quarkus:
   datasource:
     db-kind: mysql
@@ -11,16 +30,10 @@ quarkus:
     log:
       sql: true
   rest-client:
-    products:
-      url: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1
+    product-v1:
+      url: ${configuration.rest-clients.product-v1.request.endpoint}
       verify-host: false
 
-products:
+product-v1:
   mp-graphql:
     url: http://localhost:8017/graphql
-
-configuration:
-  error-messages:
-    enabled: false
-    messages:
-      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
