@@ -1,15 +1,20 @@
 package com.demo.bbq.repository.product;
 
+import com.demo.bbq.config.tracing.logging.RestClientRequestLogger;
+import com.demo.bbq.config.tracing.logging.RestClientResponseLogger;
 import com.demo.bbq.repository.product.wrapper.response.ProductResponseWrapper;
 import com.demo.bbq.repository.product.wrapper.request.ProductSaveRequestWrapper;
 import com.demo.bbq.repository.product.wrapper.request.ProductUpdateRequestWrapper;
 import io.smallrye.mutiny.Uni;
 import java.util.List;
 import javax.ws.rs.*;
+import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @Path("/products")
 @RegisterRestClient(configKey="products")
+@RegisterProvider(RestClientRequestLogger.class)
+@RegisterProvider(RestClientResponseLogger.class)
 public interface ProductRepository {
 
   @GET

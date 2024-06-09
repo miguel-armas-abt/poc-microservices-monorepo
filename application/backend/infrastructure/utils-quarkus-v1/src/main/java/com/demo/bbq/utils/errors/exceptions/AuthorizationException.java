@@ -1,7 +1,7 @@
-package com.demo.bbq.config.utils.errors.exceptions;
+package com.demo.bbq.utils.errors.exceptions;
 
-import com.demo.bbq.config.utils.errors.dto.ErrorDTO;
-import com.demo.bbq.config.utils.errors.dto.ErrorType;
+import com.demo.bbq.utils.errors.dto.ErrorDTO;
+import com.demo.bbq.utils.errors.dto.ErrorType;
 import lombok.Getter;
 
 @Getter

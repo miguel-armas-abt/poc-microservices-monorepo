@@ -1,11 +1,12 @@
-package com.demo.bbq.config.utils.errors.handler.response;
+package com.demo.bbq.config.errors.handler.response;
 
 import com.demo.bbq.config.utils.errors.dto.ErrorDTO;
 import com.demo.bbq.config.utils.errors.exceptions.AuthorizationException;
 import com.demo.bbq.config.utils.errors.exceptions.BusinessException;
 import com.demo.bbq.config.utils.errors.exceptions.ExternalServiceException;
 import com.demo.bbq.config.utils.errors.exceptions.SystemException;
-import com.demo.bbq.config.utils.properties.ConfigurationBaseProperties;
+import com.demo.bbq.config.properties.ConfigurationBaseProperties;
+import com.demo.bbq.config.tracing.logging.ErrorLoggingUtil;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
@@ -21,6 +22,8 @@ public class ResponseErrorHandler implements ExceptionMapper<Throwable> {
 
   @Override
   public Response toResponse(Throwable throwable) {
+    ErrorLoggingUtil.generateTrace(throwable);
+
     ErrorDTO error = ErrorDTO.getDefaultError(properties);
     Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
 

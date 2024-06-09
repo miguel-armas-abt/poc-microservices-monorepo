@@ -1,6 +1,6 @@
-package com.demo.bbq.config.utils.errors.dto;
+package com.demo.bbq.utils.errors.dto;
 
-import com.demo.bbq.config.utils.properties.ConfigurationBaseProperties;
+import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import lombok.*;

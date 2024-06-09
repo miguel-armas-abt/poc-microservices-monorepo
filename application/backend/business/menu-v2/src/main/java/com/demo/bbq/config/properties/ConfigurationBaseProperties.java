@@ -1,4 +1,4 @@
-package com.demo.bbq.config.utils.properties;
+package com.demo.bbq.config.properties;
 
 import java.util.Map;
 import javax.enterprise.context.ApplicationScoped;

@@ -1,12 +1,12 @@
-package com.demo.bbq.config.utils.errors.handler.response;
+package com.demo.bbq.utils.errors.handler.response;
 
-import static com.demo.bbq.config.utils.errors.dto.ErrorDTO.CODE_DEFAULT;
+import static com.demo.bbq.utils.errors.dto.ErrorDTO.CODE_DEFAULT;
 
-import com.demo.bbq.config.utils.errors.dto.ErrorDTO;
-import com.demo.bbq.config.utils.errors.exceptions.AuthorizationException;
-import com.demo.bbq.config.utils.errors.exceptions.BusinessException;
-import com.demo.bbq.config.utils.errors.exceptions.SystemException;
-import com.demo.bbq.config.utils.properties.ConfigurationBaseProperties;
+import com.demo.bbq.utils.errors.dto.ErrorDTO;
+import com.demo.bbq.utils.errors.exceptions.AuthorizationException;
+import com.demo.bbq.utils.errors.exceptions.BusinessException;
+import com.demo.bbq.utils.errors.exceptions.SystemException;
+import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
 import java.util.Optional;
 
 public class ResponseErrorHandlerBaseUtil {

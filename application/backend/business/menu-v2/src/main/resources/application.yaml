@@ -3,3 +3,8 @@ quarkus:
     name: menu-v2
   http:
     port: 8016
+  log:
+    console:
+      enable: true
+      json:
+        pretty-print: true
