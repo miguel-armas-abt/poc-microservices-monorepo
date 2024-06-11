@@ -1238,7 +1238,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8012/bbq/business/menu/v1/menu-options/MENU0004",
+									"raw": "http://localhost:8012/bbq/business/menu/v1/menu-options/MENU000100",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1250,7 +1250,7 @@
 										"menu",
 										"v1",
 										"menu-options",
-										"MENU0004"
+										"MENU000100"
 									]
 								}
 							},
@@ -1294,7 +1294,61 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8017/bbq/business/product/v1/products/MENU0002",
+									"raw": "http://localhost:8017/bbq/business/product/v1/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8017",
+									"path": [
+										"bbq",
+										"business",
+										"product",
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "scope",
+											"value": "MENU",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "product v1 - update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"unitPrice\": 69.90,\r\n    \"scope\": \"MENU\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8017/bbq/business/product/v1/products/MENU0001",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1306,7 +1360,61 @@
 										"product",
 										"v1",
 										"products",
-										"MENU0002"
+										"MENU0001"
+									],
+									"query": [
+										{
+											"key": "scope",
+											"value": "MENU",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "product v1 - save",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"unitPrice\": 69.90,\r\n    \"scope\": \"MENU\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8017/bbq/business/product/v1/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8017",
+									"path": [
+										"bbq",
+										"business",
+										"product",
+										"v1",
+										"products"
 									],
 									"query": [
 										{
@@ -1331,14 +1439,7 @@
 							},
 							"request": {
 								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "yJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzbGdSSWpoTFNwN2NFN0NRaGJ0UndzbFJ4OWRyMFZUSmozdFM0ZndGNUpRIn0.eyJleHAiOjE2NzI2MjAxMzksImlhdCI6MTY3MjYxODMzOSwianRpIjoiYTE1NTQ1ZGMtNDIxYS00Y2NhLTgwMDAtZDI1Njc5OTZiNTgxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImNiMmNmNTU1LWUzNWItNDYzYS1iMjc4LWE0ZjYyODJiNjliYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.k4Dl4zZV3F2f6w38K4gtvr6o9xAS9E42Fus5y7-rhIHKZP7qUnQnknnLGCEi8jT_I6cT9pIMUFmxIQJXO6vz-B_svTutnmEJPZvoOAXpakjXgRYU2SXgRorLF_o3ajZDkp1JeAQHcJkdfAycWw7R7w5lrEk_zlwqnpo-7ozgiCaMch4FgrMQPaR53x0xlOGpzh2oK8IynQjSAvgycI5dYu7fnyKQfV7VcYJzIoS7ZoCdV_pvr85HSZmAKYnLCmncQNwYIQlAywCZcR8RrW2jZWapv-bCpp66QoBh4vBJBMgMuLtze1QX0uBhabAq5AsBkdwKPhR8v4ux631OUOoT2Q",
-											"type": "string"
-										}
-									]
+									"type": "noauth"
 								},
 								"method": "GET",
 								"header": [
@@ -1366,7 +1467,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options?category=MAIN",
+									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options/MENU0002",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1377,13 +1478,128 @@
 										"business",
 										"menu",
 										"v2",
-										"menu-options"
+										"menu-options",
+										"MENU0002"
 									],
 									"query": [
 										{
 											"key": "category",
-											"value": "MAIN"
+											"value": "MAIN",
+											"disabled": true
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "menu v2 - delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "yJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzbGdSSWpoTFNwN2NFN0NRaGJ0UndzbFJ4OWRyMFZUSmozdFM0ZndGNUpRIn0.eyJleHAiOjE2NzI2MjAxMzksImlhdCI6MTY3MjYxODMzOSwianRpIjoiYTE1NTQ1ZGMtNDIxYS00Y2NhLTgwMDAtZDI1Njc5OTZiNTgxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImNiMmNmNTU1LWUzNWItNDYzYS1iMjc4LWE0ZjYyODJiNjliYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.k4Dl4zZV3F2f6w38K4gtvr6o9xAS9E42Fus5y7-rhIHKZP7qUnQnknnLGCEi8jT_I6cT9pIMUFmxIQJXO6vz-B_svTutnmEJPZvoOAXpakjXgRYU2SXgRorLF_o3ajZDkp1JeAQHcJkdfAycWw7R7w5lrEk_zlwqnpo-7ozgiCaMch4FgrMQPaR53x0xlOGpzh2oK8IynQjSAvgycI5dYu7fnyKQfV7VcYJzIoS7ZoCdV_pvr85HSZmAKYnLCmncQNwYIQlAywCZcR8RrW2jZWapv-bCpp66QoBh4vBJBMgMuLtze1QX0uBhabAq5AsBkdwKPhR8v4ux631OUOoT2Q",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/stream+json",
+										"disabled": true
+									},
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson"
+									},
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options/MENU0001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8016",
+									"path": [
+										"bbq",
+										"business",
+										"menu",
+										"v2",
+										"menu-options",
+										"MENU0001"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "menu v2 - update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "yJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzbGdSSWpoTFNwN2NFN0NRaGJ0UndzbFJ4OWRyMFZUSmozdFM0ZndGNUpRIn0.eyJleHAiOjE2NzI2MjAxMzksImlhdCI6MTY3MjYxODMzOSwianRpIjoiYTE1NTQ1ZGMtNDIxYS00Y2NhLTgwMDAtZDI1Njc5OTZiNTgxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImNiMmNmNTU1LWUzNWItNDYzYS1iMjc4LWE0ZjYyODJiNjliYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.k4Dl4zZV3F2f6w38K4gtvr6o9xAS9E42Fus5y7-rhIHKZP7qUnQnknnLGCEi8jT_I6cT9pIMUFmxIQJXO6vz-B_svTutnmEJPZvoOAXpakjXgRYU2SXgRorLF_o3ajZDkp1JeAQHcJkdfAycWw7R7w5lrEk_zlwqnpo-7ozgiCaMch4FgrMQPaR53x0xlOGpzh2oK8IynQjSAvgycI5dYu7fnyKQfV7VcYJzIoS7ZoCdV_pvr85HSZmAKYnLCmncQNwYIQlAywCZcR8RrW2jZWapv-bCpp66QoBh4vBJBMgMuLtze1QX0uBhabAq5AsBkdwKPhR8v4ux631OUOoT2Q",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson"
+									},
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"1/4 pollo a la brasa\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 19.90\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options/MENU0001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8016",
+									"path": [
+										"bbq",
+										"business",
+										"menu",
+										"v2",
+										"menu-options",
+										"MENU0001"
 									]
 								}
 							},

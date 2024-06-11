@@ -47,3 +47,5 @@
 > cd ./shell-scripts
 > ./04_start_services.sh
 > ```
+
+▶️ [Configurar Keycloak](./../../docs/info/keycloak/README.md)
