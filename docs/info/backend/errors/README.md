@@ -45,7 +45,7 @@ configuration:
 ### 2. Errores personalizados del cliente REST
 - **Objetivo**: Capturar el error del cliente REST y personalizar sus atributos.
 - **Implementación**: `ExternalErrorHandler`
-- **Lógica**: Se podrá reemplazar opcionalmente cada uno de los siguientes atributos del error del cliente REST.
+- **Lógica**: Se podrá propagar / reemplazar opcionalmente cada uno de los siguientes atributos del error del cliente REST.
   - Código de error
   - Mensaje de error
   - Código HTTP
