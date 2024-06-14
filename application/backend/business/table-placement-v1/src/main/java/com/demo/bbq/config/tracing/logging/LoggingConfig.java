@@ -1,9 +1,9 @@
 package com.demo.bbq.config.tracing.logging;
 
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
-import com.demo.bbq.utils.tracing.logging.RestClientRequestLogger;
-import com.demo.bbq.utils.tracing.logging.RestClientResponseLogger;
-import com.demo.bbq.utils.tracing.logging.RestServerLogger;
+import com.demo.bbq.commons.tracing.logging.RestClientRequestLogger;
+import com.demo.bbq.commons.tracing.logging.RestClientResponseLogger;
+import com.demo.bbq.commons.tracing.logging.RestServerLogger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;

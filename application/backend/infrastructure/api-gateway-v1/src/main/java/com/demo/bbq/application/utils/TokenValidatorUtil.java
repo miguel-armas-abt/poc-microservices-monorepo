@@ -1,6 +1,6 @@
 package com.demo.bbq.application.utils;
 
-import com.demo.bbq.utils.errors.exceptions.AuthorizationException;
+import com.demo.bbq.commons.errors.exceptions.AuthorizationException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpHeaders;

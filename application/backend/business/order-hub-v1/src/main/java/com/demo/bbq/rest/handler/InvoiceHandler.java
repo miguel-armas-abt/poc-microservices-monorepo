@@ -3,7 +3,7 @@ package com.demo.bbq.rest.handler;
 import com.demo.bbq.application.dto.invoices.InvoicePaymentRequestDTO;
 import com.demo.bbq.application.service.invoices.InvoiceService;
 import com.demo.bbq.repository.invoice.wrapper.request.ProductRequestWrapper;
-import com.demo.bbq.utils.toolkit.ServerResponseBuilderUtil;
+import com.demo.bbq.commons.toolkit.ServerResponseBuilderUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;

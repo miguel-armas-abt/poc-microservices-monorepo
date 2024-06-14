@@ -3,7 +3,7 @@ package com.demo.bbq.application.events.consumer;
 import com.demo.bbq.application.events.consumer.message.PaidTransactionMessage;
 import com.demo.bbq.repository.invoice.InvoiceRepository;
 import com.demo.bbq.repository.invoice.entity.PaymentStatus;
-import com.demo.bbq.utils.errors.exceptions.BusinessException;
+import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

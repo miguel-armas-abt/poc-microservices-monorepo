@@ -1,6 +1,6 @@
 package com.demo.bbq.config.restclient;
 
-import com.demo.bbq.utils.restclient.webclient.WebClientFactory;
+import com.demo.bbq.commons.restclient.webclient.WebClientFactory;
 import io.micrometer.observation.ObservationRegistry;
 import java.util.List;
 import org.springframework.context.annotation.Bean;

@@ -4,15 +4,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.demo.parent</groupId>
-    <artifactId>parent-springboot-app-v1</artifactId>
+    <groupId>com.demo.bbq.parent</groupId>
+    <artifactId>parent-springboot-v1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
+  <groupId>com.demo.bbq.service</groupId>
   <artifactId>menu-v1</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Menu V1</name>
-  <description>Menu V1</description>
 
   <dependencyManagement>
     <dependencies>
@@ -38,8 +37,8 @@
     </dependency>
 
     <dependency>
-      <groupId>com.demo.parent</groupId>
-      <artifactId>utils-springboot-v1</artifactId>
+      <groupId>com.demo.bbq.commons</groupId>
+      <artifactId>commons-springboot-v1</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
 

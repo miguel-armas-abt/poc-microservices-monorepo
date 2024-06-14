@@ -1,6 +1,6 @@
 package com.demo.bbq.application.helper.serviceselector;
 
-import com.demo.bbq.utils.errors.exceptions.SystemException;
+import com.demo.bbq.commons.errors.exceptions.SystemException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -4,15 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.demo.parent</groupId>
-		<artifactId>parent-webflux-base-v1</artifactId>
+		<groupId>com.demo.bbq.parent</groupId>
+		<artifactId>parent-webflux-v1</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
+	<groupId>com.demo.bbq.service</groupId>
 	<artifactId>api-gateway-v1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>API Gateway V1</name>
-	<description>API Gateway V1</description>
 
 	<dependencyManagement>
 		<dependencies>
@@ -32,15 +31,15 @@
 			<artifactId>spring-cloud-starter-gateway</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.demo.parent</groupId>
-			<artifactId>utils-webflux-v1</artifactId>
+			<groupId>com.demo.bbq.commons</groupId>
+			<artifactId>commons-webflux-v1</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
+			<plugin> <!-- executable application -->
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>${spring-boot.version}</version>

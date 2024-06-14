@@ -4,7 +4,7 @@ import com.demo.bbq.repository.menu.MenuRepositoryStrategy;
 import com.demo.bbq.application.dto.tableorder.request.MenuOrderRequestDTO;
 import com.demo.bbq.repository.tableorder.TableOrderRepository;
 import com.demo.bbq.repository.tableorder.wrapper.TableOrderResponseWrapper;
-import com.demo.bbq.utils.errors.exceptions.BusinessException;
+import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

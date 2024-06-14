@@ -8,7 +8,7 @@ import com.demo.bbq.repository.authprovider.AuthProviderConnector;
 import com.demo.bbq.repository.authprovider.JsonWebTokenConnector;
 import com.demo.bbq.repository.authprovider.wrapper.TokenResponseWrapper;
 import com.demo.bbq.repository.authprovider.wrapper.UserInfoResponseWrapper;
-import com.demo.bbq.utils.errors.exceptions.AuthorizationException;
+import com.demo.bbq.commons.errors.exceptions.AuthorizationException;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 import java.security.interfaces.RSAPublicKey;

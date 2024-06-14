@@ -1,9 +1,9 @@
 package com.demo.bbq.config.tracing.logging;
 
-import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
-import com.demo.bbq.utils.tracing.logging.RestClientRequestLogger;
-import com.demo.bbq.utils.tracing.logging.RestClientResponseLogger;
-import com.demo.bbq.utils.tracing.logging.RestServerLogger;
+import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
+import com.demo.bbq.commons.tracing.logging.RestClientRequestLogger;
+import com.demo.bbq.commons.tracing.logging.RestClientResponseLogger;
+import com.demo.bbq.commons.tracing.logging.RestServerLogger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

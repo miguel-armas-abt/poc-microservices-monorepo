@@ -1,9 +1,9 @@
 package com.demo.bbq.application.filter;
 
-import static com.demo.bbq.utils.properties.dto.GeneratedHeaderType.TRACE_ID;
+import static com.demo.bbq.commons.properties.dto.GeneratedHeaderType.TRACE_ID;
 
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
-import com.demo.bbq.utils.errors.handler.response.ResponseErrorHandlerUtil;
+import com.demo.bbq.commons.errors.handler.response.ResponseErrorHandlerUtil;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;

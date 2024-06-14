@@ -1,7 +1,7 @@
 package com.demo.bbq.application.rules.service;
 
 import com.demo.bbq.application.rules.properties.RuleInitMap;
-import com.demo.bbq.utils.errors.exceptions.SystemException;
+import com.demo.bbq.commons.errors.exceptions.SystemException;
 import lombok.RequiredArgsConstructor;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;

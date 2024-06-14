@@ -5,7 +5,7 @@ import com.demo.bbq.application.dto.request.MenuOptionUpdateRequestDTO;
 import com.demo.bbq.application.dto.response.MenuOptionResponseDTO;
 import com.demo.bbq.application.enums.MenuCategory;
 import com.demo.bbq.repository.MenuOptionRepositoryHandler;
-import com.demo.bbq.utils.errors.exceptions.BusinessException;
+import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;

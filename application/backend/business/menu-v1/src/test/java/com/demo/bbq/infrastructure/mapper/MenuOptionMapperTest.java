@@ -7,7 +7,7 @@ import com.demo.bbq.application.dto.response.MenuOptionResponseDTO;
 import com.demo.bbq.application.mapper.MenuOptionMapper;
 import com.demo.bbq.repository.menuoption.entity.MenuOptionEntity;
 import com.demo.bbq.repository.product.wrapper.response.ProductResponseWrapper;
-import com.demo.bbq.utils.files.JsonFileReaderUtil;
+import com.demo.bbq.commons.files.JsonFileReaderUtil;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

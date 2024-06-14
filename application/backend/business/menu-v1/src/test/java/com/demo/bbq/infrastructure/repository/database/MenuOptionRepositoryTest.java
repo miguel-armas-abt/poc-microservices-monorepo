@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.demo.bbq.repository.menuoption.MenuOptionRepository;
 import com.demo.bbq.repository.menuoption.entity.MenuOptionEntity;
-import com.demo.bbq.utils.files.JsonFileReaderUtil;
+import com.demo.bbq.commons.files.JsonFileReaderUtil;
 import com.google.gson.Gson;
 import java.util.List;
 import java.util.stream.Collectors;

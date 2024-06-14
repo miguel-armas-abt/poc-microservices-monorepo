@@ -5,7 +5,7 @@ import com.demo.bbq.application.dto.request.MenuOptionUpdateRequestDTO;
 import com.demo.bbq.application.dto.response.MenuOptionResponseDTO;
 import com.demo.bbq.config.doc.DocumentationConfig.DocumentationExample;
 import com.demo.bbq.config.doc.DocumentationConfig;
-import com.demo.bbq.utils.errors.dto.ErrorDTO;
+import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -1,14 +1,14 @@
 package com.demo.bbq.repository.invoice;
 
-import static com.demo.bbq.utils.restclient.headers.HeadersBuilderUtil.buildHeaders;
+import static com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil.buildHeaders;
 
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
 import com.demo.bbq.repository.invoice.wrapper.request.PaymentRequestWrapper;
 import com.demo.bbq.repository.invoice.wrapper.request.ProductRequestWrapper;
 import com.demo.bbq.repository.invoice.wrapper.response.ProformaInvoiceResponseWrapper;
-import com.demo.bbq.utils.errors.dto.ErrorDTO;
-import com.demo.bbq.utils.errors.handler.external.ExternalErrorHandler;
-import com.demo.bbq.utils.properties.dto.HeaderTemplate;
+import com.demo.bbq.commons.errors.dto.ErrorDTO;
+import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
+import com.demo.bbq.commons.properties.dto.HeaderTemplate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;

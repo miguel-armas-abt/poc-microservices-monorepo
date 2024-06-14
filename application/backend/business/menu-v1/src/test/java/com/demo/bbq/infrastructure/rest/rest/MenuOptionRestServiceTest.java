@@ -11,7 +11,7 @@ import com.demo.bbq.application.dto.request.MenuOptionSaveRequestDTO;
 import com.demo.bbq.application.dto.response.MenuOptionResponseDTO;
 import com.demo.bbq.application.service.MenuOptionService;
 import com.demo.bbq.rest.MenuOptionRestServiceImpl;
-import com.demo.bbq.utils.files.JsonFileReaderUtil;
+import com.demo.bbq.commons.files.JsonFileReaderUtil;
 import com.google.gson.Gson;
 import java.util.List;
 import org.junit.Before;

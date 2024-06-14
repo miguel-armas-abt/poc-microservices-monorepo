@@ -4,15 +4,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.demo.parent</groupId>
+    <groupId>com.demo.bbq.parent</groupId>
     <artifactId>parent-webflux-v1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
+  <groupId>com.demo.bbq.service</groupId>
   <artifactId>invoice-v1</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Invoice V1</name>
-  <description>Invoice V1</description>
 
   <dependencyManagement>
     <dependencies>
@@ -38,8 +37,8 @@
     </dependency>
 
     <dependency>
-      <groupId>com.demo.parent</groupId>
-      <artifactId>utils-webflux-v1</artifactId>
+      <groupId>com.demo.bbq.commons</groupId>
+      <artifactId>commons-webflux-v1</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
 
@@ -61,5 +60,22 @@
     </dependency>
 
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin> <!-- executable application -->
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

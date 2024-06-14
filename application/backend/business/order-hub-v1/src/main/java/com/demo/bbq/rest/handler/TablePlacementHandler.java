@@ -2,8 +2,8 @@ package com.demo.bbq.rest.handler;
 
 import com.demo.bbq.application.dto.tableorder.request.MenuOrderRequestDTO;
 import com.demo.bbq.application.service.tableplacement.TablePlacementService;
-import com.demo.bbq.utils.errors.exceptions.BusinessException;
-import com.demo.bbq.utils.toolkit.ServerResponseBuilderUtil;
+import com.demo.bbq.commons.errors.exceptions.BusinessException;
+import com.demo.bbq.commons.toolkit.ServerResponseBuilderUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;

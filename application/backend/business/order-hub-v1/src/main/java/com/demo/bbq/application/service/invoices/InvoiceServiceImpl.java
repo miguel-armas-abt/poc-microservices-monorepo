@@ -9,7 +9,7 @@ import com.demo.bbq.repository.invoice.wrapper.response.ProformaInvoiceResponseW
 import com.demo.bbq.repository.menu.MenuRepositoryStrategy;
 import com.demo.bbq.repository.tableorder.TableOrderRepository;
 import com.demo.bbq.repository.tableorder.wrapper.TableOrderResponseWrapper;
-import com.demo.bbq.utils.toolkit.RequestValidator;
+import com.demo.bbq.commons.toolkit.RequestValidator;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

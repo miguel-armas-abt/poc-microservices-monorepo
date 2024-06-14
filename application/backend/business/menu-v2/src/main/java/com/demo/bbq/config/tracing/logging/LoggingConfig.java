@@ -1,7 +1,7 @@
 package com.demo.bbq.config.tracing.logging;
 
-import com.demo.bbq.utils.tracing.logging.RestClientRequestLogger;
-import com.demo.bbq.utils.tracing.logging.RestClientResponseLogger;
+import com.demo.bbq.commons.tracing.logging.RestClientRequestLogger;
+import com.demo.bbq.commons.tracing.logging.RestClientResponseLogger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 

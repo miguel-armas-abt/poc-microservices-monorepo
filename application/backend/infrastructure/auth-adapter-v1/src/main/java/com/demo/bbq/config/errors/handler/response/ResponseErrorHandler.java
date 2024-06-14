@@ -2,9 +2,9 @@ package com.demo.bbq.config.errors.handler.response;
 
 import java.util.List;
 import com.demo.bbq.application.properties.ServiceConfigurationProperties;
-import com.demo.bbq.utils.errors.dto.ErrorDTO;
-import com.demo.bbq.utils.errors.handler.external.strategy.RestClientErrorStrategy;
-import com.demo.bbq.utils.errors.handler.response.ResponseErrorHandlerUtil;
+import com.demo.bbq.commons.errors.dto.ErrorDTO;
+import com.demo.bbq.commons.errors.handler.external.strategy.RestClientErrorStrategy;
+import com.demo.bbq.commons.errors.handler.response.ResponseErrorHandlerUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

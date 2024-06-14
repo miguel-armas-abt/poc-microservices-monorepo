@@ -1,8 +1,8 @@
 package com.demo.bbq.config.restclient;
 
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
-import com.demo.bbq.utils.errors.handler.external.strategy.RestClientErrorStrategy;
-import com.demo.bbq.utils.restclient.resttemplate.CustomRestTemplate;
+import com.demo.bbq.commons.errors.handler.external.strategy.RestClientErrorStrategy;
+import com.demo.bbq.commons.restclient.resttemplate.CustomRestTemplate;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -7,7 +7,7 @@ import com.demo.bbq.repository.tableorder.TableOrderRepository;
 import com.demo.bbq.application.mapper.TablePlacementMapper;
 import com.demo.bbq.repository.tableorder.document.MenuOrderDocument;
 import com.demo.bbq.repository.tableorder.document.TableDocument;
-import com.demo.bbq.utils.errors.exceptions.BusinessException;
+import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.function.BiConsumer;

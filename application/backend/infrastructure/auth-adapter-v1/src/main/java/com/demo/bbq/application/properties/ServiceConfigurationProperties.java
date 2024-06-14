@@ -1,6 +1,6 @@
 package com.demo.bbq.application.properties;
 
-import com.demo.bbq.utils.properties.ConfigurationBaseProperties;
+import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
 import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;

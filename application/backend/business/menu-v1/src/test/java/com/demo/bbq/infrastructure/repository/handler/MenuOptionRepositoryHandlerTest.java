@@ -13,7 +13,7 @@ import com.demo.bbq.repository.menuoption.MenuOptionRepository;
 import com.demo.bbq.repository.menuoption.entity.MenuOptionEntity;
 import com.demo.bbq.repository.product.ProductRepository;
 import com.demo.bbq.repository.product.wrapper.response.ProductResponseWrapper;
-import com.demo.bbq.utils.files.JsonFileReaderUtil;
+import com.demo.bbq.commons.files.JsonFileReaderUtil;
 import com.google.gson.Gson;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,11 +1,11 @@
 package com.demo.bbq.repository.authadapter;
 
-import static com.demo.bbq.utils.restclient.headers.HeadersBuilderUtil.buildHeaders;
+import static com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil.buildHeaders;
 
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
-import com.demo.bbq.utils.errors.dto.ErrorDTO;
-import com.demo.bbq.utils.errors.handler.external.ExternalErrorHandler;
-import com.demo.bbq.utils.properties.dto.HeaderTemplate;
+import com.demo.bbq.commons.errors.dto.ErrorDTO;
+import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
+import com.demo.bbq.commons.properties.dto.HeaderTemplate;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;

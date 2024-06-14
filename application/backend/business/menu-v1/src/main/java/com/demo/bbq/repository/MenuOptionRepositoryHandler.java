@@ -7,7 +7,7 @@ import com.demo.bbq.repository.menuoption.MenuOptionRepository;
 import com.demo.bbq.application.mapper.MenuOptionMapper;
 import com.demo.bbq.repository.menuoption.entity.MenuOptionEntity;
 import com.demo.bbq.repository.product.ProductRepository;
-import com.demo.bbq.utils.errors.exceptions.BusinessException;
+import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;

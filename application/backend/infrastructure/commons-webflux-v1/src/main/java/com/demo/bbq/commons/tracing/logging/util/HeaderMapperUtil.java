@@ -1,0 +1,21 @@
+package com.demo.bbq.commons.tracing.logging.util;
+
+import static com.demo.bbq.commons.tracing.logging.constants.ThreadContextConstant.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.springframework.http.HttpHeaders;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class HeaderMapperUtil {
+
+  public static Map<String, String> recoverTraceHeaders(HttpHeaders headers) {
+    Map<String, String> mapHeaders = new HashMap<>();
+    mapHeaders.put(TRACE_ID, headers.getFirst(TRACE_ID));
+    mapHeaders.put(PARENT_ID, headers.getFirst(PARENT_ID));
+    mapHeaders.put(TRACE_PARENT, headers.getFirst(TRACE_PARENT));
+    return mapHeaders;
+  }
+}

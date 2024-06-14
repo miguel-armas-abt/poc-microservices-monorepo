@@ -5,19 +5,19 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.demo.parent</groupId>
+    <groupId>com.demo.bbq.parent</groupId>
     <artifactId>parent-multiny-v1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>com.demo.bbq.business</groupId>
+  <groupId>com.demo.bbq.service</groupId>
   <artifactId>menu-v2</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
-      <groupId>com.demo.parent</groupId>
-      <artifactId>utils-quarkus-v1</artifactId>
+      <groupId>com.demo.bbq.commons</groupId>
+      <artifactId>commons-quarkus-v1</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
 
@@ -39,5 +39,25 @@
       <artifactId>quarkus-jdbc-mysql</artifactId>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin> <!-- executable application -->
+        <groupId>${quarkus.platform.group-id}</groupId>
+        <artifactId>quarkus-maven-plugin</artifactId>
+        <version>${quarkus.platform.version}</version>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <goals>
+              <goal>build</goal>
+              <goal>generate-code</goal>
+              <goal>generate-code-tests</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

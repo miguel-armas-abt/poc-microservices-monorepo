@@ -1,7 +1,7 @@
 package com.demo.bbq.config.errors.handler.response;
 
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
-import com.demo.bbq.utils.errors.handler.response.ResponseErrorHandlerUtil;
+import com.demo.bbq.commons.errors.handler.response.ResponseErrorHandlerUtil;
 import lombok.RequiredArgsConstructor;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

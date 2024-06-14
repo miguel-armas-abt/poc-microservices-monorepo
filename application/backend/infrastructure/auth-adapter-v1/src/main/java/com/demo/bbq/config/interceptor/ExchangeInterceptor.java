@@ -1,7 +1,7 @@
 package com.demo.bbq.config.interceptor;
 
 import com.demo.bbq.application.properties.ServiceConfigurationProperties;
-import com.demo.bbq.utils.errors.handler.external.strategy.RestClientErrorStrategy;
+import com.demo.bbq.commons.errors.handler.external.strategy.RestClientErrorStrategy;
 import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,8 @@
 package com.demo.bbq.repository.product;
 
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
-import com.demo.bbq.utils.properties.dto.HeaderTemplate;
-import com.demo.bbq.utils.restclient.headers.HeadersBuilderUtil;
+import com.demo.bbq.commons.properties.dto.HeaderTemplate;
+import com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.Provider;
 import lombok.RequiredArgsConstructor;

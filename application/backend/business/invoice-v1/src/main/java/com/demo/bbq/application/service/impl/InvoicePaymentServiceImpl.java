@@ -7,7 +7,7 @@ import com.demo.bbq.application.dto.invoicepayment.request.PaymentRequestDTO;
 import com.demo.bbq.application.events.producer.InvoiceProducer;
 import com.demo.bbq.application.mapper.InvoiceMapper;
 import com.demo.bbq.repository.invoice.InvoiceRepositoryHelper;
-import com.demo.bbq.utils.errors.exceptions.BusinessException;
+import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
