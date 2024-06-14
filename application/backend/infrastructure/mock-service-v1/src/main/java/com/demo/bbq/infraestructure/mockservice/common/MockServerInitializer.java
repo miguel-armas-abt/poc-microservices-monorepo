@@ -2,12 +2,11 @@ package com.demo.bbq.infraestructure.mockservice.common;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import java.io.IOException;
+import java.util.List;
 import lombok.Getter;
 import org.mockserver.integration.ClientAndServer;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.util.List;
 
 @Component
 public class MockServerInitializer {

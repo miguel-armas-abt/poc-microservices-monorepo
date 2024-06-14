@@ -51,6 +51,10 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
     │   │   │   ├───product-v1
     │   │   │   ├───menu-v1
     │   │   │   └─── ...
+    │   │   ├───commons              // no ejecutables con dependencias/utilidades comunes 
+    │   │   │   ├───parent-quarkus-commons-v1
+    │   │   │   ├───commons-quarkus-v1
+    │   │   │   └─── ...
     │   │   └───infrastructure        // servicios web de infraestructura
     │   │       ├───api-gateway-v1
     │   │       ├───config-server-v1

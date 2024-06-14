@@ -20,6 +20,8 @@ while IFS=',' read -r APP_NAME TYPE || [ -n "$APP_NAME" ]; do
       SERVICE_PATH="$INFRASTRUCTURE_PATH/$APP_NAME"
     elif [[ "$TYPE" == "BS" ]]; then
       SERVICE_PATH="$BUSINESS_PATH/$APP_NAME"
+    elif [[ "$TYPE" == "CM" ]]; then
+      SERVICE_PATH="$COMMONS_PATH/$APP_NAME"
     fi
     cd "$SERVICE_PATH"
 
