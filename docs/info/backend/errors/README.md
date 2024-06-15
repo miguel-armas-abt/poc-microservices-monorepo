@@ -23,11 +23,11 @@
 ## Características
 
 ### 1. Mensajes de error personalizados
-- **Objetivo**: Ocultar información sensible al cliente y brindar mensajes personalizados.
+- **Objetivo**: Brindar mensajes personalizados de error.
 - **Implementación**: `ResponseErrorHandler`
 - **Lógica**: 
-  - Mapear mensajes personalizados por código de error.
-  - Mapear un código de error `Default` para errores inesperados.
+  - Corresponder mensajes personalizados con los códigos de error.
+  - Asignar un código de error `Default` para errores sin mensaje personalizado.
   - Establecer un flag para habilitar o deshabilitar funcionalidad.
     - `false`: Mostrar mensaje propagado.
     - `true`: Reemplazar el mensaje propagado por el mensaje personalizado.
@@ -45,7 +45,7 @@ configuration:
 ### 2. Errores personalizados del cliente REST
 - **Objetivo**: Capturar el error del cliente REST y personalizar sus atributos.
 - **Implementación**: `ExternalErrorHandler`
-- **Lógica**: Se podrá propagar / reemplazar opcionalmente cada uno de los siguientes atributos del error del cliente REST.
+- **Lógica**: Se podrá propagar o reemplazar opcionalmente cada uno de los siguientes atributos del error del cliente REST.
   - Código de error
   - Mensaje de error
   - Código HTTP
