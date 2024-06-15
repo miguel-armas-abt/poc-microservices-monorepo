@@ -1,9 +1,9 @@
 package com.demo.bbq.rest.handler;
 
-import com.demo.bbq.application.dto.invoicepayment.request.PaymentRequestDTO;
-import com.demo.bbq.application.dto.proformainvoice.request.ProductRequestDTO;
-import com.demo.bbq.application.service.InvoicePaymentService;
-import com.demo.bbq.application.service.ProformaInvoiceService;
+import com.demo.bbq.application.dto.sender.request.PaymentSendRequestDTO;
+import com.demo.bbq.application.dto.calculator.request.ProductRequestDTO;
+import com.demo.bbq.application.service.PaymentSenderService;
+import com.demo.bbq.application.service.CalculatorService;
 import com.demo.bbq.commons.toolkit.ServerResponseBuilderUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,11 +15,11 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class InvoiceHandler {
 
-  private final ProformaInvoiceService proformaInvoiceService;
-  private final InvoicePaymentService invoicePaymentService;
+  private final CalculatorService calculatorService;
+  private final PaymentSenderService paymentSenderService;
 
-  public Mono<ServerResponse> generateProforma(ServerRequest serverRequest) {
-    return proformaInvoiceService.generateProforma(serverRequest, serverRequest.bodyToFlux(ProductRequestDTO.class))
+  public Mono<ServerResponse> calculateInvoice(ServerRequest serverRequest) {
+    return calculatorService.calculateInvoice(serverRequest, serverRequest.bodyToFlux(ProductRequestDTO.class))
         .flatMap(response -> ServerResponseBuilderUtil
             .buildMono(ServerResponse.ok(), serverRequest.headers(), response));
   }
@@ -29,8 +29,8 @@ public class InvoiceHandler {
         .buildEmpty(
             ServerResponse.ok(),
             serverRequest.headers(),
-            serverRequest.bodyToMono(PaymentRequestDTO.class)
-                .flatMap(request -> invoicePaymentService.sendToPay(serverRequest, request))
+            serverRequest.bodyToMono(PaymentSendRequestDTO.class)
+                .flatMap(request -> paymentSenderService.sendToPay(serverRequest, request))
         );
   }
 }

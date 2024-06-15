@@ -12,4 +12,3 @@ rule "R01"
 		$filter.setDiscountable(true);
 		$filter.setDiscount(0.15);
 end
-

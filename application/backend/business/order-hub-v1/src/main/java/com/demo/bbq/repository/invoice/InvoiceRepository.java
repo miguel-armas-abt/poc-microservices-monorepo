@@ -3,9 +3,9 @@ package com.demo.bbq.repository.invoice;
 import static com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil.buildHeaders;
 
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
-import com.demo.bbq.repository.invoice.wrapper.request.PaymentRequestWrapper;
+import com.demo.bbq.repository.invoice.wrapper.request.PaymentSendRequestWrapper;
 import com.demo.bbq.repository.invoice.wrapper.request.ProductRequestWrapper;
-import com.demo.bbq.repository.invoice.wrapper.response.ProformaInvoiceResponseWrapper;
+import com.demo.bbq.repository.invoice.wrapper.response.InvoiceResponseWrapper;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
 import com.demo.bbq.commons.properties.dto.HeaderTemplate;
@@ -31,21 +31,21 @@ public class InvoiceRepository {
   private final ServiceConfigurationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
 
-  public Mono<ProformaInvoiceResponseWrapper> generateProforma(ServerRequest serverRequest,
-                                                               List<ProductRequestWrapper> productList) {
+  public Mono<InvoiceResponseWrapper> generateProforma(ServerRequest serverRequest,
+                                                       List<ProductRequestWrapper> productList) {
     return webClient.post()
-        .uri(getBaseURL().concat("proformas"))
+        .uri(getBaseURL().concat("calculate"))
         .contentType(MediaType.APPLICATION_JSON)
         .headers(buildHeaders(properties.searchHeaderTemplate(SERVICE_NAME_INVOICE), serverRequest))
         .body(BodyInserters.fromValue(productList))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
-        .toEntity(ProformaInvoiceResponseWrapper.class)
+        .toEntity(InvoiceResponseWrapper.class)
         .mapNotNull(HttpEntity::getBody);
   }
 
   public Mono<Void> sendToPay(ServerRequest serverRequest,
-                                     PaymentRequestWrapper paymentRequest) {
+                                     PaymentSendRequestWrapper paymentRequest) {
     return webClient.post()
         .uri(getBaseURL().concat("send-to-pay"))
         .contentType(MediaType.APPLICATION_JSON)

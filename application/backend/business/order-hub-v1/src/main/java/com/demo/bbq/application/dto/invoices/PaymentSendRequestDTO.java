@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class InvoicePaymentRequestDTO implements Serializable {
+public class PaymentSendRequestDTO implements Serializable {
 
   @NotNull
   private Integer tableNumber;

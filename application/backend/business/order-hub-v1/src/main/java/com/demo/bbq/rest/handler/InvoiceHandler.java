@@ -1,6 +1,6 @@
 package com.demo.bbq.rest.handler;
 
-import com.demo.bbq.application.dto.invoices.InvoicePaymentRequestDTO;
+import com.demo.bbq.application.dto.invoices.PaymentSendRequestDTO;
 import com.demo.bbq.application.service.invoices.InvoiceService;
 import com.demo.bbq.repository.invoice.wrapper.request.ProductRequestWrapper;
 import com.demo.bbq.commons.toolkit.ServerResponseBuilderUtil;
@@ -16,10 +16,10 @@ public class InvoiceHandler {
 
   private final InvoiceService invoiceService;
 
-  public Mono<ServerResponse> generateProforma(ServerRequest serverRequest) {
+  public Mono<ServerResponse> calculateInvoice(ServerRequest serverRequest) {
     return serverRequest.bodyToFlux(ProductRequestWrapper.class)
         .collectList()
-        .flatMap(productList -> invoiceService.generateProforma(serverRequest, productList))
+        .flatMap(productList -> invoiceService.calculateInvoice(serverRequest, productList))
         .flatMap(response -> ServerResponseBuilderUtil
             .buildMono(ServerResponse.ok(), serverRequest.headers(), response));
   }
@@ -30,7 +30,7 @@ public class InvoiceHandler {
             ServerResponse.ok(),
             serverRequest.headers(),
             serverRequest
-                .bodyToMono(InvoicePaymentRequestDTO.class)
+                .bodyToMono(PaymentSendRequestDTO.class)
                 .flatMap(request -> invoiceService.sendToPay(serverRequest, request))
         );
   }

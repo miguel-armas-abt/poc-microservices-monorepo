@@ -1,4 +1,4 @@
-package com.demo.bbq.application.dto.proformainvoice.response;
+package com.demo.bbq.application.dto.calculator.response;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductResponseDTO implements Serializable {
+public class ProductDTO implements Serializable {
 
   private String description;
   private Integer quantity;

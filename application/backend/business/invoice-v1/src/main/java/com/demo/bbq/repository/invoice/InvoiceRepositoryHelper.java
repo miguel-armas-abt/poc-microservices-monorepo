@@ -32,8 +32,8 @@ public class InvoiceRepositoryHelper {
     return invoiceRepository.save(invoice);
   }
 
-  private CustomerEntity getOrCreateCustomer(CustomerEntity customerEntity) {
-    return customerRepository.findByDocumentNumber(customerEntity.getDocumentNumber())
-        .orElseGet(() -> customerRepository.save(customerEntity));
+  private CustomerEntity getOrCreateCustomer(CustomerEntity customer) {
+    return customerRepository.findByDocumentNumber(customer.getDocumentNumber())
+        .orElseGet(() -> customerRepository.save(customer));
   }
 }

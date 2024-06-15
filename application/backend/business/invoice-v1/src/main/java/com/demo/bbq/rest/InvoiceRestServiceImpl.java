@@ -22,7 +22,7 @@ public class InvoiceRestServiceImpl {
     return nest(
         path(BASE_URI),
         route()
-            .POST("/proformas", accept(APPLICATION_STREAM_JSON) , invoiceHandler::generateProforma)
+            .POST("/calculate", accept(APPLICATION_STREAM_JSON) , invoiceHandler::calculateInvoice)
             .POST("/send-to-pay", accept(APPLICATION_STREAM_JSON), invoiceHandler::sendToPay)
             .build()
     );

@@ -1,9 +1,9 @@
 package com.demo.bbq.application.service.impl;
 
-import com.demo.bbq.application.dto.proformainvoice.response.ProformaInvoiceResponseDTO;
-import com.demo.bbq.application.service.InvoicePaymentService;
-import com.demo.bbq.application.service.ProformaInvoiceService;
-import com.demo.bbq.application.dto.invoicepayment.request.PaymentRequestDTO;
+import com.demo.bbq.application.dto.calculator.response.InvoiceResponseDTO;
+import com.demo.bbq.application.service.PaymentSenderService;
+import com.demo.bbq.application.service.CalculatorService;
+import com.demo.bbq.application.dto.sender.request.PaymentSendRequestDTO;
 import com.demo.bbq.application.events.producer.InvoiceProducer;
 import com.demo.bbq.application.mapper.InvoiceMapper;
 import com.demo.bbq.repository.invoice.InvoiceRepositoryHelper;
@@ -21,21 +21,21 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class InvoicePaymentServiceImpl implements InvoicePaymentService {
-  private final ProformaInvoiceService proformaInvoiceService;
+public class PaymentSenderServiceImpl implements PaymentSenderService {
+  private final CalculatorService calculatorService;
   private final InvoiceRepositoryHelper repositoryHelper;
   private final InvoiceProducer invoiceProducer;
   private final InvoiceMapper invoiceMapper;
 
   @Override
   public Mono<Void> sendToPay(ServerRequest serverRequest,
-                              PaymentRequestDTO paymentRequest) {
+                              PaymentSendRequestDTO paymentRequest) {
 
     AtomicReference<BigDecimal> totalAmount = new AtomicReference<>();
 
-    return proformaInvoiceService.generateProforma(serverRequest, Flux.fromIterable(paymentRequest.getProductList()))
-        .doOnSuccess(validateProforma::accept)
-        .doOnSuccess(proforma -> totalAmount.set(proforma.getTotal()))
+    return calculatorService.calculateInvoice(serverRequest, Flux.fromIterable(paymentRequest.getProductList()))
+        .doOnSuccess(validateInvoice)
+        .doOnSuccess(invoice -> totalAmount.set(invoice.getTotal()))
         .map(invoice -> invoiceMapper.toEntity(invoice, paymentRequest.getCustomer(), paymentRequest.getPayment().getMethod()))
         .map(repositoryHelper::buildEntity)
         .map(invoice -> invoiceMapper.toMessage(invoice, totalAmount.get()))
@@ -43,8 +43,8 @@ public class InvoicePaymentServiceImpl implements InvoicePaymentService {
         .then();
   }
 
-  private static final Consumer<ProformaInvoiceResponseDTO> validateProforma = proforma -> {
-    if(proforma.getTotal().compareTo(BigDecimal.ZERO) == 0) {
+  private static final Consumer<InvoiceResponseDTO> validateInvoice = invoice -> {
+    if(invoice.getTotal().compareTo(BigDecimal.ZERO) == 0) {
       throw new BusinessException("TotalAmountLessThanZero");
     }
   };

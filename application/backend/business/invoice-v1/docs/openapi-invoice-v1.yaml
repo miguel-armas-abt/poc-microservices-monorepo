@@ -7,10 +7,10 @@ info:
 servers:
   - url: http://localhost:8014/bbq/business/invoice/v1
 paths:
-  /proformas:
+  /calculate:
     post:
-      summary: Genera una proforma de acuerdo a los productos solicitados.
-      operationId: generateProforma
+      summary: Calcular la factura de acuerdo a los productos solicitados.
+      operationId: calculate
       parameters:
         - $ref: '#/components/parameters/HeaderTraceId'
       requestBody:
@@ -19,14 +19,14 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/ProductRequest'
+                $ref: '#/components/schemas/ProductRequestDTO'
       responses:
         200:
           description: Respuesta exitosa
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProformaInvoiceResponse'
+                $ref: '#/components/schemas/InvoiceResponseDTO'
 
         400:
           description: Bad Request
@@ -35,7 +35,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiException'
 
-  /payments:
+  /send-to-pay:
     post:
       summary: Envía a pagar los productos solicitados.
       operationId: sendToPay
@@ -47,14 +47,10 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/PaymentRequest'
+                $ref: '#/components/schemas/PaymentSendRequestDTO'
       responses:
-        200:
+        202:
           description: Respuesta exitosa
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProformaInvoiceResponse'
 
         400:
           description: Bad Request
@@ -76,7 +72,7 @@ components:
       required: true
 
   schemas:
-    ProductRequest:
+    ProductRequestDTO:
       type: object
       properties:
         description:
@@ -92,7 +88,7 @@ components:
           description: Código del producto.
           example: MENU0005
 
-    ProformaInvoiceResponse:
+    InvoiceResponseDTO:
       type: object
       properties:
         productList:
@@ -132,17 +128,17 @@ components:
           description: Monto subtotal por la cantidad de productos del mismo tipo.
           example: 39.9
 
-    PaymentRequest:
+    PaymentSendRequestDTO:
       type: object
       properties:
         productList:
-          $ref: '#/components/schemas/ProductRequest'
+          $ref: '#/components/schemas/ProductRequestDTO'
         customer:
-          $ref: '#/components/schemas/Customer'
+          $ref: '#/components/schemas/CustomerDTO'
         payment:
-          $ref: '#/components/schemas/Payment'
+          $ref: '#/components/schemas/PaymentDTO'
 
-    Customer:
+    CustomerDTO:
       type: object
       properties:
         documentType:
@@ -154,7 +150,7 @@ components:
           description: Número de documento del cliente.
           example: 76510938
 
-    Payment:
+    PaymentDTO:
       type: object
       properties:
         method:

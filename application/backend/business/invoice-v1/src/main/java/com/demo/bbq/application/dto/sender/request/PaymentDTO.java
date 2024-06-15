@@ -1,4 +1,4 @@
-package com.demo.bbq.application.dto.invoicepayment.request;
+package com.demo.bbq.application.dto.sender.request;
 
 import java.io.Serializable;
 import lombok.*;

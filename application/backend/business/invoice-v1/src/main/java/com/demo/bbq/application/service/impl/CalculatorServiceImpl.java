@@ -1,12 +1,12 @@
 package com.demo.bbq.application.service.impl;
 
-import com.demo.bbq.application.dto.proformainvoice.request.ProductRequestDTO;
-import com.demo.bbq.application.dto.proformainvoice.response.ProductResponseDTO;
-import com.demo.bbq.application.dto.proformainvoice.response.ProformaInvoiceResponseDTO;
+import com.demo.bbq.application.dto.calculator.request.ProductRequestDTO;
+import com.demo.bbq.application.dto.calculator.response.InvoiceResponseDTO;
+import com.demo.bbq.application.dto.calculator.response.ProductDTO;
 import com.demo.bbq.application.dto.rules.DiscountRule;
 import com.demo.bbq.application.mapper.InvoiceMapper;
 import com.demo.bbq.application.properties.ServiceConfigurationProperties;
-import com.demo.bbq.application.service.ProformaInvoiceService;
+import com.demo.bbq.application.service.CalculatorService;
 import com.demo.bbq.repository.product.ProductRepository;
 import com.demo.bbq.application.rules.service.RuleService;
 import java.math.BigDecimal;
@@ -22,16 +22,16 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ProformaInvoiceServiceImpl implements ProformaInvoiceService {
+public class CalculatorServiceImpl implements CalculatorService {
 
   private final ServiceConfigurationProperties properties;
-  private final InvoiceMapper proformaInvoiceMapper;
+  private final InvoiceMapper invoiceMapper;
   private final ProductRepository productRepository;
   private final RuleService ruleService;
 
   @Override
-  public Mono<ProformaInvoiceResponseDTO> generateProforma(ServerRequest serverRequest, Flux<ProductRequestDTO> products) {
-    ProformaInvoiceResponseDTO initialProforma = ProformaInvoiceResponseDTO.builder()
+  public Mono<InvoiceResponseDTO> calculateInvoice(ServerRequest serverRequest, Flux<ProductRequestDTO> products) {
+    InvoiceResponseDTO baseResponse = InvoiceResponseDTO.builder()
         .subtotal(BigDecimal.ZERO)
         .productList(new ArrayList<>())
         .build();
@@ -40,26 +40,26 @@ public class ProformaInvoiceServiceImpl implements ProformaInvoiceService {
         .flatMap(product -> productRepository
             .findByProductCode(serverRequest, product.getProductCode())
             .map(productFound -> Pair.of(product, productFound.getUnitPrice())))
-        .reduce(initialProforma, (proforma, productWithPrice) -> {
-          ProductResponseDTO product = proformaInvoiceMapper.toResponseDTO(productWithPrice.getKey(), productWithPrice.getValue(), applyDiscount(productWithPrice.getKey()));
-          proforma.getProductList().add(product);
-          proforma.setSubtotal(proforma.getSubtotal().add(product.getSubtotal()));
-          return proforma;
+        .reduce(baseResponse, (invoice, productWithPrice) -> {
+          ProductDTO product = invoiceMapper.toResponseDTO(productWithPrice.getKey(), productWithPrice.getValue(), applyDiscount(productWithPrice.getKey()));
+          invoice.getProductList().add(product);
+          invoice.setSubtotal(invoice.getSubtotal().add(product.getSubtotal()));
+          return invoice;
         })
         .map(this::completeFields);
   }
 
-  private ProformaInvoiceResponseDTO completeFields(ProformaInvoiceResponseDTO proforma) {
+  private InvoiceResponseDTO completeFields(InvoiceResponseDTO invoice) {
     BigDecimal igv = new BigDecimal(properties.getBusinessInfo().getIgv());
-    proforma.setIgv(igv);
-    proforma.setTotal(proforma.getSubtotal().add(proforma.getSubtotal().multiply(igv)));
-    return proforma;
+    invoice.setIgv(igv);
+    invoice.setTotal(invoice.getSubtotal().add(invoice.getSubtotal().multiply(igv)));
+    return invoice;
   }
 
-  private BigDecimal applyDiscount(ProductRequestDTO request) {
+  private BigDecimal applyDiscount(ProductRequestDTO product) {
     DiscountRule discountRule = ruleService.process(DiscountRule.builder()
-        .quantity(request.getQuantity())
-        .productCode(request.getProductCode())
+        .quantity(product.getQuantity())
+        .productCode(product.getProductCode())
         .build());
     return BigDecimal.valueOf(discountRule.getDiscount());
   }

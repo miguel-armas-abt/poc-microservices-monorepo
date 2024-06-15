@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentRequestWrapper implements Serializable {
+public class PaymentSendRequestWrapper implements Serializable {
 
   private List<ProductRequestWrapper> productList;
 

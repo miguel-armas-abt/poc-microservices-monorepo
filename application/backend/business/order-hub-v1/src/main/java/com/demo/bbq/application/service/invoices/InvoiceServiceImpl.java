@@ -1,11 +1,11 @@
 package com.demo.bbq.application.service.invoices;
 
-import com.demo.bbq.application.dto.invoices.InvoicePaymentRequestDTO;
+import com.demo.bbq.application.dto.invoices.PaymentSendRequestDTO;
 import com.demo.bbq.application.mapper.InvoiceMapper;
 import com.demo.bbq.repository.invoice.InvoiceRepository;
-import com.demo.bbq.repository.invoice.wrapper.request.PaymentRequestWrapper;
+import com.demo.bbq.repository.invoice.wrapper.request.PaymentSendRequestWrapper;
 import com.demo.bbq.repository.invoice.wrapper.request.ProductRequestWrapper;
-import com.demo.bbq.repository.invoice.wrapper.response.ProformaInvoiceResponseWrapper;
+import com.demo.bbq.repository.invoice.wrapper.response.InvoiceResponseWrapper;
 import com.demo.bbq.repository.menu.MenuRepositoryStrategy;
 import com.demo.bbq.repository.tableorder.TableOrderRepository;
 import com.demo.bbq.repository.tableorder.wrapper.TableOrderResponseWrapper;
@@ -28,16 +28,16 @@ public class InvoiceServiceImpl implements InvoiceService {
   private final RequestValidator requestValidator;
 
   @Override
-  public Mono<ProformaInvoiceResponseWrapper> generateProforma(ServerRequest serverRequest, List<ProductRequestWrapper> productList) {
+  public Mono<InvoiceResponseWrapper> calculateInvoice(ServerRequest serverRequest, List<ProductRequestWrapper> productList) {
     return invoiceRepository.generateProforma(serverRequest, productList);
   }
 
   @Override
-  public Mono<Void> sendToPay(ServerRequest serverRequest, InvoicePaymentRequestDTO invoicePaymentRequest) {
-    requestValidator.validateRequestBody(invoicePaymentRequest);
+  public Mono<Void> sendToPay(ServerRequest serverRequest, PaymentSendRequestDTO paymentSendRequest) {
+    requestValidator.validateRequestBody(paymentSendRequest);
 
-    int tableNumber = invoicePaymentRequest.getTableNumber();
-    PaymentRequestWrapper paymentRequest = invoiceMapper.toPaymentRequest(invoicePaymentRequest);
+    int tableNumber = paymentSendRequest.getTableNumber();
+    PaymentSendRequestWrapper paymentRequest = invoiceMapper.toPaymentRequest(paymentSendRequest);
     paymentRequest.setProductList(new ArrayList<>());
 
     return tableOrderRepository.findByTableNumber(serverRequest, tableNumber)
@@ -47,9 +47,9 @@ public class InvoiceServiceImpl implements InvoiceService {
             .findByProductCode(serverRequest, menuOrder.getProductCode())
             .map(menuOption -> invoiceMapper.toProduct(menuOrder, menuOption))
         )
-        .reduce(paymentRequest, (currentPaymentRequest, product) -> {
-          currentPaymentRequest.getProductList().add(product);
-          return currentPaymentRequest;
+        .reduce(paymentRequest, (currentPaymentSendRequest, product) -> {
+          currentPaymentSendRequest.getProductList().add(product);
+          return currentPaymentSendRequest;
         })
         .flatMap(currentPaymentRequest -> invoiceRepository.sendToPay(serverRequest, currentPaymentRequest))
         .then(tableOrderRepository.cleanTable(serverRequest, tableNumber));

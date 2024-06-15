@@ -1,4 +1,4 @@
-package com.demo.bbq.application.dto.proformainvoice.request;
+package com.demo.bbq.application.dto.calculator.request;
 
 import java.io.Serializable;
 import lombok.*;

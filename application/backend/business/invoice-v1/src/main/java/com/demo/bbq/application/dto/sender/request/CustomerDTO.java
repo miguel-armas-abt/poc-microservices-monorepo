@@ -1,4 +1,4 @@
-package com.demo.bbq.application.dto.invoicepayment.request;
+package com.demo.bbq.application.dto.sender.request;
 
 import com.demo.bbq.application.constant.InvoiceRegex;
 import java.io.Serializable;

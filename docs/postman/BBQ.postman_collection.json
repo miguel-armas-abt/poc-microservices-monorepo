@@ -1834,7 +1834,7 @@
 					"name": "invoice-v1",
 					"item": [
 						{
-							"name": "invoice-v1 - proformas",
+							"name": "invoice-v1 - calculator",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -1867,7 +1867,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8014/bbq/business/invoice/v1/proformas",
+									"raw": "http://localhost:8014/bbq/business/invoice/v1/calculate",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1878,7 +1878,7 @@
 										"business",
 										"invoice",
 										"v1",
-										"proformas"
+										"calculate"
 									]
 								}
 							},
@@ -2122,7 +2122,7 @@
 							"response": []
 						},
 						{
-							"name": "invoices - proformas",
+							"name": "invoices - calculator",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -2145,7 +2145,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/invoices/proformas",
+									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/invoices/calculate",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2157,7 +2157,7 @@
 										"order-hub",
 										"v1",
 										"invoices",
-										"proformas"
+										"calculate"
 									]
 								}
 							},

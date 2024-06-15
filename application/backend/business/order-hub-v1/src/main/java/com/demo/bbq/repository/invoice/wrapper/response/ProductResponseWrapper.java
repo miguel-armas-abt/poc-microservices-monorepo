@@ -1,9 +1,8 @@
 package com.demo.bbq.repository.invoice.wrapper.response;
 
-import lombok.*;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
+import lombok.*;
 
 @Builder
 @Setter
