@@ -16,11 +16,11 @@ while IFS=',' read -r APP_NAME TYPE || [ -n "$APP_NAME" ]; do
 
   # Ignore comments
   if [[ $APP_NAME != "#"* ]]; then
-    if [[ "$TYPE" == "INF" ]]; then
+    if [[ "$TYPE" == "INFRASTRUCTURE" ]]; then
       SERVICE_PATH="$INFRASTRUCTURE_PATH/$APP_NAME"
-    elif [[ "$TYPE" == "BS" ]]; then
+    elif [[ "$TYPE" == "BUSINESS" ]]; then
       SERVICE_PATH="$BUSINESS_PATH/$APP_NAME"
-    elif [[ "$TYPE" == "CM" ]]; then
+    elif [[ "$TYPE" == "COMMONS" ]]; then
       SERVICE_PATH="$COMMONS_PATH/$APP_NAME"
     fi
     cd "$SERVICE_PATH"
