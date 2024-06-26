@@ -1,6 +1,6 @@
 # Arquitectura de paquetes
 
-[← Regresar Backend](./../README.md)
+[← Ir a Backend](./../README.md)
 
 La arquitectura de paquetes presentada es solo una plantilla. La implementación real variará según las necesidades
 específicas de cada proyecto.

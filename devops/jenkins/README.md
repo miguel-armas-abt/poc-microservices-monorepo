@@ -2,14 +2,14 @@
 
 # JENKINS
 
-[← Regresar Principal](./../../README.md)
+[← Ir a Principal](./../../README.md)
 
 **ToDo**: Los Jenkinsfiles deben pushear y recuperar las imágenes desde DockerHub.
 
 > ✅ **Pre requisitos**
 > - Iniciar el clúster de Minikube
 > - [Construir imágenes en Minikube](./../k8s/README.md)
-> - [Instalar Ngrok](./../../docs/info/installation/README.md)
+> - [Instalar Ngrok](https://github.com/miguel-armas-abt/technical-resources/blob/main/04_devops/ngrok/README.md)
 
 # 1. Iniciar Jenkins
 > 🔨 **Ejecutar contenedor de Jenkins**

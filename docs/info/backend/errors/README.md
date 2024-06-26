@@ -1,6 +1,6 @@
 # Manejo de errores
 
-[← Regresar Backend](./../README.md)
+[← Ir a Backend](./../README.md)
 
 ```json
 {

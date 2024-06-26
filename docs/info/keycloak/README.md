@@ -1,7 +1,7 @@
 # Proveedor de autenticación Keycloak
 
-[← Regresar Local](./../../../devops/local/README.md) <br>
-[← Regresar Docker Compose](./../../../devops/docker-compose/README.md)
+[← Ir a Local](./../../../devops/local/README.md) <br>
+[← Ir a Docker Compose](./../../../devops/docker-compose/README.md)
 
 ### ▶️ Despliegue local
 Para desplegar Keycloak localmente, utilizaremos nuestro archivo de docker compose y especificaremos únicamente el servicio `keycloak-server`.  

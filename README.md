@@ -9,12 +9,10 @@ Revise las instrucciones de despliegue para cada uno de los siguientes entornos.
 
 # 2. DOCUMENTACION
 - [Backend](./docs/info/backend/README.md)
-- [Observabilidad y monitoreo](./docs/info/monitoring/README.md)
 
 # 3. CASO DE ESTUDIO
 BBQ Restaurant es una cadena de restaurantes que planea implementar una arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
 Los expertos en el dominio "restaurante" utilizan los siguientes procesos para prestar servicios a sus clientes.
-
 
 > 💡 **Atención en el comedor**
 

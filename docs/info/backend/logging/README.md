@@ -1,6 +1,6 @@
 # Gestión de logs
 
-[← Regresar Backend](./../README.md)
+[← Ir a Backend](./../README.md)
 
 ## Características
 
