@@ -48,13 +48,13 @@
 > ./03_create_database.sh
 > ```
 
-▶️ **Iniciar servicios**
+▶️ **Ejecutar servicios**
 > ```shell script 
-> notepad ./parameters/04_services-to-start.csv
+> notepad ./parameters/04_services-to-run.csv
 > ```
 > ```shell script 
 > cd ./shell-scripts
-> ./04_start_services.sh
+> ./04_run_services.sh
 > ```
 
 ▶️ [Configurar Keycloak](./../../docs/info/keycloak/README.md)

@@ -1,11 +1,11 @@
 SERVER_NAME
-kafka
 zookeeper
+kafka
 #redis
 postgres-db
 #mysql-db
 #prometheus
-zipkin
-grafana
-loki
-promtail
+#zipkin
+#grafana
+#loki
+#promtail

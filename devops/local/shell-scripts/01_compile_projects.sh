@@ -3,32 +3,39 @@
 source ./../parameters/00_local_path_variables.sh
 PROJECTS_CSV=./../parameters/01_projects-to-compile.csv
 
-echo "# Installation script started" > "$LOCAL_LOG_FILE"
+declare -A application_map
+application_map["BUSINESS"]="$BUSINESS_PATH"
+application_map["COMMONS"]="$COMMONS_PATH"
+application_map["INFRASTRUCTURE"]="$INFRASTRUCTURE_PATH"
 
-SERVICE_PATH=""
-firstline=true
-while IFS=',' read -r APP_NAME TYPE || [ -n "$APP_NAME" ]; do
-  # Ignore headers
-  if $firstline; then
-      firstline=false
-      continue
-  fi
+process_csv_record() {
+  local app_name=$1
+  local type=$2
 
-  # Ignore comments
-  if [[ $APP_NAME != "#"* ]]; then
-    if [[ "$TYPE" == "INFRASTRUCTURE" ]]; then
-      SERVICE_PATH="$INFRASTRUCTURE_PATH/$APP_NAME"
-    elif [[ "$TYPE" == "BUSINESS" ]]; then
-      SERVICE_PATH="$BUSINESS_PATH/$APP_NAME"
-    elif [[ "$TYPE" == "COMMONS" ]]; then
-      SERVICE_PATH="$COMMONS_PATH/$APP_NAME"
+  IFS='|' read -r service_path <<< "${application_map[$type]}"
+  cd "$service_path/$app_name"
+
+  execution_command="mvn clean install -Dmaven.home=\"$MVN_HOME_PATH\" -Dmaven.repo.local=\"$MVN_REPOSITORY_PATH\""
+  echo "$(get_timestamp) .......... $APP_NAME .......... $execution_command" >> "$LOCAL_LOG_FILE"
+  eval "$execution_command"
+}
+
+iterate_csv_records() {
+  firstline=true
+  while IFS=',' read -r app_name type || [ -n "$app_name" ]; do
+    # Ignore headers
+    if $firstline; then
+        firstline=false
+        continue
     fi
-    cd "$SERVICE_PATH"
 
-    EXECUTION_COMMAND="mvn clean install -Dmaven.home=\"$MVN_HOME_PATH\" -Dmaven.repo.local=\"$MVN_REPOSITORY_PATH\""
-    echo "$(get_timestamp) .......... $APP_NAME .......... $EXECUTION_COMMAND" >> "$LOCAL_LOG_FILE"
-    eval "$EXECUTION_COMMAND"
+    # Ignore comments
+    if [[ $app_name != "#"* ]]; then
+      process_csv_record "$app_name" "$type"
+    fi
 
-  fi
+  done < <(sed 's/\r//g' "$PROJECTS_CSV")
+}
 
-done < <(sed 's/\r//g' "$PROJECTS_CSV")
+echo "# Compilation script started" > "$LOCAL_LOG_FILE"
+iterate_csv_records
