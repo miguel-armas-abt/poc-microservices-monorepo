@@ -1,11 +1,11 @@
-  APP_NAME:
-    container_name: APP_NAME
-    image: DOCKER_IMAGE
+  @app_name:
+    container_name: @app_name
+    image: @docker_image
     restart: always
-    VARIABLES
-    DEPENDENCIES
-    VOLUMES
+    @variables
+    @dependencies
+    @volumes
     networks:
       - dev_environment
     ports:
-      - "HOST_PORT:CONTAINER_PORT"
+      - "@host_port:@container_port"
