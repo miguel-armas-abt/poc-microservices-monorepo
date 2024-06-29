@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./../../environment/common-script.sh
+source ./../../common-script.sh
 
 # specify your Java version
 JAVA_PATH="C:/dev-environment/java/jdk-17"
@@ -57,7 +57,7 @@ PROMTAIL_PORT="9080"
 
 # specify your workspace path
 BBQ_PATH="C:/dev-workspace/bbq-monorepo"
-BUSINESS_PATH="$BBQ_PATH/$BS_PATH"
-INFRASTRUCTURE_PATH="$BBQ_PATH/$INF_PATH"
+BUSINESS_ABSOLUTE_PATH="$BBQ_PATH/$BUSINESS_RELATIVE_PATH"
+INFRASTRUCTURE_ABSOLUTE_PATH="$BBQ_PATH/$INFRASTRUCTURE_RELATIVE_PATH"
 COMMONS_PATH="$BBQ_PATH/application/backend/commons"
 LOCAL_LOG_FILE="$BBQ_PATH/devops/$LOCAL_LOG_FILE"

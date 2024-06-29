@@ -1,26 +1,44 @@
 #!/bin/bash
 
+source ./../../../../common-script.sh
+K8S_LOG_FILE="./../../../../$K8S_LOG_FILE"
+
 CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
+CM_TEMPLATE="./../templates/config-map.template.yaml"
+ENVIRONMENT_FILES_PATH="./../../../../environment"
 
-if [ "$#" -ne 5 ] && [ "$#" -ne 6 ]; then
-    echo "Usage: $0 <APP_NAME> <DATA_FILE> <TEMPLATES_PATH> <IS_DATABASE> <MANIFESTS_PATH> <SUB_PATH_INIT_DB>"
-    exit 1
-fi
+build_data_from_environment_variables() {
+  local app_name=$1
+  local template=$2
 
-APP_NAME=$1
-DATA_FILE=$2
-TEMPLATES_PATH=$3
-IS_DATABASE=$4
-MANIFESTS_PATH=$5
-SUB_PATH_INIT_DB=$6
+  environment_file="$ENVIRONMENT_FILES_PATH/$app_name/$app_name.env"
 
-CONFIG_MAP_TEMPLATE=$TEMPLATES_PATH/config-map.template.yaml
+  # Read the environment variables
+  declare -A environment_variables_map
+  while IFS='=' read -r key value || [ -n "$key" ]; do
+    # Ignore comments
+    if [[ $key != "#"* ]]; then
+      key=$(echo "$key" | tr '[:upper:]' '[:lower:]' | tr '_' '-')
+      trim_value=$(echo "$value" | sed 's/[[:space:]]*$//')
+      environment_variables_map["$key"]="\"$trim_value\""
+    fi
+  done < "$environment_file"
 
-# Replace occurrences
-template=$(<$CONFIG_MAP_TEMPLATE)
-template="${template//APP_NAME/$APP_NAME}"
+  # Iterate over the environment variables and append them to the template
+  for key in "${!environment_variables_map[@]}"; do
+      template+="\n  $key: ${environment_variables_map[$key]}"
+  done
 
-if [ "$IS_DATABASE" = true ]; then
+  echo "$template"
+}
+
+build_data_from_initdb_file() {
+  local app_name=$1
+  local initdb_file_suffix=$2
+  local template=$3
+
+  initdb_file="$ENVIRONMENT_FILES_PATH/$app_name/init/$app_name.$initdb_file_suffix"
+
   data=""
   while IFS= read -r line || [[ -n "$line" ]]; do
       if [[ -z "$line" ]]; then
@@ -28,34 +46,60 @@ if [ "$IS_DATABASE" = true ]; then
       fi
       formatted_line="    $line"
       data="$data$formatted_line\n"
-  done < "$DATA_FILE"
+  done < "$initdb_file"
+
   data=$(echo -e "$data" | sed '/^$/d') #remove extra empty line
-  template="$template\n  $SUB_PATH_INIT_DB: |-\n$data"
+  template="$template\n  $initdb_file_suffix: |-\n$data"
+  echo "$template"
+}
 
-else
-    # Read the environment variables
-    declare -A env_vars
-    while IFS='=' read -r key value || [ -n "$key" ]; do
-        if [[ $key == \#* ]]; then
-            continue
-        fi
-        key=$(echo "$key" | tr '[:upper:]' '[:lower:]' | tr '_' '-')
+build_config_map() {
+  local app_name=$1
+  local initdb_file_suffix=$2
 
-        trimValue=$(echo "$value" | sed 's/[[:space:]]*$//')
-        env_vars["$key"]="\"$trimValue\""
-    done < "$DATA_FILE"
+  template=$(<"$CM_TEMPLATE")
+  template="${template//@app_name/$app_name}"
 
-    # Iterate over the environment variables and append them to the template
-    for key in "${!env_vars[@]}"; do
-        template+="\n  $key: ${env_vars[$key]}"
-    done
+  if [[ "$initdb_file_suffix" != null* ]]; then
+    template=$(build_data_from_initdb_file "$app_name" "$initdb_file_suffix" "$template")
+  else
+    template=$(build_data_from_environment_variables "$app_name" "$template")
+  fi
+
+  echo "$template"
+}
+
+create_folder() {
+  local output_dir=$1
+
+  if [ ! -d "$output_dir" ]; then
+    mkdir -p "$output_dir"
+  fi
+}
+
+create_file() {
+  local manifests_path=$1
+  local app_name=$2
+  local initdb_file_suffix=$3
+
+  output_dir="$manifests_path/$app_name"
+  output_file="cm-$app_name.yaml"
+
+  create_folder "$output_dir"
+  template=$(build_config_map "$app_name" "$initdb_file_suffix")
+  echo -e "$template" > "$output_dir/$output_file"
+  echo -e "${CHECK_SYMBOL} created: $output_file"
+}
+
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <manifests_path> <app_name> <initdb_file_suffix>"
+    exit 1
 fi
 
-OUTPUT_DIR="$MANIFESTS_PATH/$APP_NAME"
-OUTPUT_FILE="cm-$APP_NAME.yaml"
+manifests_path=$1
+app_name=$2
+initdb_file_suffix=$3
 
-if [ ! -d "$OUTPUT_DIR" ]; then
-    mkdir -p "$OUTPUT_DIR"
-fi
-echo -e "$template" > "$OUTPUT_DIR/$OUTPUT_FILE"
-echo -e "${CHECK_SYMBOL} created: $OUTPUT_FILE"
+execution_command="create_file $manifests_path $app_name $initdb_file_suffix"
+echo "$(get_timestamp) .......... $app_name .......... ./config-map-builder.sh ${execution_command#create_file }" >> "$K8S_LOG_FILE"
+eval "$execution_command"

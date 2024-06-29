@@ -2,31 +2,34 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: zookeeper-server
+  labels:
+    app: zookeeper-server
 spec:
-  replicas: 1
-  
-  selector:
+  replicas: 1 #number of pods replicas
+  selector: #define how the Deployment identify the pods that it could manage
     matchLabels:
       app: zookeeper-server
-  template:
+  template: #pod template specification
     metadata:
-      labels:
+      labels: #define the labels for all pods
         app: zookeeper-server
     spec:
       containers:
         - name: zookeeper-server
           image: confluentinc/cp-zookeeper:7.3.2
           imagePullPolicy: IfNotPresent
-          ports:
+          ports: #open the port to allow send and receive traffic in the container
             - containerPort: 2181
+          
+          
           resources:
             requests:
               memory: "256Mi"
               cpu: "500m"
             limits:
-              memory: "640Mi"
+              memory: "512Mi"
               cpu: "1"
-          env: 
+          env:
             - name: ZOOKEEPER_CLIENT_PORT
               valueFrom:
                 configMapKeyRef:
@@ -42,3 +45,4 @@ spec:
                 configMapKeyRef:
                   name: cm-zookeeper-server
                   key: zookeeper-servers
+      

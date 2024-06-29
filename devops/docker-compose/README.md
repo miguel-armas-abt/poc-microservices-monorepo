@@ -10,10 +10,10 @@
 
 🔨 **Construir imágenes**
 > ```shell script
-> notepad ./../environment/docker/images-to-build.csv
+> notepad ./../docker/images-to-build.csv
 > ```
 > ```shell script 
-> cd ./../environment/docker/shell-scripts
+> cd ./../docker/shell-scripts
 > ./images-builder.sh
 > ```
 

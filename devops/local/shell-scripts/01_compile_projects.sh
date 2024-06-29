@@ -4,9 +4,9 @@ source ./../parameters/00_local_path_variables.sh
 PROJECTS_CSV=./../parameters/01_projects-to-compile.csv
 
 declare -A application_map
-application_map["BUSINESS"]="$BUSINESS_PATH"
+application_map["BUSINESS"]="$BUSINESS_ABSOLUTE_PATH"
 application_map["COMMONS"]="$COMMONS_PATH"
-application_map["INFRASTRUCTURE"]="$INFRASTRUCTURE_PATH"
+application_map["INFRASTRUCTURE"]="$INFRASTRUCTURE_ABSOLUTE_PATH"
 
 process_csv_record() {
   local app_name=$1
@@ -16,7 +16,7 @@ process_csv_record() {
   cd "$service_path/$app_name"
 
   execution_command="mvn clean install -Dmaven.home=\"$MVN_HOME_PATH\" -Dmaven.repo.local=\"$MVN_REPOSITORY_PATH\""
-  echo "$(get_timestamp) .......... $APP_NAME .......... $execution_command" >> "$LOCAL_LOG_FILE"
+  echo "$(get_timestamp) .......... $app_name .......... $execution_command" >> "$LOCAL_LOG_FILE"
   eval "$execution_command"
 }
 

@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-APP_NAME
+  name: pvc-@app_name
   labels:
-    app: APP_NAME
+    app: @app_name
 spec:
   storageClassName: manual
   accessModes:

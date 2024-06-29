@@ -2,31 +2,34 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: order-hub-v1
+  labels:
+    app: order-hub-v1
 spec:
-  replicas: 1
-  
-  selector:
+  replicas: 1 #number of pods replicas
+  selector: #define how the Deployment identify the pods that it could manage
     matchLabels:
       app: order-hub-v1
-  template:
+  template: #pod template specification
     metadata:
-      labels:
+      labels: #define the labels for all pods
         app: order-hub-v1
     spec:
       containers:
         - name: order-hub-v1
           image: miguelarmasabt/order-hub:v1.0.1
           imagePullPolicy: IfNotPresent
-          ports:
+          ports: #open the port to allow send and receive traffic in the container
             - containerPort: 8018
+          
+          
           resources:
             requests:
               memory: "256Mi"
               cpu: "500m"
             limits:
-              memory: "640Mi"
+              memory: "512Mi"
               cpu: "1"
-          env: 
+          env:
             - name: CONFIG_SERVER_DOMAIN
               valueFrom:
                 configMapKeyRef:
@@ -62,3 +65,4 @@ spec:
                 configMapKeyRef:
                   name: cm-order-hub-v1
                   key: java-opts
+      

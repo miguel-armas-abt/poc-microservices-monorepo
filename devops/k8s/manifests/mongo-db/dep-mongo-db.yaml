@@ -6,7 +6,6 @@ metadata:
     app: mongo-db
 spec:
   replicas: 1 #number of pods replicas
-  
   selector: #define how the Deployment identify the pods that it could manage
     matchLabels:
       app: mongo-db
@@ -38,6 +37,7 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "1"
+      
       volumes:
         - name: mongo-db-volume-data
           persistentVolumeClaim:

@@ -5,8 +5,8 @@ CHECK_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
 WRENCH_SYMBOL="\xE2\x9C\xA8"
 
 #common paths
-BS_PATH="application/backend/business"
-INF_PATH="application/backend/infrastructure"
+BUSINESS_RELATIVE_PATH="application/backend/business"
+INFRASTRUCTURE_RELATIVE_PATH="application/backend/infrastructure"
 
 #log files
 LOCAL_LOG_FILE="output-local.log"

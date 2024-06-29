@@ -1,5 +1,5 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: payment-v1
   labels:
@@ -8,6 +8,9 @@ spec:
   type: NodePort
   selector:
     app: payment-v1
+  
+  ipFamilies:
+    - IPv4
   ports:
     - name: payment-v1
       port: 8015

@@ -4,24 +4,22 @@ source ./../parameters/00_local_path_variables.sh
 SERVICES_CSV=./../parameters/04_services-to-run.csv
 
 declare -A application_map
-application_map["BUSINESS"]="$BUSINESS_PATH"
-application_map["INFRASTRUCTURE"]="$INFRASTRUCTURE_PATH"
+application_map["BUSINESS"]="$BUSINESS_ABSOLUTE_PATH"
+application_map["INFRASTRUCTURE"]="$INFRASTRUCTURE_ABSOLUTE_PATH"
 
-run_go_service() {
+build_go_run_command() {
   local app_name=$1
 
   execution_command="$GO_PATH run main.go"
-  echo "$(get_timestamp) .......... $app_name .......... $execution_command" >> "$LOCAL_LOG_FILE"
-  eval start "$execution_command"
+  echo "$execution_command"
 }
 
-run_java_service() {
+build_java_run_command() {
   local app_name=$1
   local application_path=$2
 
   execution_command="$JAVA_COMMAND -jar $application_path/target/$app_name-0.0.1-SNAPSHOT.jar"
-  echo "$(get_timestamp) .......... $app_name .......... $execution_command" >> "$LOCAL_LOG_FILE"
-  eval start "$execution_command"
+  echo "$execution_command"
 }
 
 run_service() {
@@ -29,11 +27,14 @@ run_service() {
   local app_name=$2
   local application_path=$3
 
+  execution_command=""
   if [ "$file" == "go.mod" ]; then
-    run_go_service "$app_name"
+    execution_command=$(build_go_run_command "$app_name")
   elif [ "$file" == "pom.xml" ]; then
-    run_java_service "$app_name" "$application_path"
+    execution_command=$(build_java_run_command "$app_name" "$application_path")
   fi
+  echo "$(get_timestamp) .......... $app_name .......... $execution_command" >> "$LOCAL_LOG_FILE"
+  eval start "$execution_command"
 }
 
 process_csv_record() {
@@ -63,7 +64,6 @@ iterate_csv_records() {
 
     # Ignore comments
     if [[ $app_name != "#"* ]]; then
-      echo "$app_name" "$type"
       process_csv_record "$app_name" "$type"
     fi
 

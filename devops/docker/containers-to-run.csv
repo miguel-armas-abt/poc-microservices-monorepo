@@ -1,4 +1,4 @@
-APP_NAME,DOCKER_IMAGE,DEPENDENCIES,HOST_PORT,CONTAINER_PORT,VOLUMES
+APP_NAME,IMAGE,DEPENDENCIES,HOST_PORT,CONTAINER_PORT,VOLUMES
 config-server-v1,miguelarmasabt/config-server:v1.0.1,null,8888,8888,null
 api-gateway-v1,miguelarmasabt/api-gateway:v1.0.1,null,8010,8010,null
 auth-adapter-v1,miguelarmasabt/auth-adapter:v1.0.1,null,8011,8011,null

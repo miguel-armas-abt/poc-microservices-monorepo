@@ -36,15 +36,12 @@
 
 ▶️ **Crear manifiestos**
 > ```shell script 
-> notepad ./parameters/k8s-app-manifests.csv
-> ```
-> ```shell script 
-> notepad ./parameters/k8s-db-manifests.csv
+> notepad ./parameters/k8s-manifests.csv
 > ```
 > 
 > ```shell script
-> cd ./shell-scripts/manifests-builder
-> ./k8s-manifests-builder.sh
+> cd ./shell-scripts/manifests-builder/builders
+> ./main.sh
 > ```
 
 ▶️ **Aplicar manifiestos k8s**

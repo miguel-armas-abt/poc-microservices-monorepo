@@ -1,12 +1,12 @@
 #!/bin/bash
 
-source ./../../environment/common-script.sh
+source ./../../common-script.sh
 DOCKER_LOG_FILE=./../../$DOCKER_LOG_FILE
 
-PARAMETERS_CSV=./../../environment/docker/containers-to-run.csv
+ENVIRONMENT_VARIABLES_PATH=./../../environment
+PARAMETERS_CSV=./../../docker/containers-to-run.csv
 DOCKER_COMPOSE_TEMPLATE=./templates/docker-compose.template.yml
 SERVICE_TEMPLATE=./templates/service.template.yml
-VARIABLES_PATH=./../../environment
 
 build_dependencies() {
   local dependencies=$1
@@ -33,18 +33,8 @@ build_dependencies() {
 
 build_variables() {
   local app_name=$1
-  local volumes=$2
 
-  env_directory=""
-  env_file=""
-  if [ "$volumes" != "null" ]; then
-    env_directory="databases"
-    env_file="$VARIABLES_PATH/$env_directory/$app_name/$app_name.env"
-  else
-    env_directory="apps"
-    env_file="$VARIABLES_PATH/$env_directory/$app_name.env"
-  fi
-
+  env_file="$ENVIRONMENT_VARIABLES_PATH/$app_name/$app_name.env"
   formatted_variables=$(grep -v '^#' "$env_file" | sed 's/^/      - /' | sed 's/=/=/' | tr '\n' '\n')
   echo "$formatted_variables"
 }
@@ -90,7 +80,7 @@ process_csv_record() {
   dependencies=$(build_dependencies "$dependencies")
   formatted_service="${formatted_service//@dependencies/$dependencies}"
 
-  variables=$(build_variables "$app_name" "$volumes")
+  variables=$(build_variables "$app_name")
   formatted_service="${formatted_service//@variables/"environment: \n$variables"}"
 
   volumes=$(build_volumes "$volumes")

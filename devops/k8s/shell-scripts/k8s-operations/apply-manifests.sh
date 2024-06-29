@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./../../../environment/common-script.sh
+source ./../../../common-script.sh
 K8S_LOG_FILE=./../../../$K8S_LOG_FILE
 MANIFESTS_FOLDER="./../../manifests"
 

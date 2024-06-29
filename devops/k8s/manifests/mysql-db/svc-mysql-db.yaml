@@ -6,9 +6,10 @@ metadata:
     app: mysql-db
 spec:
   type: NodePort
-  clusterIP: 10.96.1.2 #cluster IP allow backend requests
   selector:
     app: mysql-db
+  clusterIP: 10.96.1.2
+
   ipFamilies:
     - IPv4
   ports:

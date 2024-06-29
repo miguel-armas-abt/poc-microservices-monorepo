@@ -6,9 +6,10 @@ metadata:
     app: mongo-db
 spec:
   type: NodePort
-  clusterIP: 10.96.1.4 #cluster IP allow backend requests
   selector:
     app: mongo-db
+  clusterIP: 10.96.1.4
+
   ipFamilies:
     - IPv4
   ports:

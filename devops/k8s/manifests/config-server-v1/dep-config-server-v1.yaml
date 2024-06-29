@@ -2,33 +2,37 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: config-server-v1
+  labels:
+    app: config-server-v1
 spec:
-  replicas: 1
-  
-  selector:
+  replicas: 1 #number of pods replicas
+  selector: #define how the Deployment identify the pods that it could manage
     matchLabels:
       app: config-server-v1
-  template:
+  template: #pod template specification
     metadata:
-      labels:
+      labels: #define the labels for all pods
         app: config-server-v1
     spec:
       containers:
         - name: config-server-v1
           image: miguelarmasabt/config-server:v1.0.1
           imagePullPolicy: IfNotPresent
-          ports:
+          ports: #open the port to allow send and receive traffic in the container
             - containerPort: 8888
+          
+          
           resources:
             requests:
               memory: "256Mi"
               cpu: "500m"
             limits:
-              memory: "640Mi"
+              memory: "512Mi"
               cpu: "1"
-          env: 
+          env:
             - name: JAVA_OPTS
               valueFrom:
                 configMapKeyRef:
                   name: cm-config-server-v1
                   key: java-opts
+      

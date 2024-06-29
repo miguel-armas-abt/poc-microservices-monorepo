@@ -2,31 +2,34 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-gateway-v1
+  labels:
+    app: api-gateway-v1
 spec:
-  replicas: 1
-  
-  selector:
+  replicas: 1 #number of pods replicas
+  selector: #define how the Deployment identify the pods that it could manage
     matchLabels:
       app: api-gateway-v1
-  template:
+  template: #pod template specification
     metadata:
-      labels:
+      labels: #define the labels for all pods
         app: api-gateway-v1
     spec:
       containers:
         - name: api-gateway-v1
           image: miguelarmasabt/api-gateway:v1.0.1
           imagePullPolicy: IfNotPresent
-          ports:
+          ports: #open the port to allow send and receive traffic in the container
             - containerPort: 8010
+          
+          
           resources:
             requests:
               memory: "256Mi"
               cpu: "500m"
             limits:
-              memory: "640Mi"
+              memory: "512Mi"
               cpu: "1"
-          env: 
+          env:
             - name: AUTH_ADAPTER_DOMAIN
               valueFrom:
                 configMapKeyRef:
@@ -42,3 +45,4 @@ spec:
                 configMapKeyRef:
                   name: cm-api-gateway-v1
                   key: java-opts
+      
