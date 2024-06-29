@@ -16,6 +16,9 @@ spring:
 
 # actuator endpoints
 management:
+  tracing:
+    sampling:
+      probability: 1.0
   endpoints:
     web:
       exposure:
@@ -23,6 +26,5 @@ management:
   endpoint:
     health:
       show-details: always
-  tracing:
-    sampling:
-      probability: 1.0
+      probes: #livess & readiness probe
+        enabled: true

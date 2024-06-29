@@ -37,3 +37,5 @@ management:
   endpoint:
     health:
       show-details: always
+      probes: #livess & readiness probe
+        enabled: true

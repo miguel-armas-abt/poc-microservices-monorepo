@@ -48,6 +48,9 @@ configuration:
 
 # actuator endpoints
 management:
+  tracing:
+    sampling:
+      probability: 1.0
   endpoints:
     web:
       exposure:
@@ -55,6 +58,8 @@ management:
   endpoint:
     health:
       show-details: always
+      probes: #livess & readiness probe
+        enabled: true
 
 logging:
   level:
