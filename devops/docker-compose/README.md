@@ -19,7 +19,7 @@
 
 ⚙️ **Crear docker-compose.yml**
 > ```shell script
-> notepad ./../environment/docker/containers-to-run.csv
+> notepad ./../docker/containers-to-run.csv
 > ```
 > ```shell script
 > cd ./shell-scripts

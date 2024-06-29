@@ -34,8 +34,18 @@ build_dependencies() {
 build_variables() {
   local app_name=$1
 
-  env_file="$ENVIRONMENT_VARIABLES_PATH/$app_name/$app_name.env"
-  formatted_variables=$(grep -v '^#' "$env_file" | sed 's/^/      - /' | sed 's/=/=/' | tr '\n' '\n')
+  environment_file="$ENVIRONMENT_VARIABLES_PATH/$app_name/$app_name.env"
+  secrets_file="$ENVIRONMENT_VARIABLES_PATH/$app_name/secret-$app_name.env"
+
+  formatted_variables=""
+  if [[ -f "$environment_file" && -s "$environment_file" ]]; then
+    formatted_variables+=$(grep -v '^#' "$environment_file" | sed 's/^/      - /')
+  fi
+
+  if [[ -f "$secrets_file" && -s "$secrets_file" ]]; then
+    formatted_variables+=$(grep -v '^#' "$secrets_file" | sed 's/^/      - /')
+  fi
+
   echo "$formatted_variables"
 }
 

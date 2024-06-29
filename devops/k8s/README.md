@@ -7,14 +7,19 @@
 > ✅ **Pre requisitos**
 > - [Compilar proyectos](./../local/README.md)
 > - Instalar Kubectl y Minikube
-> - Iniciar el clúster de Minikube
+
+▶️ **Iniciar el clúster de Minikube**
+> ```shell script 
+> docker context use default
+> minikube start
+> ```
 
 🔨 **Construir imágenes en Minikube**
 > Las imágenes deben estar disponibles en el clúster de Minikube. Para ello estableceremos el Docker de Minikube en
 > nuestra línea de comandos y sobre ella construiremos las imágenes en el clúster de Minikube.
 >
 > ```shell script 
-> cd ./../environment/docker/shell-scripts
+> cd ./../docker/shell-scripts
 > eval $(minikube docker-env --shell bash)
 > ./images-builder.sh
 > ```

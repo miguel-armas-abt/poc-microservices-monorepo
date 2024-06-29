@@ -259,8 +259,8 @@ services:
       - TZ=UTC
     
     volumes:
-      - ./../environment/databases/mysql-db/init:/docker-entrypoint-initdb.d
-      - ./../environment/databases/mysql-db/data:/data/db
+      - ./../environment/mysql-db/init:/docker-entrypoint-initdb.d
+      - ./../environment/mysql-db/data:/data/db
     networks:
       - dev_environment
     ports:
@@ -276,8 +276,8 @@ services:
       - POSTGRES_PASSWORD=qwerty
     
     volumes:
-      - ./../environment/databases/postgres-db/init:/docker-entrypoint-initdb.d
-      - ./../environment/databases/postgres-db/data:/data/db
+      - ./../environment/postgres-db/init:/docker-entrypoint-initdb.d
+      - ./../environment/postgres-db/data:/data/db
     networks:
       - dev_environment
     ports:
@@ -293,8 +293,8 @@ services:
       - MONGO_INITDB_DATABASE=tablePlacement
     
     volumes:
-      - ./../environment/databases/mongo-db/init:/docker-entrypoint-initdb.d
-      - ./../environment/databases/mongo-db/data:/data/db
+      - ./../environment/mongo-db/init:/docker-entrypoint-initdb.d
+      - ./../environment/mongo-db/data:/data/db
     networks:
       - dev_environment
     ports:

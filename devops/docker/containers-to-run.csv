@@ -13,6 +13,6 @@ keycloak-server,jboss/keycloak:16.0.0,null,8091,8080,null
 redis-server,redis:latest,null,6379,6379,null
 kafka-server,confluentinc/cp-kafka:7.3.2,zookeeper-server,9092,9092,null
 zookeeper-server,confluentinc/cp-zookeeper:7.3.2,null,2181,2181,null
-mysql-db,mysql:latest,null,3306,3306,./../environment/databases/mysql-db/init:/docker-entrypoint-initdb.d;./../environment/databases/mysql-db/data:/data/db
-postgres-db,postgres:latest,null,5432,5432,./../environment/databases/postgres-db/init:/docker-entrypoint-initdb.d;./../environment/databases/postgres-db/data:/data/db
-mongo-db,mongo:latest,null,27017,27017,./../environment/databases/mongo-db/init:/docker-entrypoint-initdb.d;./../environment/databases/mongo-db/data:/data/db
+mysql-db,mysql:latest,null,3306,3306,./../environment/mysql-db/init:/docker-entrypoint-initdb.d;./../environment/mysql-db/data:/data/db
+postgres-db,postgres:latest,null,5432,5432,./../environment/postgres-db/init:/docker-entrypoint-initdb.d;./../environment/postgres-db/data:/data/db
+mongo-db,mongo:latest,null,27017,27017,./../environment/mongo-db/init:/docker-entrypoint-initdb.d;./../environment/mongo-db/data:/data/db
