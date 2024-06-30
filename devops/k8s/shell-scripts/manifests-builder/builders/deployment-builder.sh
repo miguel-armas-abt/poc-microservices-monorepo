@@ -105,7 +105,7 @@ build_health_probe() {
 
   declare -A probe_path_map
   probe_path_map["spring"]="/actuator/health/readiness|/actuator/health/liveness"
-  probe_path_map["microprofile"]="/health/ready|/health/live"
+  probe_path_map["quarkus"]="/q/health/ready|/q/health/live"
 
   probe=""
   if [[ "$framework" != null* ]]; then

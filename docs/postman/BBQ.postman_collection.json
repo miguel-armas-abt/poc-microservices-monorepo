@@ -1153,6 +1153,177 @@
 					"name": "menu-v1",
 					"item": [
 						{
+							"name": "menu-v1 - health check",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8012/actuator/health/readiness",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8012",
+									"path": [
+										"actuator",
+										"health",
+										"readiness"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "liveness",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "traceId",
+												"value": "{{$guid}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8012/actuator/health/liveness",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8012",
+											"path": [
+												"actuator",
+												"health",
+												"liveness"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/vnd.spring-boot.actuator.v3+json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 29 Jun 2024 19:57:45 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"UP\"\n}"
+								},
+								{
+									"name": "readiness",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "traceId",
+												"value": "{{$guid}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8012/actuator/health/readiness",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8012",
+											"path": [
+												"actuator",
+												"health",
+												"readiness"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/vnd.spring-boot.actuator.v3+json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 29 Jun 2024 19:58:02 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"UP\"\n}"
+								}
+							]
+						},
+						{
 							"name": "menu-v1 - findByCategory",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -1432,6 +1603,194 @@
 				{
 					"name": "menu-v2",
 					"item": [
+						{
+							"name": "menu v2 - health check",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/stream+json",
+										"disabled": true
+									},
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson"
+									},
+									{
+										"key": "traceId",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"1/4 pollo a la brasa\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 19.90,\r\n    \"productCode\": \"MENU0007\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8016/q/health/ready",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8016",
+									"path": [
+										"q",
+										"health",
+										"ready"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "MAIN",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "live",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/stream+json",
+												"disabled": true
+											},
+											{
+												"key": "Accept",
+												"value": "application/x-ndjson"
+											},
+											{
+												"key": "traceId",
+												"value": "{{$guid}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\": \"1/4 pollo a la brasa\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 19.90,\r\n    \"productCode\": \"MENU0007\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8016/q/health/live",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8016",
+											"path": [
+												"q",
+												"health",
+												"live"
+											],
+											"query": [
+												{
+													"key": "category",
+													"value": "MAIN",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json; charset=UTF-8"
+										},
+										{
+											"key": "content-length",
+											"value": "46"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"UP\",\n    \"checks\": []\n}"
+								},
+								{
+									"name": "ready",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/stream+json",
+												"disabled": true
+											},
+											{
+												"key": "Accept",
+												"value": "application/x-ndjson"
+											},
+											{
+												"key": "traceId",
+												"value": "{{$guid}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\": \"1/4 pollo a la brasa\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 19.90,\r\n    \"productCode\": \"MENU0007\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8016/q/health/ready",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8016",
+											"path": [
+												"q",
+												"health",
+												"ready"
+											],
+											"query": [
+												{
+													"key": "category",
+													"value": "MAIN",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json; charset=UTF-8"
+										},
+										{
+											"key": "content-length",
+											"value": "227"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"UP\",\n    \"checks\": [\n        {\n            \"name\": \"Reactive MySQL connections health check\",\n            \"status\": \"UP\",\n            \"data\": {\n                \"<default>\": \"UP\"\n            }\n        }\n    ]\n}"
+								}
+							]
+						},
 						{
 							"name": "menu v2 - findByCategory",
 							"protocolProfileBehavior": {
