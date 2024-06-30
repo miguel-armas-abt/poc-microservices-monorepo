@@ -1,5 +1,5 @@
 APP_NAME,TYPE
-config-server-v1,INFRASTRUCTURE
+#config-server-v1,INFRASTRUCTURE
 #api-gateway-v1,INFRASTRUCTURE
 #auth-adapter-v1,INFRASTRUCTURE
 #menu-v1,BUSINESS

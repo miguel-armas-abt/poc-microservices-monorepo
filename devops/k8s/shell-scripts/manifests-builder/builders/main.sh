@@ -30,12 +30,13 @@ match() {
   local k8s_replica_count=$9
   local k8s_initdb_file_suffix=${10}
   local k8s_cluster_ip=${11}
+  local framework=${12}
 
   # container name equals to k8s app
   if [[ $k8s_app_name == "$container_name" ]]; then
 
     ./config-map-builder.sh "$MANIFESTS_PATH" "$k8s_app_name" "$k8s_initdb_file_suffix"
-    ./deployment-builder.sh "$MANIFESTS_PATH" "$k8s_app_name" "$container_port" "$container_image" "$k8s_replica_count" "$k8s_initdb_file_suffix"
+    ./deployment-builder.sh "$MANIFESTS_PATH" "$k8s_app_name" "$container_port" "$container_image" "$k8s_replica_count" "$k8s_initdb_file_suffix" "$framework"
     ./service-builder.sh "$MANIFESTS_PATH" "$k8s_app_name" "$container_port" "$k8s_node_port" "$k8s_cluster_ip"
     ./secret-builder.sh "$MANIFESTS_PATH" "$k8s_app_name"
 
@@ -52,7 +53,7 @@ iterate_csv_k8s_params() {
   local container_volumes=$6
   
   firstline=true
-  while IFS=',' read -r k8s_app_name k8s_node_port k8s_replica_count k8s_initdb_file_suffix k8s_cluster_ip || [ -n "$k8s_app_name" ]; do
+  while IFS=',' read -r k8s_app_name k8s_node_port k8s_replica_count k8s_initdb_file_suffix k8s_cluster_ip framework || [ -n "$k8s_app_name" ]; do
     # Ignore headers
     if $firstline; then
         firstline=false
@@ -61,7 +62,7 @@ iterate_csv_k8s_params() {
     
     # Ignore comments
     if [[ $k8s_app_name != "#"* ]]; then
-      match "$container_name" "$container_image" "$container_dependencies" "$container_host_port" "$container_port" "$container_volumes" "$k8s_app_name" "$k8s_node_port" "$k8s_replica_count" "$k8s_initdb_file_suffix" "$k8s_cluster_ip"
+      match "$container_name" "$container_image" "$container_dependencies" "$container_host_port" "$container_port" "$container_volumes" "$k8s_app_name" "$k8s_node_port" "$k8s_replica_count" "$k8s_initdb_file_suffix" "$k8s_cluster_ip" "$framework"
     fi
     done < "$K8S_PARAMETERS_CSV"
 }

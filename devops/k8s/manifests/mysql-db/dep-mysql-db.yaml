@@ -37,6 +37,7 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "1"
+          
       
       volumes:
         - name: mysql-db-volume-data

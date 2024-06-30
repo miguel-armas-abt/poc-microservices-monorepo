@@ -9,6 +9,7 @@ ENVIRONMENT_FILES_PATH="./../../../../environment"
 VOLUME_MOUNTS_TEMPLATE="./../templates/deployment.field.volume-mounts.template.yaml"
 VOLUMES_TEMPLATE="./../templates/deployment.field.volumes.template.yaml"
 ENV_FROM_TEMPLATE="./../templates/deployment.field.env-from.template.yaml"
+PROBE_TEMPLATE="./../templates/deployment.field.probe.template.yaml"
 
 build_mount_path_data() {
   local app_name=$1
@@ -98,12 +99,34 @@ build_env() {
   echo "$environment_variables"
 }
 
+build_health_probe() {
+  local container_port=$1
+  local framework=$2
+
+  declare -A probe_path_map
+  probe_path_map["spring"]="/actuator/health/readiness|/actuator/health/liveness"
+  probe_path_map["microprofile"]="/health/ready|/health/live"
+
+  probe=""
+  if [[ "$framework" != null* ]]; then
+    IFS='|' read -r readiness_probe_path liveness_probe_path <<< "${probe_path_map[$framework]}"
+
+    probe=$(<"$PROBE_TEMPLATE")
+    probe="${probe//@container_port/$container_port}"
+    probe="${probe//@liveness_probe_path/$liveness_probe_path}"
+    probe="${probe//@readiness_probe_path/$readiness_probe_path}"
+  fi
+
+  echo "$probe"
+}
+
 build_deployment() {
   local app_name=$1
   local container_image=$2
   local container_port=$3
   local replica_count=$4
   local initdb_file_suffix=$5
+  local framework=$6
 
   template=$(<"$DEPLOYMENT_TEMPLATE")
 
@@ -124,6 +147,9 @@ build_deployment() {
   environment_variables=$(build_env "$app_name" "$initdb_file_suffix")
   template="${template//@env/$environment_variables}"
 
+  health_probe=$(build_health_probe "$container_port" "$framework")
+  template="${template//@probe/$health_probe}"
+
   echo "$template"
 }
 
@@ -142,19 +168,20 @@ create_file() {
   local container_image=$4
   local replica_count=$5
   local initdb_file_suffix=$6
+  local framework=$7
 
   output_dir="$manifests_path/$app_name"
   output_file="dep-$app_name.yaml"
 
   create_folder "$output_dir"
-  template=$(build_deployment "$app_name" "$container_image" "$container_port" "$replica_count" "$initdb_file_suffix")
+  template=$(build_deployment "$app_name" "$container_image" "$container_port" "$replica_count" "$initdb_file_suffix" "$framework")
   echo -e "$template" > "$output_dir/$output_file"
   echo -e "${CHECK_SYMBOL} created: $output_file"
 }
 
 #validate input to app or database controller
-if [ "$#" -ne 6 ]; then
-    echo "Usage: $0 <manifests_path> <app_name> <container_port> <container_image> <replica_count> <initdb_file_suffix>"
+if [ "$#" -ne 7 ]; then
+    echo "Usage: $0 <manifests_path> <app_name> <container_port> <container_image> <replica_count> <initdb_file_suffix> <framework>"
     exit 1
 fi
 
@@ -164,7 +191,8 @@ container_port=$3
 container_image=$4
 replica_count=$5
 initdb_file_suffix=$6
+framework=$7
 
-execution_command="create_file $manifests_path $app_name $container_port $container_image $replica_count $initdb_file_suffix"
+execution_command="create_file $manifests_path $app_name $container_port $container_image $replica_count $initdb_file_suffix $framework"
 echo "$(get_timestamp) .......... $app_name .......... ./deployment-builder.sh ${execution_command#create_file }" >> "$K8S_LOG_FILE"
 eval "$execution_command"

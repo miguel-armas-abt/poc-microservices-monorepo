@@ -29,6 +29,7 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "1"
+          
           env:
             - name: JAVA_OPTS
               valueFrom:

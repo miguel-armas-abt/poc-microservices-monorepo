@@ -1,0 +1,14 @@
+livenessProbe: #decide whether to restart the pod
+            httpGet:
+              path: @liveness_probe_path
+              port: @container_port
+            initialDelaySeconds: 30 #wait for the service to start and stabilize before the first check
+            periodSeconds: 30 #frequency of liveness checks
+            timeoutSeconds: 5 #If the service is not available after a timeout period, the failure counter is increase
+            failureThreshold: 3 #failure threshold to cancel the pod execution and provide a new replica
+          readinessProbe: #decide whether to send traffic to the pod
+            httpGet:
+              path: @readiness_probe_path
+              port: @container_port
+            initialDelaySeconds: 30 #wait for the service to start and stabilize before the first check
+            periodSeconds: 30 #frequency of readiness checks
