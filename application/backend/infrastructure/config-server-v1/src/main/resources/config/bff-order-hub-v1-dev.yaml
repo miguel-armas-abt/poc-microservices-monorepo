@@ -55,4 +55,4 @@ configuration:
     headers: []
 
   menu-info:
-    selector-class: com.demo.bbq.repository.menu.MenuV1Repository
+    selector-class: com.demo.bbq.entrypoint.menu.repository.MenuV1Repository

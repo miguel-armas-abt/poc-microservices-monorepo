@@ -1,0 +1,32 @@
+package com.demo.bbq.entrypoint.menu.rest;
+
+import com.demo.bbq.commons.toolkit.router.ServerResponseBuilderUtil;
+import com.demo.bbq.entrypoint.menu.repository.MenuRepositoryStrategy;
+import com.demo.bbq.entrypoint.menu.repository.wrapper.response.MenuOptionResponseWrapper;
+import com.demo.bbq.commons.errors.exceptions.BusinessException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
+
+@Component
+@RequiredArgsConstructor
+public class MenuHandler {
+
+  private final MenuRepositoryStrategy menuRepository;
+
+  public Mono<ServerResponse> findMenuByCategory(ServerRequest serverRequest) {
+    String category = serverRequest.queryParam("category")
+        .orElseThrow(() -> new BusinessException("Invalid category"));
+
+    return ServerResponseBuilderUtil
+        .buildFlux(
+            ServerResponse.ok(),
+            serverRequest.headers(),
+            MenuOptionResponseWrapper.class,
+            menuRepository.getService()
+                .findByCategory(serverRequest, category)
+        );
+  }
+}
