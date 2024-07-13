@@ -2,8 +2,8 @@ package com.demo.bbq.commons.restclient.headers;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
-import com.demo.bbq.commons.properties.dto.GeneratedHeaderType;
-import com.demo.bbq.commons.properties.dto.HeaderTemplate;
+import com.demo.bbq.commons.toolkit.restclient.headers.GeneratedHeaderType;
+import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpHeaders;

@@ -2,13 +2,13 @@ package com.demo.bbq.repository.invoice;
 
 import static com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil.buildHeaders;
 
-import com.demo.bbq.config.properties.ServiceConfigurationProperties;
+import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
+import com.demo.bbq.config.properties.ApplicationProperties;
 import com.demo.bbq.repository.invoice.wrapper.request.PaymentSendRequestWrapper;
 import com.demo.bbq.repository.invoice.wrapper.request.ProductRequestWrapper;
 import com.demo.bbq.repository.invoice.wrapper.response.InvoiceResponseWrapper;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
-import com.demo.bbq.commons.properties.dto.HeaderTemplate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -28,7 +28,7 @@ public class InvoiceRepository {
   private static final String SERVICE_NAME_INVOICE = "invoice-v1";
 
   private final WebClient webClient;
-  private final ServiceConfigurationProperties properties;
+  private final ApplicationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
 
   public Mono<InvoiceResponseWrapper> generateProforma(ServerRequest serverRequest,

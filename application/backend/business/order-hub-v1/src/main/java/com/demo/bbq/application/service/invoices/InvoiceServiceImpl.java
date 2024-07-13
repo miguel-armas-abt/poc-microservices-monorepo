@@ -2,6 +2,7 @@ package com.demo.bbq.application.service.invoices;
 
 import com.demo.bbq.application.dto.invoices.PaymentSendRequestDTO;
 import com.demo.bbq.application.mapper.InvoiceMapper;
+import com.demo.bbq.commons.toolkit.validator.RequestValidator;
 import com.demo.bbq.repository.invoice.InvoiceRepository;
 import com.demo.bbq.repository.invoice.wrapper.request.PaymentSendRequestWrapper;
 import com.demo.bbq.repository.invoice.wrapper.request.ProductRequestWrapper;
@@ -9,7 +10,6 @@ import com.demo.bbq.repository.invoice.wrapper.response.InvoiceResponseWrapper;
 import com.demo.bbq.repository.menu.MenuRepositoryStrategy;
 import com.demo.bbq.repository.tableorder.TableOrderRepository;
 import com.demo.bbq.repository.tableorder.wrapper.TableOrderResponseWrapper;
-import com.demo.bbq.commons.toolkit.RequestValidator;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
   @Override
   public Mono<Void> sendToPay(ServerRequest serverRequest, PaymentSendRequestDTO paymentSendRequest) {
-    requestValidator.validateRequestBody(paymentSendRequest);
+    requestValidator.validateRequest(paymentSendRequest);
 
     int tableNumber = paymentSendRequest.getTableNumber();
     PaymentSendRequestWrapper paymentRequest = invoiceMapper.toPaymentRequest(paymentSendRequest);

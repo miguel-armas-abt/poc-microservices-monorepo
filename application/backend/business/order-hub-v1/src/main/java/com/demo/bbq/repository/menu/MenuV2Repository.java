@@ -2,12 +2,12 @@ package com.demo.bbq.repository.menu;
 
 import static com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil.buildHeaders;
 
-import com.demo.bbq.config.properties.ServiceConfigurationProperties;
+import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
+import com.demo.bbq.config.properties.ApplicationProperties;
 import com.demo.bbq.repository.menu.wrapper.response.MenuOptionResponseWrapper;
 import com.demo.bbq.repository.menu.wrapper.request.MenuOptionSaveRequestWrapper;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
-import com.demo.bbq.commons.properties.dto.HeaderTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatusCode;
@@ -28,7 +28,7 @@ public class MenuV2Repository implements MenuRepository {
   private static final String SERVICE_NAME_MENU_V2 = "menu-v2";
 
   private final WebClient webClient;
-  private final ServiceConfigurationProperties properties;
+  private final ApplicationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
 
   @Override

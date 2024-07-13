@@ -1,9 +1,9 @@
 package com.demo.bbq.commons.restclient.resttemplate;
 
-import com.demo.bbq.commons.properties.dto.HeaderTemplate;
+import com.demo.bbq.commons.errors.handler.external.strategy.RestClientErrorStrategy;
+import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.restclient.resttemplate.dto.ExchangeRequestDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerUtil;
-import com.demo.bbq.commons.errors.handler.external.strategy.RestClientErrorStrategy;
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
 import com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil;
 import java.util.List;

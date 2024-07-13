@@ -7,7 +7,7 @@ import com.demo.bbq.commons.tracing.logging.RestClientRequestLogger;
 import com.demo.bbq.commons.tracing.logging.RestClientResponseLogger;
 import io.smallrye.mutiny.Uni;
 import java.util.List;
-import javax.ws.rs.*;
+import jakarta.ws.rs.*;
 import org.eclipse.microprofile.rest.client.annotation.RegisterClientHeaders;
 import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;

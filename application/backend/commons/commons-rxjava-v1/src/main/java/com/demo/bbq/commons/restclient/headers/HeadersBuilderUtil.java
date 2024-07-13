@@ -1,7 +1,7 @@
 package com.demo.bbq.commons.restclient.headers;
 
-import com.demo.bbq.commons.properties.dto.GeneratedHeaderType;
-import com.demo.bbq.commons.properties.dto.HeaderTemplate;
+import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
+import com.demo.bbq.commons.toolkit.restclient.headers.GeneratedHeaderType;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;

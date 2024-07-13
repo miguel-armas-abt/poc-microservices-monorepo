@@ -9,7 +9,7 @@ import com.demo.bbq.repository.menuoption.entity.MenuOptionEntity;
 import com.demo.bbq.repository.product.ProductRepository;
 import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactional;
 import io.smallrye.mutiny.Uni;
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;

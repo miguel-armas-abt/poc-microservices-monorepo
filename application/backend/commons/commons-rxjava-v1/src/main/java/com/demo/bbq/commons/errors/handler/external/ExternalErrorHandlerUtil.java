@@ -2,18 +2,21 @@ package com.demo.bbq.commons.errors.handler.external;
 
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.dto.ErrorType;
+import com.demo.bbq.commons.errors.exceptions.SystemException;
 import com.demo.bbq.commons.errors.handler.external.strategy.RestClientErrorStrategy;
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.http.HttpStatus;
 import retrofit2.Response;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ExternalErrorHandlerUtil {
-
-  private ExternalErrorHandlerUtil() {}
 
   public static Pair<ErrorDTO, HttpStatus> build(Response response,
                                                  List<RestClientErrorStrategy> serviceList,
@@ -27,7 +30,14 @@ public class ExternalErrorHandlerUtil {
           if (firstMatch.get())
             return;
 
-          Optional<Pair<String, String>> optionalPair = serviceError.getCodeAndMessage(response.errorBody());
+          String jsonBody;
+          try{
+            jsonBody = response.errorBody().string();
+          } catch (IOException ex) {
+            throw new SystemException("DeserializeJSONError", ex.getMessage());
+          }
+
+          Optional<Pair<String, String>> optionalPair = serviceError.getCodeAndMessage(jsonBody);
           optionalPair.ifPresent(currentPair -> {
             atomicPair.set(currentPair);
             firstMatch.set(Boolean.TRUE);

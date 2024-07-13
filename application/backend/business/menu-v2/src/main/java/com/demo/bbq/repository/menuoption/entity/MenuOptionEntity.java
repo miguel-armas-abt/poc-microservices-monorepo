@@ -1,7 +1,7 @@
 package com.demo.bbq.repository.menuoption.entity;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Builder

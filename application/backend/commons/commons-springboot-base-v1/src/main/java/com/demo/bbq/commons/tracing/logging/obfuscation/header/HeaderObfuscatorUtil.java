@@ -3,7 +3,7 @@ package com.demo.bbq.commons.tracing.logging.obfuscation.header;
 import static com.demo.bbq.commons.tracing.logging.obfuscation.constants.ObfuscationConstant.OBFUSCATION_MASK;
 import static com.demo.bbq.commons.tracing.logging.obfuscation.constants.ObfuscationConstant.OBFUSCATION_WARNING;
 
-import com.demo.bbq.commons.properties.dto.ObfuscationTemplate;
+import com.demo.bbq.commons.properties.dto.obfuscation.ObfuscationTemplate;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;

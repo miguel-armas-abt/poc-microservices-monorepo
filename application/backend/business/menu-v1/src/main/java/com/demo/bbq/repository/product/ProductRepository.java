@@ -1,6 +1,6 @@
 package com.demo.bbq.repository.product;
 
-import com.demo.bbq.config.properties.ServiceConfigurationProperties;
+import com.demo.bbq.config.properties.ApplicationProperties;
 import com.demo.bbq.repository.product.wrapper.request.ProductSaveRequestWrapper;
 import com.demo.bbq.repository.product.wrapper.request.ProductUpdateRequestWrapper;
 import com.demo.bbq.repository.product.wrapper.response.ProductResponseWrapper;
@@ -20,7 +20,7 @@ public class ProductRepository {
   private static final String SERVICE_NAME = "product-v1";
 
   private final CustomRestTemplate restTemplate;
-  private final ServiceConfigurationProperties properties;
+  private final ApplicationProperties properties;
 
   public ProductResponseWrapper findByCode(HttpServletRequest servletRequest, String code) {
     return restTemplate.exchange(

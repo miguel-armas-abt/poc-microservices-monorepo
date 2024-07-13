@@ -5,7 +5,7 @@ import io.quarkus.hibernate.reactive.panache.Panache;
 import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class MenuOptionRepository implements PanacheRepositoryBase<MenuOptionEntity, Long> {
@@ -21,7 +21,7 @@ public class MenuOptionRepository implements PanacheRepositoryBase<MenuOptionEnt
   }
 
   public Multi<MenuOptionEntity> findAllMenuOptions() {
-    return this.<MenuOptionEntity>findAll()
+    return this.<MenuOptionEntity>findAll().list()
         .stream();
   }
 

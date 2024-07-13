@@ -7,13 +7,14 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import com.demo.bbq.application.dto.response.MenuOptionResponseDTO;
+import com.demo.bbq.commons.toolkit.serialize.JsonSerializer;
 import com.demo.bbq.repository.MenuOptionRepositoryHandler;
 import com.demo.bbq.application.mapper.MenuOptionMapper;
 import com.demo.bbq.repository.menuoption.MenuOptionRepository;
 import com.demo.bbq.repository.menuoption.entity.MenuOptionEntity;
 import com.demo.bbq.repository.product.ProductRepository;
 import com.demo.bbq.repository.product.wrapper.response.ProductResponseWrapper;
-import com.demo.bbq.commons.files.JsonFileReaderUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,20 +40,22 @@ public class MenuOptionRepositoryHandlerTest {
   @Spy
   private MenuOptionMapper menuOptionMapper = Mappers.getMapper(MenuOptionMapper.class);
 
+  private JsonSerializer jsonSerializer;
+
   @Before
   public void setup() {
-
+    jsonSerializer = new JsonSerializer(new ObjectMapper());
   }
 
   @Test
   public void givenTwoSourcesInfo_WhenSearchAllMenuOptions_ThenMapResponse() {
     when(productRepository.findByScope(any(), anyString()))
-        .thenReturn(JsonFileReaderUtil.getList("data/product/ProductDto_Array.json", ProductResponseWrapper[].class));
+        .thenReturn(jsonSerializer.readListFromFile("data/product/ProductDto_Array.json", ProductResponseWrapper[].class));
 
     when(menuOptionRepository.findAll())
-        .thenReturn(JsonFileReaderUtil.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class));
+        .thenReturn(jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class));
 
-    String expected = new Gson().toJson(JsonFileReaderUtil.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class));
+    String expected = new Gson().toJson(jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class));
     String actual = new Gson().toJson(menuOptionRepositoryHandler.findAll(buildHttpServletRequest()));
     assertEquals(expected, actual);
   }

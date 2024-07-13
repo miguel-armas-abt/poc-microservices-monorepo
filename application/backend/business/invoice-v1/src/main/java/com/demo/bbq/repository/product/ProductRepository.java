@@ -2,7 +2,7 @@ package com.demo.bbq.repository.product;
 
 import static com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil.buildHeaders;
 
-import com.demo.bbq.application.properties.ServiceConfigurationProperties;
+import com.demo.bbq.application.properties.ApplicationProperties;
 import com.demo.bbq.repository.product.wrapper.ProductResponseWrapper;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
@@ -22,7 +22,7 @@ public class ProductRepository {
   private static final String SERVICE_NAME = "product-v1";
 
   private final WebClient webClient;
-  private final ServiceConfigurationProperties properties;
+  private final ApplicationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
 
   public Mono<ProductResponseWrapper> findByProductCode(ServerRequest serverRequest, String productCode) {

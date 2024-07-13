@@ -4,32 +4,41 @@ import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerB
 import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBaseUtil.selectMessage;
 import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBaseUtil.selectType;
 import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBaseUtil.selectHttpCode;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBaseUtil.emptyResponse;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBaseUtil.noSuchWrapper;
 
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.dto.ErrorType;
 import com.demo.bbq.commons.errors.exceptions.ExternalServiceException;
+import com.demo.bbq.commons.errors.exceptions.SystemException;
 import com.demo.bbq.commons.errors.handler.external.strategy.ExternalErrorWrapper;
 import com.demo.bbq.commons.errors.handler.external.strategy.RestClientErrorStrategy;
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.tuple.Pair;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @RequiredArgsConstructor
 public class ExternalErrorHandler {
 
-  private final List<RestClientErrorStrategy> serviceList;
+  private final List<RestClientErrorStrategy> strategies;
   private final ConfigurationBaseProperties properties;
 
   public Mono<ExternalServiceException> handleError(ClientResponse clientResponse,
                                                     Class<? extends ExternalErrorWrapper> errorWrapperClass,
                                                     String serviceName) {
-    return selectService(errorWrapperClass, serviceList)
-        .getCodeAndMessage(clientResponse)
-        .switchIfEmpty(Mono.just(Pair.of(ErrorDTO.CODE_EMPTY, ErrorDTO.getDefaultError(properties).getMessage())))
+    ErrorDTO defaultError = ErrorDTO.getDefaultError(properties);
+    return clientResponse
+        .bodyToMono(String.class)
+        .flatMap(jsonBody -> Strings.EMPTY.equals(jsonBody)
+            ? Mono.just(emptyResponse(defaultError))
+            : Mono.just(selectStrategy(errorWrapperClass).getCodeAndMessage(jsonBody).orElseGet(() -> noSuchWrapper(defaultError))))
+        .switchIfEmpty(Mono.just(emptyResponse(defaultError)))
         .flatMap(codeAndMessage -> {
 
           String selectedCode = selectCode(properties, codeAndMessage.getLeft(), serviceName);
@@ -41,12 +50,12 @@ public class ExternalErrorHandler {
         });
   }
 
-  private static RestClientErrorStrategy selectService(Class<? extends ExternalErrorWrapper> errorWrapperClass,
-                                                       List<RestClientErrorStrategy> serviceList) {
-    return serviceList
+  private RestClientErrorStrategy selectStrategy(Class<? extends ExternalErrorWrapper> errorWrapperClass) {
+    return strategies
         .stream()
         .filter(service -> service.supports(errorWrapperClass))
         .findFirst()
-        .orElseThrow();
+        .orElseThrow(() -> new SystemException("NoSuchRestClientErrorStrategy"));
   }
+
 }

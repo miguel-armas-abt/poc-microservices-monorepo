@@ -1,6 +1,6 @@
 package com.demo.bbq.config.tracing.logging;
 
-import com.demo.bbq.application.properties.ServiceConfigurationProperties;
+import com.demo.bbq.application.properties.ApplicationProperties;
 import com.demo.bbq.commons.tracing.logging.RestClientRequestLogger;
 import com.demo.bbq.commons.tracing.logging.RestClientResponseLogger;
 import com.demo.bbq.commons.tracing.logging.RestServerLogger;
@@ -13,17 +13,17 @@ import org.springframework.web.server.WebFilter;
 public class LoggingConfig {
 
   @Bean
-  public WebFilter restServerLogger(ServiceConfigurationProperties properties) {
+  public WebFilter restServerLogger(ApplicationProperties properties) {
     return new RestServerLogger(properties);
   }
 
   @Bean
-  public ExchangeFilterFunction restClientRequestLogger(ServiceConfigurationProperties properties) {
+  public ExchangeFilterFunction restClientRequestLogger(ApplicationProperties properties) {
     return new RestClientRequestLogger(properties);
   }
 
   @Bean
-  public ExchangeFilterFunction restClientResponseLogger(ServiceConfigurationProperties properties) {
+  public ExchangeFilterFunction restClientResponseLogger(ApplicationProperties properties) {
     return new RestClientResponseLogger(properties);
   }
 

@@ -3,7 +3,7 @@ package com.demo.bbq.commons.errors.exceptions;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.dto.ErrorType;
 import lombok.Getter;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 @Getter
 public class ExternalServiceException extends RuntimeException {

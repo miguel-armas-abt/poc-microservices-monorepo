@@ -1,10 +1,10 @@
 package com.demo.bbq.application.filter;
 
-import com.demo.bbq.config.properties.ServiceConfigurationProperties;
+import com.demo.bbq.commons.errors.handler.response.ResponseErrorHandler;
+import com.demo.bbq.config.properties.ApplicationProperties;
 import com.demo.bbq.application.utils.TokenValidatorUtil;
 import com.demo.bbq.repository.authadapter.AuthAdapterRepository;
 import com.demo.bbq.commons.errors.exceptions.AuthorizationException;
-import com.demo.bbq.commons.errors.handler.response.ResponseErrorHandlerUtil;
 import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -19,13 +19,16 @@ import reactor.core.publisher.Mono;
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
   private final AuthAdapterRepository authAdapterRepository;
-  private final ServiceConfigurationProperties configurationProperties;
+  private final ApplicationProperties properties;
+  private final ResponseErrorHandler responseErrorHandler;
 
   public AuthenticationFilter(AuthAdapterRepository authAdapterRepository,
-                              ServiceConfigurationProperties configurationProperties) {
+                              ApplicationProperties properties,
+                              ResponseErrorHandler responseErrorHandler) {
     super(Config.class);
     this.authAdapterRepository = authAdapterRepository;
-    this.configurationProperties = configurationProperties;
+    this.properties = properties;
+    this.responseErrorHandler = responseErrorHandler;
   }
 
   @Override
@@ -33,13 +36,13 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     return new OrderedGatewayFilter((exchange, chain) ->
         validateRequest(exchange)
             .then(chain.filter(exchange))
-            .onErrorResume(Exception.class, exception -> ResponseErrorHandlerUtil.handleException(configurationProperties, exception, exchange))
+            .onErrorResume(Exception.class, exception -> responseErrorHandler.handleException(properties, exception, exchange))
         ,1);
   }
 
   Mono<Boolean> validateRequest(ServerWebExchange exchange) {
     Set<Boolean> status = new HashSet<>();
-    return !configurationProperties.isEnableAuth()
+    return !properties.isEnableAuth()
         ? Mono.just(Boolean.TRUE)
         : authAdapterRepository.getRoles(exchange.getRequest())
         .flatMapIterable(HashMap::keySet)

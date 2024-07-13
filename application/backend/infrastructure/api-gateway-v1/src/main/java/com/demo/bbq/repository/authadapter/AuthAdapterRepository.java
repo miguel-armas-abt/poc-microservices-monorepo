@@ -2,10 +2,10 @@ package com.demo.bbq.repository.authadapter;
 
 import static com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil.buildHeaders;
 
-import com.demo.bbq.config.properties.ServiceConfigurationProperties;
+import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
+import com.demo.bbq.config.properties.ApplicationProperties;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
-import com.demo.bbq.commons.properties.dto.HeaderTemplate;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class AuthAdapterRepository {
   private static final String SERVICE_NAME = "auth-adapter-v1";
 
   private final WebClient webClient;
-  private final ServiceConfigurationProperties properties;
+  private final ApplicationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
 
   public Mono<HashMap<String, Integer>> getRoles(ServerHttpRequest serverRequest) {

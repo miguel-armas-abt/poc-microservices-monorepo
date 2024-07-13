@@ -1,6 +1,6 @@
 package com.demo.bbq.config.restclient;
 
-import com.demo.bbq.config.properties.ServiceConfigurationProperties;
+import com.demo.bbq.config.properties.ApplicationProperties;
 import com.demo.bbq.commons.errors.handler.external.strategy.RestClientErrorStrategy;
 import com.demo.bbq.commons.restclient.resttemplate.CustomRestTemplate;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 public class RestTemplateConfig {
 
   @Bean
-  public CustomRestTemplate customRestTemplate(ServiceConfigurationProperties properties,
+  public CustomRestTemplate customRestTemplate(ApplicationProperties properties,
                                                List<RestClientErrorStrategy> errorStrategies,
                                                List<ClientHttpRequestInterceptor> interceptors) {
     return new CustomRestTemplate(properties, errorStrategies, interceptors);

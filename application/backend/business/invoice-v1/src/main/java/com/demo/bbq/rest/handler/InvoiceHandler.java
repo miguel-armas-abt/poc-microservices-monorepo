@@ -4,7 +4,7 @@ import com.demo.bbq.application.dto.sender.request.PaymentSendRequestDTO;
 import com.demo.bbq.application.dto.calculator.request.ProductRequestDTO;
 import com.demo.bbq.application.service.PaymentSenderService;
 import com.demo.bbq.application.service.CalculatorService;
-import com.demo.bbq.commons.toolkit.ServerResponseBuilderUtil;
+import com.demo.bbq.commons.toolkit.router.ServerResponseBuilderUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;

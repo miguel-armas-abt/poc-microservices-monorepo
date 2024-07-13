@@ -1,6 +1,6 @@
 package com.demo.bbq.application.rules.properties;
 
-import com.demo.bbq.application.properties.ServiceConfigurationProperties;
+import com.demo.bbq.application.properties.ApplicationProperties;
 import lombok.Getter;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class RuleInitMap {
 
-  private final ServiceConfigurationProperties properties;
+  private final ApplicationProperties properties;
   private Map<String, RuleInfo> ruleInfoMap;
 
   @PostConstruct

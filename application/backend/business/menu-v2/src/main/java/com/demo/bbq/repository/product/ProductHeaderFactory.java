@@ -3,8 +3,8 @@ package com.demo.bbq.repository.product;
 import com.demo.bbq.config.properties.ServiceConfigurationProperties;
 import com.demo.bbq.commons.properties.dto.HeaderTemplate;
 import com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.ext.Provider;
 import lombok.RequiredArgsConstructor;
 import org.eclipse.microprofile.rest.client.ext.ClientHeadersFactory;
 

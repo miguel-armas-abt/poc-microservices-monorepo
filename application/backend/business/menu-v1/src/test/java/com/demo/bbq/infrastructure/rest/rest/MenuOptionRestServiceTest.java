@@ -10,8 +10,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import com.demo.bbq.application.dto.request.MenuOptionSaveRequestDTO;
 import com.demo.bbq.application.dto.response.MenuOptionResponseDTO;
 import com.demo.bbq.application.service.MenuOptionService;
+import com.demo.bbq.commons.toolkit.serialize.JsonSerializer;
 import com.demo.bbq.rest.MenuOptionRestServiceImpl;
-import com.demo.bbq.commons.files.JsonFileReaderUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import java.util.List;
 import org.junit.Before;
@@ -42,9 +43,12 @@ public class MenuOptionRestServiceTest {
   private String URI;
   private List<MenuOptionResponseDTO> expectedSavedMenuOptionList;
 
+  private JsonSerializer jsonSerializer;
+
   @Before
   public void setup() {
-    expectedSavedMenuOptionList = JsonFileReaderUtil.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class);
+    jsonSerializer = new JsonSerializer(new ObjectMapper());
+    expectedSavedMenuOptionList = jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class);
     URI = "/bbq/business/menu/v1/menu-options";
   }
 
@@ -87,7 +91,7 @@ public class MenuOptionRestServiceTest {
   @Ignore
   @Test
   public void givenProductCode_WhenSearchMenuOptionByProductCode_ThenReturnSearchedMenuOption() throws Exception {
-    MenuOptionResponseDTO expectedMenuOption = JsonFileReaderUtil.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class).get(0);
+    MenuOptionResponseDTO expectedMenuOption = jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class).get(0);
     when(menuOptionService.findByProductCode(any(), anyString())).thenReturn(expectedMenuOption);
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -106,7 +110,7 @@ public class MenuOptionRestServiceTest {
   @Ignore
   @Test
   public void givenSaveRequest_WhenSaveMenuOption_ThenResponseShowTheAffectedResource() throws Exception {
-    MenuOptionSaveRequestDTO saveRequest = JsonFileReaderUtil.getAnElement("data/menuoption/MenuOptionSaveRequest.json", MenuOptionSaveRequestDTO.class);
+    MenuOptionSaveRequestDTO saveRequest = jsonSerializer.readElementFromFile("data/menuoption/MenuOptionSaveRequest.json", MenuOptionSaveRequestDTO.class);
     doNothing().when(menuOptionService).save(any(), any(MenuOptionSaveRequestDTO.class));
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders

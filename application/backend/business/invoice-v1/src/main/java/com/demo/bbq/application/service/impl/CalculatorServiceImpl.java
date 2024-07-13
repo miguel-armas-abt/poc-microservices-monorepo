@@ -5,7 +5,7 @@ import com.demo.bbq.application.dto.calculator.response.InvoiceResponseDTO;
 import com.demo.bbq.application.dto.calculator.response.ProductDTO;
 import com.demo.bbq.application.dto.rules.DiscountRule;
 import com.demo.bbq.application.mapper.InvoiceMapper;
-import com.demo.bbq.application.properties.ServiceConfigurationProperties;
+import com.demo.bbq.application.properties.ApplicationProperties;
 import com.demo.bbq.application.service.CalculatorService;
 import com.demo.bbq.repository.product.ProductRepository;
 import com.demo.bbq.application.rules.service.RuleService;
@@ -24,7 +24,7 @@ import reactor.core.publisher.Mono;
 @Service
 public class CalculatorServiceImpl implements CalculatorService {
 
-  private final ServiceConfigurationProperties properties;
+  private final ApplicationProperties properties;
   private final InvoiceMapper invoiceMapper;
   private final ProductRepository productRepository;
   private final RuleService ruleService;

@@ -2,7 +2,7 @@ package com.demo.bbq.commons.toolkit;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 

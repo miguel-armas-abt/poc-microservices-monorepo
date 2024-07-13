@@ -4,7 +4,7 @@ import static com.demo.bbq.commons.tracing.logging.obfuscation.constants.Obfusca
 import static com.demo.bbq.commons.tracing.logging.obfuscation.constants.ObfuscationConstant.ARRAY_WILDCARD;
 import static com.demo.bbq.commons.tracing.logging.obfuscation.constants.ObfuscationConstant.OBFUSCATION_MASK;
 
-import com.demo.bbq.commons.properties.dto.ObfuscationTemplate;
+import com.demo.bbq.commons.properties.dto.obfuscation.ObfuscationTemplate;
 import com.demo.bbq.commons.errors.exceptions.SystemException;
 import java.util.Objects;
 import java.util.Optional;

@@ -6,9 +6,9 @@ import static com.demo.bbq.commons.tracing.logging.injector.ThreadContextInjecto
 
 import com.demo.bbq.commons.toolkit.HeaderPlanerUtil;
 import lombok.extern.slf4j.Slf4j;
-import javax.ws.rs.client.ClientRequestContext;
-import javax.ws.rs.client.ClientResponseContext;
-import javax.ws.rs.client.ClientResponseFilter;
+import jakarta.ws.rs.client.ClientRequestContext;
+import jakarta.ws.rs.client.ClientResponseContext;
+import jakarta.ws.rs.client.ClientResponseFilter;
 import java.util.Map;
 
 @Slf4j

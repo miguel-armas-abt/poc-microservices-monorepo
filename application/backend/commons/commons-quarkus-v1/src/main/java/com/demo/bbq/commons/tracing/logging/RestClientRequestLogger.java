@@ -5,8 +5,8 @@ import static com.demo.bbq.commons.tracing.logging.injector.ThreadContextInjecto
 import static com.demo.bbq.commons.tracing.logging.injector.ThreadContextInjectorUtil.populateFromRestClientRequest;
 
 import com.demo.bbq.commons.toolkit.HeaderPlanerUtil;
-import javax.ws.rs.client.ClientRequestContext;
-import javax.ws.rs.client.ClientRequestFilter;
+import jakarta.ws.rs.client.ClientRequestContext;
+import jakarta.ws.rs.client.ClientRequestFilter;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 

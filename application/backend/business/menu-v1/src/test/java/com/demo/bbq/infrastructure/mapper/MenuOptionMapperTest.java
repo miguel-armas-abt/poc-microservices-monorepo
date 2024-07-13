@@ -5,9 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.demo.bbq.application.dto.request.MenuOptionSaveRequestDTO;
 import com.demo.bbq.application.dto.response.MenuOptionResponseDTO;
 import com.demo.bbq.application.mapper.MenuOptionMapper;
+import com.demo.bbq.commons.toolkit.serialize.JsonSerializer;
 import com.demo.bbq.repository.menuoption.entity.MenuOptionEntity;
 import com.demo.bbq.repository.product.wrapper.response.ProductResponseWrapper;
-import com.demo.bbq.commons.files.JsonFileReaderUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,13 +31,13 @@ public class MenuOptionMapperTest {
 
     private MenuOptionSaveRequestDTO menuOptionSaveRequest;
 
-    @BeforeEach
+  @BeforeEach
     public void setup() {
-
-        menuOptionEntity = JsonFileReaderUtil.getList("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class).get(0);
-        productWrapper = JsonFileReaderUtil.getList("data/product/ProductDto_Array.json", ProductResponseWrapper[].class).get(0);
-        menuOption = JsonFileReaderUtil.getList("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class).get(0);
-        menuOptionSaveRequest = JsonFileReaderUtil.getAnElement("data/menuoption/MenuOptionSaveRequest.json", MenuOptionSaveRequestDTO.class);
+        JsonSerializer jsonSerializer = new JsonSerializer(new ObjectMapper());
+        menuOptionEntity = jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuOptionEntity[].class).get(0);
+        productWrapper = jsonSerializer.readListFromFile("data/product/ProductDto_Array.json", ProductResponseWrapper[].class).get(0);
+        menuOption = jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuOptionResponseDTO[].class).get(0);
+        menuOptionSaveRequest = jsonSerializer.readElementFromFile("data/menuoption/MenuOptionSaveRequest.json", MenuOptionSaveRequestDTO.class);
     }
 
     @Test

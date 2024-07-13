@@ -7,9 +7,9 @@ import com.demo.bbq.commons.errors.exceptions.ExternalServiceException;
 import com.demo.bbq.commons.errors.exceptions.SystemException;
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
 import com.demo.bbq.commons.tracing.logging.ErrorLoggingUtil;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

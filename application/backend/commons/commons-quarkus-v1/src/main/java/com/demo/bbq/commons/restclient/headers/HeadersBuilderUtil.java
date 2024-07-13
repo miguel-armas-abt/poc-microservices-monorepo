@@ -2,8 +2,8 @@ package com.demo.bbq.commons.restclient.headers;
 
 import com.demo.bbq.commons.properties.dto.HeaderTemplate;
 import com.demo.bbq.commons.properties.enums.GeneratedHeaderType;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;

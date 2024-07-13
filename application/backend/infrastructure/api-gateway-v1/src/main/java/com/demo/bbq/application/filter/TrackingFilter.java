@@ -1,9 +1,9 @@
 package com.demo.bbq.application.filter;
 
-import static com.demo.bbq.commons.properties.dto.GeneratedHeaderType.TRACE_ID;
+import static com.demo.bbq.commons.toolkit.restclient.headers.GeneratedHeaderType.TRACE_ID;
 
-import com.demo.bbq.config.properties.ServiceConfigurationProperties;
-import com.demo.bbq.commons.errors.handler.response.ResponseErrorHandlerUtil;
+import com.demo.bbq.commons.errors.handler.response.ResponseErrorHandler;
+import com.demo.bbq.config.properties.ApplicationProperties;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -17,18 +17,21 @@ import org.springframework.web.server.ServerWebExchange;
 @Component
 public class TrackingFilter extends AbstractGatewayFilterFactory<TrackingFilter.Config> {
 
-  private final ServiceConfigurationProperties configurationProperties;
+  private final ApplicationProperties properties;
+  private final ResponseErrorHandler responseErrorHandler;
 
-  public TrackingFilter(ServiceConfigurationProperties configurationProperties) {
+  public TrackingFilter(ApplicationProperties properties,
+                        ResponseErrorHandler responseErrorHandler) {
     super(Config.class);
-    this.configurationProperties = configurationProperties;
+    this.properties = properties;
+    this.responseErrorHandler = responseErrorHandler;
   }
 
   @Override
   public GatewayFilter apply(Config config) {
     return new OrderedGatewayFilter((exchange, chain) ->
         chain.filter(updateHeaders(exchange))
-          .onErrorResume(Exception.class, exception -> ResponseErrorHandlerUtil.handleException(configurationProperties, exception, exchange))
+          .onErrorResume(Exception.class, exception -> responseErrorHandler.handleException(properties, exception, exchange))
         , 0);
   }
 
