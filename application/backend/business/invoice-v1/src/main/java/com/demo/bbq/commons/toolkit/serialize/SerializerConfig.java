@@ -1,0 +1,24 @@
+package com.demo.bbq.commons.toolkit.serialize;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class SerializerConfig {
+
+  @Bean
+  public JsonSerializer jsonSerializer(ObjectMapper objectMapper) {
+    return new JsonSerializer(objectMapper);
+  }
+
+  @Bean
+  public ErrorSerializer errorSerializer(JsonSerializer jsonSerializer) {
+    return new ErrorSerializer(jsonSerializer);
+  }
+
+  @Bean
+  public ByteSerializer byteSerializer(ObjectMapper objectMapper) {
+    return new ByteSerializer(objectMapper);
+  }
+}
