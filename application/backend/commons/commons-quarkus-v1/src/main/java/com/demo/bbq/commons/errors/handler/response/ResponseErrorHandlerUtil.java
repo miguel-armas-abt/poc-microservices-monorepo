@@ -7,6 +7,7 @@ import com.demo.bbq.commons.errors.exceptions.ExternalServiceException;
 import com.demo.bbq.commons.errors.exceptions.SystemException;
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
 import com.demo.bbq.commons.tracing.logging.ErrorLoggingUtil;
+import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -23,6 +24,11 @@ public class ResponseErrorHandlerUtil {
 
     if (throwable instanceof WebApplicationException webApplicationException) {
       status = Response.Status.fromStatusCode(webApplicationException.getResponse().getStatus());
+    }
+
+    if (throwable instanceof ConstraintViolationException constraintViolationException) {
+      error = ResponseErrorHandlerBaseUtil.build(properties, constraintViolationException);
+      status = Response.Status.BAD_REQUEST;
     }
 
     if (throwable instanceof ExternalServiceException externalServiceException) {

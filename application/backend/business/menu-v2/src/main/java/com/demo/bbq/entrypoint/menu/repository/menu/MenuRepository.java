@@ -14,19 +14,19 @@ public class MenuRepository implements PanacheRepositoryBase<MenuEntity, Long> {
 
   @WithSession
   public Uni<MenuEntity> findByProductCode(String productCode) {
-    return this.<MenuEntity>find("productCode", productCode)
+    return this.find("productCode", productCode)
         .firstResult();
   }
 
   @WithSession
   public Uni<List<MenuEntity>> findByScope(String scope) {
-    return this.<MenuEntity>find("scope", scope)
+    return this.find("scope", scope)
         .list();
   }
 
   @WithSession
   public Uni<List<MenuEntity>> findAllMenuOptions() {
-    return this.<MenuEntity>findAll()
+    return this.findAll()
         .list();
   }
 

@@ -17,9 +17,6 @@ configuration:
           forwarded:
             traceId: traceId
 
-  features:
-    menu-categories: [main, drink, dessert]
-
 quarkus:
   spring-cloud-config:
     enabled: true

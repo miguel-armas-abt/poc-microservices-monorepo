@@ -3,11 +3,15 @@ package com.demo.bbq.commons.errors.handler.response;
 import static com.demo.bbq.commons.errors.dto.ErrorDTO.CODE_DEFAULT;
 
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
+import com.demo.bbq.commons.errors.dto.ErrorType;
 import com.demo.bbq.commons.errors.exceptions.AuthorizationException;
 import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import com.demo.bbq.commons.errors.exceptions.SystemException;
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import java.util.Optional;
+import org.apache.commons.lang3.StringUtils;
 
 public class ResponseErrorHandlerBaseUtil {
 
@@ -42,6 +46,24 @@ public class ResponseErrorHandlerBaseUtil {
     if (exception instanceof AuthorizationException systemException)
       error = systemException.getErrorDetail();
 
+    if(exception instanceof ConstraintViolationException constraintViolationException)
+      error = getError(constraintViolationException);
+
     return error;
+  }
+
+  private static ErrorDTO getError(ConstraintViolationException constraintViolationException) {
+    String message = constraintViolationException
+        .getConstraintViolations()
+        .stream()
+        .map(ConstraintViolation::getMessage)
+        .reduce((errorMessage, newErrorMessage) -> StringUtils.EMPTY.equals(newErrorMessage) ? errorMessage : errorMessage + ", " + newErrorMessage)
+        .orElseGet(() -> CODE_DEFAULT);
+
+    return ErrorDTO.builder()
+        .code(CODE_DEFAULT)
+        .message(message)
+        .type(ErrorType.BUSINESS)
+        .build();
   }
 }

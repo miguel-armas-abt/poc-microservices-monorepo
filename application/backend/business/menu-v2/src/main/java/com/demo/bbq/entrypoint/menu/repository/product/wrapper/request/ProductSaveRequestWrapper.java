@@ -1,9 +1,8 @@
 package com.demo.bbq.entrypoint.menu.repository.product.wrapper.request;
 
-import lombok.*;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
+import lombok.*;
 
 @Builder
 @Setter

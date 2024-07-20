@@ -1,6 +1,8 @@
 package com.demo.bbq.entrypoint.menu.dto.request;
 
-import com.demo.bbq.entrypoint.menu.constant.MenuRegex;
+import static com.demo.bbq.entrypoint.menu.constant.ConstraintConstant.*;
+
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -16,17 +18,17 @@ import lombok.*;
 @NoArgsConstructor
 public class MenuSaveRequestDTO implements Serializable {
 
-  @NotNull(message = "productCode cannot be null")
+  @NotBlank(message = PRODUCT_CODE_NOT_BLANK_MESSAGE)
   private String productCode;
 
   @Size(min = 3, max = 300)
-  @NotNull(message = "description cannot be null")
+  @NotBlank(message = MENU_DESCRIPTION_NOT_BLANK_MESSAGE)
   private String description;
 
-  @Pattern(regexp = MenuRegex.CATEGORY, message = "Invalid menu category")
-  @NotNull(message = "category cannot be null")
+  @Pattern(regexp = CATEGORY_REGEX, message = CATEGORY_INVALID_MESSAGE)
+  @NotBlank(message = CATEGORY_NOT_BLANK_MESSAGE)
   private String category;
 
-  @NotNull(message = "unitPrice cannot be null")
+  @NotNull(message = UNIT_PRICE_NOT_NULL_MESSAGE)
   private BigDecimal unitPrice;
 }

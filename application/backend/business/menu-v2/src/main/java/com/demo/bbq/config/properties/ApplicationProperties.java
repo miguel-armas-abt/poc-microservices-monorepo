@@ -7,6 +7,4 @@ import io.smallrye.config.ConfigMapping;
 @StaticInitSafe
 @ConfigMapping(prefix = "configuration")
 public interface ApplicationProperties extends ConfigurationBaseProperties {
-
-  Features features();
 }
