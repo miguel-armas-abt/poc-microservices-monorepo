@@ -27,14 +27,14 @@ CREATE TABLE IF NOT EXISTS db_menu_options.menu_options(
     constraint UK_product_code unique (product_code)
 );
 INSERT INTO db_menu_options.menu_options (description, category, product_code) VALUES
-('Costillas de cerdo ahumadas', 'MAIN', 'MENU0001'),
-('Pollo a la parrilla', 'MAIN', 'MENU0002'),
-('Alitas de pollo BBQ', 'MAIN', 'MENU0003'),
-('Maíz asado con mantequilla y especias', 'MAIN', 'MENU0004'),
-('Jarra de chicha', 'DRINK', 'MENU0005'),
-('Jarra de maracuyá', 'DRINK', 'MENU0006'),
-('Torta de chocolate', 'DESSERT', 'MENU0007'),
-('Pie de manzana', 'DESSERT', 'MENU0008');
+('Costillas de cerdo ahumadas', 'main', 'MENU0001'),
+('Pollo a la parrilla', 'main', 'MENU0002'),
+('Alitas de pollo BBQ', 'main', 'MENU0003'),
+('Maíz asado con mantequilla y especias', 'main', 'MENU0004'),
+('Jarra de chicha', 'drink', 'MENU0005'),
+('Jarra de maracuyá', 'drink', 'MENU0006'),
+('Torta de chocolate', 'dessert', 'MENU0007'),
+('Pie de manzana', 'dessert', 'MENU0008');
 CREATE DATABASE IF NOT EXISTS db_payments;
 CREATE TABLE IF NOT EXISTS db_payments.payments(
     id bigint auto_increment primary key,

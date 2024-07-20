@@ -3,7 +3,7 @@
 source ./../parameters/00_local_path_variables.sh
 echo "Database creation execution script started" > "$LOCAL_LOG_FILE"
 
-EXECUTION_COMMAND="$MYSQL_COMMAND < ./../../environment/databases/mysql-db/init/mysql-db.initdb.sql"
+EXECUTION_COMMAND="$MYSQL_COMMAND < ./../../environment/mysql-db/init/mysql-db.initdb.sql"
 echo "$(get_timestamp) .......... mysql-db .......... $EXECUTION_COMMAND" >> "$LOCAL_LOG_FILE"
 eval "$EXECUTION_COMMAND"
 

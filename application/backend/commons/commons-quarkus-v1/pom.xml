@@ -6,7 +6,7 @@
 
   <parent>
     <groupId>com.demo.bbq.parent</groupId>
-    <artifactId>parent-multiny-v1</artifactId>
+    <artifactId>parent-quarkus-commons-v1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 

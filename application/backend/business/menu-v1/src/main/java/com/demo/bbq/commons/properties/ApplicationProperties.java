@@ -11,4 +11,5 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "configuration")
 public class ApplicationProperties extends ConfigurationBaseProperties {
 
+  private Features features;
 }

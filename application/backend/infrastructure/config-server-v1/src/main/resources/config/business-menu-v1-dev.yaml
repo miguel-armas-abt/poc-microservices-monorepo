@@ -19,6 +19,9 @@ configuration:
           forwarded:
             traceId: traceId
 
+  features:
+    menu-categories: [main, drink, dessert]
+
   obfuscation:
     body-fields: []
     headers: []
