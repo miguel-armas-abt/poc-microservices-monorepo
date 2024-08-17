@@ -36,7 +36,7 @@ public class MenuRepositoryTest {
   @BeforeEach
   public void setup() {
     jsonSerializer = new JsonSerializer(new ObjectMapper());
-    expectedSavedMenuOptionList = jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity[].class);
+    expectedSavedMenuOptionList = jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity.class);
     repository.saveAll(expectedSavedMenuOptionList);
   }
 
@@ -76,7 +76,7 @@ public class MenuRepositoryTest {
   public void save() {
     int rowsNumberBefore = repository.findAll().size();
 
-    MenuEntity menuOptionToSave = jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity[].class).get(0);
+    MenuEntity menuOptionToSave = jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity.class).get(0);
     menuOptionToSave.setId(4L);
     menuOptionToSave.setProductCode("MENU0004");
     repository.save(menuOptionToSave);

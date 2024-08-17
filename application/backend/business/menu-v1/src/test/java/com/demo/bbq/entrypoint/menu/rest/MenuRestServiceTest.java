@@ -47,7 +47,7 @@ public class MenuRestServiceTest {
   @Before
   public void setup() {
     jsonSerializer = new JsonSerializer(new ObjectMapper());
-    expectedSavedMenuOptionList = jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDTO[].class);
+    expectedSavedMenuOptionList = jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDTO.class);
     URI = "/bbq/business/menu/v1/menu-options";
   }
 
@@ -90,7 +90,7 @@ public class MenuRestServiceTest {
   @Ignore
   @Test
   public void givenProductCode_WhenSearchMenuOptionByProductCode_ThenReturnSearchedMenuOption() throws Exception {
-    MenuResponseDTO expectedMenuOption = jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDTO[].class).get(0);
+    MenuResponseDTO expectedMenuOption = jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDTO.class).get(0);
     when(menuService.findByProductCode(any(), anyString())).thenReturn(expectedMenuOption);
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders

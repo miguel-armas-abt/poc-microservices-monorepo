@@ -50,12 +50,12 @@ public class MenuProductMatcherTest {
   @Test
   public void givenTwoSourcesInfo_WhenSearchAllMenuOptions_ThenMapResponse() {
     when(productRepository.findByScope(any(), anyString()))
-        .thenReturn(jsonSerializer.readListFromFile("data/product/ProductDto_Array.json", ProductResponseWrapper[].class));
+        .thenReturn(jsonSerializer.readListFromFile("data/product/ProductDto_Array.json", ProductResponseWrapper.class));
 
     when(menuRepository.findAll())
-        .thenReturn(jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity[].class));
+        .thenReturn(jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity.class));
 
-    String expected = new Gson().toJson(jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDTO[].class));
+    String expected = new Gson().toJson(jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDTO.class));
     String actual = new Gson().toJson(menuProductMatcher.findAll(buildHttpServletRequest()));
     assertEquals(expected, actual);
   }

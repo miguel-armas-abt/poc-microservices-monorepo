@@ -5,9 +5,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.Arrays;
+import java.io.InputStream;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import lombok.RequiredArgsConstructor;
@@ -25,18 +24,19 @@ public class JsonSerializer {
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
   }
 
-  public <T> T readElementFromFile(String filePath, Class<T> classSource) {
+  public <T> T readElementFromFile(String filePath, Class<T> objectClass) {
     try {
-      return objectMapper.readValue(JsonSerializer.class.getClassLoader().getResourceAsStream(filePath), classSource);
+      InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filePath);
+      return objectMapper.readValue(inputStream, objectClass);
     } catch (IOException ex) {
       throw new SystemException("ErrorGettingElement: {}", ex.getMessage());
     }
   }
 
-  public <T> List<T> readListFromFile(String filePath, Class<T[]> classSource) {
+  public <T> List<T> readListFromFile(String filePath, Class<T> objectClass) {
     try {
-      T[] array = objectMapper.readValue(Objects.requireNonNull(JsonSerializer.class.getClassLoader().getResourceAsStream(filePath)), classSource);
-      return Arrays.asList(array);
+      InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filePath);
+      return objectMapper.readValue(inputStream, objectMapper.getTypeFactory().constructCollectionType(List.class, objectClass));
     } catch (IOException ex) {
       throw new SystemException("ErrorGettingList: {}", ex.getMessage());
     }

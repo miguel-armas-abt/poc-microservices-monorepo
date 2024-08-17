@@ -1,9 +1,9 @@
 package com.demo.bbq.entrypoint.table.registration.rest;
 
+import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
 import com.demo.bbq.entrypoint.table.registration.dto.request.TableRegistrationRequestDTO;
 import com.demo.bbq.entrypoint.table.registration.service.TableRegistrationService;
 import com.demo.bbq.commons.toolkit.router.ServerResponseBuilderUtil;
-import com.demo.bbq.commons.toolkit.validator.RequestValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -15,11 +15,11 @@ import reactor.core.publisher.Mono;
 public class TableRegistrationHandler {
 
   private final TableRegistrationService tableRegistrationService;
-  private final RequestValidator requestValidator;
+  private final BodyValidator bodyValidator;
 
   public Mono<ServerResponse> createTable(ServerRequest serverRequest) {
     return serverRequest.bodyToMono(TableRegistrationRequestDTO.class)
-        .doOnSuccess(requestValidator::validateRequest)
+        .doOnNext(bodyValidator::validate)
         .flatMap(tableRegistrationService::save)
         .flatMap(response -> ServerResponseBuilderUtil.buildMono(ServerResponse.ok(), serverRequest.headers(), response));
   }

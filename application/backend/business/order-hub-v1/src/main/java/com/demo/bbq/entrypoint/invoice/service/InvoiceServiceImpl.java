@@ -2,7 +2,6 @@ package com.demo.bbq.entrypoint.invoice.service;
 
 import com.demo.bbq.entrypoint.invoice.dto.PaymentSendRequestDTO;
 import com.demo.bbq.entrypoint.invoice.mapper.InvoiceMapper;
-import com.demo.bbq.commons.toolkit.validator.RequestValidator;
 import com.demo.bbq.entrypoint.invoice.repository.InvoiceRepository;
 import com.demo.bbq.entrypoint.invoice.repository.wrapper.request.PaymentSendRequestWrapper;
 import com.demo.bbq.entrypoint.invoice.repository.wrapper.request.ProductRequestWrapper;
@@ -25,7 +24,6 @@ public class InvoiceServiceImpl implements InvoiceService {
   private final TableOrderRepository tableOrderRepository;
   private final MenuRepositoryStrategy menuRepositoryStrategy;
   private final InvoiceMapper invoiceMapper;
-  private final RequestValidator requestValidator;
 
   @Override
   public Mono<InvoiceResponseWrapper> calculateInvoice(ServerRequest serverRequest, List<ProductRequestWrapper> productList) {
@@ -34,8 +32,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 
   @Override
   public Mono<Void> sendToPay(ServerRequest serverRequest, PaymentSendRequestDTO paymentSendRequest) {
-    requestValidator.validateRequest(paymentSendRequest);
-
     int tableNumber = paymentSendRequest.getTableNumber();
     PaymentSendRequestWrapper paymentRequest = invoiceMapper.toPaymentRequest(paymentSendRequest);
     paymentRequest.setProductList(new ArrayList<>());

@@ -29,10 +29,9 @@ public class ServerResponseBuilderUtil {
   public static Mono<ServerResponse> buildEmpty(ServerResponse.BodyBuilder bodyBuilder,
                                                 ServerRequest.Headers requestHeaders,
                                                 Mono<Void> voidResponse) {
-    return bodyBuilder
+    return ServerResponse.noContent()
         .headers(httpHeaders -> buildHeaders(requestHeaders).accept(httpHeaders))
-        .contentType(MediaType.APPLICATION_NDJSON)
-        .body(voidResponse, Void.class);
+        .build();
   }
 
   public static <T> Mono<ServerResponse> buildFlux(ServerResponse.BodyBuilder bodyBuilder,

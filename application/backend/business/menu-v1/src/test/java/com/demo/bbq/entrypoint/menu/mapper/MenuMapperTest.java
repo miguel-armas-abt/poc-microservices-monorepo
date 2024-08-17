@@ -33,9 +33,9 @@ public class MenuMapperTest {
   @BeforeEach
     public void setup() {
         JsonSerializer jsonSerializer = new JsonSerializer(new ObjectMapper());
-        menuEntity = jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity[].class).get(0);
-        productWrapper = jsonSerializer.readListFromFile("data/product/ProductDto_Array.json", ProductResponseWrapper[].class).get(0);
-        menuOption = jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDTO[].class).get(0);
+        menuEntity = jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity.class).get(0);
+        productWrapper = jsonSerializer.readListFromFile("data/product/ProductDto_Array.json", ProductResponseWrapper.class).get(0);
+        menuOption = jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDTO.class).get(0);
         menuOptionSaveRequest = jsonSerializer.readElementFromFile("data/menuoption/MenuOptionSaveRequest.json", MenuSaveRequestDTO.class);
     }
 
