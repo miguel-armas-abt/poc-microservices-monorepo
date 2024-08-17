@@ -20,7 +20,7 @@ public class ParamValidator {
   private ParamMapper selectMapper(Class<? extends DefaultParams> paramClass) {
     return paramMappers
         .stream()
-        .filter(mapper -> mapper.getClass().isAssignableFrom(paramClass))
+        .filter(mapper -> mapper.supports(paramClass))
         .findFirst()
         .orElseThrow(() -> new SystemException("NoSuchParamMapper"));
   }

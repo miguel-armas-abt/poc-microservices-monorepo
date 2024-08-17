@@ -1,11 +1,16 @@
 package com.demo.bbq.entrypoint.menu.rest;
 
+import static com.demo.bbq.entrypoint.menu.params.constant.ParameterConstants.CATEGORY_QUERY_PARAM;
+
+import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuSaveRequestDTO;
 import com.demo.bbq.entrypoint.menu.dto.response.MenuResponseDTO;
+import com.demo.bbq.entrypoint.menu.params.pojo.MenuByCategoryParams;
 import com.demo.bbq.entrypoint.menu.service.MenuService;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -27,20 +32,24 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/bbq/business/menu/v1/menu-options")
-public class MenuRestServiceImpl implements MenuRestService {
+@RequestMapping(value = "/bbq/business/menu/v1/menu-options", produces = MediaType.APPLICATION_JSON_VALUE)
+public class MenuRestServiceImpl {
 
   private final MenuService service;
+  private final ParamValidator paramValidator;
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/{productCode}")
+  @GetMapping(value = "/{productCode}")
   public ResponseEntity<MenuResponseDTO> findByProductCode(HttpServletRequest servletRequest,
                                                            @PathVariable(name = "productCode") String productCode) {
+
     return ResponseEntity.ok(service.findByProductCode(servletRequest, productCode));
   }
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping
   public ResponseEntity<List<MenuResponseDTO>> findByCategory(HttpServletRequest servletRequest,
-                                                              @RequestParam(value = "category", required = false) String categoryCode) {
+                                                              @RequestParam(value = CATEGORY_QUERY_PARAM, required = false) String categoryCode) {
+
+    paramValidator.validate(Map.of(CATEGORY_QUERY_PARAM, categoryCode), MenuByCategoryParams.class);
     List<MenuResponseDTO> menuOptionList = service.findByCategory(servletRequest, categoryCode);
     return (menuOptionList == null || menuOptionList.isEmpty())
         ? ResponseEntity.noContent().build()
@@ -56,13 +65,17 @@ public class MenuRestServiceImpl implements MenuRestService {
 
   @PutMapping(value = "/{productCode}")
   public ResponseEntity<Void> update(HttpServletRequest servletRequest,
-                                     @Valid @RequestBody MenuUpdateRequestDTO menuOption, @PathVariable("productCode") String productCode) {
+                                     @Valid @RequestBody MenuUpdateRequestDTO menuOption,
+                                     @PathVariable("productCode") String productCode) {
+
     service.update(servletRequest, productCode, menuOption);
     return ResponseEntity.created(buildUriLocation.apply(productCode)).build();
   }
 
   @DeleteMapping(value = "/{productCode}")
-  public ResponseEntity<Void> delete(HttpServletRequest servletRequest, @PathVariable("productCode") String productCode) {
+  public ResponseEntity<Void> delete(HttpServletRequest servletRequest,
+                                     @PathVariable("productCode") String productCode) {
+
     service.deleteByProductCode(servletRequest, productCode);
     return ResponseEntity.noContent().location(buildUriLocation.apply(productCode)).build();
   }

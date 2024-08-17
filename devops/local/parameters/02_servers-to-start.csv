@@ -3,7 +3,7 @@ zookeeper
 kafka
 #redis
 postgres-db
-#mysql-db
+mysql-db
 #prometheus
 #zipkin
 #grafana
