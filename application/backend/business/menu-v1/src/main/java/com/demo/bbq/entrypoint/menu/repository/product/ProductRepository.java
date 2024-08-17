@@ -8,7 +8,6 @@ import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.restclient.resttemplate.CustomRestTemplate;
 import com.demo.bbq.commons.restclient.resttemplate.dto.ExchangeRequestDTO;
 import java.util.*;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Repository;
@@ -22,7 +21,7 @@ public class ProductRepository {
   private final CustomRestTemplate restTemplate;
   private final ApplicationProperties properties;
 
-  public ProductResponseWrapper findByCode(HttpServletRequest servletRequest, String code) {
+  public ProductResponseWrapper findByCode(Map<String, String> headers, String code) {
     return restTemplate.exchange(
         ExchangeRequestDTO.<Void, ProductResponseWrapper>builder()
             .url(getEndpoint().concat("/products/{code}"))
@@ -30,11 +29,11 @@ public class ProductRepository {
             .uriVariables(Collections.singletonMap("code", code))
             .responseClass(ProductResponseWrapper.class)
             .errorWrapperClass(ErrorDTO.class)
-            .httpServletRequest(servletRequest)
+            .headers(headers)
             .build(), SERVICE_NAME);
   }
 
-  public List<ProductResponseWrapper> findByScope(HttpServletRequest servletRequest, String scope) {
+  public List<ProductResponseWrapper> findByScope(Map<String, String> headers, String scope) {
     return Arrays.asList(restTemplate.exchange(
         ExchangeRequestDTO.<Void, ProductResponseWrapper[]>builder()
             .url(getEndpoint().concat("/products?scope={scope}"))
@@ -42,11 +41,11 @@ public class ProductRepository {
             .uriVariables(Collections.singletonMap("scope", scope))
             .responseClass(ProductResponseWrapper[].class)
             .errorWrapperClass(ErrorDTO.class)
-            .httpServletRequest(servletRequest)
+            .headers(headers)
             .build(), SERVICE_NAME));
   }
 
-  public void save(HttpServletRequest servletRequest, ProductSaveRequestWrapper productRequest) {
+  public void save(Map<String, String> headers, ProductSaveRequestWrapper productRequest) {
     restTemplate.exchange(
         ExchangeRequestDTO.<ProductSaveRequestWrapper, Void>builder()
             .url(getEndpoint().concat("/products"))
@@ -54,11 +53,11 @@ public class ProductRepository {
             .requestBody(productRequest)
             .responseClass(Void.class)
             .errorWrapperClass(ErrorDTO.class)
-            .httpServletRequest(servletRequest)
+            .headers(headers)
             .build(), SERVICE_NAME);
   }
 
-  public void update(HttpServletRequest servletRequest, String code, ProductUpdateRequestWrapper productRequest) {
+  public void update(Map<String, String> headers, String code, ProductUpdateRequestWrapper productRequest) {
     restTemplate.exchange(
         ExchangeRequestDTO.<ProductUpdateRequestWrapper, Void>builder()
             .url(getEndpoint().concat("/products/{code}"))
@@ -67,11 +66,11 @@ public class ProductRepository {
             .requestBody(productRequest)
             .responseClass(Void.class)
             .errorWrapperClass(ErrorDTO.class)
-            .httpServletRequest(servletRequest)
+            .headers(headers)
             .build(), SERVICE_NAME);
   }
 
-  public void delete(HttpServletRequest servletRequest, String code) {
+  public void delete(Map<String, String> headers, String code) {
     restTemplate.exchange(
         ExchangeRequestDTO.<Void, Void>builder()
             .url(getEndpoint().concat("/products/{code}"))
@@ -79,7 +78,7 @@ public class ProductRepository {
             .uriVariables(Collections.singletonMap("code", code))
             .responseClass(Void.class)
             .errorWrapperClass(ErrorDTO.class)
-            .httpServletRequest(servletRequest)
+            .headers(headers)
             .build(), SERVICE_NAME);
   }
 

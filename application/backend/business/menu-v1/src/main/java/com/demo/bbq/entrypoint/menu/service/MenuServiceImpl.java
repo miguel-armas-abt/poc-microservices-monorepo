@@ -7,6 +7,7 @@ import com.demo.bbq.entrypoint.menu.dto.response.MenuResponseDTO;
 import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,23 +24,23 @@ public class MenuServiceImpl implements MenuService {
   private final ApplicationProperties properties;
 
   @Override
-  public List<MenuResponseDTO> findByCategory(HttpServletRequest servletRequest, String categoryCode) {
+  public List<MenuResponseDTO> findByCategory(Map<String, String> headers, String categoryCode) {
     return Optional.ofNullable(categoryCode).isEmpty()
-          ? menuProductMatcher.findAll(servletRequest)
-          : this.validateMenuOptionAndFindByCategory(servletRequest, categoryCode);
+          ? menuProductMatcher.findAll(headers)
+          : this.validateMenuOptionAndFindByCategory(headers, categoryCode);
   }
 
-  private List<MenuResponseDTO> validateMenuOptionAndFindByCategory(HttpServletRequest servletRequest, String categoryCode) {
+  private List<MenuResponseDTO> validateMenuOptionAndFindByCategory(Map<String, String> headers, String categoryCode) {
     validateCategory(categoryCode);
-    return menuProductMatcher.findAll(servletRequest)
+    return menuProductMatcher.findAll(headers)
         .stream()
         .filter(menu -> menu.getCategory().equals(categoryCode))
         .collect(Collectors.toList());
   }
 
   @Override
-  public MenuResponseDTO findByProductCode(HttpServletRequest servletRequest, String productCode) {
-    return menuProductMatcher.findAll(servletRequest)
+  public MenuResponseDTO findByProductCode(Map<String, String> headers, String productCode) {
+    return menuProductMatcher.findAll(headers)
         .stream()
         .filter(menuOption -> productCode.equals(menuOption.getProductCode()))
         .findFirst()
@@ -47,18 +48,18 @@ public class MenuServiceImpl implements MenuService {
   }
 
   @Override
-  public void save(HttpServletRequest servletRequest, MenuSaveRequestDTO menuOption) {
-    menuProductMatcher.save(servletRequest, menuOption);
+  public void save(Map<String, String> headers, MenuSaveRequestDTO menuOption) {
+    menuProductMatcher.save(headers, menuOption);
   }
 
   @Override
-  public void update(HttpServletRequest servletRequest, String productCode, MenuUpdateRequestDTO menuOption) {
-    menuProductMatcher.update(servletRequest, productCode, menuOption);
+  public void update(Map<String, String> headers, String productCode, MenuUpdateRequestDTO menuOption) {
+    menuProductMatcher.update(headers, productCode, menuOption);
   }
 
   @Override
-  public void deleteByProductCode(HttpServletRequest servletRequest, String productCode) {
-    menuProductMatcher.deleteByProductCode(servletRequest, productCode);
+  public void deleteByProductCode(Map<String, String> headers, String productCode) {
+    menuProductMatcher.deleteByProductCode(headers, productCode);
   }
 
   private void validateCategory(String category) {

@@ -26,22 +26,22 @@ public class MenuProductMatcher {
   private final MenuRepository menuRepository;
   private final MenuMapper menuMapper;
 
-  public List<MenuResponseDTO> findAll(HttpServletRequest servletRequest) {
+  public List<MenuResponseDTO> findAll(Map<String, String> headers) {
     Map<String, MenuEntity> menuOptionMap = menuRepository.findAll().stream()
         .collect(Collectors.toMap(MenuEntity::getProductCode, Function.identity()));
 
-    return productRepository.findByScope(servletRequest, PRODUCT_SCOPE)
+    return productRepository.findByScope(headers, PRODUCT_SCOPE)
         .stream()
         .map(product -> menuMapper.toResponseDTO(menuOptionMap.get(product.getCode()), product))
         .collect(Collectors.toList());
   }
 
-  public void save(HttpServletRequest servletRequest, MenuSaveRequestDTO menuOption) {
-    productRepository.save(servletRequest, menuMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE));
+  public void save(Map<String, String> headers, MenuSaveRequestDTO menuOption) {
+    productRepository.save(headers, menuMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE));
     menuRepository.save(menuMapper.toEntity(menuOption));
   }
 
-  public void update(HttpServletRequest servletRequest, String productCode, MenuUpdateRequestDTO menuOption) {
+  public void update(Map<String, String> headers, String productCode, MenuUpdateRequestDTO menuOption) {
     menuRepository.findByProductCode(productCode)
         .map(menuOptionFound -> {
           MenuEntity menuEntity = menuMapper.toEntity(menuOption, productCode);
@@ -49,18 +49,18 @@ public class MenuProductMatcher {
           return menuRepository.save(menuEntity);
         })
         .orElseThrow(() -> new BusinessException("MenuOptionNotFound", "The menu option does not exist"));
-    productRepository.update(servletRequest, productCode, menuMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE));
+    productRepository.update(headers, productCode, menuMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE));
   }
 
   @Transactional
-  public void deleteByProductCode(HttpServletRequest servletRequest, String productCode) {
+  public void deleteByProductCode(Map<String, String> headers, String productCode) {
     menuRepository.findByProductCode(productCode)
         .map(menuOptionFound -> {
           menuRepository.deleteByProductCode(productCode);
           return menuOptionFound;
         })
         .orElseThrow(() -> new BusinessException("MenuOptionNotFound", "The menu option does not exist"));
-    productRepository.delete(servletRequest, productCode);
+    productRepository.delete(headers, productCode);
   }
 
 }

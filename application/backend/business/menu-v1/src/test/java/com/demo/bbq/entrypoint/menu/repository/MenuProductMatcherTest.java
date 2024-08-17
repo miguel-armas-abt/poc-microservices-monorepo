@@ -1,6 +1,5 @@
 package com.demo.bbq.entrypoint.menu.repository;
 
-import static com.demo.bbq.entrypoint.menu.rest.HttpServletRequestBase.buildHttpServletRequest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -24,6 +23,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Map;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MenuProductMatcherTest {
@@ -56,7 +57,7 @@ public class MenuProductMatcherTest {
         .thenReturn(jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity.class));
 
     String expected = new Gson().toJson(jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDTO.class));
-    String actual = new Gson().toJson(menuProductMatcher.findAll(buildHttpServletRequest()));
+    String actual = new Gson().toJson(menuProductMatcher.findAll(Map.of()));
     assertEquals(expected, actual);
   }
 

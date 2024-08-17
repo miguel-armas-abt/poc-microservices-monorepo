@@ -39,7 +39,7 @@ public class CustomRestTemplate {
 
   private static <I,O> HttpEntity<I> buildHttpEntity(ExchangeRequestDTO<I,O> request,
                                                      HeaderTemplate headerTemplate) {
-    HttpHeaders headers = HeadersBuilderUtil.buildHeaders(request.getHttpServletRequest(), headerTemplate);
+    HttpHeaders headers = HeadersBuilderUtil.buildHeaders(request.getHeaders(), headerTemplate);
     headers.setContentType(MediaType.APPLICATION_JSON);
     return new HttpEntity<>(request.getRequestBody(), headers);
   }

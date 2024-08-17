@@ -1,5 +1,6 @@
 package com.demo.bbq.entrypoint.menu.rest;
 
+import static com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil.parseHeaders;
 import static com.demo.bbq.entrypoint.menu.params.constant.ParameterConstants.CATEGORY_QUERY_PARAM;
 
 import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
@@ -42,7 +43,7 @@ public class MenuRestServiceImpl {
   public ResponseEntity<MenuResponseDTO> findByProductCode(HttpServletRequest servletRequest,
                                                            @PathVariable(name = "productCode") String productCode) {
 
-    return ResponseEntity.ok(service.findByProductCode(servletRequest, productCode));
+    return ResponseEntity.ok(service.findByProductCode(parseHeaders(servletRequest), productCode));
   }
 
   @GetMapping
@@ -50,7 +51,7 @@ public class MenuRestServiceImpl {
                                                               @RequestParam(value = CATEGORY_QUERY_PARAM, required = false) String categoryCode) {
 
     paramValidator.validate(Map.of(CATEGORY_QUERY_PARAM, categoryCode), MenuByCategoryParams.class);
-    List<MenuResponseDTO> menuOptionList = service.findByCategory(servletRequest, categoryCode);
+    List<MenuResponseDTO> menuOptionList = service.findByCategory(parseHeaders(servletRequest), categoryCode);
     return (menuOptionList == null || menuOptionList.isEmpty())
         ? ResponseEntity.noContent().build()
         : ResponseEntity.ok(menuOptionList);
@@ -59,7 +60,7 @@ public class MenuRestServiceImpl {
   @PostMapping
   public ResponseEntity<Void> save(HttpServletRequest servletRequest,
                                    @Valid @RequestBody MenuSaveRequestDTO menuOption) {
-    service.save(servletRequest, menuOption);
+    service.save(parseHeaders(servletRequest), menuOption);
     return ResponseEntity.created(buildPostUriLocation.apply(menuOption.getProductCode())).build();
   }
 
@@ -68,7 +69,7 @@ public class MenuRestServiceImpl {
                                      @Valid @RequestBody MenuUpdateRequestDTO menuOption,
                                      @PathVariable("productCode") String productCode) {
 
-    service.update(servletRequest, productCode, menuOption);
+    service.update(parseHeaders(servletRequest), productCode, menuOption);
     return ResponseEntity.created(buildUriLocation.apply(productCode)).build();
   }
 
@@ -76,7 +77,7 @@ public class MenuRestServiceImpl {
   public ResponseEntity<Void> delete(HttpServletRequest servletRequest,
                                      @PathVariable("productCode") String productCode) {
 
-    service.deleteByProductCode(servletRequest, productCode);
+    service.deleteByProductCode(parseHeaders(servletRequest), productCode);
     return ResponseEntity.noContent().location(buildUriLocation.apply(productCode)).build();
   }
 
