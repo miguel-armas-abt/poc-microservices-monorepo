@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.menu.repository;
 
-import static com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil.buildHeaders;
+import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.buildHeaders;
 
 import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
@@ -21,6 +21,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Map;
+
 @Repository
 @RequiredArgsConstructor
 public class MenuV1Repository implements MenuRepository {
@@ -32,12 +34,12 @@ public class MenuV1Repository implements MenuRepository {
   private final ExternalErrorHandler externalErrorHandler;
 
   @Override
-  public Mono<MenuOptionResponseWrapper> findByProductCode(ServerRequest serverRequest, String productCode) {
+  public Mono<MenuOptionResponseWrapper> findByProductCode(Map<String, String> headers, String productCode) {
     return webClient.get()
         .uri(UriComponentsBuilder
             .fromUriString(getBaseURL().concat("menu-options/{productCode}"))
             .buildAndExpand(productCode).toUriString())
-        .headers(buildHeaders(getHeaderTemplate(), serverRequest))
+        .headers(buildHeaders(getHeaderTemplate(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
         .toEntity(MenuOptionResponseWrapper.class)
@@ -45,24 +47,24 @@ public class MenuV1Repository implements MenuRepository {
   }
 
   @Override
-  public Flux<MenuOptionResponseWrapper> findByCategory(ServerRequest serverRequest, String category) {
+  public Flux<MenuOptionResponseWrapper> findByCategory(Map<String, String> headers, String category) {
     return webClient.get()
         .uri(UriComponentsBuilder
             .fromUriString(getBaseURL().concat("menu-options"))
             .queryParam("category", category).toUriString())
-        .headers(buildHeaders(getHeaderTemplate(), serverRequest))
+        .headers(buildHeaders(getHeaderTemplate(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
         .bodyToFlux(MenuOptionResponseWrapper.class);
   }
 
   @Override
-  public Mono<Void> save(ServerRequest serverRequest, MenuOptionSaveRequestWrapper menuOption) {
+  public Mono<Void> save(Map<String, String> headers, MenuOptionSaveRequestWrapper menuOption) {
     return webClient.post()
         .uri(UriComponentsBuilder
             .fromUriString(getBaseURL().concat("menu-options")).toUriString())
         .contentType(MediaType.APPLICATION_JSON)
-        .headers(buildHeaders(getHeaderTemplate(), serverRequest))
+        .headers(buildHeaders(getHeaderTemplate(), headers))
         .body(BodyInserters.fromValue(menuOption))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
@@ -71,13 +73,13 @@ public class MenuV1Repository implements MenuRepository {
   }
 
   @Override
-  public Mono<Void> update(ServerRequest serverRequest, String productCode, MenuOptionSaveRequestWrapper menuOption) {
+  public Mono<Void> update(Map<String, String> headers, String productCode, MenuOptionSaveRequestWrapper menuOption) {
     return webClient.post()
         .uri(UriComponentsBuilder
             .fromUriString(getBaseURL().concat("menu-options/{productCode}"))
             .buildAndExpand(productCode).toUriString())
         .contentType(MediaType.APPLICATION_JSON)
-        .headers(buildHeaders(getHeaderTemplate(), serverRequest))
+        .headers(buildHeaders(getHeaderTemplate(), headers))
         .body(BodyInserters.fromValue(menuOption))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
@@ -86,12 +88,12 @@ public class MenuV1Repository implements MenuRepository {
   }
 
   @Override
-  public Mono<Void> delete(ServerRequest serverRequest, String productCode, MenuOptionSaveRequestWrapper menuOption) {
+  public Mono<Void> delete(Map<String, String> headers, String productCode, MenuOptionSaveRequestWrapper menuOption) {
     return webClient.delete()
         .uri(UriComponentsBuilder
             .fromUriString(getBaseURL().concat("menu-options/{productCode}"))
             .buildAndExpand(productCode).toUriString())
-        .headers(buildHeaders(getHeaderTemplate(), serverRequest))
+        .headers(buildHeaders(getHeaderTemplate(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
         .toEntity(Void.class)

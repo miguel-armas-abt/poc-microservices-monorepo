@@ -1,10 +1,15 @@
 package com.demo.bbq.entrypoint.invoice.rest;
 
+import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.extractHeadersAsMap;
+
+import com.demo.bbq.commons.toolkit.router.ServerResponseFactory;
 import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
+import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
+import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
 import com.demo.bbq.entrypoint.invoice.dto.PaymentSendRequestDTO;
 import com.demo.bbq.entrypoint.invoice.service.InvoiceService;
-import com.demo.bbq.commons.toolkit.router.ServerResponseBuilderUtil;
 import com.demo.bbq.entrypoint.invoice.repository.wrapper.request.ProductRequestWrapper;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -17,25 +22,32 @@ public class InvoiceHandler {
 
   private final InvoiceService invoiceService;
   private final BodyValidator bodyValidator;
+  private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> calculateInvoice(ServerRequest serverRequest) {
+    Map<String, String> headers = extractHeadersAsMap(serverRequest);
+    paramValidator.validate(headers, DefaultHeaders.class);
+
     return serverRequest.bodyToFlux(ProductRequestWrapper.class)
         .doOnNext(bodyValidator::validate)
         .collectList()
-        .flatMap(productList -> invoiceService.calculateInvoice(serverRequest, productList))
-        .flatMap(response -> ServerResponseBuilderUtil
+        .flatMap(productList -> invoiceService.calculateInvoice(headers, productList))
+        .flatMap(response -> ServerResponseFactory
             .buildMono(ServerResponse.ok(), serverRequest.headers(), response));
   }
 
   public Mono<ServerResponse> sendToPay(ServerRequest serverRequest) {
-    return ServerResponseBuilderUtil
+    Map<String, String> headers = extractHeadersAsMap(serverRequest);
+    paramValidator.validate(headers, DefaultHeaders.class);
+
+    return ServerResponseFactory
         .buildEmpty(
             ServerResponse.ok(),
             serverRequest.headers(),
             serverRequest
                 .bodyToMono(PaymentSendRequestDTO.class)
                 .doOnNext(bodyValidator::validate)
-                .flatMap(request -> invoiceService.sendToPay(serverRequest, request))
+                .flatMap(request -> invoiceService.sendToPay(headers, request))
         );
   }
 }

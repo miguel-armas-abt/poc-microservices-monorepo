@@ -1,27 +1,39 @@
 package com.demo.bbq.entrypoint.sender.rest;
 
+import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.extractHeadersAsMap;
+
+import com.demo.bbq.commons.toolkit.router.ServerResponseFactory;
+import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
+import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
+import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
 import com.demo.bbq.entrypoint.sender.dto.PaymentSendRequestDTO;
 import com.demo.bbq.entrypoint.sender.service.PaymentSenderService;
-import com.demo.bbq.commons.toolkit.router.ServerResponseBuilderUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 public class PaymentSenderHandler {
 
   private final PaymentSenderService paymentSenderService;
+  private final BodyValidator bodyValidator;
+  private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> sendToPay(ServerRequest serverRequest) {
-    return ServerResponseBuilderUtil
+    Map<String, String> headers = extractHeadersAsMap(serverRequest);
+    paramValidator.validate(headers, DefaultHeaders.class);
+
+    return ServerResponseFactory
         .buildEmpty(
             ServerResponse.ok(),
             serverRequest.headers(),
             serverRequest.bodyToMono(PaymentSendRequestDTO.class)
-                .flatMap(request -> paymentSenderService.sendToPay(serverRequest, request))
+                .doOnNext(bodyValidator::validate)
+                .flatMap(request -> paymentSenderService.sendToPay(headers, request))
         );
   }
 }

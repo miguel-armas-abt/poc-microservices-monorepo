@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.auth.repository;
 
-import static com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil.buildHeaders;
+import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.buildHeaders;
 
 import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
@@ -11,7 +11,6 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -26,10 +25,10 @@ public class AuthAdapterRepository {
   private final ApplicationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
 
-  public Mono<HashMap<String, Integer>> getRoles(ServerHttpRequest serverRequest) {
+  public Mono<HashMap<String, Integer>> getRoles(Map<String, String> headers) {
     return webClient.get()
         .uri(properties.getRestClients().get(SERVICE_NAME).getRequest().getEndpoint().concat("/roles"))
-        .headers(buildHeaders(getHeaderTemplate(), serverRequest))
+        .headers(buildHeaders(getHeaderTemplate(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME))
         .toEntity(HashMap.class)

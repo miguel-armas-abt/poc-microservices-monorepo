@@ -11,9 +11,9 @@ import com.demo.bbq.entrypoint.tableorder.repository.TableOrderRepository;
 import com.demo.bbq.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.server.ServerRequest;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -26,28 +26,28 @@ public class InvoiceServiceImpl implements InvoiceService {
   private final InvoiceMapper invoiceMapper;
 
   @Override
-  public Mono<InvoiceResponseWrapper> calculateInvoice(ServerRequest serverRequest, List<ProductRequestWrapper> productList) {
-    return invoiceRepository.generateProforma(serverRequest, productList);
+  public Mono<InvoiceResponseWrapper> calculateInvoice(Map<String, String> headers, List<ProductRequestWrapper> productList) {
+    return invoiceRepository.generateProforma(headers, productList);
   }
 
   @Override
-  public Mono<Void> sendToPay(ServerRequest serverRequest, PaymentSendRequestDTO paymentSendRequest) {
+  public Mono<Void> sendToPay(Map<String, String> headers, PaymentSendRequestDTO paymentSendRequest) {
     int tableNumber = paymentSendRequest.getTableNumber();
     PaymentSendRequestWrapper paymentRequest = invoiceMapper.toPaymentRequest(paymentSendRequest);
     paymentRequest.setProductList(new ArrayList<>());
 
-    return tableOrderRepository.findByTableNumber(serverRequest, tableNumber)
+    return tableOrderRepository.findByTableNumber(headers, tableNumber)
         .flatMapIterable(TableOrderResponseWrapper::getMenuOrderList)
         .flatMap(menuOrder -> menuRepositoryStrategy
             .getService()
-            .findByProductCode(serverRequest, menuOrder.getProductCode())
+            .findByProductCode(headers, menuOrder.getProductCode())
             .map(menuOption -> invoiceMapper.toProduct(menuOrder, menuOption))
         )
         .reduce(paymentRequest, (currentPaymentSendRequest, product) -> {
           currentPaymentSendRequest.getProductList().add(product);
           return currentPaymentSendRequest;
         })
-        .flatMap(currentPaymentRequest -> invoiceRepository.sendToPay(serverRequest, currentPaymentRequest))
-        .then(tableOrderRepository.cleanTable(serverRequest, tableNumber));
+        .flatMap(currentPaymentRequest -> invoiceRepository.sendToPay(headers, currentPaymentRequest))
+        .then(tableOrderRepository.cleanTable(headers, tableNumber));
   }
 }

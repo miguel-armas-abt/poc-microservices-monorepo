@@ -38,17 +38,16 @@ public class ResponseErrorHandler {
     }
 
     if( ex instanceof BusinessException businessException) {
-      error = ResponseErrorHandlerBaseUtil.build(properties, businessException);
+      error = ResponseErrorHandlerBase.toErrorDTO(properties, businessException);
       httpStatus = HttpStatus.BAD_REQUEST;
     }
 
     if( ex instanceof SystemException systemException) {
-      error = ResponseErrorHandlerBaseUtil.build(properties, systemException);
-      httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+      error = ResponseErrorHandlerBase.toErrorDTO(properties, systemException);
     }
 
     if( ex instanceof AuthorizationException authException) {
-      error = ResponseErrorHandlerBaseUtil.build(properties, authException);
+      error = ResponseErrorHandlerBase.toErrorDTO(properties, authException);
       httpStatus = HttpStatus.UNAUTHORIZED;
     }
 

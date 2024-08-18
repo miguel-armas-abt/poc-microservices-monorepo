@@ -9,15 +9,16 @@ import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerUtil;
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
 import java.net.ConnectException;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.WebRequest;
 import retrofit2.HttpException;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ResponseErrorHandlerUtil {
-
-  private ResponseErrorHandlerUtil() {}
 
   public static ResponseEntity<ErrorDTO> handleException(ConfigurationBaseProperties properties,
                                                          List<RestClientErrorStrategy> errorServices,
@@ -37,17 +38,17 @@ public class ResponseErrorHandlerUtil {
     }
 
     if(ex instanceof BusinessException businessException) {
-      error = ResponseErrorHandlerBaseUtil.build(properties, businessException);
+      error = ResponseErrorHandlerBase.toErrorDTO(properties, businessException);
       httpStatus = HttpStatus.BAD_REQUEST;
     }
 
     if(ex instanceof SystemException systemException) {
-      error = ResponseErrorHandlerBaseUtil.build(properties, systemException);
+      error = ResponseErrorHandlerBase.toErrorDTO(properties, systemException);
       httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
     }
 
     if(ex instanceof AuthorizationException authException) {
-      error = ResponseErrorHandlerBaseUtil.build(properties, authException);
+      error = ResponseErrorHandlerBase.toErrorDTO(properties, authException);
       httpStatus = HttpStatus.UNAUTHORIZED;
     }
 

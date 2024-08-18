@@ -11,10 +11,16 @@ public class ParamValidator {
   private final List<ParamMapper> paramMappers;
   private final BodyValidator bodyValidator;
 
-  public <T extends DefaultParams> void validate(Map<String, String> paramsMap,
-                                                 Class<T> paramClass) {
+  public <T extends DefaultParams> T validateAndRetrieve(Map<String, String> paramsMap,
+                                                         Class<T> paramClass) {
     T parameters = (T) selectMapper(paramClass).mapParameters(paramsMap);
     bodyValidator.validate(parameters);
+    return parameters;
+  }
+
+  public <T extends DefaultParams> void validate(Map<String, String> paramsMap,
+                                                 Class<T> paramClass) {
+    validateAndRetrieve(paramsMap, paramClass);
   }
 
   private ParamMapper selectMapper(Class<? extends DefaultParams> paramClass) {

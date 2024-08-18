@@ -10,11 +10,11 @@ import com.demo.bbq.entrypoint.calculator.repository.product.ProductRepository;
 import com.demo.bbq.commons.toolkit.rules.service.RuleService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.server.ServerRequest;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -29,7 +29,7 @@ public class CalculatorServiceImpl implements CalculatorService {
   private final RuleService ruleService;
 
   @Override
-  public Mono<InvoiceResponseDTO> calculateInvoice(ServerRequest serverRequest, Flux<ProductRequestDTO> products) {
+  public Mono<InvoiceResponseDTO> calculateInvoice(Map<String, String> headers, Flux<ProductRequestDTO> products) {
     InvoiceResponseDTO baseResponse = InvoiceResponseDTO.builder()
         .subtotal(BigDecimal.ZERO)
         .productList(new ArrayList<>())
@@ -37,7 +37,7 @@ public class CalculatorServiceImpl implements CalculatorService {
 
     return products
         .flatMap(product -> productRepository
-            .findByProductCode(serverRequest, product.getProductCode())
+            .findByProductCode(headers, product.getProductCode())
             .map(productFound -> Pair.of(product, productFound.getUnitPrice())))
         .reduce(baseResponse, (invoice, productWithPrice) -> {
           ProductDTO product = mapper.toResponseDTO(productWithPrice.getKey(), productWithPrice.getValue(), applyDiscount(productWithPrice.getKey()));

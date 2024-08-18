@@ -6,10 +6,10 @@ import com.demo.bbq.entrypoint.tableorder.repository.TableOrderRepository;
 import com.demo.bbq.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.server.ServerRequest;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -22,26 +22,26 @@ public class TablePlacementServiceImpl implements TablePlacementService {
   private final MenuRepositoryStrategy menuRepositoryStrategy;
 
   @Override
-  public Mono<Void> generateTableOrder(ServerRequest serverRequest,
+  public Mono<Void> generateTableOrder(Map<String, String> headers,
                                        List<MenuOrderRequestDTO> requestedMenuOrders,
                                        Integer tableNumber) {
     return Flux.fromIterable(requestedMenuOrders)
-        .flatMap(menuOrder -> existsMenuOption(serverRequest, menuOrder))
-        .then(tableOrderRepository.generateTableOrder(serverRequest, requestedMenuOrders, tableNumber))
+        .flatMap(menuOrder -> existsMenuOption(headers, menuOrder))
+        .then(tableOrderRepository.generateTableOrder(headers, requestedMenuOrders, tableNumber))
         .ignoreElement();
   }
 
-  private Mono<Void> existsMenuOption(ServerRequest httpRequest, MenuOrderRequestDTO menuOrderRequest) {
+  private Mono<Void> existsMenuOption(Map<String, String> headers, MenuOrderRequestDTO menuOrderRequest) {
     return menuRepositoryStrategy
         .getService()
-        .findByProductCode(httpRequest, menuOrderRequest.getProductCode())
+        .findByProductCode(headers, menuOrderRequest.getProductCode())
         .switchIfEmpty(Mono.error(new BusinessException("MenuOptionNotFound")))
         .then();
   }
 
   @Override
-  public Mono<TableOrderResponseWrapper> findByTableNumber(ServerRequest httpRequest, Integer tableNumber) {
-    return tableOrderRepository.findByTableNumber(httpRequest, tableNumber);
+  public Mono<TableOrderResponseWrapper> findByTableNumber(Map<String, String> headers, Integer tableNumber) {
+    return tableOrderRepository.findByTableNumber(headers, tableNumber);
   }
 
 }

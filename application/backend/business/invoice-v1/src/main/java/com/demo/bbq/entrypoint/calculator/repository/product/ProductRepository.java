@@ -1,17 +1,17 @@
 package com.demo.bbq.entrypoint.calculator.repository.product;
 
-import static com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil.buildHeaders;
+import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.buildHeaders;
 
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import com.demo.bbq.entrypoint.calculator.repository.product.wrapper.ProductResponseWrapper;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
@@ -25,12 +25,12 @@ public class ProductRepository {
   private final ApplicationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
 
-  public Mono<ProductResponseWrapper> findByProductCode(ServerRequest serverRequest, String productCode) {
+  public Mono<ProductResponseWrapper> findByProductCode(Map<String, String> headers, String productCode) {
     return webClient.get()
         .uri(UriComponentsBuilder
             .fromUriString(properties.searchEndpoint(SERVICE_NAME).concat("{productCode}"))
             .buildAndExpand(productCode).toUriString())
-        .headers(buildHeaders(properties.searchHeaderTemplate(SERVICE_NAME), serverRequest))
+        .headers(buildHeaders(properties.searchHeaderTemplate(SERVICE_NAME), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME))
         .toEntity(ProductResponseWrapper.class)

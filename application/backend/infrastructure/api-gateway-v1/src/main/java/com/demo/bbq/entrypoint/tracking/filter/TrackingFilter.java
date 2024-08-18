@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.tracking.filter;
 
-import static com.demo.bbq.commons.toolkit.restclient.headers.GeneratedHeaderType.TRACE_ID;
+import static com.demo.bbq.commons.toolkit.params.enums.GeneratedParamType.TRACE_ID;
 
 import com.demo.bbq.commons.errors.handler.response.ResponseErrorHandler;
 import com.demo.bbq.commons.properties.ApplicationProperties;
@@ -42,7 +42,7 @@ public class TrackingFilter extends AbstractGatewayFilterFactory<TrackingFilter.
   }
 
   private static ServerWebExchange mutateExchangeRequest(ServerWebExchange exchange) {
-    String traceId = TRACE_ID.getHeaderGenerator().generateHeader();
+    String traceId = TRACE_ID.getParamGenerator().generateHeader();
 
     ServerHttpRequest modifiedRequest = exchange.getRequest()
         .mutate()

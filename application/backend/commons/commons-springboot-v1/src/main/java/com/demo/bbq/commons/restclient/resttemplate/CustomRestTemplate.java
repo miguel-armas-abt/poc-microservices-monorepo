@@ -5,7 +5,7 @@ import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.restclient.resttemplate.dto.ExchangeRequestDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerUtil;
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
-import com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil;
+import com.demo.bbq.commons.toolkit.params.filler.HeadersFiller;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -39,7 +39,7 @@ public class CustomRestTemplate {
 
   private static <I,O> HttpEntity<I> buildHttpEntity(ExchangeRequestDTO<I,O> request,
                                                      HeaderTemplate headerTemplate) {
-    HttpHeaders headers = HeadersBuilderUtil.buildHeaders(request.getHeaders(), headerTemplate);
+    HttpHeaders headers = HeadersFiller.buildHeaders(headerTemplate, request.getHeaders());
     headers.setContentType(MediaType.APPLICATION_JSON);
     return new HttpEntity<>(request.getRequestBody(), headers);
   }

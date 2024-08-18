@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.invoice.repository;
 
-import static com.demo.bbq.commons.restclient.headers.HeadersBuilderUtil.buildHeaders;
+import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.buildHeaders;
 
 import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
@@ -10,6 +10,7 @@ import com.demo.bbq.entrypoint.invoice.repository.wrapper.response.InvoiceRespon
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatusCode;
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.server.ServerRequest;
 import reactor.core.publisher.Mono;
 
 @Repository
@@ -31,12 +31,12 @@ public class InvoiceRepository {
   private final ApplicationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
 
-  public Mono<InvoiceResponseWrapper> generateProforma(ServerRequest serverRequest,
+  public Mono<InvoiceResponseWrapper> generateProforma(Map<String, String> headers,
                                                        List<ProductRequestWrapper> productList) {
     return webClient.post()
         .uri(getBaseURL().concat("calculate"))
         .contentType(MediaType.APPLICATION_JSON)
-        .headers(buildHeaders(properties.searchHeaderTemplate(SERVICE_NAME_INVOICE), serverRequest))
+        .headers(buildHeaders(properties.searchHeaderTemplate(SERVICE_NAME_INVOICE), headers))
         .body(BodyInserters.fromValue(productList))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
@@ -44,12 +44,12 @@ public class InvoiceRepository {
         .mapNotNull(HttpEntity::getBody);
   }
 
-  public Mono<Void> sendToPay(ServerRequest serverRequest,
-                                     PaymentSendRequestWrapper paymentRequest) {
+  public Mono<Void> sendToPay(Map<String, String> headers,
+                              PaymentSendRequestWrapper paymentRequest) {
     return webClient.post()
         .uri(getBaseURL().concat("send-to-pay"))
         .contentType(MediaType.APPLICATION_JSON)
-        .headers(buildHeaders(getHeaderTemplate(), serverRequest))
+        .headers(buildHeaders(getHeaderTemplate(), headers))
         .body(BodyInserters.fromValue(paymentRequest))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)

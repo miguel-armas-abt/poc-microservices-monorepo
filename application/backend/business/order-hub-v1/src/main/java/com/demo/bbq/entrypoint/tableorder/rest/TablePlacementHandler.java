@@ -1,9 +1,16 @@
 package com.demo.bbq.entrypoint.tableorder.rest;
 
+import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.extractHeadersAsMap;
+import static com.demo.bbq.commons.toolkit.params.filler.QueryParamFiller.extractQueryParamsAsMap;
+
+import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
+import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
+import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
 import com.demo.bbq.entrypoint.tableorder.dto.MenuOrderRequestDTO;
+import com.demo.bbq.entrypoint.tableorder.params.pojo.TableNumberParam;
 import com.demo.bbq.entrypoint.tableorder.service.TablePlacementService;
-import com.demo.bbq.commons.errors.exceptions.BusinessException;
-import com.demo.bbq.commons.toolkit.router.ServerResponseBuilderUtil;
+import com.demo.bbq.commons.toolkit.router.ServerResponseFactory;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -15,26 +22,31 @@ import reactor.core.publisher.Mono;
 public class TablePlacementHandler {
 
   private final TablePlacementService tablePlacementService;
+  private final BodyValidator bodyValidator;
+  private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> generateTableOrder(ServerRequest serverRequest) {
-    return ServerResponseBuilderUtil
+    Map<String, String> headers = extractHeadersAsMap(serverRequest);
+    paramValidator.validate(headers, DefaultHeaders.class);
+    TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
+
+    return ServerResponseFactory
         .buildEmpty(
             ServerResponse.ok(),
             serverRequest.headers(),
             serverRequest.bodyToFlux(MenuOrderRequestDTO.class)
+                .doOnNext(bodyValidator::validate)
                 .collectList()
-                .flatMap(requestedMenuOrders -> tablePlacementService.generateTableOrder(serverRequest, requestedMenuOrders, getTableNumber(serverRequest)))
+                .flatMap(requestedMenuOrders -> tablePlacementService.generateTableOrder(headers, requestedMenuOrders, tableNumberParam.getTableNumber()))
         );
   }
 
   public Mono<ServerResponse> findByTableNumber(ServerRequest serverRequest) {
-    return tablePlacementService.findByTableNumber(serverRequest, getTableNumber(serverRequest))
-        .flatMap(response -> ServerResponseBuilderUtil.buildMono(ServerResponse.ok(), serverRequest.headers(), response));
-  }
+    Map<String, String> headers = extractHeadersAsMap(serverRequest);
+    paramValidator.validate(headers, DefaultHeaders.class);
+    TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
-  private int getTableNumber(ServerRequest serverRequest) {
-    return serverRequest.queryParam("tableNumber")
-        .map(Integer::parseInt)
-        .orElseThrow(() -> new BusinessException("Invalid table number"));
+    return tablePlacementService.findByTableNumber(headers, tableNumberParam.getTableNumber())
+        .flatMap(response -> ServerResponseFactory.buildMono(ServerResponse.ok(), serverRequest.headers(), response));
   }
 }

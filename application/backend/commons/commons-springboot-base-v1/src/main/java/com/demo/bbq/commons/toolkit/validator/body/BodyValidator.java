@@ -1,6 +1,6 @@
 package com.demo.bbq.commons.toolkit.validator.body;
 
-import static com.demo.bbq.commons.toolkit.validator.ValidatorUtil.handleValidationErrors;
+import static com.demo.bbq.commons.toolkit.validator.utils.ValidatorUtil.handleValidationErrors;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

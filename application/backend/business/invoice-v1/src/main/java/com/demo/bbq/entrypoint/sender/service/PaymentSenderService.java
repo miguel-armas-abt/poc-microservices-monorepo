@@ -1,10 +1,10 @@
 package com.demo.bbq.entrypoint.sender.service;
 
 import com.demo.bbq.entrypoint.sender.dto.PaymentSendRequestDTO;
-import org.springframework.web.reactive.function.server.ServerRequest;
+import java.util.Map;
 import reactor.core.publisher.Mono;
 
 public interface PaymentSenderService {
 
-  Mono<Void> sendToPay(ServerRequest serverRequest, PaymentSendRequestDTO paymentRequest);
+  Mono<Void> sendToPay(Map<String, String> headers, PaymentSendRequestDTO paymentRequest);
 }

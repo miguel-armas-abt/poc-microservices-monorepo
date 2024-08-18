@@ -1,8 +1,7 @@
 package com.demo.bbq.commons.properties.dto.restclient;
 
+import com.demo.bbq.commons.toolkit.params.enums.GeneratedParamType;
 import java.util.Map;
-
-import com.demo.bbq.commons.toolkit.restclient.headers.GeneratedHeaderType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +10,7 @@ import lombok.Setter;
 public class HeaderTemplate {
 
   private Map<String, String> provided;
-  private Map<String, GeneratedHeaderType> generated;
+  private Map<String, GeneratedParamType> generated;
   private Map<String, String> forwarded;
 
 }

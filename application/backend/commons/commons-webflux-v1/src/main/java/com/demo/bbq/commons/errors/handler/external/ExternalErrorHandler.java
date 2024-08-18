@@ -1,11 +1,11 @@
 package com.demo.bbq.commons.errors.handler.external;
 
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBaseUtil.selectCode;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBaseUtil.selectMessage;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBaseUtil.selectType;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBaseUtil.selectHttpCode;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBaseUtil.emptyResponse;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBaseUtil.noSuchWrapper;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectCode;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectMessage;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectType;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectHttpCode;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.emptyResponse;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.noSuchWrapper;
 
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.dto.ErrorType;

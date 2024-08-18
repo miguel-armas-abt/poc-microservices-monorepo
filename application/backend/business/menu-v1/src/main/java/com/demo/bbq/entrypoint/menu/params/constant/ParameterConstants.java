@@ -8,5 +8,9 @@ public class ParameterConstants {
 
   public static final String CATEGORY_REGEX = "^(main|drink|dessert)$";
 
-  public static final String CATEGORY_QUERY_PARAM = "category";
+  public static final String CATEGORY_PARAM = "category";
+
+  public static final String PRODUCT_CODE_PARAM = "productCode";
+
+
 }

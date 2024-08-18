@@ -1,9 +1,15 @@
 package com.demo.bbq.entrypoint.table.placement.rest;
 
+import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.extractHeadersAsMap;
+import static com.demo.bbq.commons.toolkit.params.filler.QueryParamFiller.extractQueryParamsAsMap;
+
+import com.demo.bbq.commons.toolkit.router.ServerResponseFactory;
+import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
+import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
+import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
 import com.demo.bbq.entrypoint.table.placement.dto.request.MenuOrderDTO;
+import com.demo.bbq.entrypoint.table.placement.params.pojo.TableNumberParam;
 import com.demo.bbq.entrypoint.table.placement.service.PlacementService;
-import com.demo.bbq.commons.toolkit.router.ServerResponseBuilderUtil;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -15,30 +21,43 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class PlacementHandler {
 
-  private static final String PARAM_TABLE_NUMBER = "tableNumber";
-
   private final PlacementService placementService;
+  private final BodyValidator bodyValidator;
+  private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> findByTableNumber(ServerRequest serverRequest) {
-    Optional<Integer> tableNumber = serverRequest.queryParam(PARAM_TABLE_NUMBER).map(Integer::parseInt);
+    paramValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
+    TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
-    return placementService.findByTableNumber(tableNumber.get())
-        .flatMap(response -> ServerResponseBuilderUtil
-            .buildMono(ServerResponse.ok(), serverRequest.headers(), response));
+    return placementService.findByTableNumber(tableNumberParam.getTableNumber())
+        .flatMap(response -> ServerResponseFactory
+            .buildMono(
+                ServerResponse.ok(),
+                serverRequest.headers(),
+                response));
   }
 
   public Mono<ServerResponse> cleanTable(ServerRequest serverRequest) {
-    Optional<Integer> tableNumber = serverRequest.queryParam(PARAM_TABLE_NUMBER).map(Integer::parseInt);
+    paramValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
+    TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
-    return ServerResponseBuilderUtil
-        .buildEmpty(ServerResponse.ok(), serverRequest.headers(), placementService.cleanTable(tableNumber.get()));
+    return ServerResponseFactory
+        .buildEmpty(
+            ServerResponse.ok(),
+            serverRequest.headers(),
+            placementService.cleanTable(tableNumberParam.getTableNumber()));
   }
 
   public Mono<ServerResponse> generateTableOrder(ServerRequest serverRequest) {
-    Flux<MenuOrderDTO> requestedMenuOrders = serverRequest.bodyToFlux(MenuOrderDTO.class);
-    Optional<Integer> tableNumber = serverRequest.queryParam(PARAM_TABLE_NUMBER).map(Integer::parseInt);
+    paramValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
+    TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
-    return ServerResponseBuilderUtil
-        .buildEmpty(ServerResponse.ok(), serverRequest.headers(), placementService.generateTableOrder(requestedMenuOrders, tableNumber.get()));
+    Flux<MenuOrderDTO> requestedMenuOrders = serverRequest.bodyToFlux(MenuOrderDTO.class).doOnNext(bodyValidator::validate);
+
+    return ServerResponseFactory
+        .buildEmpty(
+            ServerResponse.ok(),
+            serverRequest.headers(),
+            placementService.generateTableOrder(requestedMenuOrders, tableNumberParam.getTableNumber()));
   }
 }
