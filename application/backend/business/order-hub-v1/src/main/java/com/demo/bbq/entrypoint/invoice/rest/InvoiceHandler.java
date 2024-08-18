@@ -40,14 +40,10 @@ public class InvoiceHandler {
     Map<String, String> headers = extractHeadersAsMap(serverRequest);
     paramValidator.validate(headers, DefaultHeaders.class);
 
-    return ServerResponseFactory
-        .buildEmpty(
-            ServerResponse.ok(),
-            serverRequest.headers(),
-            serverRequest
-                .bodyToMono(PaymentSendRequestDTO.class)
-                .doOnNext(bodyValidator::validate)
-                .flatMap(request -> invoiceService.sendToPay(headers, request))
-        );
+    return serverRequest
+        .bodyToMono(PaymentSendRequestDTO.class)
+        .doOnNext(bodyValidator::validate)
+        .flatMap(request -> invoiceService.sendToPay(headers, request))
+        .then(ServerResponseFactory.buildEmpty(serverRequest.headers()));
   }
 }

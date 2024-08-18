@@ -30,15 +30,11 @@ public class TablePlacementHandler {
     paramValidator.validate(headers, DefaultHeaders.class);
     TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
-    return ServerResponseFactory
-        .buildEmpty(
-            ServerResponse.ok(),
-            serverRequest.headers(),
-            serverRequest.bodyToFlux(MenuOrderRequestDTO.class)
-                .doOnNext(bodyValidator::validate)
-                .collectList()
-                .flatMap(requestedMenuOrders -> tablePlacementService.generateTableOrder(headers, requestedMenuOrders, tableNumberParam.getTableNumber()))
-        );
+    return serverRequest.bodyToFlux(MenuOrderRequestDTO.class)
+        .doOnNext(bodyValidator::validate)
+        .collectList()
+        .flatMap(requestedMenuOrders -> tablePlacementService.generateTableOrder(headers, requestedMenuOrders, tableNumberParam.getTableNumber()))
+        .then(ServerResponseFactory.buildEmpty(serverRequest.headers()));
   }
 
   public Mono<ServerResponse> findByTableNumber(ServerRequest serverRequest) {

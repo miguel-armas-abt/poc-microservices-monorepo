@@ -11,7 +11,7 @@ public class DefaultHeadersMapper implements ParamMapper<DefaultHeaders> {
   public DefaultHeaders mapParameters(Map<String, String> parametersMap) {
     return DefaultHeaders.builder()
         .channelId(parametersMap.get("channel-id"))
-        .traceId(parametersMap.get("channel-id"))
+        .traceId(parametersMap.get("traceId"))
         .build();
   }
 

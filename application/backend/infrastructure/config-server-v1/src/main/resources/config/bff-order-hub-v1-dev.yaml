@@ -16,6 +16,7 @@ configuration:
             timestamp: TIMESTAMP_V2
           forwarded:
             traceId: traceId
+            channel-id: channel-id
     menu-v2:
       request:
         endpoint: http://${MENU_V2_DOMAIN:localhost:8016}/bbq/business/menu/v2/
@@ -27,6 +28,7 @@ configuration:
             timestamp: TIMESTAMP_V2
           forwarded:
             traceId: traceId
+            channel-id: channel-id
     table-placement-v1:
       request:
         endpoint: http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/bbq/business/table-placement/v1/
@@ -38,6 +40,7 @@ configuration:
             timestamp: TIMESTAMP_V2
           forwarded:
             traceId: traceId
+            channel-id: channel-id
     invoice-v1:
       request:
         endpoint: http://${INVOICE_DOMAIN:localhost:8014}/bbq/business/invoice/v1/
@@ -49,6 +52,7 @@ configuration:
             timestamp: TIMESTAMP_V2
           forwarded:
             traceId: traceId
+            channel-id: channel-id
 
   obfuscation:
     body-fields: []
