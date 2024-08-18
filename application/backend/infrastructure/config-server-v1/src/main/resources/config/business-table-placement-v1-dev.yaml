@@ -1,9 +1,8 @@
 configuration:
   error-messages:
-    enabled: true
+    enabled: false
     messages:
       Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
-      InvalidRequestBody: Cuerpo de la solicitud inválido.
 
   obfuscation:
     body-fields: []

@@ -26,9 +26,7 @@ public class ServerResponseFactory {
         .body(BodyInserters.fromValue(response));
   }
 
-  public static Mono<ServerResponse> buildEmpty(ServerResponse.BodyBuilder bodyBuilder,
-                                                ServerRequest.Headers requestHeaders,
-                                                Mono<Void> voidResponse) {
+  public static Mono<ServerResponse> buildEmpty(ServerRequest.Headers requestHeaders) {
     return ServerResponse.noContent()
         .headers(httpHeaders -> buildHeaders(requestHeaders).accept(httpHeaders))
         .build();

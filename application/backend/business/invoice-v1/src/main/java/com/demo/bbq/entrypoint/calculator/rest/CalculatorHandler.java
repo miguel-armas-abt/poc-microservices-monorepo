@@ -27,8 +27,7 @@ public class CalculatorHandler {
     Map<String, String> headers = extractHeadersAsMap(serverRequest);
     paramValidator.validate(headers, DefaultHeaders.class);
 
-    return calculatorService.calculateInvoice(headers, serverRequest.bodyToFlux(ProductRequestDTO.class))
-        .doOnNext(bodyValidator::validate)
+    return calculatorService.calculateInvoice(headers, serverRequest.bodyToFlux(ProductRequestDTO.class).doOnNext(bodyValidator::validate))
         .flatMap(response -> ServerResponseFactory
             .buildMono(ServerResponse.ok(), serverRequest.headers(), response));
   }

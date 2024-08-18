@@ -1,6 +1,6 @@
 configuration:
   error-messages:
-    enabled: false
+    enabled: true
     messages:
       Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 

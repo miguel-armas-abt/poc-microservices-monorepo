@@ -1,6 +1,8 @@
 package com.demo.bbq.entrypoint.calculator.dto.request;
 
 import java.io.Serializable;
+
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 
@@ -11,9 +13,13 @@ import lombok.*;
 @NoArgsConstructor
 public class ProductRequestDTO implements Serializable {
 
+  @NotNull
   private String productCode;
+
+  @NotNull
   private String description;
 
   @Positive
+  @NotNull
   private Integer quantity;
 }

@@ -27,13 +27,9 @@ public class PaymentSenderHandler {
     Map<String, String> headers = extractHeadersAsMap(serverRequest);
     paramValidator.validate(headers, DefaultHeaders.class);
 
-    return ServerResponseFactory
-        .buildEmpty(
-            ServerResponse.ok(),
-            serverRequest.headers(),
-            serverRequest.bodyToMono(PaymentSendRequestDTO.class)
-                .doOnNext(bodyValidator::validate)
-                .flatMap(request -> paymentSenderService.sendToPay(headers, request))
-        );
+    return serverRequest.bodyToMono(PaymentSendRequestDTO.class)
+        .doOnNext(bodyValidator::validate)
+        .flatMap(request -> paymentSenderService.sendToPay(headers, request))
+        .then(ServerResponseFactory.buildEmpty(serverRequest.headers()));
   }
 }

@@ -3,8 +3,6 @@ configuration:
     enabled: false
     messages:
       Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
-      InvalidRequestBody: Cuerpo de la solicitud inválido.
-      InvalidQueryParams: Parámetros de la solicitud inválidos.
 
   rest-clients:
     product-v1:
