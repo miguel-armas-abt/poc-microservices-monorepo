@@ -1,65 +1,53 @@
 package com.demo.bbq.commons.tracing.logging.obfuscation.body;
 
-import static com.demo.bbq.commons.tracing.logging.obfuscation.constants.ObfuscationConstant.JSON_SPLITTER_REGEX;
-import static com.demo.bbq.commons.tracing.logging.obfuscation.constants.ObfuscationConstant.ARRAY_WILDCARD;
-import static com.demo.bbq.commons.tracing.logging.obfuscation.constants.ObfuscationConstant.OBFUSCATION_MASK;
-
 import com.demo.bbq.commons.properties.dto.obfuscation.ObfuscationTemplate;
-import com.demo.bbq.commons.errors.exceptions.SystemException;
-import java.util.Objects;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.IntStream;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.boot.configurationprocessor.json.JSONArray;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 
+@Slf4j
 public class BodyObfuscatorUtil {
 
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    /**
-     * Example obfuscation.bodyFields: ["user.password", "user.phones[*]"]
-     */
-    public static String process(ObfuscationTemplate obfuscation, String value) {
+    public static String process(ObfuscationTemplate obfuscation, String jsonBody) {
+        Set<String> bodyFields = Optional.ofNullable(obfuscation.getBodyFields()).orElse(Set.of());
+
+        if (StringUtils.isEmpty(jsonBody) || bodyFields.isEmpty())
+            return jsonBody;
+
         try {
-            if (StringUtils.isEmpty(value)) {
-                return value;
-            }
-
-            Set<String> bodyFields = Optional
-                .ofNullable(obfuscation.getBodyFields())
-                .orElse(Set.of());
-
-            var jsonObject = new JSONObject(value);
+            JsonNode jsonNode = OBJECT_MAPPER.readTree(jsonBody);
 
             bodyFields.forEach(fieldPath -> {
-                String[] fieldPathSegments = fieldPath.split(JSON_SPLITTER_REGEX);
+                String[] fieldPathSegments = fieldPath.split("\\.");
                 int incrementalIndex = 0;
-                obfuscateFieldRecursively(jsonObject, fieldPathSegments, incrementalIndex);
+                obfuscateFieldRecursively(jsonNode, fieldPathSegments, incrementalIndex);
             });
 
-            return jsonObject.toString();
-
+            return OBJECT_MAPPER.writeValueAsString(jsonNode);
         } catch (Exception e) {
-            return value;
+            log.warn("Failed to obfuscate json {}", e.getMessage());
+            return jsonBody;
         }
     }
 
-    /**
-     * Example arrayKey: If the segment is equal to "phones[*]" then the arrayKey is "phones"
-     */
-    private static void obfuscateFieldRecursively(JSONObject jsonObject, String[] fieldPathSegments, int index) {
+    private static void obfuscateFieldRecursively(JsonNode jsonNode, String[] fieldPathSegments, int index) {
         if (wereAllFieldsProcessed(fieldPathSegments, index)) return;
 
         String segment = fieldPathSegments[index];
 
-        if (segment.contains(ARRAY_WILDCARD)) {
+        if (segment.contains("[*]")) {
             String arrayKey = segment.substring(0, segment.indexOf('['));
-            JSONArray jsonArray = jsonObject.optJSONArray(arrayKey);
-            processArray(jsonArray, fieldPathSegments, index);
+            JsonNode arrayNode = jsonNode.get(arrayKey);
+            processArray(arrayNode, fieldPathSegments, index);
         } else {
-            processObject(jsonObject, segment, fieldPathSegments, index);
+            processObject(jsonNode, segment, fieldPathSegments, index);
         }
     }
 
@@ -67,20 +55,18 @@ public class BodyObfuscatorUtil {
         return index >= fieldPathSegments.length;
     }
 
-    private static void processArray(JSONArray jsonArray, String[] fieldPathSegments, int index) {
-        Optional.ofNullable(jsonArray)
-            .ifPresent(array -> IntStream.range(0, array.length())
-                .mapToObj(array::optJSONObject)
-                .filter(Objects::nonNull)
-                .forEach(jsonObject -> obfuscateFieldRecursively(jsonObject, fieldPathSegments, index + 1)));
+    private static void processArray(JsonNode arrayNode, String[] fieldPathSegments, int index) {
+        Optional.ofNullable(arrayNode).ifPresent(array -> IntStream.range(0, array.size())
+            .mapToObj(array::get)
+            .filter(JsonNode::isObject)
+            .forEach(jsonObject -> obfuscateFieldRecursively(jsonObject, fieldPathSegments, index + 1)));
     }
 
-    private static void processObject(JSONObject jsonObject, String segment, String[] fieldPathSegments, int index) {
+    private static void processObject(JsonNode jsonNode, String segment, String[] fieldPathSegments, int index) {
         if (wasLastSegment(fieldPathSegments, index)) {
-            obfuscateTargetField(jsonObject, segment);
-        } else {
-            Optional.ofNullable(jsonObject.optJSONObject(segment))
-                .ifPresent(nextJsonObject -> obfuscateFieldRecursively(nextJsonObject, fieldPathSegments, index + 1));
+            obfuscateTargetField(jsonNode, segment);
+        } else if (jsonNode.has(segment) && jsonNode.get(segment).isObject()) {
+            obfuscateFieldRecursively(jsonNode.get(segment), fieldPathSegments, index + 1);
         }
     }
 
@@ -88,20 +74,15 @@ public class BodyObfuscatorUtil {
         return index == fieldPathSegments.length - 1;
     }
 
-    private static void obfuscateTargetField(JSONObject jsonTarget, String field) {
-        Optional.ofNullable(jsonTarget.optString(field, null))
-            .ifPresent(originalValue -> {
-                try {
-                    jsonTarget.put(field, partiallyObfuscate(originalValue));
-                } catch (JSONException ex) {
-                    throw new SystemException("ErrorObfuscating", ex.getMessage());
-                }
-            });
+    private static void obfuscateTargetField(JsonNode jsonNode, String field) {
+        if (jsonNode.has(field) && jsonNode.get(field).isTextual()) {
+            ((ObjectNode) jsonNode).put(field, partiallyObfuscate(jsonNode.get(field).asText()));
+        }
     }
 
     private static String partiallyObfuscate(String value) {
         return value.length() > 6
-            ? value.substring(0, 3) + OBFUSCATION_MASK + value.substring(value.length() - 3)
+            ? value.substring(0, 3) + "****" + value.substring(value.length() - 3)
             : value;
     }
 }

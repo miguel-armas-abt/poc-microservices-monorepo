@@ -12,10 +12,11 @@ configuration:
           provided:
             Accept: application/json
           generated:
-            parentId: PARENT_ID
+            parent-id: PARENT_ID
             timestamp: TIMESTAMP_V2
           forwarded:
-            traceId: traceId
+            trace-id: trace-id
+            channel-id: channel-id
 
 quarkus:
   datasource:

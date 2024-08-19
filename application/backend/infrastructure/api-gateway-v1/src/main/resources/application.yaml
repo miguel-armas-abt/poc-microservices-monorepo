@@ -32,11 +32,11 @@ configuration:
           provided:
             Accept: application/json
           generated:
-            parentId: PARENT_ID
+            parent-id: PARENT_ID
             timestamp: TIMESTAMP_V2
           forwarded:
             Authorization: Authorization
-            traceId: traceId
+            trace-id: trace-id
       variables:
         expected-roles: partners #separate items with comma
 

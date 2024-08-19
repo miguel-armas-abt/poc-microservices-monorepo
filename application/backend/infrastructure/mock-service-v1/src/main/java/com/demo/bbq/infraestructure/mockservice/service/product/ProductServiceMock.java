@@ -41,7 +41,7 @@ public class ProductServiceMock implements MockRuleProvider {
   }
 
   private static Header buildTraceId() {
-    return header("traceId", UUID.randomUUID().toString().replaceAll("-", "").toLowerCase());
+    return header("trace-id", UUID.randomUUID().toString().replaceAll("-", "").toLowerCase());
   }
 
   private static final double EXPONENTIAL_SCALE = 250;

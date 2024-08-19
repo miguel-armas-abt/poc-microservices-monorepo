@@ -12,6 +12,7 @@ import com.demo.bbq.entrypoint.menu.params.pojo.CategoryParam;
 import com.demo.bbq.entrypoint.menu.service.MenuService;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -55,7 +56,8 @@ public class MenuRestServiceImpl {
                                                               @RequestParam(value = CATEGORY_PARAM, required = false) String categoryCode) {
     Map<String, String> headers = extractHeadersAsMap(servletRequest);
     paramValidator.validate(headers, DefaultHeaders.class);
-    CategoryParam categoryParam = paramValidator.validateAndRetrieve(Map.of(CATEGORY_PARAM, categoryCode), CategoryParam.class);
+    Map<String, String> queryParams = new HashMap<>() {{put(CATEGORY_PARAM, categoryCode); }};
+    CategoryParam categoryParam = paramValidator.validateAndRetrieve(queryParams, CategoryParam.class);
 
     List<MenuResponseDTO> menuOptionList = service.findByCategory(headers, categoryParam.getCategory());
     return (menuOptionList == null || menuOptionList.isEmpty())

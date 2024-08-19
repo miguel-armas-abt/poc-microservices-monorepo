@@ -19,8 +19,9 @@ services:
     image: miguelarmasabt/api-gateway:v1.0.1
     restart: always
     environment: 
-      - AUTH_ADAPTER_DOMAIN=auth-adapter-v1:8011
       - ORDER_HUB_DOMAIN=order-hub-v1:8018
+      - ENABLE_AUTH=false
+      - AUTH_ADAPTER_DOMAIN=auth-adapter-v1:8011
       - JAVA_OPTS=-Xms256M -Xmx256M
     
     
@@ -170,7 +171,6 @@ services:
       - MENU_V2_DOMAIN=menu-v2:8016
       - TABLE_PLACEMENT_DOMAIN=table-placement-v1:8013
       - INVOICE_DOMAIN=invoice-v1:8014
-      - REDIS_DOMAIN=redis-server
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - config-server-v1

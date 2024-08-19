@@ -41,11 +41,8 @@ public class PlacementHandler {
     paramValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
     TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
-    return ServerResponseFactory
-        .buildEmpty(
-            ServerResponse.ok(),
-            serverRequest.headers(),
-            placementService.cleanTable(tableNumberParam.getTableNumber()));
+    return placementService.cleanTable(tableNumberParam.getTableNumber())
+            .then(ServerResponseFactory.buildEmpty(serverRequest.headers()));
   }
 
   public Mono<ServerResponse> generateTableOrder(ServerRequest serverRequest) {
@@ -54,10 +51,7 @@ public class PlacementHandler {
 
     Flux<MenuOrderDTO> requestedMenuOrders = serverRequest.bodyToFlux(MenuOrderDTO.class).doOnNext(bodyValidator::validate);
 
-    return ServerResponseFactory
-        .buildEmpty(
-            ServerResponse.ok(),
-            serverRequest.headers(),
-            placementService.generateTableOrder(requestedMenuOrders, tableNumberParam.getTableNumber()));
+    return placementService.generateTableOrder(requestedMenuOrders, tableNumberParam.getTableNumber())
+        .then(ServerResponseFactory.buildEmpty(serverRequest.headers()));
   }
 }

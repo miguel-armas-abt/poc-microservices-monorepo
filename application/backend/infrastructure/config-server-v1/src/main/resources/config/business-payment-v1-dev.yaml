@@ -4,6 +4,10 @@ configuration:
     messages:
       Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
+  obfuscation:
+    body-fields: []
+    headers: []
+
 kafka-broker:
   topic:
     invoice: invoice-topic

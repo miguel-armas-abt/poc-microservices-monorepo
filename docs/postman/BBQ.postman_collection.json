@@ -212,6 +212,56 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"name\": \"business\",\n    \"profiles\": [\n        \"payment-v1-dev\"\n    ],\n    \"label\": null,\n    \"version\": \"9a9b683ab98acaabb16b32cac36a6cc52a714401\",\n    \"state\": null,\n    \"propertySources\": [\n        {\n            \"name\": \"https://github.com/miguel-armas-abt/demo-microservices-bbq.git/file:C:\\\\Users\\\\Miguel\\\\AppData\\\\Local\\\\Temp\\\\config-repo-11805065480806165590\\\\business-payment-v1-dev.yaml\",\n            \"source\": {\n                \"kafka-broker.topic.invoice\": \"invoice-topic\",\n                \"kafka-broker.topic.payment\": \"paid-topic\",\n                \"spring.kafka.bootstrap-servers\": \"localhost:9092\",\n                \"spring.kafka.consumer.group-id\": \"bbq\",\n                \"spring.jpa.show-sql\": true,\n                \"spring.jpa.hibernate.ddl-auto\": \"create-drop\",\n                \"spring.jpa.database-platform\": \"org.hibernate.dialect.MySQL8Dialect\",\n                \"spring.jpa.properties.hibernate.show_sql\": true,\n                \"spring.jpa.properties.hibernate.use_sql_comments\": false,\n                \"spring.jpa.properties.hibernate.format_sql\": true,\n                \"spring.datasource.url\": \"${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/db_payments?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}\",\n                \"spring.datasource.driverClassName\": \"com.mysql.cj.jdbc.Driver\",\n                \"spring.datasource.username\": \"${MYSQL_USERNAME:bbq_user}\",\n                \"spring.datasource.password\": \"${MYSQL_PASSWORD:qwerty}\"\n            }\n        }\n    ]\n}"
+								},
+								{
+									"name": "bff-order-hub-v1-dev",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": []
+										},
+										"url": {
+											"raw": "http://localhost:8888/bff/order-hub-v1-dev",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8888",
+											"path": [
+												"bff",
+												"order-hub-v1-dev"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 18 Aug 2024 20:27:48 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"name\": \"bff\",\n    \"profiles\": [\n        \"order-hub-v1-dev\"\n    ],\n    \"label\": null,\n    \"version\": null,\n    \"state\": null,\n    \"propertySources\": [\n        {\n            \"name\": \"classpath:/config/bff-order-hub-v1-dev.yaml\",\n            \"source\": {\n                \"configuration.error-messages.enabled\": true,\n                \"configuration.error-messages.messages.Default\": \"No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.\",\n                \"configuration.rest-clients.menu-v1.request.endpoint\": \"http://${MENU_V1_DOMAIN:localhost:8012}/bbq/business/menu/v1/\",\n                \"configuration.rest-clients.menu-v1.request.headers.provided.Accept\": \"application/json\",\n                \"configuration.rest-clients.menu-v1.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.menu-v1.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.menu-v1.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.menu-v1.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.rest-clients.menu-v2.request.endpoint\": \"http://${MENU_V2_DOMAIN:localhost:8016}/bbq/business/menu/v2/\",\n                \"configuration.rest-clients.menu-v2.request.headers.provided.Accept\": \"application/x-ndjson\",\n                \"configuration.rest-clients.menu-v2.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.menu-v2.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.menu-v2.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.menu-v2.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.rest-clients.table-placement-v1.request.endpoint\": \"http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/bbq/business/table-placement/v1/\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.provided.Accept\": \"application/stream+json\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.rest-clients.invoice-v1.request.endpoint\": \"http://${INVOICE_DOMAIN:localhost:8014}/bbq/business/invoice/v1/\",\n                \"configuration.rest-clients.invoice-v1.request.headers.provided.Accept\": \"application/stream+json\",\n                \"configuration.rest-clients.invoice-v1.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.invoice-v1.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.invoice-v1.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.invoice-v1.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.obfuscation.body-fields\": [],\n                \"configuration.obfuscation.headers\": [],\n                \"configuration.menu-info.selector-class\": \"com.demo.bbq.entrypoint.menu.repository.MenuV1Repository\"\n            }\n        }\n    ]\n}"
 								}
 							]
 						}
@@ -1171,7 +1221,7 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
 									}
 								],
@@ -1342,7 +1392,7 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
 									},
 									{
@@ -1403,7 +1453,7 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},
@@ -1459,7 +1509,7 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},
@@ -1513,7 +1563,7 @@
 								"method": "PUT",
 								"header": [
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},
@@ -1575,7 +1625,7 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
 									}
 								],
@@ -1629,7 +1679,7 @@
 								"method": "PUT",
 								"header": [
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
 									}
 								],
@@ -1684,7 +1734,7 @@
 								"method": "POST",
 								"header": [
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
 									}
 								],
@@ -1748,7 +1798,7 @@
 										"value": "application/x-ndjson"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
 									}
 								],
@@ -1936,7 +1986,7 @@
 										"value": "application/x-ndjson"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
 									}
 								],
@@ -1994,7 +2044,7 @@
 										"value": "application/x-ndjson"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
 									}
 								],
@@ -2053,7 +2103,7 @@
 										"value": "application/x-ndjson"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
 									}
 								],
@@ -2117,7 +2167,7 @@
 										"value": "application/x-ndjson"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
 									}
 								],
@@ -2173,7 +2223,7 @@
 										"value": "application/x-ndjson"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
 									}
 								],
@@ -2229,7 +2279,7 @@
 										"value": "application/x-ndjson"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
 									}
 								],
@@ -2290,7 +2340,7 @@
 										"type": "text"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},
@@ -2357,7 +2407,7 @@
 										"type": "text"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},
@@ -2424,7 +2474,7 @@
 										"type": "text"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},
@@ -2473,7 +2523,7 @@
 								"method": "POST",
 								"header": [
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},
@@ -2536,7 +2586,7 @@
 										"type": "text"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},
@@ -2584,7 +2634,7 @@
 										"type": "text"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},
@@ -2650,7 +2700,7 @@
 										"type": "text"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},
@@ -2670,7 +2720,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/menu-options?category=MAIN",
+									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/menu-options?category=main",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2686,7 +2736,7 @@
 									"query": [
 										{
 											"key": "category",
-											"value": "MAIN"
+											"value": "main"
 										}
 									]
 								}
@@ -2702,7 +2752,7 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},
@@ -2751,7 +2801,7 @@
 								"method": "PATCH",
 								"header": [
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},
@@ -2805,7 +2855,7 @@
 										"type": "text"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},
@@ -2854,7 +2904,7 @@
 										"type": "text"
 									},
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}",
 										"type": "text"
 									},

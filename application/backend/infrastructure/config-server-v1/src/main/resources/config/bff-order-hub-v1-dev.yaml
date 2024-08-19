@@ -12,10 +12,10 @@ configuration:
           provided:
             Accept: application/json
           generated:
-            parentId: PARENT_ID
+            parent-id: PARENT_ID
             timestamp: TIMESTAMP_V2
           forwarded:
-            traceId: traceId
+            trace-id: trace-id
             channel-id: channel-id
     menu-v2:
       request:
@@ -24,10 +24,10 @@ configuration:
           provided:
             Accept: application/x-ndjson
           generated:
-            parentId: PARENT_ID
+            parent-id: PARENT_ID
             timestamp: TIMESTAMP_V2
           forwarded:
-            traceId: traceId
+            trace-id: trace-id
             channel-id: channel-id
     table-placement-v1:
       request:
@@ -36,10 +36,10 @@ configuration:
           provided:
             Accept: application/stream+json
           generated:
-            parentId: PARENT_ID
+            parent-id: PARENT_ID
             timestamp: TIMESTAMP_V2
           forwarded:
-            traceId: traceId
+            trace-id: trace-id
             channel-id: channel-id
     invoice-v1:
       request:
@@ -48,10 +48,10 @@ configuration:
           provided:
             Accept: application/stream+json
           generated:
-            parentId: PARENT_ID
+            parent-id: PARENT_ID
             timestamp: TIMESTAMP_V2
           forwarded:
-            traceId: traceId
+            trace-id: trace-id
             channel-id: channel-id
 
   obfuscation:
