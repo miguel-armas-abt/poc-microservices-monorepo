@@ -9,13 +9,12 @@ import com.demo.bbq.entrypoint.sender.repository.invoice.entity.InvoiceEntity;
 import com.demo.bbq.entrypoint.sender.repository.consumption.ConsumptionRepository;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class InvoiceRepositoryHandler {
+public class InvoiceRepositoryHelper {
 
   private final InvoiceRepository invoiceRepository;
 
@@ -23,7 +22,7 @@ public class InvoiceRepositoryHandler {
 
   private final CustomerRepository customerRepository;
 
-  public InvoiceEntity buildEntity(InvoiceEntity invoice) {
+  public InvoiceEntity fillFields(InvoiceEntity invoice) {
     LocalDateTime currentDate = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(InvoiceConstant.FORMAT_DATE);
 
