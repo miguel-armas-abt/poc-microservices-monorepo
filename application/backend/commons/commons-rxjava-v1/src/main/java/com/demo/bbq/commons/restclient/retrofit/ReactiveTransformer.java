@@ -1,5 +1,6 @@
 package com.demo.bbq.commons.restclient.retrofit;
 
+import com.demo.bbq.commons.toolkit.serialization.JacksonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.rxjava3.core.*;
 import okhttp3.ResponseBody;
@@ -7,50 +8,36 @@ import okio.BufferedSource;
 import org.reactivestreams.Publisher;
 
 @FunctionalInterface
-public interface ReactiveTransformer<T>
-    extends ObservableTransformer<ResponseBody, T>, FlowableTransformer<ResponseBody, T> {
+public interface ReactiveTransformer<T> extends ObservableTransformer<ResponseBody, T>, FlowableTransformer<ResponseBody, T> {
 
-  public static final ObjectMapper mapper = JacksonFactory.newObjectMapper();
+  ObjectMapper mapper = JacksonFactory.create();
 
-  static <E> ReactiveTransformer<E> of(Class<E> tdClass) {
-    return () -> tdClass;
+  static <E> ReactiveTransformer<E> of(Class<E> targetClass) {
+    return () -> targetClass;
   }
 
+  @Override
   default Publisher<T> apply(Flowable<ResponseBody> source) {
     return source.flatMap(body -> Flowable.create(emitter ->
-        this.fetchStreamingResponse(body, emitter), BackpressureStrategy.BUFFER));
+        processStreamingData(body, emitter), BackpressureStrategy.BUFFER));
   }
 
+  @Override
   default ObservableSource<T> apply(Observable<ResponseBody> observable) {
     return observable.flatMap(body -> Observable.create(emitter ->
-        this.fetchStreamingResponse(body, emitter)));
+        processStreamingData(body, emitter)));
   }
 
-  private void fetchStreamingResponse(ResponseBody body, Emitter<T> emitter) {
-    try {
-      BufferedSource is = body.source();
-      try {
-        while (true) {
-          if (is.exhausted()) {
-            emitter.onComplete();
-            break;
-          }
-          String data = is.readUtf8Line();
-          emitter.onNext(mapper.readValue(data, getTarget()));
-        }
-      } catch (Throwable var7) {
-        if (is != null)
-          try {
-            is.close();
-          } catch (Throwable var6) {
-            var7.addSuppressed(var6);
-          }
-        throw var7;
+  private void processStreamingData(ResponseBody body, Emitter<T> emitter) {
+    try (BufferedSource source = body.source()) {
+      String line;
+      while ((line = source.readUtf8Line()) != null) {
+        T parsedData = mapper.readValue(line, getTarget());
+        emitter.onNext(parsedData);
       }
-      if (is != null)
-        is.close();
-    } catch (Exception var8) {
-      emitter.onError(var8);
+      emitter.onComplete();
+    } catch (Exception e) {
+      emitter.onError(e);
     }
   }
 

@@ -2,7 +2,7 @@ package com.demo.bbq.entrypoint.processor.repository.processor;
 
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import com.demo.bbq.commons.restclient.enums.TimeoutLevel;
-import com.demo.bbq.commons.restclient.retrofit.HttpReactiveClient;
+import com.demo.bbq.commons.restclient.retrofit.ReactiveRetrofit;
 import okhttp3.OkHttpClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,12 +16,12 @@ public class PaymentProcessorRepositoryConfig {
   PaymentProcessorRepository create(OkHttpClient.Builder builder, ApplicationProperties properties) {
     TimeoutLevel timeoutLevel = properties.searchPerformance(MENU_V2_SERVICE_NAME).getTimeout();
 
-    return HttpReactiveClient.builder()
-        .clientBuilder(builder)
+    return ReactiveRetrofit.builder()
+        .client(builder)
         .baseUrl(properties.searchEndpoint(MENU_V2_SERVICE_NAME))
         .connectTimeout(timeoutLevel.getConnectionTimeoutDuration())
-        .writeTimeout(timeoutLevel.getWriteTimeoutDuration())
         .readTimeout(timeoutLevel.getReadTimeoutDuration())
-        .buildProxy(PaymentProcessorRepository.class);
+        .writeTimeout(timeoutLevel.getWriteTimeoutDuration())
+        .build(PaymentProcessorRepository.class);
   }
 }

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class HttpClientConfig {
+public class OkHttpClientConfig {
 
   @Bean
   OkHttpClient.Builder client(List<RestClientErrorStrategy> strategies,
