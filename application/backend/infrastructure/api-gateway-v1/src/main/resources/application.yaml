@@ -26,6 +26,9 @@ configuration:
 
   rest-clients:
     auth-adapter-v1:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
       request:
         endpoint: http://${AUTH_ADAPTER_DOMAIN:localhost:8080}/bbq/infrastructure/v1/auth/
         headers:

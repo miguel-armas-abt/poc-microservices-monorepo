@@ -8,7 +8,8 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentProcessorResponseWrapper implements Serializable {
+public class PaymentResponseWrapper implements Serializable {
 
-  private Boolean isSuccessfulTransaction;
+  private String id;
+  private String status;
 }

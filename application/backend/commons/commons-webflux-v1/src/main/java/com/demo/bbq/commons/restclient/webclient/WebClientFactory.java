@@ -3,8 +3,8 @@ package com.demo.bbq.commons.restclient.webclient;
 import static io.netty.channel.ChannelOption.CONNECT_TIMEOUT_MILLIS;
 import static io.netty.handler.ssl.util.InsecureTrustManagerFactory.INSTANCE;
 
-import com.demo.bbq.commons.restclient.webclient.dto.Pool;
-import com.demo.bbq.commons.restclient.webclient.dto.Timeout;
+import com.demo.bbq.commons.properties.dto.restclient.PerformanceTemplate;
+import com.demo.bbq.commons.restclient.enums.ConcurrencyLevel;
 import com.demo.bbq.commons.errors.exceptions.SystemException;
 import io.micrometer.observation.ObservationRegistry;
 import io.netty.handler.logging.LogLevel;
@@ -14,6 +14,7 @@ import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
 import java.util.List;
 import javax.net.ssl.SSLException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.DefaultClientRequestObservationConvention;
@@ -24,15 +25,15 @@ import reactor.netty.resources.ConnectionProvider;
 import reactor.netty.transport.logging.AdvancedByteBufFormat;
 
 @Slf4j
+@RequiredArgsConstructor
 public class WebClientFactory {
 
-  public static WebClient createWebClient(List<ExchangeFilterFunction> filters,
-                                          ObservationRegistry observationRegistry) {
-    Pool pool = new Pool();
-    Timeout timeout = new Timeout();
+  private final List<ExchangeFilterFunction> filters;
+  private final ObservationRegistry observationRegistry;
 
+  public WebClient createWebClient(PerformanceTemplate performance, String restClientName) {
     try {
-      HttpClient httpClient = buildHttpClient(timeout, pool);
+      HttpClient httpClient = buildHttpClient(performance, restClientName);
       return WebClient.builder()
           .clientConnector(new ReactorClientHttpConnector(httpClient))
           .filters(extraFilters -> extraFilters.addAll(filters))
@@ -44,15 +45,15 @@ public class WebClientFactory {
     }
   }
 
-  private static HttpClient buildHttpClient(Timeout timeout, Pool pool) throws SSLException {
+  private static HttpClient buildHttpClient(PerformanceTemplate performance, String restClientName) throws SSLException {
     SslContext sslContext = buildSslContext();
     HttpClient httpClient = HttpClient
-        .create(buildConnectionProvider(pool))
+        .create(buildConnectionProvider(performance.getConcurrency(), restClientName))
         .secure(sslContextSpec -> sslContextSpec.sslContext(sslContext))
-        .option(CONNECT_TIMEOUT_MILLIS, (int) timeout.getConnection().toMillis())
+        .option(CONNECT_TIMEOUT_MILLIS, (int) performance.getTimeout().getConnectionTimeoutDuration().toMillis())
         .doOnConnected(connection -> connection
-            .addHandlerLast(new ReadTimeoutHandler((int) timeout.getResponse().getSeconds()))
-            .addHandlerLast(new WriteTimeoutHandler((int) timeout.getRequest().getSeconds())));
+            .addHandlerLast(new ReadTimeoutHandler((int) performance.getTimeout().getReadTimeoutDuration().getSeconds()))
+            .addHandlerLast(new WriteTimeoutHandler((int) performance.getTimeout().getWriteTimeoutDuration().getSeconds())));
 
     if (log.isDebugEnabled())
       httpClient = httpClient.wiretap(HttpClient.class.getCanonicalName(), LogLevel.DEBUG, AdvancedByteBufFormat.TEXTUAL);
@@ -66,11 +67,11 @@ public class WebClientFactory {
         .build();
   }
 
-  private static ConnectionProvider buildConnectionProvider(Pool pool) {
-    return ConnectionProvider.builder(pool.getName())
-        .maxConnections(pool.getSize())
-        .pendingAcquireMaxCount(pool.getQueue())
-        .pendingAcquireTimeout(pool.getQueueTimeout())
+  private static ConnectionProvider buildConnectionProvider(ConcurrencyLevel concurrencyLevel, String restClientName) {
+    return ConnectionProvider.builder(restClientName)
+        .maxConnections(concurrencyLevel.getMaxConnections())
+        .pendingAcquireMaxCount(concurrencyLevel.getMaxConnections())
+        .pendingAcquireTimeout(concurrencyLevel.getQueueTimeoutDuration())
         .build();
   }
 }

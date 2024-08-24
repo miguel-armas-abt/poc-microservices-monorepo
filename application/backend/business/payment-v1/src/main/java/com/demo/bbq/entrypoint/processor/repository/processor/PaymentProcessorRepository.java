@@ -1,27 +1,20 @@
 package com.demo.bbq.entrypoint.processor.repository.processor;
 
-import com.demo.bbq.entrypoint.processor.repository.processor.wrapper.request.PaymentProcessorRequestWrapper;
-import com.demo.bbq.entrypoint.processor.repository.processor.wrapper.response.PaymentProcessorResponseWrapper;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import com.demo.bbq.commons.restclient.retrofit.ReactiveTransformer;
+import com.demo.bbq.entrypoint.processor.repository.processor.wrapper.request.PaymentRequestWrapper;
+import com.demo.bbq.entrypoint.processor.repository.processor.wrapper.response.PaymentResponseWrapper;
+import io.reactivex.rxjava3.core.Observable;
+import okhttp3.ResponseBody;
+import retrofit2.http.*;
 
-@Component
-@RequiredArgsConstructor
-public class PaymentProcessorRepository {
+public interface PaymentProcessorRepository {
 
-  public PaymentProcessorResponseWrapper process(PaymentProcessorRequestWrapper request) {
-    CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-      try {
-        TimeUnit.SECONDS.sleep(5);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    });
-    future.join();
-    return PaymentProcessorResponseWrapper.builder()
-        .isSuccessfulTransaction(Boolean.TRUE)
-        .build();
+  @Streaming
+  @POST("execute")
+  @Headers("Accept: application/x-ndjson")
+  Observable<ResponseBody> execute(@Body PaymentRequestWrapper request);
+
+  default Observable<PaymentResponseWrapper> executeFacade(PaymentRequestWrapper request) {
+    return execute(request).compose(ReactiveTransformer.of(PaymentResponseWrapper.class));
   }
 }

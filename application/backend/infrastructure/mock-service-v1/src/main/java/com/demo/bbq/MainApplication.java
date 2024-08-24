@@ -1,4 +1,4 @@
-package com.demo.bbq.infraestructure.mockservice;
+package com.demo.bbq;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

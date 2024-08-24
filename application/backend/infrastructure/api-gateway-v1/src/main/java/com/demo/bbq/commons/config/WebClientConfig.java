@@ -6,16 +6,13 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class WebClientConfig {
 
   @Bean
-  public WebClient webClient(List<ExchangeFilterFunction> filters,
-                             ObservationRegistry observationRegistry) {
-    return WebClientFactory.createWebClient(filters, observationRegistry);
+  public WebClientFactory webClient(List<ExchangeFilterFunction> filters,
+                                    ObservationRegistry observationRegistry) {
+    return new WebClientFactory(filters, observationRegistry);
   }
-
 }
-

@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentProcessorRequestWrapper implements Serializable {
+public class PaymentRequestWrapper implements Serializable {
 
   private String clientCompany;
   private BigDecimal amount;

@@ -1,12 +1,16 @@
 package com.demo.bbq.entrypoint.menu.repository;
 
+import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.buildHeaders;
 
 import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.restclient.webclient.WebClientFactory;
 import com.demo.bbq.entrypoint.menu.repository.wrapper.response.MenuOptionResponseWrapper;
 import com.demo.bbq.entrypoint.menu.repository.wrapper.request.MenuOptionSaveRequestWrapper;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
+import jakarta.annotation.PostConstruct;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatusCode;
@@ -15,14 +19,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.Map;
-
-import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.buildHeaders;
 
 @Repository
 @RequiredArgsConstructor
@@ -30,9 +29,16 @@ public class MenuV2Repository implements MenuRepository {
 
   private static final String SERVICE_NAME_MENU_V2 = "menu-v2";
 
-  private final WebClient webClient;
   private final ApplicationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
+  private final WebClientFactory webClientFactory;
+
+  private WebClient webClient;
+
+  @PostConstruct
+  public void init() {
+    this.webClient = webClientFactory.createWebClient(properties.searchPerformance(SERVICE_NAME_MENU_V2), SERVICE_NAME_MENU_V2);
+  }
 
   @Override
   public Mono<MenuOptionResponseWrapper> findByProductCode(Map<String, String> headers, String productCode) {

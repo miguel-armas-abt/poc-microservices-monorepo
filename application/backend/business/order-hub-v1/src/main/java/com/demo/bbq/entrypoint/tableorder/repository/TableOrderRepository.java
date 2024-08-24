@@ -4,10 +4,12 @@ import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.buildHead
 
 import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.restclient.webclient.WebClientFactory;
 import com.demo.bbq.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import com.demo.bbq.entrypoint.tableorder.dto.MenuOrderRequestDTO;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
+import jakarta.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +29,16 @@ public class TableOrderRepository {
 
   private static final String SERVICE_NAME_TABLE_PLACEMENT = "table-placement-v1";
 
-  private final WebClient webClient;
   private final ApplicationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
+  private final WebClientFactory webClientFactory;
+
+  private WebClient webClient;
+
+  @PostConstruct
+  public void init() {
+    this.webClient = webClientFactory.createWebClient(properties.searchPerformance(SERVICE_NAME_TABLE_PLACEMENT), SERVICE_NAME_TABLE_PLACEMENT);
+  }
 
   public Mono<Void> generateTableOrder(Map<String, String> headers,
                                        List<MenuOrderRequestDTO> requestedMenuOrderList,

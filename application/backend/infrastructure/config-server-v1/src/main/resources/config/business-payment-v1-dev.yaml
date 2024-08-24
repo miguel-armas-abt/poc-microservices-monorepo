@@ -4,6 +4,23 @@ configuration:
     messages:
       Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
+  rest-clients:
+    payment-processor:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
+      request:
+        endpoint: http://${MOCK_SERVICE_DOMAIN:localhost:8080}/external/payments/v1/
+        headers:
+          provided:
+            Accept: application/x-ndjson
+          generated:
+            parent-id: PARENT_ID
+            timestamp: TIMESTAMP_V2
+          forwarded:
+            trace-id: trace-id
+            channel-id: channel-id
+
   obfuscation:
     body-fields: []
     headers: []

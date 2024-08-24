@@ -6,6 +6,9 @@ configuration:
 
   rest-clients:
     product-v1:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
       request:
         endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/products/
         headers:

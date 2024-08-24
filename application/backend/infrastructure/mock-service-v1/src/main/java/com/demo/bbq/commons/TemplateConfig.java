@@ -1,4 +1,4 @@
-package com.demo.bbq.infraestructure.mockservice.common;
+package com.demo.bbq.commons;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.ClassPathResource;

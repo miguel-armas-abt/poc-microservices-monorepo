@@ -6,7 +6,7 @@ import com.demo.bbq.entrypoint.processor.event.confirmation.PaymentConfirmationP
 import com.demo.bbq.entrypoint.processor.mapper.PaymentMapper;
 import com.demo.bbq.entrypoint.processor.repository.payment.PaymentRepository;
 import com.demo.bbq.entrypoint.processor.repository.processor.PaymentProcessorRepository;
-import com.demo.bbq.entrypoint.processor.repository.processor.wrapper.request.PaymentProcessorRequestWrapper;
+import com.demo.bbq.entrypoint.processor.repository.processor.wrapper.request.PaymentRequestWrapper;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +30,9 @@ public class PaymentOrderConsumer {
     log.info("listening message: " + payload);
     PaymentOrderMessage payment = new Gson().fromJson(payload, PaymentOrderMessage.class);
 
-    if(paymentProcessorRepository.process(PaymentProcessorRequestWrapper.builder().amount(payment.getTotalAmount()).clientCompany("BBQ").build()).getIsSuccessfulTransaction()) {
-      paymentRepository.save(paymentMapper.toEntity(payment));
-      paymentConfirmationProducer.sendMessage(new Gson().toJson(PaymentConfirmationMessage.builder().invoiceId(payment.getInvoiceId()).paidAmount(payment.getTotalAmount())));
-    }
+//    if(paymentProcessorRepository.process(PaymentRequestWrapper.builder().amount(payment.getTotalAmount()).clientCompany("BBQ").build()).getIsSuccessfulTransaction()) {
+//      paymentRepository.save(paymentMapper.toEntity(payment));
+//      paymentConfirmationProducer.sendMessage(new Gson().toJson(PaymentConfirmationMessage.builder().invoiceId(payment.getInvoiceId()).paidAmount(payment.getTotalAmount())));
+//    }
   }
 }

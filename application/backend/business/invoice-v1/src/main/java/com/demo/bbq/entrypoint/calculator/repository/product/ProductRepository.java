@@ -3,9 +3,11 @@ package com.demo.bbq.entrypoint.calculator.repository.product;
 import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.buildHeaders;
 
 import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.restclient.webclient.WebClientFactory;
 import com.demo.bbq.entrypoint.calculator.repository.product.wrapper.ProductResponseWrapper;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
+import jakarta.annotation.PostConstruct;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -21,9 +23,16 @@ public class ProductRepository {
 
   private static final String SERVICE_NAME = "product-v1";
 
-  private final WebClient webClient;
   private final ApplicationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
+  private final WebClientFactory webClientFactory;
+
+  private WebClient webClient;
+
+  @PostConstruct
+  public void init() {
+    this.webClient = webClientFactory.createWebClient(properties.searchPerformance(SERVICE_NAME), SERVICE_NAME);
+  }
 
   public Mono<ProductResponseWrapper> findByProductCode(Map<String, String> headers, String productCode) {
     return webClient.get()

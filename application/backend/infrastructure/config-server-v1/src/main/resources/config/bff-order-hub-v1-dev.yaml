@@ -6,6 +6,9 @@ configuration:
 
   rest-clients:
     menu-v1:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
       request:
         endpoint: http://${MENU_V1_DOMAIN:localhost:8012}/bbq/business/menu/v1/
         headers:
@@ -18,6 +21,9 @@ configuration:
             trace-id: trace-id
             channel-id: channel-id
     menu-v2:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
       request:
         endpoint: http://${MENU_V2_DOMAIN:localhost:8016}/bbq/business/menu/v2/
         headers:
@@ -30,6 +36,9 @@ configuration:
             trace-id: trace-id
             channel-id: channel-id
     table-placement-v1:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
       request:
         endpoint: http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/bbq/business/table-placement/v1/
         headers:
@@ -42,6 +51,9 @@ configuration:
             trace-id: trace-id
             channel-id: channel-id
     invoice-v1:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
       request:
         endpoint: http://${INVOICE_DOMAIN:localhost:8014}/bbq/business/invoice/v1/
         headers:

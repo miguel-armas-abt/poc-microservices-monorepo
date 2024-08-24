@@ -6,6 +6,8 @@ import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
+import com.demo.bbq.commons.restclient.webclient.WebClientFactory;
+import jakarta.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +23,16 @@ public class AuthAdapterRepository {
 
   private static final String SERVICE_NAME = "auth-adapter-v1";
 
-  private final WebClient webClient;
   private final ApplicationProperties properties;
   private final ExternalErrorHandler externalErrorHandler;
+  private final WebClientFactory webClientFactory;
+
+  private WebClient webClient;
+
+  @PostConstruct
+  public void init() {
+    this.webClient = webClientFactory.createWebClient(properties.searchPerformance(SERVICE_NAME), SERVICE_NAME);
+  }
 
   public Mono<HashMap<String, Integer>> getRoles(Map<String, String> headers) {
     return webClient.get()

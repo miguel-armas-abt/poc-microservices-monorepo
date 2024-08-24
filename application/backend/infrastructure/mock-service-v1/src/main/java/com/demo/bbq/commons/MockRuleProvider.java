@@ -1,4 +1,4 @@
-package com.demo.bbq.infraestructure.mockservice.common;
+package com.demo.bbq.commons;
 
 import org.mockserver.integration.ClientAndServer;
 
