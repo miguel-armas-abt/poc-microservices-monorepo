@@ -1,6 +1,8 @@
 package com.demo.bbq.commons.restclient.retrofit;
 
 import com.demo.bbq.commons.errors.exceptions.SystemException;
+import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
+import com.demo.bbq.commons.restclient.enums.TimeoutLevel;
 import com.demo.bbq.commons.toolkit.serialization.JacksonFactory;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.retrofit.CircuitBreakerCallAdapter;
@@ -16,7 +18,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class ReactiveRetrofit {
+public class ReactiveRetrofitFactory {
 
   private String baseUrl;
   private Duration connectTimeout;
@@ -31,38 +33,38 @@ public class ReactiveRetrofit {
     return response.code() < HttpStatus.INTERNAL_SERVER_ERROR.value();
   }
 
-  public ReactiveRetrofit connectTimeout(Duration connectTimeout) {
+  public ReactiveRetrofitFactory connectTimeout(Duration connectTimeout) {
     this.connectTimeout = connectTimeout;
     return this;
   }
 
-  public ReactiveRetrofit readTimeout(Duration readTimeout) {
+  public ReactiveRetrofitFactory readTimeout(Duration readTimeout) {
     this.readTimeout = readTimeout;
     return this;
   }
 
-  public ReactiveRetrofit writeTimeout(Duration writeTimeout) {
+  public ReactiveRetrofitFactory writeTimeout(Duration writeTimeout) {
     this.writeTimeout = writeTimeout;
     return this;
   }
 
-  public ReactiveRetrofit baseUrl(String baseUrl) {
+  public ReactiveRetrofitFactory baseUrl(String baseUrl) {
     this.baseUrl = baseUrl;
     return this;
   }
 
-  public ReactiveRetrofit addConverterFactory(Converter.Factory converterFactory) {
+  public ReactiveRetrofitFactory addConverterFactory(Converter.Factory converterFactory) {
     this.converterFactory = converterFactory;
     return this;
   }
 
-  public ReactiveRetrofit client(OkHttpClient.Builder clientBuilder) {
+  public ReactiveRetrofitFactory client(OkHttpClient.Builder clientBuilder) {
     this.clientBuilder = clientBuilder;
     return this;
   }
 
-  public static ReactiveRetrofit builder() {
-    return new ReactiveRetrofit();
+  public static ReactiveRetrofitFactory builder() {
+    return new ReactiveRetrofitFactory();
   }
 
   public <T> T build(Class<T> RepositoryClass) {
@@ -72,7 +74,7 @@ public class ReactiveRetrofit {
 
     Optional.ofNullable(circuitBreaker).ifPresent(circuitBreaker ->
         retrofitBuilder.addCallAdapterFactory(
-            CircuitBreakerCallAdapter.of(circuitBreaker, Optional.ofNullable(responsePredicate).orElse(ReactiveRetrofit::isSuccessfulResponse))
+            CircuitBreakerCallAdapter.of(circuitBreaker, Optional.ofNullable(responsePredicate).orElse(ReactiveRetrofitFactory::isSuccessfulResponse))
         )
     );
 
@@ -83,6 +85,19 @@ public class ReactiveRetrofit {
         .validateEagerly(true);
 
     return retrofitBuilder.build().create(RepositoryClass);
+  }
+
+  public static <T> T create(OkHttpClient.Builder builder, ConfigurationBaseProperties properties,
+                      String serviceName, Class<T> repositoryClass) {
+
+    TimeoutLevel timeoutLevel = properties.searchPerformance(serviceName).getTimeout();
+    return ReactiveRetrofitFactory.builder()
+        .client(builder)
+        .baseUrl(properties.searchEndpoint(serviceName))
+        .connectTimeout(timeoutLevel.getConnectionTimeoutDuration())
+        .readTimeout(timeoutLevel.getReadTimeoutDuration())
+        .writeTimeout(timeoutLevel.getWriteTimeoutDuration())
+        .build(repositoryClass);
   }
 
   private OkHttpClient createOkHttpClient() {

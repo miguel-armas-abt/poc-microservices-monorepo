@@ -18,7 +18,7 @@ public class PaymentProcessorRestService {
 
   @PostMapping("/execute")
   public Observable<PaymentResponseWrapper> execute() {
-    return repository.executeFacade(PaymentRequestWrapper.builder().build());
+    return repository.execute(PaymentRequestWrapper.builder().build());
   }
 
 }
