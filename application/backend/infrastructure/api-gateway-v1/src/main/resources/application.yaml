@@ -35,12 +35,15 @@ configuration:
       request:
         endpoint: http://${AUTH_ADAPTER_DOMAIN:localhost:8011}/bbq/infrastructure/v1/auth/
         headers:
+          provided:
+            Accept: application/json
           generated:
+            trace-id: TRACE_ID
             parent-id: PARENT_ID
             timestamp: TIMESTAMP_V2
           forwarded:
             Authorization: Authorization
-            trace-id: trace-id
+            channel-id: channel-id
 
   obfuscation:
     body-fields: ["accessToken"]

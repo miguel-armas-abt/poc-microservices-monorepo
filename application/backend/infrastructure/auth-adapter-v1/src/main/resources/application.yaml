@@ -38,7 +38,7 @@ configuration:
           scope: ${configuration.keycloak.scope}
         headers:
           provided:
-            Accept: application/x-ndjson, application/json
+            Accept: application/json
 
     refresh-token:
       performance:
@@ -51,7 +51,7 @@ configuration:
           grant_type: ${configuration.keycloak.grant-type}
         headers:
           provided:
-            Accept: application/x-ndjson, application/json
+            Accept: application/json
 
     user-info:
       performance:
@@ -61,7 +61,7 @@ configuration:
         endpoint: ${configuration.keycloak.base-url}
         headers:
           provided:
-            Accept: application/x-ndjson, application/json
+            Accept: application/json
           forwarded:
             Authorization: Authorization
 
@@ -76,7 +76,7 @@ configuration:
           grant_type: ${configuration.keycloak.grant-type}
         headers:
           provided:
-            Accept: application/x-ndjson, application/json
+            Accept: application/json
 
 # actuator endpoints
 management:

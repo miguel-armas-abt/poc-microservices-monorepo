@@ -16,6 +16,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -38,7 +39,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/bbq/business/menu/v1/menu-options", produces = MediaType.APPLICATION_JSON_VALUE)
-public class MenuRestServiceImpl {
+public class MenuRestService {
 
   private final MenuService service;
   private final ParamValidator paramValidator;
@@ -47,24 +48,28 @@ public class MenuRestServiceImpl {
   @GetMapping(value = "/{productCode}")
   public ResponseEntity<MenuResponseDTO> findByProductCode(HttpServletRequest servletRequest,
                                                            @PathVariable(name = PRODUCT_CODE_PARAM) String productCode) {
-    Map<String, String> headers = extractHeadersAsMap(servletRequest);
-    headerValidator.validate(headers, DefaultHeaders.class);
-
-    return ResponseEntity.ok(service.findByProductCode(headers, productCode));
+    return Optional.of(extractHeadersAsMap(servletRequest))
+        .stream()
+        .peek(headers -> headerValidator.validate(headers, DefaultHeaders.class))
+        .findFirst()
+        .map(headers -> ResponseEntity.ok(service.findByProductCode(headers, productCode)))
+        .orElseGet(() -> ResponseEntity.badRequest().build());
   }
 
   @GetMapping
   public ResponseEntity<List<MenuResponseDTO>> findByCategory(HttpServletRequest servletRequest,
                                                               @RequestParam(value = CATEGORY_PARAM, required = false) String categoryCode) {
-    Map<String, String> headers = extractHeadersAsMap(servletRequest);
-    headerValidator.validate(headers, DefaultHeaders.class);
-    Map<String, String> queryParams = new HashMap<>() {{put(CATEGORY_PARAM, categoryCode); }};
-    CategoryParam categoryParam = paramValidator.validateAndRetrieve(queryParams, CategoryParam.class);
-
-    List<MenuResponseDTO> menuOptionList = service.findByCategory(headers, categoryParam.getCategory());
-    return (menuOptionList == null || menuOptionList.isEmpty())
-        ? ResponseEntity.noContent().build()
-        : ResponseEntity.ok(menuOptionList);
+    return Optional.of(extractHeadersAsMap(servletRequest)).stream()
+        .peek(headers -> headerValidator.validate(headers, DefaultHeaders.class))
+        .findFirst()
+        .map(headers -> {
+          Map<String, String> queryParams = new HashMap<>() {{put(CATEGORY_PARAM, categoryCode); }};
+          CategoryParam categoryParam = paramValidator.validateAndRetrieve(queryParams, CategoryParam.class);
+          return service.findByCategory(headers, categoryParam.getCategory());
+        })
+        .filter(menuList -> !menuList.isEmpty())
+        .map(ResponseEntity::ok)
+        .orElseGet(() -> ResponseEntity.noContent().build());
   }
 
   @PostMapping
@@ -72,8 +77,6 @@ public class MenuRestServiceImpl {
                                    @Valid @RequestBody MenuSaveRequestDTO menuOption) {
     Map<String, String> headers = extractHeadersAsMap(servletRequest);
     headerValidator.validate(headers, DefaultHeaders.class);
-
-    service.save(extractHeadersAsMap(servletRequest), menuOption);
     return ResponseEntity.created(buildPostUriLocation.apply(menuOption.getProductCode())).build();
   }
 
