@@ -1,4 +1,4 @@
-package com.demo.bbq.commons.toolkit.serialize;
+package com.demo.bbq.commons.toolkit.serialization;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

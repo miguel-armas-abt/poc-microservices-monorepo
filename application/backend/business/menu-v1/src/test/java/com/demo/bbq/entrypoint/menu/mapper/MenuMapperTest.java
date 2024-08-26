@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.demo.bbq.entrypoint.menu.dto.request.MenuSaveRequestDTO;
 import com.demo.bbq.entrypoint.menu.dto.response.MenuResponseDTO;
-import com.demo.bbq.commons.toolkit.serialize.JsonSerializer;
+import com.demo.bbq.commons.toolkit.serialization.JsonSerializer;
 import com.demo.bbq.entrypoint.menu.repository.menu.entity.MenuEntity;
 import com.demo.bbq.entrypoint.menu.repository.product.wrapper.response.ProductResponseWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;

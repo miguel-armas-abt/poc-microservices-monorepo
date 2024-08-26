@@ -3,6 +3,7 @@ package com.demo.bbq.commons.properties;
 import com.demo.bbq.commons.errors.exceptions.SystemException;
 import com.demo.bbq.commons.properties.dto.messages.ErrorMessage;
 import com.demo.bbq.commons.properties.dto.obfuscation.ObfuscationTemplate;
+import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.dto.restclient.PerformanceTemplate;
 import com.demo.bbq.commons.properties.dto.restclient.RestClient;
 import java.util.Map;
@@ -30,6 +31,10 @@ public abstract class ConfigurationBaseProperties {
 
   public Map<String, String> searchFormData(String serviceName) {
     return searchRestClient(serviceName).getRequest().getFormData();
+  }
+
+  public HeaderTemplate searchHeaders(String serviceName) {
+    return searchRestClient(serviceName).getRequest().getHeaders();
   }
 
   private RestClient searchRestClient(String serviceName) {

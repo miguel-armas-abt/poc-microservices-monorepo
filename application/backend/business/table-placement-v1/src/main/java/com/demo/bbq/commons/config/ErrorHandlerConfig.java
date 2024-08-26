@@ -1,11 +1,11 @@
 package com.demo.bbq.commons.config;
 
 import com.demo.bbq.commons.errors.handler.response.ResponseErrorHandler;
-import com.demo.bbq.commons.toolkit.serialize.ByteSerializer;
+import com.demo.bbq.commons.toolkit.serialization.ByteSerializer;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
 import com.demo.bbq.commons.errors.handler.external.strategy.DefaultErrorStrategy;
 import com.demo.bbq.commons.errors.handler.external.strategy.RestClientErrorStrategy;
-import com.demo.bbq.commons.toolkit.serialize.JsonSerializer;
+import com.demo.bbq.commons.toolkit.serialization.JsonSerializer;
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import java.util.List;
 import org.springframework.context.annotation.Bean;

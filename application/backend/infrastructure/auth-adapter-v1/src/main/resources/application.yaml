@@ -25,7 +25,7 @@ configuration:
       InvalidJWT: Ocurrió un error durante la autenticación.
 
   rest-clients:
-    get-token:
+    auth-token:
       performance:
         timeout: EXCELLENT
         concurrency: LOW
@@ -36,6 +36,9 @@ configuration:
           grant_type: ${configuration.keycloak.grant-type}
           client_secret: ${configuration.keycloak.client-secret}
           scope: ${configuration.keycloak.scope}
+        headers:
+          provided:
+            Accept: application/x-ndjson, application/json
 
     refresh-token:
       performance:
@@ -46,6 +49,9 @@ configuration:
         form-data:
           client_id: ${configuration.keycloak.client-id}
           grant_type: ${configuration.keycloak.grant-type}
+        headers:
+          provided:
+            Accept: application/x-ndjson, application/json
 
     user-info:
       performance:
@@ -53,6 +59,11 @@ configuration:
         concurrency: LOW
       request:
         endpoint: ${configuration.keycloak.base-url}
+        headers:
+          provided:
+            Accept: application/x-ndjson, application/json
+          forwarded:
+            Authorization: Authorization
 
     logout:
       performance:
@@ -63,6 +74,9 @@ configuration:
         form-data:
           client_id: ${configuration.keycloak.client-id}
           grant_type: ${configuration.keycloak.grant-type}
+        headers:
+          provided:
+            Accept: application/x-ndjson, application/json
 
 # actuator endpoints
 management:

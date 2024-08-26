@@ -5,7 +5,7 @@ import com.demo.bbq.commons.errors.exceptions.AuthorizationException;
 import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import com.demo.bbq.commons.errors.exceptions.ExternalServiceException;
 import com.demo.bbq.commons.errors.exceptions.SystemException;
-import com.demo.bbq.commons.toolkit.serialize.ByteSerializer;
+import com.demo.bbq.commons.toolkit.serialization.ByteSerializer;
 import com.demo.bbq.commons.tracing.logging.ErrorLoggerUtil;
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
 import java.net.ConnectException;

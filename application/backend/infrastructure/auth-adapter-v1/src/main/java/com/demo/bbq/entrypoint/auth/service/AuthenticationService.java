@@ -30,22 +30,22 @@ public class AuthenticationService {
   private final UserInfoRepository userInfoRepository;
   private final JsonKeyWrappingRepository jsonKeyWrappingRepository;
 
-  public Single<TokenResponseWrapper> getToken(String username, String password) {
-    return authTokenRepository.getToken(properties, username, password);
+  public Single<TokenResponseWrapper> getToken(Map<String, String> currentHeaders, String username, String password) {
+    return authTokenRepository.getToken(currentHeaders, properties, username, password);
   }
 
-  public Completable logout(String refreshToken) {
-    return logoutRepository.logout(properties, refreshToken)
+  public Completable logout(Map<String, String> currentHeaders, String refreshToken) {
+    return logoutRepository.logout(currentHeaders, properties, refreshToken)
         .onErrorResumeNext(throwable -> Completable.error(new AuthorizationException("UnableLogout", throwable.getMessage())));
   }
 
-  public Single<TokenResponseWrapper> refreshToken(String refreshToken) {
-    return refreshTokenRepository.refreshToken(properties, refreshToken)
+  public Single<TokenResponseWrapper> refreshToken(Map<String, String> currentHeaders, String refreshToken) {
+    return refreshTokenRepository.refreshToken(currentHeaders, properties, refreshToken)
         .onErrorResumeNext(throwable -> Single.error(new AuthorizationException("UnableRefresh")));
   }
 
-  public Single<UserInfoResponseWrapper> getUserInfo(String authToken) {
-    return userInfoRepository.getUserInfo(authToken);
+  public Single<UserInfoResponseWrapper> getUserInfo(Map<String, String> currentHeaders) {
+    return userInfoRepository.getUserInfo(properties, currentHeaders);
   }
 
   public Map<String, Integer> getRoles(String authToken) {

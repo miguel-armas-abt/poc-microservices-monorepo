@@ -1,7 +1,7 @@
 package com.demo.bbq.commons.errors.handler.external.strategy;
 
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
-import com.demo.bbq.commons.toolkit.serialize.JsonSerializer;
+import com.demo.bbq.commons.toolkit.serialization.JsonSerializer;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.tuple.Pair;
 import java.util.Optional;

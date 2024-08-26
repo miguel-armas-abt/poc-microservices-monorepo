@@ -6,7 +6,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import com.demo.bbq.entrypoint.menu.dto.response.MenuResponseDTO;
-import com.demo.bbq.commons.toolkit.serialize.JsonSerializer;
+import com.demo.bbq.commons.toolkit.serialization.JsonSerializer;
 import com.demo.bbq.entrypoint.menu.mapper.MenuMapper;
 import com.demo.bbq.entrypoint.menu.repository.menu.MenuRepository;
 import com.demo.bbq.entrypoint.menu.repository.menu.entity.MenuEntity;

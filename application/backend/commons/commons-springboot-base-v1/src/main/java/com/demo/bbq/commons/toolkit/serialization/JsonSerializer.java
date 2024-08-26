@@ -1,4 +1,4 @@
-package com.demo.bbq.commons.toolkit.serialize;
+package com.demo.bbq.commons.toolkit.serialization;
 
 import com.demo.bbq.commons.errors.exceptions.SystemException;
 import com.fasterxml.jackson.databind.DeserializationFeature;

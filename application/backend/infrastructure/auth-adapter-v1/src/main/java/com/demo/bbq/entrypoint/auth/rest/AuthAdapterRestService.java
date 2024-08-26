@@ -1,10 +1,15 @@
 package com.demo.bbq.entrypoint.auth.rest;
 
+import com.demo.bbq.commons.toolkit.headers.filler.HttpHeadersFiller;
+import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
+import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
+import com.demo.bbq.entrypoint.auth.dto.params.AuthorizationHeader;
 import com.demo.bbq.entrypoint.auth.service.AuthenticationService;
 import com.demo.bbq.entrypoint.auth.repository.authprovider.wrapper.TokenResponseWrapper;
 import com.demo.bbq.entrypoint.auth.repository.authprovider.wrapper.UserInfoResponseWrapper;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,32 +24,47 @@ import org.springframework.http.ResponseEntity;
 public class AuthAdapterRestService {
 
   private final AuthenticationService authenticationService;
+  private final HeaderValidator headerValidator;
 
-  @PostMapping("/login")
-  public Single<TokenResponseWrapper> login(HttpServletResponse servletResponse,
+  @PostMapping("/token")
+  public Single<TokenResponseWrapper> login(HttpServletRequest servletRequest,
+                                            HttpServletResponse servletResponse,
                                             @RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
-    return authenticationService.getToken(username, password)
+
+    return Single.just(HttpHeadersFiller.extractHeadersAsMap(servletRequest))
+        .doOnSuccess(headers -> headerValidator.validate(headers, DefaultHeaders.class))
+        .flatMap(headers -> authenticationService.getToken(headers, username, password))
         .doOnSuccess(token -> servletResponse.setStatus(201));
   }
 
   @PostMapping("/logout")
-  public Completable logout(HttpServletResponse servletResponse,
+  public Completable logout(HttpServletRequest servletRequest,
+                            HttpServletResponse servletResponse,
                             @RequestParam(value = "refresh_token", name = "refresh_token") String refreshToken) {
-    return authenticationService.logout(refreshToken)
+
+    return Single.just(HttpHeadersFiller.extractHeadersAsMap(servletRequest))
+        .doOnSuccess(headers -> headerValidator.validate(headers, DefaultHeaders.class))
+        .flatMapCompletable(headers -> authenticationService.logout(headers, refreshToken))
         .doOnComplete(() -> servletResponse.setStatus(201))
         .andThen(Completable.complete());
   }
 
   @PostMapping(value = "/refresh")
-  public Single<TokenResponseWrapper> refresh(HttpServletResponse servletResponse,
+  public Single<TokenResponseWrapper> refresh(HttpServletRequest servletRequest,
+                                              HttpServletResponse servletResponse,
                                               @RequestParam(value = "refresh_token", name = "refresh_token") String refreshToken) {
-    return authenticationService.refreshToken(refreshToken)
+
+    return Single.just(HttpHeadersFiller.extractHeadersAsMap(servletRequest))
+        .doOnSuccess(headers -> headerValidator.validate(headers, DefaultHeaders.class))
+        .flatMap(headers -> authenticationService.refreshToken(headers, refreshToken))
         .doOnSuccess(token -> servletResponse.setStatus(201));
   }
 
-  @GetMapping("/valid")
-  public Single<UserInfoResponseWrapper> valid(@RequestHeader("Authorization") String authToken) {
-    return authenticationService.getUserInfo(authToken);
+  @GetMapping("/user-info")
+  public Single<UserInfoResponseWrapper> getUserInfo(HttpServletRequest servletRequest) {
+    return Single.just(HttpHeadersFiller.extractHeadersAsMap(servletRequest))
+        .doOnSuccess(headers -> headerValidator.validate(headers, AuthorizationHeader.class))
+        .flatMap(authenticationService::getUserInfo);
   }
 
   @GetMapping("/roles")
