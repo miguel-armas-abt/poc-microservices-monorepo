@@ -1,14 +1,15 @@
 package com.demo.bbq.entrypoint.menu.rest;
 
 import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.extractHeadersAsMap;
-import static com.demo.bbq.entrypoint.menu.params.constant.ParameterConstants.CATEGORY_PARAM;
-import static com.demo.bbq.entrypoint.menu.params.constant.ParameterConstants.PRODUCT_CODE_PARAM;
+import static com.demo.bbq.entrypoint.menu.constants.ParameterConstants.CATEGORY_PARAM;
+import static com.demo.bbq.entrypoint.menu.constants.ParameterConstants.PRODUCT_CODE_PARAM;
 
 import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
+import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
 import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuSaveRequestDTO;
 import com.demo.bbq.entrypoint.menu.dto.response.MenuResponseDTO;
-import com.demo.bbq.entrypoint.menu.params.pojo.CategoryParam;
+import com.demo.bbq.entrypoint.menu.dto.params.CategoryParam;
 import com.demo.bbq.entrypoint.menu.service.MenuService;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
 import java.net.URI;
@@ -41,12 +42,13 @@ public class MenuRestServiceImpl {
 
   private final MenuService service;
   private final ParamValidator paramValidator;
+  private final HeaderValidator headerValidator;
 
   @GetMapping(value = "/{productCode}")
   public ResponseEntity<MenuResponseDTO> findByProductCode(HttpServletRequest servletRequest,
                                                            @PathVariable(name = PRODUCT_CODE_PARAM) String productCode) {
     Map<String, String> headers = extractHeadersAsMap(servletRequest);
-    paramValidator.validate(headers, DefaultHeaders.class);
+    headerValidator.validate(headers, DefaultHeaders.class);
 
     return ResponseEntity.ok(service.findByProductCode(headers, productCode));
   }
@@ -55,7 +57,7 @@ public class MenuRestServiceImpl {
   public ResponseEntity<List<MenuResponseDTO>> findByCategory(HttpServletRequest servletRequest,
                                                               @RequestParam(value = CATEGORY_PARAM, required = false) String categoryCode) {
     Map<String, String> headers = extractHeadersAsMap(servletRequest);
-    paramValidator.validate(headers, DefaultHeaders.class);
+    headerValidator.validate(headers, DefaultHeaders.class);
     Map<String, String> queryParams = new HashMap<>() {{put(CATEGORY_PARAM, categoryCode); }};
     CategoryParam categoryParam = paramValidator.validateAndRetrieve(queryParams, CategoryParam.class);
 
@@ -69,7 +71,7 @@ public class MenuRestServiceImpl {
   public ResponseEntity<Void> save(HttpServletRequest servletRequest,
                                    @Valid @RequestBody MenuSaveRequestDTO menuOption) {
     Map<String, String> headers = extractHeadersAsMap(servletRequest);
-    paramValidator.validate(headers, DefaultHeaders.class);
+    headerValidator.validate(headers, DefaultHeaders.class);
 
     service.save(extractHeadersAsMap(servletRequest), menuOption);
     return ResponseEntity.created(buildPostUriLocation.apply(menuOption.getProductCode())).build();
@@ -80,7 +82,7 @@ public class MenuRestServiceImpl {
                                      @Valid @RequestBody MenuUpdateRequestDTO menuOption,
                                      @PathVariable(PRODUCT_CODE_PARAM) String productCode) {
     Map<String, String> headers = extractHeadersAsMap(servletRequest);
-    paramValidator.validate(headers, DefaultHeaders.class);
+    headerValidator.validate(headers, DefaultHeaders.class);
 
     service.update(headers, productCode, menuOption);
     return ResponseEntity.created(buildUriLocation.apply(productCode)).build();
@@ -90,7 +92,7 @@ public class MenuRestServiceImpl {
   public ResponseEntity<Void> delete(HttpServletRequest servletRequest,
                                      @PathVariable(PRODUCT_CODE_PARAM) String productCode) {
     Map<String, String> headers = extractHeadersAsMap(servletRequest);
-    paramValidator.validate(headers, DefaultHeaders.class);
+    headerValidator.validate(headers, DefaultHeaders.class);
 
     service.deleteByProductCode(headers, productCode);
     return ResponseEntity.noContent().location(buildUriLocation.apply(productCode)).build();

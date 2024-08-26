@@ -5,7 +5,7 @@ import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.extra
 import com.demo.bbq.commons.toolkit.router.ServerResponseFactory;
 import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
 import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
-import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
+import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
 import com.demo.bbq.entrypoint.calculator.dto.request.ProductRequestDTO;
 import com.demo.bbq.entrypoint.calculator.service.CalculatorService;
 import java.util.Map;
@@ -21,11 +21,11 @@ public class CalculatorHandler {
 
   private final CalculatorService calculatorService;
   private final BodyValidator bodyValidator;
-  private final ParamValidator paramValidator;
+  private final HeaderValidator headerValidator;
 
   public Mono<ServerResponse> calculateInvoice(ServerRequest serverRequest) {
     Map<String, String> headers = extractHeadersAsMap(serverRequest);
-    paramValidator.validate(headers, DefaultHeaders.class);
+    headerValidator.validate(headers, DefaultHeaders.class);
 
     return calculatorService.calculateInvoice(headers, serverRequest.bodyToFlux(ProductRequestDTO.class).doOnNext(bodyValidator::validate))
         .flatMap(response -> ServerResponseFactory

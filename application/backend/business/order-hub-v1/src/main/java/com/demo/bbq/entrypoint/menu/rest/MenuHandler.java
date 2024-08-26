@@ -5,8 +5,9 @@ import static com.demo.bbq.commons.toolkit.params.filler.QueryParamFiller.extrac
 
 import com.demo.bbq.commons.toolkit.router.ServerResponseFactory;
 import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
+import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
 import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
-import com.demo.bbq.entrypoint.menu.params.pojo.CategoryParam;
+import com.demo.bbq.entrypoint.menu.dto.params.CategoryParam;
 import com.demo.bbq.entrypoint.menu.repository.MenuRepositoryStrategy;
 import com.demo.bbq.entrypoint.menu.repository.wrapper.response.MenuOptionResponseWrapper;
 import java.util.Map;
@@ -21,11 +22,12 @@ import reactor.core.publisher.Mono;
 public class MenuHandler {
 
   private final MenuRepositoryStrategy menuRepository;
+  private final HeaderValidator headerValidator;
   private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> findMenuByCategory(ServerRequest serverRequest) {
     Map<String, String> headers = extractHeadersAsMap(serverRequest);
-    paramValidator.validate(headers, DefaultHeaders.class);
+    headerValidator.validate(headers, DefaultHeaders.class);
     CategoryParam categoryParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), CategoryParam.class);
 
     return ServerResponseFactory

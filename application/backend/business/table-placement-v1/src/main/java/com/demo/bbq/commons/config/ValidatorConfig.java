@@ -1,10 +1,8 @@
 package com.demo.bbq.commons.config;
 
 import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
-import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeadersMapper;
-import com.demo.bbq.commons.toolkit.validator.params.ParamMapper;
+import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
 import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
-import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.Validator;
@@ -18,12 +16,12 @@ public class ValidatorConfig {
   }
 
   @Bean
-  public DefaultHeadersMapper defaultHeadersMapper() {
-    return new DefaultHeadersMapper();
+  public HeaderValidator headerValidator(BodyValidator bodyValidator) {
+    return new HeaderValidator(bodyValidator);
   }
 
   @Bean
-  public ParamValidator headerValidator(List<ParamMapper> paramMappers, BodyValidator bodyValidator) {
-    return new ParamValidator(paramMappers, bodyValidator);
+  public ParamValidator paramValidator(BodyValidator bodyValidator) {
+    return new ParamValidator(bodyValidator);
   }
 }

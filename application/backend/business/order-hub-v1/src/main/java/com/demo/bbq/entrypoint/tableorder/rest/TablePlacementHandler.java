@@ -5,9 +5,10 @@ import static com.demo.bbq.commons.toolkit.params.filler.QueryParamFiller.extrac
 
 import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
 import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
+import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
 import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
-import com.demo.bbq.entrypoint.tableorder.dto.MenuOrderRequestDTO;
-import com.demo.bbq.entrypoint.tableorder.params.pojo.TableNumberParam;
+import com.demo.bbq.entrypoint.tableorder.dto.request.MenuOrderRequestDTO;
+import com.demo.bbq.entrypoint.tableorder.dto.params.TableNumberParam;
 import com.demo.bbq.entrypoint.tableorder.service.TablePlacementService;
 import com.demo.bbq.commons.toolkit.router.ServerResponseFactory;
 import java.util.Map;
@@ -24,10 +25,11 @@ public class TablePlacementHandler {
   private final TablePlacementService tablePlacementService;
   private final BodyValidator bodyValidator;
   private final ParamValidator paramValidator;
+  private final HeaderValidator headerValidator;
 
   public Mono<ServerResponse> generateTableOrder(ServerRequest serverRequest) {
     Map<String, String> headers = extractHeadersAsMap(serverRequest);
-    paramValidator.validate(headers, DefaultHeaders.class);
+    headerValidator.validate(headers, DefaultHeaders.class);
     TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
     return serverRequest.bodyToFlux(MenuOrderRequestDTO.class)
@@ -39,7 +41,7 @@ public class TablePlacementHandler {
 
   public Mono<ServerResponse> findByTableNumber(ServerRequest serverRequest) {
     Map<String, String> headers = extractHeadersAsMap(serverRequest);
-    paramValidator.validate(headers, DefaultHeaders.class);
+    headerValidator.validate(headers, DefaultHeaders.class);
     TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
     return tablePlacementService.findByTableNumber(headers, tableNumberParam.getTableNumber())

@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.tableorder.service;
 
-import com.demo.bbq.entrypoint.tableorder.dto.MenuOrderRequestDTO;
+import com.demo.bbq.entrypoint.tableorder.dto.request.MenuOrderRequestDTO;
 import com.demo.bbq.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import java.util.List;
 import java.util.Map;

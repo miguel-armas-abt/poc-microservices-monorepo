@@ -1,7 +1,7 @@
 package com.demo.bbq.entrypoint.tableorder.service;
 
 import com.demo.bbq.entrypoint.menu.repository.MenuRepositoryStrategy;
-import com.demo.bbq.entrypoint.tableorder.dto.MenuOrderRequestDTO;
+import com.demo.bbq.entrypoint.tableorder.dto.request.MenuOrderRequestDTO;
 import com.demo.bbq.entrypoint.tableorder.repository.TableOrderRepository;
 import com.demo.bbq.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import com.demo.bbq.commons.errors.exceptions.BusinessException;

@@ -5,9 +5,10 @@ import static com.demo.bbq.commons.toolkit.params.filler.QueryParamFiller.extrac
 
 import com.demo.bbq.commons.toolkit.router.ServerResponseFactory;
 import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
+import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
 import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
 import com.demo.bbq.entrypoint.inquiry.dto.response.InvoiceResponseDTO;
-import com.demo.bbq.entrypoint.inquiry.params.pojo.DocumentNumberParam;
+import com.demo.bbq.entrypoint.inquiry.dto.params.DocumentNumberParam;
 import com.demo.bbq.entrypoint.inquiry.service.InvoiceInquiryService;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +22,12 @@ import reactor.core.publisher.Mono;
 public class InvoiceInquiryHandler {
 
   private final InvoiceInquiryService invoiceInquiryService;
+  private final HeaderValidator headerValidator;
   private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> findInvoicesByCustomer(ServerRequest serverRequest) {
     Map<String, String> headers = extractHeadersAsMap(serverRequest);
-    paramValidator.validate(headers, DefaultHeaders.class);
+    headerValidator.validate(headers, DefaultHeaders.class);
 
     DocumentNumberParam documentNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), DocumentNumberParam.class);
     return ServerResponseFactory

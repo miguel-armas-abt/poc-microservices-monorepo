@@ -6,9 +6,10 @@ import static com.demo.bbq.commons.toolkit.params.filler.QueryParamFiller.extrac
 import com.demo.bbq.commons.toolkit.router.ServerResponseFactory;
 import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
 import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
+import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
 import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
 import com.demo.bbq.entrypoint.table.placement.dto.request.MenuOrderDTO;
-import com.demo.bbq.entrypoint.table.placement.params.pojo.TableNumberParam;
+import com.demo.bbq.entrypoint.table.placement.dto.params.TableNumberParam;
 import com.demo.bbq.entrypoint.table.placement.service.PlacementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -24,9 +25,10 @@ public class PlacementHandler {
   private final PlacementService placementService;
   private final BodyValidator bodyValidator;
   private final ParamValidator paramValidator;
+  private final HeaderValidator headerValidator;
 
   public Mono<ServerResponse> findByTableNumber(ServerRequest serverRequest) {
-    paramValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
+    headerValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
     TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
     return placementService.findByTableNumber(tableNumberParam.getTableNumber())
@@ -38,7 +40,7 @@ public class PlacementHandler {
   }
 
   public Mono<ServerResponse> cleanTable(ServerRequest serverRequest) {
-    paramValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
+    headerValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
     TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
     return placementService.cleanTable(tableNumberParam.getTableNumber())
@@ -46,7 +48,7 @@ public class PlacementHandler {
   }
 
   public Mono<ServerResponse> generateTableOrder(ServerRequest serverRequest) {
-    paramValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
+    headerValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
     TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
     Flux<MenuOrderDTO> requestedMenuOrders = serverRequest.bodyToFlux(MenuOrderDTO.class).doOnNext(bodyValidator::validate);

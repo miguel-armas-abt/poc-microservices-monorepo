@@ -5,7 +5,7 @@ import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.extra
 import com.demo.bbq.commons.toolkit.router.ServerResponseFactory;
 import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
 import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
-import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
+import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
 import com.demo.bbq.entrypoint.invoice.dto.PaymentSendRequestDTO;
 import com.demo.bbq.entrypoint.invoice.service.InvoiceService;
 import com.demo.bbq.entrypoint.invoice.repository.wrapper.request.ProductRequestWrapper;
@@ -22,11 +22,11 @@ public class InvoiceHandler {
 
   private final InvoiceService invoiceService;
   private final BodyValidator bodyValidator;
-  private final ParamValidator paramValidator;
+  private final HeaderValidator headerValidator;
 
   public Mono<ServerResponse> calculateInvoice(ServerRequest serverRequest) {
     Map<String, String> headers = extractHeadersAsMap(serverRequest);
-    paramValidator.validate(headers, DefaultHeaders.class);
+    headerValidator.validate(headers, DefaultHeaders.class);
 
     return serverRequest.bodyToFlux(ProductRequestWrapper.class)
         .doOnNext(bodyValidator::validate)
@@ -38,7 +38,7 @@ public class InvoiceHandler {
 
   public Mono<ServerResponse> sendToPay(ServerRequest serverRequest) {
     Map<String, String> headers = extractHeadersAsMap(serverRequest);
-    paramValidator.validate(headers, DefaultHeaders.class);
+    headerValidator.validate(headers, DefaultHeaders.class);
 
     return serverRequest
         .bodyToMono(PaymentSendRequestDTO.class)

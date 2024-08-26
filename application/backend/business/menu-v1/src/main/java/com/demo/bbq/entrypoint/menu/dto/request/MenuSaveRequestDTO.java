@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.menu.dto.request;
 
-import static com.demo.bbq.entrypoint.menu.params.constant.ParameterConstants.CATEGORY_REGEX;
+import static com.demo.bbq.entrypoint.menu.constants.ParameterConstants.CATEGORY_REGEX;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

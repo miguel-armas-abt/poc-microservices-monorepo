@@ -6,7 +6,7 @@ import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import com.demo.bbq.commons.restclient.webclient.WebClientFactory;
 import com.demo.bbq.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
-import com.demo.bbq.entrypoint.tableorder.dto.MenuOrderRequestDTO;
+import com.demo.bbq.entrypoint.tableorder.dto.request.MenuOrderRequestDTO;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
 import jakarta.annotation.PostConstruct;

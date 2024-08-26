@@ -4,6 +4,7 @@ import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.extra
 
 import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
 import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
+import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
 import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
 import com.demo.bbq.entrypoint.table.registration.dto.request.TableRegistrationRequestDTO;
 import com.demo.bbq.entrypoint.table.registration.service.TableRegistrationService;
@@ -21,9 +22,10 @@ public class TableRegistrationHandler {
   private final TableRegistrationService tableRegistrationService;
   private final BodyValidator bodyValidator;
   private final ParamValidator paramValidator;
+  private final HeaderValidator headerValidator;
 
   public Mono<ServerResponse> createTable(ServerRequest serverRequest) {
-    paramValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
+    headerValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
 
     return serverRequest.bodyToMono(TableRegistrationRequestDTO.class)
         .doOnNext(bodyValidator::validate)

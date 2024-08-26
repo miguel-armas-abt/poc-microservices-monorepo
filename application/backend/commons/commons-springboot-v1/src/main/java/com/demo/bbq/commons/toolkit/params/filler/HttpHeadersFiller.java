@@ -21,7 +21,7 @@ public class HttpHeadersFiller {
 
   public static HttpHeaders generateHeaders(HeaderTemplate headerTemplate, Map<String, String> currentHeaders) {
     HttpHeaders httpHeaders = new HttpHeaders();
-    httpHeaders.setAll(HeadersFiller.generateHeaders(headerTemplate, currentHeaders));
+    httpHeaders.setAll(HeadersFiller.fillHeaders(headerTemplate, currentHeaders));
     return httpHeaders;
   }
 }
