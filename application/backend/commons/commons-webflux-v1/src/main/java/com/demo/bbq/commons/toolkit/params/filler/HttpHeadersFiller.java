@@ -1,8 +1,5 @@
 package com.demo.bbq.commons.toolkit.params.filler;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HeadersFillerBase.addForwardedHeaders;
-import static com.demo.bbq.commons.toolkit.params.filler.HeadersFillerBase.addGenerateHeaders;
-import static com.demo.bbq.commons.toolkit.params.filler.HeadersFillerBase.addProvidedHeaders;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
@@ -16,7 +13,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.reactive.function.server.ServerRequest;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class HeadersFiller {
+public class HttpHeadersFiller {
 
   public static Map<String, String> extractHeadersAsMap(ServerRequest serverRequest) {
     return Optional.of(serverRequest.headers().asHttpHeaders().toSingleValueMap())
@@ -34,23 +31,12 @@ public class HeadersFiller {
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
-  public static Consumer<HttpHeaders> buildHeaders(HeaderTemplate headerTemplate,
-                                                   Map<String, String> currentHeaders) {
-    return currentHttpHeaders -> {
-      Consumer<Map<String, String>> providedHeaders = addProvidedHeaders(headerTemplate.getProvided());
-      Consumer<Map<String, String>> generatedHeaders = addGenerateHeaders(headerTemplate.getGenerated());
-      Consumer<Map<String, String>> forwardedHeaders = addForwardedHeaders(headerTemplate.getForwarded(), currentHeaders);
-
-      Map<String, String> headers = new HashMap<>();
-      providedHeaders.accept(headers);
-      generatedHeaders.accept(headers);
-      forwardedHeaders.accept(headers);
-
-      currentHttpHeaders.setAll(headers);
-    };
+  public static Consumer<HttpHeaders> fillHeaders(HeaderTemplate headerTemplate,
+                                                  Map<String, String> currentHeaders) {
+    return currentHttpHeaders -> currentHttpHeaders.setAll(HeadersFiller.fillHeaders(headerTemplate, currentHeaders));
   }
 
-  public static Consumer<HttpHeaders> buildAuthorizationHeader(String accessToken) {
+  public static Consumer<HttpHeaders> addAuthorizationHeader(String accessToken) {
     return httpHeaders -> httpHeaders.set(AUTHORIZATION, "Bearer ".concat(accessToken));
   }
 }

@@ -8,11 +8,11 @@ import okio.BufferedSource;
 import org.reactivestreams.Publisher;
 
 @FunctionalInterface
-public interface ReactiveTransformer<T> extends ObservableTransformer<ResponseBody, T>, FlowableTransformer<ResponseBody, T> {
+public interface StreamingTransformer<T> extends ObservableTransformer<ResponseBody, T>, FlowableTransformer<ResponseBody, T> {
 
   ObjectMapper mapper = JacksonFactory.create();
 
-  static <E> ReactiveTransformer<E> of(Class<E> targetClass) {
+  static <E> StreamingTransformer<E> of(Class<E> targetClass) {
     return () -> targetClass;
   }
 

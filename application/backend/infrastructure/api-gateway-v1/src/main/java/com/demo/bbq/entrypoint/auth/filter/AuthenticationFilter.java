@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.auth.filter;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.extractHeadersAsMap;
+import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.extractHeadersAsMap;
 
 import com.demo.bbq.commons.errors.handler.response.ResponseErrorHandler;
 import com.demo.bbq.commons.properties.ApplicationProperties;
@@ -44,7 +44,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
   Mono<Boolean> validateRequest(ServerWebExchange exchange) {
     Set<Boolean> status = new HashSet<>();
-    return !properties.isEnableAuth()
+    return !properties.getAuthentication().isEnableAuth()
         ? Mono.just(Boolean.TRUE)
         : authAdapterRepository.getRoles(extractHeadersAsMap(exchange.getRequest()))
         .flatMapIterable(HashMap::keySet)
@@ -59,7 +59,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
   }
 
   private List<String> getExpectedRoles() {
-    String[] roles = authAdapterRepository.getVariables().get("expected-roles").split(",");
+    String[] roles = properties.getAuthentication().getExpectedRoles().split(",");
     return new ArrayList<>(Arrays.asList(roles));
   }
 

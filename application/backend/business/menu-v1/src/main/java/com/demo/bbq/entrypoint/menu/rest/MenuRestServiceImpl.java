@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.menu.rest;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.extractHeadersAsMap;
+import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.extractHeadersAsMap;
 import static com.demo.bbq.entrypoint.menu.params.constant.ParameterConstants.CATEGORY_PARAM;
 import static com.demo.bbq.entrypoint.menu.params.constant.ParameterConstants.PRODUCT_CODE_PARAM;
 

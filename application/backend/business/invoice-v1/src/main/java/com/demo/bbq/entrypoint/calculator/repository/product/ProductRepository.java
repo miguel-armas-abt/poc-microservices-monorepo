@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.calculator.repository.product;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.buildHeaders;
+import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.fillHeaders;
 
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import com.demo.bbq.commons.restclient.webclient.WebClientFactory;
@@ -39,7 +39,7 @@ public class ProductRepository {
         .uri(UriComponentsBuilder
             .fromUriString(properties.searchEndpoint(SERVICE_NAME).concat("{productCode}"))
             .buildAndExpand(productCode).toUriString())
-        .headers(buildHeaders(properties.searchHeaderTemplate(SERVICE_NAME), headers))
+        .headers(fillHeaders(properties.searchHeaderTemplate(SERVICE_NAME), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME))
         .toEntity(ProductResponseWrapper.class)

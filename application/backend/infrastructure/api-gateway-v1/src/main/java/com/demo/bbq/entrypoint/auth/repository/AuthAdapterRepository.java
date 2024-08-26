@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.auth.repository;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.buildHeaders;
+import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.fillHeaders;
 
 import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
@@ -37,7 +37,7 @@ public class AuthAdapterRepository {
   public Mono<HashMap<String, Integer>> getRoles(Map<String, String> headers) {
     return webClient.get()
         .uri(properties.getRestClients().get(SERVICE_NAME).getRequest().getEndpoint().concat("/roles"))
-        .headers(buildHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(getHeaderTemplate(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME))
         .toEntity(HashMap.class)
@@ -49,10 +49,6 @@ public class AuthAdapterRepository {
     HashMap<String, Integer> result = new HashMap<>();
     input.forEach((key, value) -> result.put(key, (Integer) value));
     return result;
-  }
-
-  public Map<String, String> getVariables() {
-    return properties.getRestClients().get(SERVICE_NAME).getVariables();
   }
 
   private HeaderTemplate getHeaderTemplate() {

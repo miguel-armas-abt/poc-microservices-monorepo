@@ -7,6 +7,16 @@ spring:
 
 configuration:
 
+  keycloak:
+    base-url: http://${KEYCLOAK_DOMAIN:localhost:8091}/auth/realms/bbq-management/protocol/openid-connect/
+    client-id: front-bbq-app
+    grant-type: password
+    client-secret: qwerty
+    scope: profile
+    auth-endpoint: ${configuration.keycloak.base-url}auth
+    jwk-endpoint: ${configuration.keycloak.base-url}certs
+    cert-id: ${KEYCLOAK_KEY_RS256:cYUJGhUPamPjsFL8K12AF3H7AsB46WX8Yty48f05Sa0}
+
   error-messages:
     enabled: false
     messages:
@@ -15,18 +25,44 @@ configuration:
       InvalidJWT: Ocurrió un error durante la autenticación.
 
   rest-clients:
-    keycloak:
+    get-token:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
       request:
-        endpoint: http://${KEYCLOAK_DOMAIN:localhost:8091}/auth/realms/bbq-management/protocol/openid-connect/
-      variables:
-        authorization-uri: ${configuration.rest-clients.keycloak.request.endpoint}auth
-        jwk-set-uri: ${configuration.rest-clients.keycloak.request.endpoint}certs
-        certs-id: ${KEYCLOAK_KEY_RS256:_t8Avn1u-Dc9fk7Gw_-za6j1g5iL44C6X3N6Rayp59A}
-        client-id: front-bbq-app
-        client-secret: qwerty
-        scope: profile
-        authorization-grant-type: password
-        authorization-grant-type-refresh: refresh_token
+        endpoint: ${configuration.keycloak.base-url}
+        form-data:
+          client_id: ${configuration.keycloak.client-id}
+          grant_type: ${configuration.keycloak.grant-type}
+          client_secret: ${configuration.keycloak.client-secret}
+          scope: ${configuration.keycloak.scope}
+
+    refresh-token:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
+      request:
+        endpoint: ${configuration.keycloak.base-url}
+        form-data:
+          client_id: ${configuration.keycloak.client-id}
+          grant_type: ${configuration.keycloak.grant-type}
+
+    user-info:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
+      request:
+        endpoint: ${configuration.keycloak.base-url}
+
+    logout:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
+      request:
+        endpoint: ${configuration.keycloak.base-url}
+        form-data:
+          client_id: ${configuration.keycloak.client-id}
+          grant_type: ${configuration.keycloak.grant-type}
 
 # actuator endpoints
 management:

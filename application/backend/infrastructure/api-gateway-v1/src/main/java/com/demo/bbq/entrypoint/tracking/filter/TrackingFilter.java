@@ -42,7 +42,7 @@ public class TrackingFilter extends AbstractGatewayFilterFactory<TrackingFilter.
   }
 
   private static ServerWebExchange mutateExchangeRequest(ServerWebExchange exchange) {
-    String traceId = TRACE_ID.getParamGenerator().generateHeader();
+    String traceId = TRACE_ID.getParamGenerator().generateParam();
 
     ServerHttpRequest modifiedRequest = exchange.getRequest()
         .mutate()

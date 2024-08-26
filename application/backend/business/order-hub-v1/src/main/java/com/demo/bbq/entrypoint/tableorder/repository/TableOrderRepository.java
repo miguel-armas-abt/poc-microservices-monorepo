@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.tableorder.repository;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.buildHeaders;
+import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.fillHeaders;
 
 import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
@@ -47,7 +47,7 @@ public class TableOrderRepository {
         .uri(UriComponentsBuilder
             .fromUriString(getBaseURL().concat("table-orders"))
             .queryParam("tableNumber", tableNumber).toUriString())
-        .headers(buildHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(getHeaderTemplate(), headers))
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromValue(requestedMenuOrderList))
         .retrieve()
@@ -62,7 +62,7 @@ public class TableOrderRepository {
         .uri(UriComponentsBuilder
             .fromUriString(getBaseURL().concat("table-orders"))
             .queryParam("tableNumber", tableNumber).toUriString())
-        .headers(buildHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(getHeaderTemplate(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
         .toEntity(TableOrderResponseWrapper.class)
@@ -74,7 +74,7 @@ public class TableOrderRepository {
         .uri(UriComponentsBuilder
             .fromUriString(getBaseURL().concat("table-orders"))
             .queryParam("tableNumber", tableNumber).toUriString())
-        .headers(buildHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(getHeaderTemplate(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
         .toEntity(Void.class)

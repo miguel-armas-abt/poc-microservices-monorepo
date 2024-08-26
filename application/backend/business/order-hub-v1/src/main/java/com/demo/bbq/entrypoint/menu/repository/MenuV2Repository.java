@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.menu.repository;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.buildHeaders;
+import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.fillHeaders;
 
 import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
@@ -46,7 +46,7 @@ public class MenuV2Repository implements MenuRepository {
         .uri(UriComponentsBuilder
             .fromUriString(getBaseURL().concat("menu-options/{productCode}"))
             .buildAndExpand(productCode).toUriString())
-        .headers(buildHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(getHeaderTemplate(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
         .toEntity(MenuOptionResponseWrapper.class)
@@ -59,7 +59,7 @@ public class MenuV2Repository implements MenuRepository {
         .uri(UriComponentsBuilder
             .fromUriString(getBaseURL().concat("menu-options"))
             .queryParam("category", category).toUriString())
-        .headers(buildHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(getHeaderTemplate(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
         .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME_MENU_V2))
@@ -72,7 +72,7 @@ public class MenuV2Repository implements MenuRepository {
         .uri(UriComponentsBuilder
             .fromUriString(getBaseURL().concat("menu-options")).toUriString())
         .contentType(MediaType.APPLICATION_JSON)
-        .headers(buildHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(getHeaderTemplate(), headers))
         .body(BodyInserters.fromValue(menuOption))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
@@ -87,7 +87,7 @@ public class MenuV2Repository implements MenuRepository {
             .fromUriString(getBaseURL().concat("menu-options/{productCode}"))
             .buildAndExpand(productCode).toUriString())
         .contentType(MediaType.APPLICATION_JSON)
-        .headers(buildHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(getHeaderTemplate(), headers))
         .body(BodyInserters.fromValue(menuOption))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
@@ -101,7 +101,7 @@ public class MenuV2Repository implements MenuRepository {
         .uri(UriComponentsBuilder
             .fromUriString(getBaseURL().concat("menu-options/{productCode}"))
             .buildAndExpand(productCode).toUriString())
-        .headers(buildHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(getHeaderTemplate(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
         .toEntity(Void.class)

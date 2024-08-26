@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.invoice.rest;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.extractHeadersAsMap;
+import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.extractHeadersAsMap;
 
 import com.demo.bbq.commons.toolkit.router.ServerResponseFactory;
 import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;

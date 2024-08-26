@@ -10,7 +10,6 @@ public class RestClient {
 
   private PerformanceTemplate performance;
   private RequestTemplate request;
-  private Map<String, String> variables;
   private Map<String, RestClientError> errors;
 
 }

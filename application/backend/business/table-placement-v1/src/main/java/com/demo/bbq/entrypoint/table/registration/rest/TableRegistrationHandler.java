@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.table.registration.rest;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.extractHeadersAsMap;
+import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.extractHeadersAsMap;
 
 import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
 import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;

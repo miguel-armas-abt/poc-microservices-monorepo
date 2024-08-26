@@ -15,6 +15,7 @@ import com.demo.bbq.entrypoint.menu.repository.product.wrapper.response.ProductR
 import com.demo.bbq.entrypoint.menu.service.MenuProductMatcher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +24,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.Map;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MenuProductMatcherTest {

@@ -17,7 +17,10 @@ spring:
             - name: TrackingFilter
 
 configuration:
-  enable-auth: ${ENABLE_AUTH:false}
+
+  authentication:
+    enable-auth: ${ENABLE_AUTH:false}
+    expected-roles: partners #separate items with comma
 
   error-messages:
     enabled: false
@@ -30,18 +33,14 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${AUTH_ADAPTER_DOMAIN:localhost:8080}/bbq/infrastructure/v1/auth/
+        endpoint: http://${AUTH_ADAPTER_DOMAIN:localhost:8011}/bbq/infrastructure/v1/auth/
         headers:
-          provided:
-            Accept: application/json
           generated:
             parent-id: PARENT_ID
             timestamp: TIMESTAMP_V2
           forwarded:
             Authorization: Authorization
             trace-id: trace-id
-      variables:
-        expected-roles: partners #separate items with comma
 
   obfuscation:
     body-fields: ["accessToken"]

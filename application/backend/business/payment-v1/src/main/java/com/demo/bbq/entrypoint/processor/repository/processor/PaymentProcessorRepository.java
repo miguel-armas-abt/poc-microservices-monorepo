@@ -1,8 +1,8 @@
 package com.demo.bbq.entrypoint.processor.repository.processor;
 
 import com.demo.bbq.commons.properties.ApplicationProperties;
-import com.demo.bbq.commons.restclient.retrofit.ReactiveRetrofitFactory;
-import com.demo.bbq.commons.restclient.retrofit.ReactiveTransformer;
+import com.demo.bbq.commons.restclient.retrofit.RetrofitFactory;
+import com.demo.bbq.commons.restclient.retrofit.StreamingTransformer;
 import com.demo.bbq.entrypoint.processor.repository.processor.wrapper.request.PaymentRequestWrapper;
 import com.demo.bbq.entrypoint.processor.repository.processor.wrapper.response.PaymentResponseWrapper;
 import io.reactivex.rxjava3.core.Observable;
@@ -22,7 +22,7 @@ public interface PaymentProcessorRepository {
   Observable<ResponseBody> executeBase(@Body PaymentRequestWrapper request);
 
   default Observable<PaymentResponseWrapper> execute(PaymentRequestWrapper request) {
-    return executeBase(request).compose(ReactiveTransformer.of(PaymentResponseWrapper.class));
+    return executeBase(request).compose(StreamingTransformer.of(PaymentResponseWrapper.class));
   }
 
   @Configuration
@@ -30,7 +30,7 @@ public interface PaymentProcessorRepository {
 
     @Bean(MENU_V2_SERVICE_NAME)
     PaymentProcessorRepository create(OkHttpClient.Builder builder, ApplicationProperties properties) {
-      return ReactiveRetrofitFactory.create(builder, properties, MENU_V2_SERVICE_NAME, PaymentProcessorRepository.class);
+      return RetrofitFactory.create(builder, properties, MENU_V2_SERVICE_NAME, PaymentProcessorRepository.class);
     }
   }
 }

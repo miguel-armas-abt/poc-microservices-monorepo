@@ -20,14 +20,16 @@ public abstract class ConfigurationBaseProperties {
 
   protected ObfuscationTemplate obfuscation;
 
-  protected Map<String, String> cryptography;
-
   public PerformanceTemplate searchPerformance(String serviceName) {
     return searchRestClient(serviceName).getPerformance();
   }
 
   public String searchEndpoint(String serviceName) {
     return searchRestClient(serviceName).getRequest().getEndpoint();
+  }
+
+  public Map<String, String> searchFormData(String serviceName) {
+    return searchRestClient(serviceName).getRequest().getFormData();
   }
 
   private RestClient searchRestClient(String serviceName) {

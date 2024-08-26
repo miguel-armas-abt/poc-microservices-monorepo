@@ -22,6 +22,6 @@ public enum GeneratedParamType {
 
   @FunctionalInterface
   public interface ParamGenerator {
-    String generateHeader();
+    String generateParam();
   }
 }

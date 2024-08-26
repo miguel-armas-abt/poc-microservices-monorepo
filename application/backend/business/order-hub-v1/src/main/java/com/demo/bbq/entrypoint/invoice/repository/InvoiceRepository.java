@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.invoice.repository;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HeadersFiller.buildHeaders;
+import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.fillHeaders;
 
 import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
@@ -45,7 +45,7 @@ public class InvoiceRepository {
     return webClient.post()
         .uri(getBaseURL().concat("calculate"))
         .contentType(MediaType.APPLICATION_JSON)
-        .headers(buildHeaders(properties.searchHeaderTemplate(SERVICE_NAME_INVOICE), headers))
+        .headers(fillHeaders(properties.searchHeaderTemplate(SERVICE_NAME_INVOICE), headers))
         .body(BodyInserters.fromValue(productList))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
@@ -58,7 +58,7 @@ public class InvoiceRepository {
     return webClient.post()
         .uri(getBaseURL().concat("send-to-pay"))
         .contentType(MediaType.APPLICATION_JSON)
-        .headers(buildHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(getHeaderTemplate(), headers))
         .body(BodyInserters.fromValue(paymentRequest))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
