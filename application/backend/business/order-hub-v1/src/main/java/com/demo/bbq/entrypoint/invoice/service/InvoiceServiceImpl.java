@@ -6,7 +6,7 @@ import com.demo.bbq.entrypoint.invoice.repository.InvoiceRepository;
 import com.demo.bbq.entrypoint.invoice.repository.wrapper.request.PaymentSendRequestWrapper;
 import com.demo.bbq.entrypoint.invoice.repository.wrapper.request.ProductRequestWrapper;
 import com.demo.bbq.entrypoint.invoice.repository.wrapper.response.InvoiceResponseWrapper;
-import com.demo.bbq.entrypoint.menu.repository.MenuRepositoryStrategy;
+import com.demo.bbq.entrypoint.menu.repository.MenuRepositorySelector;
 import com.demo.bbq.entrypoint.tableorder.repository.TableOrderRepository;
 import com.demo.bbq.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
   private final InvoiceRepository invoiceRepository;
   private final TableOrderRepository tableOrderRepository;
-  private final MenuRepositoryStrategy menuRepositoryStrategy;
+  private final MenuRepositorySelector menuRepositorySelector;
   private final InvoiceMapper invoiceMapper;
 
   @Override
@@ -38,8 +38,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     return tableOrderRepository.findByTableNumber(headers, tableNumber)
         .flatMapIterable(TableOrderResponseWrapper::getMenuOrderList)
-        .flatMap(menuOrder -> menuRepositoryStrategy
-            .getService()
+        .flatMap(menuOrder -> menuRepositorySelector
+            .selectStrategy()
             .findByProductCode(headers, menuOrder.getProductCode())
             .map(menuOption -> invoiceMapper.toProduct(menuOrder, menuOption))
         )

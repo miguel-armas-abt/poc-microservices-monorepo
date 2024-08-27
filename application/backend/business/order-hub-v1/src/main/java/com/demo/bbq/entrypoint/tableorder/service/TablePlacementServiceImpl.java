@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.tableorder.service;
 
-import com.demo.bbq.entrypoint.menu.repository.MenuRepositoryStrategy;
+import com.demo.bbq.entrypoint.menu.repository.MenuRepositorySelector;
 import com.demo.bbq.entrypoint.tableorder.dto.request.MenuOrderRequestDTO;
 import com.demo.bbq.entrypoint.tableorder.repository.TableOrderRepository;
 import com.demo.bbq.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 public class TablePlacementServiceImpl implements TablePlacementService {
 
   private final TableOrderRepository tableOrderRepository;
-  private final MenuRepositoryStrategy menuRepositoryStrategy;
+  private final MenuRepositorySelector menuRepositorySelector;
 
   @Override
   public Mono<Void> generateTableOrder(Map<String, String> headers,
@@ -32,8 +32,8 @@ public class TablePlacementServiceImpl implements TablePlacementService {
   }
 
   private Mono<Void> existsMenuOption(Map<String, String> headers, MenuOrderRequestDTO menuOrderRequest) {
-    return menuRepositoryStrategy
-        .getService()
+    return menuRepositorySelector
+        .selectStrategy()
         .findByProductCode(headers, menuOrderRequest.getProductCode())
         .switchIfEmpty(Mono.error(new BusinessException("MenuOptionNotFound")))
         .then();

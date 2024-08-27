@@ -28,7 +28,7 @@ configuration:
         endpoint: http://${MENU_V2_DOMAIN:localhost:8016}/bbq/business/menu/v2/
         headers:
           provided:
-            Accept: application/x-ndjson
+            Accept: application/x-ndjson, application/json
           generated:
             parent-id: PARENT_ID
             timestamp: TIMESTAMP_V2
@@ -43,7 +43,7 @@ configuration:
         endpoint: http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/bbq/business/table-placement/v1/
         headers:
           provided:
-            Accept: application/stream+json
+            Accept: application/x-ndjson, application/json
           generated:
             parent-id: PARENT_ID
             timestamp: TIMESTAMP_V2
@@ -58,7 +58,7 @@ configuration:
         endpoint: http://${INVOICE_DOMAIN:localhost:8014}/bbq/business/invoice/v1/
         headers:
           provided:
-            Accept: application/stream+json
+            Accept: application/x-ndjson, application/json
           generated:
             parent-id: PARENT_ID
             timestamp: TIMESTAMP_V2

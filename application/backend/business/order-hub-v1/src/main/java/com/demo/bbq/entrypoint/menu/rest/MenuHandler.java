@@ -8,7 +8,7 @@ import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
 import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
 import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
 import com.demo.bbq.entrypoint.menu.dto.params.CategoryParam;
-import com.demo.bbq.entrypoint.menu.repository.MenuRepositoryStrategy;
+import com.demo.bbq.entrypoint.menu.repository.MenuRepositorySelector;
 import com.demo.bbq.entrypoint.menu.repository.wrapper.response.MenuOptionResponseWrapper;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class MenuHandler {
 
-  private final MenuRepositoryStrategy menuRepository;
+  private final MenuRepositorySelector menuRepository;
   private final HeaderValidator headerValidator;
   private final ParamValidator paramValidator;
 
@@ -35,7 +35,7 @@ public class MenuHandler {
             ServerResponse.ok(),
             serverRequest.headers(),
             MenuOptionResponseWrapper.class,
-            menuRepository.getService().findByCategory(headers, categoryParam.getCategory())
+            menuRepository.selectStrategy().findByCategory(headers, categoryParam.getCategory())
         );
   }
 }

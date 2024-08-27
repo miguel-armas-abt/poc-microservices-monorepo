@@ -1,13 +1,12 @@
 package com.demo.bbq.entrypoint.menu.repository;
 
-import com.demo.bbq.commons.toolkit.serviceselector.SelectedServiceBase;
 import com.demo.bbq.entrypoint.menu.repository.wrapper.response.MenuOptionResponseWrapper;
 import com.demo.bbq.entrypoint.menu.repository.wrapper.request.MenuOptionSaveRequestWrapper;
 import java.util.Map;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface MenuRepository extends SelectedServiceBase {
+public interface MenuRepository {
 
   Mono<MenuOptionResponseWrapper> findByProductCode(Map<String, String> headers, String productCode);
 
@@ -19,4 +18,5 @@ public interface MenuRepository extends SelectedServiceBase {
 
   Mono<Void> delete(Map<String, String> headers, String productCode, MenuOptionSaveRequestWrapper menuOption);
 
+  boolean supports(Class<?> selectedClass);
 }
