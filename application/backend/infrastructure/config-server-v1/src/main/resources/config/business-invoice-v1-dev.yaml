@@ -20,6 +20,22 @@ configuration:
           forwarded:
             trace-id: trace-id
             channel-id: channel-id
+    rules-processor-v1:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
+      request:
+        endpoint: http://${RULES_PROCESSOR_DOMAIN:localhost:8015}/bbq/business/rules-processor/v1/execute
+        headers:
+          provided:
+            Accept: application/json
+            strategy: DiscountRule
+          generated:
+            parent-id: PARENT_ID
+            timestamp: TIMESTAMP_V2
+          forwarded:
+            trace-id: trace-id
+            channel-id: channel-id
 
   obfuscation:
     body-fields: []
@@ -27,11 +43,6 @@ configuration:
 
   business-info:
     igv: 0.18
-
-  rules:
-    discount-rules:
-      class-name: DiscountRule
-      drool-file: discount_rules.drl
 
 kafka-broker:
   topic:

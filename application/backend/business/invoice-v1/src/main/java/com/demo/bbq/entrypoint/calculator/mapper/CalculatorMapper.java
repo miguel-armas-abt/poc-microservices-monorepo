@@ -5,15 +5,18 @@ import com.demo.bbq.entrypoint.calculator.dto.response.ProductDTO;
 import java.math.BigDecimal;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public interface CalculatorMapper {
 
-  @Mapping(target = "subtotal", expression = "java(getSubtotal(product, unitPrice, discount))")
-  ProductDTO toResponseDTO(ProductRequestDTO product, BigDecimal unitPrice, BigDecimal discount);
+  @Mapping(target = "subtotal", source = "product", qualifiedByName = "getSubtotal")
+  ProductDTO toResponseDTO(ProductRequestDTO product);
 
-  default BigDecimal getSubtotal(ProductRequestDTO request, BigDecimal unitPrice, BigDecimal discount) {
-    BigDecimal subtotal = unitPrice.multiply(new BigDecimal(request.getQuantity()));
+  @Named("getSubtotal")
+  static BigDecimal getSubtotal(ProductRequestDTO product) {
+    BigDecimal subtotal = product.getUnitPrice().multiply(new BigDecimal(product.getQuantity()));
+    BigDecimal discount = BigDecimal.valueOf(product.getDiscount());
     return subtotal.subtract(subtotal.multiply(discount));
   }
 }

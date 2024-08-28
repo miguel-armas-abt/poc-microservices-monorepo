@@ -1,8 +1,6 @@
 package com.demo.bbq.commons.properties;
 
-import com.demo.bbq.commons.toolkit.rules.properties.RuleInfo;
 import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
-import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -15,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationProperties extends ConfigurationBaseProperties {
 
   private BusinessInfo businessInfo;
-  private Map<String, RuleInfo> rules;
 
   public String searchEndpoint(String serviceName) {
     return this.getRestClients().get(serviceName).getRequest().getEndpoint();
