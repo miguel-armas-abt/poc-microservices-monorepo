@@ -1,4 +1,4 @@
-package com.demo.bbq.entrypoint.menu.service;
+package com.demo.bbq.entrypoint.menu.repository;
 
 import com.demo.bbq.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuSaveRequestDTO;
@@ -12,14 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
-public class MenuProductMatcher {
+public class MenuRepositoryJoiner {
 
   private final String PRODUCT_SCOPE = "MENU";
   private final ProductRepository productRepository;

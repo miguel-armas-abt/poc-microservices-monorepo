@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.demo.bbq.entrypoint.menu.repository.MenuRepositoryJoiner;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,19 +21,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class MenuServiceImpl implements MenuService {
 
-  private final MenuProductMatcher menuProductMatcher;
+  private final MenuRepositoryJoiner menuRepositoryJoiner;
   private final ApplicationProperties properties;
 
   @Override
   public List<MenuResponseDTO> findByCategory(Map<String, String> headers, String categoryCode) {
     return Optional.ofNullable(categoryCode).isEmpty()
-          ? menuProductMatcher.findAll(headers)
+          ? menuRepositoryJoiner.findAll(headers)
           : this.validateMenuOptionAndFindByCategory(headers, categoryCode);
   }
 
   private List<MenuResponseDTO> validateMenuOptionAndFindByCategory(Map<String, String> headers, String categoryCode) {
     validateCategory(categoryCode);
-    return menuProductMatcher.findAll(headers)
+    return menuRepositoryJoiner.findAll(headers)
         .stream()
         .filter(menu -> menu.getCategory().equals(categoryCode))
         .collect(Collectors.toList());
@@ -39,7 +41,7 @@ public class MenuServiceImpl implements MenuService {
 
   @Override
   public MenuResponseDTO findByProductCode(Map<String, String> headers, String productCode) {
-    return menuProductMatcher.findAll(headers)
+    return menuRepositoryJoiner.findAll(headers)
         .stream()
         .filter(menuOption -> productCode.equals(menuOption.getProductCode()))
         .findFirst()
@@ -48,17 +50,17 @@ public class MenuServiceImpl implements MenuService {
 
   @Override
   public void save(Map<String, String> headers, MenuSaveRequestDTO menuOption) {
-    menuProductMatcher.save(headers, menuOption);
+    menuRepositoryJoiner.save(headers, menuOption);
   }
 
   @Override
   public void update(Map<String, String> headers, String productCode, MenuUpdateRequestDTO menuOption) {
-    menuProductMatcher.update(headers, productCode, menuOption);
+    menuRepositoryJoiner.update(headers, productCode, menuOption);
   }
 
   @Override
   public void deleteByProductCode(Map<String, String> headers, String productCode) {
-    menuProductMatcher.deleteByProductCode(headers, productCode);
+    menuRepositoryJoiner.deleteByProductCode(headers, productCode);
   }
 
   private void validateCategory(String category) {

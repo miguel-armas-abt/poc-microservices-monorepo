@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class InvoiceRepositoryHelper {
+public class InvoiceRepositoryJoiner {
 
   private final InvoiceRepository invoiceRepository;
 

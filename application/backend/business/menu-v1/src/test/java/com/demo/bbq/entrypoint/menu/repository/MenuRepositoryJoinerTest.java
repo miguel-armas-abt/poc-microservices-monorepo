@@ -12,7 +12,6 @@ import com.demo.bbq.entrypoint.menu.repository.menu.MenuRepository;
 import com.demo.bbq.entrypoint.menu.repository.menu.entity.MenuEntity;
 import com.demo.bbq.entrypoint.menu.repository.product.ProductRepository;
 import com.demo.bbq.entrypoint.menu.repository.product.wrapper.response.ProductResponseWrapper;
-import com.demo.bbq.entrypoint.menu.service.MenuProductMatcher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import java.util.Map;
@@ -26,10 +25,10 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MenuProductMatcherTest {
+public class MenuRepositoryJoinerTest {
 
   @InjectMocks
-  private MenuProductMatcher menuProductMatcher;
+  private MenuRepositoryJoiner menuRepositoryJoiner;
 
   @Mock
   private ProductRepository productRepository;
@@ -56,7 +55,7 @@ public class MenuProductMatcherTest {
         .thenReturn(jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity.class));
 
     String expected = new Gson().toJson(jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDTO.class));
-    String actual = new Gson().toJson(menuProductMatcher.findAll(Map.of()));
+    String actual = new Gson().toJson(menuRepositoryJoiner.findAll(Map.of()));
     assertEquals(expected, actual);
   }
 

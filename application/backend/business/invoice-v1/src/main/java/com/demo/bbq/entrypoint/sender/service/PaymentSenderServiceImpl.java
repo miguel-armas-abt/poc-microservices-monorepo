@@ -5,7 +5,7 @@ import com.demo.bbq.entrypoint.calculator.service.CalculatorService;
 import com.demo.bbq.entrypoint.sender.dto.PaymentSendRequestDTO;
 import com.demo.bbq.entrypoint.sender.event.PaymentOrderProducer;
 import com.demo.bbq.entrypoint.sender.mapper.PaymentSenderMapper;
-import com.demo.bbq.entrypoint.sender.repository.InvoiceRepositoryHelper;
+import com.demo.bbq.entrypoint.sender.repository.InvoiceRepositoryJoiner;
 import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import java.math.BigDecimal;
 import java.util.Map;
@@ -22,7 +22,7 @@ import reactor.core.publisher.Mono;
 @Service
 public class PaymentSenderServiceImpl implements PaymentSenderService {
   private final CalculatorService calculatorService;
-  private final InvoiceRepositoryHelper repositoryHelper;
+  private final InvoiceRepositoryJoiner repositoryHelper;
   private final PaymentOrderProducer paymentOrderProducer;
   private final PaymentSenderMapper mapper;
 
