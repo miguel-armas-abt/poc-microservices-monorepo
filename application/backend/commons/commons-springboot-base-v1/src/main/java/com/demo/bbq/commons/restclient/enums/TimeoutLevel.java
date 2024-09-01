@@ -11,19 +11,19 @@ public enum TimeoutLevel {
   POOR(2000, 200, 4000),
   BAD(2500, 200, 8000);
 
-  private final long connectionTimeoutMillis;
-  private final long writeTimeoutMillis;
-  private final long readTimeoutMillis;
+  private final long connectionTimeoutInMillis;
+  private final long writeTimeoutInMillis;
+  private final long readTimeoutInMillis;
 
   public Duration getConnectionTimeoutDuration() {
-    return Duration.ofMillis(connectionTimeoutMillis);
+    return Duration.ofMillis(connectionTimeoutInMillis);
   }
 
   public Duration getWriteTimeoutDuration() {
-    return Duration.ofMillis(writeTimeoutMillis);
+    return Duration.ofMillis(writeTimeoutInMillis);
   }
 
   public Duration getReadTimeoutDuration() {
-    return Duration.ofMillis(readTimeoutMillis);
+    return Duration.ofMillis(readTimeoutInMillis);
   }
 }

@@ -1,8 +1,10 @@
 package com.demo.bbq.commons.tracing.logging.obfuscation.constants;
 
-public class ObfuscationConstant {
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-  private ObfuscationConstant() {}
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class ObfuscationConstant {
 
   public static String OBFUSCATION_WARNING = "obfuscation.failed";
 
@@ -10,5 +12,5 @@ public class ObfuscationConstant {
 
   public static final String ARRAY_WILDCARD ="[*]";
 
-  public static final String JSON_SPLITTER_REGEX = "\\.";
+  public static final String JSON_SEGMENT_SPLITTER_REGEX = "\\.";
 }

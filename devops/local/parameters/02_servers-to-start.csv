@@ -1,7 +1,7 @@
 SERVER_NAME
 zookeeper
 kafka
-#redis
+redis
 postgres-db
 mysql-db
 #prometheus

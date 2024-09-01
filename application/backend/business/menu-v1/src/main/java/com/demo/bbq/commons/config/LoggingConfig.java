@@ -1,44 +1,41 @@
 package com.demo.bbq.commons.config;
 
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
-import com.demo.bbq.commons.tracing.logging.RestClientRequestLogger;
-import com.demo.bbq.commons.tracing.logging.RestClientResponseLogger;
-import com.demo.bbq.commons.tracing.logging.RestServerLogger;
-import lombok.RequiredArgsConstructor;
+import com.demo.bbq.commons.tracing.logging.error.ErrorLogger;
+import com.demo.bbq.commons.tracing.logging.injector.ThreadContextInjector;
+import com.demo.bbq.commons.tracing.logging.restclient.request.RestClientRequestLogger;
+import com.demo.bbq.commons.tracing.logging.restclient.response.RestClientResponseLogger;
+import com.demo.bbq.commons.tracing.logging.restserver.RestServerLogger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class LoggingConfig {
 
   @Bean
-  public ClientHttpRequestInterceptor restClientRequestLogger(ConfigurationBaseProperties properties) {
-    return new RestClientRequestLogger(properties);
+  public ThreadContextInjector threadContextInjector(ConfigurationBaseProperties properties) {
+    return new ThreadContextInjector(properties);
   }
 
   @Bean
-  public ClientHttpRequestInterceptor restClientResponseLogger(ConfigurationBaseProperties properties) {
-    return new RestClientResponseLogger(properties);
+  public ErrorLogger errorLogger(ThreadContextInjector threadContextInjector, ConfigurationBaseProperties properties) {
+    return new ErrorLogger(threadContextInjector, properties);
   }
 
   @Bean
-  public RestServerLogger restServerLogger(ConfigurationBaseProperties properties) {
-    return new RestServerLogger(properties);
+  public ClientHttpRequestInterceptor restClientRequestLogger(ThreadContextInjector threadContextInjector, ConfigurationBaseProperties properties) {
+    return new RestClientRequestLogger(threadContextInjector, properties);
   }
 
-  @Configuration
-  @RequiredArgsConstructor
-  public static class RestServerLoggerConfig implements WebMvcConfigurer {
+  @Bean
+  public ClientHttpRequestInterceptor restClientResponseLogger(ThreadContextInjector threadContextInjector, ConfigurationBaseProperties properties) {
+    return new RestClientResponseLogger(threadContextInjector, properties);
+  }
 
-    private final RestServerLogger restServerLogger;
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-      registry.addInterceptor(restServerLogger);
-    }
+  @Bean
+  public RestServerLogger restServerLogger(ThreadContextInjector threadContextInjector, ConfigurationBaseProperties properties) {
+    return new RestServerLogger(threadContextInjector, properties);
   }
 
 }

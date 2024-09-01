@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Builder
 @Setter
 @Getter
@@ -19,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "menu_options")
-public class MenuEntity {
+public class MenuEntity implements Serializable {
 
   @Id
   @Column(name = "id")

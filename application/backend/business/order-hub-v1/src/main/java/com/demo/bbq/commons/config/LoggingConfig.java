@@ -1,9 +1,11 @@
 package com.demo.bbq.commons.config;
 
-import com.demo.bbq.commons.properties.ApplicationProperties;
-import com.demo.bbq.commons.tracing.logging.RestClientRequestLogger;
-import com.demo.bbq.commons.tracing.logging.RestClientResponseLogger;
-import com.demo.bbq.commons.tracing.logging.RestServerLogger;
+import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
+import com.demo.bbq.commons.tracing.logging.error.ErrorLogger;
+import com.demo.bbq.commons.tracing.logging.injector.ThreadContextInjector;
+import com.demo.bbq.commons.tracing.logging.restclient.request.RestClientRequestLogger;
+import com.demo.bbq.commons.tracing.logging.restclient.response.RestClientResponseLogger;
+import com.demo.bbq.commons.tracing.logging.restserver.RestServerLogger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
@@ -13,18 +15,29 @@ import org.springframework.web.server.WebFilter;
 public class LoggingConfig {
 
   @Bean
-  public WebFilter restServerLogger(ApplicationProperties properties) {
-    return new RestServerLogger(properties);
+  public ThreadContextInjector threadContextInjector(ConfigurationBaseProperties properties) {
+    return new ThreadContextInjector(properties);
   }
 
   @Bean
-  public ExchangeFilterFunction restClientRequestLogger(ApplicationProperties properties) {
-    return new RestClientRequestLogger(properties);
+  public ErrorLogger errorLogger(ThreadContextInjector threadContextInjector, ConfigurationBaseProperties properties) {
+    return new ErrorLogger(threadContextInjector, properties);
   }
 
   @Bean
-  public ExchangeFilterFunction restClientResponseLogger(ApplicationProperties properties) {
-    return new RestClientResponseLogger(properties);
+  public ExchangeFilterFunction restClientRequestLogger(ThreadContextInjector threadContextInjector, ConfigurationBaseProperties properties) {
+    return new RestClientRequestLogger(threadContextInjector, properties);
+  }
+
+  @Bean
+  public ExchangeFilterFunction restClientResponseLogger(ThreadContextInjector threadContextInjector, ConfigurationBaseProperties properties) {
+    return new RestClientResponseLogger(threadContextInjector, properties);
+  }
+
+  @Bean
+  public WebFilter restServerLogger(ThreadContextInjector threadContextInjector, ConfigurationBaseProperties properties) {
+    return new RestServerLogger(threadContextInjector, properties);
   }
 
 }
+

@@ -1,11 +1,13 @@
 package com.demo.bbq.commons.properties;
 
 import com.demo.bbq.commons.errors.exceptions.SystemException;
+import com.demo.bbq.commons.properties.dto.cache.CacheTemplate;
 import com.demo.bbq.commons.properties.dto.messages.ErrorMessage;
 import com.demo.bbq.commons.properties.dto.obfuscation.ObfuscationTemplate;
 import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.dto.restclient.PerformanceTemplate;
 import com.demo.bbq.commons.properties.dto.restclient.RestClient;
+import com.demo.bbq.commons.tracing.logging.enums.LoggerType;
 import java.util.Map;
 import java.util.Optional;
 import lombok.Getter;
@@ -15,9 +17,13 @@ import lombok.Setter;
 @Setter
 public abstract class ConfigurationBaseProperties {
 
+  protected Map<String, Boolean> enabledLoggers;
+
   protected ErrorMessage errorMessages;
 
   protected Map<String, RestClient> restClients;
+
+  protected Map<String, CacheTemplate> cache;
 
   protected ObfuscationTemplate obfuscation;
 
@@ -40,5 +46,12 @@ public abstract class ConfigurationBaseProperties {
   private RestClient searchRestClient(String serviceName) {
     return Optional.ofNullable(restClients.get(serviceName))
         .orElseThrow(() -> new SystemException("NoSuchRestClient"));
+  }
+
+  public boolean isLoggerPresent(LoggerType loggerType) {
+    return Optional.ofNullable(this.getEnabledLoggers())
+        .filter(enabledLoggers -> enabledLoggers.containsKey(loggerType.getCode()))
+        .map(enabledLoggers -> enabledLoggers.get(loggerType.getCode()))
+        .orElseGet(() -> Boolean.FALSE);
   }
 }

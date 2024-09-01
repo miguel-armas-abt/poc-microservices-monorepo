@@ -17,6 +17,12 @@ spring:
             - name: TrackingFilter
 
 configuration:
+  enabled-loggers:
+    error: true
+    rest.server.req: false
+    rest.server.res: false
+    rest.client.req: true
+    rest.client.res: true
 
   authentication:
     enable-auth: ${ENABLE_AUTH:false}

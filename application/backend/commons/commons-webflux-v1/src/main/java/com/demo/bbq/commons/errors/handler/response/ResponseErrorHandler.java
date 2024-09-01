@@ -6,7 +6,7 @@ import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import com.demo.bbq.commons.errors.exceptions.ExternalServiceException;
 import com.demo.bbq.commons.errors.exceptions.SystemException;
 import com.demo.bbq.commons.toolkit.serialization.ByteSerializer;
-import com.demo.bbq.commons.tracing.logging.ErrorLoggerUtil;
+import com.demo.bbq.commons.tracing.logging.error.ErrorLogger;
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
 import java.net.ConnectException;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +22,10 @@ import reactor.core.publisher.Mono;
 public class ResponseErrorHandler {
 
   private final ByteSerializer byteSerializer;
+  private final ErrorLogger errorLogger;
 
   public Mono<Void> handleException(ConfigurationBaseProperties properties, Throwable ex, ServerWebExchange exchange) {
-    ErrorLoggerUtil.generateTrace(ex, exchange);
+    errorLogger.generateTraceIfLoggerIsPresent(ex, exchange);
 
     ErrorDTO error = ErrorDTO.getDefaultError(properties);
     HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;

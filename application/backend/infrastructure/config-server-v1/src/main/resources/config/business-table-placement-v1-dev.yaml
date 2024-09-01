@@ -1,4 +1,9 @@
 configuration:
+  enabled-loggers:
+    error: true
+    rest.server.req: true
+    rest.server.res: true
+
   error-messages:
     enabled: false
     messages:

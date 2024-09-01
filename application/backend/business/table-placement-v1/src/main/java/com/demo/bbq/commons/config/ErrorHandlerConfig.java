@@ -8,6 +8,8 @@ import com.demo.bbq.commons.errors.handler.external.strategy.RestClientErrorStra
 import com.demo.bbq.commons.toolkit.serialization.JsonSerializer;
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import java.util.List;
+
+import com.demo.bbq.commons.tracing.logging.error.ErrorLogger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,7 +28,7 @@ public class ErrorHandlerConfig {
   }
 
   @Bean
-  public ResponseErrorHandler responseErrorHandler(ByteSerializer byteSerializer) {
-    return new ResponseErrorHandler(byteSerializer);
+  public ResponseErrorHandler responseErrorHandler(ByteSerializer byteSerializer, ErrorLogger errorLogger) {
+    return new ResponseErrorHandler(byteSerializer, errorLogger);
   }
 }

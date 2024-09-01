@@ -1,4 +1,11 @@
 configuration:
+  enabled-loggers:
+    error: true
+    rest.server.req: false
+    rest.server.res: false
+    rest.client.req: true
+    rest.client.res: true
+
   error-messages:
     enabled: false
     messages:
@@ -18,6 +25,10 @@ configuration:
             trace-id: trace-id
             channel-id: channel-id
 
+  cache:
+    menu-and-products:
+      cleaning-frequency: MINUTELY
+
   features:
     menu-categories: [main, drink, dessert]
 
@@ -26,9 +37,15 @@ configuration:
     headers: []
 
 spring:
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 2500
+  cache:
+    type: redis #enable cache
 
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: none #create-drop
     database-platform: org.hibernate.dialect.MySQL8Dialect

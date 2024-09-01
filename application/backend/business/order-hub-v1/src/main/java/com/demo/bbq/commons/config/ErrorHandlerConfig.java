@@ -7,6 +7,7 @@ import com.demo.bbq.commons.properties.ApplicationProperties;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
 import com.demo.bbq.commons.errors.handler.external.strategy.DefaultErrorStrategy;
 import com.demo.bbq.commons.errors.handler.external.strategy.RestClientErrorStrategy;
+import com.demo.bbq.commons.tracing.logging.error.ErrorLogger;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +27,7 @@ public class ErrorHandlerConfig {
   }
 
   @Bean
-  public ResponseErrorHandler responseErrorHandler(ByteSerializer byteSerializer) {
-    return new ResponseErrorHandler(byteSerializer);
+  public ResponseErrorHandler responseErrorHandler(ByteSerializer byteSerializer, ErrorLogger errorLogger) {
+    return new ResponseErrorHandler(byteSerializer, errorLogger);
   }
 }

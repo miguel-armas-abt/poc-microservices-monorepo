@@ -5,13 +5,13 @@ import com.demo.bbq.entrypoint.menu.dto.request.MenuSaveRequestDTO;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
 import com.demo.bbq.entrypoint.menu.dto.response.MenuResponseDTO;
 import com.demo.bbq.commons.errors.exceptions.BusinessException;
+import com.demo.bbq.entrypoint.menu.mapper.MenuResponseMapper;
+import com.demo.bbq.entrypoint.menu.repository.MenuAndProductCache;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import com.demo.bbq.entrypoint.menu.repository.MenuRepositoryJoiner;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,19 +21,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class MenuServiceImpl implements MenuService {
 
-  private final MenuRepositoryJoiner menuRepositoryJoiner;
+  private final MenuAndProductCache menuAndProductCache;
+  private final MenuResponseMapper mapper;
   private final ApplicationProperties properties;
 
   @Override
   public List<MenuResponseDTO> findByCategory(Map<String, String> headers, String categoryCode) {
     return Optional.ofNullable(categoryCode).isEmpty()
-          ? menuRepositoryJoiner.findAll(headers)
+          ? this.findAll(headers)
           : this.validateMenuOptionAndFindByCategory(headers, categoryCode);
   }
 
   private List<MenuResponseDTO> validateMenuOptionAndFindByCategory(Map<String, String> headers, String categoryCode) {
     validateCategory(categoryCode);
-    return menuRepositoryJoiner.findAll(headers)
+    return this.findAll(headers)
         .stream()
         .filter(menu -> menu.getCategory().equals(categoryCode))
         .collect(Collectors.toList());
@@ -41,7 +42,7 @@ public class MenuServiceImpl implements MenuService {
 
   @Override
   public MenuResponseDTO findByProductCode(Map<String, String> headers, String productCode) {
-    return menuRepositoryJoiner.findAll(headers)
+    return this.findAll(headers)
         .stream()
         .filter(menuOption -> productCode.equals(menuOption.getProductCode()))
         .findFirst()
@@ -50,17 +51,21 @@ public class MenuServiceImpl implements MenuService {
 
   @Override
   public void save(Map<String, String> headers, MenuSaveRequestDTO menuOption) {
-    menuRepositoryJoiner.save(headers, menuOption);
+    menuAndProductCache.save(headers, menuOption);
   }
 
   @Override
   public void update(Map<String, String> headers, String productCode, MenuUpdateRequestDTO menuOption) {
-    menuRepositoryJoiner.update(headers, productCode, menuOption);
+    menuAndProductCache.update(headers, productCode, menuOption);
   }
 
   @Override
   public void deleteByProductCode(Map<String, String> headers, String productCode) {
-    menuRepositoryJoiner.deleteByProductCode(headers, productCode);
+    menuAndProductCache.deleteByProductCode(headers, productCode);
+  }
+
+  private List<MenuResponseDTO> findAll(Map<String, String> headers) {
+    return mapper.toResponseDTO(menuAndProductCache.findAll(headers));
   }
 
   private void validateCategory(String category) {
