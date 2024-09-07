@@ -1,12 +1,11 @@
-# Gestión de logs
+# Manejo de logs
 
 [← Ir a Backend](./../README.md)
 
 ## Características
 
-### 1. Ofuscación en los logs
+### 1. Ofuscación
 - **Objetivo**: Ofucar los campos sensibles en los logs.
-- **Implementación**: `BodyObfuscatorUtil`, `HeaderObfuscatorUtil` 
 - **Lógica**: Por cada log registrado se ofuscarán los campos del body y headers.
 - **Uso**: Configuración en el properties.
 

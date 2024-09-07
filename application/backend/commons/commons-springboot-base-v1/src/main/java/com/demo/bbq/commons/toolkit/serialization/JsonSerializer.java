@@ -1,5 +1,7 @@
 package com.demo.bbq.commons.toolkit.serialization;
 
+import static org.apache.commons.lang3.StringUtils.isNoneEmpty;
+
 import com.demo.bbq.commons.errors.exceptions.SystemException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,6 +57,7 @@ public class JsonSerializer {
                                                                 Function<T, Pair<String, String>> mapper) {
     return Optional
         .ofNullable(readNullableObject(jsonBody, objectClass))
-        .map(mapper);
+        .map(mapper)
+        .filter(codeAndMessage -> isNoneEmpty(codeAndMessage.getKey(), codeAndMessage.getValue()));
   }
 }

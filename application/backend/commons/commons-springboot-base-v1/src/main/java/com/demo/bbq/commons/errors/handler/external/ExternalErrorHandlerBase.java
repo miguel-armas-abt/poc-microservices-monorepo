@@ -6,6 +6,7 @@ import com.demo.bbq.commons.errors.handler.external.strategy.ExternalErrorWrappe
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
 import com.demo.bbq.commons.properties.dto.restclient.RestClient;
 import com.demo.bbq.commons.properties.dto.restclient.RestClientError;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import lombok.AccessLevel;
@@ -17,6 +18,7 @@ import org.apache.commons.lang3.tuple.Pair;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ExternalErrorHandlerBase {
 
+  private static final String[] HTTP_ALLOWED_CODES = {"400", "401"};
   private static final int HTTP_CONFLICT_CODE = 409;
 
   public static String selectCode(ConfigurationBaseProperties properties,
@@ -55,22 +57,21 @@ public class ExternalErrorHandlerBase {
   }
 
   public static int selectHttpCode(ConfigurationBaseProperties properties,
-                                    int httpCode,
-                                    Class<?> errorWrapperClass,
-                                    String errorCode,
-                                    String serviceName) {
+                                   int httpCode,
+                                   Class<?> errorWrapperClass,
+                                   String errorCode,
+                                   String serviceName) {
 
-    return (errorWrapperClass.isAssignableFrom(ErrorDTO.class))
-        ? httpCode
-        : findErrors(properties, serviceName)
-        .map(errors -> {
-          RestClientError defaultError = RestClientError.builder().httpCode(HTTP_CONFLICT_CODE).build();
-          return Optional.of(errors)
-              .map(error -> error.getOrDefault(errorCode, defaultError))
-              .map(RestClientError::getHttpCode)
-              .orElseGet(() -> HTTP_CONFLICT_CODE);
-        })
-        .orElseGet(() -> HTTP_CONFLICT_CODE);
+    if (errorWrapperClass.isAssignableFrom(ErrorDTO.class))
+      return httpCode;
+
+    if (Arrays.asList(HTTP_ALLOWED_CODES).contains(String.valueOf(httpCode)))
+      return httpCode;
+
+    return findErrors(properties, serviceName)
+        .map(errors -> errors.getOrDefault(errorCode, RestClientError.builder().httpCode(httpCode).build()))
+        .map(RestClientError::getHttpCode)
+        .orElse(HTTP_CONFLICT_CODE);
   }
 
   public static Optional<Map<String, RestClientError>> findErrors(ConfigurationBaseProperties properties, String serviceName) {
@@ -78,12 +79,8 @@ public class ExternalErrorHandlerBase {
         .map(RestClient::getErrors);
   }
 
-  public static Pair<String, String> emptyResponse(ErrorDTO defaultError) {
-    log.warn("Empty response body");
-    return Pair.of(ErrorDTO.CODE_EMPTY, defaultError.getMessage());
-  }
-
-  public static Pair<String, String> noSuchWrapper(ErrorDTO defaultError) {
-    return Pair.of("NoSuchExternalErrorWrapper", defaultError.getMessage());
+  public static Pair<String, String> getDefaultResponse(ErrorDTO defaultError, String logMessage) {
+    log.warn(logMessage);
+    return Pair.of(ErrorDTO.CODE_DEFAULT, defaultError.getMessage());
   }
 }

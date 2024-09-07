@@ -1,7 +1,7 @@
 package com.demo.bbq.commons.tracing.logging.error;
 
-import static com.demo.bbq.commons.tracing.logging.constants.ThreadContextConstant.*;
 import static com.demo.bbq.commons.tracing.logging.enums.LoggerType.REST_CLIENT_REQ;
+import static com.demo.bbq.commons.tracing.logging.injector.ThreadContextUtils.*;
 
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
 import com.demo.bbq.commons.tracing.logging.constants.ExceptionLoggingMessage;
@@ -11,8 +11,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.ThreadContext;
@@ -47,20 +45,15 @@ public class ErrorLogger {
           .getOrDefault(cause.getClass(), Optional.ofNullable(cause.getMessage()).orElse(UNDEFINED_MESSAGE));
     }
 
-    threadContextInjector.populateFromTraceHeaders(LoggerUtil.recoverTraceHeaders(exchange.getRequest()));
+    threadContextInjector.populateFromTraceHeaders(recoverTraceHeaders(exchange.getRequest()));
     log.error(message, ex);
     ThreadContext.clearAll();
   }
 
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  private static class LoggerUtil {
-
-    public static Map<String, String> recoverTraceHeaders(ServerHttpRequest request) {
-      return Arrays.stream(TRACE_FIELDS)
-          .map(traceField -> Map.entry(traceField, Optional.ofNullable(request.getHeaders().getFirst(traceField))))
-          .filter(entry -> entry.getValue().isPresent())
-          .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().get()));
-    }
-
+  private static Map<String, String> recoverTraceHeaders(ServerHttpRequest request) {
+    return Arrays.stream(TRACE_HEADERS)
+        .map(traceField -> Map.entry(traceField, Optional.ofNullable(request.getHeaders().getFirst(traceField))))
+        .filter(entry -> entry.getValue().isPresent())
+        .collect(Collectors.toMap(entry -> toCamelCase(entry.getKey()), entry -> entry.getValue().get()));
   }
 }

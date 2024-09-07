@@ -16,7 +16,7 @@
 |----------------------------|----------------------------------|------------------------|----------------------------------------|
 | `SystemException`          | `500`                            | `SYSTEM`               | Errores de configuración o sistema     |
 | `BusinessException`        | `400`                            | `BUSINESS`             | Errores de negocio o datos incorrectos |
-| `ExternalServiceException` | `409` o reutiliza el código HTTP | `EXTERNAL` o `FORWARD` | Error en la petición al cliente REST   |
+| `ExternalServiceException` | Reutiliza el código HTTP o `409` | `EXTERNAL` o `FORWARD` | Error en la petición al cliente REST   |
 
 > 📌 Las excepciones `SystemException` y `BusinessException` requieren obligatoriamente un código de error.
 

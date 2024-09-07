@@ -1,11 +1,6 @@
 package com.demo.bbq.commons.errors.handler.external;
 
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectCode;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectMessage;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectType;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectHttpCode;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.emptyResponse;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.noSuchWrapper;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.*;
 
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.dto.ErrorType;
@@ -35,8 +30,8 @@ public class ExternalErrorHandlerUtil {
     String jsonBody = httpException.getResponseBodyAsString();
 
     Pair<String, String> codeAndMessage = Strings.EMPTY.equals(jsonBody)
-        ? emptyResponse(defaultError)
-        : selectStrategy(errorWrapperClass, serviceList).getCodeAndMessage(jsonBody).orElseGet(() -> noSuchWrapper(defaultError));
+        ? getDefaultResponse(defaultError, "Empty response")
+        : selectStrategy(errorWrapperClass, serviceList).getCodeAndMessage(jsonBody).orElseGet(() -> getDefaultResponse(defaultError, "No such external error wrapper"));
 
     String selectedCode = selectCode(properties, codeAndMessage.getLeft(), serviceName);
     String selectedMessage = selectMessage(properties, selectedCode, codeAndMessage.getRight(), serviceName);

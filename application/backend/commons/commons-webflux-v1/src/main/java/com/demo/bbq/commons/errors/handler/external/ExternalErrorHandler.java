@@ -4,8 +4,7 @@ import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerB
 import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectMessage;
 import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectType;
 import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectHttpCode;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.emptyResponse;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.noSuchWrapper;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.getDefaultResponse;
 
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.dto.ErrorType;
@@ -17,6 +16,7 @@ import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.reactive.function.client.ClientResponse;
@@ -37,7 +37,7 @@ public class ExternalErrorHandler {
         .bodyToMono(String.class)
         .flatMap(jsonBody -> Strings.EMPTY.equals(jsonBody)
             ? Mono.just(emptyResponse(defaultError))
-            : Mono.just(selectStrategy(errorWrapperClass).getCodeAndMessage(jsonBody).orElseGet(() -> noSuchWrapper(defaultError))))
+            : Mono.just(selectStrategy(errorWrapperClass).getCodeAndMessage(jsonBody).orElseGet(() -> getDefaultResponse(defaultError, "No such external error wrapper"))))
         .switchIfEmpty(Mono.just(emptyResponse(defaultError)))
         .flatMap(codeAndMessage -> {
 
@@ -56,6 +56,10 @@ public class ExternalErrorHandler {
         .filter(service -> service.supports(errorWrapperClass))
         .findFirst()
         .orElseThrow(() -> new SystemException("NoSuchRestClientErrorStrategy"));
+  }
+
+  private Pair<String, String> emptyResponse(ErrorDTO defaultError) {
+    return getDefaultResponse(defaultError, "Empty response");
   }
 
 }

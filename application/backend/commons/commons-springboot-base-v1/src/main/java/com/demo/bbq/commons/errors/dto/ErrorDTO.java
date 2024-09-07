@@ -24,7 +24,6 @@ public class ErrorDTO extends ExternalErrorWrapper implements Serializable  {
     private static final long serialVersionUID = 281390055501829628L;
 
     public static final String CODE_DEFAULT = "Default";
-    public static final String CODE_EMPTY = "Empty";
 
     @JsonProperty("type")
     private ErrorType type;

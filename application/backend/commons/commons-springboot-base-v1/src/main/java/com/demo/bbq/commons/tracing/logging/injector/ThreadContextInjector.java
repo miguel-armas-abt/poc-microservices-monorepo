@@ -1,20 +1,14 @@
 package com.demo.bbq.commons.tracing.logging.injector;
 
-import static com.demo.bbq.commons.tracing.logging.constants.ThreadContextConstant.*;
+import static com.demo.bbq.commons.tracing.logging.injector.ThreadContextUtils.*;
 import static com.demo.bbq.commons.tracing.logging.enums.LoggerType.*;
-import static com.demo.bbq.commons.tracing.logging.injector.ThreadContextInjector.LoggerUtil.extractTraceHeaders;
 
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
 import com.demo.bbq.commons.properties.dto.obfuscation.ObfuscationTemplate;
 import com.demo.bbq.commons.tracing.logging.obfuscation.body.BodyObfuscator;
 import com.demo.bbq.commons.tracing.logging.obfuscation.header.HeaderObfuscator;
 import jakarta.annotation.PostConstruct;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -65,7 +59,7 @@ public class ThreadContextInjector {
   }
 
   private void populateFromRestRequest(String prefix, String method, String uri, Map<String, String> headers, String body) {
-    populateFromTraceHeaders(extractTraceHeaders(headers));
+    populateFromTraceHeaders(extractTraceFieldsFromHeaders(headers));
     putInContext(prefix + METHOD, method);
     putInContext(prefix + URI, uri);
     putInContext(prefix + HEADERS, HeaderObfuscator.process(obfuscation, headers));
@@ -73,21 +67,10 @@ public class ThreadContextInjector {
   }
 
   private void populateFromRestResponse(String prefix, Map<String, String> headers, String body, String httpCode) {
-    populateFromTraceHeaders(extractTraceHeaders(headers));
+    populateFromTraceHeaders(extractTraceFieldsFromHeaders(headers));
     putInContext(prefix + HEADERS, HeaderObfuscator.process(obfuscation, headers));
     putInContext(prefix + BODY, BodyObfuscator.process(obfuscation, body));
     putInContext(prefix + STATUS, httpCode);
   }
 
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  public static class LoggerUtil {
-
-    public static Map<String, String> extractTraceHeaders(Map<String, String> headers) {
-      return Arrays.stream(TRACE_FIELDS)
-          .map(traceField -> Map.entry(traceField, Optional.ofNullable(headers.get(traceField))))
-          .filter(entry -> entry.getValue().isPresent())
-          .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().get()));
-    }
-
-  }
 }

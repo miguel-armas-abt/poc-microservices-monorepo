@@ -7,29 +7,21 @@ específicas de cada proyecto.
 
 ```javascript
     com.demo.bbq
-    │───`rest`
-    ├───`application`
-    │   ├───constant                //*Constant
-    │   ├───dto
-    │   │   └───`<context>`
-    │   │       ├───request         //*RequestDTO
-    │   │       └───response        //*ResponseDTO
-    │   ├───enums                   //*Category | *Type
-    │   ├───events
-    │   │   ├───consumer
-    │   │   │   └───`<context>`     //*Consumer
-    │   │   │       └───message     //*Message
-    │   │   └───producer
-    │   │       └───`<context>`     //*Producer
-    │   │           └───message     //*Message
-    │   ├───mapper                  //*Mapper
-    │   └───service                 
-    │       └───`<context>`         //*Service & *ServiceImpl
-    ├───`repository`
-    │   └───`<data-model>`          //*Repository
-    │       └───entity | document | request | response  //*Entity | *Document | *RequestWrapper | *ResponseWrapper
-    └───`config`
-        ├───properties   
-        ├───errors   
-        └───restclient   
+    │───`commons`
+    │   ├───config
+    │   └───properties                      //ApplicationProperties
+    └───`entrypoint`
+        └───`<context>`
+            ├───dto
+            │   ├───request                 //*RequestDTO
+            │   └───response                //*ResponseDTO
+            ├───enums                       //*Type | *Category
+            ├───event
+            │   └───`<context>`             //*Producer | *Consumer
+            │       └───message             //*Message
+            ├───mapper                      //*Mapper
+            ├───repository
+            │   └───`<data-model>`          //*Repository
+            │       └───entity | wrapper    //*Entity | *RequestWrapper | *ResponseWrapper
+            └───rest                        //*RestService
 ```

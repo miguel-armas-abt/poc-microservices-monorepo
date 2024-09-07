@@ -1,7 +1,8 @@
 package com.demo.bbq.commons.tracing.logging.error;
 
 import static com.demo.bbq.commons.tracing.logging.constants.LoggingMessage.BASE_EXCEPTION_MESSAGES;
-import static com.demo.bbq.commons.tracing.logging.constants.ThreadContextConstant.*;
+import static com.demo.bbq.commons.tracing.logging.injector.ThreadContextUtils.TRACE_HEADERS;
+import static com.demo.bbq.commons.tracing.logging.injector.ThreadContextUtils.toCamelCase;
 
 import com.demo.bbq.commons.properties.ConfigurationBaseProperties;
 import com.demo.bbq.commons.tracing.logging.enums.LoggerType;
@@ -10,8 +11,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.ThreadContext;
@@ -40,20 +39,15 @@ public class ErrorLogger {
       message = BASE_EXCEPTION_MESSAGES.getOrDefault(cause.getClass(), Optional.ofNullable(cause.getMessage()).orElse(UNDEFINED_MESSAGE));
     }
 
-    threadContextInjector.populateFromTraceHeaders(LoggerUtil.recoverTraceHeaders(request));
+    threadContextInjector.populateFromTraceHeaders(extractTraceFieldsFromHeaders(request));
     log.error(message, exception);
     ThreadContext.clearAll();
   }
 
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  private static class LoggerUtil {
-
-    public static Map<String, String> recoverTraceHeaders(WebRequest request) {
-      return Arrays.stream(TRACE_FIELDS)
-          .map(traceField -> Map.entry(traceField, Optional.ofNullable(request.getHeader(traceField))))
-          .filter(entry -> entry.getValue().isPresent())
-          .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().get()));
-    }
-
+  private static Map<String, String> extractTraceFieldsFromHeaders(WebRequest request) {
+    return Arrays.stream(TRACE_HEADERS)
+        .map(traceField -> Map.entry(traceField, Optional.ofNullable(request.getHeader(traceField))))
+        .filter(entry -> entry.getValue().isPresent())
+        .collect(Collectors.toMap(entry -> toCamelCase(entry.getKey()), entry -> entry.getValue().get()));
   }
 }
