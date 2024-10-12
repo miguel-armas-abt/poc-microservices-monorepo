@@ -32,7 +32,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${RULES_PROCESSOR_DOMAIN:localhost:8015}/bbq/business/rules-processor/v1/execute
+        endpoint: http://${RULES_PROCESSOR_DOMAIN:localhost:8019}/bbq/business/rules-processor/v1/execute
         headers:
           provided:
             Accept: application/json

@@ -107,7 +107,7 @@ process_csv_record() {
 }
 
 iterate_csv_records() {
-  local services_accumulator=$1
+  local services_accumulator=""
 
   firstline=true
   while IFS=',' read -r app_name docker_image dependencies host_port container_port volumes || [ -n "$app_name" ]; do
@@ -129,8 +129,7 @@ iterate_csv_records() {
 echo "# Docker Compose construction started" > "$DOCKER_LOG_FILE"
 
 docker_compose_template=$(<"$DOCKER_COMPOSE_TEMPLATE")
-services=""
-services=$(iterate_csv_records "$services")
+services=$(iterate_csv_records)
 docker_compose_template="${docker_compose_template//@services/$services}"
 
 output_file="./../docker-compose.yml"

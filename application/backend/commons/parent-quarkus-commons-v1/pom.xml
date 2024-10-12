@@ -78,12 +78,6 @@
       <artifactId>quarkus-arc</artifactId>
     </dependency>
 
-    <!-- spring config server -->
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-spring-cloud-config-client</artifactId>
-    </dependency>
-
     <!-- yaml configuration -->
     <dependency>
       <groupId>io.quarkus</groupId>

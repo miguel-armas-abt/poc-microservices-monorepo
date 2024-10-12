@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.menu.rest;
 
-import static org.springframework.http.MediaType.APPLICATION_STREAM_JSON;
+import static org.springframework.http.MediaType.APPLICATION_NDJSON;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.RequestPredicates.path;
 import static org.springframework.web.reactive.function.server.RouterFunctions.nest;
@@ -21,7 +21,7 @@ public class MenuRestServiceImpl {
     return nest(
         path(BASE_URI),
         route()
-            .GET("menu-options", accept(APPLICATION_STREAM_JSON) , menuHandler::findMenuByCategory)
+            .GET("menu-options", accept(APPLICATION_NDJSON) , menuHandler::findMenuByCategory)
             .build()
     );
   }

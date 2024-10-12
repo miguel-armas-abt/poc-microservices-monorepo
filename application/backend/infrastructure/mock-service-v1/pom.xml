@@ -12,7 +12,7 @@
 	<groupId>com.demo.bbq.service</groupId>
 	<artifactId>mock-service-v1</artifactId>
 	<name>Mock Service V1</name>
-	<version>1.0.0</version>
+	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
 		<java.version>17</java.version>

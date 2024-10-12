@@ -11,9 +11,11 @@ mock-service-v1,INFRASTRUCTURE
 config-server-v1,INFRASTRUCTURE
 api-gateway-v1,INFRASTRUCTURE
 auth-adapter-v1,INFRASTRUCTURE
+mock-service-v1,INFRASTRUCTURE
 order-hub-v1,BUSINESS
 menu-v1,BUSINESS
 table-placement-v1,BUSINESS
 invoice-v1,BUSINESS
+rules-processor-v1,BUSINESS
 payment-v1,BUSINESS
 menu-v2,BUSINESS

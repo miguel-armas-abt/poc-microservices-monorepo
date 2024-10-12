@@ -3,13 +3,24 @@ package com.demo.bbq.commons.toolkit.validator.utils;
 import com.demo.bbq.commons.errors.exceptions.SystemException;
 import com.demo.bbq.commons.toolkit.validator.params.DefaultParams;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class ParamReflectiveMapper {
+
+  private static final Map<Class<?>, Function<String, ?>> fieldTypeConverters = new HashMap<>();
+  static {
+    fieldTypeConverters.put(Integer.class, Integer::parseInt);
+    fieldTypeConverters.put(Double.class, Double::parseDouble);
+    fieldTypeConverters.put(Long.class, Long::parseLong);
+    fieldTypeConverters.put(Boolean.class, Boolean::parseBoolean);
+    fieldTypeConverters.put(BigDecimal.class, BigDecimal::new);
+  }
 
   public static <T extends DefaultParams> T mapParam(Map<String, String> params,
                                                      Class<T> paramClass,
@@ -53,7 +64,8 @@ public class ParamReflectiveMapper {
           Optional.ofNullable(processedParams.get(paramName))
               .ifPresent(paramValue -> {
                 try {
-                  field.set(paramObject, paramValue);
+                  Object convertedValue = convertValue(field.getType(), paramValue);
+                  field.set(paramObject, convertedValue);
                 } catch (IllegalAccessException ex) {
                   throw new SystemException("ParamAssignmentError", ex.getMessage());
                 }
@@ -67,4 +79,13 @@ public class ParamReflectiveMapper {
               entry -> entry.getKey().toLowerCase(),
               Map.Entry::getValue
           ));
+
+  private static Object convertValue(Class<?> fieldType, String value) {
+    Function<String, ?> converter = fieldTypeConverters.get(fieldType);
+
+    if (converter != null)
+      return converter.apply(value);
+
+    return value;
+  }
 }

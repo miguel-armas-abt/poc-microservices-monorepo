@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.tableorder.rest;
 
-import static org.springframework.http.MediaType.APPLICATION_STREAM_JSON;
+import static org.springframework.http.MediaType.APPLICATION_NDJSON;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.RequestPredicates.path;
 import static org.springframework.web.reactive.function.server.RouterFunctions.nest;
@@ -21,8 +21,8 @@ public class TableOrderRestServiceImpl {
     return nest(
         path(BASE_URI),
         route()
-            .PATCH("table-orders", accept(APPLICATION_STREAM_JSON) , tablePlacementHandler::generateTableOrder)
-            .GET("table-orders", accept(APPLICATION_STREAM_JSON), tablePlacementHandler::findByTableNumber)
+            .PATCH("table-orders", accept(APPLICATION_NDJSON) , tablePlacementHandler::generateTableOrder)
+            .GET("table-orders", accept(APPLICATION_NDJSON), tablePlacementHandler::findByTableNumber)
             .build()
     );
   }

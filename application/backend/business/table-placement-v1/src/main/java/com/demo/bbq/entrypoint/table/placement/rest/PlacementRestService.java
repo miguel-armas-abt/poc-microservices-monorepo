@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.table.placement.rest;
 
-import static org.springframework.http.MediaType.APPLICATION_STREAM_JSON;
+import static org.springframework.http.MediaType.APPLICATION_NDJSON;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.RequestPredicates.path;
 import static org.springframework.web.reactive.function.server.RouterFunctions.nest;
@@ -22,9 +22,9 @@ public class PlacementRestService {
     return nest(
         path(BASE_URI),
         route()
-            .GET(TABLE_ORDERS_RESOURCE, accept(APPLICATION_STREAM_JSON) , placementHandler::findByTableNumber)
-            .DELETE(TABLE_ORDERS_RESOURCE, accept(APPLICATION_STREAM_JSON), placementHandler::cleanTable)
-            .PATCH(TABLE_ORDERS_RESOURCE, accept(APPLICATION_STREAM_JSON), placementHandler::generateTableOrder)
+            .GET(TABLE_ORDERS_RESOURCE, accept(APPLICATION_NDJSON) , placementHandler::findByTableNumber)
+            .DELETE(TABLE_ORDERS_RESOURCE, accept(APPLICATION_NDJSON), placementHandler::cleanTable)
+            .PATCH(TABLE_ORDERS_RESOURCE, accept(APPLICATION_NDJSON), placementHandler::generateTableOrder)
             .build()
     );
   }

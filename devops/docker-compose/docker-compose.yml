@@ -94,6 +94,7 @@ services:
       - POSTGRESQL_PASSWORD=qwerty
       - PRODUCT_DOMAIN=product-v1:8017
       - JAVA_OPTS=-Xms256M -Xmx256M
+      - RULES_PROCESSOR_DOMAIN=rules-processor-v1:8019
     depends_on:
       - config-server-v1
       - postgres-db
@@ -103,6 +104,21 @@ services:
       - dev_environment
     ports:
       - "8014:8014"
+
+  rules-processor-v1:
+    container_name: rules-processor-v1
+    image: miguelarmasabt/rules-processor:v1.0.1
+    restart: always
+    environment: 
+      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    depends_on:
+      - config-server-v1
+    
+    networks:
+      - dev_environment
+    ports:
+      - "8019:8019"
 
   payment-v1:
     container_name: payment-v1
@@ -171,6 +187,7 @@ services:
       - MENU_V2_DOMAIN=menu-v2:8016
       - TABLE_PLACEMENT_DOMAIN=table-placement-v1:8013
       - INVOICE_DOMAIN=invoice-v1:8014
+      - MENU_REPOSITORY_SELECTOR=com.demo.bbq.entrypoint.menu.repository.MenuV1Repository
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - config-server-v1
@@ -180,6 +197,20 @@ services:
       - dev_environment
     ports:
       - "8018:8018"
+
+  mock-service-v1:
+    container_name: mock-service-v1
+    image: miguelarmasabt/mock-service:v1.0.1
+    restart: always
+    environment: 
+      - MOCK_PORT=8021
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    
+    
+    networks:
+      - dev_environment
+    ports:
+      - "8020:8020"
 
   keycloak-server:
     container_name: keycloak-server

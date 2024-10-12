@@ -1,28 +1,28 @@
 package com.demo.bbq.commons;
 
+import com.demo.bbq.commons.properties.ApplicationProperties;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import java.io.IOException;
 import java.util.List;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.mockserver.integration.ClientAndServer;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class MockServerInitializer {
-
-    private static final int SERVER_PORT=8080;
 
     @Getter
     private ClientAndServer mockServer;
+
     private final List<MockRuleProvider> ruleProviders;
-    public MockServerInitializer(List<MockRuleProvider> ruleProviders) {
-        this.ruleProviders = ruleProviders;
-    }
+    private final ApplicationProperties properties;
 
     @PostConstruct
     public void startServer() {
-        mockServer = ClientAndServer.startClientAndServer(SERVER_PORT);
+        mockServer = ClientAndServer.startClientAndServer(properties.getMockPort());
         ruleProviders.forEach(provider -> {
             try {
                 provider.loadMocks(mockServer);

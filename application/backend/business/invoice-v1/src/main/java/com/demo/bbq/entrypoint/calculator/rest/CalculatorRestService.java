@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.calculator.rest;
 
-import static org.springframework.http.MediaType.APPLICATION_STREAM_JSON;
+import static org.springframework.http.MediaType.APPLICATION_NDJSON;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.RequestPredicates.path;
 import static org.springframework.web.reactive.function.server.RouterFunctions.nest;
@@ -21,7 +21,7 @@ public class CalculatorRestService {
     return nest(
         path(BASE_URI),
         route()
-            .POST("/calculate", accept(APPLICATION_STREAM_JSON) , calculatorHandler::calculateInvoice)
+            .POST("/calculate", accept(APPLICATION_NDJSON) , calculatorHandler::calculateInvoice)
             .build()
     );
   }

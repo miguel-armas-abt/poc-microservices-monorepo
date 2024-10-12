@@ -21,7 +21,8 @@ spring:
 
 # Server
 server:
-  port: 8082
+  port: ${SERVER_PORT:8020}
+  mock-port: ${MOCK_PORT:8021}
   undertow:
     accesslog:
       enabled: true

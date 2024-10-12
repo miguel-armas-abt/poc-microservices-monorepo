@@ -2,7 +2,7 @@ quarkus:
   application:
     name: menu-v2
   http:
-    port: 8016
+    port: ${SERVER_PORT:8016}
   log:
     console:
       enable: true

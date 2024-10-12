@@ -18,10 +18,6 @@ configuration:
             trace-id: trace-id
 
 quarkus:
-  spring-cloud-config:
-    enabled: true
-    url: http://localhost:8888
-
   datasource:
     db-kind: mysql
     username: ${MYSQL_USERNAME:bbq_user}

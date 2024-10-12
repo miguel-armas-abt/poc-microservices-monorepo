@@ -947,13 +947,21 @@
 					"name": "auth-adapter-v1",
 					"item": [
 						{
-							"name": "login",
+							"name": "getToken",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
 							"request": {
 								"method": "POST",
 								"header": [
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
+									},
+									{
+										"key": "channel-id",
+										"value": "web",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -972,7 +980,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8011/bbq/infrastructure/v1/auth/login",
+									"raw": "http://localhost:8011/bbq/infrastructure/v1/auth/token",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -983,7 +991,7 @@
 										"infrastructure",
 										"v1",
 										"auth",
-										"login"
+										"token"
 									]
 								}
 							},
@@ -1063,7 +1071,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJIeU44ZVR1S2cwMkx4M2lTYUtqc1pIS29yMm91ejJXUV9pNTBmaE15MGJrIn0.eyJleHAiOjE3MTI3ODY1ODMsImlhdCI6MTcxMjc4NDc4MywianRpIjoiOTkzNDY5MDMtMDVjMi00NWMyLWI3NTMtZWI2ZTBjYmFiMjc4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjI4N2QwMzBiLTM1ODUtNDA0ZS1hY2I1LTQ3Y2JiNWI2NWEzNyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMTU3NTM0ODUtN2Q4MC00NDgxLTkwZmEtYjFmOTA0NzFhNGJkIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiMTU3NTM0ODUtN2Q4MC00NDgxLTkwZmEtYjFmOTA0NzFhNGJkIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.bOq6OmGVtBcvMUsEVoYUxo7Yqjdw1Ib18Ln-385OzfW7-EEbAODPdV8JoNGpPh2MwbEkBWnFI-k1PYOwCW7cF6CyEG4dIijGW_HnFnvkWSny1hkmcTCuqQZv_fpbZ1nXcDXJ0fo739mglbjJfQmVFjjHY_6O601UNCv3WfPgmEY-uLVyhZTrBI5DUA-4_tAhLOvpWWzxNT0gnZ4IbI_xFuzR45sA5eD2Le7s8FcEu2MQcysnkDB42aYjwgn45E9kbPEsHoJ423NIMzpdFiu6f0YgTfis19qlgmsEiWcDD8aTwqipkbdCI8pGwG7nIPfnEzO74z7mLEuYrPxsgdxpQA",
+											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJjWVVKR2hVUGFtUGpzRkw4SzEyQUYzSDdBc0I0NldYOFl0eTQ4ZjA1U2EwIn0.eyJleHAiOjE3MjQ3MTQ4NTQsImlhdCI6MTcyNDcxMzA1NCwianRpIjoiMmY3NzIwZmYtZjIxNi00YmFiLTg0ZTQtZWI4ZjRjYTY2MmE4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjAzOTdkZDQyLWJkMjEtNGI4OC04Yzg1LTk4ZmU0OGNlMjYzYiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiOTE5NjgwODUtNzEzYi00OGQ4LThlY2EtOGRkODIyOTgyZDhhIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiOTE5NjgwODUtNzEzYi00OGQ4LThlY2EtOGRkODIyOTgyZDhhIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.gLw33lBWN9iEP4mcwhNNaJ6Ig8zc6XCMdJWMp3qbVkDx2HP0pNATkAait6Vx4wvgyV-e7JQ4rIKNmQQOg1fmBlro-l22BNpODyXWayhKdc-HzzUBgNLVm46q4nUAhTldKVGJjCMBgraFmLwqEcIjqIUG0_WN_hEMC_hh6KFOu_dBUwCKjnHWdBi5Iv-ol7CNCKZOTQEgD2Ox5N0JeqmXvjvS3kgCl0ZDlwpSmTLn630P_pal5PWt2f37Yyv5kr5GiLZIG9EbulW27tJc1dncpwSSBXwjY8ElU3M9ntxJwfLDoZxbEBlooEMT94Fp30KxdH_iWHWiai6vuXyZe_ryNQ",
 											"type": "string"
 										}
 									]
@@ -1071,8 +1079,13 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "traceId",
+										"key": "trace-id",
 										"value": "{{$guid}}"
+									},
+									{
+										"key": "channel-id",
+										"value": "web",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -1191,6 +1204,33 @@
 									"body": "{\n    \"type\": \"/errors/auth-rules\",\n    \"title\": \"Token validation error\",\n    \"errorCode\": \"ERROR1000\",\n    \"details\": []\n}"
 								}
 							]
+						}
+					]
+				},
+				{
+					"name": "mock-service",
+					"item": [
+						{
+							"name": "Mock - Payment processor",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8020/external/payments/v1/execute",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8020",
+									"path": [
+										"external",
+										"payments",
+										"v1",
+										"execute"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
@@ -1529,7 +1569,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8012/bbq/business/menu/v1/menu-options/MENU0002",
+									"raw": "http://localhost:8012/bbq/business/menu/v1/menu-options/MENU0006",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1541,7 +1581,7 @@
 										"menu",
 										"v1",
 										"menu-options",
-										"MENU0002"
+										"MENU0006"
 									]
 								}
 							},
@@ -1575,7 +1615,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"description\": \"Costillitas a la BBQ\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 9.90\r\n}",
+									"raw": "{\r\n    \"unitPrice\": 19.9,\r\n    \"description\": \"Jarra de emoliente\",\r\n    \"category\": \"drink\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1583,7 +1623,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8012/bbq/business/menu/v1/menu-options/MENU000100",
+									"raw": "http://localhost:8012/bbq/business/menu/v1/menu-options/MENU0006",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1595,178 +1635,7 @@
 										"menu",
 										"v1",
 										"menu-options",
-										"MENU000100"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "product-v1",
-					"item": [
-						{
-							"name": "product v1 - findAll",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{auth-token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "trace-id",
-										"value": "{{$guid}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"unitPrice\": 69.90,\r\n    \"scope\": \"MENU\",\r\n    \"code\": \"MENU0006\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8017/bbq/business/product/v1/products",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8017",
-									"path": [
-										"bbq",
-										"business",
-										"product",
-										"v1",
-										"products"
-									],
-									"query": [
-										{
-											"key": "scope",
-											"value": "MENU",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "product v1 - update",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{auth-token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "trace-id",
-										"value": "{{$guid}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"unitPrice\": 69.90,\r\n    \"scope\": \"MENU\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8017/bbq/business/product/v1/products/MENU0001",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8017",
-									"path": [
-										"bbq",
-										"business",
-										"product",
-										"v1",
-										"products",
-										"MENU0001"
-									],
-									"query": [
-										{
-											"key": "scope",
-											"value": "MENU",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "product v1 - save",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{auth-token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "trace-id",
-										"value": "{{$guid}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"code\": \"MENU0001\",\r\n    \"unitPrice\": 69.90,\r\n    \"scope\": \"MENU\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8017/bbq/business/product/v1/products",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8017",
-									"path": [
-										"bbq",
-										"business",
-										"product",
-										"v1",
-										"products"
-									],
-									"query": [
-										{
-											"key": "scope",
-											"value": "MENU",
-											"disabled": true
-										}
+										"MENU0006"
 									]
 								}
 							},
@@ -2036,11 +1905,6 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
-										"disabled": true
-									},
-									{
-										"key": "Accept",
 										"value": "application/x-ndjson"
 									},
 									{
@@ -2058,7 +1922,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options",
+									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options?category=main",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2074,8 +1938,7 @@
 									"query": [
 										{
 											"key": "category",
-											"value": "MAIN",
-											"disabled": true
+											"value": "main"
 										}
 									]
 								}
@@ -2313,6 +2176,177 @@
 					]
 				},
 				{
+					"name": "product-v1",
+					"item": [
+						{
+							"name": "product v1 - findAll",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "trace-id",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"unitPrice\": 69.90,\r\n    \"scope\": \"MENU\",\r\n    \"code\": \"MENU0006\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8017/bbq/business/product/v1/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8017",
+									"path": [
+										"bbq",
+										"business",
+										"product",
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "scope",
+											"value": "MENU",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "product v1 - update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "trace-id",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"unitPrice\": 79.90,\r\n    \"scope\": \"MENU\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8017/bbq/business/product/v1/products/MENU0006",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8017",
+									"path": [
+										"bbq",
+										"business",
+										"product",
+										"v1",
+										"products",
+										"MENU0006"
+									],
+									"query": [
+										{
+											"key": "scope",
+											"value": "MENU",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "product v1 - save",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "trace-id",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"MENU0001\",\r\n    \"unitPrice\": 69.90,\r\n    \"scope\": \"MENU\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8017/bbq/business/product/v1/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8017",
+									"path": [
+										"bbq",
+										"business",
+										"product",
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "scope",
+											"value": "MENU",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "table-placement-v1",
 					"item": [
 						{
@@ -2336,7 +2370,7 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
+										"value": "application/x-ndjson",
 										"type": "text"
 									},
 									{
@@ -2403,7 +2437,7 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
+										"value": "application/x-ndjson",
 										"type": "text"
 									},
 									{
@@ -2470,7 +2504,7 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
+										"value": "application/x-ndjson",
 										"type": "text"
 									},
 									{
@@ -2582,7 +2616,7 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
+										"value": "application/x-ndjson",
 										"type": "text"
 									},
 									{
@@ -2630,7 +2664,7 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
+										"value": "application/x-ndjson",
 										"type": "text"
 									},
 									{
@@ -2670,6 +2704,77 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "invoice-v1 - invoices",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "trace-id",
+										"value": "{{$guid}}",
+										"type": "text"
+									},
+									{
+										"key": "channel-id",
+										"value": "web",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8014/bbq/business/invoice/v1/invoices?documentNumber=76517368&documentType=DNI",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8014",
+									"path": [
+										"bbq",
+										"business",
+										"invoice",
+										"v1",
+										"invoices"
+									],
+									"query": [
+										{
+											"key": "documentNumber",
+											"value": "76517368"
+										},
+										{
+											"key": "documentType",
+											"value": "DNI"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -2696,7 +2801,7 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
+										"value": "application/x-ndjson",
 										"type": "text"
 									},
 									{
@@ -2851,7 +2956,7 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
+										"value": "application/x-ndjson",
 										"type": "text"
 									},
 									{
@@ -2900,7 +3005,7 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
+										"value": "application/x-ndjson",
 										"type": "text"
 									},
 									{
@@ -2937,6 +3042,95 @@
 										"v1",
 										"invoices",
 										"calculate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "payment-v1",
+					"item": [
+						{
+							"name": "Payments",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8015/bbq/business/payment/v1/execute",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8015",
+									"path": [
+										"bbq",
+										"business",
+										"payment",
+										"v1",
+										"execute"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "rules-processor-v1",
+					"item": [
+						{
+							"name": "rules-processor-v1 - discount",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "trace-id",
+										"value": "{{$guid}}",
+										"type": "text"
+									},
+									{
+										"key": "channel-id",
+										"value": "web",
+										"type": "text"
+									},
+									{
+										"key": "strategy",
+										"value": "DiscountRule",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quantity\": 2,\r\n    \"productCode\": \"MENU0003\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8019/bbq/business/rules-processor/v1/execute",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8019",
+									"path": [
+										"bbq",
+										"business",
+										"rules-processor",
+										"v1",
+										"execute"
 									]
 								}
 							},

@@ -18,7 +18,7 @@ public class PaymentRestService {
 
   private final PaymentService paymentService;
 
-  @GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+  @GetMapping(produces = MediaType.APPLICATION_NDJSON_VALUE)
   public Observable<PaymentOrderMessage> findAll(HttpServletRequest servletRequest) {
     logRequest.accept(servletRequest);
     return paymentService.findAll();
