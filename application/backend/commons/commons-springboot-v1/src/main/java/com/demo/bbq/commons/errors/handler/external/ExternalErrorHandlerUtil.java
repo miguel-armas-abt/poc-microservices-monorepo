@@ -1,6 +1,6 @@
 package com.demo.bbq.commons.errors.handler.external;
 
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.*;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorSelector.*;
 
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.dto.ErrorType;

@@ -1,6 +1,7 @@
 package com.demo.bbq.commons.properties;
 
 import com.demo.bbq.commons.errors.exceptions.SystemException;
+import com.demo.bbq.commons.properties.dto.ProjectType;
 import com.demo.bbq.commons.properties.dto.cache.CacheTemplate;
 import com.demo.bbq.commons.properties.dto.messages.ErrorMessage;
 import com.demo.bbq.commons.properties.dto.obfuscation.ObfuscationTemplate;
@@ -16,6 +17,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class ConfigurationBaseProperties {
+
+  protected ProjectType projectType;
 
   protected Map<String, Boolean> enabledLoggers;
 

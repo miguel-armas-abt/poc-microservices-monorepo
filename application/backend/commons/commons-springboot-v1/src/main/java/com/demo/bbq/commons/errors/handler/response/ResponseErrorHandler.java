@@ -45,16 +45,16 @@ public class ResponseErrorHandler extends ResponseEntityExceptionHandler {
     }
 
     if(ex instanceof BusinessException businessException) {
-      error = ResponseErrorHandlerBase.toErrorDTO(properties, businessException);
+      error = ResponseErrorSelector.toErrorDTO(properties, businessException);
       httpStatus = HttpStatus.BAD_REQUEST;
     }
 
     if(ex instanceof SystemException systemException) {
-      error = ResponseErrorHandlerBase.toErrorDTO(properties, systemException);
+      error = ResponseErrorSelector.toErrorDTO(properties, systemException);
     }
 
     if(ex instanceof AuthorizationException authException) {
-      error = ResponseErrorHandlerBase.toErrorDTO(properties, authException);
+      error = ResponseErrorSelector.toErrorDTO(properties, authException);
       httpStatus = HttpStatus.UNAUTHORIZED;
     }
 

@@ -16,7 +16,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ExternalErrorHandlerBase {
+public class ExternalErrorSelector {
 
   private static final String[] HTTP_ALLOWED_CODES = {"400", "401"};
   private static final int HTTP_CONFLICT_CODE = 409;

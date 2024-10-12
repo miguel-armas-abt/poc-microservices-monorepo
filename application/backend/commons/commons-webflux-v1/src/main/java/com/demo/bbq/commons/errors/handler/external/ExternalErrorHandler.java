@@ -1,10 +1,10 @@
 package com.demo.bbq.commons.errors.handler.external;
 
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectCode;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectMessage;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectType;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.selectHttpCode;
-import static com.demo.bbq.commons.errors.handler.external.ExternalErrorHandlerBase.getDefaultResponse;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorSelector.selectCode;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorSelector.selectMessage;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorSelector.selectType;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorSelector.selectHttpCode;
+import static com.demo.bbq.commons.errors.handler.external.ExternalErrorSelector.getDefaultResponse;
 
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.dto.ErrorType;
