@@ -51,7 +51,7 @@ spec:
               - name: {{ upper $key | replace "-" "_" }}
                 valueFrom:
                   configMapKeyRef:
-                    name: {{ $.Values.name }}-config
+                    name: {{ $.Values.name }}-config-map
                     key: {{ $key }}
               {{- end }}
               {{- end }}

@@ -1,0 +1,25 @@
+name: mongo-db
+image:
+  repository: mongo
+  tag: "latest"
+  pullPolicy: IfNotPresent
+ports:
+  containerPort: 27017
+  nodePort: 30717
+replicas: 1
+
+secrets:
+  MONGO_INITDB_ROOT_USERNAME: "bbq-user"
+  MONGO_INITDB_ROOT_PASSWORD: "qwerty"
+  MONGO_INITDB_DATABASE: "tablePlacement"
+
+initdb:
+  value: initdb.js
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+    cpu: "1"

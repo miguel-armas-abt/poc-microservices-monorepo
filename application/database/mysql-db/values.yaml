@@ -1,0 +1,24 @@
+name: mysql-db
+image:
+  repository: mysql
+  tag: "latest"
+  pullPolicy: IfNotPresent
+ports:
+  containerPort: 3306
+  nodePort: 30006
+replicas: 1
+
+secrets:
+  MYSQL_ROOT_PASSWORD: "qwerty"
+  TZ: "UTC"
+
+initdb:
+  value: initdb.sql
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+    cpu: "1"
