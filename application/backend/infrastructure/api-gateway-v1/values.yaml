@@ -1,0 +1,37 @@
+name: api-gateway-v1
+image:
+  repository: miguelarmasabt/api-gateway
+  tag: "v1.0.1"
+  pullPolicy: IfNotPresent
+ports:
+  containerPort: 8010
+  nodePort: 30010
+replicas: 1
+
+configMaps:
+  order-hub-domain: "order-hub-v1:8018"
+  enable-auth: "false"
+  auth-adapter-domain: "auth-adapter-v1:8011"
+  java-opts: "-Xms256M -Xmx256M"
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+    cpu: "1"
+
+livenessProbe:
+  path: /actuator/health/liveness
+  port: 8010
+  initialDelaySeconds: 30
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  path: /actuator/health/readiness
+  port: 8010
+  initialDelaySeconds: 30
+  periodSeconds: 30

@@ -1,4 +1,4 @@
-name: invoice-service
+name: invoice-v1
 image:
   repository: miguelarmasabt/invoice
   tag: "v1.0.1"
@@ -9,22 +9,15 @@ ports:
 replicas: 1
 
 configMaps:
-  kafka-domain:
-    value: "kafka-server:9093"
-  product-domain:
-    value: "product-v1:8017"
-  postgresql-domain:
-    value: "postgres-db:5432"
-  postgresql-username:
-    value: "bbq_user"
-  config-server-domain:
-    value: "config-server-v1:8888"
-  java-opts:
-    value: "-Xms256M -Xmx256M"
+  kafka-domain: "kafka-server:9093"
+  product-domain: "product-v1:8017"
+  postgresql-domain: "postgres-db:5432"
+  postgresql-username: "bbq_user"
+  config-server-domain: "config-server-v1:8888"
+  java-opts: "-Xms256M -Xmx256M"
 
 secrets:
-  postgresql:
-    POSTGRESQL_PASSWORD: "qwerty"
+  POSTGRESQL_PASSWORD: "qwerty"
 
 resources:
   requests:

@@ -1,0 +1,24 @@
+name: keycloak-server
+image:
+  repository: jboss/keycloak
+  tag: "16.0.0"
+  pullPolicy: IfNotPresent
+ports:
+  containerPort: 8080
+  nodePort: 30180
+replicas: 1
+
+configMaps:
+  keycloak-user: "admin"
+  db-vendor: "H2"
+
+secrets:
+  KEYCLOAK_PASSWORD: "admin"
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+    cpu: "1"

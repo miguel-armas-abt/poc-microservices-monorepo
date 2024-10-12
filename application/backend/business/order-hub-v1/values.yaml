@@ -1,0 +1,40 @@
+name: order-hub-v1
+image:
+  repository: miguelarmasabt/order-hub
+  tag: "v1.0.1"
+  pullPolicy: IfNotPresent
+ports:
+  containerPort: 8018
+  nodePort: 30018
+replicas: 1
+
+configMaps:
+  config-server-domain: "config-server-v1:8888"
+  menu-v1-domain: "menu-v1:8012"
+  menu-v2-domain: "menu-v2:8016"
+  table-placement-domain: "table-placement-v1:8013"
+  invoice-domain: "invoice-v1:8014"
+  menu-repository-selector: "com.demo.bbq.entrypoint.menu.repository.MenuV1Repository"
+  java-opts: "-Xms256M -Xmx256M"
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+    cpu: "1"
+
+livenessProbe:
+  path: /actuator/health/liveness
+  port: 8018
+  initialDelaySeconds: 30
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  path: /actuator/health/readiness
+  port: 8018
+  initialDelaySeconds: 30
+  periodSeconds: 30

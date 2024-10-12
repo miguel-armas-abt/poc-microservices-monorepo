@@ -29,44 +29,23 @@ spec:
               memory: "{{ .Values.resources.limits.memory }}"
               cpu: "{{ .Values.resources.limits.cpu }}"
 
-          livenessProbe:
-            httpGet:
-              path: {{ .Values.livenessProbe.path }}
-              port: {{ .Values.livenessProbe.port }}
-            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
-            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
-
-          readinessProbe:
-            httpGet:
-              path: {{ .Values.readinessProbe.path }}
-              port: {{ .Values.readinessProbe.port }}
-            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-
           env:
             {{- if .Values.configMaps }}
-              {{- range $configMapName, $configMapData := .Values.configMaps }}
-              {{- range $key, $value := $configMapData }}
+              {{- range $key, $value := .Values.configMaps }}
               - name: {{ upper $key | replace "-" "_" }}
                 valueFrom:
                   configMapKeyRef:
-                    name: {{ $configMapName }}
+                    name: {{ $.Values.name }}-config
                     key: {{ $key }}
-              {{- end }}
               {{- end }}
               {{- end }}
 
               {{- if .Values.secrets }}
-              {{- range $secretName, $secretData := .Values.secrets }}
-              {{- range $key, $value := $secretData }}
+              {{- range $key, $value := .Values.secrets }}
               - name: {{ upper $key | replace "-" "_" }}
                 valueFrom:
                   secretKeyRef:
-                    name: {{ $secretName }}
+                    name: {{ $.Values.name }}-secret
                     key: {{ $key }}
               {{- end }}
               {{- end }}
-              {{- end }}
----

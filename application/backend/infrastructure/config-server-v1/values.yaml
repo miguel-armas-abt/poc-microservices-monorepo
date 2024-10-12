@@ -1,0 +1,38 @@
+name: config-server-v1
+image:
+  repository: miguelarmasabt/config-server
+  tag: "v1.0.1"
+  pullPolicy: IfNotPresent
+ports:
+  containerPort: 8888
+  nodePort: 30088
+replicas: 1
+
+configMaps:
+  keycloak-domain: "keycloak-server:8080"
+  java-opts: "-Xms256M -Xmx256M"
+
+secrets:
+  KEYCLOAK_KEY_RS256: "mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo"
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+    cpu: "1"
+
+livenessProbe:
+  path: /actuator/health/liveness
+  port: 8888
+  initialDelaySeconds: 30
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  path: /actuator/health/readiness
+  port: 8888
+  initialDelaySeconds: 30
+  periodSeconds: 30

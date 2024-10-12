@@ -1,0 +1,41 @@
+name: menu-v1
+image:
+  repository: miguelarmasabt/menu
+  tag: "v1.0.1"
+  pullPolicy: IfNotPresent
+ports:
+  containerPort: 8012
+  nodePort: 30012
+replicas: 1
+
+configMaps:
+  config-server-domain: "config-server-v1:8888"
+  mysql-domain: "mysql-db:3306"
+  mysql-username: "bbq_user"
+  product-domain: "product-v1:8017"
+  java-opts: "-Xms256M -Xmx256M"
+
+secrets:
+  MYSQL_PASSWORD: "qwerty"
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+    cpu: "1"
+
+livenessProbe:
+  path: /actuator/health/liveness
+  port: 8012
+  initialDelaySeconds: 30
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  path: /actuator/health/readiness
+  port: 8012
+  initialDelaySeconds: 30
+  periodSeconds: 30

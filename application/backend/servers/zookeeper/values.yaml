@@ -1,0 +1,22 @@
+name: keycloak-server
+image:
+  repository: confluentinc/cp-zookeeper
+  tag: "7.3.2"
+  pullPolicy: IfNotPresent
+ports:
+  containerPort: 2181
+  nodePort: 30181
+replicas: 1
+
+configMaps:
+  zookeeper-client-port: "2181"
+  zookeeper-servers: "zookeeper-server:2888:3888"
+  zookeeper-server-id: "1"
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+    cpu: "1"

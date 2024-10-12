@@ -1,0 +1,17 @@
+name: redis-server
+image:
+  repository: redis
+  tag: "latest"
+  pullPolicy: IfNotPresent
+ports:
+  containerPort: 6379
+  nodePort: 30379
+replicas: 1
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+    cpu: "1"
