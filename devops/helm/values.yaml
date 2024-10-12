@@ -1,0 +1,49 @@
+name: invoice-service
+image:
+  repository: miguelarmasabt/invoice
+  tag: "v1.0.1"
+  pullPolicy: IfNotPresent
+ports:
+  containerPort: 8014
+  nodePort: 30014
+replicas: 1
+
+configMaps:
+  kafka-domain:
+    value: "kafka-server:9093"
+  product-domain:
+    value: "product-v1:8017"
+  postgresql-domain:
+    value: "postgres-db:5432"
+  postgresql-username:
+    value: "bbq_user"
+  config-server-domain:
+    value: "config-server-v1:8888"
+  java-opts:
+    value: "-Xms256M -Xmx256M"
+
+secrets:
+  postgresql:
+    POSTGRESQL_PASSWORD: "qwerty"
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+    cpu: "1"
+
+livenessProbe:
+  path: /actuator/health/liveness
+  port: 8014
+  initialDelaySeconds: 30
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  path: /actuator/health/readiness
+  port: 8014
+  initialDelaySeconds: 30
+  periodSeconds: 30
