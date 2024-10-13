@@ -44,4 +44,5 @@ spec:
             claimName: {{ .Values.name }}-pvc
 
         - name: {{ .Values.name }}-initdb-volume
-          configMap: {{ .Values.name }}-config-map
+          configMap:
+            name: {{ .Values.name }}-config-map
