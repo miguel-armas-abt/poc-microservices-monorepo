@@ -30,7 +30,7 @@ process_record() {
   if [[ $operation == "template" ]]; then
     manifests_destination_path="$HELM_PATH/manifests"
     create_folder "$manifests_destination_path"
-    command="helm template $component_name $helm_template_path -f $values_path > $component_name.yaml"
+    command="helm template $component_name $helm_template_path -f $values_path > $manifests_destination_path/$component_name.yaml"
   fi
 
   if [[ $operation == "install" ]]; then

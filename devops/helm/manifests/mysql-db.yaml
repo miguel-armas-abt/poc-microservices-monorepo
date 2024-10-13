@@ -1,0 +1,160 @@
+---
+# Source: generic-database-chart/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-db-secret
+type: Opaque
+data:
+    MYSQL_ROOT_PASSWORD: "cXdlcnR5"
+    TZ: "VVRD"
+---
+# Source: generic-database-chart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-db-config-map
+data:
+  initdb.sql: |-
+    CREATE USER IF NOT EXISTS 'bbq_user'@'%' IDENTIFIED BY 'qwerty';
+    GRANT ALL PRIVILEGES ON *.* TO 'bbq_user'@'%' WITH GRANT OPTION;
+    CREATE DATABASE IF NOT EXISTS db_products;
+    CREATE TABLE IF NOT EXISTS db_products.products(
+        id bigint unsigned auto_increment primary key,
+        is_active tinyint(1)   not null,
+        code varchar(191) not null,
+        unit_price double not null,
+        scope longtext not null,
+        constraint code unique (code)
+    );
+    INSERT INTO db_products.products (id, is_active, code, unit_price, scope) VALUES
+    (1, 1, 'MENU0001', 19.9, 'MENU'),
+    (2, 1, 'MENU0002', 39.9, 'MENU'),
+    (3, 1, 'MENU0003', 39.9, 'MENU'),
+    (4, 1, 'MENU0004', 49.9, 'MENU'),
+    (5, 1, 'MENU0005', 59.9, 'MENU'),
+    (6, 1, 'MENU0006', 19.9, 'MENU'),
+    (7, 1, 'MENU0007', 19.9, 'MENU'),
+    (8, 0, 'MENU0008', 19.9, 'MENU');
+    CREATE DATABASE IF NOT EXISTS db_menu_options;
+    CREATE TABLE IF NOT EXISTS db_menu_options.menu_options(
+        id bigint auto_increment primary key,
+        category varchar(255) null,
+        description varchar(255) null,
+        product_code varchar(255) null,
+        constraint UK_product_code unique (product_code)
+    );
+    INSERT INTO db_menu_options.menu_options (description, category, product_code) VALUES
+    ('Costillas de cerdo ahumadas', 'main', 'MENU0001'),
+    ('Pollo a la parrilla', 'main', 'MENU0002'),
+    ('Alitas de pollo BBQ', 'main', 'MENU0003'),
+    ('Maíz asado con mantequilla y especias', 'main', 'MENU0004'),
+    ('Jarra de chicha', 'drink', 'MENU0005'),
+    ('Jarra de maracuyá', 'drink', 'MENU0006'),
+    ('Torta de chocolate', 'dessert', 'MENU0007'),
+    ('Pie de manzana', 'dessert', 'MENU0008');
+    CREATE DATABASE IF NOT EXISTS db_payments;
+    CREATE TABLE IF NOT EXISTS db_payments.payments(
+        id bigint auto_increment primary key,
+        invoice_id bigint null,
+        payment_method varchar(255) null,
+        total_amount decimal(19, 2) null
+    );
+---
+# Source: generic-database-chart/templates/persistentvolume.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-db-pv
+  labels:
+    type: local
+    app: mysql-db
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/data/"
+---
+# Source: generic-database-chart/templates/persistentvolumeclaim.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-db-pvc
+  labels:
+    app: mysql-db
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+---
+# Source: generic-database-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-db
+  labels:
+    app: mysql-db
+spec:
+  type: NodePort
+  selector:
+    app: mysql-db
+  ports:
+    - name: mysql-db
+      port: 3306
+      nodePort: 30006
+---
+# Source: generic-database-chart/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-db
+  labels:
+    app: mysql-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-db
+  template:
+    metadata:
+      labels:
+        app: mysql-db
+    spec:
+      containers:
+        - name: mysql-db
+          image: "mysql:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+          envFrom:
+            - secretRef:
+                name: mysql-db-secret
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+          volumeMounts:
+            - mountPath: /var/lib/database
+              name: mysql-db-data-volume
+
+            - mountPath: /docker-entrypoint-initdb.d/initdb.sql
+              subPath: initdb.sql
+              name: mysql-db-initdb-volume
+
+      volumes:
+        - name: mysql-db-data-volume
+          persistentVolumeClaim:
+            claimName: mysql-db-pvc
+
+        - name: mysql-db-initdb-volume
+          configMap:
+            name: mysql-db-config-map

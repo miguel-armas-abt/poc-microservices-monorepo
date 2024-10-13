@@ -1,0 +1,139 @@
+---
+# Source: generic-database-chart/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongo-db-secret
+type: Opaque
+data:
+    MONGO_INITDB_DATABASE: "dGFibGVQbGFjZW1lbnQ="
+    MONGO_INITDB_ROOT_PASSWORD: "cXdlcnR5"
+    MONGO_INITDB_ROOT_USERNAME: "YmJxLXVzZXI="
+---
+# Source: generic-database-chart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-db-config-map
+data:
+  initdb.js: |-
+    db.createUser({
+        user: "bbq-user",
+        pwd: "qwerty",
+        roles: [{ role: "readWrite", db: "tablePlacement" }]
+    });
+    
+    var commonTableInfo = {
+        "capacity": 4,
+        "isAvailable": false,
+        "menuOrderList": [],
+        "_class": "com.demo.bbq.business.tableplacement.domain.repository.tableorder.document.TableDocument"
+    };
+    
+    var tableList = [];
+    for (var i = 1; i <= 6; i++) {
+        var table = Object.assign({}, commonTableInfo);
+        table.tableNumber = i;
+        tableList.push(table);
+        //menuOrderList: Array empty
+    }
+    
+    db.tables.insert(tableList);
+---
+# Source: generic-database-chart/templates/persistentvolume.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-db-pv
+  labels:
+    type: local
+    app: mongo-db
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/data/"
+---
+# Source: generic-database-chart/templates/persistentvolumeclaim.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-db-pvc
+  labels:
+    app: mongo-db
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+---
+# Source: generic-database-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-db
+  labels:
+    app: mongo-db
+spec:
+  type: NodePort
+  selector:
+    app: mongo-db
+  ports:
+    - name: mongo-db
+      port: 27017
+      nodePort: 30717
+---
+# Source: generic-database-chart/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-db
+  labels:
+    app: mongo-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-db
+  template:
+    metadata:
+      labels:
+        app: mongo-db
+    spec:
+      containers:
+        - name: mongo-db
+          image: "mongo:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          envFrom:
+            - secretRef:
+                name: mongo-db-secret
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+          volumeMounts:
+            - mountPath: /var/lib/database
+              name: mongo-db-data-volume
+
+            - mountPath: /docker-entrypoint-initdb.d/initdb.js
+              subPath: initdb.js
+              name: mongo-db-initdb-volume
+
+      volumes:
+        - name: mongo-db-data-volume
+          persistentVolumeClaim:
+            claimName: mongo-db-pvc
+
+        - name: mongo-db-initdb-volume
+          configMap:
+            name: mongo-db-config-map

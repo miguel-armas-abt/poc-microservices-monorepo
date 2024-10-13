@@ -34,10 +34,8 @@ iterate_csv_records() {
 
     # Ignore comments
     if [[ $component_name != "#"* ]]; then
-      continue
+      ./record-processor.sh "$operation" "$component_name" "$component_type" "$helm_template" "$namespace"
     fi
-
-    ./record-processor.sh "$operation" "$component_name" "$component_type" "$helm_template" "$namespace"
 
   done < <(sed 's/\r//g' "$COMPONENTS_CSV")
 }

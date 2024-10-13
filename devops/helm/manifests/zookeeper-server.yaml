@@ -1,0 +1,75 @@
+---
+# Source: generic-server-chart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-server-config-map
+data:
+    zookeeper-client-port: "2181"
+    zookeeper-server-id: "1"
+    zookeeper-servers: "zookeeper-server:2888:3888"
+---
+# Source: generic-server-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak-server
+  labels:
+    app: keycloak-server
+spec:
+  type: NodePort
+  selector:
+    app: keycloak-server
+  ports:
+    - name: keycloak-server
+      port: 2181
+      nodePort: 30181
+---
+# Source: generic-server-chart/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak-server
+  labels:
+    app: keycloak-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak-server
+  template:
+    metadata:
+      labels:
+        app: keycloak-server
+    spec:
+      containers:
+        - name: keycloak-server
+          image: "confluentinc/cp-zookeeper:7.3.2"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 2181
+
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+
+          env:
+              - name: ZOOKEEPER_CLIENT_PORT
+                valueFrom:
+                  configMapKeyRef:
+                    name: keycloak-server-config-map
+                    key: zookeeper-client-port
+              - name: ZOOKEEPER_SERVER_ID
+                valueFrom:
+                  configMapKeyRef:
+                    name: keycloak-server-config-map
+                    key: zookeeper-server-id
+              - name: ZOOKEEPER_SERVERS
+                valueFrom:
+                  configMapKeyRef:
+                    name: keycloak-server-config-map
+                    key: zookeeper-servers

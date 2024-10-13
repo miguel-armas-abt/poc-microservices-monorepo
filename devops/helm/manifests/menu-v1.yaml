@@ -1,0 +1,117 @@
+---
+# Source: generic-backend-chart/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: menu-v1-secret
+type: Opaque
+data:
+    MYSQL_PASSWORD: "cXdlcnR5"
+---
+# Source: generic-backend-chart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: menu-v1-config-map
+data:
+    config-server-domain: "config-server-v1:8888"
+    java-opts: "-Xms256M -Xmx256M"
+    mysql-domain: "mysql-db:3306"
+    mysql-username: "bbq_user"
+    product-domain: "product-v1:8017"
+---
+# Source: generic-backend-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: menu-v1
+  labels:
+    app: menu-v1
+spec:
+  type: NodePort
+  selector:
+    app: menu-v1
+  ports:
+    - name: menu-v1
+      port: 8012
+      nodePort: 30012
+---
+# Source: generic-backend-chart/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: menu-v1
+  labels:
+    app: menu-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: menu-v1
+  template:
+    metadata:
+      labels:
+        app: menu-v1
+    spec:
+      containers:
+        - name: menu-v1
+          image: "miguelarmasabt/menu:v1.0.1"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8012
+
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8012
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8012
+            initialDelaySeconds: 30
+            periodSeconds: 30
+
+          env:
+              - name: CONFIG_SERVER_DOMAIN
+                valueFrom:
+                  configMapKeyRef:
+                    name: menu-v1-config-map
+                    key: config-server-domain
+              - name: JAVA_OPTS
+                valueFrom:
+                  configMapKeyRef:
+                    name: menu-v1-config-map
+                    key: java-opts
+              - name: MYSQL_DOMAIN
+                valueFrom:
+                  configMapKeyRef:
+                    name: menu-v1-config-map
+                    key: mysql-domain
+              - name: MYSQL_USERNAME
+                valueFrom:
+                  configMapKeyRef:
+                    name: menu-v1-config-map
+                    key: mysql-username
+              - name: PRODUCT_DOMAIN
+                valueFrom:
+                  configMapKeyRef:
+                    name: menu-v1-config-map
+                    key: product-domain
+              - name: MYSQL_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: menu-v1-secret
+                    key: MYSQL_PASSWORD
