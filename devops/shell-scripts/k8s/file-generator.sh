@@ -2,7 +2,7 @@
 
 source ./../commons.sh
 
-CONFIG_MAP_TEMPLATE="./configmap-db.yaml"
+CONFIG_MAP_TEMPLATE="./templates/configmap-db.yaml"
 DATABASES_PATH="./../../../application/backend/database"
 HELM_DATABASES_PATH="./../../helm/database"
 

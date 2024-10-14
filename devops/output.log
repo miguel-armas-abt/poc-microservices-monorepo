@@ -1,0 +1,34 @@
+ 3:53:18:880PM .......... docker build ./../../../application/backend/business/invoice-v1/Dockerfile -t miguelarmasabt/invoice:v1.0.1 ./../../../application/backend/business/invoice-v1
+ 3:54:34:729PM .......... docker build ./../../../application/backend/business/invoice-v1/Dockerfile -t miguelarmasabt/invoice:v1.0.1 ./../../../application/backend/business/invoice-v1
+ 3:58:22:735PM .......... docker build -f ./../../../application/backend/business/invoice-v1/Dockerfile -t miguelarmasabt/invoice:v1.0.1 ./../../../application/backend/business/invoice-v1
+ 4:57:51:985PM .......... docker build -f ./../../../application/backend/business/invoice-v1/Dockerfile -t miguelarmasabt/invoice:v1.0.1 ./../../../application/backend/business/invoice-v1
+ 4:57:53:637PM .......... docker build -f ./../../../application/backend/business/menu-v1/Dockerfile -t miguelarmasabt/menu:v1.0.1 ./../../../application/backend/business/menu-v1
+ 4:57:57:150PM .......... docker build -f ./../../../application/backend/business/menu-v2/Dockerfile -t miguelarmasabt/menu:v2.0.1 ./../../../application/backend/business/menu-v2
+ 4:57:57:704PM .......... docker build -f ./../../../application/backend/business/order-hub-v1/Dockerfile -t miguelarmasabt/order-hub:v1.0.1 ./../../../application/backend/business/order-hub-v1
+ 4:58:00:869PM .......... docker build -f ./../../../application/backend/business/payment-v1/Dockerfile -t miguelarmasabt/payment:v1.0.1 ./../../../application/backend/business/payment-v1
+ 4:58:06:425PM .......... docker build -f ./../../../application/backend/business/product-v1/Dockerfile -t miguelarmasabt/product:v1.0.1 ./../../../application/backend/business/product-v1
+ 4:58:30:239PM .......... docker build -f ./../../../application/backend/business/rules-processor-v1/Dockerfile -t miguelarmasabt/rules-processor:v1.0.1 ./../../../application/backend/business/rules-processor-v1
+ 4:58:33:740PM .......... docker build -f ./../../../application/backend/business/table-placement-v1/Dockerfile -t miguelarmasabt/table-placement:v1.0.1 ./../../../application/backend/business/table-placement-v1
+ 4:58:37:593PM .......... docker build -f ./../../../application/backend/platform/api-gateway-v1/Dockerfile -t miguelarmasabt/api-gateway:v1.0.1 ./../../../application/backend/platform/api-gateway-v1
+ 4:58:40:979PM .......... docker build -f ./../../../application/backend/platform/auth-adapter-v1/Dockerfile -t miguelarmasabt/auth-adapter:v1.0.1 ./../../../application/backend/platform/auth-adapter-v1
+ 4:58:45:615PM .......... docker build -f ./../../../application/backend/platform/config-server-v1/Dockerfile -t miguelarmasabt/config-server:v1.0.1 ./../../../application/backend/platform/config-server-v1
+ 4:58:48:534PM .......... docker build -f ./../../../application/backend/platform/mock-service-v1/Dockerfile -t miguelarmasabt/mock-service:v1.0.1 ./../../../application/backend/platform/mock-service-v1
+ 4:58:51:261PM .......... docker build -f ./../../../application/backend/runtime/keycloak-server/Dockerfile -t jboss/keycloak:16.0.0 ./../../../application/backend/runtime/keycloak-server
+ 4:58:52:054PM .......... docker build -f ./../../../application/backend/runtime/redis-server/Dockerfile -t redis:latest ./../../../application/backend/runtime/redis-server
+ 4:58:52:782PM .......... docker build -f ./../../../application/backend/runtime/zookeeper-server/Dockerfile -t confluentinc/cp-zookeeper:7.3.2 ./../../../application/backend/runtime/zookeeper-server
+ 4:58:54:031PM .......... docker build -f ./../../../application/backend/runtime/kafka-server/Dockerfile -t confluentinc/cp-kafka:7.3.2 ./../../../application/backend/runtime/kafka-server
+ 4:58:55:935PM .......... docker build -f ./../../../application/backend/database/mongo-db/Dockerfile -t mongo:latest ./../../../application/backend/database/mongo-db
+ 4:58:56:722PM .......... docker build -f ./../../../application/backend/database/mysql-db/Dockerfile -t mysql:latest ./../../../application/backend/database/mysql-db
+ 4:58:57:670PM .......... docker build -f ./../../../application/backend/database/postgres-db/Dockerfile -t postgres:latest ./../../../application/backend/database/postgres-db
+ 5:00:26:164PM .......... docker build -f ./../../../application/backend/business/invoice-v1/Dockerfile -t miguelarmasabt/invoice:v1.0.1 ./../../../application/backend/business/invoice-v1
+ 5:00:27:518PM .......... docker build -f ./../../../application/backend/business/menu-v1/Dockerfile -t miguelarmasabt/menu:v1.0.1 ./../../../application/backend/business/menu-v1
+ 5:00:28:552PM .......... docker build -f ./../../../application/backend/business/menu-v2/Dockerfile -t miguelarmasabt/menu:v2.0.1 ./../../../application/backend/business/menu-v2
+ 5:00:29:135PM .......... docker build -f ./../../../application/backend/business/order-hub-v1/Dockerfile -t miguelarmasabt/order-hub:v1.0.1 ./../../../application/backend/business/order-hub-v1
+ 5:00:30:095PM .......... docker build -f ./../../../application/backend/business/payment-v1/Dockerfile -t miguelarmasabt/payment:v1.0.1 ./../../../application/backend/business/payment-v1
+ 5:00:31:044PM .......... docker build -f ./../../../application/backend/business/product-v1/Dockerfile -t miguelarmasabt/product:v1.0.1 ./../../../application/backend/business/product-v1
+ 5:00:32:232PM .......... docker build -f ./../../../application/backend/business/rules-processor-v1/Dockerfile -t miguelarmasabt/rules-processor:v1.0.1 ./../../../application/backend/business/rules-processor-v1
+ 5:00:33:174PM .......... docker build -f ./../../../application/backend/business/table-placement-v1/Dockerfile -t miguelarmasabt/table-placement:v1.0.1 ./../../../application/backend/business/table-placement-v1
+ 5:00:34:127PM .......... docker build -f ./../../../application/backend/platform/api-gateway-v1/Dockerfile -t miguelarmasabt/api-gateway:v1.0.1 ./../../../application/backend/platform/api-gateway-v1
+ 5:00:35:102PM .......... docker build -f ./../../../application/backend/platform/auth-adapter-v1/Dockerfile -t miguelarmasabt/auth-adapter:v1.0.1 ./../../../application/backend/platform/auth-adapter-v1
+ 5:00:36:040PM .......... docker build -f ./../../../application/backend/platform/config-server-v1/Dockerfile -t miguelarmasabt/config-server:v1.0.1 ./../../../application/backend/platform/config-server-v1
+ 5:00:37:061PM .......... docker build -f ./../../../application/backend/platform/mock-service-v1/Dockerfile -t miguelarmasabt/mock-service:v1.0.1 ./../../../application/backend/platform/mock-service-v1

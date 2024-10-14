@@ -1,4 +1,4 @@
-name: keycloak-server
+name: zookeeper-server
 image:
   repository: confluentinc/cp-zookeeper
   tag: "7.3.2"

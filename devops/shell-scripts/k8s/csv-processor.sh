@@ -25,7 +25,7 @@ iterate_csv_records() {
   validate_operation "$operation"
 
   firstline=true
-  while IFS=',' read -r component_name component_type helm_template namespace || [ -n "$component_name" ]; do
+  while IFS=',' read -r component_name component_type helm_template namespace dependencies || [ -n "$component_name" ]; do
     # Ignore headers
     if $firstline; then
         firstline=false

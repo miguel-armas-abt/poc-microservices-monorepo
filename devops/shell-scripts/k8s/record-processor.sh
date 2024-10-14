@@ -20,7 +20,7 @@ process_record() {
   local namespace=$5
 
   if [[ $component_type == "database" ]]; then
-    ./configmap-db-file-generator.sh "$component_name"
+    ./file-generator.sh "$component_name"
   fi
 
   helm_template_path="$HELM_PATH/$helm_template"
@@ -41,7 +41,7 @@ process_record() {
     command="helm uninstall $component_name -n $namespace"
   fi
 
-  echo "$(get_timestamp) .......... $command" >> "./../../$K8S_LOG_FILE"
+  echo "$(get_timestamp) .......... $command" >> "./../../$LOG_FILE"
   eval "$command"
 }
 

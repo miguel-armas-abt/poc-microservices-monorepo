@@ -9,9 +9,7 @@ BUSINESS_RELATIVE_PATH="application/backend/business"
 INFRASTRUCTURE_RELATIVE_PATH="application/backend/infrastructure"
 
 #log files
-LOCAL_LOG_FILE="output-local.log"
-K8S_LOG_FILE="output-k8s.log"
-DOCKER_LOG_FILE="output-docker.log"
+LOG_FILE="output.log"
 
 #timestamps
 function get_timestamp {
