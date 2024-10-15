@@ -32,45 +32,34 @@ build_dependencies() {
 
 build_variables() {
   local values_file=$1
-  declare -A configMaps
-  declare -A secrets
   local result=""
 
-  # Capturar configMaps si existen, usando la tabulación
-  if grep -q 'configMaps:' "$values_file"; then
-    while IFS=":" read -r key value; do
-      # Verificar si estamos en la sección de configMaps
-      if [[ $key =~ ^[[:space:]]+([a-zA-Z0-9\-]+)$ ]]; then
-        key="${BASH_REMATCH[1]}"
-        key=$(echo "$key" | tr '-' '_' | tr '[:lower:]' '[:upper:]') # Cambiar de '-' a '_' y convertir a mayúsculas
-        value=$(echo "$value" | sed 's/^\s*//;s/^\s*\"//;s/\"\s*$//') # Limpiar el valor
-        configMaps["$key"]="$value"
-      fi
-    done < <(awk '/configMaps:/{f=1; next} f && /^[[:space:]]/{print} !/^[[:space:]]/{f=0}' "$values_file")
+  process_section() {
+    local section_name=$1
+    declare -n section_map=$2
+    local key_regex="([a-zA-Z0-9\-]+)"
 
-    # Formatear el resultado de configMaps
-    for key in "${!configMaps[@]}"; do
-      result+="      - ${key}=${configMaps[$key]}\n"
-    done
-  fi
+    if grep -q "$section_name:" "$values_file"; then
+      while IFS=":" read -r key value; do
+        if [[ $key =~ ^[[:space:]]+($key_regex)$ ]]; then
+          key="${BASH_REMATCH[1]}"
+          key=$(echo "$key" | tr '-' '_' | tr '[:lower:]' '[:upper:]') #key
+          value=$(echo "$value" | sed 's/^\s*//;s/^\s*\"//;s/\"\s*$//') #value
+          section_map["$key"]="$value"
+        fi
+      done < <(awk "/$section_name:/{f=1; next} f && /^[[:space:]]/{print} !/^[[:space:]]/{f=0}" "$values_file")
 
-  # Capturar secrets si existen, usando la tabulación
-  if grep -q 'secrets:' "$values_file"; then
-    while IFS=":" read -r key value; do
-      # Verificar si estamos en la sección de secrets
-      if [[ $key =~ ^[[:space:]]+([A-Z0-9_]+)$ ]]; then
-        key="${BASH_REMATCH[1]}"
-        key=$(echo "$key" | tr '-' '_' | tr '[:lower:]' '[:upper:]') # Cambiar de '-' a '_' y convertir a mayúsculas
-        value=$(echo "$value" | sed 's/^\s*//;s/^\s*\"//;s/\"\s*$//') # Limpiar el valor
-        secrets["$key"]="$value"
-      fi
-    done < <(awk '/secrets:/{f=1; next} f && /^[[:space:]]/{print} !/^[[:space:]]/{f=0}' "$values_file")
+      for key in "${!section_map[@]}"; do
+        result+="      - ${key}=${section_map[$key]}\n"
+      done
+    fi
+  }
 
-    # Formatear el resultado de secrets
-    for key in "${!secrets[@]}"; do
-      result+="      - ${key}=${secrets[$key]}\n"
-    done
-  fi
+  declare -A configMaps
+  declare -A secrets
+
+  process_section "configMaps" configMaps
+  process_section "secrets" secrets
 
   echo -e "$result"
 }
@@ -132,12 +121,6 @@ process_csv_record() {
   volumes=$(build_volumes "$volumes")
   formatted_service="${formatted_service//@volumes/$volumes}"
 
-  echo "$(get_timestamp) .......... Image: $docker_image" >> "./../../$LOG_FILE"
-  echo "$(get_timestamp) .......... Host port: $host_port" >> "./../../$LOG_FILE"
-  echo "$(get_timestamp) .......... Container port: $container_port" >> "./../../$LOG_FILE"
-  echo "$(get_timestamp) .......... Dependencies: $dependencies" >> "./../../$LOG_FILE"
-  echo "$(get_timestamp) .......... Volumes: $volumes" >> "./../../$LOG_FILE"
-
   template_accumulator+="$formatted_service\n\n"
   echo "$template_accumulator"
 }
@@ -161,8 +144,6 @@ iterate_csv_records() {
   done < <(sed 's/\r//g' "$COMPONENTS_CSV")
   echo "$template_accumulator"
 }
-
-echo "# Docker Compose construction started" > "./../../$LOG_FILE"
 
 docker_compose_template=$(<"$DOCKER_COMPOSE_TEMPLATE")
 services=$(iterate_csv_records)
