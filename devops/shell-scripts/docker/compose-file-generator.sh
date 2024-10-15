@@ -42,7 +42,7 @@ build_variables() {
       # Verificar si estamos en la sección de configMaps
       if [[ $key =~ ^[[:space:]]+([a-zA-Z0-9\-]+)$ ]]; then
         key="${BASH_REMATCH[1]}"
-        key=$(echo "$key" | tr '-' '_') # Cambiar de '-' a '_' en la clave
+        key=$(echo "$key" | tr '-' '_' | tr '[:lower:]' '[:upper:]') # Cambiar de '-' a '_' y convertir a mayúsculas
         value=$(echo "$value" | sed 's/^\s*//;s/^\s*\"//;s/\"\s*$//') # Limpiar el valor
         configMaps["$key"]="$value"
       fi
@@ -60,7 +60,7 @@ build_variables() {
       # Verificar si estamos en la sección de secrets
       if [[ $key =~ ^[[:space:]]+([A-Z0-9_]+)$ ]]; then
         key="${BASH_REMATCH[1]}"
-        key=$(echo "$key" | tr '-' '_') # Cambiar de '-' a '_' en la clave
+        key=$(echo "$key" | tr '-' '_' | tr '[:lower:]' '[:upper:]') # Cambiar de '-' a '_' y convertir a mayúsculas
         value=$(echo "$value" | sed 's/^\s*//;s/^\s*\"//;s/\"\s*$//') # Limpiar el valor
         secrets["$key"]="$value"
       fi
