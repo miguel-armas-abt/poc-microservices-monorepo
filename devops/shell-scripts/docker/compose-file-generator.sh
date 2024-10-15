@@ -32,39 +32,44 @@ build_dependencies() {
 
 build_variables() {
   local values_file=$1
-  local formatted_variables=""
-  local formatted_secrets=""
+  declare -A configMaps
+  declare -A secrets
   local result=""
 
   # Capturar configMaps si existen, usando la tabulación
   if grep -q 'configMaps:' "$values_file"; then
-    formatted_variables=$(awk '/configMaps:/{f=1; next} f && /^[[:space:]]/{print} !/^[[:space:]]/{f=0}' "$values_file" \
-      | grep -E '^[[:space:]]+[a-zA-Z0-9\-]+:' \
-      | sed 's/^\s\+//g' \
-      | sed 's/: /=/g' \
-      | sed 's/"//g' \
-      | sed -E 's/^([a-zA-Z0-9\-]+)=/\U\1=/g' \
-      | sed -E 's/([A-Z0-9]+)-([A-Z0-9]+)/\1_\2/g' \
-      | sed 's/^/      - /')
+    while IFS=":" read -r key value; do
+      # Verificar si estamos en la sección de configMaps
+      if [[ $key =~ ^[[:space:]]+([a-zA-Z0-9\-]+)$ ]]; then
+        key="${BASH_REMATCH[1]}"
+        key=$(echo "$key" | tr '-' '_') # Cambiar de '-' a '_' en la clave
+        value=$(echo "$value" | sed 's/^\s*//;s/^\s*\"//;s/\"\s*$//') # Limpiar el valor
+        configMaps["$key"]="$value"
+      fi
+    done < <(awk '/configMaps:/{f=1; next} f && /^[[:space:]]/{print} !/^[[:space:]]/{f=0}' "$values_file")
 
-    result="$formatted_variables"
+    # Formatear el resultado de configMaps
+    for key in "${!configMaps[@]}"; do
+      result+="      - ${key}=${configMaps[$key]}\n"
+    done
   fi
 
   # Capturar secrets si existen, usando la tabulación
   if grep -q 'secrets:' "$values_file"; then
-    formatted_secrets=$(awk '/secrets:/{f=1; next} f && /^[[:space:]]/{print} !/^[[:space:]]/{f=0}' "$values_file" \
-      | grep -E '^[[:space:]]+[A-Z0-9_]+:' \
-      | sed 's/^\s\+//g' \
-      | sed 's/: /=/g' \
-      | sed 's/"//g' \
-      | sed -E 's/^([A-Z0-9_]+)=/\U\1=/g' \
-      | sed 's/^/      - /')
+    while IFS=":" read -r key value; do
+      # Verificar si estamos en la sección de secrets
+      if [[ $key =~ ^[[:space:]]+([A-Z0-9_]+)$ ]]; then
+        key="${BASH_REMATCH[1]}"
+        key=$(echo "$key" | tr '-' '_') # Cambiar de '-' a '_' en la clave
+        value=$(echo "$value" | sed 's/^\s*//;s/^\s*\"//;s/\"\s*$//') # Limpiar el valor
+        secrets["$key"]="$value"
+      fi
+    done < <(awk '/secrets:/{f=1; next} f && /^[[:space:]]/{print} !/^[[:space:]]/{f=0}' "$values_file")
 
-    if [ -n "$result" ]; then
-      result="$result\n$formatted_secrets"
-    else
-      result="$formatted_secrets"
-    fi
+    # Formatear el resultado de secrets
+    for key in "${!secrets[@]}"; do
+      result+="      - ${key}=${secrets[$key]}\n"
+    done
   fi
 
   echo -e "$result"

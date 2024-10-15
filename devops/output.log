@@ -1,118 +1,118 @@
 # Docker Compose construction started
-10:13:06:443PM .......... Image: miguelarmasabt/invoice:v1.0.1
-10:13:06:457PM .......... Host port: 8014
-10:13:06:473PM .......... Container port: 8014
-10:13:06:488PM .......... Dependencies: depends_on:
+10:27:42:729PM .......... Image: miguelarmasabt/invoice:v1.0.1
+10:27:42:743PM .......... Host port: 8014
+10:27:42:757PM .......... Container port: 8014
+10:27:42:770PM .......... Dependencies: depends_on:
       - config-server-v1
       - postgres-db
       - kafka-server
-10:13:06:502PM .......... Volumes: 
-10:13:06:901PM .......... Image: miguelarmasabt/menu:v1.0.1
-10:13:06:914PM .......... Host port: 8012
-10:13:06:927PM .......... Container port: 8012
-10:13:06:940PM .......... Dependencies: depends_on:
+10:27:42:783PM .......... Volumes: 
+10:27:43:381PM .......... Image: miguelarmasabt/menu:v1.0.1
+10:27:43:395PM .......... Host port: 8012
+10:27:43:410PM .......... Container port: 8012
+10:27:43:426PM .......... Dependencies: depends_on:
       - config-server-v1
       - mysql-db
-10:13:06:953PM .......... Volumes: 
-10:13:07:336PM .......... Image: miguelarmasabt/menu:v2.0.1
-10:13:07:349PM .......... Host port: 8016
-10:13:07:362PM .......... Container port: 8016
-10:13:07:376PM .......... Dependencies: depends_on:
+10:27:43:440PM .......... Volumes: 
+10:27:43:996PM .......... Image: miguelarmasabt/menu:v2.0.1
+10:27:44:009PM .......... Host port: 8016
+10:27:44:023PM .......... Container port: 8016
+10:27:44:039PM .......... Dependencies: depends_on:
       - mysql-db
-10:13:07:389PM .......... Volumes: 
-10:13:07:724PM .......... Image: miguelarmasabt/order-hub:v1.0.1
-10:13:07:737PM .......... Host port: 8018
-10:13:07:750PM .......... Container port: 8018
-10:13:07:763PM .......... Dependencies: depends_on:
+10:27:44:056PM .......... Volumes: 
+10:27:44:714PM .......... Image: miguelarmasabt/order-hub:v1.0.1
+10:27:44:727PM .......... Host port: 8018
+10:27:44:740PM .......... Container port: 8018
+10:27:44:753PM .......... Dependencies: depends_on:
       - config-server-v1
       - redis-server
-10:13:07:776PM .......... Volumes: 
-10:13:08:165PM .......... Image: miguelarmasabt/payment:v1.0.1
-10:13:08:178PM .......... Host port: 8015
-10:13:08:191PM .......... Container port: 8015
-10:13:08:204PM .......... Dependencies: depends_on:
+10:27:44:766PM .......... Volumes: 
+10:27:45:419PM .......... Image: miguelarmasabt/payment:v1.0.1
+10:27:45:432PM .......... Host port: 8015
+10:27:45:445PM .......... Container port: 8015
+10:27:45:458PM .......... Dependencies: depends_on:
       - config-server-v1
       - mysql-db
       - kafka-server
-10:13:08:216PM .......... Volumes: 
-10:13:08:602PM .......... Image: miguelarmasabt/product:v1.0.1
-10:13:08:615PM .......... Host port: 8017
-10:13:08:629PM .......... Container port: 8017
-10:13:08:643PM .......... Dependencies: depends_on:
+10:27:45:471PM .......... Volumes: 
+10:27:45:949PM .......... Image: miguelarmasabt/product:v1.0.1
+10:27:45:962PM .......... Host port: 8017
+10:27:45:975PM .......... Container port: 8017
+10:27:45:988PM .......... Dependencies: depends_on:
       - mysql-db
-10:13:08:656PM .......... Volumes: 
-10:13:09:010PM .......... Image: miguelarmasabt/rules-processor:v1.0.1
-10:13:09:027PM .......... Host port: 8019
-10:13:09:043PM .......... Container port: 8019
-10:13:09:057PM .......... Dependencies: depends_on:
+10:27:46:001PM .......... Volumes: 
+10:27:46:400PM .......... Image: miguelarmasabt/rules-processor:v1.0.1
+10:27:46:413PM .......... Host port: 8019
+10:27:46:426PM .......... Container port: 8019
+10:27:46:439PM .......... Dependencies: depends_on:
       - config-server-v1
-10:13:09:070PM .......... Volumes: 
-10:13:09:441PM .......... Image: miguelarmasabt/table-placement:v1.0.1
-10:13:09:454PM .......... Host port: 8013
-10:13:09:467PM .......... Container port: 8013
-10:13:09:480PM .......... Dependencies: depends_on:
+10:27:46:453PM .......... Volumes: 
+10:27:46:897PM .......... Image: miguelarmasabt/table-placement:v1.0.1
+10:27:46:910PM .......... Host port: 8013
+10:27:46:924PM .......... Container port: 8013
+10:27:46:937PM .......... Dependencies: depends_on:
       - config-server-v1
       - mongo-db
-10:13:09:493PM .......... Volumes: 
-10:13:09:848PM .......... Image: miguelarmasabt/api-gateway:v1.0.1
-10:13:09:862PM .......... Host port: 8010
-10:13:09:876PM .......... Container port: 8010
-10:13:09:890PM .......... Dependencies: 
-10:13:09:904PM .......... Volumes: 
-10:13:10:318PM .......... Image: miguelarmasabt/auth-adapter:v1.0.1
-10:13:10:331PM .......... Host port: 8011
-10:13:10:344PM .......... Container port: 8011
-10:13:10:358PM .......... Dependencies: 
-10:13:10:371PM .......... Volumes: 
-10:13:10:717PM .......... Image: miguelarmasabt/config-server:v1.0.1
-10:13:10:730PM .......... Host port: 8888
-10:13:10:743PM .......... Container port: 8888
-10:13:10:756PM .......... Dependencies: 
-10:13:10:769PM .......... Volumes: 
-10:13:11:109PM .......... Image: miguelarmasabt/mock-service:v1.0.1
-10:13:11:122PM .......... Host port: 8020
-10:13:11:135PM .......... Container port: 8021
-10:13:11:147PM .......... Dependencies: 
-10:13:11:159PM .......... Volumes: 
-10:13:11:523PM .......... Image: jboss/keycloak:16.0.0
-10:13:11:536PM .......... Host port: 8091
-10:13:11:549PM .......... Container port: 8080
-10:13:11:562PM .......... Dependencies: 
-10:13:11:575PM .......... Volumes: 
-10:13:11:831PM .......... Image: redis:latest
-10:13:11:844PM .......... Host port: 6379
-10:13:11:857PM .......... Container port: 6379
-10:13:11:870PM .......... Dependencies: 
-10:13:11:883PM .......... Volumes: 
-10:13:12:223PM .......... Image: confluentinc/cp-zookeeper:7.3.2
-10:13:12:235PM .......... Host port: 2181
-10:13:12:248PM .......... Container port: 2181
-10:13:12:261PM .......... Dependencies: 
-10:13:12:274PM .......... Volumes: 
-10:13:12:602PM .......... Image: confluentinc/cp-kafka:7.3.2
-10:13:12:615PM .......... Host port: 9092
-10:13:12:627PM .......... Container port: 9092
-10:13:12:640PM .......... Dependencies: depends_on:
+10:27:46:950PM .......... Volumes: 
+10:27:47:431PM .......... Image: miguelarmasabt/api-gateway:v1.0.1
+10:27:47:445PM .......... Host port: 8010
+10:27:47:458PM .......... Container port: 8010
+10:27:47:472PM .......... Dependencies: 
+10:27:47:485PM .......... Volumes: 
+10:27:47:926PM .......... Image: miguelarmasabt/auth-adapter:v1.0.1
+10:27:47:939PM .......... Host port: 8011
+10:27:47:952PM .......... Container port: 8011
+10:27:47:965PM .......... Dependencies: 
+10:27:47:977PM .......... Volumes: 
+10:27:48:318PM .......... Image: miguelarmasabt/config-server:v1.0.1
+10:27:48:331PM .......... Host port: 8888
+10:27:48:343PM .......... Container port: 8888
+10:27:48:355PM .......... Dependencies: 
+10:27:48:368PM .......... Volumes: 
+10:27:48:747PM .......... Image: miguelarmasabt/mock-service:v1.0.1
+10:27:48:759PM .......... Host port: 8020
+10:27:48:772PM .......... Container port: 8021
+10:27:48:785PM .......... Dependencies: 
+10:27:48:798PM .......... Volumes: 
+10:27:49:257PM .......... Image: jboss/keycloak:16.0.0
+10:27:49:270PM .......... Host port: 8091
+10:27:49:282PM .......... Container port: 8080
+10:27:49:295PM .......... Dependencies: 
+10:27:49:307PM .......... Volumes: 
+10:27:49:558PM .......... Image: redis:latest
+10:27:49:571PM .......... Host port: 6379
+10:27:49:584PM .......... Container port: 6379
+10:27:49:597PM .......... Dependencies: 
+10:27:49:610PM .......... Volumes: 
+10:27:50:058PM .......... Image: confluentinc/cp-zookeeper:7.3.2
+10:27:50:071PM .......... Host port: 2181
+10:27:50:084PM .......... Container port: 2181
+10:27:50:098PM .......... Dependencies: 
+10:27:50:112PM .......... Volumes: 
+10:27:51:067PM .......... Image: confluentinc/cp-kafka:7.3.2
+10:27:51:080PM .......... Host port: 9092
+10:27:51:094PM .......... Container port: 9092
+10:27:51:107PM .......... Dependencies: depends_on:
       - zookeeper-server
-10:13:12:653PM .......... Volumes: 
-10:13:12:974PM .......... Image: mongo:latest
-10:13:12:987PM .......... Host port: 27017
-10:13:13:001PM .......... Container port: 27017
-10:13:13:014PM .......... Dependencies: 
-10:13:13:031PM .......... Volumes: volumes:
+10:27:51:120PM .......... Volumes: 
+10:27:51:542PM .......... Image: mongo:latest
+10:27:51:556PM .......... Host port: 27017
+10:27:51:569PM .......... Container port: 27017
+10:27:51:582PM .......... Dependencies: 
+10:27:51:596PM .......... Volumes: volumes:
       - ./../environment/mongo-db/init:/docker-entrypoint-initdb.d
       - ./../environment/mongo-db/data:/data/db
-10:13:13:352PM .......... Image: mysql:latest
-10:13:13:365PM .......... Host port: 3306
-10:13:13:377PM .......... Container port: 3306
-10:13:13:390PM .......... Dependencies: 
-10:13:13:405PM .......... Volumes: volumes:
+10:27:51:992PM .......... Image: mysql:latest
+10:27:52:006PM .......... Host port: 3306
+10:27:52:020PM .......... Container port: 3306
+10:27:52:037PM .......... Dependencies: 
+10:27:52:056PM .......... Volumes: volumes:
       - ./../environment/mysql-db/init:/docker-entrypoint-initdb.d
       - ./../environment/mysql-db/data:/data/db
-10:13:13:718PM .......... Image: postgres:latest
-10:13:13:731PM .......... Host port: 5432
-10:13:13:745PM .......... Container port: 5432
-10:13:13:758PM .......... Dependencies: 
-10:13:13:771PM .......... Volumes: volumes:
+10:27:52:487PM .......... Image: postgres:latest
+10:27:52:500PM .......... Host port: 5432
+10:27:52:514PM .......... Container port: 5432
+10:27:52:529PM .......... Dependencies: 
+10:27:52:542PM .......... Volumes: volumes:
       - ./../environment/postgres-db/init:/docker-entrypoint-initdb.d
       - ./../environment/postgres-db/data:/data/db
