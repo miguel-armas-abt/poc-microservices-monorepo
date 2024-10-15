@@ -38,3 +38,11 @@ readinessProbe:
   port: 8016
   initialDelaySeconds: 30
   periodSeconds: 30
+
+namespace: restaurant
+helmTemplate: with-health
+
+docker:
+  hostPort: 8016
+  dependencies: mysql-db
+  volumes: none

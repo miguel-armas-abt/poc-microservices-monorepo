@@ -31,28 +31,33 @@ build_dependencies() {
 }
 
 build_variables() {
-  local app_name=$1
+  local values_file=$1
 
-  environment_file="$ENVIRONMENT_VARIABLES_PATH/$app_name/$app_name.env"
-  secrets_file="$ENVIRONMENT_VARIABLES_PATH/$app_name/secret-$app_name.env"
+    formatted_variables=$(awk '/configMaps:/, /secrets:/' "$values_file" \
+      | grep -E '^\s+[a-zA-Z0-9\-]+:' \
+      | sed 's/^\s\+//g' \
+      | sed 's/: /=/g' \
+      | sed 's/"//g' \
+      | sed -E 's/^([a-zA-Z0-9\-]+)=/\U\1=/g' \
+      | sed -E 's/([A-Z0-9]+)-([A-Z0-9]+)/\1_\2/g' \
+      | sed 's/^/      - /')
 
-  formatted_variables=""
-  if [[ -f "$environment_file" && -s "$environment_file" ]]; then
-    formatted_variables+=$(grep -v '^#' "$environment_file" | sed 's/^/      - /')
-  fi
+    formatted_secrets=$(awk '/secrets:/, /^[a-zA-Z]/' "$values_file" \
+      | grep -E '^\s+[A-Z0-9_]+:' \
+      | sed 's/^\s\+//g' \
+      | sed 's/: /=/g' \
+      | sed 's/"//g' \
+      | sed -E 's/^([A-Z0-9_]+)=/\U\1=/g' \
+      | sed 's/^/      - /')
 
-  if [[ -f "$secrets_file" && -s "$secrets_file" ]]; then
-    formatted_variables+=$(grep -v '^#' "$secrets_file" | sed 's/^/      - /')
-  fi
-
-  echo "$formatted_variables"
+  echo -e "$formatted_variables\n$formatted_secrets"
 }
 
 build_volumes() {
   local volumes=$1
 
   formatted_volumes=""
-  if [ "$volumes" != "null" ]; then
+  if [ "$volumes" != "none" ]; then
     # divide string by ';'
     IFS=';' read -r -a parts <<< "$volumes"
     first=true
@@ -77,19 +82,17 @@ process_csv_record() {
 
   component_path="$BACKEND_PATH/$component_type/$component_name"
   values_file="$component_path/values.yaml"
+
   repository=$(awk '/repository:/ {print $2}' "$values_file" | sed 's/"//g')
   tag_version=$(awk '/tag:/ {print $2}' "$values_file" | sed 's/"//g')
-  image="$repository:$tag_version"
-
-  local app_name=$2
-  local docker_image=$3
-  local dependencies=$4
-  local host_port=$5
-  local container_port=$6
-  local volumes=$7
+  docker_image="$repository:$tag_version"
+  host_port=$(awk '/hostPort:/ {print $2}' "$values_file" | sed 's/"//g')
+  container_port=$(awk '/containerPort:/ {print $2}' "$values_file" | sed 's/"//g')
+  dependencies=$(awk '/dependencies:/ {print $2}' "$values_file" | sed 's/"//g')
+  volumes=$(awk '/volumes:/ {print $2}' "$values_file" | sed 's/"//g')
 
   formatted_service=$(<"$SERVICE_TEMPLATE")
-  formatted_service="${formatted_service//@app_name/$app_name}"
+  formatted_service="${formatted_service//@app_name/$component_name}"
   formatted_service="${formatted_service//@docker_image/$docker_image}"
   formatted_service="${formatted_service//@host_port/$host_port}"
   formatted_service="${formatted_service//@container_port/$container_port}"
@@ -97,17 +100,17 @@ process_csv_record() {
   dependencies=$(build_dependencies "$dependencies")
   formatted_service="${formatted_service//@dependencies/$dependencies}"
 
-  variables=$(build_variables "$app_name")
+  variables=$(build_variables "$values_file")
   formatted_service="${formatted_service//@variables/"environment: \n$variables"}"
 
   volumes=$(build_volumes "$volumes")
   formatted_service="${formatted_service//@volumes/$volumes}"
 
-  echo "$(get_timestamp) .......... $app_name .......... Image: $docker_image" >> "$DOCKER_LOG_FILE"
-  echo "$(get_timestamp) .......... $app_name .......... Host port: $host_port" >> "$DOCKER_LOG_FILE"
-  echo "$(get_timestamp) .......... $app_name .......... Container port: $container_port" >> "$DOCKER_LOG_FILE"
-  echo "$(get_timestamp) .......... $app_name .......... Dependencies: $dependencies" >> "$DOCKER_LOG_FILE"
-  echo "$(get_timestamp) .......... $app_name .......... Volumes: $volumes" >> "$DOCKER_LOG_FILE"
+  echo "$(get_timestamp) .......... Image: $docker_image" >> "$DOCKER_LOG_FILE"
+  echo "$(get_timestamp) .......... Host port: $host_port" >> "$DOCKER_LOG_FILE"
+  echo "$(get_timestamp) .......... Container port: $container_port" >> "$DOCKER_LOG_FILE"
+  echo "$(get_timestamp) .......... Dependencies: $dependencies" >> "$DOCKER_LOG_FILE"
+  echo "$(get_timestamp) .......... Volumes: $volumes" >> "$DOCKER_LOG_FILE"
 
   template_accumulator+="$formatted_service\n\n"
   echo "$template_accumulator"
@@ -117,7 +120,7 @@ iterate_csv_records() {
   local template_accumulator=""
 
   firstline=true
-  while IFS=',' read -r component_name component_type helm_template namespace || [ -n "$component_name" ]; do
+  while IFS=',' read -r component_name component_type || [ -n "$component_name" ]; do
     # Ignore headers
     if $firstline; then
         firstline=false
@@ -139,6 +142,6 @@ docker_compose_template=$(<"$DOCKER_COMPOSE_TEMPLATE")
 services=$(iterate_csv_records)
 docker_compose_template="${docker_compose_template//@services/$services}"
 
-output_file="./../docker-compose.yml"
+output_file="./../../docker-compose.yml"
 echo -e "$docker_compose_template" > "$output_file"
 echo -e "${CHECK_SYMBOL} created: $output_file"

@@ -22,3 +22,11 @@ resources:
   limits:
     memory: "512Mi"
     cpu: "1"
+
+namespace: restaurant
+helmTemplate: database
+
+docker:
+  hostPort: 3306
+  dependencies: none
+  volumes: ./../environment/mysql-db/init:/docker-entrypoint-initdb.d;./../environment/mysql-db/data:/data/db

@@ -10,10 +10,11 @@ replicas: 1
 
 configMaps:
   kafka-domain: "kafka-server:9093"
-  product-domain: "product-v1:8017"
   postgresql-domain: "postgres-db:5432"
   postgresql-username: "bbq_user"
+  product-domain: "product-v1:8017"
   config-server-domain: "config-server-v1:8888"
+  rules-processor-domain: "rules-processor-v1:8019"
   java-opts: "-Xms256M -Xmx256M"
 
 secrets:
@@ -40,3 +41,11 @@ readinessProbe:
   port: 8014
   initialDelaySeconds: 30
   periodSeconds: 30
+
+namespace: restaurant
+helmTemplate: with-health
+
+docker:
+  hostPort: 8014
+  dependencies: config-server-v1;postgres-db;kafka-server
+  volumes: none

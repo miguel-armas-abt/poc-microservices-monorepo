@@ -40,3 +40,11 @@ readinessProbe:
   port: 8015
   initialDelaySeconds: 30
   periodSeconds: 30
+
+namespace: restaurant
+helmTemplate: with-health
+
+docker:
+  hostPort: 8015
+  dependencies: config-server-v1;mysql-db;kafka-server
+  volumes: none

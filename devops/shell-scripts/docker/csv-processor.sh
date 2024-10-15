@@ -23,7 +23,7 @@ iterate_csv_records() {
   local operation=$1
 
   firstline=true
-  while IFS=',' read -r component_name component_type helm_template namespace || [ -n "$component_name" ]; do
+  while IFS=',' read -r component_name component_type || [ -n "$component_name" ]; do
     # Ignore headers
     if $firstline; then
         firstline=false

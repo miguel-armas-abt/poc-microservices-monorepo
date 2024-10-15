@@ -36,3 +36,10 @@ readinessProbe:
   port: 8888
   initialDelaySeconds: 30
   periodSeconds: 30
+
+namespace: restaurant
+helmTemplate: with-health
+
+docker:
+  hostPort: 8888
+  dependencies: none

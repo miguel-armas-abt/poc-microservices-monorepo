@@ -36,3 +36,11 @@ readinessProbe:
   port: 8013
   initialDelaySeconds: 30
   periodSeconds: 30
+
+namespace: restaurant
+helmTemplate: with-health
+
+docker:
+  hostPort: 8013
+  dependencies: config-server-v1;mongo-db
+  volumes: none

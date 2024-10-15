@@ -30,3 +30,10 @@ resources:
   limits:
     memory: "512Mi"
     cpu: "1"
+
+namespace: restaurant
+helmTemplate: default
+
+docker:
+  hostPort: 9092
+  dependencies: zookeeper-server

@@ -38,3 +38,11 @@ readinessProbe:
   port: 8018
   initialDelaySeconds: 30
   periodSeconds: 30
+
+namespace: restaurant
+helmTemplate: with-health
+
+docker:
+  hostPort: 8018
+  dependencies: config-server-v1;redis-server
+  volumes: none

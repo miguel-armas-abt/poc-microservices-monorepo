@@ -15,3 +15,10 @@ resources:
   limits:
     memory: "512Mi"
     cpu: "1"
+
+namespace: restaurant
+helmTemplate: default
+
+docker:
+  hostPort: 6379
+  dependencies: none

@@ -32,3 +32,10 @@ readinessProbe:
   port: 8011
   initialDelaySeconds: 30
   periodSeconds: 30
+
+namespace: restaurant
+helmTemplate: with-health
+
+docker:
+  hostPort: 8011
+  dependencies: none

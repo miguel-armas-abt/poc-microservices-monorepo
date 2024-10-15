@@ -25,7 +25,7 @@ iterate_csv_records() {
   validate_operation "$operation"
 
   firstline=true
-  while IFS=',' read -r component_name component_type helm_template namespace dependencies || [ -n "$component_name" ]; do
+  while IFS=',' read -r component_name component_type || [ -n "$component_name" ]; do
     # Ignore headers
     if $firstline; then
         firstline=false
@@ -34,7 +34,7 @@ iterate_csv_records() {
 
     # Ignore comments
     if [[ $component_name != "#"* ]]; then
-      ./record-processor.sh "$operation" "$component_name" "$component_type" "$helm_template" "$namespace"
+      ./record-processor.sh "$operation" "$component_name" "$component_type"
     fi
 
   done < <(sed 's/\r//g' "$COMPONENTS_CSV")

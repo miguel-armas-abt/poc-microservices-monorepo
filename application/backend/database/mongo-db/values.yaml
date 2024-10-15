@@ -23,3 +23,11 @@ resources:
   limits:
     memory: "512Mi"
     cpu: "1"
+
+namespace: restaurant
+helmTemplate: database
+
+docker:
+  hostPort: 27017
+  dependencies: none
+  volumes: ./../environment/mongo-db/init:/docker-entrypoint-initdb.d;./../environment/mongo-db/data:/data/db
