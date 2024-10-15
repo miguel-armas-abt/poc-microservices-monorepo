@@ -37,3 +37,4 @@ helmTemplate: default
 docker:
   hostPort: 9092
   dependencies: zookeeper-server
+  volumes: none

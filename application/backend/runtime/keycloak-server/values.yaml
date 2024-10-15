@@ -29,3 +29,4 @@ helmTemplate: default
 docker:
   hostPort: 8091
   dependencies: none
+  volumes: none

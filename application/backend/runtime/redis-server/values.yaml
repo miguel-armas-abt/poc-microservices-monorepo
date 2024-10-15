@@ -22,3 +22,4 @@ helmTemplate: default
 docker:
   hostPort: 6379
   dependencies: none
+  volumes: none

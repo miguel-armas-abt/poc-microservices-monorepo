@@ -9,11 +9,7 @@ ports:
 replicas: 1
 
 configMaps:
-  keycloak-domain: "keycloak-server:8080"
   java-opts: "-Xms256M -Xmx256M"
-
-secrets:
-  KEYCLOAK_KEY_RS256: "mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo"
 
 resources:
   requests:
@@ -42,4 +38,5 @@ helmTemplate: with-health
 
 docker:
   hostPort: 8888
+  volumes: none
   dependencies: none

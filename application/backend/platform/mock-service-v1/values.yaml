@@ -39,4 +39,5 @@ helmTemplate: with-health
 
 docker:
   hostPort: 8020
+  volumes: none
   dependencies: none

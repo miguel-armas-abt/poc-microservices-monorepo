@@ -11,7 +11,7 @@ build_dependencies() {
   local dependencies=$1
 
   formatted_dependencies=""
-  if [ "$dependencies" != "null" ]; then
+  if [ "$dependencies" != "none" ]; then
     # divide string by ';'
     IFS=';' read -r -a parts <<< "$dependencies"
     first=true
@@ -36,28 +36,31 @@ build_variables() {
   local formatted_secrets=""
   local result=""
 
+  # Capturar configMaps si existen, usando la tabulación
   if grep -q 'configMaps:' "$values_file"; then
-    formatted_variables=$(awk '/configMaps:/, /secrets:/' "$values_file" \
-      | grep -E '^\s+[a-zA-Z0-9\-]+:' \
+    formatted_variables=$(awk '/configMaps:/{f=1; next} f && /^[[:space:]]/{print} !/^[[:space:]]/{f=0}' "$values_file" \
+      | grep -E '^[[:space:]]+[a-zA-Z0-9\-]+:' \
       | sed 's/^\s\+//g' \
       | sed 's/: /=/g' \
       | sed 's/"//g' \
       | sed -E 's/^([a-zA-Z0-9\-]+)=/\U\1=/g' \
       | sed -E 's/([A-Z0-9]+)-([A-Z0-9]+)/\1_\2/g' \
       | sed 's/^/      - /')
+
     result="$formatted_variables"
   fi
 
+  # Capturar secrets si existen, usando la tabulación
   if grep -q 'secrets:' "$values_file"; then
-    formatted_secrets=$(awk '/secrets:/, /^[a-zA-Z]/' "$values_file" \
-      | grep -E '^\s+[A-Z0-9_]+:' \
+    formatted_secrets=$(awk '/secrets:/{f=1; next} f && /^[[:space:]]/{print} !/^[[:space:]]/{f=0}' "$values_file" \
+      | grep -E '^[[:space:]]+[A-Z0-9_]+:' \
       | sed 's/^\s\+//g' \
       | sed 's/: /=/g' \
       | sed 's/"//g' \
       | sed -E 's/^([A-Z0-9_]+)=/\U\1=/g' \
       | sed 's/^/      - /')
 
-    if [ "$result" != "" ]; then
+    if [ -n "$result" ]; then
       result="$result\n$formatted_secrets"
     else
       result="$formatted_secrets"
@@ -114,8 +117,12 @@ process_csv_record() {
   dependencies=$(build_dependencies "$dependencies")
   formatted_service="${formatted_service//@dependencies/$dependencies}"
 
-  variables=$(build_variables "$values_file")
-  formatted_service="${formatted_service//@variables/"environment: \n$variables"}"
+  if grep -q 'secrets:' "$values_file" || grep -q 'configMaps:' "$values_file"; then
+      variables=$(build_variables "$values_file")
+      formatted_service="${formatted_service//@variables/"environment: \n$variables"}"
+  else
+    formatted_service="${formatted_service//@variables/""}"
+  fi
 
   volumes=$(build_volumes "$volumes")
   formatted_service="${formatted_service//@volumes/$volumes}"
