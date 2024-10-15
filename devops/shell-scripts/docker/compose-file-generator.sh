@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./../../common-script.sh
+source ./../commons.sh
 
 COMPONENTS_CSV="./../../../application/components.csv"
 BACKEND_PATH="./../../../application/backend"
@@ -32,7 +32,11 @@ build_dependencies() {
 
 build_variables() {
   local values_file=$1
+  local formatted_variables=""
+  local formatted_secrets=""
+  local result=""
 
+  if grep -q 'configMaps:' "$values_file"; then
     formatted_variables=$(awk '/configMaps:/, /secrets:/' "$values_file" \
       | grep -E '^\s+[a-zA-Z0-9\-]+:' \
       | sed 's/^\s\+//g' \
@@ -41,7 +45,10 @@ build_variables() {
       | sed -E 's/^([a-zA-Z0-9\-]+)=/\U\1=/g' \
       | sed -E 's/([A-Z0-9]+)-([A-Z0-9]+)/\1_\2/g' \
       | sed 's/^/      - /')
+    result="$formatted_variables"
+  fi
 
+  if grep -q 'secrets:' "$values_file"; then
     formatted_secrets=$(awk '/secrets:/, /^[a-zA-Z]/' "$values_file" \
       | grep -E '^\s+[A-Z0-9_]+:' \
       | sed 's/^\s\+//g' \
@@ -50,7 +57,14 @@ build_variables() {
       | sed -E 's/^([A-Z0-9_]+)=/\U\1=/g' \
       | sed 's/^/      - /')
 
-  echo -e "$formatted_variables\n$formatted_secrets"
+    if [ "$result" != "" ]; then
+      result="$result\n$formatted_secrets"
+    else
+      result="$formatted_secrets"
+    fi
+  fi
+
+  echo -e "$result"
 }
 
 build_volumes() {
@@ -106,11 +120,11 @@ process_csv_record() {
   volumes=$(build_volumes "$volumes")
   formatted_service="${formatted_service//@volumes/$volumes}"
 
-  echo "$(get_timestamp) .......... Image: $docker_image" >> "$DOCKER_LOG_FILE"
-  echo "$(get_timestamp) .......... Host port: $host_port" >> "$DOCKER_LOG_FILE"
-  echo "$(get_timestamp) .......... Container port: $container_port" >> "$DOCKER_LOG_FILE"
-  echo "$(get_timestamp) .......... Dependencies: $dependencies" >> "$DOCKER_LOG_FILE"
-  echo "$(get_timestamp) .......... Volumes: $volumes" >> "$DOCKER_LOG_FILE"
+  echo "$(get_timestamp) .......... Image: $docker_image" >> "./../../$LOG_FILE"
+  echo "$(get_timestamp) .......... Host port: $host_port" >> "./../../$LOG_FILE"
+  echo "$(get_timestamp) .......... Container port: $container_port" >> "./../../$LOG_FILE"
+  echo "$(get_timestamp) .......... Dependencies: $dependencies" >> "./../../$LOG_FILE"
+  echo "$(get_timestamp) .......... Volumes: $volumes" >> "./../../$LOG_FILE"
 
   template_accumulator+="$formatted_service\n\n"
   echo "$template_accumulator"
@@ -136,7 +150,7 @@ iterate_csv_records() {
   echo "$template_accumulator"
 }
 
-echo "# Docker Compose construction started" > "$DOCKER_LOG_FILE"
+echo "# Docker Compose construction started" > "./../../$LOG_FILE"
 
 docker_compose_template=$(<"$DOCKER_COMPOSE_TEMPLATE")
 services=$(iterate_csv_records)
