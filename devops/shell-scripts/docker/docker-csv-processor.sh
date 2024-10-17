@@ -7,7 +7,7 @@ COMPONENTS_CSV="./../../../application/components.csv"
 validate_operation() {
   local operation=$1
 
-  local valid_operations=("template" "install" "uninstall")
+  local valid_operations=("build")
 
   for valid_operation in "${valid_operations[@]}"; do
     if [[ "$operation" == "$valid_operation" ]]; then
@@ -22,8 +22,6 @@ validate_operation() {
 iterate_csv_records() {
   local operation=$1
 
-  validate_operation "$operation"
-
   firstline=true
   while IFS=',' read -r component_name component_type || [ -n "$component_name" ]; do
     # Ignore headers
@@ -34,7 +32,7 @@ iterate_csv_records() {
 
     # Ignore comments
     if [[ $component_name != "#"* ]]; then
-      ./record-processor.sh "$operation" "$component_name" "$component_type"
+      ./docker-record-processor.sh "$operation" "$component_name" "$component_type"
     fi
 
   done < <(sed 's/\r//g' "$COMPONENTS_CSV")

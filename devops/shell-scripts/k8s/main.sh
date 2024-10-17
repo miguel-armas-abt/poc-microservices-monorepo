@@ -3,7 +3,7 @@
 source ./../commons.sh
 
 print_title() {
-  echo -e "\n########## ${GREEN} Ejecute una acción con HELM ${NC}##########\n"
+  echo -e "\n########## ${GREEN} Ejecute una acción con K8S/HELM ${NC}##########\n"
 }
 
 script_caller() {
@@ -17,6 +17,7 @@ print_title
 
 options=(
   "Generar manifiestos"
+  "Construir imágenes en Minikube"
   "Instalar componentes en el clúster"
   "Desinstalar componentes del clúster"
   "Salir"
@@ -24,10 +25,11 @@ options=(
 
 select option in "${options[@]}"; do
     case $REPLY in
-      1) script_caller "./csv-processor.sh template"; ;;
-      2) script_caller "./csv-processor.sh install"; ;;
-      3) script_caller "./csv-processor.sh uninstall"; ;;
-      4) exit; ;;
+      1) script_caller "./helm-csv-processor.sh template"; ;;
+      2) script_caller "./k8s-processor.sh build-in-minikube"; ;;
+      3) script_caller "./helm-csv-processor.sh install"; ;;
+      4) script_caller "./helm-csv-processor.sh uninstall"; ;;
+      5) exit; ;;
       *) echo "Opción inválida" >&2
     esac
 done

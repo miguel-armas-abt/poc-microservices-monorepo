@@ -28,7 +28,7 @@ options=(
 
 select option in "${options[@]}"; do
     case $REPLY in
-      1) script_caller "./csv-processor.sh build"; ;;
+      1) script_caller "./docker-csv-processor.sh build"; ;;
       2) script_caller "./compose-file-processor.sh template"; ;;
       3) script_caller "./compose-file-processor.sh up"; ;;
       4) script_caller "./compose-file-processor.sh list"; ;;
