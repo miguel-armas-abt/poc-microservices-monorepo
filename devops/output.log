@@ -135,3 +135,4 @@
  3:35:58:189PM .......... docker-compose -f ./../../docker-compose.yml ps
  3:39:40:215PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
  3:40:19:058PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
+ 3:47:25:719PM .......... docker-compose -f ./../../docker-compose.yml down -v

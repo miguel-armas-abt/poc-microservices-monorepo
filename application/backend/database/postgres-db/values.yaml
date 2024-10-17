@@ -30,4 +30,4 @@ helmTemplate: database
 docker:
   hostPort: 5432
   dependencies: none
-  volumes: ./../environment/postgres-db/init:/docker-entrypoint-initdb.d;./../environment/postgres-db/data:/data/db
+  volumes: ./init:/docker-entrypoint-initdb.d;./data:/data

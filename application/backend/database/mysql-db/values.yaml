@@ -29,4 +29,4 @@ helmTemplate: database
 docker:
   hostPort: 3306
   dependencies: none
-  volumes: ./../environment/mysql-db/init:/docker-entrypoint-initdb.d;./../environment/mysql-db/data:/data/db
+  volumes: ./init:/docker-entrypoint-initdb.d;./data:/data
