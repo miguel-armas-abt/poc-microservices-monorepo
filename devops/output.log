@@ -136,3 +136,16 @@
  3:39:40:215PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
  3:40:19:058PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
  3:47:25:719PM .......... docker-compose -f ./../../docker-compose.yml down -v
+ 3:51:40:440PM .......... ./compose-file-generator.sh
+ 3:52:39:858PM .......... docker-compose -f ./../../docker-compose.yml up -d
+ 3:52:52:296PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
+ 3:53:35:169PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
+ 3:54:09:514PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
+ 3:54:28:915PM .......... docker-compose -f ./../../docker-compose.yml down -v
+ 3:58:34:699PM .......... ./compose-file-generator.sh
+ 3:59:12:826PM .......... docker-compose -f ./../../docker-compose.yml up -d
+ 3:59:58:241PM .......... docker-compose -f ./../../docker-compose.yml down -v
+ 4:00:53:186PM .......... ./compose-file-generator.sh
+ 4:01:27:896PM .......... docker-compose -f ./../../docker-compose.yml up -d
+ 4:01:48:097PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
+ 4:02:22:139PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"

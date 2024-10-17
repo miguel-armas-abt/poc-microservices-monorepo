@@ -281,8 +281,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=qwerty
       - MONGO_INITDB_DATABASE=tablePlacement
     volumes:
-      - ./../environment/mongo-db/init:/docker-entrypoint-initdb.d
-      - ./../environment/mongo-db/data:/data/db
+      - ./../application/backend/database/mongo-db:/docker-entrypoint-initdb.d
+      - ./../application/backend/database/mongo-db/data:/data
     networks:
       - dev_environment
     ports:
@@ -297,8 +297,8 @@ services:
       - MYSQL_ROOT_PASSWORD=qwerty
       - TZ=UTC
     volumes:
-      - ./../environment/mysql-db/init:/docker-entrypoint-initdb.d
-      - ./../environment/mysql-db/data:/data/db
+      - ./../application/backend/database/mysql-db:/docker-entrypoint-initdb.d
+      - ./../application/backend/database/mysql-db/data:/data
     networks:
       - dev_environment
     ports:
@@ -314,8 +314,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=qwerty
     volumes:
-      - ./../environment/postgres-db/init:/docker-entrypoint-initdb.d
-      - ./../environment/postgres-db/data:/data/db
+      - ./../application/backend/database/postgres-db:/docker-entrypoint-initdb.d
+      - ./../application/backend/database/postgres-db/data:/data
     networks:
       - dev_environment
     ports:

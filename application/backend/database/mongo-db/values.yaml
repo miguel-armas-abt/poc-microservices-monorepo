@@ -30,4 +30,4 @@ helmTemplate: database
 docker:
   hostPort: 27017
   dependencies: none
-  volumes: ./init:/docker-entrypoint-initdb.d;./data:/data
+  volumes: ./../application/backend/database/mongo-db:/docker-entrypoint-initdb.d;./../application/backend/database/mongo-db/data:/data

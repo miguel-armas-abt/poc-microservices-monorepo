@@ -17,7 +17,7 @@ print_title
 
 options=(
   "Construir imágenes"
-  "Generar plantilla docker-compose"
+  "Generar docker-compose"
   "Iniciar docker-compose"
   "Mostrar contenedores"
   "Recrear docker-compose"
