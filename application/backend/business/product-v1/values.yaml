@@ -9,9 +9,9 @@ ports:
 replicas: 1
 
 configMaps:
-  mysql-host: "mysql-db:3306"
-  mysql-username: "bbq_user"
-  database: "db_products"
+  MYSQL_HOST: "mysql-db:3306"
+  MYSQL_USERNAME: "bbq_user"
+  DATABASE: "db_products"
 
 secrets:
   MYSQL_PASSWORD: "qwerty"

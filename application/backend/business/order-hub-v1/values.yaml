@@ -9,13 +9,13 @@ ports:
 replicas: 1
 
 configMaps:
-  config-server-domain: "config-server-v1:8888"
-  menu-v1-domain: "menu-v1:8012"
-  menu-v2-domain: "menu-v2:8016"
-  table-placement-domain: "table-placement-v1:8013"
-  invoice-domain: "invoice-v1:8014"
-  menu-repository-selector: "com.demo.bbq.entrypoint.menu.repository.MenuV1Repository"
-  java-opts: "-Xms256M -Xmx256M"
+  CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
+  MENU_V1_DOMAIN: "menu-v1:8012"
+  MENU_V2_DOMAIN: "menu-v2:8016"
+  TABLE_PLACEMENT_DOMAIN: "table-placement-v1:8013"
+  INVOICE_DOMAIN: "invoice-v1:8014"
+  MENU_REPOSITORY_SELECTOR: "com.demo.bbq.entrypoint.menu.repository.MenuV1Repository"
+  JAVA_OPTS: "-Xms256M -Xmx256M"
 
 resources:
   requests:

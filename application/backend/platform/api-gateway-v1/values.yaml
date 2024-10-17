@@ -9,10 +9,10 @@ ports:
 replicas: 1
 
 configMaps:
-  order-hub-domain: "order-hub-v1:8018"
-  enable-auth: "false"
-  auth-adapter-domain: "auth-adapter-v1:8011"
-  java-opts: "-Xms256M -Xmx256M"
+  ORDER_HUB_DOMAIN: "order-hub-v1:8018"
+  ENABLE_AUTH: "false"
+  AUTH_ADAPTER_DOMAIN: "auth-adapter-v1:8011"
+  JAVA_OPTS: "-Xms256M -Xmx256M"
 
 resources:
   requests:

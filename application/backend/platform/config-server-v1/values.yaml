@@ -9,7 +9,7 @@ ports:
 replicas: 1
 
 configMaps:
-  java-opts: "-Xms256M -Xmx256M"
+  JAVA_OPTS: "-Xms256M -Xmx256M"
 
 resources:
   requests:

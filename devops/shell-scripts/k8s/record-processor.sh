@@ -1,8 +1,9 @@
 #!/bin/bash
 
 source ./../commons.sh
-HELM_PATH="./../../helm"
+HELM_PATH="./helm"
 BACKEND_PATH="./../../../application/backend"
+MANIFESTS_PATH="./../../k8s-manifests"
 
 create_folder() {
   local output_dir=$1
@@ -18,7 +19,7 @@ process_record() {
   local component_type=$3
 
   if [[ $component_type == "database" ]]; then
-    ./file-generator.sh "$component_name"
+    ./configmap-generator.sh "$component_name"
   fi
 
 
@@ -32,9 +33,8 @@ process_record() {
   command=""
 
   if [[ $operation == "template" ]]; then
-    manifests_destination_path="./../../k8s-manifests"
-    create_folder "$manifests_destination_path"
-    command="helm template $component_name $helm_template_path -f $values_file > $manifests_destination_path/$component_name.yaml"
+    create_folder "$MANIFESTS_PATH"
+    command="helm template $component_name $helm_template_path -f $values_file > $MANIFESTS_PATH/$component_name.yaml"
   fi
 
   if [[ $operation == "install" ]]; then

@@ -8,6 +8,8 @@ spec:
   type: NodePort
   selector:
     app: {{ .Values.name }}
+  ipFamilies:
+    - IPv4
   ports:
     - name: {{ .Values.name }}
       port: {{ .Values.ports.containerPort }}

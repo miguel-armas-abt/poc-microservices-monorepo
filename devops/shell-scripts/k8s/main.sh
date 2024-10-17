@@ -16,7 +16,7 @@ script_caller() {
 print_title
 
 options=(
-  "Crear manifiestos"
+  "Generar manifiestos"
   "Instalar componentes en el clúster"
   "Desinstalar componentes del clúster"
   "Salir"

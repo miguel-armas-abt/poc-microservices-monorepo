@@ -9,10 +9,10 @@ ports:
 replicas: 1
 
 configMaps:
-  mysql-domain: "mysql-db:3306"
-  mysql-username: "bbq_user"
-  product-domain: "product-v1:8017"
-  java-opts: "-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev"
+  MYSQL_DOMAIN: "mysql-db:3306"
+  MYSQL_USERNAME: "bbq_user"
+  PRODUCT_DOMAIN: "product-v1:8017"
+  JAVA_OPTS: "-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev"
 
 secrets:
   MYSQL_PASSWORD: "qwerty"

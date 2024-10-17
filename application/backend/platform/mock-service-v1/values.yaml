@@ -9,8 +9,8 @@ ports:
 replicas: 1
 
 configMaps:
-  mock-port: "8021"
-  java-opts: "-Xms256M -Xmx256M"
+  MOCK_PORT: "8021"
+  JAVA_OPTS: "-Xms256M -Xmx256M"
 
 resources:
   requests:

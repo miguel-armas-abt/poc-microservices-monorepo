@@ -9,11 +9,11 @@ ports:
 replicas: 1
 
 configMaps:
-  config-server-domain: "config-server-v1:8888"
-  mysql-domain: "mysql-db:3306"
-  mysql-username: "bbq_user"
-  product-domain: "product-v1:8017"
-  java-opts: "-Xms256M -Xmx256M"
+  CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
+  MYSQL_DOMAIN: "mysql-db:3306"
+  MYSQL_USERNAME: "bbq_user"
+  PRODUCT_DOMAIN: "product-v1:8017"
+  JAVA_OPTS: "-Xms256M -Xmx256M"
 
 secrets:
   MYSQL_PASSWORD: "qwerty"

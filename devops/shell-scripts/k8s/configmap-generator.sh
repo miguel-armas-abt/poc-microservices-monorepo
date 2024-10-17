@@ -4,7 +4,7 @@ source ./../commons.sh
 
 CONFIG_MAP_TEMPLATE="./templates/configmap-db.yaml"
 DATABASES_PATH="./../../../application/backend/database"
-HELM_DATABASES_PATH="./../../helm/database"
+HELM_DATABASES_PATH="./helm/database"
 
 search_initdb() {
   local dbms_name=$1
