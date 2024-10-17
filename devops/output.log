@@ -1,118 +1,137 @@
 # Docker Compose construction started
-10:27:42:729PM .......... Image: miguelarmasabt/invoice:v1.0.1
-10:27:42:743PM .......... Host port: 8014
-10:27:42:757PM .......... Container port: 8014
-10:27:42:770PM .......... Dependencies: depends_on:
+10:45:19:297PM .......... Image: miguelarmasabt/invoice:v1.0.1
+10:45:19:311PM .......... Host port: 8014
+10:45:19:324PM .......... Container port: 8014
+10:45:19:337PM .......... Dependencies: depends_on:
       - config-server-v1
       - postgres-db
       - kafka-server
-10:27:42:783PM .......... Volumes: 
-10:27:43:381PM .......... Image: miguelarmasabt/menu:v1.0.1
-10:27:43:395PM .......... Host port: 8012
-10:27:43:410PM .......... Container port: 8012
-10:27:43:426PM .......... Dependencies: depends_on:
+10:45:19:350PM .......... Volumes: 
+10:45:19:952PM .......... Image: miguelarmasabt/menu:v1.0.1
+10:45:19:966PM .......... Host port: 8012
+10:45:19:979PM .......... Container port: 8012
+10:45:19:992PM .......... Dependencies: depends_on:
       - config-server-v1
       - mysql-db
-10:27:43:440PM .......... Volumes: 
-10:27:43:996PM .......... Image: miguelarmasabt/menu:v2.0.1
-10:27:44:009PM .......... Host port: 8016
-10:27:44:023PM .......... Container port: 8016
-10:27:44:039PM .......... Dependencies: depends_on:
+10:45:20:006PM .......... Volumes: 
+10:45:20:527PM .......... Image: miguelarmasabt/menu:v2.0.1
+10:45:20:541PM .......... Host port: 8016
+10:45:20:554PM .......... Container port: 8016
+10:45:20:567PM .......... Dependencies: depends_on:
       - mysql-db
-10:27:44:056PM .......... Volumes: 
-10:27:44:714PM .......... Image: miguelarmasabt/order-hub:v1.0.1
-10:27:44:727PM .......... Host port: 8018
-10:27:44:740PM .......... Container port: 8018
-10:27:44:753PM .......... Dependencies: depends_on:
+10:45:20:581PM .......... Volumes: 
+10:45:21:270PM .......... Image: miguelarmasabt/order-hub:v1.0.1
+10:45:21:284PM .......... Host port: 8018
+10:45:21:297PM .......... Container port: 8018
+10:45:21:311PM .......... Dependencies: depends_on:
       - config-server-v1
       - redis-server
-10:27:44:766PM .......... Volumes: 
-10:27:45:419PM .......... Image: miguelarmasabt/payment:v1.0.1
-10:27:45:432PM .......... Host port: 8015
-10:27:45:445PM .......... Container port: 8015
-10:27:45:458PM .......... Dependencies: depends_on:
+10:45:21:324PM .......... Volumes: 
+10:45:21:961PM .......... Image: miguelarmasabt/payment:v1.0.1
+10:45:21:974PM .......... Host port: 8015
+10:45:21:987PM .......... Container port: 8015
+10:45:22:001PM .......... Dependencies: depends_on:
       - config-server-v1
       - mysql-db
       - kafka-server
-10:27:45:471PM .......... Volumes: 
-10:27:45:949PM .......... Image: miguelarmasabt/product:v1.0.1
-10:27:45:962PM .......... Host port: 8017
-10:27:45:975PM .......... Container port: 8017
-10:27:45:988PM .......... Dependencies: depends_on:
+10:45:22:014PM .......... Volumes: 
+10:45:22:473PM .......... Image: miguelarmasabt/product:v1.0.1
+10:45:22:486PM .......... Host port: 8017
+10:45:22:499PM .......... Container port: 8017
+10:45:22:512PM .......... Dependencies: depends_on:
       - mysql-db
-10:27:46:001PM .......... Volumes: 
-10:27:46:400PM .......... Image: miguelarmasabt/rules-processor:v1.0.1
-10:27:46:413PM .......... Host port: 8019
-10:27:46:426PM .......... Container port: 8019
-10:27:46:439PM .......... Dependencies: depends_on:
+10:45:22:525PM .......... Volumes: 
+10:45:22:929PM .......... Image: miguelarmasabt/rules-processor:v1.0.1
+10:45:22:943PM .......... Host port: 8019
+10:45:22:957PM .......... Container port: 8019
+10:45:22:972PM .......... Dependencies: depends_on:
       - config-server-v1
-10:27:46:453PM .......... Volumes: 
-10:27:46:897PM .......... Image: miguelarmasabt/table-placement:v1.0.1
-10:27:46:910PM .......... Host port: 8013
-10:27:46:924PM .......... Container port: 8013
-10:27:46:937PM .......... Dependencies: depends_on:
+10:45:22:991PM .......... Volumes: 
+10:45:23:394PM .......... Image: miguelarmasabt/table-placement:v1.0.1
+10:45:23:407PM .......... Host port: 8013
+10:45:23:420PM .......... Container port: 8013
+10:45:23:433PM .......... Dependencies: depends_on:
       - config-server-v1
       - mongo-db
-10:27:46:950PM .......... Volumes: 
-10:27:47:431PM .......... Image: miguelarmasabt/api-gateway:v1.0.1
-10:27:47:445PM .......... Host port: 8010
-10:27:47:458PM .......... Container port: 8010
-10:27:47:472PM .......... Dependencies: 
-10:27:47:485PM .......... Volumes: 
-10:27:47:926PM .......... Image: miguelarmasabt/auth-adapter:v1.0.1
-10:27:47:939PM .......... Host port: 8011
-10:27:47:952PM .......... Container port: 8011
-10:27:47:965PM .......... Dependencies: 
-10:27:47:977PM .......... Volumes: 
-10:27:48:318PM .......... Image: miguelarmasabt/config-server:v1.0.1
-10:27:48:331PM .......... Host port: 8888
-10:27:48:343PM .......... Container port: 8888
-10:27:48:355PM .......... Dependencies: 
-10:27:48:368PM .......... Volumes: 
-10:27:48:747PM .......... Image: miguelarmasabt/mock-service:v1.0.1
-10:27:48:759PM .......... Host port: 8020
-10:27:48:772PM .......... Container port: 8021
-10:27:48:785PM .......... Dependencies: 
-10:27:48:798PM .......... Volumes: 
-10:27:49:257PM .......... Image: jboss/keycloak:16.0.0
-10:27:49:270PM .......... Host port: 8091
-10:27:49:282PM .......... Container port: 8080
-10:27:49:295PM .......... Dependencies: 
-10:27:49:307PM .......... Volumes: 
-10:27:49:558PM .......... Image: redis:latest
-10:27:49:571PM .......... Host port: 6379
-10:27:49:584PM .......... Container port: 6379
-10:27:49:597PM .......... Dependencies: 
-10:27:49:610PM .......... Volumes: 
-10:27:50:058PM .......... Image: confluentinc/cp-zookeeper:7.3.2
-10:27:50:071PM .......... Host port: 2181
-10:27:50:084PM .......... Container port: 2181
-10:27:50:098PM .......... Dependencies: 
-10:27:50:112PM .......... Volumes: 
-10:27:51:067PM .......... Image: confluentinc/cp-kafka:7.3.2
-10:27:51:080PM .......... Host port: 9092
-10:27:51:094PM .......... Container port: 9092
-10:27:51:107PM .......... Dependencies: depends_on:
+10:45:23:446PM .......... Volumes: 
+10:45:23:949PM .......... Image: miguelarmasabt/api-gateway:v1.0.1
+10:45:23:963PM .......... Host port: 8010
+10:45:23:977PM .......... Container port: 8010
+10:45:23:990PM .......... Dependencies: 
+10:45:24:004PM .......... Volumes: 
+10:45:24:403PM .......... Image: miguelarmasabt/auth-adapter:v1.0.1
+10:45:24:416PM .......... Host port: 8011
+10:45:24:429PM .......... Container port: 8011
+10:45:24:442PM .......... Dependencies: 
+10:45:24:455PM .......... Volumes: 
+10:45:24:798PM .......... Image: miguelarmasabt/config-server:v1.0.1
+10:45:24:810PM .......... Host port: 8888
+10:45:24:822PM .......... Container port: 8888
+10:45:24:835PM .......... Dependencies: 
+10:45:24:847PM .......... Volumes: 
+10:45:25:234PM .......... Image: miguelarmasabt/mock-service:v1.0.1
+10:45:25:246PM .......... Host port: 8020
+10:45:25:258PM .......... Container port: 8021
+10:45:25:270PM .......... Dependencies: 
+10:45:25:283PM .......... Volumes: 
+10:45:25:659PM .......... Image: jboss/keycloak:16.0.0
+10:45:25:680PM .......... Host port: 8091
+10:45:25:695PM .......... Container port: 8080
+10:45:25:708PM .......... Dependencies: 
+10:45:25:721PM .......... Volumes: 
+10:45:25:962PM .......... Image: redis:latest
+10:45:25:975PM .......... Host port: 6379
+10:45:25:988PM .......... Container port: 6379
+10:45:26:001PM .......... Dependencies: 
+10:45:26:015PM .......... Volumes: 
+10:45:26:457PM .......... Image: confluentinc/cp-zookeeper:7.3.2
+10:45:26:470PM .......... Host port: 2181
+10:45:26:482PM .......... Container port: 2181
+10:45:26:495PM .......... Dependencies: 
+10:45:26:507PM .......... Volumes: 
+10:45:27:486PM .......... Image: confluentinc/cp-kafka:7.3.2
+10:45:27:498PM .......... Host port: 9092
+10:45:27:511PM .......... Container port: 9092
+10:45:27:524PM .......... Dependencies: depends_on:
       - zookeeper-server
-10:27:51:120PM .......... Volumes: 
-10:27:51:542PM .......... Image: mongo:latest
-10:27:51:556PM .......... Host port: 27017
-10:27:51:569PM .......... Container port: 27017
-10:27:51:582PM .......... Dependencies: 
-10:27:51:596PM .......... Volumes: volumes:
+10:45:27:537PM .......... Volumes: 
+10:45:27:819PM .......... Image: mongo:latest
+10:45:27:832PM .......... Host port: 27017
+10:45:27:845PM .......... Container port: 27017
+10:45:27:859PM .......... Dependencies: 
+10:45:27:872PM .......... Volumes: volumes:
       - ./../environment/mongo-db/init:/docker-entrypoint-initdb.d
       - ./../environment/mongo-db/data:/data/db
-10:27:51:992PM .......... Image: mysql:latest
-10:27:52:006PM .......... Host port: 3306
-10:27:52:020PM .......... Container port: 3306
-10:27:52:037PM .......... Dependencies: 
-10:27:52:056PM .......... Volumes: volumes:
+10:45:28:204PM .......... Image: mysql:latest
+10:45:28:216PM .......... Host port: 3306
+10:45:28:229PM .......... Container port: 3306
+10:45:28:242PM .......... Dependencies: 
+10:45:28:255PM .......... Volumes: volumes:
       - ./../environment/mysql-db/init:/docker-entrypoint-initdb.d
       - ./../environment/mysql-db/data:/data/db
-10:27:52:487PM .......... Image: postgres:latest
-10:27:52:500PM .......... Host port: 5432
-10:27:52:514PM .......... Container port: 5432
-10:27:52:529PM .......... Dependencies: 
-10:27:52:542PM .......... Volumes: volumes:
+10:45:28:539PM .......... Image: postgres:latest
+10:45:28:552PM .......... Host port: 5432
+10:45:28:565PM .......... Container port: 5432
+10:45:28:578PM .......... Dependencies: 
+10:45:28:591PM .......... Volumes: volumes:
       - ./../environment/postgres-db/init:/docker-entrypoint-initdb.d
       - ./../environment/postgres-db/data:/data/db
+ 3:28:00:992PM .......... docker build -f ./../../../application/backend/business/invoice-v1/Dockerfile -t miguelarmasabt/invoice:v1.0.1 ./../../../application/backend/business/invoice-v1
+ 3:28:02:809PM .......... docker build -f ./../../../application/backend/business/menu-v1/Dockerfile -t miguelarmasabt/menu:v1.0.1 ./../../../application/backend/business/menu-v1
+ 3:28:03:798PM .......... docker build -f ./../../../application/backend/business/menu-v2/Dockerfile -t miguelarmasabt/menu:v2.0.1 ./../../../application/backend/business/menu-v2
+ 3:28:04:416PM .......... docker build -f ./../../../application/backend/business/order-hub-v1/Dockerfile -t miguelarmasabt/order-hub:v1.0.1 ./../../../application/backend/business/order-hub-v1
+ 3:28:05:445PM .......... docker build -f ./../../../application/backend/business/payment-v1/Dockerfile -t miguelarmasabt/payment:v1.0.1 ./../../../application/backend/business/payment-v1
+ 3:28:06:418PM .......... docker build -f ./../../../application/backend/business/product-v1/Dockerfile -t miguelarmasabt/product:v1.0.1 ./../../../application/backend/business/product-v1
+ 3:28:22:521PM .......... docker build -f ./../../../application/backend/business/rules-processor-v1/Dockerfile -t miguelarmasabt/rules-processor:v1.0.1 ./../../../application/backend/business/rules-processor-v1
+ 3:28:23:909PM .......... docker build -f ./../../../application/backend/business/table-placement-v1/Dockerfile -t miguelarmasabt/table-placement:v1.0.1 ./../../../application/backend/business/table-placement-v1
+ 3:28:24:997PM .......... docker build -f ./../../../application/backend/platform/api-gateway-v1/Dockerfile -t miguelarmasabt/api-gateway:v1.0.1 ./../../../application/backend/platform/api-gateway-v1
+ 3:28:25:982PM .......... docker build -f ./../../../application/backend/platform/auth-adapter-v1/Dockerfile -t miguelarmasabt/auth-adapter:v1.0.1 ./../../../application/backend/platform/auth-adapter-v1
+ 3:28:26:999PM .......... docker build -f ./../../../application/backend/platform/config-server-v1/Dockerfile -t miguelarmasabt/config-server:v1.0.1 ./../../../application/backend/platform/config-server-v1
+ 3:28:27:959PM .......... docker build -f ./../../../application/backend/platform/mock-service-v1/Dockerfile -t miguelarmasabt/mock-service:v1.0.1 ./../../../application/backend/platform/mock-service-v1
+ 3:28:42:474PM .......... ./compose-file-generator.sh
+ 3:29:17:560PM .......... 
+ 3:29:31:370PM .......... 
+ 3:30:55:652PM .......... docker-compose -f ./../../docker-compose.yml up -d
+ 3:35:58:189PM .......... docker-compose -f ./../../docker-compose.yml ps
+ 3:39:40:215PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
+ 3:40:19:058PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"

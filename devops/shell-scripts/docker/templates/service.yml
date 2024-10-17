@@ -1,3 +1,4 @@
+# Source: @component_path
   @app_name:
     container_name: @app_name
     image: @docker_image
