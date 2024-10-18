@@ -15,7 +15,7 @@ search_initdb() {
       return 1
     fi
 
-    initdb_value=$(grep 'initdb:' -A 1 "$values_file" | grep 'value:' | sed 's/.*value: //')
+    initdb_value=$(yq '.initdb.value' "$values_file")
 
     if [[ -z "$initdb_value" ]]; then
       echo "No se encontró initdb.value en $values_file."

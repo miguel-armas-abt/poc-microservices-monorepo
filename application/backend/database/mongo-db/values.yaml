@@ -26,6 +26,7 @@ resources:
 
 namespace: restaurant
 helmTemplate: database
+clusterIP: 10.96.1.2
 
 docker:
   hostPort: 27017

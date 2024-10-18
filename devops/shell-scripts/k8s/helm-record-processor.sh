@@ -25,10 +25,10 @@ process_record() {
 
   values_file="$BACKEND_PATH/$component_type/$component_name/values.yaml"
 
-  helm_template=$(awk '/helmTemplate:/ {print $2}' "$values_file" | sed 's/"//g')
+  helm_template=$(yq '.helmTemplate' "$values_file")
   helm_template_path="$HELM_PATH/$helm_template"
 
-  namespace=$(awk '/namespace:/ {print $2}' "$values_file" | sed 's/"//g')
+  namespace=$(yq '.namespace' "$values_file")
 
   command=""
 

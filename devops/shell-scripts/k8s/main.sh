@@ -26,7 +26,7 @@ options=(
 select option in "${options[@]}"; do
     case $REPLY in
       1) script_caller "./helm-csv-processor.sh template"; ;;
-      2) script_caller "./k8s-processor.sh build-in-minikube"; ;;
+      2) script_caller "./minikube-processor.sh build-in-minikube"; ;;
       3) script_caller "./helm-csv-processor.sh install"; ;;
       4) script_caller "./helm-csv-processor.sh uninstall"; ;;
       5) exit; ;;

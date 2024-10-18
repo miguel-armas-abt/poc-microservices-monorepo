@@ -8,9 +8,11 @@ ports:
   nodePort: 30006
 replicas: 1
 
+configMaps:
+  TZ: "UTC"
+
 secrets:
   MYSQL_ROOT_PASSWORD: "qwerty"
-  TZ: "UTC"
 
 initdb:
   value: initdb.sql
@@ -25,6 +27,7 @@ resources:
 
 namespace: restaurant
 helmTemplate: database
+clusterIP: 10.96.1.3
 
 docker:
   hostPort: 3306

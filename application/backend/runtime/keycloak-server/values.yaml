@@ -9,8 +9,8 @@ ports:
 replicas: 1
 
 configMaps:
-  keycloak-user: "admin"
-  db-vendor: "H2"
+  KEYCLOAK_USER: "admin"
+  DB_VENDOR: "H2"
 
 secrets:
   KEYCLOAK_PASSWORD: "admin"
