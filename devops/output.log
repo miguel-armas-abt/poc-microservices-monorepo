@@ -243,3 +243,6 @@
 11:16:33:626PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
 11:16:38:572PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
 11:16:42:009PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+12:08:00:739AM .......... kafka .......... .\\bin\\windows\\kafka-server-start.bat config\\server.properties
+12:08:26:624AM .......... redis .......... ./redis-server &
+12:08:55:849AM .......... prometheus .......... ./prometheus.exe

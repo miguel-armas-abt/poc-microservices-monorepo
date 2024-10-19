@@ -39,7 +39,7 @@
 > ```
 > ```shell script 
 > cd ./shell-scripts
-> ./02_start_servers.sh
+> ./start_server.sh
 > ```
 
 ▶️ **Crear bases de datos**

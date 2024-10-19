@@ -6,7 +6,7 @@ go_home,C:/dev-environment/go/go1.21.4
 kafka_home,C:/dev-environment/kafka
 kafka_tmp,C:/tmp
 redis_home,C:/dev-environment/redis/Redis-x64-3.0.504
-postgres_sql_home,C:/dev-environment/postgresql-16.1
+postgres_home,C:/dev-environment/postgresql-16.1
 mysql_home,C:/dev-environment/mysql-8.2.0
 prometheus_home,C:/dev-environment/prometheus/prometheus-2.51.1
 zipkin_home,C:/dev-environment/zipkin

@@ -1,2 +1,0 @@
-{"message":"Starting MainApplication v0.0.1-SNAPSHOT using Java 17 with PID 18292 (C:\\dev-workspace\\bbq-monorepo\\application\\backend\\platform\\mock-service-v1\\target\\mock-service-v1-0.0.1-SNAPSHOT.jar started by User in C:\\dev-workspace\\bbq-monorepo\\devops\\shell-scripts\\local)","timestamp":1729310707143,"log.level":"INFO","logger.name":"com.demo.bbq.MainApplication","thread.name":"main"}
-{"message":"The following 1 profile is active: \"dev\"","timestamp":1729310707149,"log.level":"INFO","logger.name":"com.demo.bbq.MainApplication","thread.name":"main"}
