@@ -1,7 +1,0 @@
-volumes:
-        - name: @app_name-volume-data
-          persistentVolumeClaim:
-            claimName: pvc-@app_name
-        - name: @app_name-volume-script
-          configMap:
-            name: cm-@app_name

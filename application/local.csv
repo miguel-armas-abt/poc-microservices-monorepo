@@ -1,0 +1,15 @@
+VARIABLE,VALUE
+java_home,C:/dev-environment/java/jdk-17
+maven_home,C:/dev-environment/maven/apache-maven-3.9.1
+maven_repository,C:/Users/User/.m2/repository
+go_home,C:/dev-environment/go/go1.21.4
+kafka_home,C:/dev-environment/kafka
+kafka_tmp,C:/tmp
+redis_home,C:/dev-environment/redis/Redis-x64-3.0.504
+postgres_sql_home,C:/dev-environment/postgresql-16.1
+mysql_home,C:/dev-environment/mysql-8.2.0
+prometheus_home,C:/dev-environment/prometheus/prometheus-2.51.1
+zipkin_home,C:/dev-environment/zipkin
+grafana_home,C:/dev-environment/grafana/grafana-v10.4.2
+loki_home,C:/dev-environment/loki/loki
+promtail_home,C:/dev-environment/loki/promtail

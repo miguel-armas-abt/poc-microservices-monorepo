@@ -31,11 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### docker-compose
-/devops/environment/mongo-db/data/
-/devops/environment/mysql-db/data/
-/devops/environment/postgres-db/data/
-/devops/output-local.log
-/devops/output-docker.log
-/devops/output-k8s.log

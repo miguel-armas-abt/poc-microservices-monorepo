@@ -1,7 +1,0 @@
-volumeMounts:
-            #this is the path in the container on which the mounting will take place.
-            - mountPath: @mount_path_data
-              name: @app_name-volume-data
-            - mountPath: @mount_path_initdb
-              subPath: @initdb_file_suffix
-              name: @app_name-volume-script

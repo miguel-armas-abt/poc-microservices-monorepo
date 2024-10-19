@@ -3,7 +3,7 @@
 source ./../commons.sh
 
 print_title() {
-  echo -e "\n########## ${GREEN} Ejecute una acción con Docker ${NC}##########\n"
+  echo -e "\n########## ${CYAN} Ejecute una acción con Docker ${NC}##########\n"
 }
 
 script_caller() {

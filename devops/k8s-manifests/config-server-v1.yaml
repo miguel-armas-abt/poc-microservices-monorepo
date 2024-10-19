@@ -1,0 +1,81 @@
+---
+# Source: generic-backend-chart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-server-v1-config-map
+data:
+    JAVA_OPTS: "-Xms256M -Xmx256M"
+---
+# Source: generic-backend-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server-v1
+  labels:
+    app: config-server-v1
+spec:
+  type: NodePort
+  selector:
+    app: config-server-v1
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: config-server-v1
+      port: 8888
+      nodePort: 30088
+---
+# Source: generic-backend-chart/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server-v1
+  labels:
+    app: config-server-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-server-v1
+  template:
+    metadata:
+      labels:
+        app: config-server-v1
+    spec:
+      containers:
+        - name: config-server-v1
+          image: "miguelarmasabt/config-server:v1.0.1"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8888
+
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8888
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8888
+            initialDelaySeconds: 30
+            periodSeconds: 30
+
+          env:
+              - name: JAVA_OPTS
+                valueFrom:
+                  configMapKeyRef:
+                    name: config-server-v1-config-map
+                    key: JAVA_OPTS

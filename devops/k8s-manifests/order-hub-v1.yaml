@@ -1,0 +1,117 @@
+---
+# Source: generic-backend-chart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-hub-v1-config-map
+data:
+    CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
+    INVOICE_DOMAIN: "invoice-v1:8014"
+    JAVA_OPTS: "-Xms256M -Xmx256M"
+    MENU_REPOSITORY_SELECTOR: "com.demo.bbq.entrypoint.menu.repository.MenuV1Repository"
+    MENU_V1_DOMAIN: "menu-v1:8012"
+    MENU_V2_DOMAIN: "menu-v2:8016"
+    TABLE_PLACEMENT_DOMAIN: "table-placement-v1:8013"
+---
+# Source: generic-backend-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-hub-v1
+  labels:
+    app: order-hub-v1
+spec:
+  type: NodePort
+  selector:
+    app: order-hub-v1
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: order-hub-v1
+      port: 8018
+      nodePort: 30018
+---
+# Source: generic-backend-chart/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-hub-v1
+  labels:
+    app: order-hub-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-hub-v1
+  template:
+    metadata:
+      labels:
+        app: order-hub-v1
+    spec:
+      containers:
+        - name: order-hub-v1
+          image: "miguelarmasabt/order-hub:v1.0.1"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8018
+
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8018
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8018
+            initialDelaySeconds: 30
+            periodSeconds: 30
+
+          env:
+              - name: CONFIG_SERVER_DOMAIN
+                valueFrom:
+                  configMapKeyRef:
+                    name: order-hub-v1-config-map
+                    key: CONFIG_SERVER_DOMAIN
+              - name: INVOICE_DOMAIN
+                valueFrom:
+                  configMapKeyRef:
+                    name: order-hub-v1-config-map
+                    key: INVOICE_DOMAIN
+              - name: JAVA_OPTS
+                valueFrom:
+                  configMapKeyRef:
+                    name: order-hub-v1-config-map
+                    key: JAVA_OPTS
+              - name: MENU_REPOSITORY_SELECTOR
+                valueFrom:
+                  configMapKeyRef:
+                    name: order-hub-v1-config-map
+                    key: MENU_REPOSITORY_SELECTOR
+              - name: MENU_V1_DOMAIN
+                valueFrom:
+                  configMapKeyRef:
+                    name: order-hub-v1-config-map
+                    key: MENU_V1_DOMAIN
+              - name: MENU_V2_DOMAIN
+                valueFrom:
+                  configMapKeyRef:
+                    name: order-hub-v1-config-map
+                    key: MENU_V2_DOMAIN
+              - name: TABLE_PLACEMENT_DOMAIN
+                valueFrom:
+                  configMapKeyRef:
+                    name: order-hub-v1-config-map
+                    key: TABLE_PLACEMENT_DOMAIN

@@ -17,7 +17,7 @@ iterate_csv_records() {
 
     # Ignore comments
     if [[ $component_name != "#"* ]]; then
-      ./docker-record-processor.sh "$operation" "$component_name" "$component_type"
+      ./compile-component.sh "$component_name" "$component_type"
     fi
 
   done < <(sed 's/\r//g' "$COMPONENTS_CSV")

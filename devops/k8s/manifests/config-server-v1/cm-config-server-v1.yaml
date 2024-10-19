@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cm-config-server-v1
-data:
-  java-opts: "-Xms256M -Xmx256M"

@@ -6,7 +6,7 @@ BACKEND_PATH="./../../../application/backend"
 validate_operation() {
   local operation=$1
 
-  local valid_operations=("forward")
+  local valid_operations=("port-forward")
 
   for valid_operation in "${valid_operations[@]}"; do
     if [[ "$operation" == "$valid_operation" ]]; then
@@ -33,7 +33,7 @@ process_record() {
 
   command=""
 
-  if [[ $operation == "forward" ]]; then
+  if [[ $operation == "port-forward" ]]; then
     command="kubectl port-forward svc/$component_name $host_port:$container_port -n $namespace"
     start bash -c "echo -ne \"\\033]0;$component_name\\007\";$command" #set title in the emergent windows
   fi

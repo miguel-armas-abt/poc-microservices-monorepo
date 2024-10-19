@@ -1,6 +1,6 @@
 # Proveedor de autenticación Keycloak
 
-[← Ir a Local](./../../../devops/local/README.md) <br>
+[← Ir a Local](../../../devops/shell-scripts/local/README.md) <br>
 [← Ir a Docker Compose](./../../../devops/docker-compose/README.md)
 
 ### ▶️ Despliegue local

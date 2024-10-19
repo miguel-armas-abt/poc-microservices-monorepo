@@ -1,0 +1,101 @@
+---
+# Source: generic-backend-chart/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: auth-adapter-v1-secret
+type: Opaque
+data:
+    KEYCLOAK_KEY_RS256: "bUg2S1RCT3RHM0I4X1Vjck92QTZ6UG4yM1NkR2VxcHA1WU9wLU1IUjBGbw=="
+---
+# Source: generic-backend-chart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-adapter-v1-config-map
+data:
+    JAVA_OPTS: "-Xms256M -Xmx256M"
+    KEYCLOAK_DOMAIN: "keycloak-server:8080"
+---
+# Source: generic-backend-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-adapter-v1
+  labels:
+    app: auth-adapter-v1
+spec:
+  type: NodePort
+  selector:
+    app: auth-adapter-v1
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: auth-adapter-v1
+      port: 8011
+      nodePort: 30011
+---
+# Source: generic-backend-chart/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-adapter-v1
+  labels:
+    app: auth-adapter-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-adapter-v1
+  template:
+    metadata:
+      labels:
+        app: auth-adapter-v1
+    spec:
+      containers:
+        - name: auth-adapter-v1
+          image: "miguelarmasabt/auth-adapter:v1.0.1"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8011
+
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8011
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8011
+            initialDelaySeconds: 30
+            periodSeconds: 30
+
+          env:
+              - name: JAVA_OPTS
+                valueFrom:
+                  configMapKeyRef:
+                    name: auth-adapter-v1-config-map
+                    key: JAVA_OPTS
+              - name: KEYCLOAK_DOMAIN
+                valueFrom:
+                  configMapKeyRef:
+                    name: auth-adapter-v1-config-map
+                    key: KEYCLOAK_DOMAIN
+              - name: KEYCLOAK_KEY_RS256
+                valueFrom:
+                  secretKeyRef:
+                    name: auth-adapter-v1-secret
+                    key: KEYCLOAK_KEY_RS256
