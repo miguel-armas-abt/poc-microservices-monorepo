@@ -8,8 +8,6 @@ print_title() {
 
 script_caller() {
   $1
-  read -rsn1 -p "Presione la tecla enter para regresar al menú"
-  clear
   print_title
 }
 
@@ -17,7 +15,7 @@ print_title
 
 options=(
   "Construir imágenes"
-  "Generar docker-compose"
+  "Generar docker-compose.yml"
   "Iniciar docker-compose"
   "Mostrar contenedores"
   "Recrear docker-compose"
@@ -26,16 +24,18 @@ options=(
   "Salir"
 )
 
-select option in "${options[@]}"; do
-    case $REPLY in
-      1) script_caller "./docker-csv-processor.sh build"; ;;
-      2) script_caller "./compose-file-processor.sh template"; ;;
-      3) script_caller "./compose-file-processor.sh up"; ;;
-      4) script_caller "./compose-file-processor.sh list"; ;;
-      5) script_caller "./compose-file-processor.sh recreate"; ;;
-      6) script_caller "./compose-file-processor.sh stop"; ;;
-      7) script_caller "./compose-file-processor.sh delete"; ;;
-      8) exit; ;;
-      *) echo "Opción inválida" >&2
-    esac
+while true; do
+  select option in "${options[@]}"; do
+      case $REPLY in
+        1) script_caller "./docker-csv-processor.sh build"; break ;;
+        2) script_caller "./compose-file-processor.sh template"; break ;;
+        3) script_caller "./compose-file-processor.sh up"; break ;;
+        4) script_caller "./compose-file-processor.sh list"; break ;;
+        5) script_caller "./compose-file-processor.sh recreate"; break ;;
+        6) script_caller "./compose-file-processor.sh stop"; break ;;
+        7) script_caller "./compose-file-processor.sh delete"; break ;;
+        8) exit; ;;
+        *) echo -e "${RED}Opción inválida${NC}" >&2
+      esac
+  done
 done

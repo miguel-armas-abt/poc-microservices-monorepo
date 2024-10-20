@@ -259,3 +259,14 @@
 11:29:02:072AM .......... kafka .......... .\\bin\\windows\\kafka-server-start.bat config\\server.properties
 11:32:36:821AM .......... zookeeper .......... .\\bin\\windows\\zookeeper-server-start.bat config\\zookeeper.properties
 11:32:45:118AM .......... kafka .......... .\\bin\\windows\\kafka-server-start.bat config\\server.properties
+12:22:20:378PM .......... redis .......... ./redis-server &
+12:22:49:091PM .......... redis .......... ./redis-server &
+12:24:16:371PM .......... redis .......... ./redis-server &
+12:25:29:590PM .......... redis .......... ./redis-server &
+12:25:47:549PM .......... redis .......... ./redis-server &
+12:29:57:555PM .......... redis .......... ./redis-server &
+12:29:57:568PM .......... redis .......... port 6379 is currently in use
+12:30:49:685PM .......... redis .......... ./redis-server &
+12:31:33:443PM .......... redis .......... ./redis-server &
+12:34:03:660PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
+12:34:56:539PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"

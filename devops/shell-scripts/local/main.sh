@@ -8,8 +8,6 @@ print_title() {
 
 script_caller() {
   $1
-  read -rsn1 -p "Presione la tecla enter para regresar al menú"
-  clear
   print_title
 }
 
@@ -23,13 +21,15 @@ options=(
   "Salir"
 )
 
-select option in "${options[@]}"; do
-    case $REPLY in
-      1) script_caller "./compile-csv-processor.sh compile"; ;;
-      2) script_caller "./database-initializer.sh"; ;;
-      3) script_caller "./start-server.sh"; ;;
-      4) script_caller "./run-csv-processor.sh"; ;;
-      5) exit; ;;
-      *) echo "Opción inválida" >&2
-    esac
+while true; do
+  select option in "${options[@]}"; do
+      case $REPLY in
+        1) script_caller "./compile-csv-processor.sh compile"; break ;;
+        2) script_caller "./database-initializer.sh"; break ;;
+        3) script_caller "./start-server.sh"; break ;;
+        4) script_caller "./run-csv-processor.sh"; break ;;
+        5) exit; ;;
+        *) echo -e "${RED}Opción inválida${NC}" >&2
+      esac
+  done
 done
