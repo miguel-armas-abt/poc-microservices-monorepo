@@ -8,8 +8,6 @@ print_title() {
 
 script_caller() {
   $1
-  read -rsn1 -p "Presione la tecla enter para regresar al menú"
-  clear
   print_title
 }
 
@@ -20,16 +18,20 @@ options=(
   "Construir imágenes en Minikube"
   "Instalar componentes en el clúster"
   "Desinstalar componentes del clúster"
+  "Port forwarding"
   "Salir"
 )
 
-select option in "${options[@]}"; do
-    case $REPLY in
-      1) script_caller "./helm-csv-processor.sh template"; ;;
-      2) script_caller "./minikube-processor.sh build-in-minikube"; ;;
-      3) script_caller "./helm-csv-processor.sh install"; ;;
-      4) script_caller "./helm-csv-processor.sh uninstall"; ;;
-      5) exit; ;;
-      *) echo "Opción inválida" >&2
-    esac
+while true; do
+  select option in "${options[@]}"; do
+      case $REPLY in
+        1) script_caller "./helm-csv-processor.sh template"; break ;;
+        2) script_caller "./minikube-processor.sh build-in-minikube"; break ;;
+        3) script_caller "./helm-csv-processor.sh install"; break ;;
+        4) script_caller "./helm-csv-processor.sh uninstall"; break ;;
+        5) script_caller "./k8s-csv-processor.sh port-forward"; break ;;
+        6) exit; ;;
+        *) echo "Opción inválida" >&2
+      esac
+  done
 done

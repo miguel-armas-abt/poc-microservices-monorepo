@@ -1,4 +1,4 @@
-> 📌 Utilice una shell compatible con Unix (PowerShell o Git bash) para ejecutar scripts `.sh`
+> 📌 Utilice una shell compatible con Unix e instale `yq` para ejecutar los scripts `.sh`
 
 # DESPLIEGUE LOCAL
 
@@ -6,7 +6,7 @@
 
 ## 📋 Pre requisitos
 > ⚙️ **Instalar herramientas**<br>
-> `Java 17+`, `Maven 3.9.1+`, `GO 1.21+`, `Kafka`, `MySQL`, `PostgreSQL`, `Prometheus`, `Zipkin`, `Grafana`, `Loki`, `yq`
+> `Java 17+`, `Maven 3.9.1+`, `GO 1.21+`, `Kafka`, `MySQL`, `PostgreSQL`, `Prometheus`, `Zipkin`, `Grafana`, `Loki`
 >
 > ⚙️ **Configurar rutas de instalación**
 > ```shell script 

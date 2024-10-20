@@ -270,3 +270,26 @@
 12:31:33:443PM .......... redis .......... ./redis-server &
 12:34:03:660PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
 12:34:56:539PM .......... docker-compose -f ./../../docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
+ 1:01:44:457PM .......... helm install invoice-v1 ./helm/with-health -f ./../../../application/backend/business/invoice-v1/values.yaml --namespace restaurant --create-namespace
+ 1:01:45:218PM .......... helm install menu-v1 ./helm/with-health -f ./../../../application/backend/business/menu-v1/values.yaml --namespace restaurant --create-namespace
+ 1:01:45:639PM .......... helm install menu-v2 ./helm/with-health -f ./../../../application/backend/business/menu-v2/values.yaml --namespace restaurant --create-namespace
+ 1:01:46:077PM .......... helm install order-hub-v1 ./helm/with-health -f ./../../../application/backend/business/order-hub-v1/values.yaml --namespace restaurant --create-namespace
+ 1:01:46:781PM .......... helm install payment-v1 ./helm/with-health -f ./../../../application/backend/business/payment-v1/values.yaml --namespace restaurant --create-namespace
+ 1:01:47:569PM .......... helm install product-v1 ./helm/default -f ./../../../application/backend/business/product-v1/values.yaml --namespace restaurant --create-namespace
+ 1:01:48:743PM .......... helm install rules-processor-v1 ./helm/with-health -f ./../../../application/backend/business/rules-processor-v1/values.yaml --namespace restaurant --create-namespace
+ 1:01:50:084PM .......... helm install table-placement-v1 ./helm/with-health -f ./../../../application/backend/business/table-placement-v1/values.yaml --namespace restaurant --create-namespace
+ 1:01:51:790PM .......... helm install api-gateway-v1 ./helm/with-health -f ./../../../application/backend/platform/api-gateway-v1/values.yaml --namespace restaurant --create-namespace
+ 1:01:54:155PM .......... helm install auth-adapter-v1 ./helm/with-health -f ./../../../application/backend/platform/auth-adapter-v1/values.yaml --namespace restaurant --create-namespace
+ 1:01:56:688PM .......... helm install config-server-v1 ./helm/with-health -f ./../../../application/backend/platform/config-server-v1/values.yaml --namespace restaurant --create-namespace
+ 1:01:59:651PM .......... helm install mock-service-v1 ./helm/with-health -f ./../../../application/backend/platform/mock-service-v1/values.yaml --namespace restaurant --create-namespace
+ 1:02:02:885PM .......... helm install keycloak-server ./helm/default -f ./../../../application/backend/runtime/keycloak-server/values.yaml --namespace restaurant --create-namespace
+ 1:02:06:634PM .......... helm install redis-server ./helm/default -f ./../../../application/backend/runtime/redis-server/values.yaml --namespace restaurant --create-namespace
+ 1:02:11:338PM .......... helm install zookeeper-server ./helm/default -f ./../../../application/backend/runtime/zookeeper-server/values.yaml --namespace restaurant --create-namespace
+ 1:02:17:549PM .......... helm install kafka-server ./helm/default -f ./../../../application/backend/runtime/kafka-server/values.yaml --namespace restaurant --create-namespace
+ 1:02:22:131PM .......... helm install mongo-db ./helm/database -f ./../../../application/backend/database/mongo-db/values.yaml --namespace restaurant --create-namespace
+ 1:02:30:504PM .......... helm install mysql-db ./helm/database -f ./../../../application/backend/database/mysql-db/values.yaml --namespace restaurant --create-namespace
+ 1:02:37:019PM .......... helm install postgres-db ./helm/database -f ./../../../application/backend/database/postgres-db/values.yaml --namespace restaurant --create-namespace
+ 1:05:50:110PM .......... 
+ 1:06:45:628PM .......... kubectl port-forward svc/config-server-v1 8888:8888 -n restaurant
+ 1:07:27:521PM .......... kubectl port-forward svc/menu-v1 8012:8012 -n restaurant
+ 1:09:27:708PM .......... kubectl port-forward svc/product-v1 8017:8017 -n restaurant

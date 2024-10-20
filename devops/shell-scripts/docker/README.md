@@ -1,4 +1,4 @@
-> 📌 Utilice una shell compatible con Unix (PowerShell o Git bash) para ejecutar scripts `.sh`
+> 📌 Utilice una shell compatible con Unix e instale `yq` para ejecutar los scripts `.sh`
 
 # DOCKER
 
