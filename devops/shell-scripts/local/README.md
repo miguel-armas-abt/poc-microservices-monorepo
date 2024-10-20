@@ -2,59 +2,25 @@
 
 # DESPLIEGUE LOCAL
 
-[← Ir a Principal](../../../README.md) <br>
-[← Ir a Docker Compose](./../docker-compose/README.md) <br>
-[← Ir a K8S](./../k8s/README.md)
+[← Regresar](../../../README.md) <br>
 
-> ✅ **Pre requisitos**
-> Instalar las siguientes tecnologías:
->   - [Java 17+](https://github.com/miguel-armas-abt/technical-resources/blob/main/02_backend/java/jdk/install/README.md)
->   - [Maven 3.9.1+](https://github.com/miguel-armas-abt/technical-resources/blob/main/02_backend/java/dependency-management/maven/install/README.md)
->   - [GO 1.21+](https://github.com/miguel-armas-abt/technical-resources/blob/main/02_backend/go/install/README.md)
->   - [Kafka](https://github.com/miguel-armas-abt/technical-resources/blob/main/02_backend/kafka/install/README.md)
->   - [MySQL](https://github.com/miguel-armas-abt/technical-resources/blob/main/01_database/mysql/install/README.md)
->   - [PostgreSQL](https://github.com/miguel-armas-abt/technical-resources/blob/main/01_database/postgresql/install/README.md)
->   - [Prometheus](https://github.com/miguel-armas-abt/technical-resources/blob/main/04_devops/observability/prometheus/install/README.md)
->   - [Zipkin](https://github.com/miguel-armas-abt/technical-resources/blob/main/04_devops/observability/zipkin/install/README.md)
->   - [Grafana](https://github.com/miguel-armas-abt/technical-resources/blob/main/04_devops/observability/grafana/install/README.md)
->   - [Loki](https://github.com/miguel-armas-abt/technical-resources/blob/main/04_devops/observability/loki/install/README.md)
-
-📄 **Configurar entorno local** - Rutas de instalación (Java, Maven, GO, etc)
+## 📋 Pre requisitos
+> ⚙️ **Instalar herramientas**<br>
+> `Java 17+`, `Maven 3.9.1+`, `GO 1.21+`, `Kafka`, `MySQL`, `PostgreSQL`, `Prometheus`, `Zipkin`, `Grafana`, `Loki`, `yq`
+>
+> ⚙️ **Configurar rutas de instalación**
 > ```shell script 
-> notepad ./parameters/00_local_path_variables.sh
+> notepad ./../../../application/local.csv
 > ```
 
-▶️ **Compilar proyectos**
+## ▶️ Menú de opciones
+> El menú cuenta con las siguientes opciones:
+> - Compilar proyectos
+> - Crear BD en MySQL 
+> - Ejecutar servidores
+> - Ejecutar servicios
 > ```shell script 
-> notepad ./parameters/01_projects-to-compile.csv
-> ```
-> ```shell script 
-> cd ./shell-scripts
-> ./01_compile_projects.sh
-> ```
-
-▶️ **Iniciar servidores**
-> ```shell script 
-> notepad ./parameters/02_servers-to-start.csv
-> ```
-> ```shell script 
-> cd ./shell-scripts
-> ./start_server.sh
-> ```
-
-▶️ **Crear bases de datos**
-> ```shell script 
-> cd ./shell-scripts
-> ./03_create_database.sh
-> ```
-
-▶️ **Ejecutar servicios**
-> ```shell script 
-> notepad ./parameters/04_services-to-run.csv
-> ```
-> ```shell script 
-> cd ./shell-scripts
-> ./04_run_services.sh
+> ./main.sh
 > ```
 
 ▶️ [Configurar Keycloak](../../../docs/info/keycloak/README.md)

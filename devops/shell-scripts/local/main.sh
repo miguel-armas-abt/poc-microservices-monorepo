@@ -16,8 +16,10 @@ script_caller() {
 print_title
 
 options=(
-  "Compilar los proyectos"
+  "Compilar proyectos"
   "Crear BD en MySQL"
+  "Ejecutar servidor"
+  "Ejecutar servicio"
   "Salir"
 )
 
@@ -25,7 +27,9 @@ select option in "${options[@]}"; do
     case $REPLY in
       1) script_caller "./compile-csv-processor.sh compile"; ;;
       2) script_caller "./database-initializer.sh"; ;;
-      3) exit; ;;
+      3) script_caller "./start-server.sh"; ;;
+      4) script_caller "./run-csv-processor.sh"; ;;
+      5) exit; ;;
       *) echo "Opción inválida" >&2
     esac
 done

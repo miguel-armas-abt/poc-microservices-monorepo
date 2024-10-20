@@ -13,6 +13,7 @@ java="$java_home/bin/java"
 
 #kafka
 kafka_home=$(./local-value-searcher.sh "kafka_home")
+kafka_tmp_folder=$(./local-value-searcher.sh "kafka_tmp")
 kafka_port=$(yq '.ports.containerPort // {}' "$RUNTIME_PATH/kafka-server/values.yaml")
 kafka_command=".\\\\bin\\\\windows\\\\kafka-server-start.bat config\\\\server.properties"
 
@@ -79,12 +80,12 @@ is_port_in_use() {
   return $?
 }
 
-validate_kafka() {
+validate_zookeeper() {
   local server_name=$1
   local port_in_use=$2
   
-  if [[ "$server_name" == "kafka" && "$port_in_use" == "1" && -d "$KAFKA_TMP_PATH" ]]; then
-    rm -rf "$KAFKA_TMP_PATH"
+  if [[ "$server_name" == "zookeeper" && -d "$kafka_tmp_folder" ]]; then
+    rm -rf "$kafka_tmp_folder"
     echo "$(get_timestamp) .......... /tmp folder was removed" >> "./../../$LOG_FILE"
   fi
 }
@@ -111,12 +112,36 @@ execute_server() {
   is_port_in_use "$server_port"
   port_in_use=$?
 
-  validate_kafka "$server_name" "$port_in_use"
+  validate_zookeeper "$server_name" "$port_in_use"
 
   echo "$(get_timestamp) .......... $server_name .......... $execution_command" >> "./../../$LOG_FILE"
 
   validate_port_and_execute "$port_in_use" "$server_path" "$execution_command" "$server_port"
 }
 
-server_name=$1
-execute_server "$server_name"
+list_servers() {
+  echo -e "\n########## ${CYAN} Servidores disponibles ${NC}##########\n"
+  local index=1
+  for server in "${!server_map[@]}"; do
+    echo "$index) $server"
+    index=$((index + 1))
+  done
+}
+
+select_server() {
+  list_servers
+  read -rp "Ingrese un número de servidor: " selection
+
+  if [[ "$selection" =~ ^[0-9]+$ ]]; then
+    local server_names=("${!server_map[@]}")
+    if ((selection >= 1 && selection <= ${#server_names[@]})); then
+      execute_server "${server_names[selection - 1]}"
+    else
+      echo -e "${RED}No se encontró ningún servidor.${NC}"
+    fi
+  else
+    echo -e "${RED}Opción inválida.${NC}"
+  fi
+}
+
+select_server

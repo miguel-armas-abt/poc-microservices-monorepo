@@ -246,3 +246,16 @@
 12:08:00:739AM .......... kafka .......... .\\bin\\windows\\kafka-server-start.bat config\\server.properties
 12:08:26:624AM .......... redis .......... ./redis-server &
 12:08:55:849AM .......... prometheus .......... ./prometheus.exe
+11:18:11:206AM .......... mysql-db .......... ./mysqld --console
+11:18:11:220AM .......... mysql-db .......... port 3306 is currently in use
+11:18:39:225AM .......... mysql-db .......... ./mysqld --console
+11:18:48:509AM .......... redis .......... ./redis-server &
+11:27:35:622AM .......... zookeeper .......... .\\bin\\windows\\zookeeper-server-start.bat config\\zookeeper.properties
+11:27:46:047AM .......... /tmp folder was removed
+11:27:46:060AM .......... kafka .......... .\\bin\\windows\\kafka-server-start.bat config\\server.properties
+11:28:21:295AM .......... kafka .......... .\\bin\\windows\\kafka-server-start.bat config\\server.properties
+11:28:49:680AM .......... zookeeper .......... .\\bin\\windows\\zookeeper-server-start.bat config\\zookeeper.properties
+11:29:02:058AM .......... /tmp folder was removed
+11:29:02:072AM .......... kafka .......... .\\bin\\windows\\kafka-server-start.bat config\\server.properties
+11:32:36:821AM .......... zookeeper .......... .\\bin\\windows\\zookeeper-server-start.bat config\\zookeeper.properties
+11:32:45:118AM .......... kafka .......... .\\bin\\windows\\kafka-server-start.bat config\\server.properties
