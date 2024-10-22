@@ -2,9 +2,9 @@
 
 # 1. DESPLIEGUE
 Revise las instrucciones de despliegue para cada uno de los siguientes entornos.
-- [Local](devops/shell-scripts/local/README.md)
-- [Docker Compose](./devops/docker-compose/README.md)
-- [Kubernetes](./devops/k8s/README.md)
+- [Local](devops/scripts/local/README.md)
+- [Docker](devops/scripts/docker/README.md)
+- [Kubernetes](devops/scripts/k8s/README.md)
 - [Jenkins](./devops/jenkins/README.md)
 
 # 2. DOCUMENTACION

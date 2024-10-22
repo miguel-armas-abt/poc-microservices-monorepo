@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app: {{ .Values.name }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+        - name: {{ .Values.name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.ports.containerPort }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.name }}-secret
+          resources:
+            requests:
+              memory: "{{ .Values.resources.requests.memory }}"
+              cpu: "{{ .Values.resources.requests.cpu }}"
+            limits:
+              memory: "{{ .Values.resources.limits.memory }}"
+              cpu: "{{ .Values.resources.limits.cpu }}"
+          volumeMounts:
+            - mountPath: /var/lib/database
+              name: {{ .Values.name }}-data-volume
+
+            - mountPath: /docker-entrypoint-initdb.d/{{ .Values.initdb.value }}
+              subPath: {{ .Values.initdb.value }}
+              name: {{ .Values.name }}-initdb-volume
+
+      volumes:
+        - name: {{ .Values.name }}-data-volume
+          persistentVolumeClaim:
+            claimName: {{ .Values.name }}-pvc
+
+        - name: {{ .Values.name }}-initdb-volume
+          configMap:
+            name: {{ .Values.name }}-config-map

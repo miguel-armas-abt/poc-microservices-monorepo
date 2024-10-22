@@ -1,0 +1,38 @@
+version: '3.1'
+services:
+  bbq-jenkins:
+    container_name: bbq-jenkins
+    image: miguelarmasabt/bbq-jenkins:v1
+    restart: on-failure
+    ports:
+      - "8181:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - dev_cicd_environment
+  bbq-sonarqube:
+    container_name: bbq-sonarqube
+    image: sonarqube:8.7.1-community
+    restart: on-failure
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    networks:
+      - dev_cicd_environment
+volumes:
+  jenkins_home:
+networks:
+  dev_cicd_environment:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"
+    ipam:
+      driver: default
+      config:
+        -
+          subnet: 172.16.231.0/24
+          gateway: 172.16.231.1
+        -
+          subnet: "2001:3974:3979::/64"
+          gateway: "2001:3974:3979::1"

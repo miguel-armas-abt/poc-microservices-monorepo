@@ -293,3 +293,4 @@
  1:06:45:628PM .......... kubectl port-forward svc/config-server-v1 8888:8888 -n restaurant
  1:07:27:521PM .......... kubectl port-forward svc/menu-v1 8012:8012 -n restaurant
  1:09:27:708PM .......... kubectl port-forward svc/product-v1 8017:8017 -n restaurant
+ 9:03:23:455PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
