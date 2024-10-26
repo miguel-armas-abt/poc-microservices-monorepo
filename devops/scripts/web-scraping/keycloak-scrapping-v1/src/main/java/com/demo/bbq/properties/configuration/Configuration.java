@@ -1,4 +1,4 @@
-package com.java.buddies.properties.configuration;
+package com.demo.bbq.properties.configuration;
 
 import lombok.*;
 

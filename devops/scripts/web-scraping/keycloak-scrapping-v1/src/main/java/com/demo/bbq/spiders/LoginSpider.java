@@ -1,9 +1,9 @@
-package com.java.buddies.spiders;
+package com.demo.bbq.spiders;
 
 import com.google.inject.Inject;
-import com.java.buddies.service.DriverProviderService;
-import com.java.buddies.properties.PropertiesReader;
-import com.java.buddies.properties.configuration.Configuration;
+import com.demo.bbq.service.DriverProviderService;
+import com.demo.bbq.properties.PropertiesReader;
+import com.demo.bbq.properties.configuration.Configuration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;

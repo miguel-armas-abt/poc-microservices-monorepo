@@ -1,7 +1,7 @@
-package com.java.buddies.service;
+package com.demo.bbq.service;
 
+import com.demo.bbq.spiders.*;
 import com.google.inject.Inject;
-import com.java.buddies.spiders.*;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor(onConstructor = @__(@Inject))

@@ -1,9 +1,9 @@
-package com.java.buddies;
+package com.demo.bbq;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.java.buddies.config.DependencyConfig;
-import com.java.buddies.service.ScrapingService;
+import com.demo.bbq.config.DependencyConfig;
+import com.demo.bbq.service.ScrapingService;
 
 public class Main {
 

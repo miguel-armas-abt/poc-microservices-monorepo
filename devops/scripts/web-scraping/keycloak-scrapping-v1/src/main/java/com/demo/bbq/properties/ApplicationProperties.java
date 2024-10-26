@@ -1,5 +1,6 @@
-package com.java.buddies.properties.configuration;
+package com.demo.bbq.properties;
 
+import com.demo.bbq.properties.configuration.Configuration;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,9 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Login {
+public class ApplicationProperties {
 
-  private String uri;
-  private String username;
-  private String password;
+  private Configuration configuration;
 }

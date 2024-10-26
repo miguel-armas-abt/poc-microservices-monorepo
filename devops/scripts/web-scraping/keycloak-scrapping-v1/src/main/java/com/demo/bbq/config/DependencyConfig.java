@@ -1,11 +1,11 @@
-package com.java.buddies.config;
+package com.demo.bbq.config;
 
+import com.demo.bbq.spiders.*;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
-import com.java.buddies.properties.PropertiesReader;
-import com.java.buddies.service.DriverProviderService;
-import com.java.buddies.service.ScrapingService;
-import com.java.buddies.spiders.*;
+import com.demo.bbq.properties.PropertiesReader;
+import com.demo.bbq.service.DriverProviderService;
+import com.demo.bbq.service.ScrapingService;
 
 public class DependencyConfig extends AbstractModule {
 

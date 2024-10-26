@@ -1,4 +1,4 @@
-package com.java.buddies.properties;
+package com.demo.bbq.properties;
 
 import java.io.InputStream;
 

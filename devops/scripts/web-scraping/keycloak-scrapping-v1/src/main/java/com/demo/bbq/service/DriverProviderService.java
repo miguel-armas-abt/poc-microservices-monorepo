@@ -1,7 +1,7 @@
-package com.java.buddies.service;
+package com.demo.bbq.service;
 
 import com.google.inject.Inject;
-import com.java.buddies.properties.PropertiesReader;
+import com.demo.bbq.properties.PropertiesReader;
 import java.time.Duration;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
