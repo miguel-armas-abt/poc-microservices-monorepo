@@ -1,25 +1,38 @@
 package com.java.buddies.spiders;
 
-import com.java.buddies.config.ScrapingConfig;
-import java.time.Duration;
+import com.google.inject.Inject;
+import com.java.buddies.service.DriverProviderService;
+import com.java.buddies.properties.PropertiesReader;
+import com.java.buddies.properties.configuration.Configuration;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+@Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class RealmConfigSpider {
 
-  public static void configRealm() throws InterruptedException {
-    Thread.sleep(500);
-    ChromeDriver driver = ScrapingConfig.getDriver();
-    getRS256Key(driver);
-    updateAccessTokenLifespan(driver);
+  @Inject
+  private final PropertiesReader propertiesReader;
+
+  @Inject
+  private final DriverProviderService driverProviderService;
+
+  public void configRealm() throws InterruptedException {
+    log.info("start {}", this.getClass().getSimpleName());
+    Thread.sleep(propertiesReader.get().getConfiguration().getWaitingTimeMillis());
+    getRS256Key();
+    updateAccessTokenLifespan();
   }
 
-  private static void getRS256Key(ChromeDriver driver) {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+  private void getRS256Key() {
+    WebDriverWait wait = driverProviderService.getWebDriverWait();
+    Configuration properties = propertiesReader.get().getConfiguration();
+
     WebElement keysTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(), 'Keys')]")));
     keysTab.click();
 
@@ -29,14 +42,16 @@ public class RealmConfigSpider {
     System.out.println("El valor de Kid para RS256 es: " + kidValue);
   }
 
-  private static void updateAccessTokenLifespan(ChromeDriver driver) {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+  private void updateAccessTokenLifespan() {
+    WebDriverWait wait = driverProviderService.getWebDriverWait();
+    Configuration properties = propertiesReader.get().getConfiguration();
+
     WebElement keysTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(), 'Tokens')]")));
     keysTab.click();
 
     WebElement accessTokenLifespanInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("accessTokenLifespan")));
     accessTokenLifespanInput.clear();
-    accessTokenLifespanInput.sendKeys("30");
+    accessTokenLifespanInput.sendKeys(properties.getRealm().getTokenTtlMinutes());
 
     WebElement accessTokenLifespanUnit = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("accessTokenLifespanUnit")));
     Select selectUnit = new Select(accessTokenLifespanUnit);

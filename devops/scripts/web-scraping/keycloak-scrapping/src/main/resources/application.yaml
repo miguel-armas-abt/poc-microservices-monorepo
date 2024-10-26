@@ -1,0 +1,15 @@
+configuration:
+  driverPath: src/main/resources/drivers/chromedriver.exe
+  waitingTimeMillis: 1000
+  login:
+    uri: http://localhost:8091/auth/
+    username: admin
+    password: admin
+  realm:
+    name: bbq-management
+    tokenTtlMinutes: 30
+  role:
+    name: partners
+  client:
+    name: front-bbq-app
+    redirectUriFields: '*'

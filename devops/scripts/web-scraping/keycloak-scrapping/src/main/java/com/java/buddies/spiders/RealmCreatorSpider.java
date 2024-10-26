@@ -1,7 +1,11 @@
 package com.java.buddies.spiders;
 
-import com.java.buddies.config.ScrapingConfig;
-import java.time.Duration;
+import com.google.inject.Inject;
+import com.java.buddies.service.DriverProviderService;
+import com.java.buddies.properties.PropertiesReader;
+import com.java.buddies.properties.configuration.Configuration;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,12 +13,22 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+@Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class RealmCreatorSpider {
 
-  public static void createRealm() throws InterruptedException {
-    Thread.sleep(500);
-    ChromeDriver driver = ScrapingConfig.getDriver();
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+  @Inject
+  private final PropertiesReader propertiesReader;
+
+  @Inject
+  private final DriverProviderService driverProviderService;
+
+  public void createRealm() throws InterruptedException {
+    log.info("start {}", this.getClass().getSimpleName());
+    Thread.sleep(propertiesReader.get().getConfiguration().getWaitingTimeMillis());
+    ChromeDriver driver = driverProviderService.getChromeDriver();
+    WebDriverWait wait = driverProviderService.getWebDriverWait();
+    Configuration properties = propertiesReader.get().getConfiguration();
 
     WebElement masterElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(text(), 'Master')]")));
     Actions actions = new Actions(driver);
@@ -23,7 +37,7 @@ public class RealmCreatorSpider {
     addRealmButton.click();
 
     WebElement nameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("name")));
-    nameField.sendKeys("bbq-management");
+    nameField.sendKeys(properties.getRealm().getName());
 
     WebElement createButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(), 'Create')]")));
     createButton.click();

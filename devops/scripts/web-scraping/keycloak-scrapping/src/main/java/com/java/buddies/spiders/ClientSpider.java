@@ -1,25 +1,36 @@
 package com.java.buddies.spiders;
 
-import com.java.buddies.config.ScrapingConfig;
-import java.time.Duration;
+import com.google.inject.Inject;
+import com.java.buddies.service.DriverProviderService;
+import com.java.buddies.properties.PropertiesReader;
+import com.java.buddies.properties.configuration.Configuration;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+@Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class ClientSpider {
 
-  public static void configClient() throws InterruptedException {
-    Thread.sleep(500);
-    ChromeDriver driver = ScrapingConfig.getDriver();
+  @Inject
+  private final PropertiesReader propertiesReader;
 
-    createClient(driver);
-    fillForm(driver);
+  @Inject
+  private final DriverProviderService driverProviderService;
+
+  public void configClient() throws InterruptedException {
+    log.info("start {}", this.getClass().getSimpleName());
+    Thread.sleep(propertiesReader.get().getConfiguration().getWaitingTimeMillis());
+    createClient();
+    fillForm();
   }
 
-  private static void createClient(ChromeDriver driver) {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+  private void createClient() {
+    WebDriverWait wait = driverProviderService.getWebDriverWait();
+    Configuration properties = propertiesReader.get().getConfiguration();
 
     WebElement clientsOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@href, '/realms/bbq-management/clients')]")));
     clientsOption.click();
@@ -28,16 +39,18 @@ public class ClientSpider {
     createClientButton.click();
 
     WebElement clientIdField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("clientId")));
-    clientIdField.sendKeys("front-bbq-app");
+    clientIdField.sendKeys(properties.getClient().getName());
 
     WebElement saveButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(), 'Save')]")));
     saveButton.click();
   }
 
-  private static void fillForm(ChromeDriver driver) {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+  private void fillForm() {
+    WebDriverWait wait = driverProviderService.getWebDriverWait();
+    Configuration properties = propertiesReader.get().getConfiguration();
+
     WebElement validRedirectUriField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("newRedirectUri")));
-    validRedirectUriField.sendKeys("*");
+    validRedirectUriField.sendKeys(properties.getClient().getRedirectUriFields());
 
     WebElement addRedirectUriButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='button' and contains(@class, 'btn-default')]//span[contains(@class, 'fa-plus')]")));
     addRedirectUriButton.click();

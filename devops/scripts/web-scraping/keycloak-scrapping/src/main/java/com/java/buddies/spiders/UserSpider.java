@@ -1,7 +1,11 @@
 package com.java.buddies.spiders;
 
-import com.java.buddies.config.ScrapingConfig;
-import java.time.Duration;
+import com.google.inject.Inject;
+import com.java.buddies.service.DriverProviderService;
+import com.java.buddies.properties.PropertiesReader;
+import com.java.buddies.properties.configuration.Configuration;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,17 +13,26 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+@Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class UserSpider {
 
-  public static void configUser() throws InterruptedException {
-    Thread.sleep(500);
-    ChromeDriver driver = ScrapingConfig.getDriver();
-    createUser(driver);
-    assignCredentials(driver);
+  @Inject
+  private final PropertiesReader propertiesReader;
+
+  @Inject
+  private final DriverProviderService driverProviderService;
+
+  public void configUser() throws InterruptedException {
+    log.info("start {}", this.getClass().getSimpleName());
+    Thread.sleep(propertiesReader.get().getConfiguration().getWaitingTimeMillis());
+    createUser();
+    assignCredentials();
   }
 
-  private static void createUser(ChromeDriver driver) {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+  private void createUser() {
+    WebDriverWait wait = driverProviderService.getWebDriverWait();
+    Configuration properties = propertiesReader.get().getConfiguration();
 
     WebElement usersOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@href, '/realms/bbq-management/users')]")));
     usersOption.click();
@@ -28,23 +41,26 @@ public class UserSpider {
     addUserButton.click();
 
     WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
-    usernameField.sendKeys("admin");
+    usernameField.sendKeys(properties.getLogin().getUsername());
 
     WebElement saveButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='submit' and contains(text(),'Save')]")));
     saveButton.click();
   }
 
-  private static void assignCredentials(ChromeDriver driver) {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+  private void assignCredentials() {
+    WebDriverWait wait = driverProviderService.getWebDriverWait();
+    ChromeDriver driver = driverProviderService.getChromeDriver();
+    Configuration properties = propertiesReader.get().getConfiguration();
+
 
     WebElement credentialsTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@href, 'user-credentials')]")));
     credentialsTab.click();
 
     WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("newPas")));
-    passwordField.sendKeys("admin");
+    passwordField.sendKeys(properties.getLogin().getPassword());
 
     WebElement confirmPasswordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmPas")));
-    confirmPasswordField.sendKeys("admin");
+    confirmPasswordField.sendKeys(properties.getLogin().getPassword());
 
     WebElement temporarySwitch = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@for='temporaryPassword']")));
     Actions actions = new Actions(driver);

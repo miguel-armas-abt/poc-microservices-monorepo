@@ -1,24 +1,36 @@
 package com.java.buddies.spiders;
 
-import com.java.buddies.config.ScrapingConfig;
-import java.time.Duration;
+import com.google.inject.Inject;
+import com.java.buddies.service.DriverProviderService;
+import com.java.buddies.properties.PropertiesReader;
+import com.java.buddies.properties.configuration.Configuration;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+@Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class UserRoleSpider {
 
-  public static void configRoleMappings() throws InterruptedException {
-    Thread.sleep(500);
-    ChromeDriver driver = ScrapingConfig.getDriver();
-    findUser(driver);
-    assignRole(driver);
+  @Inject
+  private final PropertiesReader propertiesReader;
+
+  @Inject
+  private final DriverProviderService driverProviderService;
+
+  public void configRoleMappings() throws InterruptedException {
+    log.info("start {}", this.getClass().getSimpleName());
+    Thread.sleep(propertiesReader.get().getConfiguration().getWaitingTimeMillis());
+    findUser();
+    assignRole();
   }
 
-  private static void findUser(ChromeDriver driver) {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+  private void findUser() {
+    WebDriverWait wait = driverProviderService.getWebDriverWait();
+    Configuration properties = propertiesReader.get().getConfiguration();
 
     WebElement rolesOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@href, '/realms/bbq-management/users')]")));
     rolesOption.click();
@@ -27,7 +39,7 @@ public class UserRoleSpider {
     viewAllUsersButton.click();
 
     WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search...']")));
-    searchField.sendKeys("admin");
+    searchField.sendKeys(properties.getLogin().getUsername());
 
     WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("userSearch")));
     searchButton.click();
@@ -38,8 +50,8 @@ public class UserRoleSpider {
     userLink.click();
   }
 
-  private static void assignRole(ChromeDriver driver) {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+  private void assignRole() {
+    WebDriverWait wait = driverProviderService.getWebDriverWait();
     WebElement roleMappingsTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@href, 'role-mappings')]")));
     roleMappingsTab.click();
 
