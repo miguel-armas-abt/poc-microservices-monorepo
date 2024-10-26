@@ -7,25 +7,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class ScrapingService {
 
-  @Inject
   private final ClientSpider clientSpider;
-
-  @Inject
   private final LoginSpider loginSpider;
-
-  @Inject
   private final RealmConfigSpider realmConfigSpider;
-
-  @Inject
   private final RealmCreatorSpider realmCreatorSpider;
-
-  @Inject
   private final RoleSpider roleSpider;
-
-  @Inject
   private final UserRoleSpider userRoleSpider;
-
-  @Inject
   private final UserSpider userSpider;
 
   public void scrap() throws InterruptedException {

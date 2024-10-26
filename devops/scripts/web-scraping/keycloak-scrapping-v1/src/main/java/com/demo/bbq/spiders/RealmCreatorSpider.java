@@ -17,10 +17,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class RealmCreatorSpider {
 
-  @Inject
   private final PropertiesReader propertiesReader;
-
-  @Inject
   private final DriverProviderService driverProviderService;
 
   public void createRealm() throws InterruptedException {

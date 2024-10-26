@@ -15,10 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class ClientSpider {
 
-  @Inject
   private final PropertiesReader propertiesReader;
-
-  @Inject
   private final DriverProviderService driverProviderService;
 
   public void configClient() throws InterruptedException {

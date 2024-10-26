@@ -7,7 +7,7 @@ import com.demo.bbq.properties.PropertiesReader;
 import com.demo.bbq.service.DriverProviderService;
 import com.demo.bbq.service.ScrapingService;
 
-public class DependencyConfig extends AbstractModule {
+public class ComponentsConfig extends AbstractModule {
 
   @Override
   protected void configure() {

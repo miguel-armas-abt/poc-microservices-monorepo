@@ -12,7 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class DriverProviderService {
 
-  @Inject
   private final PropertiesReader propertiesReader;
 
   private ChromeDriver driver;

@@ -14,10 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class LoginSpider {
 
-  @Inject
   private final PropertiesReader propertiesReader;
-
-  @Inject
   private final DriverProviderService driverProviderService;
 
   public void login() throws InterruptedException {
