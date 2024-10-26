@@ -1,5 +1,6 @@
 package com.demo.bbq.spiders;
 
+import com.demo.bbq.utils.YamlReader;
 import com.google.inject.Inject;
 import com.demo.bbq.service.DriverProviderService;
 import com.demo.bbq.properties.PropertiesReader;
@@ -11,6 +12,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
@@ -36,7 +39,7 @@ public class RealmConfigSpider {
     WebElement rs256Row = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(), 'RS256')]/following-sibling::td[2]")));
 
     String kidValue = rs256Row.getText();
-    System.out.println("El valor de Kid para RS256 es: " + kidValue);
+    YamlReader.create(properties.getOutputFile().toString() , Map.of("rs256", kidValue));
   }
 
   private void updateAccessTokenLifespan() {

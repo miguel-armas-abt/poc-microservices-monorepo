@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 public class Configuration {
 
+  private OutputFile outputFile;
   private String driverPath;
   private long waitingTimeMillis;
   private Login login;

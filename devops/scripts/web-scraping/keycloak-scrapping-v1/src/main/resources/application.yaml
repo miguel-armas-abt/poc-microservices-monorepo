@@ -1,4 +1,8 @@
 configuration:
+  outputFile:
+    absolutePath: C:\dev-workspace\bbq-monorepo\
+    projectPath: application\backend\platform\auth-adapter-v1\
+    name: tmp-secret.yaml
   driverPath: src/main/resources/drivers/chromedriver.exe
   waitingTimeMillis: 1000
   login:
