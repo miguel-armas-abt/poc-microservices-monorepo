@@ -294,3 +294,37 @@
  1:07:27:521PM .......... kubectl port-forward svc/menu-v1 8012:8012 -n restaurant
  1:09:27:708PM .......... kubectl port-forward svc/product-v1 8017:8017 -n restaurant
  9:03:23:455PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+12:36:02:766PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+12:36:22:782PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+12:36:31:913PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+12:37:10:100PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+12:37:15:894PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+12:37:21:937PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+12:37:26:861PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+12:37:32:946PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+12:37:38:888PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+12:37:44:067PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+12:37:48:026PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+12:46:52:116PM .......... ./compose-file-generator.sh
+12:47:10:067PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+12:49:56:530PM .......... ./compose-file-generator.sh
+12:50:14:003PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 1:05:40:125PM .......... ./compose-file-generator.sh
+ 1:05:58:223PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 1:07:28:858PM .......... ./compose-file-generator.sh
+ 1:07:47:039PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 1:08:43:796PM .......... ./compose-file-generator.sh
+ 1:09:01:791PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 1:10:13:468PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 1:11:06:790PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 1:12:00:569PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 3:01:57:643PM .......... ./compose-file-generator.sh
+ 3:05:52:859PM .......... ./compose-file-generator.sh
+ 3:09:33:295PM .......... ./compose-file-generator.sh
+ 3:15:09:549PM .......... ./compose-file-generator.sh
+ 3:27:31:269PM .......... ./compose-file-generator.sh
+ 3:27:49:403PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 3:31:27:564PM .......... ./compose-file-generator.sh
+ 3:31:46:121PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 3:33:37:417PM .......... ./compose-file-generator.sh
+ 3:33:56:445PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server

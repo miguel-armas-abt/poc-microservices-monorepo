@@ -2,6 +2,24 @@
 
 source ./../commons.sh
 
+DOCKER_COMPOSE_FILE="./../../docker-compose.yml";
+BACKEND_PATH="./../../../application/backend"
+
+replace_rs256_key() {
+  secret_file="$BACKEND_PATH/platform/auth-adapter-v1/tmp-secret.yaml"
+  value=$(yq e '.rs256' "$secret_file")
+  property_name="KEYCLOAK_KEY_RS256"
+
+  sed -i "s/$property_name=.*/$property_name=$value/" "$DOCKER_COMPOSE_FILE"
+
+  if [ $? -eq 0 ]; then
+    echo -e "${CHECK_SYMBOL} secret rs256 modified: $value"
+  else
+    echo -e "${RED}error modifying RS256 secret${NC}"
+    return 1
+  fi
+}
+
 scraping_keycloak() {
   java_home=$(./../local/local-value-searcher.sh "java_home")
   export JAVA_HOME=$java_home
@@ -11,15 +29,19 @@ scraping_keycloak() {
   component_path="./../web-scraping/$component_name"
 
   command="$java -jar ./target/$component_name-0.0.1-SNAPSHOT.jar"
-  cd $component_path
+
   echo "$(get_timestamp) .......... $command" >> "./../../$LOG_FILE"
+  cd $component_path
   eval $command
+  cd "./../../docker/"
 }
 
 handle_deploy() {
   ./compose-file-processor.sh template
   ./keycloak-processor.sh up
+  sleep 7 # wait until Keycloak starts
   scraping_keycloak
+  replace_rs256_key
 }
 
 handle_deploy
