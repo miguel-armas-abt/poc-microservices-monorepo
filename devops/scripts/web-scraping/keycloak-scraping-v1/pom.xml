@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.demo.bbq.scraping</groupId>
-    <artifactId>keycloak-scrapping-v1</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>keycloak-scraping-v1</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
