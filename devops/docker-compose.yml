@@ -294,8 +294,8 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=qwerty
       - TZ=UTC
+      - MYSQL_ROOT_PASSWORD=qwerty
     volumes:
       - ./../application/backend/database/mysql-db:/docker-entrypoint-initdb.d
       - ./../application/backend/database/mysql-db/data:/data
@@ -332,9 +332,7 @@ networks:
     ipam:
       driver: default
       config:
-        -
-          subnet: 172.16.232.0/24
+        - subnet: 172.16.232.0/24
           gateway: 172.16.232.1
-        -
-          subnet: "2001:3974:3979::/64"
+        - subnet: "2001:3974:3979::/64"
           gateway: "2001:3974:3979::1"
