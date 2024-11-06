@@ -160,7 +160,7 @@ services:
     restart: always
     environment:
       - ORDER_HUB_DOMAIN=order-hub-v1:8018
-      - ENABLE_AUTH=false
+      - ENABLE_AUTH=true
       - AUTH_ADAPTER_DOMAIN=auth-adapter-v1:8011
       - JAVA_OPTS=-Xms256M -Xmx256M
     networks:
@@ -176,7 +176,7 @@ services:
     environment:
       - KEYCLOAK_DOMAIN=keycloak-server:8080
       - JAVA_OPTS=-Xms256M -Xmx256M
-      - KEYCLOAK_KEY_RS256=zI4ggbdGwFU0h_iQXv_oo3lG9lkUC9AlSMgex3g564c
+      - KEYCLOAK_KEY_RS256=lC6Ve4php91fI_czi9t3LriZUgtvkgqM96iJwS7DN_o
     networks:
       - dev_environment
     ports:

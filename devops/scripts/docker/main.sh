@@ -2,8 +2,10 @@
 
 source ./../commons.sh
 
+need_generate_file=$1
+
 print_title() {
-  echo -e "\n########## ${CYAN} Ejecute una acción con Docker ${NC}##########\n"
+  echo -e "\n########## ${CYAN} Ejecute una acción ${NC}##########\n"
 }
 
 script_caller() {
@@ -15,13 +17,11 @@ print_title
 
 options=(
   "Construir imágenes"
+  "Configurar y orquestar"
   "Generar docker-compose.yml"
-  "Iniciar docker-compose"
-  "Mostrar contenedores"
-  "Recrear docker-compose"
-  "Detener docker-compose"
-  "Eliminar docker-compose"
-  "Iniciar Keycloak"
+  "Iniciar orquestación (up)"
+  "Detener orquestación (stop)"
+  "Eliminar orquestación (delete)"
   "Salir"
 )
 
@@ -29,14 +29,12 @@ while true; do
   select option in "${options[@]}"; do
       case $REPLY in
         1) script_caller "./docker-csv-processor.sh build"; break ;;
-        2) script_caller "./compose-file-processor.sh template"; break ;;
-        3) script_caller "./compose-file-processor.sh up"; break ;;
-        4) script_caller "./compose-file-processor.sh list"; break ;;
-        5) script_caller "./compose-file-processor.sh recreate"; break ;;
-        6) script_caller "./compose-file-processor.sh stop"; break ;;
-        7) script_caller "./compose-file-processor.sh delete"; break ;;
-        8) script_caller "./keycloak-processor.sh up"; break ;;
-        9) exit; ;;
+        2) script_caller "./deploy-handler.sh $need_generate_file"; break ;;
+        3) script_caller "./compose-file-processor.sh template"; break ;;
+        4) script_caller "./compose-file-processor.sh up"; break ;;
+        5) script_caller "./compose-file-processor.sh stop"; break ;;
+        6) script_caller "./compose-file-processor.sh delete"; break ;;
+        7) exit; ;;
         *) echo -e "${RED}Opción inválida${NC}" >&2
       esac
   done

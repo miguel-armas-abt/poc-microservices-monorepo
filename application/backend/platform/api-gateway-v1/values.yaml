@@ -10,7 +10,7 @@ replicas: 1
 
 configMaps:
   ORDER_HUB_DOMAIN: "order-hub-v1:8018"
-  ENABLE_AUTH: "false"
+  ENABLE_AUTH: "true"
   AUTH_ADAPTER_DOMAIN: "auth-adapter-v1:8011"
   JAVA_OPTS: "-Xms256M -Xmx256M"
 

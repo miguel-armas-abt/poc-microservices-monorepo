@@ -328,3 +328,19 @@
  3:31:46:121PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
  3:33:37:417PM .......... ./compose-file-generator.sh
  3:33:56:445PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 8:39:48:943AM .......... ./compose-file-generator.sh
+ 8:40:07:868AM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 8:40:16:369AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/keycloak-scraping-v1-0.0.1-SNAPSHOT.jar
+ 8:40:38:017AM .......... docker-compose -f ./../../docker-compose.yml up -d
+ 9:07:01:891AM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 9:07:10:412AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/keycloak-scraping-v1-0.0.1-SNAPSHOT.jar
+ 9:07:31:796AM .......... docker-compose -f ./../../docker-compose.yml up -d
+ 9:08:30:783AM .......... docker-compose -f ./../../docker-compose.yml down -v
+ 9:09:34:727AM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 9:09:42:461AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/keycloak-scraping-v1-0.0.1-SNAPSHOT.jar
+ 9:10:04:022AM .......... docker-compose -f ./../../docker-compose.yml up -d
+ 9:14:53:276AM .......... docker-compose -f ./../../docker-compose.yml down -v
+ 9:17:52:693AM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 9:18:00:456AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/keycloak-scraping-v1-0.0.1-SNAPSHOT.jar
+ 9:18:22:225AM .......... docker-compose -f ./../../docker-compose.yml up -d
+10:37:05:032AM .......... docker-compose -f ./../../docker-compose.yml down -v

@@ -7,7 +7,7 @@ DOCKER_COMPOSE_FILE="./../../docker-compose.yml";
 validate_operation() {
   local operation=$1
 
-  local valid_operations=("template" "up" "list" "recreate" "stop" "delete")
+  local valid_operations=("up" "stop" "delete")
 
   for valid_operation in "${valid_operations[@]}"; do
     if [[ "$operation" == "$valid_operation" ]]; then
@@ -26,22 +26,9 @@ process_operation() {
 
     command=""
 
-    if [[ $operation == "template" ]]; then
-      command="./compose-file-generator.sh"
-    fi
-
     if [[ $operation == "up" ]]; then
-      #-d: detached mode
+      #-d: in background
       command="docker-compose -f $DOCKER_COMPOSE_FILE up -d"
-    fi
-
-    if [[ $operation == "list" ]]; then
-      command="docker-compose -f $DOCKER_COMPOSE_FILE ps --format \"table {{.ID}}\t{{.Names}}\t{{.Status}}\""
-    fi
-
-    if [[ $operation == "recreate" ]]; then
-      #--force-recreate: recreate containers
-      command="docker-compose -f $DOCKER_COMPOSE_FILE up -d --force-recreate"
     fi
 
     if [[ $operation == "stop" ]]; then

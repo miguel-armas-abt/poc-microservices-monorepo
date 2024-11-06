@@ -37,11 +37,18 @@ scraping_keycloak() {
 }
 
 handle_deploy() {
-  ./compose-file-processor.sh template
+  local need_generate_file=$1
+
+  if [[ $need_generate_file == "-f" ]] || [[ $need_generate_file == "-file" ]] ; then
+    ./compose-file-generator.sh
+  fi
+
   ./keycloak-processor.sh up
   sleep 7 # wait until Keycloak starts
   scraping_keycloak
   replace_rs256_key
+  ./compose-file-processor.sh up
 }
 
-handle_deploy
+need_generate_file=$1
+handle_deploy "$need_generate_file"

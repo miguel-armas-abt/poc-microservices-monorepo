@@ -11,12 +11,11 @@
 ## ▶️ Menú de opciones
 > El menú cuenta con las siguientes opciones:
 > - Construir imágenes
+> - Configurar y orquestar 
 > - Generar docker-compose.yml
-> - Iniciar docker-compose
-> - Mostrar contenedores
-> - Recrear docker-compose
-> - Detener docker-compose
-> - Eliminar docker-compose
+> - Iniciar orquestación (build)
+> - Detener orquestación (stop)
+> - Eliminar orquestación (delete)
 > ```shell script 
-> ./main.sh
+> ./main.sh -f
 > ```
