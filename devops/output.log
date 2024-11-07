@@ -363,3 +363,80 @@
  9:01:58:008PM .......... helm template mongo-db ./helm/database -f ./../../../application/backend/database/mongo-db/values.yaml > ./../../k8s-manifests/mongo-db.yaml
  9:01:58:442PM .......... helm template mysql-db ./helm/database -f ./../../../application/backend/database/mysql-db/values.yaml > ./../../k8s-manifests/mysql-db.yaml
  9:01:58:847PM .......... helm template postgres-db ./helm/database -f ./../../../application/backend/database/postgres-db/values.yaml > ./../../k8s-manifests/postgres-db.yaml
+ 9:03:59:977PM .......... helm install invoice-v1 ./helm/with-health -f ./../../../application/backend/business/invoice-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:00:778PM .......... helm install menu-v1 ./helm/with-health -f ./../../../application/backend/business/menu-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:01:261PM .......... helm install menu-v2 ./helm/with-health -f ./../../../application/backend/business/menu-v2/values.yaml --namespace restaurant --create-namespace
+ 9:04:01:880PM .......... helm install order-hub-v1 ./helm/with-health -f ./../../../application/backend/business/order-hub-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:02:973PM .......... helm install payment-v1 ./helm/with-health -f ./../../../application/backend/business/payment-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:03:580PM .......... helm install product-v1 ./helm/default -f ./../../../application/backend/business/product-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:04:277PM .......... helm install rules-processor-v1 ./helm/with-health -f ./../../../application/backend/business/rules-processor-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:04:773PM .......... helm install table-placement-v1 ./helm/with-health -f ./../../../application/backend/business/table-placement-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:05:282PM .......... helm install api-gateway-v1 ./helm/with-health -f ./../../../application/backend/platform/api-gateway-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:05:885PM .......... helm install auth-adapter-v1 ./helm/with-health -f ./../../../application/backend/platform/auth-adapter-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:06:480PM .......... helm install config-server-v1 ./helm/with-health -f ./../../../application/backend/platform/config-server-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:06:976PM .......... helm install mock-service-v1 ./helm/with-health -f ./../../../application/backend/platform/mock-service-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:07:363PM .......... helm install keycloak-server ./helm/default -f ./../../../application/backend/runtime/keycloak-server/values.yaml --namespace restaurant --create-namespace
+ 9:04:08:176PM .......... helm install redis-server ./helm/default -f ./../../../application/backend/runtime/redis-server/values.yaml --namespace restaurant --create-namespace
+ 9:04:08:701PM .......... helm install zookeeper-server ./helm/default -f ./../../../application/backend/runtime/zookeeper-server/values.yaml --namespace restaurant --create-namespace
+ 9:04:09:184PM .......... helm install kafka-server ./helm/default -f ./../../../application/backend/runtime/kafka-server/values.yaml --namespace restaurant --create-namespace
+ 9:04:09:839PM .......... helm install mongo-db ./helm/database -f ./../../../application/backend/database/mongo-db/values.yaml --namespace restaurant --create-namespace
+ 9:04:10:432PM .......... helm install mysql-db ./helm/database -f ./../../../application/backend/database/mysql-db/values.yaml --namespace restaurant --create-namespace
+ 9:04:11:214PM .......... helm install postgres-db ./helm/database -f ./../../../application/backend/database/postgres-db/values.yaml --namespace restaurant --create-namespace
+ 9:04:31:617PM .......... helm uninstall invoice-v1 -n restaurant
+ 9:04:35:470PM .......... helm uninstall menu-v1 -n restaurant
+ 9:04:39:470PM .......... helm uninstall menu-v2 -n restaurant
+ 9:04:41:376PM .......... helm uninstall order-hub-v1 -n restaurant
+ 9:04:44:879PM .......... helm uninstall payment-v1 -n restaurant
+ 9:04:47:574PM .......... helm uninstall product-v1 -n restaurant
+ 9:04:48:476PM .......... helm uninstall rules-processor-v1 -n restaurant
+ 9:04:49:470PM .......... helm uninstall table-placement-v1 -n restaurant
+ 9:04:50:575PM .......... helm uninstall api-gateway-v1 -n restaurant
+ 9:04:51:274PM .......... helm uninstall auth-adapter-v1 -n restaurant
+ 9:04:52:364PM .......... helm uninstall config-server-v1 -n restaurant
+ 9:04:53:078PM .......... helm uninstall mock-service-v1 -n restaurant
+ 9:04:53:683PM .......... helm uninstall keycloak-server -n restaurant
+ 9:04:54:877PM .......... helm uninstall redis-server -n restaurant
+ 9:04:55:571PM .......... helm uninstall zookeeper-server -n restaurant
+ 9:04:56:979PM .......... helm uninstall kafka-server -n restaurant
+ 9:04:58:018PM .......... helm uninstall mongo-db -n restaurant
+ 9:04:59:518PM .......... helm uninstall mysql-db -n restaurant
+ 9:05:01:026PM .......... helm uninstall postgres-db -n restaurant
+ 9:05:35:718PM .......... ./docker-csv-processor.sh build
+ 9:05:35:908PM .......... docker build -f ./../../../application/backend/business/invoice-v1/Dockerfile -t miguelarmasabt/invoice:v1.0.1 ./../../../application/backend/business/invoice-v1
+ 9:05:39:552PM .......... docker build -f ./../../../application/backend/business/menu-v1/Dockerfile -t miguelarmasabt/menu:v1.0.1 ./../../../application/backend/business/menu-v1
+ 9:05:42:524PM .......... docker build -f ./../../../application/backend/business/menu-v2/Dockerfile -t miguelarmasabt/menu:v2.0.1 ./../../../application/backend/business/menu-v2
+ 9:05:43:223PM .......... docker build -f ./../../../application/backend/business/order-hub-v1/Dockerfile -t miguelarmasabt/order-hub:v1.0.1 ./../../../application/backend/business/order-hub-v1
+ 9:05:45:381PM .......... docker build -f ./../../../application/backend/business/payment-v1/Dockerfile -t miguelarmasabt/payment:v1.0.1 ./../../../application/backend/business/payment-v1
+ 9:05:48:260PM .......... docker build -f ./../../../application/backend/business/product-v1/Dockerfile -t miguelarmasabt/product:v1.0.1 ./../../../application/backend/business/product-v1
+ 9:06:28:581PM .......... docker build -f ./../../../application/backend/business/rules-processor-v1/Dockerfile -t miguelarmasabt/rules-processor:v1.0.1 ./../../../application/backend/business/rules-processor-v1
+ 9:06:31:383PM .......... docker build -f ./../../../application/backend/business/table-placement-v1/Dockerfile -t miguelarmasabt/table-placement:v1.0.1 ./../../../application/backend/business/table-placement-v1
+ 9:06:33:692PM .......... docker build -f ./../../../application/backend/platform/api-gateway-v1/Dockerfile -t miguelarmasabt/api-gateway:v1.0.1 ./../../../application/backend/platform/api-gateway-v1
+ 9:06:35:902PM .......... docker build -f ./../../../application/backend/platform/auth-adapter-v1/Dockerfile -t miguelarmasabt/auth-adapter:v1.0.1 ./../../../application/backend/platform/auth-adapter-v1
+ 9:06:38:352PM .......... docker build -f ./../../../application/backend/platform/config-server-v1/Dockerfile -t miguelarmasabt/config-server:v1.0.1 ./../../../application/backend/platform/config-server-v1
+ 9:06:40:086PM .......... docker build -f ./../../../application/backend/platform/mock-service-v1/Dockerfile -t miguelarmasabt/mock-service:v1.0.1 ./../../../application/backend/platform/mock-service-v1
+ 9:06:46:698PM .......... helm install invoice-v1 ./helm/with-health -f ./../../../application/backend/business/invoice-v1/values.yaml --namespace restaurant --create-namespace
+ 9:06:47:196PM .......... helm install menu-v1 ./helm/with-health -f ./../../../application/backend/business/menu-v1/values.yaml --namespace restaurant --create-namespace
+ 9:06:47:616PM .......... helm install menu-v2 ./helm/with-health -f ./../../../application/backend/business/menu-v2/values.yaml --namespace restaurant --create-namespace
+ 9:06:48:101PM .......... helm install order-hub-v1 ./helm/with-health -f ./../../../application/backend/business/order-hub-v1/values.yaml --namespace restaurant --create-namespace
+ 9:06:48:683PM .......... helm install payment-v1 ./helm/with-health -f ./../../../application/backend/business/payment-v1/values.yaml --namespace restaurant --create-namespace
+ 9:06:49:567PM .......... helm install product-v1 ./helm/default -f ./../../../application/backend/business/product-v1/values.yaml --namespace restaurant --create-namespace
+ 9:06:51:383PM .......... helm install rules-processor-v1 ./helm/with-health -f ./../../../application/backend/business/rules-processor-v1/values.yaml --namespace restaurant --create-namespace
+ 9:06:53:577PM .......... helm install table-placement-v1 ./helm/with-health -f ./../../../application/backend/business/table-placement-v1/values.yaml --namespace restaurant --create-namespace
+ 9:06:56:669PM .......... helm install api-gateway-v1 ./helm/with-health -f ./../../../application/backend/platform/api-gateway-v1/values.yaml --namespace restaurant --create-namespace
+ 9:07:00:376PM .......... helm install auth-adapter-v1 ./helm/with-health -f ./../../../application/backend/platform/auth-adapter-v1/values.yaml --namespace restaurant --create-namespace
+ 9:07:04:881PM .......... helm install config-server-v1 ./helm/with-health -f ./../../../application/backend/platform/config-server-v1/values.yaml --namespace restaurant --create-namespace
+ 9:07:08:284PM .......... helm install mock-service-v1 ./helm/with-health -f ./../../../application/backend/platform/mock-service-v1/values.yaml --namespace restaurant --create-namespace
+ 9:07:11:183PM .......... helm install keycloak-server ./helm/default -f ./../../../application/backend/runtime/keycloak-server/values.yaml --namespace restaurant --create-namespace
+ 9:07:15:211PM .......... helm install redis-server ./helm/default -f ./../../../application/backend/runtime/redis-server/values.yaml --namespace restaurant --create-namespace
+ 9:07:17:979PM .......... helm install zookeeper-server ./helm/default -f ./../../../application/backend/runtime/zookeeper-server/values.yaml --namespace restaurant --create-namespace
+ 9:07:23:166PM .......... helm install kafka-server ./helm/default -f ./../../../application/backend/runtime/kafka-server/values.yaml --namespace restaurant --create-namespace
+ 9:07:27:842PM .......... helm install mongo-db ./helm/database -f ./../../../application/backend/database/mongo-db/values.yaml --namespace restaurant --create-namespace
+ 9:07:37:259PM .......... helm install mysql-db ./helm/database -f ./../../../application/backend/database/mysql-db/values.yaml --namespace restaurant --create-namespace
+ 9:07:45:339PM .......... helm install postgres-db ./helm/database -f ./../../../application/backend/database/postgres-db/values.yaml --namespace restaurant --create-namespace
+ 9:15:22:817PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 9:15:31:890PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/keycloak-scraping-v1-0.0.1-SNAPSHOT.jar
+ 9:15:39:352PM .......... docker-compose -f ./../../docker-compose.yml up -d
+ 9:18:49:898PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 9:19:19:969PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/keycloak-scraping-v1-0.0.1-SNAPSHOT.jar
+ 9:19:42:464PM .......... docker-compose -f ./../../docker-compose.yml up -d
+ 9:20:07:479PM .......... docker-compose -f ./../../docker-compose.yml down -v

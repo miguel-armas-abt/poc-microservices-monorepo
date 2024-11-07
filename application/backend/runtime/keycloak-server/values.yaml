@@ -1,6 +1,6 @@
 name: keycloak-server
 image:
-  repository: jboss/keycloak
+  repository: quay.io/keycloak/keycloak
   tag: "16.0.0"
   pullPolicy: IfNotPresent
 ports:
