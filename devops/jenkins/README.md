@@ -14,14 +14,14 @@
 # 1. Iniciar Jenkins
 > 🔨 **Ejecutar contenedor de Jenkins**
 > ```shell script 
-> docker-compose -f docker-compose-cicd.yml up -d
+> docker-compose -f docker-compose.yml up -d
 > docker build -t miguelarmasabt/bbq-jenkins:v1 . --no-cache
 > ```
 
 > ⏸️️ **Detener orquestación**
 > <br>Para eliminar la orquestación utilice `down -v` en lugar de `stop`
 > ```shell script 
-> docker-compose -f docker-compose-cicd.yml stop
+> docker-compose -f docker-compose.yml stop
 > ```
 
 - Abra el navegador en `http://localhost:8181`

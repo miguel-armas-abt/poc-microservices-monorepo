@@ -20,3 +20,15 @@ LOG_FILE="output.log"
 function get_timestamp {
     date +"%l:%M:%S:%3N%p"
 }
+
+function arrow_loader {
+  local message="$1"
+  local arrows=("←" "↖" "↑" "↗" "→" "↘" "↓" "↙")
+
+  if [[ -z "$ARROW_INDEX" ]]; then
+    ARROW_INDEX=0
+  fi
+
+  printf "\r${CYAN}%s${NC} %s" "${arrows[ARROW_INDEX]}" "$message"
+  ARROW_INDEX=$(( (ARROW_INDEX + 1) % ${#arrows[@]} ))
+}

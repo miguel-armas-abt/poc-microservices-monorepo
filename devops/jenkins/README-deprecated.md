@@ -36,14 +36,14 @@ siguiente flujo de trabajo:
 # 1. Ejecutar contenedor de Jenkins
 #### Iniciar orquestación
 ```shell script
-docker-compose -f docker-compose-cicd.yml up -d
+docker-compose -f docker-compose.yml up -d
 docker build -t miguelarmasabt/bbq-jenkins:v1 . --no-cache
 ```
 
 #### Detener orquestación
 Utilice `down -v` en lugar de `stop` para eliminar la orquestación
 ```shell script
-docker-compose -f docker-compose-cicd.yml stop
+docker-compose -f docker-compose.yml stop
 ```
 
 Revise los logs del contenedor y copie el token en la pantalla de login `localhost:8181`.

@@ -2,7 +2,7 @@ version: '3.1'
 services:
   bbq-jenkins:
     container_name: bbq-jenkins
-    image: miguelarmasabt/bbq-jenkins:v1
+    image: miguelarmasabt/bbq-jenkins:v1.0.1
     restart: on-failure
     ports:
       - "8181:8080"
@@ -30,9 +30,7 @@ networks:
     ipam:
       driver: default
       config:
-        -
-          subnet: 172.16.231.0/24
-          gateway: 172.16.231.1
-        -
-          subnet: "2001:3974:3979::/64"
+        - subnet: 172.18.0.0/24
+          gateway: 172.18.0.1
+        - subnet: "2001:3974:3979::/64"
           gateway: "2001:3974:3979::1"

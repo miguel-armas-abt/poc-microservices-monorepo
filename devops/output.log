@@ -440,3 +440,190 @@
  9:19:19:969PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/keycloak-scraping-v1-0.0.1-SNAPSHOT.jar
  9:19:42:464PM .......... docker-compose -f ./../../docker-compose.yml up -d
  9:20:07:479PM .......... docker-compose -f ./../../docker-compose.yml down -v
+ 9:23:32:468PM .......... helm template invoice-v1 ./helm/with-health -f ./../../../application/backend/business/invoice-v1/values.yaml > ./../../k8s-manifests/invoice-v1.yaml
+ 9:23:32:717PM .......... helm template menu-v1 ./helm/with-health -f ./../../../application/backend/business/menu-v1/values.yaml > ./../../k8s-manifests/menu-v1.yaml
+ 9:23:32:963PM .......... helm template menu-v2 ./helm/with-health -f ./../../../application/backend/business/menu-v2/values.yaml > ./../../k8s-manifests/menu-v2.yaml
+ 9:23:33:197PM .......... helm template order-hub-v1 ./helm/with-health -f ./../../../application/backend/business/order-hub-v1/values.yaml > ./../../k8s-manifests/order-hub-v1.yaml
+ 9:23:33:429PM .......... helm template payment-v1 ./helm/with-health -f ./../../../application/backend/business/payment-v1/values.yaml > ./../../k8s-manifests/payment-v1.yaml
+ 9:23:33:647PM .......... helm template product-v1 ./helm/default -f ./../../../application/backend/business/product-v1/values.yaml > ./../../k8s-manifests/product-v1.yaml
+ 9:23:33:881PM .......... helm template rules-processor-v1 ./helm/with-health -f ./../../../application/backend/business/rules-processor-v1/values.yaml > ./../../k8s-manifests/rules-processor-v1.yaml
+ 9:23:34:114PM .......... helm template table-placement-v1 ./helm/with-health -f ./../../../application/backend/business/table-placement-v1/values.yaml > ./../../k8s-manifests/table-placement-v1.yaml
+ 9:23:34:332PM .......... helm template api-gateway-v1 ./helm/with-health -f ./../../../application/backend/platform/api-gateway-v1/values.yaml > ./../../k8s-manifests/api-gateway-v1.yaml
+ 9:23:34:548PM .......... helm template auth-adapter-v1 ./helm/with-health -f ./../../../application/backend/platform/auth-adapter-v1/values.yaml > ./../../k8s-manifests/auth-adapter-v1.yaml
+ 9:23:34:783PM .......... helm template config-server-v1 ./helm/with-health -f ./../../../application/backend/platform/config-server-v1/values.yaml > ./../../k8s-manifests/config-server-v1.yaml
+ 9:23:35:002PM .......... helm template mock-service-v1 ./helm/with-health -f ./../../../application/backend/platform/mock-service-v1/values.yaml > ./../../k8s-manifests/mock-service-v1.yaml
+ 9:23:35:217PM .......... helm template keycloak-server ./helm/default -f ./../../../application/backend/runtime/keycloak-server/values.yaml > ./../../k8s-manifests/keycloak-server.yaml
+ 9:23:35:433PM .......... helm template redis-server ./helm/default -f ./../../../application/backend/runtime/redis-server/values.yaml > ./../../k8s-manifests/redis-server.yaml
+ 9:23:35:651PM .......... helm template zookeeper-server ./helm/default -f ./../../../application/backend/runtime/zookeeper-server/values.yaml > ./../../k8s-manifests/zookeeper-server.yaml
+ 9:23:35:868PM .......... helm template kafka-server ./helm/default -f ./../../../application/backend/runtime/kafka-server/values.yaml > ./../../k8s-manifests/kafka-server.yaml
+ 9:23:36:223PM .......... helm template mongo-db ./helm/database -f ./../../../application/backend/database/mongo-db/values.yaml > ./../../k8s-manifests/mongo-db.yaml
+ 9:23:36:612PM .......... helm template mysql-db ./helm/database -f ./../../../application/backend/database/mysql-db/values.yaml > ./../../k8s-manifests/mysql-db.yaml
+ 9:23:36:986PM .......... helm template postgres-db ./helm/database -f ./../../../application/backend/database/postgres-db/values.yaml > ./../../k8s-manifests/postgres-db.yaml
+ 9:24:01:913PM .......... helm uninstall invoice-v1 -n restaurant
+ 9:24:02:207PM .......... helm uninstall menu-v1 -n restaurant
+ 9:24:02:485PM .......... helm uninstall menu-v2 -n restaurant
+ 9:24:02:765PM .......... helm uninstall order-hub-v1 -n restaurant
+ 9:24:03:044PM .......... helm uninstall payment-v1 -n restaurant
+ 9:24:03:322PM .......... helm uninstall product-v1 -n restaurant
+ 9:24:03:615PM .......... helm uninstall rules-processor-v1 -n restaurant
+ 9:24:03:894PM .......... helm uninstall table-placement-v1 -n restaurant
+ 9:24:04:189PM .......... helm uninstall api-gateway-v1 -n restaurant
+ 9:24:04:466PM .......... helm uninstall auth-adapter-v1 -n restaurant
+ 9:24:04:742PM .......... helm uninstall config-server-v1 -n restaurant
+ 9:24:05:019PM .......... helm uninstall mock-service-v1 -n restaurant
+ 9:24:05:298PM .......... helm uninstall keycloak-server -n restaurant
+ 9:24:05:574PM .......... helm uninstall redis-server -n restaurant
+ 9:24:05:853PM .......... helm uninstall zookeeper-server -n restaurant
+ 9:24:06:131PM .......... helm uninstall kafka-server -n restaurant
+ 9:24:06:548PM .......... helm uninstall mongo-db -n restaurant
+ 9:24:06:981PM .......... helm uninstall mysql-db -n restaurant
+ 9:24:07:408PM .......... helm uninstall postgres-db -n restaurant
+ 9:24:57:914PM .......... helm install invoice-v1 ./helm/with-health -f ./../../../application/backend/business/invoice-v1/values.yaml --namespace restaurant --create-namespace
+ 9:24:58:346PM .......... helm install menu-v1 ./helm/with-health -f ./../../../application/backend/business/menu-v1/values.yaml --namespace restaurant --create-namespace
+ 9:24:58:780PM .......... helm install menu-v2 ./helm/with-health -f ./../../../application/backend/business/menu-v2/values.yaml --namespace restaurant --create-namespace
+ 9:24:59:272PM .......... helm install order-hub-v1 ./helm/with-health -f ./../../../application/backend/business/order-hub-v1/values.yaml --namespace restaurant --create-namespace
+ 9:25:00:194PM .......... helm install payment-v1 ./helm/with-health -f ./../../../application/backend/business/payment-v1/values.yaml --namespace restaurant --create-namespace
+ 9:25:01:064PM .......... helm install product-v1 ./helm/default -f ./../../../application/backend/business/product-v1/values.yaml --namespace restaurant --create-namespace
+ 9:25:02:070PM .......... helm install rules-processor-v1 ./helm/with-health -f ./../../../application/backend/business/rules-processor-v1/values.yaml --namespace restaurant --create-namespace
+ 9:25:03:469PM .......... helm install table-placement-v1 ./helm/with-health -f ./../../../application/backend/business/table-placement-v1/values.yaml --namespace restaurant --create-namespace
+ 9:25:05:677PM .......... helm install api-gateway-v1 ./helm/with-health -f ./../../../application/backend/platform/api-gateway-v1/values.yaml --namespace restaurant --create-namespace
+ 9:25:07:372PM .......... helm install auth-adapter-v1 ./helm/with-health -f ./../../../application/backend/platform/auth-adapter-v1/values.yaml --namespace restaurant --create-namespace
+ 9:25:10:068PM .......... helm install config-server-v1 ./helm/with-health -f ./../../../application/backend/platform/config-server-v1/values.yaml --namespace restaurant --create-namespace
+ 9:25:12:974PM .......... helm install mock-service-v1 ./helm/with-health -f ./../../../application/backend/platform/mock-service-v1/values.yaml --namespace restaurant --create-namespace
+ 9:25:17:678PM .......... helm install keycloak-server ./helm/default -f ./../../../application/backend/runtime/keycloak-server/values.yaml --namespace restaurant --create-namespace
+ 9:25:23:478PM .......... helm install redis-server ./helm/default -f ./../../../application/backend/runtime/redis-server/values.yaml --namespace restaurant --create-namespace
+ 9:25:27:570PM .......... helm install zookeeper-server ./helm/default -f ./../../../application/backend/runtime/zookeeper-server/values.yaml --namespace restaurant --create-namespace
+ 9:25:31:264PM .......... helm install kafka-server ./helm/default -f ./../../../application/backend/runtime/kafka-server/values.yaml --namespace restaurant --create-namespace
+ 9:25:34:338PM .......... helm install mongo-db ./helm/database -f ./../../../application/backend/database/mongo-db/values.yaml --namespace restaurant --create-namespace
+ 9:25:39:125PM .......... helm install mysql-db ./helm/database -f ./../../../application/backend/database/mysql-db/values.yaml --namespace restaurant --create-namespace
+ 9:25:45:727PM .......... helm install postgres-db ./helm/database -f ./../../../application/backend/database/postgres-db/values.yaml --namespace restaurant --create-namespace
+ 9:32:49:396PM .......... helm uninstall invoice-v1 -n restaurant
+ 9:32:49:659PM .......... helm uninstall menu-v1 -n restaurant
+ 9:32:49:923PM .......... helm uninstall menu-v2 -n restaurant
+ 9:32:50:198PM .......... helm uninstall order-hub-v1 -n restaurant
+ 9:32:50:475PM .......... helm uninstall payment-v1 -n restaurant
+ 9:32:50:739PM .......... helm uninstall product-v1 -n restaurant
+ 9:32:51:017PM .......... helm uninstall rules-processor-v1 -n restaurant
+ 9:32:51:283PM .......... helm uninstall table-placement-v1 -n restaurant
+ 9:32:51:573PM .......... helm uninstall api-gateway-v1 -n restaurant
+ 9:32:51:834PM .......... helm uninstall auth-adapter-v1 -n restaurant
+ 9:32:52:096PM .......... helm uninstall config-server-v1 -n restaurant
+ 9:32:52:341PM .......... helm uninstall mock-service-v1 -n restaurant
+ 9:32:52:608PM .......... helm uninstall keycloak-server -n restaurant
+ 9:32:52:894PM .......... helm uninstall redis-server -n restaurant
+ 9:32:53:169PM .......... helm uninstall zookeeper-server -n restaurant
+ 9:32:53:451PM .......... helm uninstall kafka-server -n restaurant
+ 9:32:53:850PM .......... helm uninstall mongo-db -n restaurant
+ 9:32:54:268PM .......... helm uninstall mysql-db -n restaurant
+ 9:32:54:685PM .......... helm uninstall postgres-db -n restaurant
+ 9:37:06:384PM .......... docker-compose -f ./../../docker-compose.yml down -v
+11:56:53:210PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+11:57:21:648PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+11:59:53:390PM .......... build -t miguelarmasabt/bbq-jenkins:v1.0.1 ./resources/Dockerfile --no-cache
+11:59:53:430PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+12:00:24:651AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+10:25:09:982AM .......... build -t miguelarmasabt/bbq-jenkins:v1.0.1 ./resources/Dockerfile --no-cache
+10:25:10:020AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+10:26:26:135AM .......... build -t miguelarmasabt/bbq-jenkins:v1.0.1 ./resources/Dockerfile --no-cache
+10:26:26:173AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+10:29:57:258AM .......... docker build -t miguelarmasabt/bbq-jenkins:v1.0.1 ./resources/Dockerfile --no-cache
+10:29:57:926AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+10:34:27:539AM .......... docker build -t miguelarmasabt/bbq-jenkins:v1.0.1 ./resources/Dockerfile --no-cache
+10:34:28:009AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+10:34:44:303AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+10:40:37:472AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+10:50:16:758AM .......... docker build -t miguelarmasabt/bbq-jenkins:v1.0.1 ./resources/Dockerfile --no-cache
+10:50:17:184AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+10:55:48:176AM .......... docker build -t miguelarmasabt/bbq-jenkins:v1.0.1 ./resources/Dockerfile --no-cache .
+10:55:48:577AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+10:56:11:112AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+10:56:58:739AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+10:57:12:828AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+10:57:28:994AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+10:57:39:792AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+11:13:31:327AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+11:13:49:446AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+11:14:56:579AM .......... clear
+11:14:56:799AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+11:19:59:844AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+11:20:08:799AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+11:20:21:092AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+11:21:27:843AM .......... echo -e \033[0;32m\xE2\x9C\x94\033[0m ready: miguelarmasabt/bbq-jenkins:v1.0.1
+11:21:28:046AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+11:22:26:073AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+11:23:29:354AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+11:23:40:896AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+11:24:47:782AM .......... clear
+11:24:48:008AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+11:29:32:080AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+11:29:42:976AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+11:29:55:114AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+11:31:01:998AM .......... clear
+11:31:02:202AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+11:33:21:617AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+11:33:25:530AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+11:33:37:080AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+11:34:44:241AM .......... clear
+11:34:44:481AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+11:35:10:692AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+11:35:39:453AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+11:35:51:723AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+11:36:58:543AM .......... clear
+11:36:58:746AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+11:39:11:559AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+11:39:21:032AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+11:39:32:475AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+11:40:39:400AM .......... clear
+11:40:39:626AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+11:41:28:075AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+11:41:32:353AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+11:41:44:471AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+11:42:21:896AM .......... clear
+11:42:22:112AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+11:42:52:003AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+11:42:58:074AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+11:43:09:929AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+11:43:33:971AM .......... clear
+11:43:34:356AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+11:46:13:593AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+11:46:20:976AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+11:46:32:933AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+11:46:55:972AM .......... clear
+11:46:56:210AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+12:00:13:046PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+12:37:06:407PM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+12:37:25:688PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+12:37:49:033PM .......... clear
+12:37:49:390PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+12:37:58:970PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+12:51:02:194PM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+12:51:21:039PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+12:51:44:042PM .......... clear
+12:51:44:387PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+12:55:29:527PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+12:59:53:444PM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+ 1:00:05:412PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 1:00:28:468PM .......... clear
+ 1:00:28:748PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+ 1:04:06:537PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 1:04:11:239PM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+ 1:04:23:523PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 1:04:46:604PM .......... clear
+ 1:04:46:859PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+ 1:09:12:452PM .......... 
+ 1:26:19:711PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 1:26:40:557PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/keycloak-scraping-v1-0.0.1-SNAPSHOT.jar
+ 1:26:49:048PM .......... docker-compose -f ./../../docker-compose.yml up -d
+ 1:29:28:853PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 1:29:50:645PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/keycloak-scraping-v1-0.0.1-SNAPSHOT.jar
+ 1:30:09:736PM .......... docker-compose -f ./../../docker-compose.yml up -d
+ 1:31:25:529PM .......... docker-compose -f ./../../docker-compose.yml down -v
+ 1:32:04:990PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 1:32:46:548PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/keycloak-scraping-v1-0.0.1-SNAPSHOT.jar
+ 1:33:04:292PM .......... docker-compose -f ./../../docker-compose.yml up -d
+ 1:33:09:189PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 1:33:55:830PM .......... docker-compose -f ./../../docker-compose.yml down -v
+ 1:34:22:058PM .......... docker-compose -f ./../../docker-compose.yml up -d --force-recreate keycloak-server
+ 1:35:03:646PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/keycloak-scraping-v1-0.0.1-SNAPSHOT.jar
+ 1:35:22:423PM .......... docker-compose -f ./../../docker-compose.yml up -d
+ 1:36:30:297PM .......... docker-compose -f ./../../docker-compose.yml down -v

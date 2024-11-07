@@ -30,7 +30,7 @@ while true; do
       case $REPLY in
         1) script_caller "./docker-csv-processor.sh build"; break ;;
         2) script_caller "./deploy-handler.sh $need_generate_file"; break ;;
-        3) script_caller "./compose-file-processor.sh template"; break ;;
+        3) script_caller "./compose-file-generator.sh"; break ;;
         4) script_caller "./compose-file-processor.sh up"; break ;;
         5) script_caller "./compose-file-processor.sh stop"; break ;;
         6) script_caller "./compose-file-processor.sh delete"; break ;;

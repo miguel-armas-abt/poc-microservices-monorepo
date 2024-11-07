@@ -176,7 +176,7 @@ services:
     environment:
       - KEYCLOAK_DOMAIN=keycloak-server:8080
       - JAVA_OPTS=-Xms256M -Xmx256M
-      - KEYCLOAK_KEY_RS256=lU4JFuc8C0JqQrf6_eDeP3G4O5Zaw26uj9fn5bJa6aU
+      - KEYCLOAK_KEY_RS256=fZCoFNldyiM6ziydH4ID0oZU7dBLQwFZTaHyLunpITg
     networks:
       - dev_environment
     ports:
