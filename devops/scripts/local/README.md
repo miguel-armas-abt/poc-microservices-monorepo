@@ -22,5 +22,3 @@
 > ```shell script 
 > ./main.sh
 > ```
-
-▶️ [Configurar Keycloak](../../../docs/info/keycloak/README.md)

@@ -1,19 +1,9 @@
-# Proveedor de autenticación Keycloak
-
-[← Ir a Local](../../../devops/scripts/local/README.md) <br>
-[← Ir a Docker Compose](./../../../devops/docker-compose/README.md)
-
-### ▶️ Despliegue local
-Para desplegar Keycloak localmente, utilizaremos nuestro archivo de docker compose y especificaremos únicamente el servicio `keycloak-server`.  
-
-```shell script
-docker-compose -f ./../../../devops/docker-compose/docker-compose.yml up -d --force-recreate keycloak-server
-```
+# Keycloak
 
 ### ⚙️ Configuración
 
 Acceda a la web `http://localhost:8091`, seleccione la opción
-`Administration Console` e inicie sesión con las credenciales (username=admin, password=admin).
+`Administration Console` e inicie sesión con las credenciales (username=`admin`, password=`admin`).
 
 Configure las siguientes propiedades.
 > Cree un nuevo realm y asígnele el nombre `bbq-management`
@@ -36,12 +26,5 @@ Configure las siguientes propiedades.
 > **Clients**: Ubique la propiedad y actualícela `Valid Redirect URIs`=`*`
 
 ### ⚙️ Actualización de la llave pública RS256
-Después de haber configurado Keycloak debemos actualizar la llave pública RS256 en el componente `auth-adapter-v1` y 
-desplegarlo nuevamente.
-
-- **Local**: Actualizar el properties y reiniciar el servicio.
-- **Docker Compose**: Actualizar la variable `KEYCLOAK_KEY_RS256` en el docker compose y reiniciar el servicio.
-
-```shell script
-docker-compose -f ./../../../devops/docker-compose/docker-compose.yml up -d --force-recreate auth-adapter-v1
-```
+Después de haber configurado Keycloak debemos actualizar la llave pública `KEYCLOAK_KEY_RS256` en el componente `auth-adapter-v1` y 
+desplegarlo.
