@@ -26,7 +26,7 @@ resources:
 livenessProbe:
   path: /actuator/health/liveness
   port: 8013
-  initialDelaySeconds: 30
+  initialDelaySeconds: 60
   periodSeconds: 30
   timeoutSeconds: 5
   failureThreshold: 3
@@ -34,7 +34,7 @@ livenessProbe:
 readinessProbe:
   path: /actuator/health/readiness
   port: 8013
-  initialDelaySeconds: 30
+  initialDelaySeconds: 60
   periodSeconds: 30
 
 namespace: restaurant

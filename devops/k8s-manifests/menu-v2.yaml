@@ -73,7 +73,7 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: 8016
-            initialDelaySeconds: 30
+            initialDelaySeconds: 60
             periodSeconds: 30
             timeoutSeconds: 5
             failureThreshold: 3
@@ -82,7 +82,7 @@ spec:
             httpGet:
               path: /actuator/health/readiness
               port: 8016
-            initialDelaySeconds: 30
+            initialDelaySeconds: 60
             periodSeconds: 30
 
           env:
