@@ -16,8 +16,8 @@ print_title
 options=(
   "Generar manifiestos"
   "Construir imágenes en Minikube"
-  "Instalar componentes en el clúster"
-  "Desinstalar componentes del clúster"
+  "Instalar objetos k8s"
+  "Desinstalar objetos k8s"
   "Port forwarding"
   "Salir"
 )

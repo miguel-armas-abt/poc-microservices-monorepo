@@ -18,8 +18,8 @@
 > El menú cuenta con las siguientes opciones:
 > - Generar manifiestos
 > - Construir imágenes en Minikube
-> - Instalar objetos de k8s en el clúster
-> - Desinstalar objetos de k8s del clúster
+> - Instalar objetos k8s
+> - Desinstalar objetos k8s
 > - Port forwarding
 > ```shell script 
 > ./main.sh

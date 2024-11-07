@@ -344,3 +344,22 @@
  9:18:00:456AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/keycloak-scraping-v1-0.0.1-SNAPSHOT.jar
  9:18:22:225AM .......... docker-compose -f ./../../docker-compose.yml up -d
 10:37:05:032AM .......... docker-compose -f ./../../docker-compose.yml down -v
+ 9:01:53:146PM .......... helm template invoice-v1 ./helm/with-health -f ./../../../application/backend/business/invoice-v1/values.yaml > ./../../k8s-manifests/invoice-v1.yaml
+ 9:01:53:816PM .......... helm template menu-v1 ./helm/with-health -f ./../../../application/backend/business/menu-v1/values.yaml > ./../../k8s-manifests/menu-v1.yaml
+ 9:01:54:067PM .......... helm template menu-v2 ./helm/with-health -f ./../../../application/backend/business/menu-v2/values.yaml > ./../../k8s-manifests/menu-v2.yaml
+ 9:01:54:348PM .......... helm template order-hub-v1 ./helm/with-health -f ./../../../application/backend/business/order-hub-v1/values.yaml > ./../../k8s-manifests/order-hub-v1.yaml
+ 9:01:54:617PM .......... helm template payment-v1 ./helm/with-health -f ./../../../application/backend/business/payment-v1/values.yaml > ./../../k8s-manifests/payment-v1.yaml
+ 9:01:54:872PM .......... helm template product-v1 ./helm/default -f ./../../../application/backend/business/product-v1/values.yaml > ./../../k8s-manifests/product-v1.yaml
+ 9:01:55:164PM .......... helm template rules-processor-v1 ./helm/with-health -f ./../../../application/backend/business/rules-processor-v1/values.yaml > ./../../k8s-manifests/rules-processor-v1.yaml
+ 9:01:55:444PM .......... helm template table-placement-v1 ./helm/with-health -f ./../../../application/backend/business/table-placement-v1/values.yaml > ./../../k8s-manifests/table-placement-v1.yaml
+ 9:01:55:708PM .......... helm template api-gateway-v1 ./helm/with-health -f ./../../../application/backend/platform/api-gateway-v1/values.yaml > ./../../k8s-manifests/api-gateway-v1.yaml
+ 9:01:55:968PM .......... helm template auth-adapter-v1 ./helm/with-health -f ./../../../application/backend/platform/auth-adapter-v1/values.yaml > ./../../k8s-manifests/auth-adapter-v1.yaml
+ 9:01:56:232PM .......... helm template config-server-v1 ./helm/with-health -f ./../../../application/backend/platform/config-server-v1/values.yaml > ./../../k8s-manifests/config-server-v1.yaml
+ 9:01:56:509PM .......... helm template mock-service-v1 ./helm/with-health -f ./../../../application/backend/platform/mock-service-v1/values.yaml > ./../../k8s-manifests/mock-service-v1.yaml
+ 9:01:56:770PM .......... helm template keycloak-server ./helm/default -f ./../../../application/backend/runtime/keycloak-server/values.yaml > ./../../k8s-manifests/keycloak-server.yaml
+ 9:01:57:051PM .......... helm template redis-server ./helm/default -f ./../../../application/backend/runtime/redis-server/values.yaml > ./../../k8s-manifests/redis-server.yaml
+ 9:01:57:328PM .......... helm template zookeeper-server ./helm/default -f ./../../../application/backend/runtime/zookeeper-server/values.yaml > ./../../k8s-manifests/zookeeper-server.yaml
+ 9:01:57:574PM .......... helm template kafka-server ./helm/default -f ./../../../application/backend/runtime/kafka-server/values.yaml > ./../../k8s-manifests/kafka-server.yaml
+ 9:01:58:008PM .......... helm template mongo-db ./helm/database -f ./../../../application/backend/database/mongo-db/values.yaml > ./../../k8s-manifests/mongo-db.yaml
+ 9:01:58:442PM .......... helm template mysql-db ./helm/database -f ./../../../application/backend/database/mysql-db/values.yaml > ./../../k8s-manifests/mysql-db.yaml
+ 9:01:58:847PM .......... helm template postgres-db ./helm/database -f ./../../../application/backend/database/postgres-db/values.yaml > ./../../k8s-manifests/postgres-db.yaml

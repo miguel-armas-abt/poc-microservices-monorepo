@@ -6,7 +6,7 @@ metadata:
   name: api-gateway-v1-config-map
 data:
     AUTH_ADAPTER_DOMAIN: "auth-adapter-v1:8011"
-    ENABLE_AUTH: "false"
+    ENABLE_AUTH: "true"
     JAVA_OPTS: "-Xms256M -Xmx256M"
     ORDER_HUB_DOMAIN: "order-hub-v1:8018"
 ---
