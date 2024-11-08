@@ -1,0 +1,11 @@
+configuration:
+  driverPath: src/main/resources/drivers/chromedriver.exe
+  waitingTimeMillis: 1000
+  waitingTimeAfterSuggestedPlugins: 11000
+  waitingTimeAfterRestart: 5000
+  login:
+    unlockPassword: 6f94445b754041d480018bcc55d2036e
+    uri: http://localhost:8181/
+    username: bbq-user
+    password: qwerty
+    email: bbq-user@gmail.com

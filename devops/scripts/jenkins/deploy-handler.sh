@@ -1,18 +1,17 @@
 #!/bin/bash
 
 source ./../commons.sh
-BACKEND_PATH="./../../../application/backend"
-JENKINS_SCRAPING_FILE="./../web-scraping/jenkins-scraping-v1/src/main/resources/application.yaml"
+SCRAPING_COMPONENT="jenkins-settings-scraping-v1"
+JENKINS_SCRAPING_FILE="./../web-scraping/$SCRAPING_COMPONENT/src/main/resources/application.yaml"
 
 scraping_jenkins() {
   java_home=$(./../local/local-value-searcher.sh "java_home")
   export JAVA_HOME=$java_home
   java="$java_home/bin/java"
 
-  component_name="jenkins-scraping-v1"
-  component_path="./../web-scraping/$component_name"
+  component_path="./../web-scraping/$SCRAPING_COMPONENT"
 
-  command="$java -jar ./target/$component_name-0.0.1-SNAPSHOT.jar"
+  command="$java -jar ./target/$SCRAPING_COMPONENT-0.0.1-SNAPSHOT.jar"
 
   echo "$(get_timestamp) .......... $command" >> "./../../$LOG_FILE"
   cd $component_path
@@ -33,11 +32,11 @@ get_password() {
 }
 
 handle_deploy() {
-  ./jenkins-processor.sh build
+  #./jenkins-processor.sh build
   ./jenkins-processor.sh up
   ./jenkins-processor.sh wait
   get_password
-  scraping_jenkins
+  #scraping_jenkins
 }
 
 handle_deploy

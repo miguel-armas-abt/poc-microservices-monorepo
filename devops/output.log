@@ -627,3 +627,52 @@
  1:35:03:646PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/keycloak-scraping-v1-0.0.1-SNAPSHOT.jar
  1:35:22:423PM .......... docker-compose -f ./../../docker-compose.yml up -d
  1:36:30:297PM .......... docker-compose -f ./../../docker-compose.yml down -v
+ 2:20:00:978PM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+ 2:20:20:937PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 2:21:04:554PM .......... clear
+ 2:21:04:806PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+ 2:21:39:332PM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+ 2:21:50:852PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 2:22:33:079PM .......... clear
+ 2:22:33:282PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-scraping-v1-0.0.1-SNAPSHOT.jar
+ 2:24:22:200PM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+ 2:24:33:677PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 2:25:15:759PM .......... clear
+ 2:25:15:981PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-settings-scraping-v1-0.0.1-SNAPSHOT.jar
+ 2:26:49:487PM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+ 2:27:01:600PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 2:27:43:675PM .......... clear
+ 2:27:43:897PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-settings-scraping-v1-0.0.1-SNAPSHOT.jar
+ 2:47:12:467PM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+ 2:47:24:664PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 2:48:06:844PM .......... clear
+ 2:48:07:050PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-settings-scraping-v1-0.0.1-SNAPSHOT.jar
+ 2:48:49:614PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 2:48:56:548PM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+ 2:49:08:556PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 2:49:52:344PM .......... clear
+ 2:53:12:108PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 2:53:15:446PM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+ 2:53:27:904PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 2:54:12:205PM .......... clear
+ 2:57:43:904PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 2:57:52:878PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 2:58:35:860PM .......... clear
+ 3:30:39:571PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 3:30:56:500PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 3:31:39:424PM .......... clear
+ 3:34:17:859PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 3:34:21:700PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 3:35:04:834PM .......... clear
+ 3:40:39:429PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 3:40:42:989PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 3:41:26:215PM .......... clear
+ 3:47:24:766PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 3:47:28:005PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 3:48:11:240PM .......... clear
+ 3:56:01:138PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 3:56:04:821PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 3:56:48:064PM .......... clear
+ 4:14:51:880PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 4:15:23:905PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 4:16:06:927PM .......... clear
