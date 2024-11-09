@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+    stages {
+        stage('Deploy') {
+            steps {
+                withCredentials(bindings: [ string(credentialsId: '@k8s_credential_id', variable: 'api_token') ]) {
+                    sh 'kubectl apply -f devops/k8s-manifests/@component_name.yaml --server @k8s_cloud_server_url --token $api_token --insecure-skip-tls-verify=true'
+                }
+            }
+        }
+    }
+}

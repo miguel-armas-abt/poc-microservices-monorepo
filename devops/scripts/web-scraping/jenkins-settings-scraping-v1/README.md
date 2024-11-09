@@ -82,12 +82,8 @@
 > - **Disable https certificate check**: Habilitado
 > - **Credentials**: `k8s-cluster-token`
 
-# 3. Crear Jenkinsfiles
-> - El script solicitará la URL pública k8s
-> ```shell script
-> ./shell-scripts/jenkinsfiles-builder.sh
-> ```
-- Suba el commit al repositorio remoto.
+# 3. Crear Jenkinsfile
+> - Crear Jenkinsfile y subir el commit al repositorio remoto.
 
 # 4. Crear pipeline
 - 📂 Cree una estructura de carpetas conveniente para la organización de sus pipelines.

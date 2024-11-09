@@ -4,7 +4,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 withCredentials(bindings: [ string(credentialsId: 'k8s-cluster-token', variable: 'api_token') ]) {
-                    sh 'kubectl apply -f devops/k8s/manifests/mysql-db/ --server https://e1bd-2800-200-ed50-2d5-51f4-16f6-f21f-a5f9.ngrok-free.app --token $api_token --insecure-skip-tls-verify=true'
+                    sh 'kubectl apply -f devops/k8s-manifests/redis-server.yaml --server https://d244-179-6-4-43.ngrok-free.app --token $api_token --insecure-skip-tls-verify=true'
                 }
             }
         }

@@ -1,11 +1,10 @@
 # BBQ RESTAURANT
 
-# 1. DESPLIEGUE
-Revise las instrucciones de despliegue para cada uno de los siguientes entornos.
+# 1. INSTRUCCIONES DE DESPLIEGUE
 - [Local](devops/scripts/local/README.md)
 - [Docker](devops/scripts/docker/README.md)
 - [Kubernetes](devops/scripts/k8s/README.md)
-- [Jenkins](devops/scripts/web-scraping/jenkins-settings-scraping-v1/README.md)
+- [Jenkins](devops/scripts/jenkins/README.md)
 
 # 2. DOCUMENTACION
 - [Backend](./docs/info/backend/README.md)

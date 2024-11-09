@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage('Compile') {
+            steps {
+                script {
+                    def rootDir = "application/backend/@component_type/@component_name"
+                    echo "Changing directory to: ${rootDir}"
+                    dir(rootDir) {
+                        sh "ls -la"
+                        def mvnCmd = 'mvn clean package'
+                        def mvnOutput = sh(script: mvnCmd, returnStdout: true).trim()
+                        if (mvnOutput.contains('BUILD SUCCESS')) {
+                            echo 'Maven build successful'
+                        } else {
+                            error 'Maven build failed'
+                        }
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                withCredentials(bindings: [ string(credentialsId: '@k8s_credential_id', variable: 'api_token') ]) {
+                    sh 'kubectl apply -f devops/k8s-manifests/@component_name.yaml --server @k8s_cloud_server_url --token $api_token --insecure-skip-tls-verify=true'
+                }
+            }
+        }
+    }
+}
