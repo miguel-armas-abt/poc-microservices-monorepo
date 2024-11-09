@@ -9,14 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OutputFile {
+public class K8s {
 
-  private String absolutePath;
-  private String projectPath;
-  private String name;
-
-  @Override
-  public String toString() {
-    return this.absolutePath + this.projectPath + this.name;
-  }
+  private Credentials credentials;
+  private Cloud cloud;
 }

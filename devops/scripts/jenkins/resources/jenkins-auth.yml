@@ -71,3 +71,12 @@ rules:
 - apiGroups: [""]
   resources: ["persistentvolumes"]
   verbs: ["create","delete","get","list","patch","update","watch"]
+---
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/service-account-token
+metadata:
+  name: jenkins-token-rk2mg
+  namespace: default
+  annotations:
+    kubernetes.io/service-account.name: "jenkins"

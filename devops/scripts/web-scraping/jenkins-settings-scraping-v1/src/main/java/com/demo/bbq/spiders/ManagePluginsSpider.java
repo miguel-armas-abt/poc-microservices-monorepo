@@ -13,10 +13,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
-public class ManageJenkinsSpider {
+public class ManagePluginsSpider {
 
   private final PropertiesReader propertiesReader;
   private final DriverProviderService driverProviderService;
+  private final JenkinsManagerSpider jenkinsManagerSpider;
 
   public void searchAndInstallK8sPlugin() throws InterruptedException {
     searchPlugin("Kubernetes", "kubernetes", "plugin.kubernetes.default");
@@ -27,9 +28,11 @@ public class ManageJenkinsSpider {
   private void clickOnRestartJenkins() throws InterruptedException {
     WebDriverWait wait = driverProviderService.getWebDriverWait();
 
-    WebElement restartCheckbox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("scheduleRestartCheckbox")));
-    ((JavascriptExecutor) driverProviderService.getChromeDriver()).executeScript("arguments[0].scrollIntoView(true);", restartCheckbox);
-    wait.until(ExpectedConditions.elementToBeClickable(restartCheckbox)).click();
+    JavascriptExecutor jsExecutor = driverProviderService.getChromeDriver();
+    WebElement restartLabel = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[contains(text(), 'Restart Jenkins when installation is complete and no jobs are running')]")));
+    jsExecutor.executeScript("arguments[0].scrollIntoView(true);", restartLabel);
+
+    restartLabel.click();
 
     Thread.sleep(propertiesReader.get().getConfiguration().getWaitingTimeAfterRestart());
   }
@@ -64,23 +67,11 @@ public class ManageJenkinsSpider {
   }
 
   public void goToPlugins() throws InterruptedException {
-    goToManageJenkins();
+    jenkinsManagerSpider.goToManageJenkins();
 
     WebDriverWait wait = driverProviderService.getWebDriverWait();
     WebElement pluginsLink = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a[href='pluginManager']")));
     pluginsLink.click();
   }
 
-  public void goToManageJenkins() throws InterruptedException {
-    log.info("start {}", this.getClass().getSimpleName());
-    Thread.sleep(propertiesReader.get().getConfiguration().getWaitingTimeMillis());
-
-    WebDriverWait wait = driverProviderService.getWebDriverWait();
-
-    WebElement dashboardLink = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a.model-link")));
-    dashboardLink.click();
-
-    WebElement manageJenkinsLink = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a.task-link-no-confirm[href='/manage']")));
-    manageJenkinsLink.click();
-  }
 }

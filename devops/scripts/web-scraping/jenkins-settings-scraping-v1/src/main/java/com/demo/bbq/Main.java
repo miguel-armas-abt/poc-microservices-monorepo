@@ -1,8 +1,6 @@
 package com.demo.bbq;
 
 import com.demo.bbq.service.SettingService;
-import com.demo.bbq.spiders.LoginSpider;
-import com.demo.bbq.spiders.ManageJenkinsSpider;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.demo.bbq.config.ComponentsConfig;
@@ -17,7 +15,7 @@ public class Main {
 
 //    LoginSpider loginSpider = injector.getInstance(LoginSpider.class);
 //    loginSpider.loginIfNotPresent();
-//
+
 //    ManageJenkinsSpider manageJenkinsSpider = injector.getInstance(ManageJenkinsSpider.class);
 //    manageJenkinsSpider.searchAndInstallK8sPlugin();
   }

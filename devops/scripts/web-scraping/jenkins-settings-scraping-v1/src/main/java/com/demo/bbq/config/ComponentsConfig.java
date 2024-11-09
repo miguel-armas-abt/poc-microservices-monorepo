@@ -1,9 +1,6 @@
 package com.demo.bbq.config;
 
-import com.demo.bbq.spiders.InstallPluginSpider;
-import com.demo.bbq.spiders.LoginSpider;
-import com.demo.bbq.spiders.ManageJenkinsSpider;
-import com.demo.bbq.spiders.UnlockSpider;
+import com.demo.bbq.spiders.*;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.demo.bbq.properties.PropertiesReader;
@@ -18,8 +15,10 @@ public class ComponentsConfig extends AbstractModule {
     bind(DriverProviderService.class).in(Singleton.class);
     bind(SettingService.class);
     bind(UnlockSpider.class);
-    bind(InstallPluginSpider.class);
+    bind(SuggestedPluginSpider.class);
     bind(LoginSpider.class);
-    bind(ManageJenkinsSpider.class);
+    bind(ManagePluginsSpider.class);
+    bind(JenkinsManagerSpider.class);
+    bind(ManageCloudSpider.class);
   }
 }

@@ -2,10 +2,20 @@ configuration:
   driverPath: src/main/resources/drivers/chromedriver.exe
   waitingTimeMillis: 1000
   waitingTimeAfterSuggestedPlugins: 11000
-  waitingTimeAfterRestart: 5000
+  waitingTimeAfterRestart: 25000
   login:
-    unlockPassword: 6f94445b754041d480018bcc55d2036e
+    unlockPassword: ca525b08d3614b5aa0981a7ac05397ad
     uri: http://localhost:8181/
     username: bbq-user
     password: qwerty
     email: bbq-user@gmail.com
+  k8s:
+    credentials:
+      kind: Secret text
+      k8sPassword: eyJhbGciOiJSUzI1NiIsImtpZCI6ImgtNHhlS3JwbW5tRFQxaXVSa213dHFPRW9zbXptZVBMNW1qUUphMmN0MlUifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImplbmtpbnMtdG9rZW4tcmsybWciLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiamVua2lucyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6ImY4NTVjNTAyLTUwM2QtNDQ3Ny04OTcyLWU5ZDkzMTc4MjQ4ZiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmplbmtpbnMifQ.cwlw3zpUzAYKupoopyu2oG18QzUK42Vw675U2JeAEMtvFEWaG3Z9y9g8eUss3NSuxYwcgF6czkL_X7ZmP_mLTyOYeRs2l-p3IZjVenjH9MPu13cvJojFK3O4TBfWR4wfKzt723DLqyKwE8pQ4G9RpqiEgGpGFigRxb3eY0SYaJdJ1vLNe-Qcisz19Bmmxe0W-Rh_WR14ZJifCQSMLAeKXHY3iNjio4ijVq8gJKU0dQSDO7VcGdISMlDE5Md_KTScdomk9OIOsMvTYV0BYJCn2904cyFJ5uOT2wq4OYt2dePzsO6exN0IrcSB_hsCYV_9iC3zdMzMQ1dk4-e2UPOPrA
+      id: k8s-cluster-token
+    cloud:
+      name: bbq-kubernetes
+      certificate: C:\Users\User\.minikube\ca.crt
+      localServerUrl: https://127.0.0.1:30476
+      forwardedServerUrl: https://d244-179-6-4-43.ngrok-free.app

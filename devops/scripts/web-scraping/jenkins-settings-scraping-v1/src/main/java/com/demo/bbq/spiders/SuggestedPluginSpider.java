@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
-public class InstallPluginSpider {
+public class SuggestedPluginSpider {
 
   private static final String INSTALL_PLUGINS_BTN = "a.btn.btn-primary.btn-lg.btn-huge.install-recommended";
   private static final String IFRAME_SETUP_FIRST_USER = "setup-first-user";

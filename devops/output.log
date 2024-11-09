@@ -676,3 +676,45 @@
  4:14:51:880PM .......... docker-compose -f ./resources/docker-compose.yml down -v
  4:15:23:905PM .......... docker-compose -f ./resources/docker-compose.yml up -d
  4:16:06:927PM .......... clear
+ 6:15:31:466PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 6:16:12:942PM .......... clear
+ 6:34:09:740PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 6:34:15:355PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 6:34:59:141PM .......... clear
+ 6:39:07:934PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 6:39:11:991PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 6:39:55:492PM .......... clear
+12:43:13:554AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+12:44:26:939AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+12:44:45:052AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+12:45:30:090AM .......... clear
+12:45:30:341AM .......... docker network connect minikube bbq-jenkins
+12:45:33:367AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-settings-scraping-v1-0.0.1-SNAPSHOT.jar
+12:56:40:362AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+12:57:06:215AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+12:57:50:228AM .......... clear
+12:57:50:465AM .......... docker network connect minikube bbq-jenkins
+12:57:53:485AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-settings-scraping-v1-0.0.1-SNAPSHOT.jar
+ 1:01:33:731AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 1:02:05:421AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 1:02:50:039AM .......... clear
+ 1:02:50:275AM .......... docker network connect minikube bbq-jenkins
+ 1:08:49:027AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 1:09:04:328AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 1:09:39:112AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 1:10:22:886AM .......... clear
+ 1:10:23:124AM .......... docker network connect minikube bbq-jenkins
+ 1:10:26:288AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 1:10:33:530AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-settings-scraping-v1-0.0.1-SNAPSHOT.jar
+ 1:23:56:479AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+ 1:24:10:884AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 1:24:55:363AM .......... clear
+ 1:24:58:298AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 1:25:05:355AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-settings-scraping-v1-0.0.1-SNAPSHOT.jar
+ 1:25:20:298AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 1:25:34:351AM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+ 1:25:47:311AM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 1:26:32:169AM .......... clear
+ 1:26:35:108AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 1:26:42:066AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-settings-scraping-v1-0.0.1-SNAPSHOT.jar
+ 1:28:55:184AM .......... docker-compose -f ./resources/docker-compose.yml down -v

@@ -14,21 +14,17 @@ script_caller() {
 print_title
 
 options=(
-  "Compilar proyectos"
-  "Crear BD en MySQL"
-  "Ejecutar servidor"
-  "Ejecutar servicio"
+  "Instalar Jenkins"
+  "Desinstalar Jenkins"
   "Salir"
 )
 
 while true; do
   select option in "${options[@]}"; do
       case $REPLY in
-        1) script_caller "./compile-csv-processor.sh compile"; break ;;
-        2) script_caller "./database-initializer.sh"; break ;;
-        3) script_caller "./start-server.sh"; break ;;
-        4) script_caller "./run-csv-processor.sh"; break ;;
-        5) exit; ;;
+        1) script_caller "./deploy-handler.sh"; break ;;
+        2) script_caller "./jenkins-processor.sh delete"; break ;;
+        3) exit; ;;
         *) echo -e "${RED}Opción inválida${NC}" >&2
       esac
   done

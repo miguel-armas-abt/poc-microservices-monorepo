@@ -13,3 +13,4 @@ zipkin_home,C:/dev-environment/zipkin
 grafana_home,C:/dev-environment/grafana/grafana-v10.4.2
 loki_home,C:/dev-environment/loki/loki
 promtail_home,C:/dev-environment/loki/promtail
+ngrok_home,C:/dev-environment/ngrok-v3

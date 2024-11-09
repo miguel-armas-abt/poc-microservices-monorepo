@@ -9,8 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Realm {
+public class Credentials {
 
-  private String name;
-  private String tokenTtlMinutes;
+  private String kind;
+  private String k8sPassword;
+  private String id;
 }

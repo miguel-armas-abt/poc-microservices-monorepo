@@ -2,7 +2,7 @@
 
 # JENKINS
 
-[← Ir a Principal](./../../README.md)
+[← Ir a Principal](../../../../README.md)
 
 **ToDo**: Los Jenkinsfiles deben pushear y recuperar las imágenes desde DockerHub.
 

@@ -9,7 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role {
+public class Cloud {
 
   private String name;
+  private String certificate;
+  private String localServerUrl;
+  private String forwardedServerUrl;
 }

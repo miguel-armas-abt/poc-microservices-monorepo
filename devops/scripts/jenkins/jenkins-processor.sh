@@ -48,6 +48,9 @@ process_operation() {
 
     validate_operation "$operation"
 
+    connect_minikube="docker network connect minikube $image"
+    disconnect_minikube="docker network disconnect minikube $image"
+
     command="clear"
 
     if [[ $operation == "build" ]]; then
@@ -57,13 +60,16 @@ process_operation() {
     if [[ $operation == "up" ]]; then
       #-d: in background
       command="docker-compose -f $DOCKER_COMPOSE_FILE up -d"
+      eval "$connect_minikube"
     fi
 
     if [[ $operation == "stop" ]]; then
+      eval "$disconnect_minikube"
       command="docker-compose -f $DOCKER_COMPOSE_FILE stop"
     fi
 
     if [[ $operation == "delete" ]]; then
+      eval "$disconnect_minikube"
       command="docker-compose -f $DOCKER_COMPOSE_FILE down -v"
     fi
 

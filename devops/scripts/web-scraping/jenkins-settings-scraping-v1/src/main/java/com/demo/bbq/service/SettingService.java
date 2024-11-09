@@ -1,8 +1,6 @@
 package com.demo.bbq.service;
 
-import com.demo.bbq.spiders.InstallPluginSpider;
-import com.demo.bbq.spiders.ManageJenkinsSpider;
-import com.demo.bbq.spiders.UnlockSpider;
+import com.demo.bbq.spiders.*;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 
@@ -10,12 +8,18 @@ import lombok.RequiredArgsConstructor;
 public class SettingService {
 
   private final UnlockSpider unlockSpider;
-  private final InstallPluginSpider installPluginSpider;
-  private final ManageJenkinsSpider manageJenkinsSpider;
+  private final SuggestedPluginSpider suggestedPluginSpider;
+  private final ManagePluginsSpider managePluginsSpider;
+  private final LoginSpider loginSpider;
+  private final ManageCredentialsSpider manageCredentialsSpider;
+  private final ManageCloudSpider manageCloudSpider;
 
   public void scrapSettings() throws InterruptedException {
     unlockSpider.unlock();
-    installPluginSpider.customizeJenkins();
-    manageJenkinsSpider.searchAndInstallK8sPlugin();
+    suggestedPluginSpider.customizeJenkins();
+    managePluginsSpider.searchAndInstallK8sPlugin();
+    loginSpider.loginIfNotPresent();
+    manageCredentialsSpider.addNewCredential();
+    manageCloudSpider.addK8sCloud();
   }
 }
