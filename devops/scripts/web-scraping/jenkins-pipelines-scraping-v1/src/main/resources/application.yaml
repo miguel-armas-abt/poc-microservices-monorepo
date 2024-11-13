@@ -1,0 +1,13 @@
+configuration:
+  driverPath: src/main/resources/drivers/chromedriver.exe
+  waitingTimeMillis: 1000
+  login:
+    uri: http://localhost:8181/
+    username: bbq-user
+    password: qwerty
+  pipeline:
+    name: menu-v1
+    githubProject: https://github.com/miguel-armas-abt/demo-microservices-bbq
+    repositoryUrl: https://miguel-armas-abt:<github-access-token>@github.com/miguel-armas-abt/demo-microservices-bbq
+    branch: "*/main"
+    jenkinsFilePath: devops/jenkins/jenkinsfiles/<app-name>/Jenkinsfile

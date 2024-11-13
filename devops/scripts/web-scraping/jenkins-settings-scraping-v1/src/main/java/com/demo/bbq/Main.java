@@ -12,12 +12,6 @@ public class Main {
 
     SettingService service = injector.getInstance(SettingService.class);
     service.scrapSettings();
-
-//    LoginSpider loginSpider = injector.getInstance(LoginSpider.class);
-//    loginSpider.loginIfNotPresent();
-
-//    ManageJenkinsSpider manageJenkinsSpider = injector.getInstance(ManageJenkinsSpider.class);
-//    manageJenkinsSpider.searchAndInstallK8sPlugin();
   }
 
 }

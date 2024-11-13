@@ -718,3 +718,14 @@
  1:26:35:108AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
  1:26:42:066AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-settings-scraping-v1-0.0.1-SNAPSHOT.jar
  1:28:55:184AM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 1:09:50:173PM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+ 1:10:05:373PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 1:10:49:926PM .......... clear
+ 1:10:53:052PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 1:11:07:516PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-settings-scraping-v1-0.0.1-SNAPSHOT.jar
+ 2:58:47:256PM .......... docker-compose -f ./resources/docker-compose.yml down -v
+ 3:00:10:171PM .......... docker build -f ./resources/Dockerfile -t miguelarmasabt/bbq-jenkins:v1.0.1 --no-cache .
+ 3:00:25:710PM .......... docker-compose -f ./resources/docker-compose.yml up -d
+ 3:01:09:309PM .......... clear
+ 3:01:12:478PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 3:01:28:440PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-settings-scraping-v1-0.0.1-SNAPSHOT.jar

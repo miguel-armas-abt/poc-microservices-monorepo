@@ -4,7 +4,7 @@ configuration:
   waitingTimeAfterSuggestedPlugins: 11000
   waitingTimeAfterRestart: 25000
   login:
-    unlockPassword: ca525b08d3614b5aa0981a7ac05397ad
+    unlockPassword: 935d1c1fdaf940759947d54f6dd02cf7
     uri: http://localhost:8181/
     username: bbq-user
     password: qwerty
