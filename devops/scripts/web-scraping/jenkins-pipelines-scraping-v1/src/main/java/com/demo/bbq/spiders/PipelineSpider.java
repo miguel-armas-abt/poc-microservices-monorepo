@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Slf4j
@@ -19,17 +18,46 @@ public class PipelineSpider {
   private final PropertiesReader propertiesReader;
   private final DriverProviderService driverProviderService;
 
+  private void setJenkinsFile(Pipeline pipeline) {
+    WebDriverWait wait = driverProviderService.getWebDriverWait();
+
+    WebElement scriptPathSection = wait.until(ExpectedConditions.visibilityOfElementLocated(
+        By.xpath("//div[contains(@class, 'jenkins-form-item') and .//div[text()='Script Path']]")));
+    driverProviderService.getChromeDriver().executeScript("arguments[0].scrollIntoView(true);", scriptPathSection);
+
+    WebElement scriptPathInput = wait.until(ExpectedConditions.presenceOfElementLocated(
+        By.xpath("//input[@name='_.scriptPath' and @type='text' and contains(@class, 'jenkins-input')]")));
+    scriptPathInput.clear();
+    scriptPathInput.sendKeys(pipeline.getJenkinsFilePath());
+  }
+
   public void configureNewPipeline() throws InterruptedException {
     selectNewPipeline();
 
     WebDriverWait wait = driverProviderService.getWebDriverWait();
     Pipeline pipeline = propertiesReader.get().getConfiguration().getPipeline();
 
+    setGitHubProject(pipeline);
+    selectGitSCM();
+    setRepository(pipeline);
+    setJenkinsFile(pipeline);
+
+    WebElement saveButton = wait.until(ExpectedConditions.elementToBeClickable(
+        By.xpath("//div[@id='bottom-sticker']//button[@name='Submit' and contains(@class, 'jenkins-submit-button')]")));
+    saveButton.click();
+  }
+
+  private void setGitHubProject(Pipeline pipeline) {
+    WebDriverWait wait = driverProviderService.getWebDriverWait();
     WebElement githubProjectCheckboxLabel = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[text()='GitHub project']")));
     githubProjectCheckboxLabel.click();
 
     WebElement projectUrlInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("_.projectUrlStr")));
     projectUrlInput.sendKeys(pipeline.getGithubProject());
+  }
+
+  private void selectGitSCM() {
+    WebDriverWait wait = driverProviderService.getWebDriverWait();
 
     WebElement pipelineSection = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("pipeline")));
     driverProviderService.getChromeDriver().executeScript("arguments[0].scrollIntoView(true);", pipelineSection);
@@ -37,8 +65,30 @@ public class PipelineSpider {
     WebElement definitionDropdown = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//select[contains(@class, 'jenkins-select__input') and contains(@class, 'dropdownList')]")));
     driverProviderService.getChromeDriver().executeScript("arguments[0].click();", definitionDropdown);
 
-    WebElement optionPipelineScript = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[contains(@class, 'jenkins-select__input') and contains(@class, 'dropdownList')]/option[contains(text(), 'Pipeline script')]")));
+    WebElement optionPipelineScript = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[contains(@class, 'jenkins-select__input') and contains(@class, 'dropdownList')]/option[contains(text(), 'Pipeline script from SCM')]")));
     optionPipelineScript.click();
+
+    WebElement scmDropdown = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//select[contains(@class, 'jenkins-select__input') and contains(@class, 'dropdownList')]")));
+    driverProviderService.getChromeDriver().executeScript("arguments[0].click();", scmDropdown);
+
+    WebElement optionGit = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[contains(@class, 'jenkins-select__input') and contains(@class, 'dropdownList')]/option[contains(text(), 'Git')]")));
+    optionGit.click();
+  }
+
+  private void setRepository(Pipeline pipeline) {
+    WebDriverWait wait = driverProviderService.getWebDriverWait();
+
+    WebElement repositoryUrlInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("_.url")));
+    repositoryUrlInput.sendKeys(pipeline.getRepositoryUrl());
+
+    WebElement branchesToBuildSection = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'jenkins-form-item') and .//div[text()='Branches to build']]")));
+    driverProviderService.getChromeDriver().executeScript("arguments[0].scrollIntoView(true);", branchesToBuildSection);
+
+    WebElement branchSpecifierInput = wait.until(ExpectedConditions.presenceOfElementLocated(
+        By.xpath("//div[@name='branches']//input[@name='_.name' and contains(@class, 'jenkins-input')]")));
+
+    branchSpecifierInput.clear();
+    branchSpecifierInput.sendKeys(pipeline.getBranch());
   }
 
   private void selectNewPipeline() throws InterruptedException {
@@ -48,7 +98,7 @@ public class PipelineSpider {
     String pipelineName = propertiesReader.get().getConfiguration().getPipeline().getName();
 
     WebElement nameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("name")));
-    nameInput.sendKeys(pipelineName + "8");
+    nameInput.sendKeys(pipelineName);
 
     WebElement pipelineOption = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("li.org_jenkinsci_plugins_workflow_job_WorkflowJob")));
     pipelineOption.click();
