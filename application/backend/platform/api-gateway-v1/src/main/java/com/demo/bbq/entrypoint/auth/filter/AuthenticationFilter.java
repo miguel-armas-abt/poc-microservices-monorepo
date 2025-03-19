@@ -1,8 +1,6 @@
 package com.demo.bbq.entrypoint.auth.filter;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.extractHeadersAsMap;
-
-import com.demo.bbq.commons.errors.handler.response.ResponseErrorHandler;
+import com.demo.bbq.commons.interceptor.error.ErrorInterceptor;
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import com.demo.bbq.entrypoint.auth.utils.TokenValidatorUtil;
 import com.demo.bbq.entrypoint.auth.repository.AuthAdapterRepository;
@@ -16,21 +14,23 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import static com.demo.bbq.commons.restclient.utils.HttpHeadersFiller.extractHeadersAsMap;
+
 @Slf4j
 @Component
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
   private final AuthAdapterRepository authAdapterRepository;
   private final ApplicationProperties properties;
-  private final ResponseErrorHandler responseErrorHandler;
+  private final ErrorInterceptor responseErrorHandler;
 
   public AuthenticationFilter(AuthAdapterRepository authAdapterRepository,
                               ApplicationProperties properties,
-                              ResponseErrorHandler responseErrorHandler) {
+                              ErrorInterceptor errorInterceptor) {
     super(Config.class);
     this.authAdapterRepository = authAdapterRepository;
     this.properties = properties;
-    this.responseErrorHandler = responseErrorHandler;
+    this.responseErrorHandler = errorInterceptor;
   }
 
   @Override

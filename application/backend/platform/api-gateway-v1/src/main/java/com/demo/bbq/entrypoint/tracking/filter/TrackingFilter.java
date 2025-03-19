@@ -1,8 +1,6 @@
 package com.demo.bbq.entrypoint.tracking.filter;
 
-import static com.demo.bbq.commons.toolkit.params.enums.GeneratedParamType.TRACE_ID;
-
-import com.demo.bbq.commons.errors.handler.response.ResponseErrorHandler;
+import com.demo.bbq.commons.interceptor.error.ErrorInterceptor;
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
@@ -13,25 +11,27 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 
+import static com.demo.bbq.commons.tracing.enums.TraceParamType.TRACE_ID;
+
 @Slf4j
 @Component
 public class TrackingFilter extends AbstractGatewayFilterFactory<TrackingFilter.Config> {
 
   private final ApplicationProperties properties;
-  private final ResponseErrorHandler responseErrorHandler;
+  private final ErrorInterceptor errorInterceptor;
 
   public TrackingFilter(ApplicationProperties properties,
-                        ResponseErrorHandler responseErrorHandler) {
+                        ErrorInterceptor errorInterceptor) {
     super(Config.class);
     this.properties = properties;
-    this.responseErrorHandler = responseErrorHandler;
+    this.errorInterceptor = errorInterceptor;
   }
 
   @Override
   public GatewayFilter apply(Config config) {
     return new OrderedGatewayFilter((exchange, chain) ->
         chain.filter(updateHeaders(exchange))
-          .onErrorResume(Exception.class, exception -> responseErrorHandler.handleException(properties, exception, exchange))
+          .onErrorResume(Exception.class, exception -> errorInterceptor.handleException(properties, exception, exchange))
         , 0);
   }
 

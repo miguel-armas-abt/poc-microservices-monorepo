@@ -17,6 +17,8 @@ spring:
             - name: TrackingFilter
 
 configuration:
+  project-type: MS
+
   enabled-loggers:
     error: true
     rest.server.req: false
@@ -29,9 +31,7 @@ configuration:
     expected-roles: partners #separate items with comma
 
   error-messages:
-    enabled: false
-    messages:
-      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
   rest-clients:
     auth-adapter-v1:
@@ -46,7 +46,7 @@ configuration:
           generated:
             trace-id: TRACE_ID
             parent-id: PARENT_ID
-            timestamp: TIMESTAMP_V2
+            timestamp: TIMESTAMP
           forwarded:
             Authorization: Authorization
             channel-id: channel-id

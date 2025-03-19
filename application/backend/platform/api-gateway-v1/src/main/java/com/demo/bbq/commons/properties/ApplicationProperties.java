@@ -1,5 +1,6 @@
 package com.demo.bbq.commons.properties;
 
+import com.demo.bbq.commons.properties.base.ConfigurationBaseProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
