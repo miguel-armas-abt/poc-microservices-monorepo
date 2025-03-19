@@ -1,5 +1,5 @@
 configuration:
-  project-type: BFF
+  project-type: MS
 
   enabled-loggers:
     error: true

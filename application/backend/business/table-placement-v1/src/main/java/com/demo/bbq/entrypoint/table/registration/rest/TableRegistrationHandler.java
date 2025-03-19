@@ -1,19 +1,19 @@
 package com.demo.bbq.entrypoint.table.registration.rest;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.extractHeadersAsMap;
-
-import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
-import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
-import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
-import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
+import com.demo.bbq.commons.validations.body.BodyValidator;
+import com.demo.bbq.commons.validations.headers.DefaultHeaders;
+import com.demo.bbq.commons.validations.headers.HeaderValidator;
+import com.demo.bbq.commons.validations.params.ParamValidator;
 import com.demo.bbq.entrypoint.table.registration.dto.request.TableRegistrationRequestDTO;
 import com.demo.bbq.entrypoint.table.registration.service.TableRegistrationService;
-import com.demo.bbq.commons.toolkit.router.ServerResponseFactory;
+import com.demo.bbq.commons.restserver.ServerResponseFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+
+import static com.demo.bbq.commons.restclient.utils.HttpHeadersFiller.extractHeadersAsMap;
 
 @Component
 @RequiredArgsConstructor

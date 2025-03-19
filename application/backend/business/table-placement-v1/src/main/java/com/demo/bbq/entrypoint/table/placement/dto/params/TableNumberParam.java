@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.table.placement.dto.params;
 
-import com.demo.bbq.commons.toolkit.validator.params.DefaultParams;
+import com.demo.bbq.commons.validations.params.DefaultParams;
 import jakarta.validation.constraints.Positive;
 import java.io.Serializable;
 import lombok.*;

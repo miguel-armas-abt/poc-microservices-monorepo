@@ -1,5 +1,6 @@
 package com.demo.bbq.commons.config;
 
+import com.demo.bbq.commons.interceptor.error.ErrorInterceptor;
 import com.demo.bbq.commons.interceptor.restclient.request.RestClientRequestInterceptor;
 import com.demo.bbq.commons.interceptor.restclient.response.RestClientResponseInterceptor;
 import com.demo.bbq.commons.interceptor.restserver.RestServerInterceptor;
@@ -25,6 +26,11 @@ public class InterceptorConfig {
   @Bean
   public RestServerInterceptor restServerInterceptor(ThreadContextInjector threadContextInjector, ConfigurationBaseProperties properties) {
     return new RestServerInterceptor(threadContextInjector, properties);
+  }
+
+  @Bean
+  public ErrorInterceptor errorInterceptor(ThreadContextInjector threadContextInjector, ConfigurationBaseProperties properties) {
+    return new ErrorInterceptor(threadContextInjector, properties);
   }
 
 }

@@ -14,8 +14,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.demo.bbq.commons.cache.enums.CleaningFrequency.FIVE_MINUTES;
-import static com.demo.bbq.commons.cache.enums.CleaningFrequency.getTimeToLive;
+import static com.demo.bbq.commons.properties.base.cache.CleaningFrequency.FIVE_MINUTES;
+import static com.demo.bbq.commons.properties.base.cache.CleaningFrequency.getTimeToLive;
 
 @RequiredArgsConstructor
 public class CustomRedisCacheManager implements CacheManager {

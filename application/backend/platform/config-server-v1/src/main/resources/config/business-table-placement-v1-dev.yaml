@@ -1,13 +1,13 @@
 configuration:
+  project-type: MS
+
   enabled-loggers:
     error: true
     rest.server.req: true
     rest.server.res: true
 
   error-messages:
-    enabled: false
-    messages:
-      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
   obfuscation:
     body-fields: []
@@ -16,8 +16,8 @@ configuration:
 spring:
   data:
     mongodb:
-      uri: ${MONGODB_URL:mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement}
-#      uri: mongodb+srv://miguelarmasabt:l21m01j16M01L13@cluster0.t2pidzg.mongodb.net/tablePlacement
+      #uri: ${MONGODB_URL:mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement}
+      uri: mongodb+srv://miguelarmasabt:l21m01j16M01L13@cluster0.t2pidzg.mongodb.net/tablePlacement
 
 logging:
   level:

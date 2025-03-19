@@ -1,6 +1,5 @@
-package com.demo.bbq.commons.cache.enums;
+package com.demo.bbq.commons.properties.base.cache;
 
-import com.demo.bbq.commons.properties.base.cache.CacheTemplate;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
