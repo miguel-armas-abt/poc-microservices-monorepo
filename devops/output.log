@@ -729,3 +729,4 @@
  3:01:09:309PM .......... clear
  3:01:12:478PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
  3:01:28:440PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/jenkins-settings-scraping-v1-0.0.1-SNAPSHOT.jar
+ 6:40:26:545PM .......... postgres-db .......... ./pg_ctl -D C:/dev-environment/postgresql-16.1/data -l logging_postgresql.log start

@@ -1,9 +1,7 @@
 package com.demo.bbq.entrypoint.calculator.repository.product;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.fillHeaders;
-
 import com.demo.bbq.commons.properties.ApplicationProperties;
-import com.demo.bbq.commons.restclient.webclient.WebClientFactory;
+import com.demo.bbq.commons.restclient.WebClientFactory;
 import com.demo.bbq.entrypoint.calculator.repository.product.wrapper.ProductResponseWrapper;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
@@ -16,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
+
+import static com.demo.bbq.commons.restclient.utils.HttpHeadersFiller.fillHeaders;
 
 @Repository
 @RequiredArgsConstructor

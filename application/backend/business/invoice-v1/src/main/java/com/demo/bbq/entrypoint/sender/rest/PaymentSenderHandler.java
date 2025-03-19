@@ -1,11 +1,9 @@
 package com.demo.bbq.entrypoint.sender.rest;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.extractHeadersAsMap;
-
-import com.demo.bbq.commons.toolkit.router.ServerResponseFactory;
-import com.demo.bbq.commons.toolkit.validator.body.BodyValidator;
-import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
-import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
+import com.demo.bbq.commons.restserver.ServerResponseFactory;
+import com.demo.bbq.commons.validations.body.BodyValidator;
+import com.demo.bbq.commons.validations.headers.DefaultHeaders;
+import com.demo.bbq.commons.validations.headers.HeaderValidator;
 import com.demo.bbq.entrypoint.sender.dto.PaymentSendRequestDTO;
 import com.demo.bbq.entrypoint.sender.service.PaymentSenderService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +12,8 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 import java.util.Map;
+
+import static com.demo.bbq.commons.restclient.utils.HttpHeadersFiller.extractHeadersAsMap;
 
 @Component
 @RequiredArgsConstructor
