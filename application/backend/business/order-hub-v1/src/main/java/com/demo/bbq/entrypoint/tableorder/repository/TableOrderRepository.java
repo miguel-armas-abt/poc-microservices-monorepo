@@ -1,10 +1,8 @@
 package com.demo.bbq.entrypoint.tableorder.repository;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.fillHeaders;
-
-import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
+import com.demo.bbq.commons.properties.base.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
-import com.demo.bbq.commons.restclient.webclient.WebClientFactory;
+import com.demo.bbq.commons.restclient.WebClientFactory;
 import com.demo.bbq.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import com.demo.bbq.entrypoint.tableorder.dto.request.MenuOrderRequestDTO;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
@@ -22,6 +20,8 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
+
+import static com.demo.bbq.commons.restclient.utils.HttpHeadersFiller.fillHeaders;
 
 @Repository
 @RequiredArgsConstructor

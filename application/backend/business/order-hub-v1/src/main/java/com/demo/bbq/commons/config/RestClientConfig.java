@@ -1,14 +1,15 @@
 package com.demo.bbq.commons.config;
 
-import com.demo.bbq.commons.restclient.webclient.WebClientFactory;
+import com.demo.bbq.commons.restclient.WebClientFactory;
 import io.micrometer.observation.ObservationRegistry;
-import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 
+import java.util.List;
+
 @Configuration
-public class WebClientConfig {
+public class RestClientConfig {
 
   @Bean
   public WebClientFactory webClient(List<ExchangeFilterFunction> filters,
@@ -17,4 +18,3 @@ public class WebClientConfig {
   }
 
 }
-

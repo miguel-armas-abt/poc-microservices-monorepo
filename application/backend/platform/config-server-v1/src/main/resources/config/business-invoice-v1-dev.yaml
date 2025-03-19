@@ -23,7 +23,7 @@ configuration:
             Accept: application/json
           generated:
             parent-id: PARENT_ID
-            timestamp: TIMESTAMP_V2
+            timestamp: TIMESTAMP
           forwarded:
             trace-id: trace-id
             channel-id: channel-id
@@ -39,7 +39,7 @@ configuration:
             strategy: DiscountRule
           generated:
             parent-id: PARENT_ID
-            timestamp: TIMESTAMP_V2
+            timestamp: TIMESTAMP
           forwarded:
             trace-id: trace-id
             channel-id: channel-id

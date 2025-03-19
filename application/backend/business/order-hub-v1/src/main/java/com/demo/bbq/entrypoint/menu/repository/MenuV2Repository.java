@@ -1,11 +1,9 @@
 package com.demo.bbq.entrypoint.menu.repository;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.fillHeaders;
-
-import com.demo.bbq.commons.properties.dto.restclient.HeaderTemplate;
+import com.demo.bbq.commons.properties.base.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
-import com.demo.bbq.commons.restclient.webclient.StreamingTransformer;
-import com.demo.bbq.commons.restclient.webclient.WebClientFactory;
+import com.demo.bbq.commons.restclient.StreamingTransformer;
+import com.demo.bbq.commons.restclient.WebClientFactory;
 import com.demo.bbq.entrypoint.menu.repository.wrapper.response.MenuOptionResponseWrapper;
 import com.demo.bbq.entrypoint.menu.repository.wrapper.request.MenuOptionSaveRequestWrapper;
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
@@ -23,6 +21,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import static com.demo.bbq.commons.restclient.utils.HttpHeadersFiller.fillHeaders;
 
 @Repository
 @RequiredArgsConstructor
