@@ -1,7 +1,7 @@
 package com.demo.bbq.commons.config;
 
-import com.demo.bbq.commons.toolkit.serialization.ByteSerializer;
-import com.demo.bbq.commons.toolkit.serialization.JsonSerializer;
+import com.demo.bbq.commons.serialization.ByteSerializer;
+import com.demo.bbq.commons.serialization.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

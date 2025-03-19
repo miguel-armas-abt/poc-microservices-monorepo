@@ -1,14 +1,19 @@
 package com.demo.bbq.entrypoint.menu.dto.request;
 
-import static com.demo.bbq.entrypoint.menu.constants.ParameterConstants.CATEGORY_REGEX;
-
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
-import lombok.*;
+
+import static com.demo.bbq.entrypoint.menu.constants.ParameterConstants.CATEGORY_REGEX;
 
 @Builder
 @Setter

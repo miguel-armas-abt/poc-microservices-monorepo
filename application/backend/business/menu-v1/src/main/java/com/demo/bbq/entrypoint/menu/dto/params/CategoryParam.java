@@ -1,11 +1,16 @@
 package com.demo.bbq.entrypoint.menu.dto.params;
 
-import static com.demo.bbq.entrypoint.menu.constants.ParameterConstants.CATEGORY_REGEX;
-
-import com.demo.bbq.commons.toolkit.validator.params.DefaultParams;
+import com.demo.bbq.commons.validations.params.DefaultParams;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
-import lombok.*;
+
+import static com.demo.bbq.entrypoint.menu.constants.ParameterConstants.CATEGORY_REGEX;
 
 @Builder
 @Setter

@@ -1,0 +1,24 @@
+package com.demo.bbq.commons.restserver.utils;
+
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class ServerHeaderExtractor {
+
+  public static Map<String, String> extractHeadersAsMap(HttpServletRequest httpServletRequest) {
+    return Optional.ofNullable(httpServletRequest.getHeaderNames())
+        .map(Collections::list)
+        .orElse(new ArrayList<>())
+        .stream()
+        .collect(Collectors.toMap(headerName -> headerName, httpServletRequest::getHeader));
+  }
+
+}

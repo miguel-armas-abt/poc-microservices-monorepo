@@ -1,20 +1,21 @@
 package com.demo.bbq.entrypoint.menu.service;
 
+import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuSaveRequestDTO;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
 import com.demo.bbq.entrypoint.menu.dto.response.MenuResponseDTO;
-import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import com.demo.bbq.entrypoint.menu.mapper.MenuResponseMapper;
 import com.demo.bbq.entrypoint.menu.repository.MenuAndProductCache;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,8 +29,8 @@ public class MenuServiceImpl implements MenuService {
   @Override
   public List<MenuResponseDTO> findByCategory(Map<String, String> headers, String categoryCode) {
     return Optional.ofNullable(categoryCode).isEmpty()
-          ? this.findAll(headers)
-          : this.validateMenuOptionAndFindByCategory(headers, categoryCode);
+        ? this.findAll(headers)
+        : this.validateMenuOptionAndFindByCategory(headers, categoryCode);
   }
 
   private List<MenuResponseDTO> validateMenuOptionAndFindByCategory(Map<String, String> headers, String categoryCode) {

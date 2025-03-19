@@ -1,23 +1,13 @@
 package com.demo.bbq.entrypoint.menu.rest;
 
-import static com.demo.bbq.commons.toolkit.params.filler.HttpHeadersFiller.extractHeadersAsMap;
-import static com.demo.bbq.entrypoint.menu.constants.ParameterConstants.CATEGORY_PARAM;
-import static com.demo.bbq.entrypoint.menu.constants.ParameterConstants.PRODUCT_CODE_PARAM;
-
-import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
-import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
-import com.demo.bbq.commons.toolkit.validator.params.ParamValidator;
-import com.demo.bbq.entrypoint.menu.dto.request.MenuSaveRequestDTO;
-import com.demo.bbq.entrypoint.menu.dto.response.MenuResponseDTO;
+import com.demo.bbq.commons.validations.headers.DefaultHeaders;
+import com.demo.bbq.commons.validations.headers.HeaderValidator;
+import com.demo.bbq.commons.validations.params.ParamValidator;
 import com.demo.bbq.entrypoint.menu.dto.params.CategoryParam;
-import com.demo.bbq.entrypoint.menu.service.MenuService;
+import com.demo.bbq.entrypoint.menu.dto.request.MenuSaveRequestDTO;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
-import java.net.URI;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Function;
+import com.demo.bbq.entrypoint.menu.dto.response.MenuResponseDTO;
+import com.demo.bbq.entrypoint.menu.service.MenuService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +24,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+
+import static com.demo.bbq.commons.restserver.utils.ServerHeaderExtractor.extractHeadersAsMap;
+import static com.demo.bbq.entrypoint.menu.constants.ParameterConstants.CATEGORY_PARAM;
+import static com.demo.bbq.entrypoint.menu.constants.ParameterConstants.PRODUCT_CODE_PARAM;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -63,7 +64,9 @@ public class MenuRestService {
         .peek(headers -> headerValidator.validate(headers, DefaultHeaders.class))
         .findFirst()
         .map(headers -> {
-          Map<String, String> queryParams = new HashMap<>() {{put(CATEGORY_PARAM, categoryCode); }};
+          Map<String, String> queryParams = new HashMap<>() {{
+            put(CATEGORY_PARAM, categoryCode);
+          }};
           CategoryParam categoryParam = paramValidator.validateAndRetrieve(queryParams, CategoryParam.class);
           return service.findByCategory(headers, categoryParam.getCategory());
         })

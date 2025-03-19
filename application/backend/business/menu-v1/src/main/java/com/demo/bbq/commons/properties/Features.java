@@ -1,8 +1,9 @@
 package com.demo.bbq.commons.properties;
 
-import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter

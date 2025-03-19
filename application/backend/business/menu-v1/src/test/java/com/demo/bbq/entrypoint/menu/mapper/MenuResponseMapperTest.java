@@ -1,9 +1,7 @@
 package com.demo.bbq.entrypoint.menu.mapper;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import com.demo.bbq.commons.serialization.JsonSerializer;
 import com.demo.bbq.entrypoint.menu.dto.response.MenuResponseDTO;
-import com.demo.bbq.commons.toolkit.serialization.JsonSerializer;
 import com.demo.bbq.entrypoint.menu.repository.menu.entity.MenuEntity;
 import com.demo.bbq.entrypoint.menu.repository.product.wrapper.response.ProductResponseWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,36 +14,38 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class MenuResponseMapperTest {
 
-    private final MenuResponseMapper mapper = Mappers.getMapper(MenuResponseMapper.class);
+  private final MenuResponseMapper mapper = Mappers.getMapper(MenuResponseMapper.class);
 
-    private MenuEntity menuEntity;
-    private ProductResponseWrapper productWrapper;
+  private MenuEntity menuEntity;
+  private ProductResponseWrapper productWrapper;
 
-    private MenuResponseDTO menuOption;
+  private MenuResponseDTO menuOption;
 
 
   @BeforeEach
-    public void setup() {
-        JsonSerializer jsonSerializer = new JsonSerializer(new ObjectMapper());
-        menuEntity = jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity.class).get(0);
-        productWrapper = jsonSerializer.readListFromFile("data/product/ProductDto_Array.json", ProductResponseWrapper.class).get(0);
-        menuOption = jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDTO.class).get(0);
-    }
+  public void setup() {
+    JsonSerializer jsonSerializer = new JsonSerializer(new ObjectMapper());
+    menuEntity = jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity.class).get(0);
+    productWrapper = jsonSerializer.readListFromFile("data/product/ProductDto_Array.json", ProductResponseWrapper.class).get(0);
+    menuOption = jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDTO.class).get(0);
+  }
 
-    @Test
-    public void givenAnEntity_WhenMappingAttributes_ThenObtainResponse() {
-      //Arrange
-      String expected = new Gson().toJson(menuOption);
+  @Test
+  public void givenAnEntity_WhenMappingAttributes_ThenObtainResponse() {
+    //Arrange
+    String expected = new Gson().toJson(menuOption);
 
-      //Act
-      String actual = new Gson().toJson(mapper.toResponseDTO(menuEntity, productWrapper));
+    //Act
+    String actual = new Gson().toJson(mapper.toResponseDTO(menuEntity, productWrapper));
 
-      //Assert
-      assertEquals(expected, actual);
-    }
+    //Assert
+    assertEquals(expected, actual);
+  }
 
 }
