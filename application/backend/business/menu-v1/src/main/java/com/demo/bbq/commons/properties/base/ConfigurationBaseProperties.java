@@ -22,7 +22,7 @@ public abstract class ConfigurationBaseProperties {
 
   protected Map<String, Boolean> enabledLoggers;
 
-  protected ErrorMessage errorMessages;
+  protected Map<String, String> errorMessages;
 
   protected Map<String, RestClient> restClients;
 

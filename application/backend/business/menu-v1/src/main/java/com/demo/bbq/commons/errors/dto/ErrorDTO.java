@@ -45,7 +45,6 @@ public class ErrorDTO extends ExternalErrorWrapper implements Serializable {
   public static String getMatchMessage(ConfigurationBaseProperties properties, String errorCode) {
     return properties
         .getErrorMessages()
-        .getMessages()
         .get(errorCode);
   }
 }

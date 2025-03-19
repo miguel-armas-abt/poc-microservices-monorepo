@@ -1,7 +1,6 @@
 package com.demo.bbq.commons.interceptor.error;
 
 import com.demo.bbq.commons.errors.dto.ErrorDTO;
-import com.demo.bbq.commons.errors.dto.ErrorType;
 import com.demo.bbq.commons.errors.exceptions.AuthorizationException;
 import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import com.demo.bbq.commons.errors.exceptions.ExternalServiceException;
@@ -22,7 +21,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.stream.Collectors;
+import static com.demo.bbq.commons.interceptor.error.ResponseErrorSelector.toErrorDTO;
 
 @Slf4j
 @RestControllerAdvice
@@ -49,16 +48,16 @@ public class ErrorInterceptor extends ResponseEntityExceptionHandler {
     }
 
     if (ex instanceof BusinessException businessException) {
-      error = ResponseErrorSelector.toErrorDTO(properties, businessException);
+      error = toErrorDTO(properties, businessException);
       httpStatus = HttpStatus.BAD_REQUEST;
     }
 
     if (ex instanceof SystemException systemException) {
-      error = ResponseErrorSelector.toErrorDTO(properties, systemException);
+      error = toErrorDTO(properties, systemException);
     }
 
     if (ex instanceof AuthorizationException authException) {
-      error = ResponseErrorSelector.toErrorDTO(properties, authException);
+      error = toErrorDTO(properties, authException);
       httpStatus = HttpStatus.UNAUTHORIZED;
     }
 
@@ -70,18 +69,7 @@ public class ErrorInterceptor extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
                                                                 HttpStatusCode status, WebRequest request) {
     generateTrace(ex, request);
-
-    String errorMessage = ex.getBindingResult()
-        .getFieldErrors()
-        .stream()
-        .map(error -> error.getField() + ": " + error.getDefaultMessage())
-        .collect(Collectors.joining(";"));
-
-    ErrorDTO error = ErrorDTO.builder()
-        .type(ErrorType.BUSINESS)
-        .code("InvalidInputFiled")
-        .message(errorMessage)
-        .build();
+    ErrorDTO error = toErrorDTO(properties, ex);
     return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
   }
 
