@@ -1,7 +1,7 @@
 package com.demo.bbq.entrypoint.rules.base.rest;
 
-import com.demo.bbq.commons.toolkit.headers.filler.HttpHeadersFiller;
-import com.demo.bbq.commons.toolkit.validator.headers.HeaderValidator;
+import com.demo.bbq.commons.restclient.utils.HttpHeadersFiller;
+import com.demo.bbq.commons.validations.headers.HeaderValidator;
 import com.demo.bbq.entrypoint.rules.base.dto.params.StrategyHeader;
 import com.demo.bbq.entrypoint.rules.base.service.RuleService;
 import io.reactivex.rxjava3.core.Single;

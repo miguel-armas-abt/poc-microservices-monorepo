@@ -1,8 +1,8 @@
 configuration:
+  project-type: MS
+
   error-messages:
-    enabled: false
-    messages:
-      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
   obfuscation:
     body-fields: []

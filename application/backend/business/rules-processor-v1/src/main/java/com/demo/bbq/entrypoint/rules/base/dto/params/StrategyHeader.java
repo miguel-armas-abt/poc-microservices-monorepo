@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.rules.base.dto.params;
 
-import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
+import com.demo.bbq.commons.validations.headers.DefaultHeaders;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
