@@ -21,6 +21,8 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.net.ConnectException;
+
 import static com.demo.bbq.commons.interceptor.error.ResponseErrorSelector.toErrorDTO;
 
 @Slf4j
@@ -38,7 +40,7 @@ public class ErrorInterceptor extends ResponseEntityExceptionHandler {
     ErrorDTO error = ErrorDTO.getDefaultError(properties);
     HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
-    if (ex instanceof ResourceAccessException) {
+    if (ex instanceof ResourceAccessException || ex instanceof ConnectException) {
       httpStatus = HttpStatus.REQUEST_TIMEOUT;
     }
 
