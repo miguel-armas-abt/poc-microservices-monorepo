@@ -1,7 +1,7 @@
 package com.demo.bbq.entrypoint.auth.dto.params;
 
-import com.demo.bbq.commons.toolkit.validator.headers.DefaultHeaders;
-import com.demo.bbq.commons.toolkit.validator.utils.ParamName;
+import com.demo.bbq.commons.validations.headers.DefaultHeaders;
+import com.demo.bbq.commons.validations.utils.ParamName;
 import lombok.Getter;
 import lombok.Setter;
 

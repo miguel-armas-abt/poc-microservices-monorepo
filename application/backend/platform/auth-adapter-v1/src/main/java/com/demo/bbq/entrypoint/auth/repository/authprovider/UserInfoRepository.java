@@ -1,8 +1,8 @@
 package com.demo.bbq.entrypoint.auth.repository.authprovider;
 
 import com.demo.bbq.commons.properties.ApplicationProperties;
-import com.demo.bbq.commons.restclient.retrofit.RetrofitFactory;
-import com.demo.bbq.commons.toolkit.params.filler.HeadersFiller;
+import com.demo.bbq.commons.restclient.RetrofitFactory;
+import com.demo.bbq.commons.restclient.utils.HeadersFiller;
 import com.demo.bbq.entrypoint.auth.repository.authprovider.wrapper.UserInfoResponseWrapper;
 import io.reactivex.rxjava3.core.Single;
 import java.util.Map;

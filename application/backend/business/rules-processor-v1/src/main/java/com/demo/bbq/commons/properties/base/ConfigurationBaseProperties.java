@@ -2,7 +2,6 @@ package com.demo.bbq.commons.properties.base;
 
 import com.demo.bbq.commons.errors.exceptions.SystemException;
 import com.demo.bbq.commons.properties.base.cache.CacheTemplate;
-import com.demo.bbq.commons.properties.base.messages.ErrorMessage;
 import com.demo.bbq.commons.properties.base.obfuscation.ObfuscationTemplate;
 import com.demo.bbq.commons.properties.base.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.base.restclient.PerformanceTemplate;
@@ -22,7 +21,7 @@ public abstract class ConfigurationBaseProperties {
 
   protected Map<String, Boolean> enabledLoggers;
 
-  protected ErrorMessage errorMessages;
+  protected Map<String, String> errorMessages;
 
   protected Map<String, RestClient> restClients;
 

@@ -6,6 +6,7 @@ spring:
     name: auth-adapter-v1
 
 configuration:
+  project-type: MS
 
   keycloak:
     base-url: http://${KEYCLOAK_DOMAIN:localhost:8091}/auth/realms/bbq-management/protocol/openid-connect/
@@ -18,11 +19,9 @@ configuration:
     cert-id: ${KEYCLOAK_KEY_RS256:cYUJGhUPamPjsFL8K12AF3H7AsB46WX8Yty48f05Sa0}
 
   error-messages:
-    enabled: false
-    messages:
-      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
-      ExpiredToken: Ocurrió un error durante la autenticación.
-      InvalidJWT: Ocurrió un error durante la autenticación.
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+    ExpiredToken: Ocurrió un error durante la autenticación.
+    InvalidJWT: Ocurrió un error durante la autenticación.
 
   rest-clients:
     auth-token:
