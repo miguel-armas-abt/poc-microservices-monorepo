@@ -1,9 +1,9 @@
 package com.demo.bbq.entrypoint.calculator.repository.discount;
 
-import com.demo.bbq.commons.errors.dto.ErrorDTO;
-import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
-import com.demo.bbq.commons.properties.ApplicationProperties;
-import com.demo.bbq.commons.restclient.WebClientFactory;
+import com.demo.bbq.commons.core.errors.dto.ErrorDTO;
+import com.demo.bbq.commons.core.errors.handler.external.ExternalErrorHandler;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
+import com.demo.bbq.commons.core.restclient.WebClientFactory;
 import com.demo.bbq.entrypoint.calculator.repository.discount.wrapper.DiscountRequestWrapper;
 import com.demo.bbq.entrypoint.calculator.repository.discount.wrapper.DiscountResponseWrapper;
 import jakarta.annotation.PostConstruct;
@@ -16,7 +16,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import static com.demo.bbq.commons.restclient.utils.HttpHeadersFiller.fillHeaders;
+import static com.demo.bbq.commons.core.restclient.utils.HttpHeadersFiller.fillHeaders;
 
 @Repository
 @RequiredArgsConstructor

@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.inquiry.dto.params;
 
-import com.demo.bbq.commons.validations.params.DefaultParams;
+import com.demo.bbq.commons.core.validations.params.DefaultParams;
 import java.io.Serializable;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;

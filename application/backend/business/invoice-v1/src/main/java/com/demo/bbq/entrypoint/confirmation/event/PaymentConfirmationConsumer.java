@@ -1,9 +1,9 @@
 package com.demo.bbq.entrypoint.confirmation.event;
 
+import com.demo.bbq.commons.custom.exceptions.PaymentStatusNonUpdatedException;
 import com.demo.bbq.entrypoint.confirmation.message.PaymentConfirmationMessage;
 import com.demo.bbq.entrypoint.sender.repository.invoice.InvoiceRepository;
 import com.demo.bbq.entrypoint.sender.repository.invoice.entity.PaymentStatus;
-import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class PaymentConfirmationConsumer {
           invoice.setPaymentStatus(PaymentStatus.COMPLETED);
           return invoiceRepository.save(invoice);
         })
-        .orElseThrow(() -> new BusinessException("PaymentStatusCouldNotBeUpdated"));
+        .orElseThrow(PaymentStatusNonUpdatedException::new);
 
   }
 }

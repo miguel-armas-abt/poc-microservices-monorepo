@@ -1,12 +1,12 @@
 package com.demo.bbq.entrypoint.sender.service;
 
+import com.demo.bbq.commons.custom.exceptions.TotalAmountLessThanZeroException;
 import com.demo.bbq.entrypoint.calculator.dto.response.InvoiceResponseDTO;
 import com.demo.bbq.entrypoint.calculator.service.CalculatorService;
 import com.demo.bbq.entrypoint.sender.dto.PaymentSendRequestDTO;
 import com.demo.bbq.entrypoint.sender.event.PaymentOrderProducer;
 import com.demo.bbq.entrypoint.sender.mapper.PaymentSenderMapper;
 import com.demo.bbq.entrypoint.sender.repository.InvoiceRepositoryJoiner;
-import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
@@ -44,7 +44,7 @@ public class PaymentSenderServiceImpl implements PaymentSenderService {
 
   private static final Consumer<InvoiceResponseDTO> validateInvoice = invoice -> {
     if(invoice.getTotal().compareTo(BigDecimal.ZERO) == 0) {
-      throw new BusinessException("TotalAmountLessThanZero");
+      throw new TotalAmountLessThanZeroException();
     }
   };
 

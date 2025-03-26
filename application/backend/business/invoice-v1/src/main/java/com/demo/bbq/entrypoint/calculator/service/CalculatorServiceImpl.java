@@ -4,7 +4,7 @@ import com.demo.bbq.entrypoint.calculator.dto.request.ProductRequestDTO;
 import com.demo.bbq.entrypoint.calculator.dto.response.InvoiceResponseDTO;
 import com.demo.bbq.entrypoint.calculator.dto.response.ProductDTO;
 import com.demo.bbq.entrypoint.calculator.mapper.CalculatorMapper;
-import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
 import com.demo.bbq.entrypoint.calculator.repository.discount.DiscountRepository;
 import com.demo.bbq.entrypoint.calculator.repository.discount.wrapper.DiscountRequestWrapper;
 import com.demo.bbq.entrypoint.calculator.repository.product.ProductRepository;
