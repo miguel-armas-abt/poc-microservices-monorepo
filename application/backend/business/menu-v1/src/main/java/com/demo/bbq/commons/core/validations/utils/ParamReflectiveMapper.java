@@ -1,6 +1,7 @@
 package com.demo.bbq.commons.core.validations.utils;
 
-import com.demo.bbq.commons.core.errors.exceptions.SystemException;
+import com.demo.bbq.commons.core.errors.exceptions.ReflectiveParamAssignmentException;
+import com.demo.bbq.commons.core.errors.exceptions.ReflectiveParamMappingException;
 import com.demo.bbq.commons.core.validations.params.DefaultParams;
 import lombok.NoArgsConstructor;
 
@@ -37,7 +38,7 @@ public class ParamReflectiveMapper {
       populateObject(params, paramObject, isFieldNameSensitiveCase);
       return (T) paramObject;
     } catch (Exception ex) {
-      throw new SystemException("ParamMappingError", ex.getMessage());
+      throw new ReflectiveParamMappingException(ex.getMessage());
     }
   }
 
@@ -74,7 +75,7 @@ public class ParamReflectiveMapper {
                   Object convertedValue = convertValue(field.getType(), paramValue);
                   field.set(paramObject, convertedValue);
                 } catch (IllegalAccessException ex) {
-                  throw new SystemException("ParamAssignmentError", ex.getMessage());
+                  throw new ReflectiveParamAssignmentException(ex.getMessage());
                 }
               });
         });

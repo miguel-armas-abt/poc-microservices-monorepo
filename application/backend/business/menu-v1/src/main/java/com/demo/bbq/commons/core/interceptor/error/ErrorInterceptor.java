@@ -1,10 +1,8 @@
 package com.demo.bbq.commons.core.interceptor.error;
 
 import com.demo.bbq.commons.core.errors.dto.ErrorDTO;
-import com.demo.bbq.commons.core.errors.exceptions.AuthorizationException;
-import com.demo.bbq.commons.core.errors.exceptions.BusinessException;
 import com.demo.bbq.commons.core.errors.exceptions.ExternalServiceException;
-import com.demo.bbq.commons.core.errors.exceptions.SystemException;
+import com.demo.bbq.commons.core.errors.exceptions.GenericException;
 import com.demo.bbq.commons.core.logging.ThreadContextInjector;
 import com.demo.bbq.commons.core.logging.enums.LoggingType;
 import com.demo.bbq.commons.core.properties.ConfigurationBaseProperties;
@@ -49,18 +47,9 @@ public class ErrorInterceptor extends ResponseEntityExceptionHandler {
       httpStatus = HttpStatus.valueOf(externalServiceException.getHttpStatusCode().value());
     }
 
-    if (ex instanceof BusinessException businessException) {
-      error = toErrorDTO(properties, businessException);
-      httpStatus = HttpStatus.BAD_REQUEST;
-    }
-
-    if (ex instanceof SystemException systemException) {
-      error = toErrorDTO(properties, systemException);
-    }
-
-    if (ex instanceof AuthorizationException authException) {
-      error = toErrorDTO(properties, authException);
-      httpStatus = HttpStatus.UNAUTHORIZED;
+    if (ex instanceof GenericException genericException) {
+      error = toErrorDTO(properties, genericException);
+      httpStatus = genericException.getHttpStatus();
     }
 
     return new ResponseEntity<>(error, httpStatus);

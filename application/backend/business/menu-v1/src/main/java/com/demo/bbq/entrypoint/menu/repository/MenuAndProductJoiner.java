@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.menu.repository;
 
-import com.demo.bbq.commons.core.errors.exceptions.BusinessException;
+import com.demo.bbq.commons.exceptions.MenuOptionNotFoundException;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuSaveRequestDTO;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
 import com.demo.bbq.entrypoint.menu.mapper.MenuRequestMapper;
@@ -49,7 +49,7 @@ public class MenuAndProductJoiner {
           menuEntity.setId(menuOptionFound.getId());
           return menuRepository.save(menuEntity);
         })
-        .orElseThrow(() -> new BusinessException("MenuOptionNotFound", "The menu option does not exist"));
+        .orElseThrow(MenuOptionNotFoundException::new);
     productRepository.update(headers, productCode, mapper.toRequestWrapper(menuOption, PRODUCT_SCOPE));
   }
 
@@ -60,7 +60,7 @@ public class MenuAndProductJoiner {
           menuRepository.deleteByProductCode(productCode);
           return menuOptionFound;
         })
-        .orElseThrow(() -> new BusinessException("MenuOptionNotFound", "The menu option does not exist"));
+        .orElseThrow(MenuOptionNotFoundException::new);
     productRepository.delete(headers, productCode);
   }
 

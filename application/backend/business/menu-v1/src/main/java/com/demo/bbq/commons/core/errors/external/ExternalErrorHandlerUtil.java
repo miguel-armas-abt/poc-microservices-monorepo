@@ -3,7 +3,7 @@ package com.demo.bbq.commons.core.errors.external;
 import com.demo.bbq.commons.core.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.core.errors.dto.ErrorType;
 import com.demo.bbq.commons.core.errors.exceptions.ExternalServiceException;
-import com.demo.bbq.commons.core.errors.exceptions.SystemException;
+import com.demo.bbq.commons.core.errors.exceptions.NoSuchStrategyException;
 import com.demo.bbq.commons.core.errors.external.strategy.ExternalErrorWrapper;
 import com.demo.bbq.commons.core.errors.external.strategy.RestClientErrorStrategy;
 import com.demo.bbq.commons.core.properties.ConfigurationBaseProperties;
@@ -52,6 +52,6 @@ public class ExternalErrorHandlerUtil {
         .stream()
         .filter(service -> service.supports(errorWrapperClass))
         .findFirst()
-        .orElseThrow(() -> new SystemException("NoSuchExternalErrorStrategy"));
+        .orElseThrow(NoSuchStrategyException::new);
   }
 }

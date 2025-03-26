@@ -1,6 +1,6 @@
 package com.demo.bbq.commons.core.validations.utils;
 
-import com.demo.bbq.commons.core.errors.exceptions.BusinessException;
+import com.demo.bbq.commons.core.errors.exceptions.InvalidFieldException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -18,7 +18,7 @@ public class ValidatorUtil {
           .map(violation -> String.format("The field '%s' %s",
               violation.getPropertyPath(), violation.getMessage()))
           .collect(Collectors.joining("; "));
-      throw new BusinessException("FieldValidationError", errorMessages);
+      throw new InvalidFieldException();
     }
   }
 }

@@ -1,6 +1,6 @@
 package com.demo.bbq.commons.core.properties;
 
-import com.demo.bbq.commons.core.errors.exceptions.SystemException;
+import com.demo.bbq.commons.core.errors.exceptions.NoSuchRestClientException;
 import com.demo.bbq.commons.core.properties.restclient.HeaderTemplate;
 import com.demo.bbq.commons.core.properties.restclient.PerformanceTemplate;
 import com.demo.bbq.commons.core.properties.obfuscation.ObfuscationTemplate;
@@ -44,7 +44,7 @@ public abstract class ConfigurationBaseProperties {
 
   private RestClient searchRestClient(String serviceName) {
     return Optional.ofNullable(restClients.get(serviceName))
-        .orElseThrow(() -> new SystemException("NoSuchRestClient"));
+        .orElseThrow(NoSuchRestClientException::new);
   }
 
   public boolean isLoggerPresent(LoggingType loggingType) {

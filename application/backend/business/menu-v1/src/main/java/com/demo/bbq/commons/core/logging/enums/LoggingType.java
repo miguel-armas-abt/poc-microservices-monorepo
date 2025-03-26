@@ -1,6 +1,6 @@
 package com.demo.bbq.commons.core.logging.enums;
 
-import com.demo.bbq.commons.core.errors.exceptions.SystemException;
+import com.demo.bbq.commons.core.errors.exceptions.NoSuchLoggerTypeException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +23,6 @@ public enum LoggingType {
     return Arrays.stream(values())
         .filter(loggerType -> loggerType.getCode().equals(code))
         .findFirst()
-        .orElseThrow(() -> new SystemException("NoSuchLoggerType"));
+        .orElseThrow(NoSuchLoggerTypeException::new);
   }
 }

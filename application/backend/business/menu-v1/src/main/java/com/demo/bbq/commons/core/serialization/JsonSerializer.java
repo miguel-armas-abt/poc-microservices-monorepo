@@ -1,6 +1,6 @@
 package com.demo.bbq.commons.core.serialization;
 
-import com.demo.bbq.commons.core.errors.exceptions.SystemException;
+import com.demo.bbq.commons.core.errors.exceptions.JsonReadException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
@@ -32,7 +32,7 @@ public class JsonSerializer {
       InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filePath);
       return objectMapper.readValue(inputStream, objectClass);
     } catch (IOException ex) {
-      throw new SystemException("ErrorGettingElement: {}", ex.getMessage());
+      throw new JsonReadException(ex.getMessage());
     }
   }
 
@@ -41,7 +41,7 @@ public class JsonSerializer {
       InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filePath);
       return objectMapper.readValue(inputStream, objectMapper.getTypeFactory().constructCollectionType(List.class, objectClass));
     } catch (IOException ex) {
-      throw new SystemException("ErrorGettingList: {}", ex.getMessage());
+      throw new JsonReadException(ex.getMessage());
     }
   }
 

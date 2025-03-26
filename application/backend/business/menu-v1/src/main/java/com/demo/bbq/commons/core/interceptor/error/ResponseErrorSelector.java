@@ -2,9 +2,8 @@ package com.demo.bbq.commons.core.interceptor.error;
 
 import com.demo.bbq.commons.core.errors.dto.ErrorDTO;
 import com.demo.bbq.commons.core.errors.dto.ErrorType;
-import com.demo.bbq.commons.core.errors.exceptions.AuthorizationException;
-import com.demo.bbq.commons.core.errors.exceptions.BusinessException;
-import com.demo.bbq.commons.core.errors.exceptions.SystemException;
+import com.demo.bbq.commons.core.errors.enums.ErrorDictionary;
+import com.demo.bbq.commons.core.errors.exceptions.GenericException;
 import com.demo.bbq.commons.core.properties.ConfigurationBaseProperties;
 import com.demo.bbq.commons.core.properties.ProjectType;
 import lombok.AccessLevel;
@@ -58,14 +57,8 @@ public class ResponseErrorSelector {
   private static <T extends Throwable> ErrorDTO extractError(T exception) {
     ErrorDTO error = null;
 
-    if (exception instanceof BusinessException businessException)
-      error = businessException.getErrorDetail();
-
-    if (exception instanceof SystemException systemException)
-      error = systemException.getErrorDetail();
-
-    if (exception instanceof AuthorizationException systemException)
-      error = systemException.getErrorDetail();
+    if (exception instanceof GenericException genericException)
+      error = genericException.getErrorDetail();
 
     if (exception instanceof MethodArgumentNotValidException methodArgumentNotValidExceptionD) {
       error = ErrorDTO.builder()
@@ -75,7 +68,7 @@ public class ResponseErrorSelector {
               .stream()
               .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
               .collect(Collectors.joining(";")))
-          .code("InvalidInputField")
+          .code(ErrorDictionary.INVALID_FIELD.getCode())
           .build();
     }
 

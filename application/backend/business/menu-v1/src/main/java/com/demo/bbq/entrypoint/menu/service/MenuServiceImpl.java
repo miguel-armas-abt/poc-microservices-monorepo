@@ -1,6 +1,7 @@
 package com.demo.bbq.entrypoint.menu.service;
 
-import com.demo.bbq.commons.core.errors.exceptions.BusinessException;
+import com.demo.bbq.commons.exceptions.InvalidMenuCategoryException;
+import com.demo.bbq.commons.exceptions.MenuOptionNotFoundException;
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuSaveRequestDTO;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
@@ -47,7 +48,7 @@ public class MenuServiceImpl implements MenuService {
         .stream()
         .filter(menuOption -> productCode.equals(menuOption.getProductCode()))
         .findFirst()
-        .orElseThrow(() -> new BusinessException("MenuOptionNotFound", "The menu option does not exist"));
+        .orElseThrow(MenuOptionNotFoundException::new);
   }
 
   @Override
@@ -72,7 +73,7 @@ public class MenuServiceImpl implements MenuService {
   private void validateCategory(String category) {
     Set<String> categories = properties.getFeatures().getMenuCategories();
     if (!categories.contains(category.toLowerCase())) {
-      throw new BusinessException("The menu category is not defined");
+      throw new InvalidMenuCategoryException();
     }
   }
 
