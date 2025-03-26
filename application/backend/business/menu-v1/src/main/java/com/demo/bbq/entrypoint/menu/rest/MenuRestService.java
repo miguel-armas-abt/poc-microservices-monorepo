@@ -1,8 +1,8 @@
 package com.demo.bbq.entrypoint.menu.rest;
 
-import com.demo.bbq.commons.validations.headers.DefaultHeaders;
-import com.demo.bbq.commons.validations.headers.HeaderValidator;
-import com.demo.bbq.commons.validations.params.ParamValidator;
+import com.demo.bbq.commons.core.validations.headers.DefaultHeaders;
+import com.demo.bbq.commons.core.validations.headers.HeaderValidator;
+import com.demo.bbq.commons.core.validations.params.ParamValidator;
 import com.demo.bbq.entrypoint.menu.dto.params.CategoryParam;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuSaveRequestDTO;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static com.demo.bbq.commons.restserver.utils.ServerHeaderExtractor.extractHeadersAsMap;
+import static com.demo.bbq.commons.core.restserver.utils.ServerHeaderExtractor.extractHeadersAsMap;
 import static com.demo.bbq.entrypoint.menu.constants.ParameterConstants.CATEGORY_PARAM;
 import static com.demo.bbq.entrypoint.menu.constants.ParameterConstants.PRODUCT_CODE_PARAM;
 

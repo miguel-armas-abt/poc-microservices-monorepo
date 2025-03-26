@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.menu.service;
 
-import com.demo.bbq.commons.errors.exceptions.BusinessException;
+import com.demo.bbq.commons.core.errors.exceptions.BusinessException;
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuSaveRequestDTO;
 import com.demo.bbq.entrypoint.menu.dto.request.MenuUpdateRequestDTO;

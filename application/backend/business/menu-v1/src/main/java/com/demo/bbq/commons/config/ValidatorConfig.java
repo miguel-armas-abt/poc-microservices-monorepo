@@ -1,8 +1,8 @@
 package com.demo.bbq.commons.config;
 
-import com.demo.bbq.commons.validations.body.BodyValidator;
-import com.demo.bbq.commons.validations.headers.HeaderValidator;
-import com.demo.bbq.commons.validations.params.ParamValidator;
+import com.demo.bbq.commons.core.validations.body.BodyValidator;
+import com.demo.bbq.commons.core.validations.headers.HeaderValidator;
+import com.demo.bbq.commons.core.validations.params.ParamValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.Validator;

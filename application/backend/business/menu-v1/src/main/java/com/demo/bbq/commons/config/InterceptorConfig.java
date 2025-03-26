@@ -1,11 +1,11 @@
 package com.demo.bbq.commons.config;
 
-import com.demo.bbq.commons.interceptor.error.ErrorInterceptor;
-import com.demo.bbq.commons.interceptor.restclient.request.RestClientRequestInterceptor;
-import com.demo.bbq.commons.interceptor.restclient.response.RestClientResponseInterceptor;
-import com.demo.bbq.commons.interceptor.restserver.RestServerInterceptor;
-import com.demo.bbq.commons.logging.ThreadContextInjector;
-import com.demo.bbq.commons.properties.base.ConfigurationBaseProperties;
+import com.demo.bbq.commons.core.interceptor.error.ErrorInterceptor;
+import com.demo.bbq.commons.core.interceptor.restclient.request.RestClientRequestInterceptor;
+import com.demo.bbq.commons.core.interceptor.restclient.response.RestClientResponseInterceptor;
+import com.demo.bbq.commons.core.interceptor.restserver.RestServerInterceptor;
+import com.demo.bbq.commons.core.logging.ThreadContextInjector;
+import com.demo.bbq.commons.core.properties.ConfigurationBaseProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestInterceptor;

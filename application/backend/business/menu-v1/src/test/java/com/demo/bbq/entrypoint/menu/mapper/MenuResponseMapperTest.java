@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.menu.mapper;
 
-import com.demo.bbq.commons.serialization.JsonSerializer;
+import com.demo.bbq.commons.core.serialization.JsonSerializer;
 import com.demo.bbq.entrypoint.menu.dto.response.MenuResponseDTO;
 import com.demo.bbq.entrypoint.menu.repository.menu.entity.MenuEntity;
 import com.demo.bbq.entrypoint.menu.repository.product.wrapper.response.ProductResponseWrapper;

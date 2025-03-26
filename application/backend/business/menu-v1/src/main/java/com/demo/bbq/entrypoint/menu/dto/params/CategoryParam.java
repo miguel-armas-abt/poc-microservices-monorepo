@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.menu.dto.params;
 
-import com.demo.bbq.commons.validations.params.DefaultParams;
+import com.demo.bbq.commons.core.validations.params.DefaultParams;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

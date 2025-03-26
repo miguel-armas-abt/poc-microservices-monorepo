@@ -1,6 +1,6 @@
 package com.demo.bbq.commons.cache;
 
-import com.demo.bbq.commons.properties.base.ConfigurationBaseProperties;
+import com.demo.bbq.commons.properties.ApplicationProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.Cache;
@@ -14,14 +14,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.demo.bbq.commons.properties.base.cache.CleaningFrequency.FIVE_MINUTES;
-import static com.demo.bbq.commons.properties.base.cache.CleaningFrequency.getTimeToLive;
+import static com.demo.bbq.commons.properties.cache.CleaningFrequency.FIVE_MINUTES;
+import static com.demo.bbq.commons.properties.cache.CleaningFrequency.getTimeToLive;
 
 @RequiredArgsConstructor
 public class CustomRedisCacheManager implements CacheManager {
 
   private final RedisConnectionFactory redisConnectionFactory;
-  private final ConfigurationBaseProperties properties;
+  private final ApplicationProperties properties;
   private RedisCacheManager redisCacheManager;
 
   @PostConstruct
