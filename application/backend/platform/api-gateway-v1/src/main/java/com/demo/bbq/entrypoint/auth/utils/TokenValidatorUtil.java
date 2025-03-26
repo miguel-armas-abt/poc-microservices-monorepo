@@ -1,6 +1,7 @@
 package com.demo.bbq.entrypoint.auth.utils;
 
-import com.demo.bbq.commons.errors.exceptions.AuthorizationException;
+import com.demo.bbq.commons.custom.exceptions.InvalidAuthorizationStructureException;
+import com.demo.bbq.commons.custom.exceptions.MissingAuthorizationHeaderException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -13,11 +14,11 @@ public class TokenValidatorUtil {
     HttpHeaders httpHeaders = serverWebExchange.getRequest().getHeaders();
 
     if (!httpHeaders.containsKey(HttpHeaders.AUTHORIZATION))
-      throw new AuthorizationException("MissingAuthorizationHeader", "Missing Authorization header");
+      throw new MissingAuthorizationHeaderException();
 
     String authorizationHeader = httpHeaders.getFirst(HttpHeaders.AUTHORIZATION);
     String[] authElements = authorizationHeader.split(" ");
     if (authElements.length != 2 || !"Bearer".equals(authElements[0]))
-      throw new AuthorizationException("InvalidAuthorizationStructure", "Invalid authorization structure");
+      throw new InvalidAuthorizationStructureException();
   }
 }

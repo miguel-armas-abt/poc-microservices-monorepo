@@ -1,7 +1,7 @@
 package com.demo.bbq.entrypoint.menu.repository;
 
-import com.demo.bbq.commons.exceptions.NoSuchMenuRepositoryStrategyException;
-import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.custom.exceptions.NoSuchMenuRepositoryStrategyException;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.tableorder.service;
 
-import com.demo.bbq.commons.exceptions.MenuOptionNotFoundException;
+import com.demo.bbq.commons.custom.exceptions.MenuOptionNotFoundException;
 import com.demo.bbq.entrypoint.menu.repository.MenuRepositorySelector;
 import com.demo.bbq.entrypoint.tableorder.dto.request.MenuOrderRequestDTO;
 import com.demo.bbq.entrypoint.tableorder.repository.TableOrderRepository;

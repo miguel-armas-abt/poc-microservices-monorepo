@@ -1,7 +1,7 @@
 package com.demo.bbq.entrypoint.tracking.filter;
 
-import com.demo.bbq.commons.interceptor.error.ErrorInterceptor;
-import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.core.interceptor.error.ErrorInterceptor;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -11,7 +11,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 
-import static com.demo.bbq.commons.tracing.enums.TraceParamType.TRACE_ID;
+import static com.demo.bbq.commons.core.tracing.enums.TraceParamType.TRACE_ID;
 
 @Slf4j
 @Component

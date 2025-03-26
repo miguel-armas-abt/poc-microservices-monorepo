@@ -1,7 +1,7 @@
 package com.demo.bbq.entrypoint.tableorder.repository;
 
 import com.demo.bbq.commons.core.properties.restclient.HeaderTemplate;
-import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
 import com.demo.bbq.commons.core.restclient.WebClientFactory;
 import com.demo.bbq.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import com.demo.bbq.entrypoint.tableorder.dto.request.MenuOrderRequestDTO;

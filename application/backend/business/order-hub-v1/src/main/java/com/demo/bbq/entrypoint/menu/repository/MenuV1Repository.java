@@ -1,7 +1,7 @@
 package com.demo.bbq.entrypoint.menu.repository;
 
 import com.demo.bbq.commons.core.properties.restclient.HeaderTemplate;
-import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
 import com.demo.bbq.commons.core.restclient.WebClientFactory;
 import com.demo.bbq.entrypoint.menu.repository.wrapper.response.MenuOptionResponseWrapper;
 import com.demo.bbq.entrypoint.menu.repository.wrapper.request.MenuOptionSaveRequestWrapper;

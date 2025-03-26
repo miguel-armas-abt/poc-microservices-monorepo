@@ -1,7 +1,7 @@
 package com.demo.bbq.entrypoint.invoice.repository;
 
 import com.demo.bbq.commons.core.properties.restclient.HeaderTemplate;
-import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
 import com.demo.bbq.commons.core.restclient.WebClientFactory;
 import com.demo.bbq.entrypoint.invoice.repository.wrapper.request.PaymentSendRequestWrapper;
 import com.demo.bbq.entrypoint.invoice.repository.wrapper.request.ProductRequestWrapper;
