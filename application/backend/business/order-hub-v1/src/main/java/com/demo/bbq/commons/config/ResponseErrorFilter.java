@@ -1,6 +1,6 @@
 package com.demo.bbq.commons.config;
 
-import com.demo.bbq.commons.interceptor.error.ErrorInterceptor;
+import com.demo.bbq.commons.core.interceptor.error.ErrorInterceptor;
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

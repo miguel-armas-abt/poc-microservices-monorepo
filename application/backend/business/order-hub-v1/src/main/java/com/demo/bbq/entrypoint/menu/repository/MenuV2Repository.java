@@ -1,13 +1,13 @@
 package com.demo.bbq.entrypoint.menu.repository;
 
-import com.demo.bbq.commons.properties.base.restclient.HeaderTemplate;
+import com.demo.bbq.commons.core.properties.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
-import com.demo.bbq.commons.restclient.StreamingTransformer;
-import com.demo.bbq.commons.restclient.WebClientFactory;
+import com.demo.bbq.commons.core.restclient.StreamingTransformer;
+import com.demo.bbq.commons.core.restclient.WebClientFactory;
 import com.demo.bbq.entrypoint.menu.repository.wrapper.response.MenuOptionResponseWrapper;
 import com.demo.bbq.entrypoint.menu.repository.wrapper.request.MenuOptionSaveRequestWrapper;
-import com.demo.bbq.commons.errors.dto.ErrorDTO;
-import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
+import com.demo.bbq.commons.core.errors.dto.ErrorDTO;
+import com.demo.bbq.commons.core.errors.external.ExternalErrorHandler;
 import jakarta.annotation.PostConstruct;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import static com.demo.bbq.commons.restclient.utils.HttpHeadersFiller.fillHeaders;
+import static com.demo.bbq.commons.core.restclient.utils.HttpHeadersFiller.fillHeaders;
 
 @Repository
 @RequiredArgsConstructor

@@ -1,10 +1,10 @@
 package com.demo.bbq.entrypoint.tableorder.service;
 
+import com.demo.bbq.commons.exceptions.MenuOptionNotFoundException;
 import com.demo.bbq.entrypoint.menu.repository.MenuRepositorySelector;
 import com.demo.bbq.entrypoint.tableorder.dto.request.MenuOrderRequestDTO;
 import com.demo.bbq.entrypoint.tableorder.repository.TableOrderRepository;
 import com.demo.bbq.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
-import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class TablePlacementServiceImpl implements TablePlacementService {
     return menuRepositorySelector
         .selectStrategy()
         .findByProductCode(headers, menuOrderRequest.getProductCode())
-        .switchIfEmpty(Mono.error(new BusinessException("MenuOptionNotFound")))
+        .switchIfEmpty(Mono.error(new MenuOptionNotFoundException()))
         .then();
   }
 

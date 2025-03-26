@@ -1,7 +1,7 @@
 package com.demo.bbq.commons.config;
 
-import com.demo.bbq.commons.logging.ThreadContextInjector;
-import com.demo.bbq.commons.properties.base.ConfigurationBaseProperties;
+import com.demo.bbq.commons.core.logging.ThreadContextInjector;
+import com.demo.bbq.commons.core.properties.ConfigurationBaseProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

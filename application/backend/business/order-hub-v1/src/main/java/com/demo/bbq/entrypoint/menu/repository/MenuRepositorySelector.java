@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.menu.repository;
 
-import com.demo.bbq.commons.errors.exceptions.SystemException;
+import com.demo.bbq.commons.exceptions.NoSuchMenuRepositoryStrategyException;
 import com.demo.bbq.commons.properties.ApplicationProperties;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +18,6 @@ public class MenuRepositorySelector {
         .stream()
         .filter(repository -> repository.supports(properties.getMenuInfo().getSelectorClass()))
         .findFirst()
-        .orElseThrow(() -> new SystemException("NoSuchMenuRepositoryStrategy"));
+        .orElseThrow(NoSuchMenuRepositoryStrategyException::new);
   }
 }

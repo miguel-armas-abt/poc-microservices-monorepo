@@ -1,13 +1,13 @@
 package com.demo.bbq.entrypoint.invoice.repository;
 
-import com.demo.bbq.commons.properties.base.restclient.HeaderTemplate;
+import com.demo.bbq.commons.core.properties.restclient.HeaderTemplate;
 import com.demo.bbq.commons.properties.ApplicationProperties;
-import com.demo.bbq.commons.restclient.WebClientFactory;
+import com.demo.bbq.commons.core.restclient.WebClientFactory;
 import com.demo.bbq.entrypoint.invoice.repository.wrapper.request.PaymentSendRequestWrapper;
 import com.demo.bbq.entrypoint.invoice.repository.wrapper.request.ProductRequestWrapper;
 import com.demo.bbq.entrypoint.invoice.repository.wrapper.response.InvoiceResponseWrapper;
-import com.demo.bbq.commons.errors.dto.ErrorDTO;
-import com.demo.bbq.commons.errors.handler.external.ExternalErrorHandler;
+import com.demo.bbq.commons.core.errors.dto.ErrorDTO;
+import com.demo.bbq.commons.core.errors.external.ExternalErrorHandler;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +21,7 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import static com.demo.bbq.commons.restclient.utils.HttpHeadersFiller.fillHeaders;
+import static com.demo.bbq.commons.core.restclient.utils.HttpHeadersFiller.fillHeaders;
 
 @Repository
 @RequiredArgsConstructor

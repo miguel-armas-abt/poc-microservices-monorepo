@@ -18,7 +18,7 @@ public class ValidatorUtil {
           .map(violation -> String.format("The field '%s' %s",
               violation.getPropertyPath(), violation.getMessage()))
           .collect(Collectors.joining("; "));
-      throw new InvalidFieldException();
+      throw new InvalidFieldException(errorMessages);
     }
   }
 }

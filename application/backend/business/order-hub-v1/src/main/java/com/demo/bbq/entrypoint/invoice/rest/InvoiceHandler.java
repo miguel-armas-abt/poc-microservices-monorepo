@@ -1,9 +1,9 @@
 package com.demo.bbq.entrypoint.invoice.rest;
 
-import com.demo.bbq.commons.restserver.ServerResponseFactory;
-import com.demo.bbq.commons.validations.body.BodyValidator;
-import com.demo.bbq.commons.validations.headers.DefaultHeaders;
-import com.demo.bbq.commons.validations.headers.HeaderValidator;
+import com.demo.bbq.commons.core.restserver.ServerResponseBuilder;
+import com.demo.bbq.commons.core.validations.body.BodyValidator;
+import com.demo.bbq.commons.core.validations.headers.DefaultHeaders;
+import com.demo.bbq.commons.core.validations.headers.HeaderValidator;
 import com.demo.bbq.entrypoint.invoice.dto.PaymentSendRequestDTO;
 import com.demo.bbq.entrypoint.invoice.service.InvoiceService;
 import com.demo.bbq.entrypoint.invoice.repository.wrapper.request.ProductRequestWrapper;
@@ -14,7 +14,7 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
-import static com.demo.bbq.commons.restclient.utils.HttpHeadersFiller.extractHeadersAsMap;
+import static com.demo.bbq.commons.core.restclient.utils.HttpHeadersFiller.extractHeadersAsMap;
 
 @Component
 @RequiredArgsConstructor
@@ -32,7 +32,7 @@ public class InvoiceHandler {
         .doOnNext(bodyValidator::validate)
         .collectList()
         .flatMap(productList -> invoiceService.calculateInvoice(headers, productList))
-        .flatMap(response -> ServerResponseFactory
+        .flatMap(response -> ServerResponseBuilder
             .buildMono(ServerResponse.ok(), serverRequest.headers(), response));
   }
 
@@ -44,6 +44,6 @@ public class InvoiceHandler {
         .bodyToMono(PaymentSendRequestDTO.class)
         .doOnNext(bodyValidator::validate)
         .flatMap(request -> invoiceService.sendToPay(headers, request))
-        .then(ServerResponseFactory.buildEmpty(serverRequest.headers()));
+        .then(ServerResponseBuilder.buildEmpty(serverRequest.headers()));
   }
 }
