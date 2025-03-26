@@ -1,4 +1,4 @@
-package com.demo.bbq.commons.properties.feature;
+package com.demo.bbq.commons.custom.properties.feature;
 
 import lombok.Getter;
 import lombok.Setter;

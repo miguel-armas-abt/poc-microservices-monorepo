@@ -1,8 +1,8 @@
-package com.demo.bbq.commons.properties;
+package com.demo.bbq.commons.custom.properties;
 
 import com.demo.bbq.commons.core.properties.ConfigurationBaseProperties;
-import com.demo.bbq.commons.properties.cache.CacheTemplate;
-import com.demo.bbq.commons.properties.feature.Features;
+import com.demo.bbq.commons.custom.properties.cache.CacheTemplate;
+import com.demo.bbq.commons.custom.properties.feature.Features;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,6 +1,6 @@
-package com.demo.bbq.commons.cache;
+package com.demo.bbq.commons.custom.cache;
 
-import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.Cache;
@@ -14,8 +14,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.demo.bbq.commons.properties.cache.CleaningFrequency.FIVE_MINUTES;
-import static com.demo.bbq.commons.properties.cache.CleaningFrequency.getTimeToLive;
+import static com.demo.bbq.commons.custom.properties.cache.CleaningFrequency.FIVE_MINUTES;
+import static com.demo.bbq.commons.custom.properties.cache.CleaningFrequency.getTimeToLive;
 
 @RequiredArgsConstructor
 public class CustomRedisCacheManager implements CacheManager {

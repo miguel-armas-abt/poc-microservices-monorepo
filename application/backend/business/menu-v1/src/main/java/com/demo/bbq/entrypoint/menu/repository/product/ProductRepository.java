@@ -1,7 +1,7 @@
 package com.demo.bbq.entrypoint.menu.repository.product;
 
 import com.demo.bbq.commons.core.errors.dto.ErrorDTO;
-import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
 import com.demo.bbq.commons.core.restclient.CustomRestTemplate;
 import com.demo.bbq.commons.core.restclient.dto.ExchangeRequestDTO;
 import com.demo.bbq.entrypoint.menu.repository.product.wrapper.request.ProductSaveRequestWrapper;

@@ -1,7 +1,7 @@
-package com.demo.bbq.commons.config;
+package com.demo.bbq.commons.custom.config;
 
-import com.demo.bbq.commons.cache.CustomRedisCacheManager;
-import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.custom.cache.CustomRedisCacheManager;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;

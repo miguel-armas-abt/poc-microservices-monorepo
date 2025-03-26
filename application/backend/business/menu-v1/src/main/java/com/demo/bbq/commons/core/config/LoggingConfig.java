@@ -1,4 +1,4 @@
-package com.demo.bbq.commons.config;
+package com.demo.bbq.commons.core.config;
 
 import com.demo.bbq.commons.core.properties.ConfigurationBaseProperties;
 import com.demo.bbq.commons.core.logging.ThreadContextInjector;

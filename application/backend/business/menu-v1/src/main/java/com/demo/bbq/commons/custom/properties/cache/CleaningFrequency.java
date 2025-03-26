@@ -1,4 +1,4 @@
-package com.demo.bbq.commons.properties.cache;
+package com.demo.bbq.commons.custom.properties.cache;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.demo.bbq.commons.config;
+package com.demo.bbq.commons.core.config;
 
 import com.demo.bbq.commons.core.logging.exclusion.URIExclusionUtil;
 import io.micrometer.tracing.exporter.SpanExportingPredicate;
