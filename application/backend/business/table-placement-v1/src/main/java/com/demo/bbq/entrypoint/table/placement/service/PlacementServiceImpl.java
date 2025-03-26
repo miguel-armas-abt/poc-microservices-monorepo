@@ -1,12 +1,12 @@
 package com.demo.bbq.entrypoint.table.placement.service;
 
+import com.demo.bbq.commons.custom.exceptions.TableNotFoundException;
 import com.demo.bbq.entrypoint.table.placement.dto.request.MenuOrderDTO;
 import com.demo.bbq.entrypoint.table.placement.dto.response.PlacementResponseDTO;
 import com.demo.bbq.entrypoint.table.placement.repository.TableOrderRepository;
 import com.demo.bbq.entrypoint.table.placement.mapper.PlacementMapper;
 import com.demo.bbq.entrypoint.table.placement.repository.document.MenuOrderDocument;
 import com.demo.bbq.entrypoint.table.placement.repository.document.TableDocument;
-import com.demo.bbq.commons.errors.exceptions.BusinessException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -30,7 +30,7 @@ public class PlacementServiceImpl implements PlacementService {
   public Mono<PlacementResponseDTO> findByTableNumber(Integer tableNumber) {
     return tableOrderRepository.findByTableNumber(tableNumber)
         .map(placementMapper::toResponseDTO)
-        .switchIfEmpty(Mono.error(() -> new BusinessException("TableNotFound", "The table does not exist")));
+        .switchIfEmpty(Mono.error(TableNotFoundException::new));
   }
 
   @Override
