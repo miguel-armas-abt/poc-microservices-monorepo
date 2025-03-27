@@ -49,7 +49,7 @@ public class ResponseErrorSelector {
   }
 
   private static ProjectType selectProjectType(ConfigurationBaseProperties properties) {
-    return Optional.of(ProjectType.valueOf(properties.projectType())).orElse(ProjectType.MS);
+    return ProjectType.valueOf(properties.projectType().orElse(ProjectType.MS.name()));
   }
 
   private static <T extends Throwable> ErrorDTO extractError(T exception) {

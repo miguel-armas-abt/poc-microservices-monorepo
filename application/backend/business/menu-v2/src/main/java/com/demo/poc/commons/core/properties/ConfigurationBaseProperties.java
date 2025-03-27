@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ConfigurationBaseProperties {
 
-  String projectType();
+  Optional<String> projectType();
 
   Map<String, String> errorMessages();
 
