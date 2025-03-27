@@ -1,13 +1,13 @@
 {
 	"info": {
-		"_postman_id": "1e55a995-fbf7-4e67-9356-1396d0a94e4e",
+		"_postman_id": "67cde67c-6dec-41ef-bdc9-2900353d8275",
 		"name": "poc",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "13773998"
 	},
 	"item": [
 		{
-			"name": "infrastructure-services",
+			"name": "platform-services",
 			"item": [
 				{
 					"name": "config-server",
@@ -46,10 +46,6 @@
 									"originalRequest": {
 										"method": "GET",
 										"header": [],
-										"body": {
-											"mode": "urlencoded",
-											"urlencoded": []
-										},
 										"url": {
 											"raw": "http://localhost:8888/business/invoice-v1-dev",
 											"protocol": "http",
@@ -132,10 +128,6 @@
 									"originalRequest": {
 										"method": "GET",
 										"header": [],
-										"body": {
-											"mode": "urlencoded",
-											"urlencoded": []
-										},
 										"url": {
 											"raw": "http://localhost:8888/business/payment-v1-dev",
 											"protocol": "http",
@@ -218,10 +210,6 @@
 									"originalRequest": {
 										"method": "GET",
 										"header": [],
-										"body": {
-											"mode": "urlencoded",
-											"urlencoded": []
-										},
 										"url": {
 											"raw": "http://localhost:8888/bff/order-hub-v1-dev",
 											"protocol": "http",
@@ -1299,15 +1287,6 @@
 												"value": "{{$guid}}"
 											}
 										],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
 										"url": {
 											"raw": "http://localhost:8012/actuator/health/liveness",
 											"protocol": "http",
@@ -1360,15 +1339,6 @@
 												"value": "{{$guid}}"
 											}
 										],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
 										"url": {
 											"raw": "http://localhost:8012/actuator/health/readiness",
 											"protocol": "http",
@@ -1721,15 +1691,6 @@
 												"value": "{{$guid}}"
 											}
 										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"description\": \"1/4 pollo a la brasa\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 19.90,\r\n    \"productCode\": \"MENU0007\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
 										"url": {
 											"raw": "http://localhost:8016/q/health/live",
 											"protocol": "http",
@@ -1786,15 +1747,6 @@
 												"value": "{{$guid}}"
 											}
 										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"description\": \"1/4 pollo a la brasa\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 19.90,\r\n    \"productCode\": \"MENU0007\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
 										"url": {
 											"raw": "http://localhost:8016/q/health/ready",
 											"protocol": "http",
@@ -1980,7 +1932,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options/MENU0003",
+									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options/MENU0004000",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1992,7 +1944,7 @@
 										"menu",
 										"v2",
 										"menu-options",
-										"MENU0003"
+										"MENU0004000"
 									],
 									"query": [
 										{
@@ -2680,7 +2632,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"productList\": [\r\n        {\r\n            \"description\": \"Flan\",\r\n            \"quantity\": 2,\r\n            \"productCode\": \"MENU0003\"\r\n        },\r\n        {\r\n            \"description\": \"Pachamanca\",\r\n            \"quantity\": 1,\r\n            \"productCode\": \"MENU0004\"\r\n        }\r\n    ],\r\n    \"customer\": {\r\n        \"documentType\": \"DNI\",\r\n        \"documentNumber\": \"76517368\"\r\n    },\r\n    \"payment\": {\r\n        \"method\": \"CREDITO\"\r\n    }\r\n}",
+									"raw": "{\r\n    \"productList\": [\r\n        {\r\n            \"description\": \"Flan\",\r\n            \"quantity\": 2,\r\n            \"productCode\": \"MENU0003\"\r\n        },\r\n        {\r\n            \"description\": \"Pachamanca\",\r\n            \"quantity\": 1,\r\n            \"productCode\": \"MENU0004\"\r\n        }\r\n    ],\r\n    \"customer\": {\r\n        \"documentType\": \"DNI\",\r\n        \"documentNumber\": \"76517368\"\r\n    },\r\n    \"payment\": {\r\n        \"method\": \"DEBITO\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
