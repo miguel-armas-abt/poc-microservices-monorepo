@@ -24,7 +24,7 @@ options=(
 while true; do
   select option in "${options[@]}"; do
       case $REPLY in
-        1) script_caller "./compile-csv-processor.sh compile"; break ;;
+        1) script_caller "./compile-csv-processor.sh"; break ;;
         2) script_caller "./database-initializer.sh"; break ;;
         3) script_caller "./start-server.sh"; break ;;
         4) script_caller "./run-csv-processor.sh"; break ;;

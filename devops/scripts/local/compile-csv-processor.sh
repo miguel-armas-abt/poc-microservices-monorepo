@@ -5,8 +5,6 @@ source ./../commons.sh
 COMPONENTS_CSV="./../../../application/components.csv"
 
 iterate_csv_records() {
-  local operation=$1
-
   firstline=true
   while IFS=',' read -r component_name component_type || [ -n "$component_name" ]; do
     # Ignore headers
@@ -23,5 +21,4 @@ iterate_csv_records() {
   done < <(sed 's/\r//g' "$COMPONENTS_CSV")
 }
 
-operation=$1
-iterate_csv_records "$operation"
+iterate_csv_records

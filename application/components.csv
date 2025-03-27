@@ -1,7 +1,8 @@
 COMPONENT_NAME,COMPONENT_TYPE
+parent-springboot-commons-v1,commons
+parent-springcloud-v1,commons
 invoice-v1,business
 menu-v1,business
-menu-v2,business
 order-hub-v1,business
 payment-v1,business
 product-v1,business
