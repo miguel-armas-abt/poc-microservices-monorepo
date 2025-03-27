@@ -1,8 +1,8 @@
 package com.demo.bbq.entrypoint.processor.repository.processor;
 
-import com.demo.bbq.commons.properties.ApplicationProperties;
-import com.demo.bbq.commons.restclient.RetrofitFactory;
-import com.demo.bbq.commons.restclient.StreamingTransformer;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
+import com.demo.bbq.commons.core.restclient.RetrofitFactory;
+import com.demo.bbq.commons.core.restclient.StreamingTransformer;
 import com.demo.bbq.entrypoint.processor.repository.processor.wrapper.request.PaymentRequestWrapper;
 import com.demo.bbq.entrypoint.processor.repository.processor.wrapper.response.PaymentResponseWrapper;
 import io.reactivex.rxjava3.core.Observable;
