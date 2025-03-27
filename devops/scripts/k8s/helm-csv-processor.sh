@@ -33,7 +33,7 @@ iterate_csv_records() {
     fi
 
     # Ignore comments
-    if [[ $component_name != "#"* ]]; then
+    if [[ $component_name != "#"* ]] && [[ $component_type != "commons" ]] ; then
       ./helm-record-processor.sh "$operation" "$component_name" "$component_type"
     fi
 

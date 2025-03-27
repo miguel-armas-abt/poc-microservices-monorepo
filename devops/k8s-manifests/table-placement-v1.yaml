@@ -6,7 +6,7 @@ metadata:
   name: table-placement-v1-secret
 type: Opaque
 data:
-    MONGODB_URL: "bW9uZ29kYjovL2JicS11c2VyOnF3ZXJ0eUBtb25nby1kYjoyNzAxNy90YWJsZVBsYWNlbWVudA=="
+    MONGODB_URL: "bW9uZ29kYjovL3BvYy11c2VyOnF3ZXJ0eUBtb25nby1kYjoyNzAxNy90YWJsZVBsYWNlbWVudA=="
 ---
 # Source: generic-backend-chart/templates/configmap.yaml
 apiVersion: v1

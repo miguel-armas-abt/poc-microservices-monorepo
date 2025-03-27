@@ -8,7 +8,7 @@ type: Opaque
 data:
     MONGO_INITDB_DATABASE: "dGFibGVQbGFjZW1lbnQ="
     MONGO_INITDB_ROOT_PASSWORD: "cXdlcnR5"
-    MONGO_INITDB_ROOT_USERNAME: "YmJxLXVzZXI="
+    MONGO_INITDB_ROOT_USERNAME: "cG9jLXVzZXI="
 ---
 # Source: generic-database-chart/templates/configmap.yaml
 apiVersion: v1
