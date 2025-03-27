@@ -7,7 +7,7 @@ configuration:
   rest-clients:
     product-v1:
       request:
-        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/
+        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/poc/business/product/v1/
         headers:
           provided:
             Accept: application/json
@@ -20,7 +20,7 @@ configuration:
 quarkus:
   datasource:
     db-kind: mysql
-    username: ${MYSQL_USERNAME:bbq_user}
+    username: ${MYSQL_USERNAME:poc_user}
     password: ${MYSQL_PASSWORD:qwerty}
     jdbc: false
     reactive:

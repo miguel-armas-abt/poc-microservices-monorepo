@@ -10,7 +10,7 @@ replicas: 1
 
 configMaps:
   MYSQL_HOST: "mysql-db:3306"
-  MYSQL_USERNAME: "bbq_user"
+  MYSQL_USERNAME: "poc_user"
   DATABASE: "db_products"
 
 secrets:

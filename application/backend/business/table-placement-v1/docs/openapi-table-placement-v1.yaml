@@ -5,7 +5,7 @@ info:
     Servicio web de propósito general, responsable de agregar pedidos en cada mesa y consultarlos.
   version: v1
 servers:
-  - url: http://localhost:8013/bbq/business/table-placement/v1
+  - url: http://localhost:8013/poc/business/table-placement/v1
 paths:
   /table-orders:
     patch:

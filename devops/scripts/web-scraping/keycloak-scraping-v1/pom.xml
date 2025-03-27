@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.demo.bbq.scraping</groupId>
+    <groupId>com.demo.poc.scraping</groupId>
     <artifactId>keycloak-scraping-v1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -62,7 +62,7 @@
                 <configuration>
                     <archive>
                         <manifest> <!-- main class -->
-                            <mainClass>com.demo.bbq.Main</mainClass>
+                            <mainClass>com.demo.poc.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

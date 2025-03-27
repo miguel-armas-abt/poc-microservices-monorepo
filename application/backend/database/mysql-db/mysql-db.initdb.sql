@@ -1,5 +1,5 @@
-CREATE USER IF NOT EXISTS 'bbq_user'@'%' IDENTIFIED BY 'qwerty';
-GRANT ALL PRIVILEGES ON *.* TO 'bbq_user'@'%' WITH GRANT OPTION;
+CREATE USER IF NOT EXISTS 'poc_user'@'%' IDENTIFIED BY 'qwerty';
+GRANT ALL PRIVILEGES ON *.* TO 'poc_user'@'%' WITH GRANT OPTION;
 CREATE DATABASE IF NOT EXISTS db_products;
 CREATE TABLE IF NOT EXISTS db_products.products(
     id bigint unsigned auto_increment primary key,

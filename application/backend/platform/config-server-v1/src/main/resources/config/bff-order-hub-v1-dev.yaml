@@ -17,7 +17,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${MENU_V1_DOMAIN:localhost:8012}/bbq/business/menu/v1/
+        endpoint: http://${MENU_V1_DOMAIN:localhost:8012}/poc/business/menu/v1/
         headers:
           provided:
             Accept: application/json
@@ -32,7 +32,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${MENU_V2_DOMAIN:localhost:8016}/bbq/business/menu/v2/
+        endpoint: http://${MENU_V2_DOMAIN:localhost:8016}/poc/business/menu/v2/
         headers:
           provided:
             Accept: application/x-ndjson, application/json
@@ -47,7 +47,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/bbq/business/table-placement/v1/
+        endpoint: http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/poc/business/table-placement/v1/
         headers:
           provided:
             Accept: application/x-ndjson, application/json
@@ -62,7 +62,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${INVOICE_DOMAIN:localhost:8014}/bbq/business/invoice/v1/
+        endpoint: http://${INVOICE_DOMAIN:localhost:8014}/poc/business/invoice/v1/
         headers:
           provided:
             Accept: application/x-ndjson, application/json
@@ -78,4 +78,4 @@ configuration:
     headers: []
 
   menu-info:
-    selector-class: ${MENU_REPOSITORY_SELECTOR:com.demo.bbq.entrypoint.menu.repository.MenuV1Repository}
+    selector-class: ${MENU_REPOSITORY_SELECTOR:com.demo.poc.entrypoint.menu.repository.MenuV1Repository}

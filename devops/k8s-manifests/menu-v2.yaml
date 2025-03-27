@@ -16,7 +16,7 @@ metadata:
 data:
     JAVA_OPTS: "-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev"
     MYSQL_DOMAIN: "mysql-db:3306"
-    MYSQL_USERNAME: "bbq_user"
+    MYSQL_USERNAME: "poc_user"
     PRODUCT_DOMAIN: "product-v1:8017"
 ---
 # Source: generic-backend-chart/templates/service.yaml

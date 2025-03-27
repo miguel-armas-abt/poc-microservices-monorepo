@@ -1,6 +1,6 @@
 package rule_table;
 //generated from Decision Table
-import com.demo.bbq.entrypoint.rules.strategies.discount.rule.DiscountRule;
+import com.demo.poc.entrypoint.rules.strategies.discount.rule.DiscountRule;
 import java.util.Arrays;
 // rule values at A10, header at A5
 rule "R01"

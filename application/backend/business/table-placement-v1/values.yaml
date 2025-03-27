@@ -13,7 +13,7 @@ configMaps:
   JAVA_OPTS: "-Xms256M -Xmx256M"
 
 secrets:
-  MONGODB_URL: "mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement"
+  MONGODB_URL: "mongodb://poc-user:qwerty@mongo-db:27017/tablePlacement"
 
 resources:
   requests:

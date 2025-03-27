@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.demo.bbq.parent</groupId>
+        <groupId>com.demo.poc.parent</groupId>
         <artifactId>parent-springboot-v1</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.demo.bbq.service</groupId>
+    <groupId>com.demo.poc.service</groupId>
     <artifactId>menu-v1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 

@@ -1,8 +1,8 @@
 version: '3.1'
 services:
-  bbq-jenkins:
-    container_name: bbq-jenkins
-    image: miguelarmasabt/bbq-jenkins:v1.0.1
+  poc-jenkins:
+    container_name: poc-jenkins
+    image: miguelarmasabt/poc-jenkins:v1.0.1
     restart: on-failure
     ports:
       - "8181:8080"
@@ -11,8 +11,8 @@ services:
       - jenkins_home:/var/jenkins_home
     networks:
       - dev_cicd_environment
-  bbq-sonarqube:
-    container_name: bbq-sonarqube
+  poc-sonarqube:
+    container_name: poc-sonarqube
     image: sonarqube:8.7.1-community
     restart: on-failure
     ports:

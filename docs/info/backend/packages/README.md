@@ -6,7 +6,7 @@ La arquitectura de paquetes presentada es solo una plantilla. La implementación
 específicas de cada proyecto.
 
 ```javascript
-    com.demo.bbq
+    com.demo.poc
     │───`commons`
     │   ├───config
     │   └───properties                      //ApplicationProperties

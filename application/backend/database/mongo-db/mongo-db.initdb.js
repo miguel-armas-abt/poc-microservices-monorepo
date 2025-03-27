@@ -1,5 +1,5 @@
 db.createUser({
-    user: "bbq-user",
+    user: "poc-user",
     pwd: "qwerty",
     roles: [{ role: "readWrite", db: "tablePlacement" }]
 });
@@ -8,7 +8,7 @@ var commonTableInfo = {
     "capacity": 4,
     "isAvailable": false,
     "menuOrderList": [],
-    "_class": "com.demo.bbq.business.tableplacement.domain.repository.tableorder.document.TableDocument"
+    "_class": "com.demo.poc.business.tableplacement.domain.repository.tableorder.document.TableDocument"
 };
 
 var tableList = [];

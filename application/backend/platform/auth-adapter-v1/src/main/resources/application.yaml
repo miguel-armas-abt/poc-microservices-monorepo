@@ -9,8 +9,8 @@ configuration:
   project-type: MS
 
   keycloak:
-    base-url: http://${KEYCLOAK_DOMAIN:localhost:8091}/auth/realms/bbq-management/protocol/openid-connect/
-    client-id: front-bbq-app
+    base-url: http://${KEYCLOAK_DOMAIN:localhost:8091}/auth/realms/poc-management/protocol/openid-connect/
+    client-id: front-poc-app
     grant-type: password
     client-secret: qwerty
     scope: profile

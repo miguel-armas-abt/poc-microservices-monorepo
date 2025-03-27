@@ -1,6 +1,6 @@
 configuration:
   outputFile:
-    absolutePath: C:\dev-workspace\bbq-monorepo\
+    absolutePath: C:\dev-workspace\poc-microservices-monorepo\
     projectPath: application\backend\platform\auth-adapter-v1\
     name: tmp-secret.yaml
   driverPath: src/main/resources/drivers/chromedriver.exe
@@ -10,10 +10,10 @@ configuration:
     username: admin
     password: admin
   realm:
-    name: bbq-management
+    name: poc-management
     tokenTtlMinutes: 30
   role:
     name: partners
   client:
-    name: front-bbq-app
+    name: front-poc-app
     redirectUriFields: '*'

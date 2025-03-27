@@ -3,7 +3,7 @@ package config
 import "os"
 
 var (
-	DBUser          = getEnv("MYSQL_USERNAME", "bbq_user")
+	DBUser          = getEnv("MYSQL_USERNAME", "poc_user")
 	DBPassword      = getEnv("MYSQL_PASSWORD", "qwerty")
 	DBHost          = getEnv("MYSQL_HOST", "127.0.0.1:3306")
 	DBName          = getEnv("DATABASE", "db_products")

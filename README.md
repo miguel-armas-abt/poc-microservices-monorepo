@@ -42,7 +42,7 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
 # 5. ESTRUCTURA DEL REPOSITORIO
 
 ```javascript
-    bbq-monorepo
+    poc-microservices-monorepo
     │───`application`
     │   ├───backend
     │   │   ├───business              // servicios web con lógica de negocio 
@@ -58,7 +58,7 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
     │   │       ├───config-server-v1
     │   │       └─── ...
     │   └───frontend
-    │       └───bbq-restaurant-web
+    │       └───poc-restaurant-web
     │───`devops`                      // estrategias de despliegue                   
     │   ├───docker-compose
     │   ├───jenkins

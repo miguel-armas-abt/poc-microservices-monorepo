@@ -9,7 +9,7 @@
 		<relativePath/>
 	</parent>
 
-	<groupId>com.demo.bbq.service</groupId>
+	<groupId>com.demo.poc.service</groupId>
 	<artifactId>mock-service-v1</artifactId>
 	<name>Mock Service V1</name>
 	<version>0.0.1-SNAPSHOT</version>

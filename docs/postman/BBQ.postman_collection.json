@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "1e55a995-fbf7-4e67-9356-1396d0a94e4e",
-		"name": "BBQ",
+		"name": "poc",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "13773998"
 	},
@@ -125,7 +125,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"name\": \"business\",\n    \"profiles\": [\n        \"invoice-v1-dev\"\n    ],\n    \"label\": null,\n    \"version\": \"9a9b683ab98acaabb16b32cac36a6cc52a714401\",\n    \"state\": null,\n    \"propertySources\": [\n        {\n            \"name\": \"https://github.com/miguel-armas-abt/demo-microservices-bbq.git/file:C:\\\\Users\\\\Miguel\\\\AppData\\\\Local\\\\Temp\\\\config-repo-11805065480806165590\\\\business-invoice-v1-dev.yaml\",\n            \"source\": {\n                \"application.http-client.menu-option-v2.base-url\": \"${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8016/bbq/business/v2/}\",\n                \"application.http-client.dining-room-order-v1.base-url\": \"${BUSINESS_DINING_ROOM_ORDER_BASE_PATH:http://localhost:8010/bbq/business/v1/}\",\n                \"kafka-broker.topic.invoice\": \"invoice-topic\",\n                \"kafka-broker.topic.payment\": \"paid-topic\",\n                \"spring.kafka.bootstrap-servers\": \"localhost:9092\",\n                \"spring.kafka.consumer.group-id\": \"bbq\",\n                \"spring.jpa.show-sql\": true,\n                \"spring.jpa.hibernate.ddl-auto\": \"create-drop\",\n                \"spring.jpa.database-platform\": \"org.hibernate.dialect.PostgreSQLDialect\",\n                \"spring.jpa.properties.hibernate.show_sql\": true,\n                \"spring.jpa.properties.hibernate.use_sql_comments\": false,\n                \"spring.jpa.properties.hibernate.format_sql\": true,\n                \"spring.datasource.url\": \"${POSTGRESQL_URL:jdbc:postgresql://127.0.0.1:5432/db_invoices?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}\",\n                \"spring.datasource.driverClassName\": \"org.postgresql.Driver\",\n                \"spring.datasource.username\": \"${POSTGRESQL_USERNAME:bbq_user}\",\n                \"spring.datasource.password\": \"${POSTGRESQL_PASSWORD:qwerty}\",\n                \"business.invoice.igv\": 0.18\n            }\n        }\n    ]\n}"
+									"body": "{\n    \"name\": \"business\",\n    \"profiles\": [\n        \"invoice-v1-dev\"\n    ],\n    \"label\": null,\n    \"version\": \"9a9b683ab98acaabb16b32cac36a6cc52a714401\",\n    \"state\": null,\n    \"propertySources\": [\n        {\n            \"name\": \"https://github.com/miguel-armas-abt/microservices-monorepo.git/file:C:\\\\Users\\\\Miguel\\\\AppData\\\\Local\\\\Temp\\\\config-repo-11805065480806165590\\\\business-invoice-v1-dev.yaml\",\n            \"source\": {\n                \"application.http-client.menu-option-v2.base-url\": \"${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8016/poc/business/v2/}\",\n                \"application.http-client.dining-room-order-v1.base-url\": \"${BUSINESS_DINING_ROOM_ORDER_BASE_PATH:http://localhost:8010/poc/business/v1/}\",\n                \"kafka-broker.topic.invoice\": \"invoice-topic\",\n                \"kafka-broker.topic.payment\": \"paid-topic\",\n                \"spring.kafka.bootstrap-servers\": \"localhost:9092\",\n                \"spring.kafka.consumer.group-id\": \"poc\",\n                \"spring.jpa.show-sql\": true,\n                \"spring.jpa.hibernate.ddl-auto\": \"create-drop\",\n                \"spring.jpa.database-platform\": \"org.hibernate.dialect.PostgreSQLDialect\",\n                \"spring.jpa.properties.hibernate.show_sql\": true,\n                \"spring.jpa.properties.hibernate.use_sql_comments\": false,\n                \"spring.jpa.properties.hibernate.format_sql\": true,\n                \"spring.datasource.url\": \"${POSTGRESQL_URL:jdbc:postgresql://127.0.0.1:5432/db_invoices?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}\",\n                \"spring.datasource.driverClassName\": \"org.postgresql.Driver\",\n                \"spring.datasource.username\": \"${POSTGRESQL_USERNAME:poc_user}\",\n                \"spring.datasource.password\": \"${POSTGRESQL_PASSWORD:qwerty}\",\n                \"business.invoice.igv\": 0.18\n            }\n        }\n    ]\n}"
 								},
 								{
 									"name": "bs-payment-v1-dev",
@@ -211,7 +211,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"name\": \"business\",\n    \"profiles\": [\n        \"payment-v1-dev\"\n    ],\n    \"label\": null,\n    \"version\": \"9a9b683ab98acaabb16b32cac36a6cc52a714401\",\n    \"state\": null,\n    \"propertySources\": [\n        {\n            \"name\": \"https://github.com/miguel-armas-abt/demo-microservices-bbq.git/file:C:\\\\Users\\\\Miguel\\\\AppData\\\\Local\\\\Temp\\\\config-repo-11805065480806165590\\\\business-payment-v1-dev.yaml\",\n            \"source\": {\n                \"kafka-broker.topic.invoice\": \"invoice-topic\",\n                \"kafka-broker.topic.payment\": \"paid-topic\",\n                \"spring.kafka.bootstrap-servers\": \"localhost:9092\",\n                \"spring.kafka.consumer.group-id\": \"bbq\",\n                \"spring.jpa.show-sql\": true,\n                \"spring.jpa.hibernate.ddl-auto\": \"create-drop\",\n                \"spring.jpa.database-platform\": \"org.hibernate.dialect.MySQL8Dialect\",\n                \"spring.jpa.properties.hibernate.show_sql\": true,\n                \"spring.jpa.properties.hibernate.use_sql_comments\": false,\n                \"spring.jpa.properties.hibernate.format_sql\": true,\n                \"spring.datasource.url\": \"${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/db_payments?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}\",\n                \"spring.datasource.driverClassName\": \"com.mysql.cj.jdbc.Driver\",\n                \"spring.datasource.username\": \"${MYSQL_USERNAME:bbq_user}\",\n                \"spring.datasource.password\": \"${MYSQL_PASSWORD:qwerty}\"\n            }\n        }\n    ]\n}"
+									"body": "{\n    \"name\": \"business\",\n    \"profiles\": [\n        \"payment-v1-dev\"\n    ],\n    \"label\": null,\n    \"version\": \"9a9b683ab98acaabb16b32cac36a6cc52a714401\",\n    \"state\": null,\n    \"propertySources\": [\n        {\n            \"name\": \"https://github.com/miguel-armas-abt/demo-microservices-poc.git/file:C:\\\\Users\\\\Miguel\\\\AppData\\\\Local\\\\Temp\\\\config-repo-11805065480806165590\\\\business-payment-v1-dev.yaml\",\n            \"source\": {\n                \"kafka-broker.topic.invoice\": \"invoice-topic\",\n                \"kafka-broker.topic.payment\": \"paid-topic\",\n                \"spring.kafka.bootstrap-servers\": \"localhost:9092\",\n                \"spring.kafka.consumer.group-id\": \"poc\",\n                \"spring.jpa.show-sql\": true,\n                \"spring.jpa.hibernate.ddl-auto\": \"create-drop\",\n                \"spring.jpa.database-platform\": \"org.hibernate.dialect.MySQL8Dialect\",\n                \"spring.jpa.properties.hibernate.show_sql\": true,\n                \"spring.jpa.properties.hibernate.use_sql_comments\": false,\n                \"spring.jpa.properties.hibernate.format_sql\": true,\n                \"spring.datasource.url\": \"${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/db_payments?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}\",\n                \"spring.datasource.driverClassName\": \"com.mysql.cj.jdbc.Driver\",\n                \"spring.datasource.username\": \"${MYSQL_USERNAME:poc_user}\",\n                \"spring.datasource.password\": \"${MYSQL_PASSWORD:qwerty}\"\n            }\n        }\n    ]\n}"
 								},
 								{
 									"name": "bff-order-hub-v1-dev",
@@ -261,7 +261,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"name\": \"bff\",\n    \"profiles\": [\n        \"order-hub-v1-dev\"\n    ],\n    \"label\": null,\n    \"version\": null,\n    \"state\": null,\n    \"propertySources\": [\n        {\n            \"name\": \"classpath:/config/bff-order-hub-v1-dev.yaml\",\n            \"source\": {\n                \"configuration.error-messages.enabled\": true,\n                \"configuration.error-messages.messages.Default\": \"No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.\",\n                \"configuration.rest-clients.menu-v1.request.endpoint\": \"http://${MENU_V1_DOMAIN:localhost:8012}/bbq/business/menu/v1/\",\n                \"configuration.rest-clients.menu-v1.request.headers.provided.Accept\": \"application/json\",\n                \"configuration.rest-clients.menu-v1.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.menu-v1.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.menu-v1.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.menu-v1.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.rest-clients.menu-v2.request.endpoint\": \"http://${MENU_V2_DOMAIN:localhost:8016}/bbq/business/menu/v2/\",\n                \"configuration.rest-clients.menu-v2.request.headers.provided.Accept\": \"application/x-ndjson\",\n                \"configuration.rest-clients.menu-v2.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.menu-v2.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.menu-v2.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.menu-v2.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.rest-clients.table-placement-v1.request.endpoint\": \"http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/bbq/business/table-placement/v1/\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.provided.Accept\": \"application/stream+json\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.rest-clients.invoice-v1.request.endpoint\": \"http://${INVOICE_DOMAIN:localhost:8014}/bbq/business/invoice/v1/\",\n                \"configuration.rest-clients.invoice-v1.request.headers.provided.Accept\": \"application/stream+json\",\n                \"configuration.rest-clients.invoice-v1.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.invoice-v1.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.invoice-v1.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.invoice-v1.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.obfuscation.body-fields\": [],\n                \"configuration.obfuscation.headers\": [],\n                \"configuration.menu-info.selector-class\": \"com.demo.bbq.entrypoint.menu.repository.MenuV1Repository\"\n            }\n        }\n    ]\n}"
+									"body": "{\n    \"name\": \"bff\",\n    \"profiles\": [\n        \"order-hub-v1-dev\"\n    ],\n    \"label\": null,\n    \"version\": null,\n    \"state\": null,\n    \"propertySources\": [\n        {\n            \"name\": \"classpath:/config/bff-order-hub-v1-dev.yaml\",\n            \"source\": {\n                \"configuration.error-messages.enabled\": true,\n                \"configuration.error-messages.messages.Default\": \"No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.\",\n                \"configuration.rest-clients.menu-v1.request.endpoint\": \"http://${MENU_V1_DOMAIN:localhost:8012}/poc/business/menu/v1/\",\n                \"configuration.rest-clients.menu-v1.request.headers.provided.Accept\": \"application/json\",\n                \"configuration.rest-clients.menu-v1.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.menu-v1.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.menu-v1.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.menu-v1.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.rest-clients.menu-v2.request.endpoint\": \"http://${MENU_V2_DOMAIN:localhost:8016}/poc/business/menu/v2/\",\n                \"configuration.rest-clients.menu-v2.request.headers.provided.Accept\": \"application/x-ndjson\",\n                \"configuration.rest-clients.menu-v2.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.menu-v2.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.menu-v2.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.menu-v2.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.rest-clients.table-placement-v1.request.endpoint\": \"http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/poc/business/table-placement/v1/\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.provided.Accept\": \"application/stream+json\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.rest-clients.invoice-v1.request.endpoint\": \"http://${INVOICE_DOMAIN:localhost:8014}/poc/business/invoice/v1/\",\n                \"configuration.rest-clients.invoice-v1.request.headers.provided.Accept\": \"application/stream+json\",\n                \"configuration.rest-clients.invoice-v1.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.invoice-v1.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.invoice-v1.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.invoice-v1.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.obfuscation.body-fields\": [],\n                \"configuration.obfuscation.headers\": [],\n                \"configuration.menu-info.selector-class\": \"com.demo.poc.entrypoint.menu.repository.MenuV1Repository\"\n            }\n        }\n    ]\n}"
 								}
 							]
 						}
@@ -344,7 +344,7 @@
 									"urlencoded": [
 										{
 											"key": "client_id",
-											"value": "front-bbq-app",
+											"value": "front-poc-app",
 											"type": "text"
 										},
 										{
@@ -365,7 +365,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8091/auth/realms/bbq-management/protocol/openid-connect/token",
+									"raw": "http://localhost:8091/auth/realms/poc-management/protocol/openid-connect/token",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -374,7 +374,7 @@
 									"path": [
 										"auth",
 										"realms",
-										"bbq-management",
+										"poc-management",
 										"protocol",
 										"openid-connect",
 										"token"
@@ -392,7 +392,7 @@
 											"urlencoded": [
 												{
 													"key": "client_id",
-													"value": "front-bbq-app",
+													"value": "front-poc-app",
 													"type": "text"
 												},
 												{
@@ -413,7 +413,7 @@
 											]
 										},
 										"url": {
-											"raw": "http://localhost:8091/auth/realms/bbq-management/protocol/openid-connect/token",
+											"raw": "http://localhost:8091/auth/realms/poc-management/protocol/openid-connect/token",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -422,7 +422,7 @@
 											"path": [
 												"auth",
 												"realms",
-												"bbq-management",
+												"poc-management",
 												"protocol",
 												"openid-connect",
 												"token"
@@ -439,11 +439,11 @@
 										},
 										{
 											"key": "Set-Cookie",
-											"value": "KEYCLOAK_LOCALE=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/bbq-management/; HttpOnly"
+											"value": "KEYCLOAK_LOCALE=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/poc-management/; HttpOnly"
 										},
 										{
 											"key": "Set-Cookie",
-											"value": "KC_RESTART=; Version=1; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/bbq-management/; HttpOnly"
+											"value": "KC_RESTART=; Version=1; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/poc-management/; HttpOnly"
 										},
 										{
 											"key": "X-XSS-Protection",
@@ -501,7 +501,7 @@
 									"urlencoded": [
 										{
 											"key": "client_id",
-											"value": "front-bbq-app",
+											"value": "front-poc-app",
 											"type": "text"
 										},
 										{
@@ -517,7 +517,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8091/auth/realms/bbq-management/protocol/openid-connect/token",
+									"raw": "http://localhost:8091/auth/realms/poc-management/protocol/openid-connect/token",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -526,7 +526,7 @@
 									"path": [
 										"auth",
 										"realms",
-										"bbq-management",
+										"poc-management",
 										"protocol",
 										"openid-connect",
 										"token"
@@ -544,7 +544,7 @@
 											"urlencoded": [
 												{
 													"key": "client_id",
-													"value": "front-bbq-app",
+													"value": "front-poc-app",
 													"type": "text"
 												},
 												{
@@ -565,7 +565,7 @@
 											]
 										},
 										"url": {
-											"raw": "http://localhost:8091/auth/realms/bbq-management/protocol/openid-connect/token",
+											"raw": "http://localhost:8091/auth/realms/poc-management/protocol/openid-connect/token",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -574,7 +574,7 @@
 											"path": [
 												"auth",
 												"realms",
-												"bbq-management",
+												"poc-management",
 												"protocol",
 												"openid-connect",
 												"token"
@@ -591,11 +591,11 @@
 										},
 										{
 											"key": "Set-Cookie",
-											"value": "KEYCLOAK_LOCALE=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/bbq-management/; HttpOnly"
+											"value": "KEYCLOAK_LOCALE=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/poc-management/; HttpOnly"
 										},
 										{
 											"key": "Set-Cookie",
-											"value": "KC_RESTART=; Version=1; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/bbq-management/; HttpOnly"
+											"value": "KC_RESTART=; Version=1; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/poc-management/; HttpOnly"
 										},
 										{
 											"key": "X-XSS-Protection",
@@ -653,7 +653,7 @@
 									"urlencoded": [
 										{
 											"key": "client_id",
-											"value": "front-bbq-app",
+											"value": "front-poc-app",
 											"type": "text"
 										},
 										{
@@ -669,7 +669,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8091/auth/realms/bbq-management/protocol/openid-connect/logout",
+									"raw": "http://localhost:8091/auth/realms/poc-management/protocol/openid-connect/logout",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -678,7 +678,7 @@
 									"path": [
 										"auth",
 										"realms",
-										"bbq-management",
+										"poc-management",
 										"protocol",
 										"openid-connect",
 										"logout"
@@ -696,7 +696,7 @@
 											"urlencoded": [
 												{
 													"key": "client_id",
-													"value": "front-bbq-app",
+													"value": "front-poc-app",
 													"type": "text"
 												},
 												{
@@ -717,7 +717,7 @@
 											]
 										},
 										"url": {
-											"raw": "http://localhost:8091/auth/realms/bbq-management/protocol/openid-connect/token",
+											"raw": "http://localhost:8091/auth/realms/poc-management/protocol/openid-connect/token",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -726,7 +726,7 @@
 											"path": [
 												"auth",
 												"realms",
-												"bbq-management",
+												"poc-management",
 												"protocol",
 												"openid-connect",
 												"token"
@@ -743,11 +743,11 @@
 										},
 										{
 											"key": "Set-Cookie",
-											"value": "KEYCLOAK_LOCALE=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/bbq-management/; HttpOnly"
+											"value": "KEYCLOAK_LOCALE=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/poc-management/; HttpOnly"
 										},
 										{
 											"key": "Set-Cookie",
-											"value": "KC_RESTART=; Version=1; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/bbq-management/; HttpOnly"
+											"value": "KC_RESTART=; Version=1; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/poc-management/; HttpOnly"
 										},
 										{
 											"key": "X-XSS-Protection",
@@ -815,7 +815,7 @@
 									"urlencoded": []
 								},
 								"url": {
-									"raw": "http://localhost:8091/auth/realms/bbq-management/protocol/openid-connect/userinfo",
+									"raw": "http://localhost:8091/auth/realms/poc-management/protocol/openid-connect/userinfo",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -824,7 +824,7 @@
 									"path": [
 										"auth",
 										"realms",
-										"bbq-management",
+										"poc-management",
 										"protocol",
 										"openid-connect",
 										"userinfo"
@@ -842,7 +842,7 @@
 											"urlencoded": [
 												{
 													"key": "client_id",
-													"value": "front-bbq-app",
+													"value": "front-poc-app",
 													"type": "text"
 												},
 												{
@@ -863,7 +863,7 @@
 											]
 										},
 										"url": {
-											"raw": "http://localhost:8091/auth/realms/bbq-management/protocol/openid-connect/token",
+											"raw": "http://localhost:8091/auth/realms/poc-management/protocol/openid-connect/token",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -872,7 +872,7 @@
 											"path": [
 												"auth",
 												"realms",
-												"bbq-management",
+												"poc-management",
 												"protocol",
 												"openid-connect",
 												"token"
@@ -889,11 +889,11 @@
 										},
 										{
 											"key": "Set-Cookie",
-											"value": "KEYCLOAK_LOCALE=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/bbq-management/; HttpOnly"
+											"value": "KEYCLOAK_LOCALE=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/poc-management/; HttpOnly"
 										},
 										{
 											"key": "Set-Cookie",
-											"value": "KC_RESTART=; Version=1; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/bbq-management/; HttpOnly"
+											"value": "KC_RESTART=; Version=1; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/poc-management/; HttpOnly"
 										},
 										{
 											"key": "X-XSS-Protection",
@@ -980,14 +980,14 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8011/bbq/infrastructure/v1/auth/token",
+									"raw": "http://localhost:8011/poc/infrastructure/v1/auth/token",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8011",
 									"path": [
-										"bbq",
+										"poc",
 										"infrastructure",
 										"v1",
 										"auth",
@@ -1017,12 +1017,12 @@
 											]
 										},
 										"url": {
-											"raw": "{{api-gateway-domain}}/bbq/infrastructure/v1/auth/login",
+											"raw": "{{api-gateway-domain}}/poc/infrastructure/v1/auth/login",
 											"host": [
 												"{{api-gateway-domain}}"
 											],
 											"path": [
-												"bbq",
+												"poc",
 												"infrastructure",
 												"v1",
 												"auth",
@@ -1093,14 +1093,14 @@
 									"urlencoded": []
 								},
 								"url": {
-									"raw": "http://localhost:8011/bbq/infrastructure/v1/auth/roles",
+									"raw": "http://localhost:8011/poc/infrastructure/v1/auth/roles",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8011",
 									"path": [
-										"bbq",
+										"poc",
 										"infrastructure",
 										"v1",
 										"auth",
@@ -1115,12 +1115,12 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{api-gateway-domain}}/bbq/infrastructure/v1/auth/roles",
+											"raw": "{{api-gateway-domain}}/poc/infrastructure/v1/auth/roles",
 											"host": [
 												"{{api-gateway-domain}}"
 											],
 											"path": [
-												"bbq",
+												"poc",
 												"infrastructure",
 												"v1",
 												"auth",
@@ -1154,7 +1154,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"partners\": 8,\n    \"offline_access\": 14,\n    \"default-roles-bbq-management\": 28,\n    \"uma_authorization\": 17\n}"
+									"body": "{\n    \"partners\": 8,\n    \"offline_access\": 14,\n    \"default-roles-poc-management\": 28,\n    \"uma_authorization\": 17\n}"
 								},
 								{
 									"name": "getRoles 403",
@@ -1162,12 +1162,12 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{api-gateway-domain}}/bbq/infrastructure/v1/auth/roles",
+											"raw": "{{api-gateway-domain}}/poc/infrastructure/v1/auth/roles",
 											"host": [
 												"{{api-gateway-domain}}"
 											],
 											"path": [
-												"bbq",
+												"poc",
 												"infrastructure",
 												"v1",
 												"auth",
@@ -1451,14 +1451,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8012/bbq/business/menu/v1/menu-options?category=main",
+									"raw": "http://localhost:8012/poc/business/menu/v1/menu-options?category=main",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8012",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"menu",
 										"v1",
@@ -1513,14 +1513,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8012/bbq/business/menu/v1/menu-options",
+									"raw": "http://localhost:8012/poc/business/menu/v1/menu-options",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8012",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"menu",
 										"v1",
@@ -1569,14 +1569,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8012/bbq/business/menu/v1/menu-options/MENU0006",
+									"raw": "http://localhost:8012/poc/business/menu/v1/menu-options/MENU0006",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8012",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"menu",
 										"v1",
@@ -1623,14 +1623,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8012/bbq/business/menu/v1/menu-options/MENU0006",
+									"raw": "http://localhost:8012/poc/business/menu/v1/menu-options/MENU0006",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8012",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"menu",
 										"v1",
@@ -1869,14 +1869,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options?category=main",
+									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options?category=main",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8016",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"menu",
 										"v2",
@@ -1922,14 +1922,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options?category=main",
+									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options?category=main",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8016",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"menu",
 										"v2",
@@ -1980,14 +1980,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options/MENU0003",
+									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options/MENU0003",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8016",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"menu",
 										"v2",
@@ -2044,14 +2044,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options/MENU0002",
+									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options/MENU0002",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8016",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"menu",
 										"v2",
@@ -2100,14 +2100,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options/MENU0001",
+									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options/MENU0001",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8016",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"menu",
 										"v2",
@@ -2156,14 +2156,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/bbq/business/menu/v2/menu-options",
+									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8016",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"menu",
 										"v2",
@@ -2211,14 +2211,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8017/bbq/business/product/v1/products",
+									"raw": "http://localhost:8017/poc/business/product/v1/products",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8017",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"product",
 										"v1",
@@ -2265,14 +2265,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8017/bbq/business/product/v1/products/MENU0006",
+									"raw": "http://localhost:8017/poc/business/product/v1/products/MENU0006",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8017",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"product",
 										"v1",
@@ -2320,14 +2320,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8017/bbq/business/product/v1/products",
+									"raw": "http://localhost:8017/poc/business/product/v1/products",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8017",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"product",
 										"v1",
@@ -2394,14 +2394,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8013/bbq/business/table-placement/v1/table-orders?tableNumber=1",
+									"raw": "http://localhost:8013/poc/business/table-placement/v1/table-orders?tableNumber=1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8013",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"table-placement",
 										"v1",
@@ -2461,14 +2461,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8013/bbq/business/table-placement/v1/table-orders?tableNumber=1",
+									"raw": "http://localhost:8013/poc/business/table-placement/v1/table-orders?tableNumber=1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8013",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"table-placement",
 										"v1",
@@ -2528,14 +2528,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8013/bbq/business/table-placement/v1/table-orders?tableNumber=1",
+									"raw": "http://localhost:8013/poc/business/table-placement/v1/table-orders?tableNumber=1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8013",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"table-placement",
 										"v1",
@@ -2577,14 +2577,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8013/bbq/business/table-placement/v1/tables",
+									"raw": "http://localhost:8013/poc/business/table-placement/v1/tables",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8013",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"table-placement",
 										"v1",
@@ -2640,14 +2640,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8014/bbq/business/invoice/v1/calculate",
+									"raw": "http://localhost:8014/poc/business/invoice/v1/calculate",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8014",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"invoice",
 										"v1",
@@ -2688,14 +2688,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8014/bbq/business/invoice/v1/send-to-pay",
+									"raw": "http://localhost:8014/poc/business/invoice/v1/send-to-pay",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8014",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"invoice",
 										"v1",
@@ -2749,14 +2749,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8014/bbq/business/invoice/v1/invoices?documentNumber=76517368&documentType=DNI",
+									"raw": "http://localhost:8014/poc/business/invoice/v1/invoices?documentNumber=76517368&documentType=DNI",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8014",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"invoice",
 										"v1",
@@ -2825,14 +2825,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/menu-options?category=main",
+									"raw": "http://localhost:8018/poc/bff/order-hub/v1/menu-options?category=main",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8018",
 									"path": [
-										"bbq",
+										"poc",
 										"bff",
 										"order-hub",
 										"v1",
@@ -2877,14 +2877,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/table-orders?tableNumber=1",
+									"raw": "http://localhost:8018/poc/bff/order-hub/v1/table-orders?tableNumber=1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8018",
 									"path": [
-										"bbq",
+										"poc",
 										"bff",
 										"order-hub",
 										"v1",
@@ -2926,14 +2926,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/table-orders?tableNumber=1",
+									"raw": "http://localhost:8018/poc/bff/order-hub/v1/table-orders?tableNumber=1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8018",
 									"path": [
-										"bbq",
+										"poc",
 										"bff",
 										"order-hub",
 										"v1",
@@ -2980,14 +2980,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/invoices/send-to-pay",
+									"raw": "http://localhost:8018/poc/bff/order-hub/v1/invoices/send-to-pay",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8018",
 									"path": [
-										"bbq",
+										"poc",
 										"bff",
 										"order-hub",
 										"v1",
@@ -3029,14 +3029,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8018/bbq/bff/order-hub/v1/invoices/calculate",
+									"raw": "http://localhost:8018/poc/bff/order-hub/v1/invoices/calculate",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8018",
 									"path": [
-										"bbq",
+										"poc",
 										"bff",
 										"order-hub",
 										"v1",
@@ -3058,14 +3058,14 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8015/bbq/business/payment/v1/execute",
+									"raw": "http://localhost:8015/poc/business/payment/v1/execute",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8015",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"payment",
 										"v1",
@@ -3119,14 +3119,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8019/bbq/business/rules-processor/v1/execute",
+									"raw": "http://localhost:8019/poc/business/rules-processor/v1/execute",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8019",
 									"path": [
-										"bbq",
+										"poc",
 										"business",
 										"rules-processor",
 										"v1",
@@ -3146,7 +3146,7 @@
 						"type": "text/javascript",
 						"exec": [
 							"const REQUEST_TOKEN = {",
-							"    url: 'http://localhost:8091/auth/realms/bbq-management/protocol/openid-connect/token',",
+							"    url: 'http://localhost:8091/auth/realms/poc-management/protocol/openid-connect/token',",
 							"    method: 'POST',",
 							"    header: {",
 							"        'Accept': '*/*',",
@@ -3155,7 +3155,7 @@
 							"    body: {",
 							"        mode: 'urlencoded',",
 							"        urlencoded : [",
-							"            { key: 'client_id', value: 'front-bbq-app'},",
+							"            { key: 'client_id', value: 'front-poc-app'},",
 							"            { key: 'grant_type', value: 'password'},",
 							"            { key: 'username', value: 'admin'},",
 							"            { key: 'password', value: 'admin'}",

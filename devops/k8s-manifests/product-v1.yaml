@@ -16,7 +16,7 @@ metadata:
 data:
     DATABASE: "db_products"
     MYSQL_HOST: "mysql-db:3306"
-    MYSQL_USERNAME: "bbq_user"
+    MYSQL_USERNAME: "poc_user"
 ---
 # Source: generic-server-chart/templates/service.yaml
 apiVersion: v1

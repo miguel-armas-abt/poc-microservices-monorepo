@@ -10,7 +10,7 @@ spring:
         - id: order-hub-v1
           uri: http://${ORDER_HUB_DOMAIN:localhost:8018}
           predicates:
-            - Path=/bbq/bff/order-hub/v1/**
+            - Path=/poc/bff/order-hub/v1/**
             - Method=GET,POST,PUT,DELETE,PATCH
           filters:
             - name: AuthenticationFilter
@@ -39,7 +39,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${AUTH_ADAPTER_DOMAIN:localhost:8011}/bbq/infrastructure/v1/auth/
+        endpoint: http://${AUTH_ADAPTER_DOMAIN:localhost:8011}/poc/infrastructure/v1/auth/
         headers:
           provided:
             Accept: application/json

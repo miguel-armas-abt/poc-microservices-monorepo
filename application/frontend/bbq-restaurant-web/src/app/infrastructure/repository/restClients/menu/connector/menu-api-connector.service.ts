@@ -11,7 +11,7 @@ import {MenuUpdateRequest} from "../dto/menu-update-request";
 })
 export class MenuApiConnectorService extends BaseRestClientService {
 
-  override baseURI = '/bbq/business/menu/v1/menu-options';
+  override baseURI = '/poc/business/menu/v1/menu-options';
   constructor(http: HttpClient) {
     super(http);
   }

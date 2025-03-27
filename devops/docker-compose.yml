@@ -8,7 +8,7 @@ services:
     environment:
       - KAFKA_DOMAIN=kafka-server:9093
       - POSTGRESQL_DOMAIN=postgres-db:5432
-      - POSTGRESQL_USERNAME=bbq_user
+      - POSTGRESQL_USERNAME=poc_user
       - PRODUCT_DOMAIN=product-v1:8017
       - CONFIG_SERVER_DOMAIN=config-server-v1:8888
       - RULES_PROCESSOR_DOMAIN=rules-processor-v1:8019
@@ -31,7 +31,7 @@ services:
     environment:
       - CONFIG_SERVER_DOMAIN=config-server-v1:8888
       - MYSQL_DOMAIN=mysql-db:3306
-      - MYSQL_USERNAME=bbq_user
+      - MYSQL_USERNAME=poc_user
       - PRODUCT_DOMAIN=product-v1:8017
       - JAVA_OPTS=-Xms256M -Xmx256M
       - MYSQL_PASSWORD=qwerty
@@ -50,7 +50,7 @@ services:
     restart: always
     environment:
       - MYSQL_DOMAIN=mysql-db:3306
-      - MYSQL_USERNAME=bbq_user
+      - MYSQL_USERNAME=poc_user
       - PRODUCT_DOMAIN=product-v1:8017
       - JAVA_OPTS=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev
       - MYSQL_PASSWORD=qwerty
@@ -72,7 +72,7 @@ services:
       - MENU_V2_DOMAIN=menu-v2:8016
       - TABLE_PLACEMENT_DOMAIN=table-placement-v1:8013
       - INVOICE_DOMAIN=invoice-v1:8014
-      - MENU_REPOSITORY_SELECTOR=com.demo.bbq.entrypoint.menu.repository.MenuV1Repository
+      - MENU_REPOSITORY_SELECTOR=com.demo.poc.entrypoint.menu.repository.MenuV1Repository
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - config-server-v1
@@ -90,7 +90,7 @@ services:
     environment:
       - CONFIG_SERVER_DOMAIN=config-server-v1:8888
       - MYSQL_DOMAIN=mysql-db:3306
-      - MYSQL_USERNAME=bbq_user
+      - MYSQL_USERNAME=poc_user
       - KAFKA_DOMAIN=kafka-server:9093
       - CREATE_TOPICS=true
       - JAVA_OPTS=-Xms256M -Xmx256M
@@ -111,7 +111,7 @@ services:
     restart: always
     environment:
       - MYSQL_HOST=mysql-db:3306
-      - MYSQL_USERNAME=bbq_user
+      - MYSQL_USERNAME=poc_user
       - DATABASE=db_products
       - MYSQL_PASSWORD=qwerty
     depends_on:
@@ -144,7 +144,7 @@ services:
     environment:
       - CONFIG_SERVER_DOMAIN=config-server-v1:8888
       - JAVA_OPTS=-Xms256M -Xmx256M
-      - MONGODB_URL=mongodb://bbq-user:qwerty@mongo-db:27017/tablePlacement
+      - MONGODB_URL=mongodb://poc-user:qwerty@mongo-db:27017/tablePlacement
     depends_on:
       - config-server-v1
       - mongo-db
@@ -277,7 +277,7 @@ services:
     image: mongo:latest
     restart: always
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=bbq-user
+      - MONGO_INITDB_ROOT_USERNAME=poc-user
       - MONGO_INITDB_ROOT_PASSWORD=qwerty
       - MONGO_INITDB_DATABASE=tablePlacement
     volumes:

@@ -15,7 +15,7 @@
 > 🔨 **Ejecutar contenedor de Jenkins**
 > ```shell script 
 > docker-compose -f docker-compose.yml up -d
-> docker build -t miguelarmasabt/bbq-jenkins:v1 . --no-cache
+> docker build -t miguelarmasabt/poc-jenkins:v1 . --no-cache
 > ```
 
 > ⏸️️ **Detener orquestación**
@@ -29,11 +29,11 @@
 > ✅ **Login**
 > <br>Autentíquese en Jenkins con el token ubicado en los logs del contenedor
 > ```shell script 
-> docker logs bbq-jenkins
+> docker logs poc-jenkins
 > ```
 
 - Instale los plugins sugeridos: `Install suggested plugins`
-- Cree una cuenta de administrador: (username=`bbq-user`, password=`qwerty`)
+- Cree una cuenta de administrador: (username=`poc-user`, password=`qwerty`)
 - Mantenga la URL por defecto: `http://localhost:8181/`
 
 # 2. Integrar con Kubernetes
@@ -43,7 +43,7 @@
 > <br>Desconéctelo antes de apagar Minikube, ya que podría tener problemas al encender el clúster la siguiente vez. 
 > Para tal propósito utilice `disconnect`.
 > ```shell script 
-> docker network connect minikube bbq-jenkins
+> docker network connect minikube poc-jenkins
 > ```
 
 > 🔑 **Recuperar token de autenticación k8s**
@@ -75,7 +75,7 @@
 
 - **🔧 Configurar conexión a Kubernetes**
   - Seleccione la opción `Panel de control > Administrar Jenkins > Clouds > New cloud`
-  - Digite `bbq-kubernetes` en el campo `Cloud name`, seleccione la opción `Kubernetes` y de clic en el botón `Create`
+  - Digite `poc-kubernetes` en el campo `Cloud name`, seleccione la opción `Kubernetes` y de clic en el botón `Create`
   - Presione el botón `Kubernetes Cloud details`, configure los siguientes campos y guarde.
 > - **Kubernetes URL**: `<URL pública k8s>`
 > - **Kubernetes server certificate key**: `<Certificado k8s>`
@@ -88,10 +88,10 @@
 # 4. Crear pipeline
 - 📂 Cree una estructura de carpetas conveniente para la organización de sus pipelines.
 - Ingrese a su carpeta, seleccione `+ Nueva Tarea > Pipeline` y configure los siguientes campos:
-> - **General > GitHub project**: `https://github.com/miguel-armas-abt/demo-microservices-bbq`
+> - **General > GitHub project**: `https://github.com/miguel-armas-abt/microservices-monorepo`
 > - **Pipeline > Definition**: `Pipeline script from SCM`
 > - **SCM**: `Git`
-> - **Repository URL**: `https://miguel-armas-abt:<github-access-token>@github.com/miguel-armas-abt/demo-microservices-bbq`
+> - **Repository URL**: `https://miguel-armas-abt:<github-access-token>@github.com/miguel-armas-abt/microservices-monorepo`
 > - **Branch Specifier**: `*/main`
 > - **Script Path**: `devops/jenkins/jenkinsfiles/<app-name>/Jenkinsfile`
 - ▶️ Ejecute el pipeline.

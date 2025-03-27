@@ -87,7 +87,7 @@ retrieve_k8s_password() {
 }
 
 retrieve_unlock_password() {
-  container_name="bbq-jenkins"
+  container_name="poc-jenkins"
   password=$(docker logs $container_name 2>&1 | grep -o "^[0-9a-f]\{32\}$")
 
   if [ -n "$password" ]; then

@@ -8,7 +8,7 @@ data:
     CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
     INVOICE_DOMAIN: "invoice-v1:8014"
     JAVA_OPTS: "-Xms256M -Xmx256M"
-    MENU_REPOSITORY_SELECTOR: "com.demo.bbq.entrypoint.menu.repository.MenuV1Repository"
+    MENU_REPOSITORY_SELECTOR: "com.demo.poc.entrypoint.menu.repository.MenuV1Repository"
     MENU_V1_DOMAIN: "menu-v1:8012"
     MENU_V2_DOMAIN: "menu-v2:8016"
     TABLE_PLACEMENT_DOMAIN: "table-placement-v1:8013"

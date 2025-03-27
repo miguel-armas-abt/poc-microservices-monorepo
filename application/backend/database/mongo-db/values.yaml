@@ -9,7 +9,7 @@ ports:
 replicas: 1
 
 secrets:
-  MONGO_INITDB_ROOT_USERNAME: "bbq-user"
+  MONGO_INITDB_ROOT_USERNAME: "poc-user"
   MONGO_INITDB_ROOT_PASSWORD: "qwerty"
   MONGO_INITDB_DATABASE: "tablePlacement"
 

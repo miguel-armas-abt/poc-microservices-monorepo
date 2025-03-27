@@ -7,7 +7,7 @@ import (
 func SetupRouter(productRestService *ProductRestService) *gin.Engine {
 	router := gin.Default()
 
-	menuOptionRouter := router.Group("/bbq/business/product/v1/products")
+	menuOptionRouter := router.Group("/poc/business/product/v1/products")
 	{
 		menuOptionRouter.GET("", productRestService.FindByScope)
 		menuOptionRouter.GET("/:code", productRestService.FindByCode)

@@ -17,7 +17,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/bbq/business/product/v1/products/
+        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/poc/business/product/v1/products/
         headers:
           provided:
             Accept: application/json
@@ -32,7 +32,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${RULES_PROCESSOR_DOMAIN:localhost:8019}/bbq/business/rules-processor/v1/execute
+        endpoint: http://${RULES_PROCESSOR_DOMAIN:localhost:8019}/poc/business/rules-processor/v1/execute
         headers:
           provided:
             Accept: application/json
@@ -60,7 +60,7 @@ spring:
   kafka:
     bootstrap-servers: ${KAFKA_DOMAIN:localhost:9092}
     consumer:
-      group-id: bbq
+      group-id: poc
   jpa:
     show-sql: true
     hibernate:
@@ -75,5 +75,5 @@ spring:
   datasource:
     url: jdbc:postgresql://${POSTGRESQL_DOMAIN:127.0.0.1:5432}/db_invoices?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     driverClassName: org.postgresql.Driver
-    username: ${POSTGRESQL_USERNAME:bbq_user}
+    username: ${POSTGRESQL_USERNAME:poc_user}
     password: ${POSTGRESQL_PASSWORD:qwerty}

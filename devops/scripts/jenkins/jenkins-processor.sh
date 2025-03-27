@@ -43,7 +43,7 @@ process_operation() {
     local operation=$1
 
     local repository="miguelarmasabt"
-    local image="bbq-jenkins"
+    local image="poc-jenkins"
     local tag="v1.0.1"
 
     validate_operation "$operation"

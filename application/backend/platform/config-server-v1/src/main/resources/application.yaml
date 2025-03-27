@@ -14,7 +14,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/miguel-armas-abt/demo-microservices-bbq.git
+          uri: https://github.com/miguel-armas-abt/microservices-monorepo.git
           default-label: config-server
           basedir: ./src/main/resources/git-config
           clone-on-start: true

@@ -37,7 +37,7 @@ siguiente flujo de trabajo:
 #### Iniciar orquestación
 ```shell script
 docker-compose -f docker-compose.yml up -d
-docker build -t miguelarmasabt/bbq-jenkins:v1 . --no-cache
+docker build -t miguelarmasabt/poc-jenkins:v1 . --no-cache
 ```
 
 #### Detener orquestación
@@ -48,15 +48,15 @@ docker-compose -f docker-compose.yml stop
 
 Revise los logs del contenedor y copie el token en la pantalla de login `localhost:8181`.
 ```shell script
-docker logs bbq-jenkins
+docker logs poc-jenkins
 ```
 A continuación, instale los plugins sugeridos `Install suggested plugins`, cree una cuenta de administrador
-(username=`bbq-user`, password=`qwerty`) y mantenga la URL por defecto `http://localhost:8181/`.
+(username=`poc-user`, password=`qwerty`) y mantenga la URL por defecto `http://localhost:8181/`.
 
 # 2. Crear pipeline de estilo libre
 Seleccione `Crear un proyecto de estilo libre`, ubique la sección `Configurar el origen del código fuente`, seleccione 
 Git y configure los siguientes campos.
-> **Repository URL**: `https://miguel-armas-abt:<github-access-token>@github.com/miguel-armas-abt/demo-microservices-bbq`
+> **Repository URL**: `https://miguel-armas-abt:<github-access-token>@github.com/miguel-armas-abt/microservices-monorepo`
 >
 > **Branch to build**: `feature/<feature-name>`
 
@@ -146,16 +146,16 @@ Ubíquese en Jenkins e instale el plugin `SonarQube Scanner`. A continuación, d
 
 > **Environment variables**: Activado
 >
-> **Name** (nombre del contenedor): `bbq-sonarqube`
+> **Name** (nombre del contenedor): `poc-sonarqube`
 >
-> **URL del servidor**: `http://bbq-sonarqube:9000`
+> **URL del servidor**: `http://poc-sonarqube:9000`
 >
 > **Server authentication token**: `<sonarqube-token>`
 
 Ubíquese en Jenkins y diríjase a `Panel de control > Administrar Jenkins > System > Tools > instalaciones de SonarQube Scanner`,
 añada un scanner y configure los siguientes campos.
 
-> **Name**: `bbq-sonarqube-scanner`
+> **Name**: `poc-sonarqube-scanner`
 >
 > **Versión**: Escoger la última versión estable compatible con SonarQube
 
@@ -198,7 +198,7 @@ Ubíquese en Jenkins e instale el plugin `Kubernetes`.
 
 Conecte Jenkins a la red de Minikube. Puede utilizar `disconnect` para desconectarse cuando lo requiera.
 ```shell script
-docker network connect minikube bbq-jenkins
+docker network connect minikube poc-jenkins
 ```
 
 Configure los privilegios de Jenkins para acceder al clúster de Kubernetes y recupere el token de autenticación.
@@ -235,13 +235,13 @@ Ubíquese en Jenkins y diríjase a `Panel de control > Administrar Jenkins > Con
 > **Credentials**: `cluster-k8s-secret`
 
 Para que nuestro pipeline se conecte al clúster de Kubernetes, configure un nuevo job de tipo `Pipeline` con los siguientes campos.
-> **General > GitHub project**: `https://github.com/miguel-armas-abt/demo-microservices-bbq`
+> **General > GitHub project**: `https://github.com/miguel-armas-abt/microservices-monorepo`
 >
 > **Pipeline > Definition**: `Pipeline script from SCM`
 >
 > **SCM**: `Git`
 >
-> **Repository URL**: `https://miguel-armas-abt:<github-access-token>@github.com/miguel-armas-abt/demo-microservices-bbq`
+> **Repository URL**: `https://miguel-armas-abt:<github-access-token>@github.com/miguel-armas-abt/microservices-monorepo`
 >
 > **Script Path**: `devops/k8s/menu-v1/Jenkinsfile`
 
