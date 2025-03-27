@@ -97,8 +97,8 @@ iterate_csv_records() {
         continue
     fi
 
-    # Ignore comments
-    if [[ $component_name != "#"* ]]; then
+    # Ignore comments and commons
+    if [[ $component_name != "#"* ]] && [[ $component_type != "commons" ]]; then
       template_accumulator=$(process_csv_record "$template_accumulator" "$component_name" "$component_type")
     fi
 
