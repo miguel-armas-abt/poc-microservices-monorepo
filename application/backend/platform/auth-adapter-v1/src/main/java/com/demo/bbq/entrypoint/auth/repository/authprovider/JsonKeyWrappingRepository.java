@@ -2,8 +2,8 @@ package com.demo.bbq.entrypoint.auth.repository.authprovider;
 
 import com.auth0.jwk.Jwk;
 import com.auth0.jwk.UrlJwkProvider;
-import com.demo.bbq.commons.properties.ApplicationProperties;
-import com.demo.bbq.commons.properties.KeycloakConnection;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
+import com.demo.bbq.commons.custom.properties.KeycloakConnection;
 import java.net.URL;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;

@@ -4,11 +4,14 @@ import com.auth0.jwk.Jwk;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.custom.exceptions.ExpiredTokenException;
+import com.demo.bbq.commons.custom.exceptions.InvalidJwtException;
+import com.demo.bbq.commons.custom.exceptions.UnableLogoutException;
+import com.demo.bbq.commons.custom.exceptions.UnableRefreshException;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
 import com.demo.bbq.entrypoint.auth.repository.authprovider.*;
 import com.demo.bbq.entrypoint.auth.repository.authprovider.wrapper.TokenResponseWrapper;
 import com.demo.bbq.entrypoint.auth.repository.authprovider.wrapper.UserInfoResponseWrapper;
-import com.demo.bbq.commons.errors.exceptions.AuthorizationException;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 import java.security.interfaces.RSAPublicKey;
@@ -36,12 +39,12 @@ public class AuthenticationService {
 
   public Completable logout(Map<String, String> currentHeaders, String refreshToken) {
     return logoutRepository.logout(currentHeaders, properties, refreshToken)
-        .onErrorResumeNext(throwable -> Completable.error(new AuthorizationException("UnableLogout", throwable.getMessage())));
+        .onErrorResumeNext(throwable -> Completable.error(new UnableLogoutException(throwable.getMessage())));
   }
 
   public Single<TokenResponseWrapper> refreshToken(Map<String, String> currentHeaders, String refreshToken) {
     return refreshTokenRepository.refreshToken(currentHeaders, properties, refreshToken)
-        .onErrorResumeNext(throwable -> Single.error(new AuthorizationException("UnableRefresh")));
+        .onErrorResumeNext(throwable -> Single.error(new UnableRefreshException()));
   }
 
   public Single<UserInfoResponseWrapper> getUserInfo(Map<String, String> currentHeaders) {
@@ -68,14 +71,14 @@ public class AuthenticationService {
       Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
       algorithm.verify(jwt);
     } catch (Exception ex) {
-      throw new AuthorizationException("InvalidJWT", ex.getMessage());
+      throw new InvalidJwtException(ex.getMessage());
     }
   }
 
   private void verifyJwtExpiration(DecodedJWT jwt) {
     Date expiryDate = jwt.getExpiresAt();
     if (expiryDate.before(new Date())) {
-      throw new AuthorizationException("ExpiredToken");
+      throw new ExpiredTokenException();
     }
   }
 

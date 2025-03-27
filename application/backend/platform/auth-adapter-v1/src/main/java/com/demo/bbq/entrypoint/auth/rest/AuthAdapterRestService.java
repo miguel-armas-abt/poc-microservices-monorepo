@@ -1,8 +1,8 @@
 package com.demo.bbq.entrypoint.auth.rest;
 
-import com.demo.bbq.commons.restclient.utils.HttpHeadersFiller;
-import com.demo.bbq.commons.validations.headers.DefaultHeaders;
-import com.demo.bbq.commons.validations.headers.HeaderValidator;
+import com.demo.bbq.commons.core.restclient.utils.HttpHeadersFiller;
+import com.demo.bbq.commons.core.validations.headers.DefaultHeaders;
+import com.demo.bbq.commons.core.validations.headers.HeaderValidator;
 import com.demo.bbq.entrypoint.auth.dto.params.AuthorizationHeader;
 import com.demo.bbq.entrypoint.auth.service.AuthenticationService;
 import com.demo.bbq.entrypoint.auth.repository.authprovider.wrapper.TokenResponseWrapper;
