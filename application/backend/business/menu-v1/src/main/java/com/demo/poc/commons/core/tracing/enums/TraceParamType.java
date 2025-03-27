@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum TraceParamType {
 
-  TIMESTAMP_V2("timestamp", () -> TraceParamGenerator.formatDate.apply(TraceParamGenerator.DEFAULT_DATE_PATTERN)),
+  TIMESTAMP("timestamp", () -> TraceParamGenerator.formatDate.apply(TraceParamGenerator.DEFAULT_DATE_PATTERN)),
   TRACE_ID("trace-id", () -> TraceParamGenerator.getTrace(TraceParamGenerator.TRACE_ID_SIZE)),
   PARENT_ID("parent-id", () -> TraceParamGenerator.getTrace(TraceParamGenerator.PARENT_ID_SIZE));
 
