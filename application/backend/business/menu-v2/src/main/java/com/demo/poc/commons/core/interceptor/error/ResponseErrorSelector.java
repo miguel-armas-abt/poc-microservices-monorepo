@@ -6,16 +6,14 @@ import com.demo.poc.commons.core.errors.enums.ErrorDictionary;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import com.demo.poc.commons.core.properties.ProjectType;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.demo.poc.commons.core.errors.dto.ErrorDTO.CODE_DEFAULT;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ResponseErrorSelector {
 
   public static <T extends Throwable> ErrorDTO toErrorDTO(ConfigurationBaseProperties properties, T exception) {
@@ -43,7 +41,7 @@ public class ResponseErrorSelector {
     String defaultMessage = ErrorDTO.getDefaultError(properties).getMessage();
     ProjectType projectType = selectProjectType(properties);
 
-    if (ProjectType.BFF.equals(projectType))
+    if(ProjectType.BFF.equals(projectType))
       return defaultMessage;
 
     return Optional.ofNullable(ErrorDTO.getMatchMessage(properties, error.getCode()))
@@ -51,7 +49,7 @@ public class ResponseErrorSelector {
   }
 
   private static ProjectType selectProjectType(ConfigurationBaseProperties properties) {
-    return Optional.ofNullable(properties.getProjectType()).orElseGet(() -> ProjectType.MS);
+    return Optional.of(ProjectType.valueOf(properties.projectType())).orElse(ProjectType.MS);
   }
 
   private static <T extends Throwable> ErrorDTO extractError(T exception) {
@@ -60,24 +58,23 @@ public class ResponseErrorSelector {
     if (exception instanceof GenericException genericException)
       error = genericException.getErrorDetail();
 
-    if (exception instanceof MethodArgumentNotValidException methodArgumentNotValidException) {
-      error = extractError(methodArgumentNotValidException);
-    }
+    if(exception instanceof ConstraintViolationException constraintViolationException)
+      error = extractError(constraintViolationException);
 
     return error;
   }
 
-  private static ErrorDTO extractError(MethodArgumentNotValidException exception) {
-    String message = exception.getBindingResult()
-        .getFieldErrors()
+  private static ErrorDTO extractError(ConstraintViolationException exception) {
+    String message = exception
+        .getConstraintViolations()
         .stream()
-        .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
+        .map(ConstraintViolation::getMessage)
         .collect(Collectors.joining(";"));
 
     return ErrorDTO.builder()
-        .type(ErrorType.BUSINESS)
         .code(ErrorDictionary.INVALID_FIELD.getCode())
         .message(message)
+        .type(ErrorType.BUSINESS)
         .build();
   }
 }

@@ -1,10 +1,10 @@
 package com.demo.poc.entrypoint.menu.repository.product;
 
+import com.demo.poc.commons.core.interceptor.restclient.RestClientRequestInterceptor;
+import com.demo.poc.commons.core.interceptor.restclient.RestClientResponseInterceptor;
 import com.demo.poc.entrypoint.menu.repository.product.wrapper.response.ProductResponseWrapper;
 import com.demo.poc.entrypoint.menu.repository.product.wrapper.request.ProductSaveRequestWrapper;
 import com.demo.poc.entrypoint.menu.repository.product.wrapper.request.ProductUpdateRequestWrapper;
-import com.demo.poc.commons.tracing.logging.RestClientRequestLogger;
-import com.demo.poc.commons.tracing.logging.RestClientResponseLogger;
 import io.smallrye.mutiny.Uni;
 import java.util.List;
 import jakarta.ws.rs.*;
@@ -15,8 +15,8 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 @Path("/products")
 @RegisterRestClient(configKey="product-v1")
 @RegisterClientHeaders(ProductHeaderFactory.class)
-@RegisterProvider(RestClientRequestLogger.class)
-@RegisterProvider(RestClientResponseLogger.class)
+@RegisterProvider(RestClientRequestInterceptor.class)
+@RegisterProvider(RestClientResponseInterceptor.class)
 public interface ProductRepository {
 
   @GET

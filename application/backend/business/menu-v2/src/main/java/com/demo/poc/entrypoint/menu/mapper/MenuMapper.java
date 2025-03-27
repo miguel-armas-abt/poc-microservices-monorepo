@@ -1,6 +1,6 @@
 package com.demo.poc.entrypoint.menu.mapper;
 
-import com.demo.poc.config.mapper.MappingConfig;
+import com.demo.poc.commons.core.config.MappingConfig;
 import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDTO;
 import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
 import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDTO;

@@ -1,8 +1,8 @@
 configuration:
+  project-type: MS
+
   error-messages:
-    enabled: false
-    messages:
-      Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
   rest-clients:
     product-v1:
@@ -13,9 +13,13 @@ configuration:
             Accept: application/json
           generated:
             parent-id: PARENT_ID
-            timestamp: TIMESTAMP_V2
+            timestamp: TIMESTAMP
           forwarded:
             trace-id: trace-id
+
+  obfuscation:
+    body-fields: []
+    headers: []
 
 quarkus:
   datasource:

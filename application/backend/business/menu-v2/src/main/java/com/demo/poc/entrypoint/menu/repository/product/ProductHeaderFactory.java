@@ -1,8 +1,8 @@
 package com.demo.poc.entrypoint.menu.repository.product;
 
-import com.demo.poc.config.properties.ApplicationProperties;
-import com.demo.poc.commons.properties.dto.HeaderTemplate;
-import com.demo.poc.commons.restclient.headers.HeadersBuilderUtil;
+import com.demo.poc.commons.core.restclient.utils.HeadersFiller;
+import com.demo.poc.commons.custom.properties.ApplicationProperties;
+import com.demo.poc.commons.core.properties.restclient.HeaderTemplate;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.ext.Provider;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +20,6 @@ public class ProductHeaderFactory implements ClientHeadersFactory {
                                                MultivaluedMap<String, String> outgoingHeaders) {
 
     HeaderTemplate headerTemplate = properties.restClients().get(SERVICE_NAME_PRODUCT).request().headers();
-    return HeadersBuilderUtil.buildHeaders(headerTemplate, incomingHeaders);
+    return HeadersFiller.buildHeaders(headerTemplate, incomingHeaders);
   }
 }
