@@ -1,7 +1,7 @@
 package com.demo.bbq.entrypoint.rules.base.processor;
 
-import com.demo.bbq.commons.errors.exceptions.SystemException;
-import com.demo.bbq.commons.properties.ApplicationProperties;
+import com.demo.bbq.commons.custom.exceptions.RulesCompilationException;
+import com.demo.bbq.commons.custom.properties.ApplicationProperties;
 import com.demo.bbq.entrypoint.rules.base.rule.Rule;
 import lombok.RequiredArgsConstructor;
 import org.kie.api.KieServices;
@@ -38,7 +38,7 @@ public class RuleProcessor {
     KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem).buildAll();
 
     if (kieBuilder.getResults().hasMessages(org.kie.api.builder.Message.Level.ERROR)) {
-      throw new SystemException("RulesCompilationError", kieBuilder.getResults().toString());
+      throw new RulesCompilationException(kieBuilder.getResults().toString());
     }
 
     KieRepository kieRepository = kieServices.getRepository();

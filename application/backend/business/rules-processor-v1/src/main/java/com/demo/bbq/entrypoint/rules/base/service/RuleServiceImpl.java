@@ -1,6 +1,6 @@
 package com.demo.bbq.entrypoint.rules.base.service;
 
-import com.demo.bbq.commons.errors.exceptions.SystemException;
+import com.demo.bbq.commons.custom.exceptions.NoSuchRuleMapperException;
 import com.demo.bbq.entrypoint.rules.base.processor.RuleProcessor;
 import com.demo.bbq.entrypoint.rules.base.mapper.RuleMapper;
 import com.demo.bbq.entrypoint.rules.base.rule.Rule;
@@ -27,7 +27,7 @@ public class RuleServiceImpl implements RuleService {
     return ruleMappers.stream()
         .filter(mapper -> mapper.supports(strategy))
         .findFirst()
-        .orElseThrow(() -> new SystemException("NoSuchRuleMapper"));
+        .orElseThrow(NoSuchRuleMapperException::new);
   }
 
 }
