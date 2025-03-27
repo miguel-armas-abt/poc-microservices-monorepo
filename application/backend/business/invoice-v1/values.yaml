@@ -11,7 +11,7 @@ replicas: 1
 configMaps:
   KAFKA_DOMAIN: "kafka-server:9093"
   POSTGRESQL_DOMAIN: "postgres-db:5432"
-  POSTGRESQL_USERNAME: "bbq_user"
+  POSTGRESQL_USERNAME: "poc_user"
   PRODUCT_DOMAIN: "product-v1:8017"
   CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
   RULES_PROCESSOR_DOMAIN: "rules-processor-v1:8019"

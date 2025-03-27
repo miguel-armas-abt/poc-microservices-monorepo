@@ -5,7 +5,7 @@ info:
     Servicio web de propósito general, responsable de generar una factura de proforma y enviarla a pagar.
   version: v1
 servers:
-  - url: http://localhost:8014/bbq/business/invoice/v1
+  - url: http://localhost:8014/poc/business/invoice/v1
 paths:
   /calculate:
     post:

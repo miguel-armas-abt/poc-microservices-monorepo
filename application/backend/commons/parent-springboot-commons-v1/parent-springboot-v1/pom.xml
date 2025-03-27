@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.demo.bbq.parent</groupId>
+    <groupId>com.demo.poc.parent</groupId>
     <artifactId>parent-springboot-commons-v1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
