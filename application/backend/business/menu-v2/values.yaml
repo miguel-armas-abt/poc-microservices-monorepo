@@ -12,7 +12,7 @@ configMaps:
   MYSQL_DOMAIN: "mysql-db:3306"
   MYSQL_USERNAME: "poc_user"
   PRODUCT_DOMAIN: "product-v1:8017"
-  JAVA_OPTS: "-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+  JAVA_OPTS: "-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev"
 
 secrets:
   MYSQL_PASSWORD: "qwerty"
