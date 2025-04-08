@@ -1,26 +1,48 @@
-# Manejo de errores
+# CONTROL DE ERRORES
 
 [← Ir a Backend](./../README.md)
 
+---
+
+## 1. ErrorDto
+La respuesta de error tiene la siguiente estructura:
+
 ```json
 {
-	"type": "SYSTEM",
+	"type": "SYSTEM", // SYSTEM | BUSINESS | EXTERNAL | FORWARD
 	"code": "Default",
 	"message": "No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente."
 }
 ```
 
-## Excepciones y códigos de error HTTP
+| Type       | Descripción                                                     |
+|------------|-----------------------------------------------------------------|
+| `SYSTEM`   | Error inesperado                                                |
+| `BUSINESS` | Error de negocio                                                |
+| `EXTERNAL` | Error proveniente de un servicio web ajeno a nuestra aplicación |
+| `FORWARD`  | Error proveniente de un servicio web propio de la aplicación    |
 
-| Excepción                  | Código HTTP                      | ErrorType              | Propósito                              |
-|----------------------------|----------------------------------|------------------------|----------------------------------------|
-| `SystemException`          | `500`                            | `SYSTEM`               | Errores de configuración o sistema     |
-| `BusinessException`        | `400`                            | `BUSINESS`             | Errores de negocio o datos incorrectos |
-| `ExternalServiceException` | Reutiliza el código HTTP o `409` | `EXTERNAL` o `FORWARD` | Error en la petición al cliente REST   |
 
-> 📌 Las excepciones `SystemException` y `BusinessException` requieren obligatoriamente un código de error.
+## 2. ErrorDictionary
+Es un Enum que representa el catálogo de errores de nuestra aplicación.
 
-## Características
+## 3. GenericException
+Por cada caso de error, crearemos una excepción personalizada que extienda de `GenericException`. 
+```java
+@Getter
+public class GenericException extends RuntimeException {
+
+    protected ErrorDTO errorDetail;
+    protected HttpStatus httpStatus;
+
+    public GenericException(String message) {
+        super(message);
+    }
+}
+```
+
+
+## 4. Características
 
 ### 1. Mensajes de error personalizados
 - **Objetivo**: Brindar mensajes personalizados de error.
