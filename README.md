@@ -1,29 +1,23 @@
 # BBQ RESTAURANT
 
-# 1. INSTRUCCIONES DE DESPLIEGUE
+# 1. Instrucciones de despliegue
 - [Local](devops/scripts/local/README.md)
 - [Docker](devops/scripts/docker/README.md)
 - [Kubernetes](devops/scripts/k8s/README.md)
 - [Jenkins](devops/scripts/jenkins/README.md)
 
-# 2. DOCUMENTACION
+# 2. Documentación
 - [Backend](./docs/info/backend/README.md)
 
-# 3. CASO DE ESTUDIO
+# 3. Caso de estudio
 BBQ Restaurant es una cadena de restaurantes que planea implementar una arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
 Los expertos en el dominio "restaurante" utilizan los siguientes procesos para prestar servicios a sus clientes.
 
-> 💡 **Atención en el comedor**
+<img src="docs/diagrams/process-diagram.png" width="1000" height="250">
 
-![Proceso de atención en el restaurante](./docs/diagrams/restaurant-process.jpg)
+# 4. Arquitectura de software
 
-# 4. DISEÑO DEL SOFTWARE
-
-> ⚙️ **Diagrama de arquitectura de software**
-
-![Arquitectura de software](./docs/diagrams/software-architecture.jpg)
-
-> 📝 **Descripción de los servicios web**
+![Arquitectura de software](./docs/diagrams/software-architecture.svg)
 
 |    | Servicio web         | Descripción                                                                                                                   | Stack                                                             |   
 |----|----------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
@@ -38,37 +32,3 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
 | 09 | `payment-v1`         | Recibe las facturas y las procesa.                                                                                            | **RxJava**: `Kafka`, `JPA`                                        |
 | 10 | `order-hub-v1`       | `Backend for Frontend` Construye la experiencia de generación de pedidos.                                                     | **WebFlux**: `Retrofit`                                           |
 | 11 | `rules-processor-v1` | Procesador de reglas.                                                                                                         |                                                                   |
-
-# 5. ESTRUCTURA DEL REPOSITORIO
-
-```javascript
-    poc-microservices-monorepo
-    │───`application`
-    │   ├───backend
-    │   │   ├───business              // servicios web con lógica de negocio 
-    │   │   │   ├───product-v1
-    │   │   │   ├───menu-v1
-    │   │   │   └─── ...
-    │   │   ├───commons              // no ejecutables con dependencias/utilidades comunes 
-    │   │   │   ├───parent-quarkus-commons-v1
-    │   │   │   ├───commons-quarkus-v1
-    │   │   │   └─── ...
-    │   │   └───infrastructure        // servicios web de infraestructura
-    │   │       ├───api-gateway-v1
-    │   │       ├───config-server-v1
-    │   │       └─── ...
-    │   └───frontend
-    │       └───poc-restaurant-web
-    │───`devops`                      // estrategias de despliegue                   
-    │   ├───docker-compose
-    │   ├───jenkins
-    │   ├───k8s
-    │   └───local
-    └───`docs`
-        ├───diagrams                  // imágenes y archivos draw.io
-        ├───info                      // documentación
-        ├───load-testing              // scripts de prueba de carga en JMeter e informes
-        └───postman
-```
-
-
