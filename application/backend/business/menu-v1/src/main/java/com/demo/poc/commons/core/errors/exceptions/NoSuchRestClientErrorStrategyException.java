@@ -5,10 +5,10 @@ import com.demo.poc.commons.core.errors.enums.ErrorDictionary;
 import lombok.Getter;
 
 @Getter
-public class UnexpectedSslException extends GenericException {
+public class NoSuchRestClientErrorStrategyException extends GenericException {
 
-  public UnexpectedSslException(String message) {
-    super(message);
+  public NoSuchRestClientErrorStrategyException() {
+    super(ErrorDictionary.NO_SUCH_REST_CLIENT_ERROR_STRATEGY.getMessage());
 
     ErrorDictionary detail = ErrorDictionary.parse(this.getClass());
     this.httpStatus = detail.getHttpStatus();

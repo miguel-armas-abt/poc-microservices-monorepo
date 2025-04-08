@@ -18,7 +18,7 @@ La respuesta de error tiene la siguiente estructura:
 | Type       | Descripción                                                     |
 |------------|-----------------------------------------------------------------|
 | `SYSTEM`   | Error inesperado                                                |
-| `BUSINESS` | Error de negocio                                                |
+| `BUSINESS` | Error de negocio o inputs inválidos                             |
 | `EXTERNAL` | Error proveniente de un servicio web ajeno a nuestra aplicación |
 | `FORWARD`  | Error proveniente de un servicio web propio de la aplicación    |
 
