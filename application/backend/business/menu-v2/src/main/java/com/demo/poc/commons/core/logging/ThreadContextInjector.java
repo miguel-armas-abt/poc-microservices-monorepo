@@ -1,12 +1,13 @@
 package com.demo.poc.commons.core.logging;
 
+import com.demo.poc.commons.core.errors.exceptions.NoSuchLoggingTemplateException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchObfuscationTemplateException;
 import com.demo.poc.commons.core.logging.constants.RestLoggingConstant;
 import com.demo.poc.commons.core.logging.enums.LoggingType;
-import com.demo.poc.commons.core.obfuscation.body.BodyObfuscator;
-import com.demo.poc.commons.core.obfuscation.header.HeaderObfuscator;
+import com.demo.poc.commons.core.logging.obfuscation.body.BodyObfuscator;
+import com.demo.poc.commons.core.logging.obfuscation.header.HeaderObfuscator;
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
-import com.demo.poc.commons.core.properties.obfuscation.ObfuscationTemplate;
+import com.demo.poc.commons.core.properties.logging.ObfuscationTemplate;
 import com.demo.poc.commons.core.tracing.utils.TraceHeaderExtractor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -77,6 +78,8 @@ public class ThreadContextInjector {
   }
 
   ObfuscationTemplate getObfuscationTemplate() {
-    return properties.obfuscation().orElseThrow(NoSuchObfuscationTemplateException::new);
+    return properties.logging()
+            .map(loggingTemplate -> loggingTemplate.obfuscation().orElseThrow(NoSuchObfuscationTemplateException::new))
+            .orElseThrow(NoSuchLoggingTemplateException::new);
   }
 }

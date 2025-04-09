@@ -13,13 +13,13 @@ import jakarta.enterprise.inject.Produces;
 public class InterceptorConfig {
 
   @Produces
-  public RestClientRequestInterceptor restClientRequestInterceptor(ThreadContextInjector threadContextInjector) {
-    return new RestClientRequestInterceptor(threadContextInjector);
+  public RestClientRequestInterceptor restClientRequestInterceptor(ApplicationProperties properties, ThreadContextInjector threadContextInjector) {
+    return new RestClientRequestInterceptor(properties, threadContextInjector);
   }
 
   @Produces
-  public RestClientResponseInterceptor restClientResponseInterceptor(ThreadContextInjector threadContextInjector) {
-    return new RestClientResponseInterceptor(threadContextInjector);
+  public RestClientResponseInterceptor restClientResponseInterceptor(ApplicationProperties properties, ThreadContextInjector threadContextInjector) {
+    return new RestClientResponseInterceptor(properties, threadContextInjector);
   }
 
   @Produces

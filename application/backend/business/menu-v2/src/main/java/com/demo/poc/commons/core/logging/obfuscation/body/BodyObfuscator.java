@@ -1,6 +1,6 @@
-package com.demo.poc.commons.core.obfuscation.body;
+package com.demo.poc.commons.core.logging.obfuscation.body;
 
-import com.demo.poc.commons.core.properties.obfuscation.ObfuscationTemplate;
+import com.demo.poc.commons.core.properties.logging.ObfuscationTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -12,9 +12,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import static com.demo.poc.commons.core.obfuscation.constants.ObfuscationConstant.ARRAY_WILDCARD;
-import static com.demo.poc.commons.core.obfuscation.constants.ObfuscationConstant.JSON_SEGMENT_SPLITTER_REGEX;
-import static com.demo.poc.commons.core.obfuscation.constants.ObfuscationConstant.OBFUSCATION_MASK;
+import static com.demo.poc.commons.core.logging.obfuscation.constants.ObfuscationConstant.ARRAY_WILDCARD;
+import static com.demo.poc.commons.core.logging.obfuscation.constants.ObfuscationConstant.JSON_SEGMENT_SPLITTER_REGEX;
+import static com.demo.poc.commons.core.logging.obfuscation.constants.ObfuscationConstant.OBFUSCATION_MASK;
 
 @Slf4j
 public class BodyObfuscator {

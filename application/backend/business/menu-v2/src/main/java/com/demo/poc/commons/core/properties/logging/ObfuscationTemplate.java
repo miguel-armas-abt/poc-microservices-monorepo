@@ -1,4 +1,4 @@
-package com.demo.poc.commons.core.properties.obfuscation;
+package com.demo.poc.commons.core.properties.logging;
 
 import java.util.Optional;
 import java.util.Set;

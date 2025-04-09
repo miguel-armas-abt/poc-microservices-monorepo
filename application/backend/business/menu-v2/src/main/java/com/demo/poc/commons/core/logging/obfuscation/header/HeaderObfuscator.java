@@ -1,7 +1,7 @@
-package com.demo.poc.commons.core.obfuscation.header;
+package com.demo.poc.commons.core.logging.obfuscation.header;
 
-import com.demo.poc.commons.core.obfuscation.constants.ObfuscationConstant;
-import com.demo.poc.commons.core.properties.obfuscation.ObfuscationTemplate;
+import com.demo.poc.commons.core.logging.obfuscation.constants.ObfuscationConstant;
+import com.demo.poc.commons.core.properties.logging.ObfuscationTemplate;
 
 import java.util.Collections;
 import java.util.Map;

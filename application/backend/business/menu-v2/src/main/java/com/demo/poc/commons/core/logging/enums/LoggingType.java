@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.Optional;
 
 @Getter
 @RequiredArgsConstructor
@@ -24,5 +26,12 @@ public enum LoggingType {
         .filter(loggerType -> loggerType.getCode().equals(code))
         .findFirst()
         .orElseThrow(NoSuchLoggerTypeException::new);
+  }
+
+  public static boolean isLoggerPresent(LoggingType loggingType, Map<String, Boolean> loggers) {
+    return Optional.ofNullable(loggers)
+            .filter(enabledLoggers -> enabledLoggers.containsKey(loggingType.getCode()))
+            .map(enabledLoggers -> enabledLoggers.get(loggingType.getCode()))
+            .orElseGet(() -> Boolean.FALSE);
   }
 }

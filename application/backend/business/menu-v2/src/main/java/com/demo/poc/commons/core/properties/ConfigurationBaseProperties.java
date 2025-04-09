@@ -1,6 +1,6 @@
 package com.demo.poc.commons.core.properties;
 
-import com.demo.poc.commons.core.properties.obfuscation.ObfuscationTemplate;
+import com.demo.poc.commons.core.properties.logging.LoggingTemplate;
 import com.demo.poc.commons.core.properties.restclient.RestClient;
 
 import java.util.Map;
@@ -14,5 +14,5 @@ public interface ConfigurationBaseProperties {
 
   Map<String, RestClient> restClients();
 
-  Optional<ObfuscationTemplate> obfuscation();
+  Optional<LoggingTemplate> logging();
 }

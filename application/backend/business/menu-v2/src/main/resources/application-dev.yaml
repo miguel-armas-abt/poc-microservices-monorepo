@@ -1,6 +1,15 @@
 configuration:
   project-type: MS
 
+  logging:
+    logging-type:
+      error: true
+      rest.client.req: true
+      rest.client.res: true
+    obfuscation:
+      body-fields: [ ]
+      headers: [ ]
+
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
@@ -16,10 +25,6 @@ configuration:
             timestamp: TIMESTAMP
           forwarded:
             trace-id: trace-id
-
-  obfuscation:
-    body-fields: []
-    headers: []
 
 quarkus:
   datasource:

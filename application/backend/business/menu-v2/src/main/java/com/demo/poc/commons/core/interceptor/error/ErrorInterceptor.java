@@ -3,7 +3,10 @@ package com.demo.poc.commons.core.interceptor.error;
 import com.demo.poc.commons.core.errors.dto.ErrorDTO;
 import com.demo.poc.commons.core.errors.exceptions.ExternalServiceException;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
+import com.demo.poc.commons.core.errors.exceptions.NoSuchLoggingTemplateException;
 import com.demo.poc.commons.core.logging.ThreadContextInjector;
+import com.demo.poc.commons.core.logging.enums.LoggingType;
+import com.demo.poc.commons.core.properties.logging.LoggingTemplate;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
@@ -21,7 +24,7 @@ public class ErrorInterceptor implements ExceptionMapper<Throwable> {
 
   @Override
   public Response toResponse(Throwable throwable) {
-    threadContextInjector.populateFromException(throwable);
+    generateTrace(throwable);
 
     ErrorDTO error = ErrorDTO.getDefaultError(properties);
     Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
@@ -44,5 +47,12 @@ public class ErrorInterceptor implements ExceptionMapper<Throwable> {
         .entity(error)
         .type(MediaType.APPLICATION_JSON)
         .build();
+  }
+
+  private void generateTrace(Throwable throwable) {
+    LoggingTemplate loggingTemplate = properties.logging().orElseThrow(NoSuchLoggingTemplateException::new);
+    if(LoggingType.isLoggerPresent(LoggingType.ERROR, loggingTemplate.loggingType())) {
+      threadContextInjector.populateFromException(throwable);
+    }
   }
 }

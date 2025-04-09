@@ -1,4 +1,4 @@
-package com.demo.poc.commons.core.obfuscation.constants;
+package com.demo.poc.commons.core.logging.obfuscation.constants;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
