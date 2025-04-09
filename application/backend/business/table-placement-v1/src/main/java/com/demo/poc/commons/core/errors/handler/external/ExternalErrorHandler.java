@@ -3,7 +3,7 @@ package com.demo.poc.commons.core.errors.handler.external;
 import com.demo.poc.commons.core.errors.dto.ErrorDTO;
 import com.demo.poc.commons.core.errors.dto.ErrorType;
 import com.demo.poc.commons.core.errors.exceptions.ExternalServiceException;
-import com.demo.poc.commons.core.errors.exceptions.NoSuchStrategyException;
+import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientErrorStrategyException;
 import com.demo.poc.commons.core.errors.handler.external.strategy.ExternalErrorWrapper;
 import com.demo.poc.commons.core.errors.handler.external.strategy.RestClientErrorStrategy;
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
@@ -56,7 +56,7 @@ public class ExternalErrorHandler {
         .stream()
         .filter(service -> service.supports(errorWrapperClass))
         .findFirst()
-        .orElseThrow(NoSuchStrategyException::new);
+        .orElseThrow(NoSuchRestClientErrorStrategyException::new);
   }
 
   private Pair<String, String> emptyResponse(ErrorDTO defaultError) {
