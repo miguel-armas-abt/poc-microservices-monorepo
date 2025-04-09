@@ -1,15 +1,14 @@
-package com.demo.poc.commons.custom.exceptions;
+package com.demo.poc.commons.core.errors.exceptions;
 
 import com.demo.poc.commons.core.errors.dto.ErrorDTO;
 import com.demo.poc.commons.core.errors.enums.ErrorDictionary;
-import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import lombok.Getter;
 
 @Getter
-public class PaymentStatusNonUpdatedException extends GenericException {
+public class NoSuchRestClientErrorStrategyException extends GenericException {
 
-  public PaymentStatusNonUpdatedException() {
-    super(ErrorDictionary.PAYMENT_STATUS_NON_UPDATED_EXCEPTION.getMessage());
+  public NoSuchRestClientErrorStrategyException() {
+    super(ErrorDictionary.NO_SUCH_REST_CLIENT_ERROR_STRATEGY.getMessage());
 
     ErrorDictionary detail = ErrorDictionary.parse(this.getClass());
     this.httpStatus = detail.getHttpStatus();
