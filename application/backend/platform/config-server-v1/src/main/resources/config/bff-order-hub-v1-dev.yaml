@@ -1,12 +1,16 @@
 configuration:
   project-type: BFF
 
-  enabled-loggers:
-    error: true
-    rest.server.req: false
-    rest.server.res: false
-    rest.client.req: true
-    rest.client.res: true
+  logging:
+    logging-type:
+      error: true
+      rest.server.req: false
+      rest.server.res: false
+      rest.client.req: true
+      rest.client.res: true
+    obfuscation:
+      body-fields: [ ]
+      headers: [ ]
 
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
@@ -72,10 +76,6 @@ configuration:
           forwarded:
             trace-id: trace-id
             channel-id: channel-id
-
-  obfuscation:
-    body-fields: []
-    headers: []
 
   menu-info:
     selector-class: ${MENU_REPOSITORY_SELECTOR:com.demo.poc.entrypoint.menu.repository.MenuV1Repository}

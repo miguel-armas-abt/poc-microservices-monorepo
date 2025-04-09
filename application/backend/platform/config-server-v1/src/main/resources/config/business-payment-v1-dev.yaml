@@ -1,6 +1,11 @@
 configuration:
   project-type: MS
 
+  logging:
+    obfuscation:
+      body-fields: [ ]
+      headers: [ ]
+
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
@@ -20,10 +25,6 @@ configuration:
           forwarded:
             trace-id: trace-id
             channel-id: channel-id
-
-  obfuscation:
-    body-fields: []
-    headers: []
 
 kafka-broker:
   topic:

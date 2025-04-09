@@ -3,7 +3,7 @@ package com.demo.poc.commons.core.properties;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientException;
 import com.demo.poc.commons.core.logging.enums.LoggingType;
 import com.demo.poc.commons.core.properties.cache.CacheTemplate;
-import com.demo.poc.commons.core.properties.obfuscation.ObfuscationTemplate;
+import com.demo.poc.commons.core.properties.logging.LoggingTemplate;
 import com.demo.poc.commons.core.properties.restclient.HeaderTemplate;
 import com.demo.poc.commons.core.properties.restclient.PerformanceTemplate;
 import com.demo.poc.commons.core.properties.restclient.RestClient;
@@ -19,15 +19,13 @@ public abstract class ConfigurationBaseProperties {
 
   protected ProjectType projectType;
 
-  protected Map<String, Boolean> enabledLoggers;
+  protected LoggingTemplate logging;
 
   protected Map<String, String> errorMessages;
 
   protected Map<String, RestClient> restClients;
 
   protected Map<String, CacheTemplate> cache;
-
-  protected ObfuscationTemplate obfuscation;
 
   public PerformanceTemplate searchPerformance(String serviceName) {
     return searchRestClient(serviceName).getPerformance();
@@ -51,7 +49,7 @@ public abstract class ConfigurationBaseProperties {
   }
 
   public boolean isLoggerPresent(LoggingType loggingType) {
-    return Optional.ofNullable(this.getEnabledLoggers())
+    return Optional.ofNullable(this.getLogging().getLoggingType())
         .filter(enabledLoggers -> enabledLoggers.containsKey(loggingType.getCode()))
         .map(enabledLoggers -> enabledLoggers.get(loggingType.getCode()))
         .orElseGet(() -> Boolean.FALSE);

@@ -8,6 +8,15 @@ spring:
 configuration:
   project-type: MS
 
+  logging:
+    logging-type:
+      error: true
+      rest.server.req: true
+      rest.server.res: true
+    obfuscation:
+      body-fields: [ ]
+      headers: [ ]
+
   keycloak:
     base-url: http://${KEYCLOAK_DOMAIN:localhost:8091}/auth/realms/poc-management/protocol/openid-connect/
     client-id: front-poc-app
@@ -20,8 +29,6 @@ configuration:
 
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
-    ExpiredToken: Ocurrió un error durante la autenticación.
-    InvalidJWT: Ocurrió un error durante la autenticación.
 
   rest-clients:
     auth-token:

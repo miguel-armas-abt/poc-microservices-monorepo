@@ -1,9 +1,9 @@
 package com.demo.poc.commons.core.logging;
 
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
-import com.demo.poc.commons.core.properties.obfuscation.ObfuscationTemplate;
-import com.demo.poc.commons.core.obfuscation.body.BodyObfuscator;
-import com.demo.poc.commons.core.obfuscation.header.HeaderObfuscator;
+import com.demo.poc.commons.core.properties.logging.ObfuscationTemplate;
+import com.demo.poc.commons.core.logging.obfuscation.body.BodyObfuscator;
+import com.demo.poc.commons.core.logging.obfuscation.header.HeaderObfuscator;
 import com.demo.poc.commons.core.tracing.utils.TraceHeaderExtractor;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class ThreadContextInjector {
 
   @PostConstruct
   public void init() {
-    this.obfuscation = properties.getObfuscation();
+    this.obfuscation = properties.getLogging().getObfuscation();
   }
 
   private static void putInContext(String key, String value) {

@@ -19,12 +19,16 @@ spring:
 configuration:
   project-type: MS
 
-  enabled-loggers:
-    error: true
-    rest.server.req: false
-    rest.server.res: false
-    rest.client.req: true
-    rest.client.res: true
+  logging:
+    logging-type:
+      error: true
+      rest.server.req: false
+      rest.server.res: false
+      rest.client.req: true
+      rest.client.res: true
+    obfuscation:
+      body-fields: ["accessToken"]
+      headers: ["Authorization"]
 
   authentication:
     enable-auth: ${ENABLE_AUTH:false}
@@ -50,12 +54,6 @@ configuration:
           forwarded:
             Authorization: Authorization
             channel-id: channel-id
-
-  obfuscation:
-    body-fields: ["accessToken"]
-    headers: ["Authorization"]
-    header-obfuscation-type:
-      "Authorization": STANDARD
 
 # actuator endpoints
 management:

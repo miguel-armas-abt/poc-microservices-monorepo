@@ -1,12 +1,16 @@
 configuration:
   project-type: MS
 
-  enabled-loggers:
-    error: true
-    rest.server.req: false
-    rest.server.res: false
-    rest.client.req: true
-    rest.client.res: true
+  logging:
+    logging-type:
+      error: true
+      rest.server.req: false
+      rest.server.res: false
+      rest.client.req: true
+      rest.client.res: true
+    obfuscation:
+      body-fields: [ ]
+      headers: [ ]
 
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
@@ -31,10 +35,6 @@ configuration:
 
   features:
     menu-categories: [main, drink, dessert]
-
-  obfuscation:
-    body-fields: []
-    headers: []
 
 spring:
   redis:
