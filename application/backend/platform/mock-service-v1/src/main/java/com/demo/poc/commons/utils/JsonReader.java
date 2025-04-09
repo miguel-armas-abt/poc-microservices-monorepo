@@ -1,13 +1,17 @@
-package com.demo.poc.commons;
+package com.demo.poc.commons.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.FileCopyUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public class TemplateConfig {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class JsonReader {
+
     public static final String readJSON(String filename) throws IOException {
         ClassPathResource classPathResource = new ClassPathResource(filename);
 

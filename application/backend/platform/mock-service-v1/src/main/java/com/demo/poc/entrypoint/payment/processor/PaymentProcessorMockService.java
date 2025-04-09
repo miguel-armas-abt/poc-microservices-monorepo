@@ -1,12 +1,12 @@
-package com.demo.poc.service.payment.processor;
+package com.demo.poc.entrypoint.payment.processor;
 
-import static com.demo.poc.commons.toolkit.delay.DelayGenerator.generateRandomDelay;
-import static com.demo.poc.commons.toolkit.headers.HeadersGenerator.contentType;
-import static com.demo.poc.commons.toolkit.headers.HeadersGenerator.generateTraceId;
+import static com.demo.poc.commons.utils.DelayGenerator.generateRandomDelay;
+import static com.demo.poc.commons.utils.HeadersGenerator.contentType;
+import static com.demo.poc.commons.utils.HeadersGenerator.generateTraceId;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 
-import com.demo.poc.commons.MockRuleProvider;
+import com.demo.poc.commons.config.MockService;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import org.mockserver.integration.ClientAndServer;
@@ -15,7 +15,7 @@ import org.mockserver.model.HttpStatusCode;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PaymentProcessorServiceMock implements MockRuleProvider {
+public class PaymentProcessorMockService implements MockService {
 
   @Override
   public void loadMocks(ClientAndServer mockServer) throws IOException {
@@ -24,8 +24,10 @@ public class PaymentProcessorServiceMock implements MockRuleProvider {
             .withMethod("POST")
             .withPath("/external/payments/v1/execute"))
         .respond(request -> {
+
           long randomDelay = generateRandomDelay();
           Header traceIdHeader = generateTraceId();
+
           return response()
               .withStatusCode(HttpStatusCode.OK_200.code())
               .withHeader(contentType("application/x-ndjson"))

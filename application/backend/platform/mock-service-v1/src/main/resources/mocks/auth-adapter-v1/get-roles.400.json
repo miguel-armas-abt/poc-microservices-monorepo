@@ -1,5 +1,5 @@
 {
-  "code": "JWTNotValid",
-  "message": "Ocurrió un error durante la autenticación.",
+  "code": "03.01.03",
+  "message": "Invalid JWT.",
   "type": "BUSINES"
 }

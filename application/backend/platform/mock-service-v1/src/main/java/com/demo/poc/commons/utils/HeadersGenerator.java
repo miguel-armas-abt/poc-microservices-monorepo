@@ -1,4 +1,4 @@
-package com.demo.poc.commons.toolkit.headers;
+package com.demo.poc.commons.utils;
 
 import static org.mockserver.model.Header.header;
 

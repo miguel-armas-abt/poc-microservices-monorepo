@@ -1,23 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.FileAppender">
-        <file>logs/smp-web-mock-service.log</file>
-        <append>false</append>
-        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
-        <encoder class="com.newrelic.logging.logback.NewRelicEncoder"/>
-    </appender>
 
-    <appender name="ASYNC" class="com.newrelic.logging.logback.NewRelicAsyncAppender">
-        <appender-ref ref="STDOUT"/>
-    </appender>
+    <springProperty name="name" source="spring.application.name" />
 
-    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d %-5level [%thread] %logger{0}: %msg%n</pattern>
+<!--    <appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
+<!--        <file>logs/smp-web-mock-service.log</file>-->
+<!--        <append>false</append>-->
+<!--        <encoder class="com.newrelic.logging.logback.NewRelicEncoder"/>-->
+<!--        &lt;!&ndash; ch.qos.logback.classic.encoder.PatternLayoutEncoder by default &ndash;&gt;-->
+<!--    </appender>-->
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="com.newrelic.logging.logback.NewRelicEncoder">
         </encoder>
     </appender>
 
-    <root level="ERROR">
-        <appender-ref ref="ASYNC"/>
-        <appender-ref ref="Console"/>
+    <!-- zipkin level logs -->
+    <logger name="zipkin2" level="ERROR"/>
+    <logger name="zipkin2.reporter.AsyncReporter$BoundedAsyncReporter" level="ERROR"/>
+
+    <root level="INFO">
+<!--        <appender-ref ref="FILE" />-->
+        <appender-ref ref="STDOUT" />
     </root>
+
 </configuration>

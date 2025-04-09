@@ -1,4 +1,4 @@
-package com.demo.poc.commons.toolkit.delay;
+package com.demo.poc.commons.utils;
 
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.AccessLevel;

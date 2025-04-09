@@ -1,10 +1,11 @@
-package com.demo.poc.commons;
+package com.demo.poc.commons.config;
 
 import org.mockserver.integration.ClientAndServer;
 
 import java.io.IOException;
 
-public interface MockRuleProvider {
+public interface MockService {
+
     void loadMocks(ClientAndServer mockServer) throws IOException;
 
 }
