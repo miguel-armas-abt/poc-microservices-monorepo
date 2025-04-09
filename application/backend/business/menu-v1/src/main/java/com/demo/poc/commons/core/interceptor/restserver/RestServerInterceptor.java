@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,6 +40,8 @@ import static com.demo.poc.commons.core.interceptor.restserver.RestServerInterce
 @RequiredArgsConstructor
 public class RestServerInterceptor implements Filter {
 
+  private static final List<String> EXCLUDED_PATHS = List.of("/h2-console", "/swagger-ui", "/actuator");
+
   private final ThreadContextInjector threadContextInjector;
   private final ConfigurationBaseProperties properties;
 
@@ -49,6 +52,13 @@ public class RestServerInterceptor implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
+    HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+    String requestUri = httpRequest.getRequestURI();
+    if (EXCLUDED_PATHS.stream().anyMatch(requestUri::startsWith)) {
+      chain.doFilter(request, response);
+      return;
+    }
 
     BufferingHttpServletResponse bufferingResponse = new BufferingHttpServletResponse((HttpServletResponse) response);
     BufferingHttpServletRequest bufferingRequest = new BufferingHttpServletRequest(httpRequest);
