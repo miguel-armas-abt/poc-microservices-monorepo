@@ -1,0 +1,77 @@
+Subject: [PATCH] setup_h2
+---
+Index: application/backend/business/menu-v1/pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/application/backend/business/menu-v1/pom.xml b/application/backend/business/menu-v1/pom.xml
+--- a/application/backend/business/menu-v1/pom.xml	(revision 94d4d464cc6696edf508ffce75adc9073cbae81e)
++++ b/application/backend/business/menu-v1/pom.xml	(date 1744232655362)
+@@ -41,15 +41,15 @@
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-data-jpa</artifactId>
+         </dependency>
+-        <dependency><!-- mysql -->
+-            <groupId>mysql</groupId>
+-            <artifactId>mysql-connector-java</artifactId>
+-            <version>${mysql-version}</version>
+-        </dependency>
++<!--        <dependency>&lt;!&ndash; mysql &ndash;&gt;-->
++<!--            <groupId>mysql</groupId>-->
++<!--            <artifactId>mysql-connector-java</artifactId>-->
++<!--            <version>${mysql-version}</version>-->
++<!--        </dependency>-->
+         <dependency>
+             <groupId>com.h2database</groupId>
+             <artifactId>h2</artifactId>
+-            <scope>test</scope>
++            <scope>runtime</scope>
+         </dependency>
+ 
+     </dependencies>
+Index: application/backend/platform/config-server-v1/src/main/resources/config/business-menu-v1-dev.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/application/backend/platform/config-server-v1/src/main/resources/config/business-menu-v1-dev.yaml b/application/backend/platform/config-server-v1/src/main/resources/config/business-menu-v1-dev.yaml
+--- a/application/backend/platform/config-server-v1/src/main/resources/config/business-menu-v1-dev.yaml	(revision 94d4d464cc6696edf508ffce75adc9073cbae81e)
++++ b/application/backend/platform/config-server-v1/src/main/resources/config/business-menu-v1-dev.yaml	(date 1744233774392)
+@@ -18,7 +18,7 @@
+   rest-clients:
+     product-v1:
+       request:
+-        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/poc/business/product/v1/
++        endpoint: http://${PRODUCT_DOMAIN:localhost:8021}/poc/business/product/v1/
+         headers:
+           provided:
+             Accept: application/json
+@@ -47,16 +47,22 @@
+   jpa:
+     show-sql: false
+     hibernate:
+-      ddl-auto: none #create-drop
+-    database-platform: org.hibernate.dialect.MySQL8Dialect
++      ddl-auto: update #create-drop
++    database-platform: org.hibernate.dialect.H2Dialect
+     properties:
+       hibernate:
+         show_sql: true
+         use_sql_comments: false
+         format_sql: true
+ 
++  h2:
++    console:
++      enabled: true #http://localhost:8012/h2-console/
++      settings:
++        web-allow-others: true
+   datasource:
+-    url: jdbc:mysql://${MYSQL_DOMAIN:127.0.0.1:3306}/db_menu_options?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+-    driverClassName: com.mysql.cj.jdbc.Driver
++    url: jdbc:h2:mem:db_menu_options;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
++    driverClassName: org.h2.Driver
++    platform: h2
+     username: ${MYSQL_USERNAME:poc_user}
+     password: ${MYSQL_PASSWORD:qwerty}
+\ No newline at end of file
