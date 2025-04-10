@@ -1,6 +1,6 @@
 package com.demo.poc.commons.core.errors.external;
 
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.dto.ErrorType;
 import com.demo.poc.commons.core.errors.exceptions.ExternalServiceException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientErrorStrategyException;
@@ -33,7 +33,7 @@ public class ExternalErrorHandler {
   public Mono<ExternalServiceException> handleError(ClientResponse clientResponse,
                                                     Class<? extends ExternalErrorWrapper> errorWrapperClass,
                                                     String serviceName) {
-    ErrorDTO defaultError = ErrorDTO.getDefaultError(properties);
+    ErrorDto defaultError = ErrorDto.getDefaultError(properties);
     return clientResponse
         .bodyToMono(String.class)
         .flatMap(jsonBody -> Strings.EMPTY.equals(jsonBody)
@@ -59,7 +59,7 @@ public class ExternalErrorHandler {
         .orElseThrow(NoSuchRestClientErrorStrategyException::new);
   }
 
-  private Pair<String, String> emptyResponse(ErrorDTO defaultError) {
+  private Pair<String, String> emptyResponse(ErrorDto defaultError) {
     return getDefaultResponse(defaultError, "Empty response");
   }
 

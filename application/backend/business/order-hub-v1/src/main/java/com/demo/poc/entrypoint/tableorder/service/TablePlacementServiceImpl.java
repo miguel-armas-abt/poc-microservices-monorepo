@@ -2,7 +2,7 @@ package com.demo.poc.entrypoint.tableorder.service;
 
 import com.demo.poc.commons.custom.exceptions.MenuOptionNotFoundException;
 import com.demo.poc.entrypoint.menu.repository.MenuRepositorySelector;
-import com.demo.poc.entrypoint.tableorder.dto.request.MenuOrderRequestDTO;
+import com.demo.poc.entrypoint.tableorder.dto.request.MenuOrderRequestDto;
 import com.demo.poc.entrypoint.tableorder.repository.TableOrderRepository;
 import com.demo.poc.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import java.util.List;
@@ -23,7 +23,7 @@ public class TablePlacementServiceImpl implements TablePlacementService {
 
   @Override
   public Mono<Void> generateTableOrder(Map<String, String> headers,
-                                       List<MenuOrderRequestDTO> requestedMenuOrders,
+                                       List<MenuOrderRequestDto> requestedMenuOrders,
                                        Integer tableNumber) {
     return Flux.fromIterable(requestedMenuOrders)
         .flatMap(menuOrder -> existsMenuOption(headers, menuOrder))
@@ -31,7 +31,7 @@ public class TablePlacementServiceImpl implements TablePlacementService {
         .ignoreElement();
   }
 
-  private Mono<Void> existsMenuOption(Map<String, String> headers, MenuOrderRequestDTO menuOrderRequest) {
+  private Mono<Void> existsMenuOption(Map<String, String> headers, MenuOrderRequestDto menuOrderRequest) {
     return menuRepositorySelector
         .selectStrategy()
         .findByProductCode(headers, menuOrderRequest.getProductCode())

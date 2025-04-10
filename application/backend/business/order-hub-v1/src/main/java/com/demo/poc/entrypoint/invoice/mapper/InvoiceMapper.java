@@ -1,6 +1,6 @@
 package com.demo.poc.entrypoint.invoice.mapper;
 
-import com.demo.poc.entrypoint.invoice.dto.PaymentSendRequestDTO;
+import com.demo.poc.entrypoint.invoice.dto.PaymentSendRequestDto;
 import com.demo.poc.entrypoint.invoice.repository.wrapper.request.PaymentSendRequestWrapper;
 import com.demo.poc.entrypoint.invoice.repository.wrapper.request.ProductRequestWrapper;
 import com.demo.poc.entrypoint.menu.repository.wrapper.response.MenuOptionResponseWrapper;
@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface InvoiceMapper {
 
-  PaymentSendRequestWrapper toPaymentRequest(PaymentSendRequestDTO paymentSendRequestDTO);
+  PaymentSendRequestWrapper toPaymentRequest(PaymentSendRequestDto paymentSendRequestDTO);
 
   @Mapping(target = "description", source = "menuOption.description")
   @Mapping(target = "productCode", source = "menuOption.productCode")

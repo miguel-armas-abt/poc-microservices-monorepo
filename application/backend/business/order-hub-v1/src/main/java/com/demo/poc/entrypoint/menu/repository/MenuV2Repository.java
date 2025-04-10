@@ -6,7 +6,7 @@ import com.demo.poc.commons.core.restclient.StreamingTransformer;
 import com.demo.poc.commons.core.restclient.WebClientFactory;
 import com.demo.poc.entrypoint.menu.repository.wrapper.response.MenuOptionResponseWrapper;
 import com.demo.poc.entrypoint.menu.repository.wrapper.request.MenuOptionSaveRequestWrapper;
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.external.ExternalErrorHandler;
 import jakarta.annotation.PostConstruct;
 import java.util.Map;
@@ -119,7 +119,7 @@ public class MenuV2Repository implements MenuRepository {
   }
 
   private Mono<? extends Throwable> handleError(ClientResponse clientResponse) {
-    return externalErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME_MENU_V2);
+    return externalErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME_MENU_V2);
   }
 
   @Override

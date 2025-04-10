@@ -4,8 +4,8 @@ import com.demo.poc.commons.core.properties.restclient.HeaderTemplate;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.WebClientFactory;
 import com.demo.poc.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
-import com.demo.poc.entrypoint.tableorder.dto.request.MenuOrderRequestDTO;
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
+import com.demo.poc.entrypoint.tableorder.dto.request.MenuOrderRequestDto;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.external.ExternalErrorHandler;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
@@ -41,7 +41,7 @@ public class TableOrderRepository {
   }
 
   public Mono<Void> generateTableOrder(Map<String, String> headers,
-                                       List<MenuOrderRequestDTO> requestedMenuOrderList,
+                                       List<MenuOrderRequestDto> requestedMenuOrderList,
                                        Integer tableNumber) {
     return webClient.patch()
         .uri(UriComponentsBuilder
@@ -90,6 +90,6 @@ public class TableOrderRepository {
   }
 
   private Mono<? extends Throwable> handleError(ClientResponse clientResponse) {
-    return externalErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME_TABLE_PLACEMENT);
+    return externalErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME_TABLE_PLACEMENT);
   }
 }

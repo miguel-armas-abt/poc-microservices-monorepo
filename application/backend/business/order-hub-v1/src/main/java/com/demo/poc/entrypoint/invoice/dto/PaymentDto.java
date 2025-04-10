@@ -10,13 +10,9 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerDTO implements Serializable {
+public class PaymentDto implements Serializable {
 
   @NotNull
   @NotEmpty
-  private String documentType;
-
-  @NotNull
-  @NotEmpty
-  private String documentNumber;
+  private String method;
 }

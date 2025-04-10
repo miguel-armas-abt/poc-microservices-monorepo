@@ -1,6 +1,6 @@
 package com.demo.poc.entrypoint.invoice.service;
 
-import com.demo.poc.entrypoint.invoice.dto.PaymentSendRequestDTO;
+import com.demo.poc.entrypoint.invoice.dto.PaymentSendRequestDto;
 import com.demo.poc.entrypoint.invoice.mapper.InvoiceMapper;
 import com.demo.poc.entrypoint.invoice.repository.InvoiceRepository;
 import com.demo.poc.entrypoint.invoice.repository.wrapper.request.PaymentSendRequestWrapper;
@@ -31,7 +31,7 @@ public class InvoiceServiceImpl implements InvoiceService {
   }
 
   @Override
-  public Mono<Void> sendToPay(Map<String, String> headers, PaymentSendRequestDTO paymentSendRequest) {
+  public Mono<Void> sendToPay(Map<String, String> headers, PaymentSendRequestDto paymentSendRequest) {
     int tableNumber = paymentSendRequest.getTableNumber();
     PaymentSendRequestWrapper paymentRequest = invoiceMapper.toPaymentRequest(paymentSendRequest);
     paymentRequest.setProductList(new ArrayList<>());

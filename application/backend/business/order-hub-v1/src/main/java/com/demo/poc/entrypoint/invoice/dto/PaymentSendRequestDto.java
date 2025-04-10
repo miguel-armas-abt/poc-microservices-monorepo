@@ -1,7 +1,6 @@
 package com.demo.poc.entrypoint.invoice.dto;
 
 import java.io.Serializable;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -10,9 +9,14 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentDTO implements Serializable {
+public class PaymentSendRequestDto implements Serializable {
 
   @NotNull
-  @NotEmpty
-  private String method;
+  private Integer tableNumber;
+
+  @NotNull
+  private CustomerDto customer;
+
+  @NotNull
+  private PaymentDto payment;
 }

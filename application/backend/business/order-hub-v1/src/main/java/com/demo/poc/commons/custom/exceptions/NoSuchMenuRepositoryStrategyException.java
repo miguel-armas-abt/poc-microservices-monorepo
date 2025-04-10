@@ -1,6 +1,5 @@
 package com.demo.poc.commons.custom.exceptions;
 
-import com.demo.poc.commons.core.errors.enums.ErrorDictionary;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import lombok.Getter;
 

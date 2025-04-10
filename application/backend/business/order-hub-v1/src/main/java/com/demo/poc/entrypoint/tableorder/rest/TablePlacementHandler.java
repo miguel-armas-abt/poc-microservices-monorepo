@@ -4,7 +4,7 @@ import com.demo.poc.commons.core.validations.body.BodyValidator;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.headers.HeaderValidator;
 import com.demo.poc.commons.core.validations.params.ParamValidator;
-import com.demo.poc.entrypoint.tableorder.dto.request.MenuOrderRequestDTO;
+import com.demo.poc.entrypoint.tableorder.dto.request.MenuOrderRequestDto;
 import com.demo.poc.entrypoint.tableorder.dto.params.TableNumberParam;
 import com.demo.poc.entrypoint.tableorder.service.TablePlacementService;
 import com.demo.poc.commons.core.restserver.ServerResponseBuilder;
@@ -32,7 +32,7 @@ public class TablePlacementHandler {
     headerValidator.validate(headers, DefaultHeaders.class);
     TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
-    return serverRequest.bodyToFlux(MenuOrderRequestDTO.class)
+    return serverRequest.bodyToFlux(MenuOrderRequestDto.class)
         .doOnNext(bodyValidator::validate)
         .collectList()
         .flatMap(requestedMenuOrders -> tablePlacementService.generateTableOrder(headers, requestedMenuOrders, tableNumberParam.getTableNumber()))

@@ -4,7 +4,7 @@ import com.demo.poc.commons.core.restserver.ServerResponseBuilder;
 import com.demo.poc.commons.core.validations.body.BodyValidator;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.headers.HeaderValidator;
-import com.demo.poc.entrypoint.invoice.dto.PaymentSendRequestDTO;
+import com.demo.poc.entrypoint.invoice.dto.PaymentSendRequestDto;
 import com.demo.poc.entrypoint.invoice.service.InvoiceService;
 import com.demo.poc.entrypoint.invoice.repository.wrapper.request.ProductRequestWrapper;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class InvoiceHandler {
     headerValidator.validate(headers, DefaultHeaders.class);
 
     return serverRequest
-        .bodyToMono(PaymentSendRequestDTO.class)
+        .bodyToMono(PaymentSendRequestDto.class)
         .doOnNext(bodyValidator::validate)
         .flatMap(request -> invoiceService.sendToPay(headers, request))
         .then(ServerResponseBuilder.buildEmpty(serverRequest.headers()));
