@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 public class ParamReflectiveMapper {
 
   private static final Map<Class<?>, Function<String, ?>> fieldTypeConverters = new HashMap<>();
-
   static {
     fieldTypeConverters.put(Integer.class, Integer::parseInt);
     fieldTypeConverters.put(Double.class, Double::parseDouble);
@@ -66,7 +65,7 @@ public class ParamReflectiveMapper {
               .map(ParamName::value)
               .orElseGet(field::getName);
 
-          if (isFieldNameSensitiveCase)
+          if(isFieldNameSensitiveCase)
             paramName = paramName.toLowerCase();
 
           Optional.ofNullable(processedParams.get(paramName))

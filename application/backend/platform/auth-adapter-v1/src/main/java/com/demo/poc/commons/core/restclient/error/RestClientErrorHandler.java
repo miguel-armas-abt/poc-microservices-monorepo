@@ -1,9 +1,8 @@
-package com.demo.poc.commons.core.errors.external;
+package com.demo.poc.commons.core.restclient.error;
 
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.dto.ErrorType;
 import com.demo.poc.commons.core.errors.exceptions.JsonReadException;
-import com.demo.poc.commons.core.errors.external.strategy.RestClientErrorStrategy;
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -17,10 +16,10 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ExternalErrorHandlerUtil {
+public class RestClientErrorHandler {
 
   public static Pair<ErrorDto, HttpStatus> build(Response response,
-                                                 List<RestClientErrorStrategy> serviceList,
+                                                 List<RestClientErrorExtractor> serviceList,
                                                  ConfigurationBaseProperties properties) {
 
     AtomicReference<Pair<String, String>> atomicPair = new AtomicReference<>();
