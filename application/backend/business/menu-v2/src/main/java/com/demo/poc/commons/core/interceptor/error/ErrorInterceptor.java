@@ -1,6 +1,6 @@
 package com.demo.poc.commons.core.interceptor.error;
 
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.exceptions.ExternalServiceException;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchLoggingTemplateException;
@@ -26,7 +26,7 @@ public class ErrorInterceptor implements ExceptionMapper<Throwable> {
   public Response toResponse(Throwable throwable) {
     generateTrace(throwable);
 
-    ErrorDTO error = ErrorDTO.getDefaultError(properties);
+    ErrorDto error = ErrorDto.getDefaultError(properties);
     Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
 
     if (throwable instanceof WebApplicationException webApplicationException) {

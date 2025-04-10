@@ -1,6 +1,6 @@
 package com.demo.poc.commons.core.interceptor.error;
 
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.logging.ThreadContextInjector;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import jakarta.validation.ConstraintViolationException;
@@ -19,7 +19,7 @@ public class ConstraintErrorInterceptor implements ExceptionMapper<ConstraintVio
   public Response toResponse(ConstraintViolationException exception) {
     threadContextInjector.populateFromException(exception);
 
-    ErrorDTO error = ResponseErrorSelector.toErrorDTO(properties, exception);
+    ErrorDto error = ResponseErrorSelector.toErrorDTO(properties, exception);
     Response.Status status = Response.Status.BAD_REQUEST;
 
     return Response.status(status)

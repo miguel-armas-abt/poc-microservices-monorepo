@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorDTO implements Serializable  {
+public class ErrorDto implements Serializable  {
 
     public static final String CODE_DEFAULT = "Default";
     public static final String CODE_EMPTY = "Empty";
@@ -29,8 +29,8 @@ public class ErrorDTO implements Serializable  {
 
     private String message;
 
-    public static ErrorDTO getDefaultError(ConfigurationBaseProperties properties) {
-        return ErrorDTO
+    public static ErrorDto getDefaultError(ConfigurationBaseProperties properties) {
+        return ErrorDto
             .builder()
             .code(CODE_DEFAULT)
             .message(getMatchMessage(properties, CODE_DEFAULT))
