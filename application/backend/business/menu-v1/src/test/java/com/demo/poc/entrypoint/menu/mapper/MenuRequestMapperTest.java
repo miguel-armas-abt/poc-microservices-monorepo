@@ -1,7 +1,7 @@
 package com.demo.poc.entrypoint.menu.mapper;
 
 import com.demo.poc.commons.core.serialization.JsonSerializer;
-import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDTO;
+import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDto;
 import com.demo.poc.entrypoint.menu.repository.menu.entity.MenuEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -23,13 +23,13 @@ public class MenuRequestMapperTest {
 
   private MenuEntity menuEntity;
 
-  private MenuSaveRequestDTO menuOptionSaveRequest;
+  private MenuSaveRequestDto menuOptionSaveRequest;
 
   @BeforeEach
   public void setup() {
     JsonSerializer jsonSerializer = new JsonSerializer(new ObjectMapper());
     menuEntity = jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity.class).get(0);
-    menuOptionSaveRequest = jsonSerializer.readElementFromFile("data/menuoption/MenuOptionSaveRequest.json", MenuSaveRequestDTO.class);
+    menuOptionSaveRequest = jsonSerializer.readElementFromFile("data/menuoption/MenuOptionSaveRequest.json", MenuSaveRequestDto.class);
   }
 
   @Test

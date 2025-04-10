@@ -1,6 +1,6 @@
 package com.demo.poc.commons.core.interceptor.error;
 
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.exceptions.ExternalServiceException;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.logging.ThreadContextInjector;
@@ -32,10 +32,10 @@ public class ErrorInterceptor extends ResponseEntityExceptionHandler {
   private final ConfigurationBaseProperties properties;
 
   @ExceptionHandler({Throwable.class})
-  public ResponseEntity<ErrorDTO> handleException(Throwable ex, WebRequest request) {
+  public ResponseEntity<ErrorDto> handleException(Throwable ex, WebRequest request) {
     generateTrace(ex, request);
 
-    ErrorDTO error = ErrorDTO.getDefaultError(properties);
+    ErrorDto error = ErrorDto.getDefaultError(properties);
     HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
     if (ex instanceof ResourceAccessException || ex instanceof ConnectException) {
@@ -60,7 +60,7 @@ public class ErrorInterceptor extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
                                                                 HttpStatusCode status, WebRequest request) {
     generateTrace(ex, request);
-    ErrorDTO error = toErrorDTO(properties, ex);
+    ErrorDto error = toErrorDTO(properties, ex);
     return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
   }
 

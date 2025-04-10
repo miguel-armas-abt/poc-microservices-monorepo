@@ -20,7 +20,7 @@ import static com.demo.poc.entrypoint.menu.constants.ParameterConstants.CATEGORY
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuUpdateRequestDTO implements Serializable {
+public class MenuUpdateRequestDto implements Serializable {
 
   @Size(min = 3, max = 300)
   @NotEmpty

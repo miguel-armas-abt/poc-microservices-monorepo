@@ -1,8 +1,8 @@
 package com.demo.poc.entrypoint.menu.repository;
 
 import com.demo.poc.commons.custom.exceptions.MenuOptionNotFoundException;
-import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
+import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDto;
+import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDto;
 import com.demo.poc.entrypoint.menu.mapper.MenuRequestMapper;
 import com.demo.poc.entrypoint.menu.repository.menu.MenuRepository;
 import com.demo.poc.entrypoint.menu.repository.menu.entity.MenuEntity;
@@ -37,12 +37,12 @@ public class MenuAndProductJoiner {
     return menuAndProductMap;
   }
 
-  public void save(Map<String, String> headers, MenuSaveRequestDTO menuOption) {
+  public void save(Map<String, String> headers, MenuSaveRequestDto menuOption) {
     productRepository.save(headers, mapper.toRequestWrapper(menuOption, PRODUCT_SCOPE));
     menuRepository.save(mapper.toEntity(menuOption));
   }
 
-  public void update(Map<String, String> headers, String productCode, MenuUpdateRequestDTO menuOption) {
+  public void update(Map<String, String> headers, String productCode, MenuUpdateRequestDto menuOption) {
     menuRepository.findByProductCode(productCode)
         .map(menuOptionFound -> {
           MenuEntity menuEntity = mapper.toEntity(menuOption, productCode);

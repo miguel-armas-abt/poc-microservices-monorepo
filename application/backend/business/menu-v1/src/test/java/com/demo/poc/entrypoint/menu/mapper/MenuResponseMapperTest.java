@@ -1,7 +1,7 @@
 package com.demo.poc.entrypoint.menu.mapper;
 
 import com.demo.poc.commons.core.serialization.JsonSerializer;
-import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDTO;
+import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDto;
 import com.demo.poc.entrypoint.menu.repository.menu.entity.MenuEntity;
 import com.demo.poc.entrypoint.menu.repository.product.wrapper.response.ProductResponseWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +25,7 @@ public class MenuResponseMapperTest {
   private MenuEntity menuEntity;
   private ProductResponseWrapper productWrapper;
 
-  private MenuResponseDTO menuOption;
+  private MenuResponseDto menuOption;
 
 
   @BeforeEach
@@ -33,7 +33,7 @@ public class MenuResponseMapperTest {
     JsonSerializer jsonSerializer = new JsonSerializer(new ObjectMapper());
     menuEntity = jsonSerializer.readListFromFile("data/menuoption/MenuOptionEntity_Array.json", MenuEntity.class).get(0);
     productWrapper = jsonSerializer.readListFromFile("data/product/ProductDto_Array.json", ProductResponseWrapper.class).get(0);
-    menuOption = jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDTO.class).get(0);
+    menuOption = jsonSerializer.readListFromFile("data/menuoption/MenuOption_Array.json", MenuResponseDto.class).get(0);
   }
 
   @Test

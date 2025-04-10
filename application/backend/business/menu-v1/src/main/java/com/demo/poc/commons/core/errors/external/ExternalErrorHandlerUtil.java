@@ -1,6 +1,6 @@
 package com.demo.poc.commons.core.errors.external;
 
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.dto.ErrorType;
 import com.demo.poc.commons.core.errors.exceptions.ExternalServiceException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientErrorStrategyException;
@@ -30,7 +30,7 @@ public class ExternalErrorHandlerUtil {
                                                String serviceName,
                                                List<RestClientErrorStrategy> serviceList,
                                                ConfigurationBaseProperties properties) {
-    ErrorDTO defaultError = ErrorDTO.getDefaultError(properties);
+    ErrorDto defaultError = ErrorDto.getDefaultError(properties);
 
     String jsonBody = httpException.getResponseBodyAsString();
 

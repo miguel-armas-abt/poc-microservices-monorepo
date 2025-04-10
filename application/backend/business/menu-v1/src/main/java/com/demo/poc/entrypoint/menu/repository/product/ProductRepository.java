@@ -1,6 +1,6 @@
 package com.demo.poc.entrypoint.menu.repository.product;
 
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.CustomRestTemplate;
 import com.demo.poc.commons.core.restclient.dto.ExchangeRequestDTO;
@@ -32,7 +32,7 @@ public class ProductRepository {
             .httpMethod(HttpMethod.GET)
             .uriVariables(Collections.singletonMap("code", code))
             .responseClass(ProductResponseWrapper.class)
-            .errorWrapperClass(ErrorDTO.class)
+            .errorWrapperClass(ErrorDto.class)
             .headers(headers)
             .build(), SERVICE_NAME);
   }
@@ -44,7 +44,7 @@ public class ProductRepository {
             .httpMethod(HttpMethod.GET)
             .uriVariables(Collections.singletonMap("scope", scope))
             .responseClass(ProductResponseWrapper[].class)
-            .errorWrapperClass(ErrorDTO.class)
+            .errorWrapperClass(ErrorDto.class)
             .headers(headers)
             .build(), SERVICE_NAME));
   }
@@ -56,7 +56,7 @@ public class ProductRepository {
             .httpMethod(HttpMethod.POST)
             .requestBody(productRequest)
             .responseClass(Void.class)
-            .errorWrapperClass(ErrorDTO.class)
+            .errorWrapperClass(ErrorDto.class)
             .headers(headers)
             .build(), SERVICE_NAME);
   }
@@ -69,7 +69,7 @@ public class ProductRepository {
             .uriVariables(Collections.singletonMap("code", code))
             .requestBody(productRequest)
             .responseClass(Void.class)
-            .errorWrapperClass(ErrorDTO.class)
+            .errorWrapperClass(ErrorDto.class)
             .headers(headers)
             .build(), SERVICE_NAME);
   }
@@ -81,7 +81,7 @@ public class ProductRepository {
             .httpMethod(HttpMethod.DELETE)
             .uriVariables(Collections.singletonMap("code", code))
             .responseClass(Void.class)
-            .errorWrapperClass(ErrorDTO.class)
+            .errorWrapperClass(ErrorDto.class)
             .headers(headers)
             .build(), SERVICE_NAME);
   }

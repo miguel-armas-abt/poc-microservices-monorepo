@@ -3,9 +3,9 @@ package com.demo.poc.entrypoint.menu.service;
 import com.demo.poc.commons.custom.exceptions.InvalidMenuCategoryException;
 import com.demo.poc.commons.custom.exceptions.MenuOptionNotFoundException;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
-import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDTO;
+import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDto;
+import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDto;
+import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDto;
 import com.demo.poc.entrypoint.menu.mapper.MenuResponseMapper;
 import com.demo.poc.entrypoint.menu.repository.MenuAndProductCache;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +28,13 @@ public class MenuServiceImpl implements MenuService {
   private final ApplicationProperties properties;
 
   @Override
-  public List<MenuResponseDTO> findByCategory(Map<String, String> headers, String categoryCode) {
+  public List<MenuResponseDto> findByCategory(Map<String, String> headers, String categoryCode) {
     return Optional.ofNullable(categoryCode).isEmpty()
         ? this.findAll(headers)
         : this.validateMenuOptionAndFindByCategory(headers, categoryCode);
   }
 
-  private List<MenuResponseDTO> validateMenuOptionAndFindByCategory(Map<String, String> headers, String categoryCode) {
+  private List<MenuResponseDto> validateMenuOptionAndFindByCategory(Map<String, String> headers, String categoryCode) {
     validateCategory(categoryCode);
     return this.findAll(headers)
         .stream()
@@ -43,7 +43,7 @@ public class MenuServiceImpl implements MenuService {
   }
 
   @Override
-  public MenuResponseDTO findByProductCode(Map<String, String> headers, String productCode) {
+  public MenuResponseDto findByProductCode(Map<String, String> headers, String productCode) {
     return this.findAll(headers)
         .stream()
         .filter(menuOption -> productCode.equals(menuOption.getProductCode()))
@@ -52,12 +52,12 @@ public class MenuServiceImpl implements MenuService {
   }
 
   @Override
-  public void save(Map<String, String> headers, MenuSaveRequestDTO menuOption) {
+  public void save(Map<String, String> headers, MenuSaveRequestDto menuOption) {
     menuAndProductCache.save(headers, menuOption);
   }
 
   @Override
-  public void update(Map<String, String> headers, String productCode, MenuUpdateRequestDTO menuOption) {
+  public void update(Map<String, String> headers, String productCode, MenuUpdateRequestDto menuOption) {
     menuAndProductCache.update(headers, productCode, menuOption);
   }
 
@@ -66,7 +66,7 @@ public class MenuServiceImpl implements MenuService {
     menuAndProductCache.deleteByProductCode(headers, productCode);
   }
 
-  private List<MenuResponseDTO> findAll(Map<String, String> headers) {
+  private List<MenuResponseDto> findAll(Map<String, String> headers) {
     return mapper.toResponseDTO(menuAndProductCache.findAll(headers));
   }
 

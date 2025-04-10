@@ -20,7 +20,7 @@ import static com.demo.poc.entrypoint.menu.constants.ParameterConstants.CATEGORY
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuSaveRequestDTO implements Serializable {
+public class MenuSaveRequestDto implements Serializable {
 
   @NotEmpty
   private String productCode;

@@ -4,9 +4,9 @@ import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.headers.HeaderValidator;
 import com.demo.poc.commons.core.validations.params.ParamValidator;
 import com.demo.poc.entrypoint.menu.dto.params.CategoryParam;
-import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDTO;
+import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDto;
+import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDto;
+import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDto;
 import com.demo.poc.entrypoint.menu.service.MenuService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -47,7 +47,7 @@ public class MenuRestService {
   private final HeaderValidator headerValidator;
 
   @GetMapping(value = "/{productCode}")
-  public ResponseEntity<MenuResponseDTO> findByProductCode(HttpServletRequest servletRequest,
+  public ResponseEntity<MenuResponseDto> findByProductCode(HttpServletRequest servletRequest,
                                                            @PathVariable(name = PRODUCT_CODE_PARAM) String productCode) {
     return Optional.of(extractHeadersAsMap(servletRequest))
         .stream()
@@ -58,7 +58,7 @@ public class MenuRestService {
   }
 
   @GetMapping
-  public ResponseEntity<List<MenuResponseDTO>> findByCategory(HttpServletRequest servletRequest,
+  public ResponseEntity<List<MenuResponseDto>> findByCategory(HttpServletRequest servletRequest,
                                                               @RequestParam(value = CATEGORY_PARAM, required = false) String categoryCode) {
     return Optional.of(extractHeadersAsMap(servletRequest)).stream()
         .peek(headers -> headerValidator.validate(headers, DefaultHeaders.class))
@@ -77,7 +77,7 @@ public class MenuRestService {
 
   @PostMapping
   public ResponseEntity<Void> save(HttpServletRequest servletRequest,
-                                   @Valid @RequestBody MenuSaveRequestDTO menuOption) {
+                                   @Valid @RequestBody MenuSaveRequestDto menuOption) {
     Map<String, String> headers = extractHeadersAsMap(servletRequest);
     headerValidator.validate(headers, DefaultHeaders.class);
     return ResponseEntity.created(buildPostUriLocation.apply(menuOption.getProductCode())).build();
@@ -85,7 +85,7 @@ public class MenuRestService {
 
   @PutMapping(value = "/{productCode}")
   public ResponseEntity<Void> update(HttpServletRequest servletRequest,
-                                     @Valid @RequestBody MenuUpdateRequestDTO menuOption,
+                                     @Valid @RequestBody MenuUpdateRequestDto menuOption,
                                      @PathVariable(PRODUCT_CODE_PARAM) String productCode) {
     Map<String, String> headers = extractHeadersAsMap(servletRequest);
     headerValidator.validate(headers, DefaultHeaders.class);

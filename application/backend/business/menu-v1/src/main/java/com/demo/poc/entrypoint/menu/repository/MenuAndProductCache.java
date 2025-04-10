@@ -1,7 +1,7 @@
 package com.demo.poc.entrypoint.menu.repository;
 
-import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
+import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDto;
+import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDto;
 import com.demo.poc.entrypoint.menu.repository.menu.entity.MenuEntity;
 import com.demo.poc.entrypoint.menu.repository.product.wrapper.response.ProductResponseWrapper;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +27,12 @@ public class MenuAndProductCache {
   }
 
   @CacheEvict(value = CACHE_NAME, allEntries = true)
-  public void save(Map<String, String> headers, MenuSaveRequestDTO menuOption) {
+  public void save(Map<String, String> headers, MenuSaveRequestDto menuOption) {
     joiner.save(headers, menuOption);
   }
 
   @CacheEvict(value = CACHE_NAME, allEntries = true)
-  public void update(Map<String, String> headers, String productCode, MenuUpdateRequestDTO menuOption) {
+  public void update(Map<String, String> headers, String productCode, MenuUpdateRequestDto menuOption) {
     joiner.update(headers, productCode, menuOption);
   }
 

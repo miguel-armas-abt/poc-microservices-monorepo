@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorDTO extends ExternalErrorWrapper implements Serializable {
+public class ErrorDto extends ExternalErrorWrapper implements Serializable {
 
   @Serial
   private static final long serialVersionUID = 281390055501829628L;
@@ -33,8 +33,8 @@ public class ErrorDTO extends ExternalErrorWrapper implements Serializable {
 
   private String message;
 
-  public static ErrorDTO getDefaultError(ConfigurationBaseProperties properties) {
-    return ErrorDTO
+  public static ErrorDto getDefaultError(ConfigurationBaseProperties properties) {
+    return ErrorDto
         .builder()
         .code(CODE_DEFAULT)
         .message(getMatchMessage(properties, CODE_DEFAULT))

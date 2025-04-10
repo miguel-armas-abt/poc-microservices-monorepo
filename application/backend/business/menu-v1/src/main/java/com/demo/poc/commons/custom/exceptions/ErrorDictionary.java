@@ -1,4 +1,4 @@
-package com.demo.poc.commons.core.errors.enums;
+package com.demo.poc.commons.custom.exceptions;
 
 import com.demo.poc.commons.core.errors.dto.ErrorType;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
@@ -9,8 +9,6 @@ import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientErrorStrategy
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientException;
 import com.demo.poc.commons.core.errors.exceptions.ReflectiveParamAssignmentException;
 import com.demo.poc.commons.core.errors.exceptions.ReflectiveParamMappingException;
-import com.demo.poc.commons.custom.exceptions.InvalidMenuCategoryException;
-import com.demo.poc.commons.custom.exceptions.MenuOptionNotFoundException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
