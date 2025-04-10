@@ -9,9 +9,9 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlacementRequestDTO implements Serializable {
+public class PlacementRequestDto implements Serializable {
 
-  private List<MenuOrderDTO> menuOrderList;
+  private List<MenuOrderDto> menuOrderList;
   private Integer tableNumber;
 
 }

@@ -1,4 +1,4 @@
-package com.demo.poc.entrypoint.table.registration.dto.request;
+package com.demo.poc.entrypoint.table.creation.dto.request;
 
 import java.io.Serializable;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TableRegistrationRequestDTO implements Serializable {
+public class TableCreationRequestDto implements Serializable {
 
   @NotNull
   private Integer tableNumber;

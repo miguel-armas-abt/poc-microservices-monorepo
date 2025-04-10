@@ -1,6 +1,6 @@
 package com.demo.poc.commons.core.interceptor.error;
 
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.exceptions.ExternalServiceException;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.logging.enums.LoggingType;
@@ -28,7 +28,7 @@ public class ErrorInterceptor {
   public Mono<Void> handleException(ConfigurationBaseProperties properties, Throwable ex, ServerWebExchange exchange) {
     generateTrace(ex, exchange);
 
-    ErrorDTO error = ErrorDTO.getDefaultError(properties);
+    ErrorDto error = ErrorDto.getDefaultError(properties);
     HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
     if (ex instanceof WebClientRequestException || ex instanceof ConnectException)
@@ -47,7 +47,7 @@ public class ErrorInterceptor {
     return buildResponse(error, httpStatus , exchange);
   }
 
-  private Mono<Void> buildResponse(ErrorDTO error, HttpStatus httpStatus, ServerWebExchange exchange) {
+  private Mono<Void> buildResponse(ErrorDto error, HttpStatus httpStatus, ServerWebExchange exchange) {
     byte[] errorDetailByte = byteSerializer.toBytes(error, error.getMessage());
 
     ServerHttpResponse response = exchange.getResponse();

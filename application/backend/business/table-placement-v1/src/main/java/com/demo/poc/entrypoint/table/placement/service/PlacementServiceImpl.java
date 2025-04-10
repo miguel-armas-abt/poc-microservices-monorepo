@@ -1,8 +1,8 @@
 package com.demo.poc.entrypoint.table.placement.service;
 
 import com.demo.poc.commons.custom.exceptions.TableNotFoundException;
-import com.demo.poc.entrypoint.table.placement.dto.request.MenuOrderDTO;
-import com.demo.poc.entrypoint.table.placement.dto.response.PlacementResponseDTO;
+import com.demo.poc.entrypoint.table.placement.dto.request.MenuOrderDto;
+import com.demo.poc.entrypoint.table.placement.dto.response.PlacementResponseDto;
 import com.demo.poc.entrypoint.table.placement.repository.TableOrderRepository;
 import com.demo.poc.entrypoint.table.placement.mapper.PlacementMapper;
 import com.demo.poc.entrypoint.table.placement.repository.document.MenuOrderDocument;
@@ -27,7 +27,7 @@ public class PlacementServiceImpl implements PlacementService {
   private final PlacementMapper placementMapper;
 
   @Override
-  public Mono<PlacementResponseDTO> findByTableNumber(Integer tableNumber) {
+  public Mono<PlacementResponseDto> findByTableNumber(Integer tableNumber) {
     return tableOrderRepository.findByTableNumber(tableNumber)
         .map(placementMapper::toResponseDTO)
         .switchIfEmpty(Mono.error(TableNotFoundException::new));
@@ -46,14 +46,14 @@ public class PlacementServiceImpl implements PlacementService {
   }
 
   @Override
-  public Mono<Void> generateTableOrder(Flux<MenuOrderDTO> requestedMenuOrders, Integer tableNumber) {
+  public Mono<Void> generateTableOrder(Flux<MenuOrderDto> requestedMenuOrders, Integer tableNumber) {
     return tableOrderRepository.findByTableNumber(tableNumber)
         .flatMap(savedTableOrder -> updateExistingTableOrder(savedTableOrder, requestedMenuOrders))
         .flatMap(tableOrderRepository::save)
         .then(Mono.empty());
   }
 
-  private Mono<TableDocument> updateExistingTableOrder(TableDocument tableOrder, Flux<MenuOrderDTO> requestedMenuOrders) {
+  private Mono<TableDocument> updateExistingTableOrder(TableDocument tableOrder, Flux<MenuOrderDto> requestedMenuOrders) {
     return requestedMenuOrders.collectList()
         .map(requestedMenuOrderList -> {
           Map<String, MenuOrderDocument> existingMenuOrderMap = tableOrder.getMenuOrderList()
@@ -74,7 +74,7 @@ public class PlacementServiceImpl implements PlacementService {
 
   private final BiPredicate<Map<String, MenuOrderDocument>, String> menuOptionAlreadyExist = Map::containsKey;
 
-  private final BiConsumer<Map<String, MenuOrderDocument>, MenuOrderDTO> increaseQuantity = (existingMenuOrderMap, requestedMenuOrder) -> {
+  private final BiConsumer<Map<String, MenuOrderDocument>, MenuOrderDto> increaseQuantity = (existingMenuOrderMap, requestedMenuOrder) -> {
     MenuOrderDocument existingMenuOrder = existingMenuOrderMap.get(requestedMenuOrder.getProductCode());
     existingMenuOrder.setQuantity(existingMenuOrder.getQuantity() + requestedMenuOrder.getQuantity());
     existingMenuOrderMap.put(requestedMenuOrder.getProductCode(), existingMenuOrder);

@@ -2,18 +2,16 @@ package com.demo.poc.entrypoint.table.placement.dto.response;
 
 import lombok.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Builder
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlacementResponseDTO implements Serializable{
+public class MenuOrderDto implements Serializable {
 
-  private List<MenuOrderDTO> menuOrderList;
+  private String productCode;
 
-  private Integer tableNumber;
+  private Integer quantity;
 
-  private String id;
 }

@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuOrderDTO implements Serializable{
+public class MenuOrderDto implements Serializable{
 
   private String productCode;
 

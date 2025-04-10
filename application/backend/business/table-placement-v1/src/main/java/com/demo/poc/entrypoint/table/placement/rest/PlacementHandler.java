@@ -5,7 +5,7 @@ import com.demo.poc.commons.core.validations.body.BodyValidator;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.headers.HeaderValidator;
 import com.demo.poc.commons.core.validations.params.ParamValidator;
-import com.demo.poc.entrypoint.table.placement.dto.request.MenuOrderDTO;
+import com.demo.poc.entrypoint.table.placement.dto.request.MenuOrderDto;
 import com.demo.poc.entrypoint.table.placement.dto.params.TableNumberParam;
 import com.demo.poc.entrypoint.table.placement.service.PlacementService;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +51,7 @@ public class PlacementHandler {
     headerValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
     TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
-    Flux<MenuOrderDTO> requestedMenuOrders = serverRequest.bodyToFlux(MenuOrderDTO.class).doOnNext(bodyValidator::validate);
+    Flux<MenuOrderDto> requestedMenuOrders = serverRequest.bodyToFlux(MenuOrderDto.class).doOnNext(bodyValidator::validate);
 
     return placementService.generateTableOrder(requestedMenuOrders, tableNumberParam.getTableNumber())
         .then(ServerResponseBuilder.buildEmpty(serverRequest.headers()));

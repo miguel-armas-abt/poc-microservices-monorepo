@@ -1,6 +1,6 @@
 package com.demo.poc.commons.core.errors.handler.external;
 
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.dto.ErrorType;
 import com.demo.poc.commons.core.errors.handler.external.strategy.ExternalErrorWrapper;
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
@@ -25,7 +25,7 @@ public class ExternalErrorSelector {
   public static String selectCode(ConfigurationBaseProperties properties,
                                   String errorCode,
                                   String serviceName) {
-    String code = Optional.ofNullable(errorCode).orElseGet(() -> ErrorDTO.CODE_DEFAULT);
+    String code = Optional.ofNullable(errorCode).orElseGet(() -> ErrorDto.CODE_DEFAULT);
     RestClientError defaultError = RestClientError.builder().customCode(code).build();
 
     return findErrors(properties, serviceName)
@@ -39,7 +39,7 @@ public class ExternalErrorSelector {
                                      String errorCode,
                                      String errorMessage,
                                      String serviceName) {
-    String defaultMessage = ErrorDTO.getDefaultError(properties).getMessage();
+    String defaultMessage = ErrorDto.getDefaultError(properties).getMessage();
     RestClientError defaultError = RestClientError.builder().message(defaultMessage).build();
     String message = Optional.ofNullable(errorMessage).orElseGet(() -> defaultMessage);
 
@@ -52,7 +52,7 @@ public class ExternalErrorSelector {
   }
 
   public static ErrorType selectType(Class<? extends ExternalErrorWrapper> errorWrapperClass) {
-    return (errorWrapperClass.isAssignableFrom(ErrorDTO.class))
+    return (errorWrapperClass.isAssignableFrom(ErrorDto.class))
         ? ErrorType.FORWARDED
         : ErrorType.EXTERNAL;
   }
@@ -63,7 +63,7 @@ public class ExternalErrorSelector {
                                    String errorCode,
                                    String serviceName) {
 
-    if (errorWrapperClass.isAssignableFrom(ErrorDTO.class))
+    if (errorWrapperClass.isAssignableFrom(ErrorDto.class))
       return httpCode;
 
     if (Arrays.asList(HTTP_ALLOWED_CODES).contains(String.valueOf(httpCode)))
@@ -80,8 +80,8 @@ public class ExternalErrorSelector {
         .map(RestClient::getErrors);
   }
 
-  public static Pair<String, String> getDefaultResponse(ErrorDTO defaultError, String logMessage) {
+  public static Pair<String, String> getDefaultResponse(ErrorDto defaultError, String logMessage) {
     log.warn(logMessage);
-    return Pair.of(ErrorDTO.CODE_DEFAULT, defaultError.getMessage());
+    return Pair.of(ErrorDto.CODE_DEFAULT, defaultError.getMessage());
   }
 }

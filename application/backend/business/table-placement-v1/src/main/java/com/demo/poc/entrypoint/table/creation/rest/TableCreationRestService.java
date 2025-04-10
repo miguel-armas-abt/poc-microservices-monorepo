@@ -1,4 +1,4 @@
-package com.demo.poc.entrypoint.table.registration.rest;
+package com.demo.poc.entrypoint.table.creation.rest;
 
 import static org.springframework.http.MediaType.APPLICATION_NDJSON;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
@@ -12,13 +12,13 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 @Configuration
-public class TableRegistrationRestService {
+public class TableCreationRestService {
 
   private static final String BASE_URI = "/poc/business/table-placement/v1";
   private final static String TABLES_RESOURCE = "/tables";
 
   @Bean
-  public RouterFunction<ServerResponse> buildTablesRoutes(TableRegistrationHandler tableOrderHandler) {
+  public RouterFunction<ServerResponse> buildTablesRoutes(TableCreationHandler tableOrderHandler) {
     return nest(
         path(BASE_URI),
         route()

@@ -1,4 +1,4 @@
-package com.demo.poc.entrypoint.table.registration.dto.response;
+package com.demo.poc.entrypoint.table.creation.dto.response;
 
 import lombok.*;
 import java.io.Serializable;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TableRegistrationResponseDTO implements Serializable{
+public class TableCreationResponseDto implements Serializable{
 
   private String id;
 

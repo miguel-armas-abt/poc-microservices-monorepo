@@ -1,11 +1,11 @@
-package com.demo.poc.entrypoint.table.registration.rest;
+package com.demo.poc.entrypoint.table.creation.rest;
 
 import com.demo.poc.commons.core.validations.body.BodyValidator;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.headers.HeaderValidator;
 import com.demo.poc.commons.core.validations.params.ParamValidator;
-import com.demo.poc.entrypoint.table.registration.dto.request.TableRegistrationRequestDTO;
-import com.demo.poc.entrypoint.table.registration.service.TableRegistrationService;
+import com.demo.poc.entrypoint.table.creation.dto.request.TableCreationRequestDto;
+import com.demo.poc.entrypoint.table.creation.service.TableCreationService;
 import com.demo.poc.commons.core.restserver.ServerResponseBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,9 +17,9 @@ import static com.demo.poc.commons.core.restclient.utils.HttpHeadersFiller.extra
 
 @Component
 @RequiredArgsConstructor
-public class TableRegistrationHandler {
+public class TableCreationHandler {
 
-  private final TableRegistrationService tableRegistrationService;
+  private final TableCreationService tableCreationService;
   private final BodyValidator bodyValidator;
   private final ParamValidator paramValidator;
   private final HeaderValidator headerValidator;
@@ -27,9 +27,9 @@ public class TableRegistrationHandler {
   public Mono<ServerResponse> createTable(ServerRequest serverRequest) {
     headerValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class);
 
-    return serverRequest.bodyToMono(TableRegistrationRequestDTO.class)
+    return serverRequest.bodyToMono(TableCreationRequestDto.class)
         .doOnNext(bodyValidator::validate)
-        .flatMap(tableRegistrationService::save)
+        .flatMap(tableCreationService::save)
         .flatMap(response -> ServerResponseBuilder.buildMono(ServerResponse.ok(), serverRequest.headers(), response));
   }
 }
