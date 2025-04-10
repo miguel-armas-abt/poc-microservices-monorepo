@@ -2,7 +2,7 @@ package com.demo.poc.entrypoint.auth.repository;
 
 import com.demo.poc.commons.core.properties.restclient.HeaderTemplate;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.handler.external.ExternalErrorHandler;
 import com.demo.poc.commons.core.restclient.WebClientFactory;
 import jakarta.annotation.PostConstruct;
@@ -39,7 +39,7 @@ public class AuthAdapterRepository {
         .uri(properties.getRestClients().get(SERVICE_NAME).getRequest().getEndpoint().concat("/roles"))
         .headers(fillHeaders(getHeaderTemplate(), headers))
         .retrieve()
-        .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME))
+        .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME))
         .toEntity(HashMap.class)
         .mapNotNull(HttpEntity::getBody)
         .mapNotNull(this::castHashMapToIntegerValues);
