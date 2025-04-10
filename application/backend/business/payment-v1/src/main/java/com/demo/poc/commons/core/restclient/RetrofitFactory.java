@@ -4,6 +4,8 @@ import com.demo.poc.commons.core.errors.exceptions.EmptyBaseUrlException;
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import com.demo.poc.commons.core.restclient.enums.TimeoutLevel;
 import com.demo.poc.commons.core.serialization.JacksonFactory;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
@@ -12,6 +14,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import java.util.Optional;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RetrofitFactory {
 
   public static <T> T create(OkHttpClient.Builder okHttpClient,
