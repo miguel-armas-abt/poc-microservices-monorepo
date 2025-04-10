@@ -1,8 +1,8 @@
 package com.demo.poc.entrypoint.menu.service;
 
-import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDTO;
+import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDto;
+import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDto;
+import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDto;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import java.util.Optional;
@@ -18,7 +18,7 @@ public class MenuServiceImpl implements MenuService {
   private final MenuProductMatcher menuProductMatcher;
 
   @Override
-  public Multi<MenuResponseDTO> findByCategory(String categoryCode) {
+  public Multi<MenuResponseDto> findByCategory(String categoryCode) {
     return menuProductMatcher.findAll()
         .onItem()
         .transformToMulti(list -> Multi.createFrom().iterable(list))
@@ -26,7 +26,7 @@ public class MenuServiceImpl implements MenuService {
   }
 
   @Override
-  public Uni<MenuResponseDTO> findByProductCode(String productCode) {
+  public Uni<MenuResponseDto> findByProductCode(String productCode) {
     return menuProductMatcher.findAll()
         .onItem()
         .transformToMulti(list -> Multi.createFrom().iterable(list))
@@ -36,12 +36,12 @@ public class MenuServiceImpl implements MenuService {
   }
 
   @Override
-  public Uni<Void> save(MenuSaveRequestDTO menuOptionRequest) {
+  public Uni<Void> save(MenuSaveRequestDto menuOptionRequest) {
     return menuProductMatcher.save(menuOptionRequest);
   }
 
   @Override
-  public Uni<Void> update(MenuUpdateRequestDTO menuOptionRequest, String productCode) {
+  public Uni<Void> update(MenuUpdateRequestDto menuOptionRequest, String productCode) {
     return menuProductMatcher.update(productCode, menuOptionRequest);
   }
 

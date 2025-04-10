@@ -16,7 +16,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuUpdateRequestDTO implements Serializable {
+public class MenuUpdateRequestDto implements Serializable {
 
   @Size(min = 3, max = 300)
   @NotEmpty

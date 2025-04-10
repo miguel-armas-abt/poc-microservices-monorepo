@@ -1,6 +1,6 @@
 package com.demo.poc.entrypoint.menu.graph;
 
-import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDTO;
+import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDto;
 import com.demo.poc.entrypoint.menu.service.MenuService;
 import io.smallrye.mutiny.Uni;
 import java.util.List;
@@ -14,13 +14,13 @@ public class MenuGraphService {
   private final MenuService menuService;
 
   @Query
-  public Uni<MenuResponseDTO> findById(@Name("productCode") String productCode) {
+  public Uni<MenuResponseDto> findById(@Name("productCode") String productCode) {
     return menuService.findByProductCode(productCode);
   }
 
   @Query("findByCategory")
   @Description("Get menu options by category")
-  public Uni<List<MenuResponseDTO>> findByCategory(@Name("categoryCode") String categoryCode) {
+  public Uni<List<MenuResponseDto>> findByCategory(@Name("categoryCode") String categoryCode) {
     return null;
 //    return menuOptionService.findByCategory(categoryCode);
   }

@@ -16,7 +16,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuSaveRequestDTO implements Serializable {
+public class MenuSaveRequestDto implements Serializable {
 
   @NotEmpty
   private String productCode;

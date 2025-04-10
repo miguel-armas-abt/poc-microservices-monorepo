@@ -2,9 +2,9 @@ package com.demo.poc.entrypoint.menu.service;
 
 import static com.demo.poc.entrypoint.menu.constant.ParameterConstant.*;
 
-import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDTO;
+import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDto;
+import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDto;
+import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDto;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import jakarta.validation.Valid;
@@ -13,13 +13,13 @@ import jakarta.validation.constraints.Pattern;
 
 public interface MenuService {
 
-  Multi<MenuResponseDTO> findByCategory(@Pattern(regexp = CATEGORY_REGEX) String categoryCode);
+  Multi<MenuResponseDto> findByCategory(@Pattern(regexp = CATEGORY_REGEX) String categoryCode);
 
-  Uni<MenuResponseDTO> findByProductCode(@NotEmpty String productCode);
+  Uni<MenuResponseDto> findByProductCode(@NotEmpty String productCode);
 
-  Uni<Void> save(@Valid MenuSaveRequestDTO menuOptionRequest);
+  Uni<Void> save(@Valid MenuSaveRequestDto menuOptionRequest);
 
-  Uni<Void> update(@Valid MenuUpdateRequestDTO menuOptionRequest,
+  Uni<Void> update(@Valid MenuUpdateRequestDto menuOptionRequest,
                    @NotEmpty String productCode);
 
   Uni<Void> deleteByProductCode(@NotEmpty String productCode);

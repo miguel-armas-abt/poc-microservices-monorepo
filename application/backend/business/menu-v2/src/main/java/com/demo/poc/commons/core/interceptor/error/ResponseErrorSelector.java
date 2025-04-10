@@ -2,7 +2,7 @@ package com.demo.poc.commons.core.interceptor.error;
 
 import com.demo.poc.commons.core.errors.dto.ErrorDTO;
 import com.demo.poc.commons.core.errors.dto.ErrorType;
-import com.demo.poc.commons.core.errors.enums.ErrorDictionary;
+import com.demo.poc.commons.custom.exceptions.ErrorDictionary;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import com.demo.poc.commons.core.properties.ProjectType;

@@ -1,9 +1,9 @@
 package com.demo.poc.entrypoint.menu.rest;
 
+import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDto;
+import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDto;
 import com.demo.poc.entrypoint.menu.service.MenuService;
-import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDTO;
+import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDto;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import lombok.RequiredArgsConstructor;
@@ -34,17 +34,17 @@ public class MenuRestService {
 
   @GET
   @Path("/{productCode}")
-  public Uni<MenuResponseDTO> findByProductCode(@PathParam("productCode") String productCode) {
+  public Uni<MenuResponseDto> findByProductCode(@PathParam("productCode") String productCode) {
     return menuService.findByProductCode(productCode);
   }
 
   @GET
-  public Multi<MenuResponseDTO> findByCategory(@QueryParam("category") String categoryCode) {
+  public Multi<MenuResponseDto> findByCategory(@QueryParam("category") String categoryCode) {
     return menuService.findByCategory(categoryCode);
   }
 
   @POST
-  public Uni<Response> save(MenuSaveRequestDTO menuOptionRequest) {
+  public Uni<Response> save(MenuSaveRequestDto menuOptionRequest) {
     return menuService.save(menuOptionRequest)
         .onItem()
         .ifNotNull()
@@ -60,7 +60,7 @@ public class MenuRestService {
 
   @PUT
   @Path("/{productCode}")
-  public Uni<Response> update(@PathParam("productCode") String productCode, MenuUpdateRequestDTO menuOptionRequest) {
+  public Uni<Response> update(@PathParam("productCode") String productCode, MenuUpdateRequestDto menuOptionRequest) {
     return menuService.update(menuOptionRequest, productCode)
         .onItem()
         .ifNotNull()

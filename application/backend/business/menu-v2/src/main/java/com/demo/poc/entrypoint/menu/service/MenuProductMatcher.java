@@ -1,8 +1,8 @@
 package com.demo.poc.entrypoint.menu.service;
 
-import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDTO;
-import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDTO;
+import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDto;
+import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDto;
+import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDto;
 import com.demo.poc.entrypoint.menu.mapper.MenuMapper;
 import com.demo.poc.entrypoint.menu.repository.menu.MenuRepository;
 import com.demo.poc.entrypoint.menu.repository.menu.entity.MenuEntity;
@@ -30,7 +30,7 @@ public class MenuProductMatcher {
   @RestClient
   ProductRepository productRepository;
 
-  public Uni<List<MenuResponseDTO>> findAll() {
+  public Uni<List<MenuResponseDto>> findAll() {
     Uni<Map<String, MenuEntity>> menuOptionUni = menuRepository.findAllMenuOptions()
         .onItem()
         .transformToMulti(list -> Multi.createFrom().iterable(list))
@@ -47,7 +47,7 @@ public class MenuProductMatcher {
                     .collect(Collectors.toList())));
   }
 
-  public Uni<Void> save(MenuSaveRequestDTO menuOption) {
+  public Uni<Void> save(MenuSaveRequestDto menuOption) {
     return productRepository.save(menuMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE))
         .onItem()
         .transformToUni(ignore -> menuRepository.saveMenuOption(menuMapper.toEntity(menuOption)))
@@ -56,7 +56,7 @@ public class MenuProductMatcher {
         .andContinueWithNull();
   }
 
-  public Uni<Void> update(String productCode, MenuUpdateRequestDTO menuOption) {
+  public Uni<Void> update(String productCode, MenuUpdateRequestDto menuOption) {
     return menuRepository.update(menuMapper.toEntity(menuOption, productCode), productCode)
         .onItem()
         .transformToUni(ignore -> productRepository.update(productCode, menuMapper.toRequestWrapper(menuOption, PRODUCT_SCOPE)))
