@@ -2,7 +2,6 @@ package com.demo.poc.commons.core.properties;
 
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientException;
 import com.demo.poc.commons.core.logging.enums.LoggingType;
-import com.demo.poc.commons.core.properties.cache.CacheTemplate;
 import com.demo.poc.commons.core.properties.logging.LoggingTemplate;
 import com.demo.poc.commons.core.properties.restclient.HeaderTemplate;
 import com.demo.poc.commons.core.properties.restclient.PerformanceTemplate;
@@ -24,8 +23,6 @@ public abstract class ConfigurationBaseProperties {
   protected Map<String, String> errorMessages;
 
   protected Map<String, RestClient> restClients;
-
-  protected Map<String, CacheTemplate> cache;
 
   public PerformanceTemplate searchPerformance(String serviceName) {
     return searchRestClient(serviceName).getPerformance();

@@ -48,8 +48,9 @@ configuration:
             trace-id: trace-id
             channel-id: channel-id
 
-  business-info:
-    igv: 0.18
+  custom:
+    functional:
+      igv: 0.18
 
 kafka-broker:
   topic:
