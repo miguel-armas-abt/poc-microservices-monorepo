@@ -18,9 +18,3 @@ spring:
     mongodb:
       #uri: ${MONGODB_URL:mongodb://poc-user:qwerty@mongo-db:27017/tablePlacement}
       uri: mongodb+srv://miguelarmasabt:l21m01j16M01L13@cluster0.t2pidzg.mongodb.net/tablePlacement
-
-logging:
-  level:
-    root: INFO
-    org.springframework.web: ERROR
-    com.netflix.config.sources.URLConfigurationSource: ERROR

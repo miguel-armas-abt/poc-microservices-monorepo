@@ -1,4 +1,4 @@
-package com.demo.poc.commons.custom.properties;
+package com.demo.poc.commons.custom.properties.custom.rules;
 
 import java.util.Map;
 import lombok.Getter;

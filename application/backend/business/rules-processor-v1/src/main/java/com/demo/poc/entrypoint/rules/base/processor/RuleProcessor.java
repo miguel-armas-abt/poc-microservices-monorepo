@@ -22,7 +22,7 @@ public class RuleProcessor {
   public <R extends Rule> R process(R rule) {
     String className = rule.getClass().getSimpleName();
 
-    String ruleFile = properties.getRules().getStrategies().get(className);
+    String ruleFile = properties.getCustom().getRules().getStrategies().get(className);
     KieContainer kieContainer = createKieContainer(ruleFile);
 
     StatelessKieSession statelessKieSession = kieContainer.newStatelessKieSession();
@@ -34,7 +34,7 @@ public class RuleProcessor {
   private KieContainer createKieContainer(String fileName) {
     KieServices kieServices = KieServices.Factory.get();
     KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-    kieFileSystem.write(ResourceFactory.newClassPathResource(properties.getRules().getDirectory() + fileName));
+    kieFileSystem.write(ResourceFactory.newClassPathResource(properties.getCustom().getRules().getDirectory() + fileName));
     KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem).buildAll();
 
     if (kieBuilder.getResults().hasMessages(org.kie.api.builder.Message.Level.ERROR)) {

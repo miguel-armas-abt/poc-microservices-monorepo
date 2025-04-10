@@ -9,7 +9,8 @@ configuration:
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
-  rules:
-    directory: rules/
-    strategies:
-      DiscountRule: discount_rules.drl
+  custom:
+    rules:
+      directory: rules/
+      strategies:
+        DiscountRule: discount_rules.drl
