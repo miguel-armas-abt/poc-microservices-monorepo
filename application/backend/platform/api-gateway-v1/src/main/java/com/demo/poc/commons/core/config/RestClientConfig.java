@@ -1,5 +1,9 @@
 package com.demo.poc.commons.core.config;
 
+import com.demo.poc.commons.core.errors.selector.RestClientErrorSelector;
+import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
+import com.demo.poc.commons.core.restclient.error.RestClientErrorHandler;
+import com.demo.poc.commons.core.restclient.error.RestClientErrorExtractor;
 import com.demo.poc.commons.core.restclient.WebClientFactory;
 import io.micrometer.observation.ObservationRegistry;
 import org.springframework.context.annotation.Bean;
@@ -17,4 +21,10 @@ public class RestClientConfig {
     return new WebClientFactory(filters, observationRegistry);
   }
 
+  @Bean
+  public RestClientErrorHandler restClientErrorHandler(List<RestClientErrorExtractor> restClientErrorExtractors,
+                                                       RestClientErrorSelector restClientErrorSelector,
+                                                       ConfigurationBaseProperties properties) {
+    return new RestClientErrorHandler(restClientErrorExtractors, restClientErrorSelector, properties);
+  }
 }

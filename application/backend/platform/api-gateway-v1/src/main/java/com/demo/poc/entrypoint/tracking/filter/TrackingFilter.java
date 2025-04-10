@@ -1,7 +1,6 @@
 package com.demo.poc.entrypoint.tracking.filter;
 
 import com.demo.poc.commons.core.interceptor.error.ErrorInterceptor;
-import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -17,13 +16,10 @@ import static com.demo.poc.commons.core.tracing.enums.TraceParamType.TRACE_ID;
 @Component
 public class TrackingFilter extends AbstractGatewayFilterFactory<TrackingFilter.Config> {
 
-  private final ApplicationProperties properties;
   private final ErrorInterceptor errorInterceptor;
 
-  public TrackingFilter(ApplicationProperties properties,
-                        ErrorInterceptor errorInterceptor) {
+  public TrackingFilter(ErrorInterceptor errorInterceptor) {
     super(Config.class);
-    this.properties = properties;
     this.errorInterceptor = errorInterceptor;
   }
 
@@ -31,7 +27,7 @@ public class TrackingFilter extends AbstractGatewayFilterFactory<TrackingFilter.
   public GatewayFilter apply(Config config) {
     return new OrderedGatewayFilter((exchange, chain) ->
         chain.filter(updateHeaders(exchange))
-          .onErrorResume(Exception.class, exception -> errorInterceptor.handleException(properties, exception, exchange))
+          .onErrorResume(Exception.class, exception -> errorInterceptor.handleException(exception, exchange))
         , 0);
   }
 

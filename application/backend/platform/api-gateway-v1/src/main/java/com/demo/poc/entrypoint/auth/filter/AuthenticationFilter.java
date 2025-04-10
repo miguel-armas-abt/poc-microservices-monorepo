@@ -38,7 +38,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     return new OrderedGatewayFilter((exchange, chain) ->
         validateRequest(exchange)
             .then(chain.filter(exchange))
-            .onErrorResume(Exception.class, exception -> responseErrorHandler.handleException(properties, exception, exchange))
+            .onErrorResume(Exception.class, exception -> responseErrorHandler.handleException(exception, exchange))
         ,1);
   }
 
