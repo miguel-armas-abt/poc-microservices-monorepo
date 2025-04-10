@@ -1,11 +1,11 @@
 package com.demo.poc.commons.core.properties;
 
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientException;
+import com.demo.poc.commons.core.logging.enums.LoggingType;
 import com.demo.poc.commons.core.properties.logging.LoggingTemplate;
 import com.demo.poc.commons.core.properties.restclient.HeaderTemplate;
 import com.demo.poc.commons.core.properties.restclient.PerformanceTemplate;
 import com.demo.poc.commons.core.properties.restclient.RestClient;
-import com.demo.poc.commons.core.logging.enums.LoggingType;
 import lombok.Getter;
 import lombok.Setter;
 
