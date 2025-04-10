@@ -2,7 +2,7 @@ package com.demo.poc.commons.custom.properties;
 
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import com.demo.poc.commons.core.properties.restclient.HeaderTemplate;
-import com.demo.poc.commons.custom.properties.custom.functional.FunctionalTemplate;
+import com.demo.poc.commons.custom.properties.custom.CustomTemplate;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "configuration")
 public class ApplicationProperties extends ConfigurationBaseProperties {
 
-  private FunctionalTemplate functionalTemplate;
+  private CustomTemplate custom;
 
   public String searchEndpoint(String serviceName) {
     return this.getRestClients().get(serviceName).getRequest().getEndpoint();

@@ -51,7 +51,7 @@ public class CalculatorServiceImpl implements CalculatorService {
   }
 
   private InvoiceResponseDto completeFields(InvoiceResponseDto invoice) {
-    BigDecimal igv = new BigDecimal(properties.getFunctionalTemplate().getIgv());
+    BigDecimal igv = new BigDecimal(properties.getCustom().getFunctional().getIgv());
     invoice.setIgv(igv);
     invoice.setTotal(invoice.getSubtotal().add(invoice.getSubtotal().multiply(igv)));
     return invoice;

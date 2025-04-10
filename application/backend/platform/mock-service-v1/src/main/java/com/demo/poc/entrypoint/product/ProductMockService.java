@@ -37,5 +37,22 @@ public class ProductMockService implements MockService {
               .withBody(readJSON("mocks/product-v1/get-products.200.json"))
               .withDelay(TimeUnit.MILLISECONDS, randomDelay);
         });
+
+      mockServer
+              .when(request()
+                      .withMethod("GET")
+                      .withPath("/poc/business/product/v1/products/.*"))
+              .respond(request -> {
+
+                  long randomDelay = generateRandomDelay();
+                  Header traceIdHeader = generateTraceId();
+
+                  return response()
+                          .withStatusCode(HttpStatusCode.OK_200.code())
+                          .withHeader(contentType(ContentType.APPLICATION_JSON.getMimeType()))
+                          .withHeader(traceIdHeader)
+                          .withBody(readJSON("mocks/product-v1/get-product-by-id.200.json"))
+                          .withDelay(TimeUnit.MILLISECONDS, randomDelay);
+              });
   }
 }
