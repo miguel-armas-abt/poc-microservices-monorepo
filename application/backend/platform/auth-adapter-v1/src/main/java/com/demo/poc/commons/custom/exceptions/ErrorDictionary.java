@@ -1,4 +1,4 @@
-package com.demo.poc.commons.core.errors.enums;
+package com.demo.poc.commons.custom.exceptions;
 
 import com.demo.poc.commons.core.errors.dto.ErrorType;
 import com.demo.poc.commons.core.errors.exceptions.EmptyBaseUrlException;
