@@ -1,4 +1,4 @@
-package com.demo.poc.commons.custom.properties.cache;
+package com.demo.poc.commons.custom.properties.custom.cache;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

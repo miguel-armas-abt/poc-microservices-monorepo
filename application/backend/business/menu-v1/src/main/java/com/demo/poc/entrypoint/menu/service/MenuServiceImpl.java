@@ -71,7 +71,7 @@ public class MenuServiceImpl implements MenuService {
   }
 
   private void validateCategory(String category) {
-    Set<String> categories = properties.getFeatures().getMenuCategories();
+    Set<String> categories = properties.getCustom().getFunctional().getMenuCategories();
     if (!categories.contains(category.toLowerCase())) {
       throw new InvalidMenuCategoryException();
     }

@@ -14,8 +14,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.demo.poc.commons.custom.properties.cache.CleaningFrequency.FIVE_MINUTES;
-import static com.demo.poc.commons.custom.properties.cache.CleaningFrequency.getTimeToLive;
+import static com.demo.poc.commons.custom.properties.custom.cache.CleaningFrequency.FIVE_MINUTES;
+import static com.demo.poc.commons.custom.properties.custom.cache.CleaningFrequency.getTimeToLive;
 
 @RequiredArgsConstructor
 public class CustomRedisCacheManager implements CacheManager {
@@ -43,7 +43,7 @@ public class CustomRedisCacheManager implements CacheManager {
 
   private RedisCacheManager createRedisCacheManager() {
     Map<String, RedisCacheConfiguration> cacheConfigurations = new HashMap<>();
-    properties.getCache().forEach((key, value) ->
+    properties.getCustom().getCache().forEach((key, value) ->
         cacheConfigurations.put(key, RedisCacheConfiguration.defaultCacheConfig().entryTtl(getTimeToLive(value))));
     RedisCacheConfiguration defaultConfig = RedisCacheConfiguration.defaultCacheConfig().entryTtl(FIVE_MINUTES.getTimeToLive());
 

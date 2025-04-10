@@ -29,12 +29,13 @@ configuration:
             trace-id: trace-id
             channel-id: channel-id
 
-  cache:
-    menu-and-products:
-      cleaning-frequency: MINUTELY
+  custom:
+    cache:
+      menu-and-products:
+        cleaning-frequency: MINUTELY
 
-  features:
-    menu-categories: [main, drink, dessert]
+    functional:
+      menu-categories: [main, drink, dessert]
 
 spring:
   redis:
