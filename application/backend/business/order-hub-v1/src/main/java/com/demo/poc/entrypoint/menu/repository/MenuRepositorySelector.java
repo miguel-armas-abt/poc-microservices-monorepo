@@ -10,13 +10,15 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MenuRepositorySelector {
 
+  private static final String MENU_REPOSITORY_SELECTOR = "menu-repository";
+
   private final List<MenuRepository> repositoryStrategies;
   private final ApplicationProperties properties;
 
   public MenuRepository selectStrategy() {
     return repositoryStrategies
         .stream()
-        .filter(repository -> repository.supports(properties.getMenuInfo().getSelectorClass()))
+        .filter(repository -> repository.supports(properties.getCustom().getSelectorClass().get(MENU_REPOSITORY_SELECTOR)))
         .findFirst()
         .orElseThrow(NoSuchMenuRepositoryStrategyException::new);
   }

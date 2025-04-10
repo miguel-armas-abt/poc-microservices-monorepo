@@ -77,5 +77,6 @@ configuration:
             trace-id: trace-id
             channel-id: channel-id
 
-  menu-info:
-    selector-class: ${MENU_REPOSITORY_SELECTOR:com.demo.poc.entrypoint.menu.repository.MenuV1Repository}
+  custom:
+    selector-class:
+      menu-repository: ${MENU_REPOSITORY_SELECTOR:com.demo.poc.entrypoint.menu.repository.MenuV1Repository}
