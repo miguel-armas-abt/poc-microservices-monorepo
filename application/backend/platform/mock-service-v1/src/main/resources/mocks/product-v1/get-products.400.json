@@ -1,5 +1,5 @@
 {
   "code": "ProductNotFound",
   "message": "No se encontró el producto.",
-  "type": "BUSINES"
+  "type": "BUSINESS"
 }

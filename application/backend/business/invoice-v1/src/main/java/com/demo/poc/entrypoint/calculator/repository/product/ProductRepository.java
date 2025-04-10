@@ -1,10 +1,10 @@
 package com.demo.poc.entrypoint.calculator.repository.product;
 
+import com.demo.poc.commons.core.restclient.error.RestClientErrorHandler;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.WebClientFactory;
 import com.demo.poc.entrypoint.calculator.repository.product.wrapper.ProductResponseWrapper;
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
-import com.demo.poc.commons.core.errors.handler.external.ExternalErrorHandler;
 import jakarta.annotation.PostConstruct;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class ProductRepository {
   private static final String SERVICE_NAME = "product-v1";
 
   private final ApplicationProperties properties;
-  private final ExternalErrorHandler externalErrorHandler;
+  private final RestClientErrorHandler restClientErrorHandler;
   private final WebClientFactory webClientFactory;
 
   private WebClient webClient;
@@ -41,7 +41,7 @@ public class ProductRepository {
             .buildAndExpand(productCode).toUriString())
         .headers(fillHeaders(properties.searchHeaderTemplate(SERVICE_NAME), headers))
         .retrieve()
-        .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME))
+        .onStatus(HttpStatusCode::isError, clientResponse -> restClientErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME))
         .toEntity(ProductResponseWrapper.class)
         .mapNotNull(HttpEntity::getBody);
   }

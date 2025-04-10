@@ -1,7 +1,7 @@
 package com.demo.poc.entrypoint.calculator.repository.discount;
 
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
-import com.demo.poc.commons.core.errors.handler.external.ExternalErrorHandler;
+import com.demo.poc.commons.core.restclient.error.RestClientErrorHandler;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.WebClientFactory;
 import com.demo.poc.entrypoint.calculator.repository.discount.wrapper.DiscountRequestWrapper;
@@ -25,7 +25,7 @@ public class DiscountRepository {
   private static final String SERVICE_NAME = "rules-processor-v1";
 
   private final ApplicationProperties properties;
-  private final ExternalErrorHandler externalErrorHandler;
+  private final RestClientErrorHandler restClientErrorHandler;
   private final WebClientFactory webClientFactory;
 
   private WebClient webClient;
@@ -41,7 +41,7 @@ public class DiscountRepository {
         .headers(fillHeaders(properties.searchHeaderTemplate(SERVICE_NAME), headers))
         .body(BodyInserters.fromValue(request))
         .retrieve()
-        .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME))
+        .onStatus(HttpStatusCode::isError, clientResponse -> restClientErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME))
         .toEntity(DiscountResponseWrapper.class)
         .mapNotNull(HttpEntity::getBody);
 
