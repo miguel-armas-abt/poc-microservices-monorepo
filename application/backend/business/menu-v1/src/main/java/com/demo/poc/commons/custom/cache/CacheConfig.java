@@ -1,6 +1,5 @@
-package com.demo.poc.commons.custom.config;
+package com.demo.poc.commons.custom.cache;
 
-import com.demo.poc.commons.custom.cache.CustomRedisCacheManager;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;

@@ -2,8 +2,8 @@ package com.demo.poc.entrypoint.menu.repository.product;
 
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
-import com.demo.poc.commons.core.restclient.CustomRestTemplate;
-import com.demo.poc.commons.core.restclient.dto.ExchangeRequestDTO;
+import com.demo.poc.commons.core.restclient.RestClientTemplate;
+import com.demo.poc.commons.core.restclient.dto.ExchangeRequest;
 import com.demo.poc.entrypoint.menu.repository.product.wrapper.request.ProductSaveRequestWrapper;
 import com.demo.poc.entrypoint.menu.repository.product.wrapper.request.ProductUpdateRequestWrapper;
 import com.demo.poc.entrypoint.menu.repository.product.wrapper.response.ProductResponseWrapper;
@@ -22,12 +22,12 @@ public class ProductRepository {
 
   private static final String SERVICE_NAME = "product-v1";
 
-  private final CustomRestTemplate restTemplate;
+  private final RestClientTemplate restTemplate;
   private final ApplicationProperties properties;
 
   public ProductResponseWrapper findByCode(Map<String, String> headers, String code) {
     return restTemplate.exchange(
-        ExchangeRequestDTO.<Void, ProductResponseWrapper>builder()
+        ExchangeRequest.<Void, ProductResponseWrapper>builder()
             .url(getEndpoint().concat("/products/{code}"))
             .httpMethod(HttpMethod.GET)
             .uriVariables(Collections.singletonMap("code", code))
@@ -39,7 +39,7 @@ public class ProductRepository {
 
   public List<ProductResponseWrapper> findByScope(Map<String, String> headers, String scope) {
     return Arrays.asList(restTemplate.exchange(
-        ExchangeRequestDTO.<Void, ProductResponseWrapper[]>builder()
+        ExchangeRequest.<Void, ProductResponseWrapper[]>builder()
             .url(getEndpoint().concat("/products?scope={scope}"))
             .httpMethod(HttpMethod.GET)
             .uriVariables(Collections.singletonMap("scope", scope))
@@ -51,7 +51,7 @@ public class ProductRepository {
 
   public void save(Map<String, String> headers, ProductSaveRequestWrapper productRequest) {
     restTemplate.exchange(
-        ExchangeRequestDTO.<ProductSaveRequestWrapper, Void>builder()
+        ExchangeRequest.<ProductSaveRequestWrapper, Void>builder()
             .url(getEndpoint().concat("/products"))
             .httpMethod(HttpMethod.POST)
             .requestBody(productRequest)
@@ -63,7 +63,7 @@ public class ProductRepository {
 
   public void update(Map<String, String> headers, String code, ProductUpdateRequestWrapper productRequest) {
     restTemplate.exchange(
-        ExchangeRequestDTO.<ProductUpdateRequestWrapper, Void>builder()
+        ExchangeRequest.<ProductUpdateRequestWrapper, Void>builder()
             .url(getEndpoint().concat("/products/{code}"))
             .httpMethod(HttpMethod.PUT)
             .uriVariables(Collections.singletonMap("code", code))
@@ -76,7 +76,7 @@ public class ProductRepository {
 
   public void delete(Map<String, String> headers, String code) {
     restTemplate.exchange(
-        ExchangeRequestDTO.<Void, Void>builder()
+        ExchangeRequest.<Void, Void>builder()
             .url(getEndpoint().concat("/products/{code}"))
             .httpMethod(HttpMethod.DELETE)
             .uriVariables(Collections.singletonMap("code", code))

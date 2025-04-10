@@ -1,6 +1,7 @@
-package com.demo.poc.commons.core.errors.external.strategy;
+package com.demo.poc.commons.core.restclient.error.extractor.poc;
 
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
+import com.demo.poc.commons.core.restclient.error.RestClientErrorExtractor;
 import com.demo.poc.commons.core.serialization.JsonSerializer;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.tuple.Pair;
@@ -9,7 +10,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
-public class DefaultErrorStrategy implements RestClientErrorStrategy {
+public class DefaultErrorExtractor implements RestClientErrorExtractor {
 
   private final JsonSerializer serializer;
 
@@ -22,8 +23,8 @@ public class DefaultErrorStrategy implements RestClientErrorStrategy {
       -> Pair.of(errorDetail.getCode(), errorDetail.getMessage());
 
   @Override
-  public boolean supports(Class<? extends ExternalErrorWrapper> wrapperClass) {
-    return wrapperClass.isAssignableFrom(ErrorDto.class);
+  public boolean supports(Class<?> errorWrapperClass) {
+    return errorWrapperClass.isAssignableFrom(ErrorDto.class);
   }
 
 }

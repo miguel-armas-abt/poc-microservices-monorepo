@@ -1,8 +1,9 @@
 package com.demo.poc.commons.core.interceptor.error;
 
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
-import com.demo.poc.commons.core.errors.exceptions.ExternalServiceException;
+import com.demo.poc.commons.core.errors.exceptions.RestClientException;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
+import com.demo.poc.commons.core.errors.selector.ResponseErrorSelector;
 import com.demo.poc.commons.core.logging.ThreadContextInjector;
 import com.demo.poc.commons.core.logging.enums.LoggingType;
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
@@ -21,8 +22,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.net.ConnectException;
 
-import static com.demo.poc.commons.core.interceptor.error.ResponseErrorSelector.toErrorDTO;
-
 @Slf4j
 @RestControllerAdvice
 @RequiredArgsConstructor
@@ -30,6 +29,7 @@ public class ErrorInterceptor extends ResponseEntityExceptionHandler {
 
   private final ThreadContextInjector threadContextInjector;
   private final ConfigurationBaseProperties properties;
+  private final ResponseErrorSelector responseErrorSelector;
 
   @ExceptionHandler({Throwable.class})
   public ResponseEntity<ErrorDto> handleException(Throwable ex, WebRequest request) {
@@ -42,13 +42,13 @@ public class ErrorInterceptor extends ResponseEntityExceptionHandler {
       httpStatus = HttpStatus.REQUEST_TIMEOUT;
     }
 
-    if (ex instanceof ExternalServiceException externalServiceException) {
-      error = externalServiceException.getErrorDetail();
-      httpStatus = HttpStatus.valueOf(externalServiceException.getHttpStatusCode().value());
+    if (ex instanceof RestClientException restClientException) {
+      error = restClientException.getErrorDetail();
+      httpStatus = HttpStatus.valueOf(restClientException.getHttpStatusCode().value());
     }
 
     if (ex instanceof GenericException genericException) {
-      error = toErrorDTO(properties, genericException);
+      error = responseErrorSelector.toErrorDTO(genericException);
       httpStatus = genericException.getHttpStatus();
     }
 
@@ -60,7 +60,7 @@ public class ErrorInterceptor extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
                                                                 HttpStatusCode status, WebRequest request) {
     generateTrace(ex, request);
-    ErrorDto error = toErrorDTO(properties, ex);
+    ErrorDto error = responseErrorSelector.toErrorDTO(ex);
     return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
   }
 

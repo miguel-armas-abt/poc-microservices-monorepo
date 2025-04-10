@@ -1,6 +1,5 @@
 package com.demo.poc.commons.core.restclient.dto;
 
-import com.demo.poc.commons.core.errors.external.strategy.ExternalErrorWrapper;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import java.util.Map;
 @Getter
 @Setter
 @Builder
-public class ExchangeRequestDTO<I, O> implements Serializable {
+public class ExchangeRequest<I, O> implements Serializable {
 
   private String url;
 
@@ -26,5 +25,5 @@ public class ExchangeRequestDTO<I, O> implements Serializable {
 
   private Class<O> responseClass;
 
-  private Class<? extends ExternalErrorWrapper> errorWrapperClass;
+  private Class<?> errorWrapperClass;
 }
