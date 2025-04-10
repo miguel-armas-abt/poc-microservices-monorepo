@@ -1,8 +1,8 @@
 package com.demo.poc.entrypoint.calculator.service;
 
-import com.demo.poc.entrypoint.calculator.dto.request.ProductRequestDTO;
-import com.demo.poc.entrypoint.calculator.dto.response.InvoiceResponseDTO;
-import com.demo.poc.entrypoint.calculator.dto.response.ProductDTO;
+import com.demo.poc.entrypoint.calculator.dto.request.ProductRequestDto;
+import com.demo.poc.entrypoint.calculator.dto.response.InvoiceResponseDto;
+import com.demo.poc.entrypoint.calculator.dto.response.ProductDto;
 import com.demo.poc.entrypoint.calculator.mapper.CalculatorMapper;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.entrypoint.calculator.repository.discount.DiscountRepository;
@@ -28,8 +28,8 @@ public class CalculatorServiceImpl implements CalculatorService {
   private final DiscountRepository discountRepository;
 
   @Override
-  public Mono<InvoiceResponseDTO> calculateInvoice(Map<String, String> headers, Flux<ProductRequestDTO> products) {
-    InvoiceResponseDTO baseResponse = InvoiceResponseDTO.builder()
+  public Mono<InvoiceResponseDto> calculateInvoice(Map<String, String> headers, Flux<ProductRequestDto> products) {
+    InvoiceResponseDto baseResponse = InvoiceResponseDto.builder()
         .subtotal(BigDecimal.ZERO)
         .productList(new ArrayList<>())
         .build();
@@ -42,7 +42,7 @@ public class CalculatorServiceImpl implements CalculatorService {
             .doOnNext(discount -> product.setDiscount(discount.getDiscount()))
             .map(productFound -> product))
         .reduce(baseResponse, (invoice, product) -> {
-          ProductDTO productResponse = mapper.toResponseDTO(product);
+          ProductDto productResponse = mapper.toResponseDTO(product);
           invoice.getProductList().add(productResponse);
           invoice.setSubtotal(invoice.getSubtotal().add(productResponse.getSubtotal()));
           return invoice;
@@ -50,7 +50,7 @@ public class CalculatorServiceImpl implements CalculatorService {
         .map(this::completeFields);
   }
 
-  private InvoiceResponseDTO completeFields(InvoiceResponseDTO invoice) {
+  private InvoiceResponseDto completeFields(InvoiceResponseDto invoice) {
     BigDecimal igv = new BigDecimal(properties.getBusinessInfo().getIgv());
     invoice.setIgv(igv);
     invoice.setTotal(invoice.getSubtotal().add(invoice.getSubtotal().multiply(igv)));

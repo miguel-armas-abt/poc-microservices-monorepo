@@ -3,7 +3,7 @@ package com.demo.poc.entrypoint.calculator.repository.product;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.WebClientFactory;
 import com.demo.poc.entrypoint.calculator.repository.product.wrapper.ProductResponseWrapper;
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.handler.external.ExternalErrorHandler;
 import jakarta.annotation.PostConstruct;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class ProductRepository {
             .buildAndExpand(productCode).toUriString())
         .headers(fillHeaders(properties.searchHeaderTemplate(SERVICE_NAME), headers))
         .retrieve()
-        .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDTO.class, SERVICE_NAME))
+        .onStatus(HttpStatusCode::isError, clientResponse -> externalErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME))
         .toEntity(ProductResponseWrapper.class)
         .mapNotNull(HttpEntity::getBody);
   }
