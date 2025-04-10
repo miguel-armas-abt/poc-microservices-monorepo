@@ -1,6 +1,5 @@
 package com.demo.poc.commons.core.errors.dto;
 
-import com.demo.poc.commons.core.errors.external.strategy.ExternalErrorWrapper;
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorDto extends ExternalErrorWrapper implements Serializable  {
+public class ErrorDto implements Serializable  {
 
     @Serial
     private static final long serialVersionUID = 281390055501829628L;

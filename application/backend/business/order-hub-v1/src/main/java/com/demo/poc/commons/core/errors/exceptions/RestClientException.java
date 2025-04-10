@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatusCode;
 import java.io.Serial;
 
 @Getter
-public class ExternalServiceException extends RuntimeException {
+public class RestClientException extends RuntimeException {
 
   @Serial
   private static final long serialVersionUID = 480700693894159856L;
@@ -16,7 +16,7 @@ public class ExternalServiceException extends RuntimeException {
   private final ErrorDto errorDetail;
   private final HttpStatusCode httpStatusCode;
 
-  public ExternalServiceException(String code, String message, ErrorType errorType, HttpStatusCode httpStatusCode) {
+  public RestClientException(String code, String message, ErrorType errorType, HttpStatusCode httpStatusCode) {
     super(message);
     this.errorDetail = ErrorDto.builder()
         .type(errorType)

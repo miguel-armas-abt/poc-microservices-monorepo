@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class ErrorConfig {
 
   @Bean
-  public DefaultErrorExtractor defaultErrorStrategy(JsonSerializer jsonSerializer) {
+  public DefaultErrorExtractor defaultErrorExtractor(JsonSerializer jsonSerializer) {
     return new DefaultErrorExtractor(jsonSerializer);
   }
 

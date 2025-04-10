@@ -6,7 +6,7 @@ import com.demo.poc.commons.core.restclient.WebClientFactory;
 import com.demo.poc.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import com.demo.poc.entrypoint.tableorder.dto.request.MenuOrderRequestDto;
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
-import com.demo.poc.commons.core.errors.external.ExternalErrorHandler;
+import com.demo.poc.commons.core.restclient.error.RestClientErrorHandler;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +30,7 @@ public class TableOrderRepository {
   private static final String SERVICE_NAME_TABLE_PLACEMENT = "table-placement-v1";
 
   private final ApplicationProperties properties;
-  private final ExternalErrorHandler externalErrorHandler;
+  private final RestClientErrorHandler restClientErrorHandler;
   private final WebClientFactory webClientFactory;
 
   private WebClient webClient;
@@ -90,6 +90,6 @@ public class TableOrderRepository {
   }
 
   private Mono<? extends Throwable> handleError(ClientResponse clientResponse) {
-    return externalErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME_TABLE_PLACEMENT);
+    return restClientErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME_TABLE_PLACEMENT);
   }
 }

@@ -1,5 +1,6 @@
 package com.demo.poc.commons.core.config;
 
+import com.demo.poc.commons.core.errors.selector.ResponseErrorSelector;
 import com.demo.poc.commons.core.interceptor.error.ErrorInterceptor;
 import com.demo.poc.commons.core.interceptor.restclient.request.RestClientRequestInterceptor;
 import com.demo.poc.commons.core.interceptor.restclient.response.RestClientResponseInterceptor;
@@ -33,7 +34,8 @@ public class InterceptorConfig {
   @Bean
   public ErrorInterceptor responseErrorHandler(ByteSerializer byteSerializer,
                                                ThreadContextInjector threadContextInjector,
-                                               ConfigurationBaseProperties properties) {
-    return new ErrorInterceptor(byteSerializer, threadContextInjector, properties);
+                                               ConfigurationBaseProperties properties,
+                                               ResponseErrorSelector responseErrorSelector) {
+    return new ErrorInterceptor(byteSerializer, threadContextInjector, properties, responseErrorSelector);
   }
 }

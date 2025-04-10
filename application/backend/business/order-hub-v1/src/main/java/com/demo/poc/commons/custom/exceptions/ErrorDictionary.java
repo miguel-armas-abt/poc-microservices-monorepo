@@ -7,12 +7,10 @@ import com.demo.poc.commons.core.errors.exceptions.InvalidStreamingData;
 import com.demo.poc.commons.core.errors.exceptions.JsonReadException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchLoggerTypeException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientException;
-import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientErrorStrategyException;
+import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientErrorExtractorException;
 import com.demo.poc.commons.core.errors.exceptions.ReflectiveParamAssignmentException;
 import com.demo.poc.commons.core.errors.exceptions.ReflectiveParamMappingException;
 import com.demo.poc.commons.core.errors.exceptions.UnexpectedSslException;
-import com.demo.poc.commons.custom.exceptions.MenuOptionNotFoundException;
-import com.demo.poc.commons.custom.exceptions.NoSuchMenuRepositoryStrategyException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,7 +29,7 @@ public enum ErrorDictionary {
 
   //system=00
   INVALID_FIELD("10.00.01", "Invalid field", BUSINESS, BAD_REQUEST, InvalidFieldException.class),
-  NO_SUCH_REST_CLIENT_ERROR_STRATEGY("10.00.02", "No such rest client error strategy", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientErrorStrategyException.class),
+  NO_SUCH_REST_CLIENT_ERROR_EXTRACTOR("10.00.02", "No such rest client error extractor", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientErrorExtractorException.class),
   NO_SUCH_LOGGER_TYPE("10.00.03", "No such logger type", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchLoggerTypeException.class),
   NO_SUCH_REST_CLIENT("10.00.04", "No such rest client", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientException.class),
   ERROR_READING_JSON("10.00.05", "Error reading JSON", SYSTEM, INTERNAL_SERVER_ERROR, JsonReadException.class),

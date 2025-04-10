@@ -7,7 +7,7 @@ import com.demo.poc.entrypoint.invoice.repository.wrapper.request.PaymentSendReq
 import com.demo.poc.entrypoint.invoice.repository.wrapper.request.ProductRequestWrapper;
 import com.demo.poc.entrypoint.invoice.repository.wrapper.response.InvoiceResponseWrapper;
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
-import com.demo.poc.commons.core.errors.external.ExternalErrorHandler;
+import com.demo.poc.commons.core.restclient.error.RestClientErrorHandler;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +30,7 @@ public class InvoiceRepository {
   private static final String SERVICE_NAME_INVOICE = "invoice-v1";
 
   private final ApplicationProperties properties;
-  private final ExternalErrorHandler externalErrorHandler;
+  private final RestClientErrorHandler restClientErrorHandler;
   private final WebClientFactory webClientFactory;
 
   private WebClient webClient;
@@ -75,7 +75,7 @@ public class InvoiceRepository {
   }
 
   private Mono<? extends Throwable> handleError(ClientResponse clientResponse) {
-    return externalErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME_INVOICE);
+    return restClientErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME_INVOICE);
   }
 }
 

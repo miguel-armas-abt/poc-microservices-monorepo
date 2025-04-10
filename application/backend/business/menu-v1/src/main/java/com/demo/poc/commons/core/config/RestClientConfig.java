@@ -25,10 +25,10 @@ public class RestClientConfig {
   }
 
   @Bean
-  public RestClientErrorHandler restClientErrorHandler(List<RestClientErrorExtractor> errorStrategies,
+  public RestClientErrorHandler restClientErrorHandler(List<RestClientErrorExtractor> restClientErrorExtractors,
                                                        RestClientErrorSelector restClientErrorSelector,
                                                        ConfigurationBaseProperties properties) {
-    return new RestClientErrorHandler(errorStrategies, restClientErrorSelector, properties);
+    return new RestClientErrorHandler(restClientErrorExtractors, restClientErrorSelector, properties);
   }
 
   @Bean
