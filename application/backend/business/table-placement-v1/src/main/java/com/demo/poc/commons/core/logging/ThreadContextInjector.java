@@ -1,9 +1,9 @@
 package com.demo.poc.commons.core.logging;
 
-import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
-import com.demo.poc.commons.core.properties.logging.ObfuscationTemplate;
 import com.demo.poc.commons.core.logging.obfuscation.body.BodyObfuscator;
 import com.demo.poc.commons.core.logging.obfuscation.header.HeaderObfuscator;
+import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
+import com.demo.poc.commons.core.properties.logging.ObfuscationTemplate;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,15 +15,15 @@ import org.springframework.web.server.ServerWebExchange;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.demo.poc.commons.core.logging.enums.LoggingType.REST_CLIENT_REQ;
-import static com.demo.poc.commons.core.logging.enums.LoggingType.REST_CLIENT_RES;
-import static com.demo.poc.commons.core.logging.enums.LoggingType.REST_SERVER_REQ;
-import static com.demo.poc.commons.core.logging.enums.LoggingType.REST_SERVER_RES;
 import static com.demo.poc.commons.core.logging.constants.RestLoggingConstant.BODY;
 import static com.demo.poc.commons.core.logging.constants.RestLoggingConstant.HEADERS;
 import static com.demo.poc.commons.core.logging.constants.RestLoggingConstant.METHOD;
 import static com.demo.poc.commons.core.logging.constants.RestLoggingConstant.STATUS;
 import static com.demo.poc.commons.core.logging.constants.RestLoggingConstant.URI;
+import static com.demo.poc.commons.core.logging.enums.LoggingType.REST_CLIENT_REQ;
+import static com.demo.poc.commons.core.logging.enums.LoggingType.REST_CLIENT_RES;
+import static com.demo.poc.commons.core.logging.enums.LoggingType.REST_SERVER_REQ;
+import static com.demo.poc.commons.core.logging.enums.LoggingType.REST_SERVER_RES;
 import static com.demo.poc.commons.core.tracing.utils.TraceHeaderExtractor.extractTraceHeadersAsMap;
 
 @Slf4j

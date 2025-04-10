@@ -1,12 +1,13 @@
 package com.demo.poc.commons.core.interceptor.error;
 
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
-import com.demo.poc.commons.core.errors.exceptions.ExternalServiceException;
+import com.demo.poc.commons.core.errors.exceptions.RestClientException;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
+import com.demo.poc.commons.core.errors.selector.ResponseErrorSelector;
+import com.demo.poc.commons.core.logging.ThreadContextInjector;
 import com.demo.poc.commons.core.logging.enums.LoggingType;
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import com.demo.poc.commons.core.serialization.ByteSerializer;
-import com.demo.poc.commons.core.logging.ThreadContextInjector;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
@@ -24,8 +25,9 @@ public class ErrorInterceptor {
   private final ByteSerializer byteSerializer;
   private final ThreadContextInjector threadContextInjector;
   private final ConfigurationBaseProperties properties;
+  private final ResponseErrorSelector responseErrorSelector;
 
-  public Mono<Void> handleException(ConfigurationBaseProperties properties, Throwable ex, ServerWebExchange exchange) {
+  public Mono<Void> handleException(Throwable ex, ServerWebExchange exchange) {
     generateTrace(ex, exchange);
 
     ErrorDto error = ErrorDto.getDefaultError(properties);
@@ -34,13 +36,13 @@ public class ErrorInterceptor {
     if (ex instanceof WebClientRequestException || ex instanceof ConnectException)
       httpStatus = HttpStatus.REQUEST_TIMEOUT;
 
-    if( ex instanceof ExternalServiceException externalServiceException) {
-      error = externalServiceException.getErrorDetail();
-      httpStatus = HttpStatus.valueOf(externalServiceException.getHttpStatusCode().value());
+    if( ex instanceof RestClientException restClientException) {
+      error = restClientException.getErrorDetail();
+      httpStatus = HttpStatus.valueOf(restClientException.getHttpStatusCode().value());
     }
 
     if( ex instanceof GenericException genericException) {
-      error = ResponseErrorSelector.toErrorDTO(properties, genericException);
+      error = responseErrorSelector.toErrorDTO(genericException);
       httpStatus = genericException.getHttpStatus();
     }
 

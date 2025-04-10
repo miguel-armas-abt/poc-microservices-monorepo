@@ -1,8 +1,8 @@
 package com.demo.poc.commons.core.interceptor.restclient.response;
 
-import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
-import com.demo.poc.commons.core.logging.enums.LoggingType;
 import com.demo.poc.commons.core.logging.ThreadContextInjector;
+import com.demo.poc.commons.core.logging.enums.LoggingType;
+import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

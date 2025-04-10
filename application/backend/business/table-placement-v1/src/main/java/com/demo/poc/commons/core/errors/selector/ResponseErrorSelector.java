@@ -1,29 +1,33 @@
-package com.demo.poc.commons.core.interceptor.error;
+package com.demo.poc.commons.core.errors.selector;
 
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import com.demo.poc.commons.core.properties.ProjectType;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
 import static com.demo.poc.commons.core.errors.dto.ErrorDto.CODE_DEFAULT;
 
+@RequiredArgsConstructor
 public class ResponseErrorSelector {
 
-  public static <T extends Throwable> ErrorDto toErrorDTO(ConfigurationBaseProperties properties, T exception) {
+  private final ConfigurationBaseProperties properties;
+
+  public <T extends Throwable> ErrorDto toErrorDTO(T exception) {
     ErrorDto error = extractError(exception);
-    String selectedCode = selectCustomCode(properties, error);
+    String selectedCode = selectCustomCode(error);
     error.setCode(selectedCode);
 
-    String selectedMessage = selectMessage(properties, error);
+    String selectedMessage = selectMessage(error);
     error.setMessage(selectedMessage);
 
     return error;
   }
 
-  private static String selectCustomCode(ConfigurationBaseProperties properties, ErrorDto error) {
-    ProjectType projectType = selectProjectType(properties);
+  private String selectCustomCode(ErrorDto error) {
+    ProjectType projectType = selectProjectType();
 
     return ProjectType.BFF.equals(projectType)
         ? CODE_DEFAULT
@@ -32,9 +36,9 @@ public class ResponseErrorSelector {
         .orElseGet(() -> CODE_DEFAULT);
   }
 
-  private static String selectMessage(ConfigurationBaseProperties properties, ErrorDto error) {
+  private String selectMessage(ErrorDto error) {
     String defaultMessage = ErrorDto.getDefaultError(properties).getMessage();
-    ProjectType projectType = selectProjectType(properties);
+    ProjectType projectType = selectProjectType();
 
     if(ProjectType.BFF.equals(projectType))
       return defaultMessage;
@@ -43,7 +47,7 @@ public class ResponseErrorSelector {
         .orElseGet(() -> Optional.ofNullable(error.getMessage()).orElse(defaultMessage));
   }
 
-  private static ProjectType selectProjectType(ConfigurationBaseProperties properties) {
+  private ProjectType selectProjectType() {
     return Optional.ofNullable(properties.getProjectType()).orElseGet(() -> ProjectType.MS);
   }
 
