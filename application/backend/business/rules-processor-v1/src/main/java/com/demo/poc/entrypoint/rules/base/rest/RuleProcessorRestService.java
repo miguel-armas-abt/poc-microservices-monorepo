@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/poc/business/rules-processor/v1", produces = MediaType.APPLICATION_JSON_VALUE)
-public class PaymentRestService {
+public class RuleProcessorRestService {
 
   private final RuleService ruleService;
   private final HeaderValidator headerValidator;

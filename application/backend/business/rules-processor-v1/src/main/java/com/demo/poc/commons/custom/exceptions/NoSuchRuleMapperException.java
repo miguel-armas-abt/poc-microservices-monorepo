@@ -1,7 +1,6 @@
 package com.demo.poc.commons.custom.exceptions;
 
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
-import com.demo.poc.commons.core.errors.enums.ErrorDictionary;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,7 @@ public class NoSuchRuleMapperException extends GenericException {
   public NoSuchRuleMapperException() {
     super(EXCEPTION.getMessage());
     this.httpStatus = HttpStatus.BAD_REQUEST;
-    this.errorDetail = ErrorDTO.builder()
+    this.errorDetail = ErrorDto.builder()
         .code(EXCEPTION.getCode())
         .message(EXCEPTION.getMessage())
         .build();

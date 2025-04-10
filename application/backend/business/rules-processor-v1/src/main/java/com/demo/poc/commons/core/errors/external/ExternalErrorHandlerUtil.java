@@ -1,6 +1,6 @@
 package com.demo.poc.commons.core.errors.external;
 
-import com.demo.poc.commons.core.errors.dto.ErrorDTO;
+import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.dto.ErrorType;
 import com.demo.poc.commons.core.errors.exceptions.JsonReadException;
 import com.demo.poc.commons.core.errors.external.strategy.RestClientErrorStrategy;
@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ExternalErrorHandlerUtil {
 
-  public static Pair<ErrorDTO, HttpStatus> build(Response response,
+  public static Pair<ErrorDto, HttpStatus> build(Response response,
                                                  List<RestClientErrorStrategy> serviceList,
                                                  ConfigurationBaseProperties properties) {
 
@@ -46,13 +46,13 @@ public class ExternalErrorHandlerUtil {
         });
 
     return Optional.ofNullable(atomicPair.get())
-        .map(pairCodeAndMessage -> Pair.of(ErrorDTO.builder()
+        .map(pairCodeAndMessage -> Pair.of(ErrorDto.builder()
             .type(ErrorType.EXTERNAL)
             .code(pairCodeAndMessage.getLeft())
             .message(pairCodeAndMessage.getRight())
             .build(), HttpStatus.valueOf(response.code())))
         .orElseGet(() -> {
-          ErrorDTO error = ErrorDTO.getDefaultError(properties);
+          ErrorDto error = ErrorDto.getDefaultError(properties);
           error.setType(ErrorType.EXTERNAL);
           return Pair.of(error, HttpStatus.BAD_REQUEST);
         });

@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DiscountRuleRequestDTO implements Serializable {
+public class DiscountRuleRequestDto implements Serializable {
 
   private Integer quantity;
   private String productCode;

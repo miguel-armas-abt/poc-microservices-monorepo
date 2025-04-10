@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DiscountRuleResponseDTO implements Serializable {
+public class DiscountRuleResponseDto implements Serializable {
 
   private Double discount;
 }
