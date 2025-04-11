@@ -8,6 +8,7 @@ import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import com.demo.poc.commons.core.properties.ProjectType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -65,6 +66,10 @@ public class ResponseErrorSelector {
       error = extractError(methodArgumentNotValidException);
     }
 
+    if (exception instanceof MissingRequestHeaderException missingRequestHeaderException) {
+      error = extractError(missingRequestHeaderException);
+    }
+
     return error;
   }
 
@@ -80,5 +85,13 @@ public class ResponseErrorSelector {
         .code(ErrorDictionary.INVALID_FIELD.getCode())
         .message(message)
         .build();
+  }
+
+  private static ErrorDto extractError(MissingRequestHeaderException exception) {
+    return ErrorDto.builder()
+            .type(ErrorType.BUSINESS)
+            .code(ErrorDictionary.INVALID_FIELD.getCode())
+            .message(exception.getBody().getDetail())
+            .build();
   }
 }
