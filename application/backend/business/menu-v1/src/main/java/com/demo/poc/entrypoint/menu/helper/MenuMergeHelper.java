@@ -1,4 +1,4 @@
-package com.demo.poc.entrypoint.menu.repository;
+package com.demo.poc.entrypoint.menu.helper;
 
 import com.demo.poc.commons.custom.exceptions.MenuOptionNotFoundException;
 import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDto;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
-public class MenuAndProductJoiner {
+public class MenuMergeHelper {
 
   private final String PRODUCT_SCOPE = "MENU";
   private final ProductRepository productRepository;

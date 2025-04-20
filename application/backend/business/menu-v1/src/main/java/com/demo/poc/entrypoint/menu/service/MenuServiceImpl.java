@@ -7,7 +7,7 @@ import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDto;
 import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDto;
 import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDto;
 import com.demo.poc.entrypoint.menu.mapper.MenuResponseMapper;
-import com.demo.poc.entrypoint.menu.repository.MenuAndProductCache;
+import com.demo.poc.entrypoint.menu.helper.MenuMergeHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Component
 public class MenuServiceImpl implements MenuService {
 
-  private final MenuAndProductCache menuAndProductCache;
+  private final MenuMergeHelper menuAndProductCache;
   private final MenuResponseMapper mapper;
   private final ApplicationProperties properties;
 
