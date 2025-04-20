@@ -3028,67 +3028,6 @@
 							"response": []
 						}
 					]
-				},
-				{
-					"name": "rules-processor-v1",
-					"item": [
-						{
-							"name": "rules-processor-v1 - discount",
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
-										"type": "text"
-									},
-									{
-										"key": "channel-id",
-										"value": "web",
-										"type": "text"
-									},
-									{
-										"key": "strategy",
-										"value": "DiscountRule",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"quantity\": 2,\r\n    \"productCode\": \"MENU0003\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8019/poc/business/rules-processor/v1/execute",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8019",
-									"path": [
-										"poc",
-										"business",
-										"rules-processor",
-										"v1",
-										"execute"
-									]
-								}
-							},
-							"response": []
-						}
-					]
 				}
 			],
 			"event": [
