@@ -8,7 +8,6 @@ menu-v2,business
 order-hub-v1,business
 payment-v1,business
 product-v1,business
-rules-processor-v1,business
 table-placement-v1,business
 api-gateway-v1,platform
 auth-adapter-v1,platform

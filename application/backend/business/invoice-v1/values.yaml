@@ -14,7 +14,6 @@ configMaps:
   POSTGRESQL_USERNAME: "poc_user"
   PRODUCT_DOMAIN: "product-v1:8017"
   CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
-  RULES_PROCESSOR_DOMAIN: "rules-processor-v1:8019"
   JAVA_OPTS: "-Xms256M -Xmx256M"
 
 secrets:
