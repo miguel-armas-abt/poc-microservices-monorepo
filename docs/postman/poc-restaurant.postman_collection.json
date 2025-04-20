@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "67cde67c-6dec-41ef-bdc9-2900353d8275",
-		"name": "poc",
+		"_postman_id": "cdc6b570-c8aa-49c4-92e0-609cc6a6e873",
+		"name": "poc-restaurant",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "13773998"
+		"_exporter_id": "33527392"
 	},
 	"item": [
 		{
