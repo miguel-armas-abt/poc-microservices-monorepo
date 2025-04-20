@@ -1,6 +1,6 @@
 package com.demo.poc.entrypoint.search.service;
 
-import com.demo.poc.entrypoint.search.dto.response.InvoiceResponseDTO;
+import com.demo.poc.entrypoint.search.dto.response.InvoiceResponseDto;
 import com.demo.poc.entrypoint.search.mapper.InvoiceResponseMapper;
 import com.demo.poc.entrypoint.payment.repository.customer.entity.DocumentType;
 import com.demo.poc.entrypoint.payment.repository.invoice.InvoiceRepository;
@@ -16,8 +16,8 @@ public class InvoiceSearchServiceImpl implements InvoiceSearchService {
   private final InvoiceRepository invoiceRepository;
 
   @Override
-  public Flux<InvoiceResponseDTO> findInvoicesByCustomer(String documentNumber, String documentType) {
+  public Flux<InvoiceResponseDto> findInvoicesByCustomer(String documentNumber, String documentType) {
     return Flux.fromIterable(invoiceRepository.findByCustomerEntityDocumentNumberAndCustomerEntityDocumentType(documentNumber, DocumentType.valueOf(documentType)))
-        .map(mapper::toResponseDTO);
+        .map(mapper::toResponseDto);
   }
 }

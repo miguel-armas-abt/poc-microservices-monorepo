@@ -19,14 +19,14 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/ProductRequestDTO'
+                $ref: '#/components/schemas/ProductRequestDto'
       responses:
         200:
           description: Respuesta exitosa
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InvoiceResponseDTO'
+                $ref: '#/components/schemas/InvoiceResponseDto'
 
         400:
           description: Bad Request
@@ -47,7 +47,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/PaymentSendRequestDTO'
+                $ref: '#/components/schemas/PaymentSendRequestDto'
       responses:
         202:
           description: Respuesta exitosa
@@ -72,7 +72,7 @@ components:
       required: true
 
   schemas:
-    ProductRequestDTO:
+    ProductRequestDto:
       type: object
       properties:
         description:
@@ -88,7 +88,7 @@ components:
           description: Código del producto.
           example: MENU0005
 
-    InvoiceResponseDTO:
+    InvoiceResponseDto:
       type: object
       properties:
         productList:
@@ -128,17 +128,17 @@ components:
           description: Monto subtotal por la cantidad de productos del mismo tipo.
           example: 39.9
 
-    PaymentSendRequestDTO:
+    PaymentSendRequestDto:
       type: object
       properties:
         productList:
-          $ref: '#/components/schemas/ProductRequestDTO'
+          $ref: '#/components/schemas/ProductRequestDto'
         customer:
-          $ref: '#/components/schemas/CustomerDTO'
+          $ref: '#/components/schemas/CustomerDto'
         payment:
-          $ref: '#/components/schemas/PaymentDTO'
+          $ref: '#/components/schemas/PaymentDto'
 
-    CustomerDTO:
+    CustomerDto:
       type: object
       properties:
         documentType:
@@ -150,7 +150,7 @@ components:
           description: Número de documento del cliente.
           example: 76510938
 
-    PaymentDTO:
+    PaymentDto:
       type: object
       properties:
         method:

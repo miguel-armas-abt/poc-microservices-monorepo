@@ -31,22 +31,6 @@ configuration:
           forwarded:
             trace-id: trace-id
             channel-id: channel-id
-    rules-processor-v1:
-      performance:
-        timeout: EXCELLENT
-        concurrency: LOW
-      request:
-        endpoint: http://${RULES_PROCESSOR_DOMAIN:localhost:8019}/poc/business/rules-processor/v1/execute
-        headers:
-          provided:
-            Accept: application/json
-            strategy: DiscountRule
-          generated:
-            parent-id: PARENT_ID
-            timestamp: TIMESTAMP
-          forwarded:
-            trace-id: trace-id
-            channel-id: channel-id
 
   custom:
     functional:

@@ -4,7 +4,7 @@ import com.demo.poc.commons.core.restserver.ServerResponseBuilder;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.headers.HeaderValidator;
 import com.demo.poc.commons.core.validations.params.ParamValidator;
-import com.demo.poc.entrypoint.search.dto.response.InvoiceResponseDTO;
+import com.demo.poc.entrypoint.search.dto.response.InvoiceResponseDto;
 import com.demo.poc.entrypoint.search.dto.params.DocumentNumberParam;
 import com.demo.poc.entrypoint.search.service.InvoiceSearchService;
 import java.util.Map;
@@ -34,7 +34,7 @@ public class InvoiceSearchHandler {
         .buildFlux(
             ServerResponse.ok(),
             serverRequest.headers(),
-            InvoiceResponseDTO.class,
+            InvoiceResponseDto.class,
             invoiceSearchService.findInvoicesByCustomer(documentNumberParam.getDocumentNumber(), documentNumberParam.getDocumentType())
         );
   }

@@ -11,12 +11,10 @@ import org.mapstruct.Named;
 public interface CalculatorMapper {
 
   @Mapping(target = "subtotal", source = "product", qualifiedByName = "getSubtotal")
-  ProductDto toResponseDTO(ProductRequestDto product);
+  ProductDto toResponseDto(ProductRequestDto product);
 
   @Named("getSubtotal")
   static BigDecimal getSubtotal(ProductRequestDto product) {
-    BigDecimal subtotal = product.getUnitPrice().multiply(new BigDecimal(product.getQuantity()));
-    BigDecimal discount = BigDecimal.valueOf(product.getDiscount());
-    return subtotal.subtract(subtotal.multiply(discount));
+    return product.getUnitPrice().multiply(new BigDecimal(product.getQuantity()));
   }
 }
