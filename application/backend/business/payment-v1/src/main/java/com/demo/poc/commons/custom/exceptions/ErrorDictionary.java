@@ -6,10 +6,9 @@ import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.errors.exceptions.InvalidFieldException;
 import com.demo.poc.commons.core.errors.exceptions.JsonReadException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchLoggerTypeException;
+import com.demo.poc.commons.core.errors.exceptions.NoSuchParamMapperException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientErrorExtractorException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientException;
-import com.demo.poc.commons.core.errors.exceptions.ReflectiveParamAssignmentException;
-import com.demo.poc.commons.core.errors.exceptions.ReflectiveParamMappingException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,17 +24,16 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 @RequiredArgsConstructor
 public enum ErrorDictionary {
 
-  //system=00
+  //system=09.00.xx
   INVALID_FIELD("09.00.01", "Invalid field", BUSINESS, BAD_REQUEST, InvalidFieldException.class),
   NO_SUCH_REST_CLIENT_ERROR_EXTRACTOR("09.00.02", "No such rest client error extractor", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientErrorExtractorException.class),
   NO_SUCH_LOGGER_TYPE("09.00.03", "No such logger type", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchLoggerTypeException.class),
   NO_SUCH_REST_CLIENT("09.00.04", "No such rest client", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientException.class),
   ERROR_READING_JSON("09.00.05", "Error reading JSON", SYSTEM, INTERNAL_SERVER_ERROR, JsonReadException.class),
-  ERROR_MAPPING_REFLECTIVE_PARAMS("09.00.06", "Error mapping reflective params", SYSTEM, INTERNAL_SERVER_ERROR, ReflectiveParamMappingException.class),
-  ERROR_ASSIGN_REFLECTIVE_PARAMS("09.00.07", "Error assign reflective params", SYSTEM, INTERNAL_SERVER_ERROR, ReflectiveParamAssignmentException.class),
-  EMPTY_BASE_URL("09.00.08", "Base URL is required", SYSTEM, INTERNAL_SERVER_ERROR, EmptyBaseUrlException.class),
+  NO_SUCH_PARAM_MAPPER("09.00.06", "No such param mapper", BUSINESS, BAD_REQUEST, NoSuchParamMapperException.class),
+  EMPTY_BASE_URL("09.00.07", "Base URL is required", SYSTEM, INTERNAL_SERVER_ERROR, EmptyBaseUrlException.class),
 
-  //custom=01
+  //payment=09.01.xx
   ;
 
   private final String code;

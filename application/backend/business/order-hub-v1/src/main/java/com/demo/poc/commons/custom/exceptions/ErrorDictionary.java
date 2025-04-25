@@ -32,7 +32,7 @@ public enum ErrorDictionary {
   NO_SUCH_LOGGER_TYPE("10.00.03", "No such logger type", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchLoggerTypeException.class),
   NO_SUCH_REST_CLIENT("10.00.04", "No such rest client", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientException.class),
   ERROR_READING_JSON("10.00.05", "Error reading JSON", SYSTEM, INTERNAL_SERVER_ERROR, JsonReadException.class),
-  NO_SUCH_PARAM_MAPPER("05.00.06", "No such param mapper", BUSINESS, BAD_REQUEST, NoSuchParamMapperException.class),
+  NO_SUCH_PARAM_MAPPER("10.00.06", "No such param mapper", BUSINESS, BAD_REQUEST, NoSuchParamMapperException.class),
   INVALID_STREAMING_DATA("10.00.07", "Streaming data is not processable", SYSTEM, INTERNAL_SERVER_ERROR, InvalidStreamingData.class),
   UNEXPECTED_SSL_EXCEPTION("10.00.08", "Unexpected SSL error for HTTP client", SYSTEM, INTERNAL_SERVER_ERROR, UnexpectedSslException.class),
 

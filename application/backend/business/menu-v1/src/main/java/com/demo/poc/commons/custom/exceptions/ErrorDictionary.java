@@ -30,7 +30,7 @@ public enum ErrorDictionary {
   NO_SUCH_LOGGER_TYPE("05.00.03", "No such logger type", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchLoggerTypeException.class),
   NO_SUCH_REST_CLIENT("05.00.04", "No such rest client", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientException.class),
   ERROR_READING_JSON("05.00.05", "Error reading JSON", SYSTEM, INTERNAL_SERVER_ERROR, JsonReadException.class),
-  NO_SUCH_PARAM_MAPPER("05.00.07", "No such param mapper", BUSINESS, BAD_REQUEST, NoSuchParamMapperException.class),
+  NO_SUCH_PARAM_MAPPER("05.00.06", "No such param mapper", BUSINESS, BAD_REQUEST, NoSuchParamMapperException.class),
 
   //menu=05.01.xx
   MENU_OPTION_NOT_FOUND("05.01.01", "The menu option does not exist", BUSINESS, NOT_FOUND, MenuOptionNotFoundException.class),
