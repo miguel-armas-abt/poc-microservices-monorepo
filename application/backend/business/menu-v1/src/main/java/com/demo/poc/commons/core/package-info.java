@@ -1,5 +1,5 @@
 /**
- * <h1>Core Library - Basic</h1>
+ * <h1>Core Library - Full</h1>
  *
  * <p>This package contains the core config classes for Spring Boot.</p>
  *

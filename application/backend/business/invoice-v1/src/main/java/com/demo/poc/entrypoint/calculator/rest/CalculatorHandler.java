@@ -37,10 +37,10 @@ public class CalculatorHandler {
 
     return paramValidator.validateAndGet(headers, DefaultHeaders.class)
         .flatMap(defaultHeaders -> calculatorService.calculateInvoice(headers, products))
-        .flatMap(response -> build(serverRequest.headers(), response));
+        .flatMap(response -> single(serverRequest.headers(), response));
   }
 
-  private static Mono<ServerResponse> build(ServerRequest.Headers requestHeaders, InvoiceResponseDto response) {
+  private static Mono<ServerResponse> single(ServerRequest.Headers requestHeaders, InvoiceResponseDto response) {
     return ServerResponse.ok()
         .headers(headers -> RestServerUtils.buildResponseHeaders(requestHeaders).accept(headers))
         .contentType(MediaType.APPLICATION_JSON)

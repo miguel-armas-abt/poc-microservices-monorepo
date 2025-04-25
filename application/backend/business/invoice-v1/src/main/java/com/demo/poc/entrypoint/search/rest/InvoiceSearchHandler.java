@@ -28,15 +28,17 @@ public class InvoiceSearchHandler {
   private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> findInvoicesByCustomer(ServerRequest serverRequest) {
-    Flux<InvoiceResponseDto> response = paramValidator.validateAndGet(extractHeadersAsMap(serverRequest), DefaultHeaders.class)
-        .flatMap(headers -> paramValidator.validateAndGet(extractQueryParamsAsMap(serverRequest), DocumentNumberParam.class))
-        .flatMapMany(documentNumberParam -> invoiceSearchService.findInvoicesByCustomer(documentNumberParam.getDocumentNumber(), documentNumberParam.getDocumentType()));
+    Mono<DocumentNumberParam> documentNumberParamMono = paramValidator.validateAndGet(extractQueryParamsAsMap(serverRequest), DocumentNumberParam.class);
 
-    return build(serverRequest.headers(), response);
+    Flux<InvoiceResponseDto> response = paramValidator.validateAndGet(extractHeadersAsMap(serverRequest), DefaultHeaders.class)
+        .zipWith(documentNumberParamMono)
+        .flatMapMany(tuple -> invoiceSearchService.findInvoicesByCustomer(tuple.getT2().getDocumentNumber(), tuple.getT2().getDocumentType()));
+
+    return stream(serverRequest.headers(), response);
   }
 
-  private static Mono<ServerResponse> build(ServerRequest.Headers requestHeaders,
-                                            Flux<InvoiceResponseDto> streamResponse) {
+  private static Mono<ServerResponse> stream(ServerRequest.Headers requestHeaders,
+                                             Flux<InvoiceResponseDto> streamResponse) {
     return ServerResponse.ok()
         .headers(headers -> RestServerUtils.buildResponseHeaders(requestHeaders).accept(headers))
         .contentType(MediaType.APPLICATION_NDJSON)

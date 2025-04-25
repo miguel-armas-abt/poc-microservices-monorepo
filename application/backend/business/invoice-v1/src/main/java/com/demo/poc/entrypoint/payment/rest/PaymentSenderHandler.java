@@ -27,14 +27,17 @@ public class PaymentSenderHandler {
 
   public Mono<ServerResponse> sendToPay(ServerRequest serverRequest) {
     Map<String, String> headers = extractHeadersAsMap(serverRequest);
+
+    Mono<PaymentSendRequestDto> paymentRequestMono = serverRequest.bodyToMono(PaymentSendRequestDto.class)
+        .flatMap(bodyValidator::validateAndGet);
+
     return paramValidator.validateAndGet(headers, DefaultHeaders.class)
-        .flatMap(defaultHeaders -> serverRequest.bodyToMono(PaymentSendRequestDto.class)
-            .doOnNext(bodyValidator::validate)
-            .flatMap(request -> paymentSenderService.sendToPay(headers, request)))
-        .then(build(serverRequest.headers()));
+        .zipWith(paymentRequestMono)
+        .flatMap(tuple -> paymentSenderService.sendToPay(headers, tuple.getT2()))
+        .then(empty(serverRequest.headers()));
   }
 
-  private static Mono<ServerResponse> build(ServerRequest.Headers requestHeaders) {
+  private static Mono<ServerResponse> empty(ServerRequest.Headers requestHeaders) {
     return ServerResponse.noContent()
         .headers(headers -> RestServerUtils.buildResponseHeaders(requestHeaders).accept(headers))
         .build();

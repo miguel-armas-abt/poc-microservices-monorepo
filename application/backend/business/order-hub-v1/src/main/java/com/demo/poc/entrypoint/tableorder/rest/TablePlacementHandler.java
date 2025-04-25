@@ -1,18 +1,23 @@
 package com.demo.poc.entrypoint.tableorder.rest;
 
-import com.demo.poc.commons.core.validations.body.BodyValidator;
+import com.demo.poc.commons.core.validations.BodyValidator;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
-import com.demo.poc.commons.core.validations.headers.HeaderValidator;
-import com.demo.poc.commons.core.validations.params.ParamValidator;
+import com.demo.poc.commons.core.validations.ParamValidator;
 import com.demo.poc.entrypoint.tableorder.dto.request.MenuOrderRequestDto;
 import com.demo.poc.entrypoint.tableorder.dto.params.TableNumberParam;
+import com.demo.poc.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import com.demo.poc.entrypoint.tableorder.service.TablePlacementService;
-import com.demo.poc.commons.core.restserver.ServerResponseBuilder;
+import com.demo.poc.commons.core.restserver.RestServerUtils;
+
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
 import reactor.core.publisher.Mono;
 
 import static com.demo.poc.commons.core.restclient.utils.HttpHeadersFiller.extractHeadersAsMap;
@@ -25,26 +30,42 @@ public class TablePlacementHandler {
   private final TablePlacementService tablePlacementService;
   private final BodyValidator bodyValidator;
   private final ParamValidator paramValidator;
-  private final HeaderValidator headerValidator;
 
   public Mono<ServerResponse> generateTableOrder(ServerRequest serverRequest) {
     Map<String, String> headers = extractHeadersAsMap(serverRequest);
-    headerValidator.validate(headers, DefaultHeaders.class);
-    TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
-    return serverRequest.bodyToFlux(MenuOrderRequestDto.class)
-        .doOnNext(bodyValidator::validate)
-        .collectList()
-        .flatMap(requestedMenuOrders -> tablePlacementService.generateTableOrder(headers, requestedMenuOrders, tableNumberParam.getTableNumber()))
-        .then(ServerResponseBuilder.buildEmpty(serverRequest.headers()));
+    Mono<TableNumberParam> tableNumberParamMono = paramValidator.validateAndGet(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
+
+    return paramValidator.validateAndGet(headers, DefaultHeaders.class)
+        .zipWith(tableNumberParamMono)
+        .flatMap(tuple -> serverRequest.bodyToFlux(MenuOrderRequestDto.class)
+            .flatMap(bodyValidator::validateAndGet)
+            .collectList()
+            .flatMap(menuOrders -> tablePlacementService.generateTableOrder(headers, menuOrders, tuple.getT2().getTableNumber())))
+        .then(empty(serverRequest.headers()));
   }
 
   public Mono<ServerResponse> findByTableNumber(ServerRequest serverRequest) {
     Map<String, String> headers = extractHeadersAsMap(serverRequest);
-    headerValidator.validate(headers, DefaultHeaders.class);
-    TableNumberParam tableNumberParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
-    return tablePlacementService.findByTableNumber(headers, tableNumberParam.getTableNumber())
-        .flatMap(response -> ServerResponseBuilder.buildMono(ServerResponse.ok(), serverRequest.headers(), response));
+    Mono<TableNumberParam> tableNumberParamMono = paramValidator.validateAndGet(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
+
+    return paramValidator.validateAndGet(headers, DefaultHeaders.class)
+        .zipWith(tableNumberParamMono)
+        .flatMap(tuple -> tablePlacementService.findByTableNumber(headers, tuple.getT2().getTableNumber()))
+        .flatMap(response -> single(serverRequest.headers(), response));
+  }
+
+  private static Mono<ServerResponse> empty(ServerRequest.Headers requestHeaders) {
+    return ServerResponse.noContent()
+        .headers(headers -> RestServerUtils.buildResponseHeaders(requestHeaders).accept(headers))
+        .build();
+  }
+
+  private static Mono<ServerResponse> single(ServerRequest.Headers requestHeaders, TableOrderResponseWrapper response) {
+    return ServerResponse.ok()
+        .headers(headers -> RestServerUtils.buildResponseHeaders(requestHeaders).accept(headers))
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(BodyInserters.fromValue(response));
   }
 }

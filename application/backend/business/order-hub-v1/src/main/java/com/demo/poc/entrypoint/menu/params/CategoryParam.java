@@ -1,6 +1,5 @@
-package com.demo.poc.entrypoint.menu.dto.params;
+package com.demo.poc.entrypoint.menu.params;
 
-import com.demo.poc.commons.core.validations.params.DefaultParams;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
@@ -13,7 +12,7 @@ import static com.demo.poc.entrypoint.menu.constants.ParameterConstants.CATEGORY
 @Getter
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class CategoryParam extends DefaultParams implements Serializable {
+public class CategoryParam implements Serializable {
 
   @Pattern(regexp = CATEGORY_REGEX)
   private String category;
