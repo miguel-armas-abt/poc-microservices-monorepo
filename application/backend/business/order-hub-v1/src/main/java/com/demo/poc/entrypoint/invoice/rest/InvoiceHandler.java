@@ -5,7 +5,6 @@ import com.demo.poc.commons.core.validations.BodyValidator;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.ParamValidator;
 import com.demo.poc.entrypoint.invoice.dto.PaymentSendRequestDto;
-import com.demo.poc.entrypoint.invoice.repository.wrapper.response.InvoiceResponseWrapper;
 import com.demo.poc.entrypoint.invoice.service.InvoiceService;
 import com.demo.poc.entrypoint.invoice.repository.wrapper.request.ProductRequestWrapper;
 
@@ -41,7 +40,10 @@ public class InvoiceHandler {
     return paramValidator.validateAndGet(headers, DefaultHeaders.class)
         .zipWith(productsMono)
         .flatMap(tuple -> invoiceService.calculateInvoice(headers, tuple.getT2()))
-        .flatMap(response -> single(serverRequest.headers(), response));
+        .flatMap(response -> ServerResponse.ok()
+            .headers(httpHeaders -> RestServerUtils.buildResponseHeaders(serverRequest.headers()).accept(httpHeaders))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(BodyInserters.fromValue(response)));
   }
 
   public Mono<ServerResponse> sendToPay(ServerRequest serverRequest) {
@@ -53,20 +55,8 @@ public class InvoiceHandler {
     return paramValidator.validateAndGet(headers, DefaultHeaders.class)
         .zipWith(paymentRequest)
         .flatMap(tuple -> invoiceService.sendToPay(headers, tuple.getT2()))
-        .then(empty(serverRequest.headers()));
-  }
-
-  private static Mono<ServerResponse> single(ServerRequest.Headers requestHeaders,
-                                             InvoiceResponseWrapper response) {
-    return ServerResponse.ok()
-        .headers(headers -> RestServerUtils.buildResponseHeaders(requestHeaders).accept(headers))
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(BodyInserters.fromValue(response));
-  }
-
-  private static Mono<ServerResponse> empty(ServerRequest.Headers requestHeaders) {
-    return ServerResponse.noContent()
-        .headers(headers -> RestServerUtils.buildResponseHeaders(requestHeaders).accept(headers))
-        .build();
+        .then(ServerResponse.noContent()
+            .headers(httpHeaders -> RestServerUtils.buildResponseHeaders(serverRequest.headers()).accept(httpHeaders))
+            .build());
   }
 }

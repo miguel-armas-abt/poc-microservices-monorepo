@@ -34,14 +34,9 @@ public class InvoiceSearchHandler {
         .zipWith(documentNumberParamMono)
         .flatMapMany(tuple -> invoiceSearchService.findInvoicesByCustomer(tuple.getT2().getDocumentNumber(), tuple.getT2().getDocumentType()));
 
-    return stream(serverRequest.headers(), response);
-  }
-
-  private static Mono<ServerResponse> stream(ServerRequest.Headers requestHeaders,
-                                             Flux<InvoiceResponseDto> streamResponse) {
     return ServerResponse.ok()
-        .headers(headers -> RestServerUtils.buildResponseHeaders(requestHeaders).accept(headers))
+        .headers(httpHeaders -> RestServerUtils.buildResponseHeaders(serverRequest.headers()).accept(httpHeaders))
         .contentType(MediaType.APPLICATION_NDJSON)
-        .body(BodyInserters.fromPublisher(streamResponse, InvoiceResponseDto.class));
+        .body(BodyInserters.fromPublisher(response, InvoiceResponseDto.class))
   }
 }

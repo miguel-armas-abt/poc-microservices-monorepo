@@ -37,14 +37,9 @@ public class MenuHandler {
         .zipWith(categoryParamMono)
         .flatMapMany(tuple -> menuRepository.selectStrategy().findByCategory(headers, tuple.getT2().getCategory()));
 
-    return stream(serverRequest.headers(), response);
-  }
-
-  private static Mono<ServerResponse> stream(ServerRequest.Headers requestHeaders,
-                                             Flux<MenuOptionResponseWrapper> streamResponse) {
     return ServerResponse.ok()
-        .headers(headers -> RestServerUtils.buildResponseHeaders(requestHeaders).accept(headers))
+        .headers(httpHeaders -> RestServerUtils.buildResponseHeaders(serverRequest.headers()).accept(httpHeaders))
         .contentType(MediaType.APPLICATION_NDJSON)
-        .body(BodyInserters.fromPublisher(streamResponse, MenuOptionResponseWrapper.class));
+        .body(BodyInserters.fromPublisher(response, MenuOptionResponseWrapper.class));
   }
 }

@@ -34,12 +34,8 @@ public class PaymentSenderHandler {
     return paramValidator.validateAndGet(headers, DefaultHeaders.class)
         .zipWith(paymentRequestMono)
         .flatMap(tuple -> paymentSenderService.sendToPay(headers, tuple.getT2()))
-        .then(empty(serverRequest.headers()));
-  }
-
-  private static Mono<ServerResponse> empty(ServerRequest.Headers requestHeaders) {
-    return ServerResponse.noContent()
-        .headers(headers -> RestServerUtils.buildResponseHeaders(requestHeaders).accept(headers))
-        .build();
+        .then(ServerResponse.noContent()
+            .headers(httpHeaders -> RestServerUtils.buildResponseHeaders(serverRequest.headers()).accept(httpHeaders))
+            .build());
   }
 }

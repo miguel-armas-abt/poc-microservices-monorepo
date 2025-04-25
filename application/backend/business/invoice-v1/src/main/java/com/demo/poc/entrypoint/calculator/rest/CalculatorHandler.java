@@ -37,13 +37,9 @@ public class CalculatorHandler {
 
     return paramValidator.validateAndGet(headers, DefaultHeaders.class)
         .flatMap(defaultHeaders -> calculatorService.calculateInvoice(headers, products))
-        .flatMap(response -> single(serverRequest.headers(), response));
-  }
-
-  private static Mono<ServerResponse> single(ServerRequest.Headers requestHeaders, InvoiceResponseDto response) {
-    return ServerResponse.ok()
-        .headers(headers -> RestServerUtils.buildResponseHeaders(requestHeaders).accept(headers))
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(BodyInserters.fromValue(response));
+        .flatMap(response -> ServerResponse.ok()
+            .headers(httpHeaders -> RestServerUtils.buildResponseHeaders(serverRequest.headers()).accept(httpHeaders))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(BodyInserters.fromValue(response)));
   }
 }
