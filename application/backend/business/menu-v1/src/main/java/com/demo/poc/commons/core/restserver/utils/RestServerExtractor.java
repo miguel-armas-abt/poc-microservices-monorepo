@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ServerHeaderExtractor {
+public class RestServerExtractor {
 
   public static Map<String, String> extractHeadersAsMap(HttpServletRequest httpServletRequest) {
     return Optional.ofNullable(httpServletRequest.getHeaderNames())
@@ -21,4 +21,14 @@ public class ServerHeaderExtractor {
         .collect(Collectors.toMap(headerName -> headerName, httpServletRequest::getHeader));
   }
 
+  public static Map<String, String> extractQueryParamsAsMap(HttpServletRequest request) {
+    return Optional.ofNullable(request.getParameterNames())
+        .map(Collections::list)
+        .orElse(new ArrayList<>())
+        .stream()
+        .collect(Collectors.toMap(
+            paramName -> paramName,
+            request::getParameter
+        ));
+  }
 }

@@ -7,8 +7,7 @@ import com.demo.poc.commons.core.errors.exceptions.JsonReadException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchLoggerTypeException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientErrorExtractorException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientException;
-import com.demo.poc.commons.core.errors.exceptions.ReflectiveParamAssignmentException;
-import com.demo.poc.commons.core.errors.exceptions.ReflectiveParamMappingException;
+import com.demo.poc.commons.core.errors.exceptions.NoSuchParamMapperException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,16 +24,15 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @RequiredArgsConstructor
 public enum ErrorDictionary {
 
-  //system=00
+  //system=05.00.xx
   INVALID_FIELD("05.00.01", "Invalid field", BUSINESS, BAD_REQUEST, InvalidFieldException.class),
   NO_SUCH_REST_CLIENT_ERROR_EXTRACTOR("05.00.02", "No such rest client error extractor", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientErrorExtractorException.class),
   NO_SUCH_LOGGER_TYPE("05.00.03", "No such logger type", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchLoggerTypeException.class),
   NO_SUCH_REST_CLIENT("05.00.04", "No such rest client", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientException.class),
   ERROR_READING_JSON("05.00.05", "Error reading JSON", SYSTEM, INTERNAL_SERVER_ERROR, JsonReadException.class),
-  ERROR_MAPPING_REFLECTIVE_PARAMS("05.00.06", "Error mapping reflective params", SYSTEM, INTERNAL_SERVER_ERROR, ReflectiveParamMappingException.class),
-  ERROR_ASSIGN_REFLECTIVE_PARAMS("05.00.07", "Error assign reflective params", SYSTEM, INTERNAL_SERVER_ERROR, ReflectiveParamAssignmentException.class),
+  NO_SUCH_PARAM_MAPPER("05.00.07", "No such param mapper", BUSINESS, BAD_REQUEST, NoSuchParamMapperException.class),
 
-  //custom=01
+  //menu=05.01.xx
   MENU_OPTION_NOT_FOUND("05.01.01", "The menu option does not exist", BUSINESS, NOT_FOUND, MenuOptionNotFoundException.class),
   INVALID_MENU_CATEGORY("05.01.02", "The menu category is not defined", BUSINESS, BAD_REQUEST, InvalidMenuCategoryException.class),;
 
