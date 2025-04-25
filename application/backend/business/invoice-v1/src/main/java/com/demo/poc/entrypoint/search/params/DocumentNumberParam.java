@@ -1,6 +1,5 @@
-package com.demo.poc.entrypoint.search.dto.params;
+package com.demo.poc.entrypoint.search.params;
 
-import com.demo.poc.commons.core.validations.params.DefaultParams;
 import java.io.Serializable;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -10,7 +9,7 @@ import lombok.*;
 @Getter
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class DocumentNumberParam extends DefaultParams implements Serializable {
+public class DocumentNumberParam implements Serializable {
 
   @NotEmpty
   private String documentNumber;

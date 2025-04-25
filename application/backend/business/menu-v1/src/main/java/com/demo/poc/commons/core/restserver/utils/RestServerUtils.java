@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RestServerExtractor {
+public class RestServerUtils {
 
   public static Map<String, String> extractHeadersAsMap(HttpServletRequest httpServletRequest) {
     return Optional.ofNullable(httpServletRequest.getHeaderNames())

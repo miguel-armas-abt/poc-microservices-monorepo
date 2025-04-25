@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Mono;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,22 +15,28 @@ public class BodyValidator {
 
   private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-  public <T> void validate(T body) {
+  public <T> Mono<T> validateAndGet(T body) {
     Set<ConstraintViolation<T>> violations = validator.validate(body);
-    handleValidationErrors(violations);
+    return handleValidationErrors(violations).thenReturn(body);
+  }
+
+  public <T> Mono<Void> validate(T body) {
+    Set<ConstraintViolation<T>> violations = validator.validate(body);
+    return handleValidationErrors(violations);
   }
 
   public <T> boolean isValid(T body) {
     return validator.validate(body).isEmpty();
   }
 
-  private static <T> void handleValidationErrors(Set<ConstraintViolation<T>> violations) {
+  private <T> Mono<Void> handleValidationErrors(Set<ConstraintViolation<T>> violations) {
     if (!violations.isEmpty()) {
       String errorMessages = violations.stream()
-          .map(violation -> String.format("The field '%s' %s",
+          .map(violation -> String.format("The value of %s %s",
               violation.getPropertyPath(), violation.getMessage()))
           .collect(Collectors.joining("; "));
-      throw new InvalidFieldException(errorMessages);
+      return Mono.error(new InvalidFieldException(errorMessages));
     }
+    return Mono.empty();
   }
 }

@@ -2,6 +2,7 @@ package com.demo.poc.commons.core.validations;
 
 import com.demo.poc.commons.core.errors.exceptions.NoSuchParamMapperException;
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
@@ -12,14 +13,14 @@ public class ParamValidator {
   private final List<ParamMapper> paramMappers;
   private final BodyValidator bodyValidator;
 
-  public <T> T validateAndGet(Map<String, String> paramsMap, Class<T> paramClass) {
+  public <T> Mono<T> validateAndGet(Map<String, String> paramsMap, Class<T> paramClass) {
     T params = (T) selectMapper(paramClass).map(paramsMap);
-    bodyValidator.validate(params);
-    return params;
+    return bodyValidator.validate(params).thenReturn(params);
   }
 
-  public <T> void validate(Map<String, String> params, Class<T> paramClass) {
-    validateAndGet(params, paramClass);
+  public <T> Mono<Void> validate(Map<String, String> paramsMap, Class<T> paramClass) {
+    return validateAndGet(paramsMap, paramClass)
+        .then(Mono.empty());
   }
 
   private ParamMapper selectMapper(Class<?> paramClass) {

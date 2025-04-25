@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
@@ -15,10 +16,10 @@ import lombok.*;
 @NoArgsConstructor
 public class ProductRequestDto implements Serializable {
 
-  @NotNull
+  @NotEmpty
   private String productCode;
 
-  @NotNull
+  @NotEmpty
   private String description;
 
   @Positive

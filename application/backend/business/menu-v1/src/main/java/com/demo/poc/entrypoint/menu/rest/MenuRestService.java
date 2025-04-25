@@ -29,8 +29,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static com.demo.poc.commons.core.restserver.utils.RestServerExtractor.extractHeadersAsMap;
-import static com.demo.poc.commons.core.restserver.utils.RestServerExtractor.extractQueryParamsAsMap;
+import static com.demo.poc.commons.core.restserver.utils.RestServerUtils.extractHeadersAsMap;
+import static com.demo.poc.commons.core.restserver.utils.RestServerUtils.extractQueryParamsAsMap;
 import static com.demo.poc.entrypoint.menu.constants.ParameterConstants.PRODUCT_CODE_PARAM;
 
 @Slf4j
@@ -59,7 +59,7 @@ public class MenuRestService {
         .peek(headers -> paramValidator.validate(headers, DefaultHeaders.class))
         .findFirst()
         .map(headers -> {
-          CategoryParam categoryParam = paramValidator.validateAndRetrieve(extractQueryParamsAsMap(servletRequest), CategoryParam.class);
+          CategoryParam categoryParam = paramValidator.validateAndGet(extractQueryParamsAsMap(servletRequest), CategoryParam.class);
           return service.findByCategory(headers, categoryParam.getCategory());
         })
         .filter(menuList -> !menuList.isEmpty())
