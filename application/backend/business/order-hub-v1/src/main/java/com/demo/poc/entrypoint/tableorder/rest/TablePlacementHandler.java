@@ -5,7 +5,6 @@ import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.ParamValidator;
 import com.demo.poc.entrypoint.tableorder.dto.request.MenuOrderRequestDto;
 import com.demo.poc.entrypoint.tableorder.dto.params.TableNumberParam;
-import com.demo.poc.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import com.demo.poc.entrypoint.tableorder.service.TablePlacementService;
 import com.demo.poc.commons.core.restserver.RestServerUtils;
 
@@ -20,9 +19,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import reactor.core.publisher.Mono;
 
-import static com.demo.poc.commons.core.restclient.utils.HttpHeadersFiller.extractHeadersAsMap;
-import static com.demo.poc.commons.core.restclient.utils.QueryParamFiller.extractQueryParamsAsMap;
-
 @Component
 @RequiredArgsConstructor
 public class TablePlacementHandler {
@@ -32,9 +28,9 @@ public class TablePlacementHandler {
   private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> generateTableOrder(ServerRequest serverRequest) {
-    Map<String, String> headers = extractHeadersAsMap(serverRequest);
+    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(serverRequest);
 
-    Mono<TableNumberParam> tableNumberParamMono = paramValidator.validateAndGet(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
+    Mono<TableNumberParam> tableNumberParamMono = paramValidator.validateAndGet(RestServerUtils.extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
     return paramValidator.validateAndGet(headers, DefaultHeaders.class)
         .zipWith(tableNumberParamMono)
@@ -48,9 +44,9 @@ public class TablePlacementHandler {
   }
 
   public Mono<ServerResponse> findByTableNumber(ServerRequest serverRequest) {
-    Map<String, String> headers = extractHeadersAsMap(serverRequest);
+    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(serverRequest);
 
-    Mono<TableNumberParam> tableNumberParamMono = paramValidator.validateAndGet(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
+    Mono<TableNumberParam> tableNumberParamMono = paramValidator.validateAndGet(RestServerUtils.extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
     return paramValidator.validateAndGet(headers, DefaultHeaders.class)
         .zipWith(tableNumberParamMono)

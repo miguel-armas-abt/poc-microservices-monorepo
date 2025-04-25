@@ -15,12 +15,7 @@ public class ParamValidator {
 
   public <T> Mono<T> validateAndGet(Map<String, String> paramsMap, Class<T> paramClass) {
     T params = (T) selectMapper(paramClass).map(paramsMap);
-    return bodyValidator.validate(params).thenReturn(params);
-  }
-
-  public <T> Mono<Void> validate(Map<String, String> paramsMap, Class<T> paramClass) {
-    return validateAndGet(paramsMap, paramClass)
-        .then(Mono.empty());
+    return bodyValidator.validateAndGet(params);
   }
 
   private ParamMapper selectMapper(Class<?> paramClass) {

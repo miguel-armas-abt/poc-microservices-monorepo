@@ -20,8 +20,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import reactor.core.publisher.Mono;
 
-import static com.demo.poc.commons.core.restclient.utils.HttpHeadersFiller.extractHeadersAsMap;
-
 @Component
 @RequiredArgsConstructor
 public class InvoiceHandler {
@@ -31,7 +29,7 @@ public class InvoiceHandler {
   private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> calculateInvoice(ServerRequest serverRequest) {
-    Map<String, String> headers = extractHeadersAsMap(serverRequest);
+    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(serverRequest);
 
     Mono<List<ProductRequestWrapper>> productsMono = serverRequest.bodyToFlux(ProductRequestWrapper.class)
         .flatMap(bodyValidator::validateAndGet)
@@ -47,7 +45,7 @@ public class InvoiceHandler {
   }
 
   public Mono<ServerResponse> sendToPay(ServerRequest serverRequest) {
-    Map<String, String> headers = extractHeadersAsMap(serverRequest);
+    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(serverRequest);
 
     Mono<PaymentSendRequestDto> paymentRequest = serverRequest.bodyToMono(PaymentSendRequestDto.class)
         .flatMap(bodyValidator::validateAndGet);

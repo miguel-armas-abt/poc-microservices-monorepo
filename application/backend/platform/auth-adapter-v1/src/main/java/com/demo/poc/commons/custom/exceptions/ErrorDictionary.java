@@ -6,10 +6,9 @@ import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.errors.exceptions.InvalidFieldException;
 import com.demo.poc.commons.core.errors.exceptions.JsonReadException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchLoggerTypeException;
+import com.demo.poc.commons.core.errors.exceptions.NoSuchParamMapperException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientErrorExtractorException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientException;
-import com.demo.poc.commons.core.errors.exceptions.ReflectiveParamAssignmentException;
-import com.demo.poc.commons.core.errors.exceptions.ReflectiveParamMappingException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,9 +31,8 @@ public enum ErrorDictionary {
   NO_SUCH_LOGGER_TYPE("03.00.03", "No such logger type", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchLoggerTypeException.class),
   NO_SUCH_REST_CLIENT("03.00.04", "No such rest client", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientException.class),
   ERROR_READING_JSON("03.00.05", "Error reading JSON", SYSTEM, INTERNAL_SERVER_ERROR, JsonReadException.class),
-  ERROR_MAPPING_REFLECTIVE_PARAMS("03.00.06", "Error mapping reflective params", SYSTEM, INTERNAL_SERVER_ERROR, ReflectiveParamMappingException.class),
-  ERROR_ASSIGN_REFLECTIVE_PARAMS("03.00.07", "Error assign reflective params", SYSTEM, INTERNAL_SERVER_ERROR, ReflectiveParamAssignmentException.class),
-  EMPTY_BASE_URL("03.00.08", "Base URL is required", SYSTEM, INTERNAL_SERVER_ERROR, EmptyBaseUrlException.class),
+  NO_SUCH_PARAM_MAPPER("03.00.06", "No such param mapper", BUSINESS, BAD_REQUEST, NoSuchParamMapperException.class),
+  EMPTY_BASE_URL("03.00.07", "Base URL is required", SYSTEM, INTERNAL_SERVER_ERROR, EmptyBaseUrlException.class),
 
   //custom=01
   UNABLE_LOGOUT("03.01.01", "Unable logout", BUSINESS, UNAUTHORIZED, UnableLogoutException.class),

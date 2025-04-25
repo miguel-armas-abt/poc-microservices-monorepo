@@ -20,11 +20,6 @@ public class BodyValidator {
     return handleValidationErrors(violations).thenReturn(body);
   }
 
-  public <T> Mono<Void> validate(T body) {
-    Set<ConstraintViolation<T>> violations = validator.validate(body);
-    return handleValidationErrors(violations);
-  }
-
   public <T> boolean isValid(T body) {
     return validator.validate(body).isEmpty();
   }

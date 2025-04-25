@@ -18,9 +18,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import static com.demo.poc.commons.core.restclient.utils.HttpHeadersFiller.extractHeadersAsMap;
-import static com.demo.poc.commons.core.restclient.utils.QueryParamFiller.extractQueryParamsAsMap;
-
 @Component
 @RequiredArgsConstructor
 public class MenuHandler {
@@ -29,9 +26,9 @@ public class MenuHandler {
   private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> findMenuByCategory(ServerRequest serverRequest) {
-    Map<String, String> headers = extractHeadersAsMap(serverRequest);
+    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(serverRequest);
 
-    Mono<CategoryParam> categoryParamMono = paramValidator.validateAndGet(extractQueryParamsAsMap(serverRequest), CategoryParam.class);
+    Mono<CategoryParam> categoryParamMono = paramValidator.validateAndGet(RestServerUtils.extractQueryParamsAsMap(serverRequest), CategoryParam.class);
 
     Flux<MenuOptionResponseWrapper> response = paramValidator.validateAndGet(headers, DefaultHeaders.class)
         .zipWith(categoryParamMono)
