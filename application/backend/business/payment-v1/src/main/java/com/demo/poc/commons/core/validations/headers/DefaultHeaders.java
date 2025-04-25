@@ -19,8 +19,8 @@ public class DefaultHeaders implements Serializable {
 
   @Pattern(regexp = "^(web|app|WEB|APP)$")
   @NotEmpty
-  private String channelId;
+  protected String channelId;
 
   @NotEmpty
-  private String traceId;
+  protected String traceId;
 }

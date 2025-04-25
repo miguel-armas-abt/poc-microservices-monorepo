@@ -78,7 +78,7 @@ public class AuthAdapterRestService {
 
   @GetMapping("/roles")
   public Single<Map<String, Integer>> getRoles(HttpServletRequest servletRequest,
-                                    HttpServletResponse servletResponse) {
+                                               HttpServletResponse servletResponse) {
     Map<String, String> headers = RestServerUtils.extractHeadersAsMap(servletRequest);
 
     return paramValidator.validateAndGet(headers, RolesHeader.class)

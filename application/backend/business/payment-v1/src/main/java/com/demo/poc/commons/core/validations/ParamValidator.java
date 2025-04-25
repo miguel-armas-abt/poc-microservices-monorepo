@@ -1,6 +1,7 @@
 package com.demo.poc.commons.core.validations;
 
 import com.demo.poc.commons.core.errors.exceptions.NoSuchParamMapperException;
+import io.reactivex.rxjava3.core.Single;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -12,14 +13,9 @@ public class ParamValidator {
   private final List<ParamMapper> paramMappers;
   private final BodyValidator bodyValidator;
 
-  public <T> T validateAndGet(Map<String, String> paramsMap, Class<T> paramClass) {
+  public <T> Single<T> validateAndGet(Map<String, String> paramsMap, Class<T> paramClass) {
     T params = (T) selectMapper(paramClass).map(paramsMap);
-    bodyValidator.validate(params);
-    return params;
-  }
-
-  public <T> void validate(Map<String, String> params, Class<T> paramClass) {
-    validateAndGet(params, paramClass);
+    return bodyValidator.validateAndGet(params);
   }
 
   private ParamMapper selectMapper(Class<?> paramClass) {
