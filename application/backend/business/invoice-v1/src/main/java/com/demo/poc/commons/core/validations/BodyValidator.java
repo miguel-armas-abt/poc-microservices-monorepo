@@ -1,5 +1,6 @@
 package com.demo.poc.commons.core.validations;
 
+import com.demo.poc.commons.core.constants.Symbol;
 import com.demo.poc.commons.core.errors.exceptions.InvalidFieldException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -29,7 +30,7 @@ public class BodyValidator {
       String errorMessages = violations.stream()
           .map(violation -> String.format("The value of %s %s",
               violation.getPropertyPath(), violation.getMessage()))
-          .collect(Collectors.joining("; "));
+          .collect(Collectors.joining(Symbol.COMMA));
       return Mono.error(new InvalidFieldException(errorMessages));
     }
     return Mono.empty();

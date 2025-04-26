@@ -2,7 +2,7 @@ package com.demo.poc.entrypoint.payment.rest;
 
 import java.util.Map;
 
-import com.demo.poc.commons.core.restserver.RestServerUtils;
+import com.demo.poc.commons.core.restserver.utils.RestServerUtils;
 import com.demo.poc.commons.core.validations.BodyValidator;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.ParamValidator;
@@ -15,8 +15,6 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
-import static com.demo.poc.commons.core.restclient.utils.HttpHeadersFiller.extractHeadersAsMap;
-
 @Component
 @RequiredArgsConstructor
 public class PaymentSenderHandler {
@@ -26,7 +24,7 @@ public class PaymentSenderHandler {
   private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> sendToPay(ServerRequest serverRequest) {
-    Map<String, String> headers = extractHeadersAsMap(serverRequest);
+    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(serverRequest);
 
     Mono<PaymentSendRequestDto> paymentRequestMono = serverRequest.bodyToMono(PaymentSendRequestDto.class)
         .flatMap(bodyValidator::validateAndGet);

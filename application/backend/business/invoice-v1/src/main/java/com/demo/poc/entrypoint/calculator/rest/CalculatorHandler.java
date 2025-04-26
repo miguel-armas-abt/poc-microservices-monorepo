@@ -1,11 +1,10 @@
 package com.demo.poc.entrypoint.calculator.rest;
 
-import com.demo.poc.commons.core.restserver.RestServerUtils;
+import com.demo.poc.commons.core.restserver.utils.RestServerUtils;
 import com.demo.poc.commons.core.validations.BodyValidator;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.ParamValidator;
 import com.demo.poc.entrypoint.calculator.dto.request.ProductRequestDto;
-import com.demo.poc.entrypoint.calculator.dto.response.InvoiceResponseDto;
 import com.demo.poc.entrypoint.calculator.service.CalculatorService;
 import java.util.Map;
 
@@ -20,8 +19,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import static com.demo.poc.commons.core.restclient.utils.HttpHeadersFiller.extractHeadersAsMap;
-
 @Component
 @RequiredArgsConstructor
 public class CalculatorHandler {
@@ -31,7 +28,7 @@ public class CalculatorHandler {
   private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> calculateInvoice(ServerRequest serverRequest) {
-    Map<String, String> headers = extractHeadersAsMap(serverRequest);
+    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(serverRequest);
     Flux<ProductRequestDto> products = serverRequest.bodyToFlux(ProductRequestDto.class)
         .flatMap(bodyValidator::validateAndGet);
 

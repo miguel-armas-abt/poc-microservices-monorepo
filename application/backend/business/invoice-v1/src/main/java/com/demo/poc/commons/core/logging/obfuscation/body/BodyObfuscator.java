@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.IntStream;
@@ -21,7 +22,10 @@ public class BodyObfuscator {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     public static String process(ObfuscationTemplate obfuscation, String jsonBody) {
-        Set<String> bodyFields = Optional.ofNullable(obfuscation.getBodyFields()).orElse(Set.of());
+        Set<String> bodyFields = Optional.ofNullable(obfuscation)
+            .filter(template -> Objects.nonNull(template.getBodyFields()))
+            .map(ObfuscationTemplate::getBodyFields)
+            .orElse(Set.of());
 
         if (StringUtils.isEmpty(jsonBody) || bodyFields.isEmpty())
             return jsonBody;
