@@ -1,6 +1,6 @@
 package com.demo.poc.entrypoint.invoice.repository;
 
-import com.demo.poc.commons.core.properties.restclient.HeaderTemplate;
+import com.demo.poc.commons.core.properties.restclient.RestClient;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.WebClientFactory;
 import com.demo.poc.entrypoint.invoice.repository.wrapper.request.PaymentSendRequestWrapper;
@@ -8,7 +8,6 @@ import com.demo.poc.entrypoint.invoice.repository.wrapper.request.ProductRequest
 import com.demo.poc.entrypoint.invoice.repository.wrapper.response.InvoiceResponseWrapper;
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.restclient.error.RestClientErrorHandler;
-import jakarta.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -27,25 +26,27 @@ import static com.demo.poc.commons.core.restclient.utils.HttpHeadersFiller.fillH
 @RequiredArgsConstructor
 public class InvoiceRepository {
 
-  private static final String SERVICE_NAME_INVOICE = "invoice-v1";
+  private static final String SERVICE_NAME = "invoice-v1";
 
-  private final ApplicationProperties properties;
-  private final RestClientErrorHandler restClientErrorHandler;
-  private final WebClientFactory webClientFactory;
+  private final RestClientErrorHandler errorHandler;
+  private final WebClient webClient;
+  private final RestClient restClient;
 
-  private WebClient webClient;
+  public InvoiceRepository(ApplicationProperties properties,
+                           RestClientErrorHandler errorHandler,
+                           WebClientFactory webClientFactory) {
+    this.errorHandler = errorHandler;
 
-  @PostConstruct
-  public void init() {
-    this.webClient = webClientFactory.createWebClient(properties.searchPerformance(SERVICE_NAME_INVOICE), SERVICE_NAME_INVOICE);
+    this.restClient = properties.searchRestClient(SERVICE_NAME);
+    this.webClient = webClientFactory.createWebClient(restClient.getPerformance(), SERVICE_NAME);
   }
 
   public Mono<InvoiceResponseWrapper> generateProforma(Map<String, String> headers,
                                                        List<ProductRequestWrapper> productList) {
     return webClient.post()
-        .uri(getBaseURL().concat("calculate"))
+        .uri(restClient.getRequest().getEndpoint().concat("calculate"))
         .contentType(MediaType.APPLICATION_JSON)
-        .headers(fillHeaders(properties.searchHeaderTemplate(SERVICE_NAME_INVOICE), headers))
+        .headers(fillHeaders(restClient.getRequest().getHeaders(), headers))
         .body(BodyInserters.fromValue(productList))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
@@ -56,9 +57,9 @@ public class InvoiceRepository {
   public Mono<Void> sendToPay(Map<String, String> headers,
                               PaymentSendRequestWrapper paymentRequest) {
     return webClient.post()
-        .uri(getBaseURL().concat("send-to-pay"))
+        .uri(restClient.getRequest().getEndpoint().concat("send-to-pay"))
         .contentType(MediaType.APPLICATION_JSON)
-        .headers(fillHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(restClient.getRequest().getHeaders(), headers))
         .body(BodyInserters.fromValue(paymentRequest))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
@@ -66,16 +67,8 @@ public class InvoiceRepository {
         .mapNotNull(HttpEntity::getBody);
   }
 
-  private String getBaseURL() {
-    return properties.searchEndpoint(SERVICE_NAME_INVOICE);
-  }
-
-  private HeaderTemplate getHeaderTemplate() {
-    return properties.searchHeaderTemplate(SERVICE_NAME_INVOICE);
-  }
-
   private Mono<? extends Throwable> handleError(ClientResponse clientResponse) {
-    return restClientErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME_INVOICE);
+    return errorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME);
   }
 }
 

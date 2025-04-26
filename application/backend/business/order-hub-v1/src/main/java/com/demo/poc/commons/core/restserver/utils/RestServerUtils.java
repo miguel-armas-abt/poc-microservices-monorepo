@@ -1,5 +1,7 @@
-package com.demo.poc.commons.core.restserver;
+package com.demo.poc.commons.core.restserver.utils;
 
+import com.demo.poc.commons.core.constants.Symbol;
+import com.demo.poc.commons.core.tracing.enums.TraceParam;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -11,8 +13,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-
-import static com.demo.poc.commons.core.tracing.enums.TraceParamType.TRACE_ID;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RestServerUtils {
@@ -39,14 +39,14 @@ public class RestServerUtils {
         .stream()
         .collect(Collectors.toMap(
             Map.Entry::getKey,
-            entry -> String.join(",", entry.getValue())
+            entry -> String.join(Symbol.COMMA, entry.getValue())
         ));
   }
 
   public static Consumer<HttpHeaders> buildResponseHeaders(ServerRequest.Headers requestHeaders) {
-    return currentHeaders -> Optional
-        .ofNullable(requestHeaders.firstHeader(TRACE_ID.getKey()))
-        .ifPresentOrElse(traceId -> currentHeaders.set(TRACE_ID.getKey(), traceId)
+    return responseHeaders -> Optional
+        .ofNullable(requestHeaders.firstHeader(TraceParam.TRACE_PARENT.getKey()))
+        .ifPresentOrElse(traceParent -> responseHeaders.set(TraceParam.TRACE_ID.getKey(), TraceParam.Util.getTraceId.apply(traceParent))
             , () -> {});
   }
 

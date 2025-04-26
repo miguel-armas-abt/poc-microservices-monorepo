@@ -1,6 +1,6 @@
 package com.demo.poc.entrypoint.invoice.rest;
 
-import com.demo.poc.commons.core.restserver.RestServerUtils;
+import com.demo.poc.commons.core.restserver.utils.RestServerUtils;
 import com.demo.poc.commons.core.validations.BodyValidator;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.ParamValidator;

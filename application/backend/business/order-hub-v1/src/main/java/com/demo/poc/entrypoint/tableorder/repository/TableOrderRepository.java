@@ -1,16 +1,14 @@
 package com.demo.poc.entrypoint.tableorder.repository;
 
-import com.demo.poc.commons.core.properties.restclient.HeaderTemplate;
+import com.demo.poc.commons.core.properties.restclient.RestClient;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.WebClientFactory;
 import com.demo.poc.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import com.demo.poc.entrypoint.tableorder.dto.request.MenuOrderRequestDto;
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.restclient.error.RestClientErrorHandler;
-import jakarta.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -24,20 +22,21 @@ import reactor.core.publisher.Mono;
 import static com.demo.poc.commons.core.restclient.utils.HttpHeadersFiller.fillHeaders;
 
 @Repository
-@RequiredArgsConstructor
 public class TableOrderRepository {
 
-  private static final String SERVICE_NAME_TABLE_PLACEMENT = "table-placement-v1";
+  private static final String SERVICE_NAME = "table-placement-v1";
 
-  private final ApplicationProperties properties;
-  private final RestClientErrorHandler restClientErrorHandler;
-  private final WebClientFactory webClientFactory;
+  private final RestClientErrorHandler errorHandler;
+  private final WebClient webClient;
+  private final RestClient restClient;
 
-  private WebClient webClient;
+  public TableOrderRepository(ApplicationProperties properties,
+                              RestClientErrorHandler errorHandler,
+                              WebClientFactory webClientFactory) {
+    this.errorHandler = errorHandler;
 
-  @PostConstruct
-  public void init() {
-    this.webClient = webClientFactory.createWebClient(properties.searchPerformance(SERVICE_NAME_TABLE_PLACEMENT), SERVICE_NAME_TABLE_PLACEMENT);
+    this.restClient = properties.searchRestClient(SERVICE_NAME);
+    this.webClient = webClientFactory.createWebClient(restClient.getPerformance(), SERVICE_NAME);
   }
 
   public Mono<Void> generateTableOrder(Map<String, String> headers,
@@ -45,9 +44,9 @@ public class TableOrderRepository {
                                        Integer tableNumber) {
     return webClient.patch()
         .uri(UriComponentsBuilder
-            .fromUriString(getBaseURL().concat("table-orders"))
+            .fromUriString(restClient.getRequest().getEndpoint().concat("table-orders"))
             .queryParam("tableNumber", tableNumber).toUriString())
-        .headers(fillHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(restClient.getRequest().getHeaders(), headers))
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromValue(requestedMenuOrderList))
         .retrieve()
@@ -60,9 +59,9 @@ public class TableOrderRepository {
                                                            Integer tableNumber) {
     return webClient.get()
         .uri(UriComponentsBuilder
-            .fromUriString(getBaseURL().concat("table-orders"))
+            .fromUriString(restClient.getRequest().getEndpoint().concat("table-orders"))
             .queryParam("tableNumber", tableNumber).toUriString())
-        .headers(fillHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(restClient.getRequest().getHeaders(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
         .toEntity(TableOrderResponseWrapper.class)
@@ -72,24 +71,16 @@ public class TableOrderRepository {
   public Mono<Void> cleanTable(Map<String, String> headers, Integer tableNumber) {
     return webClient.delete()
         .uri(UriComponentsBuilder
-            .fromUriString(getBaseURL().concat("table-orders"))
+            .fromUriString(restClient.getRequest().getEndpoint().concat("table-orders"))
             .queryParam("tableNumber", tableNumber).toUriString())
-        .headers(fillHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(restClient.getRequest().getHeaders(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
         .toEntity(Void.class)
         .mapNotNull(HttpEntity::getBody);
   }
 
-  private String getBaseURL() {
-    return properties.searchEndpoint(SERVICE_NAME_TABLE_PLACEMENT);
-  }
-
-  private HeaderTemplate getHeaderTemplate() {
-    return properties.searchHeaderTemplate(SERVICE_NAME_TABLE_PLACEMENT);
-  }
-
   private Mono<? extends Throwable> handleError(ClientResponse clientResponse) {
-    return restClientErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME_TABLE_PLACEMENT);
+    return errorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME);
   }
 }

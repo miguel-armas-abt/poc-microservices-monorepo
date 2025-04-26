@@ -6,7 +6,7 @@ import com.demo.poc.commons.core.validations.ParamValidator;
 import com.demo.poc.entrypoint.tableorder.dto.request.MenuOrderRequestDto;
 import com.demo.poc.entrypoint.tableorder.dto.params.TableNumberParam;
 import com.demo.poc.entrypoint.tableorder.service.TablePlacementService;
-import com.demo.poc.commons.core.restserver.RestServerUtils;
+import com.demo.poc.commons.core.restserver.utils.RestServerUtils;
 
 import java.util.Map;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.demo.poc.entrypoint.menu.repository;
 
-import com.demo.poc.commons.core.properties.restclient.HeaderTemplate;
+import com.demo.poc.commons.core.properties.restclient.RestClient;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.StreamingTransformer;
 import com.demo.poc.commons.core.restclient.WebClientFactory;
@@ -8,9 +8,7 @@ import com.demo.poc.entrypoint.menu.repository.wrapper.response.MenuOptionRespon
 import com.demo.poc.entrypoint.menu.repository.wrapper.request.MenuOptionSaveRequestWrapper;
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.restclient.error.RestClientErrorHandler;
-import jakarta.annotation.PostConstruct;
 import java.util.Map;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -25,29 +23,30 @@ import reactor.core.publisher.Mono;
 import static com.demo.poc.commons.core.restclient.utils.HttpHeadersFiller.fillHeaders;
 
 @Repository
-@RequiredArgsConstructor
 public class MenuV2Repository implements MenuRepository {
 
-  private static final String SERVICE_NAME_MENU_V2 = "menu-v2";
+  private static final String SERVICE_NAME = "menu-v2";
 
-  private final ApplicationProperties properties;
-  private final RestClientErrorHandler restClientErrorHandler;
-  private final WebClientFactory webClientFactory;
+  private final RestClientErrorHandler errorHandler;
+  private final WebClient webClient;
+  private final RestClient restClient;
 
-  private WebClient webClient;
+  public MenuV2Repository(ApplicationProperties properties,
+                          RestClientErrorHandler errorHandler,
+                          WebClientFactory webClientFactory) {
+    this.errorHandler = errorHandler;
 
-  @PostConstruct
-  public void init() {
-    this.webClient = webClientFactory.createWebClient(properties.searchPerformance(SERVICE_NAME_MENU_V2), SERVICE_NAME_MENU_V2);
+    this.restClient = properties.searchRestClient(SERVICE_NAME);
+    this.webClient = webClientFactory.createWebClient(restClient.getPerformance(), SERVICE_NAME);
   }
 
   @Override
   public Mono<MenuOptionResponseWrapper> findByProductCode(Map<String, String> headers, String productCode) {
     return webClient.get()
         .uri(UriComponentsBuilder
-            .fromUriString(getBaseURL().concat("menu-options/{productCode}"))
+            .fromUriString(restClient.getRequest().getEndpoint().concat("menu-options/{productCode}"))
             .buildAndExpand(productCode).toUriString())
-        .headers(fillHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(restClient.getRequest().getHeaders(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
         .toEntity(MenuOptionResponseWrapper.class)
@@ -58,10 +57,10 @@ public class MenuV2Repository implements MenuRepository {
   public Flux<MenuOptionResponseWrapper> findByCategory(Map<String, String> headers, String category) {
     return webClient.get()
         .uri(UriComponentsBuilder
-            .fromUriString(getBaseURL().concat("menu-options"))
+            .fromUriString(restClient.getRequest().getEndpoint().concat("menu-options"))
             .queryParam("category", category).toUriString())
         .accept(MediaType.APPLICATION_NDJSON)
-        .headers(fillHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(restClient.getRequest().getHeaders(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
         .bodyToFlux(String.class)
@@ -72,9 +71,9 @@ public class MenuV2Repository implements MenuRepository {
   public Mono<Void> save(Map<String, String> headers, MenuOptionSaveRequestWrapper menuOption) {
     return webClient.post()
         .uri(UriComponentsBuilder
-            .fromUriString(getBaseURL().concat("menu-options")).toUriString())
+            .fromUriString(restClient.getRequest().getEndpoint().concat("menu-options")).toUriString())
         .contentType(MediaType.APPLICATION_JSON)
-        .headers(fillHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(restClient.getRequest().getHeaders(), headers))
         .body(BodyInserters.fromValue(menuOption))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
@@ -86,10 +85,10 @@ public class MenuV2Repository implements MenuRepository {
   public Mono<Void> update(Map<String, String> headers, String productCode, MenuOptionSaveRequestWrapper menuOption) {
     return webClient.post()
         .uri(UriComponentsBuilder
-            .fromUriString(getBaseURL().concat("menu-options/{productCode}"))
+            .fromUriString(restClient.getRequest().getEndpoint().concat("menu-options/{productCode}"))
             .buildAndExpand(productCode).toUriString())
         .contentType(MediaType.APPLICATION_JSON)
-        .headers(fillHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(restClient.getRequest().getHeaders(), headers))
         .body(BodyInserters.fromValue(menuOption))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
@@ -101,25 +100,17 @@ public class MenuV2Repository implements MenuRepository {
   public Mono<Void> delete(Map<String, String> headers, String productCode, MenuOptionSaveRequestWrapper menuOption) {
     return webClient.delete()
         .uri(UriComponentsBuilder
-            .fromUriString(getBaseURL().concat("menu-options/{productCode}"))
+            .fromUriString(restClient.getRequest().getEndpoint().concat("menu-options/{productCode}"))
             .buildAndExpand(productCode).toUriString())
-        .headers(fillHeaders(getHeaderTemplate(), headers))
+        .headers(fillHeaders(restClient.getRequest().getHeaders(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, this::handleError)
         .toEntity(Void.class)
         .mapNotNull(HttpEntity::getBody);
   }
 
-  private String getBaseURL() {
-    return properties.searchEndpoint(SERVICE_NAME_MENU_V2);
-  }
-
-  private HeaderTemplate getHeaderTemplate() {
-    return properties.searchHeaderTemplate(SERVICE_NAME_MENU_V2);
-  }
-
   private Mono<? extends Throwable> handleError(ClientResponse clientResponse) {
-    return restClientErrorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME_MENU_V2);
+    return errorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME);
   }
 
   @Override
