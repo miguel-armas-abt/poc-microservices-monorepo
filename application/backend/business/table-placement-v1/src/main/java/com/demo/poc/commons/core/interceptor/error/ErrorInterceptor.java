@@ -4,10 +4,10 @@ import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.exceptions.RestClientException;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.errors.selector.ResponseErrorSelector;
-import com.demo.poc.commons.core.logging.ThreadContextInjector;
+import com.demo.poc.commons.core.logging.ErrorThreadContextInjector;
 import com.demo.poc.commons.core.logging.enums.LoggingType;
-import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import com.demo.poc.commons.core.serialization.ByteSerializer;
+import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
@@ -23,12 +23,15 @@ import java.net.ConnectException;
 public class ErrorInterceptor {
 
   private final ByteSerializer byteSerializer;
-  private final ThreadContextInjector threadContextInjector;
-  private final ConfigurationBaseProperties properties;
+  private final ErrorThreadContextInjector contextInjector;
+  private final ApplicationProperties properties;
   private final ResponseErrorSelector responseErrorSelector;
 
   public Mono<Void> handleException(Throwable ex, ServerWebExchange exchange) {
-    generateTrace(ex, exchange);
+    boolean isLoggerPresent = properties.isLoggerPresent(LoggingType.ERROR);
+    if (isLoggerPresent) {
+      contextInjector.populateFromException(ex, exchange);
+    }
 
     ErrorDto error = ErrorDto.getDefaultError(properties);
     HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -57,10 +60,5 @@ public class ErrorInterceptor {
     response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
     DataBuffer buffer = response.bufferFactory().wrap(errorDetailByte);
     return response.writeWith(Mono.just(buffer));
-  }
-
-  public void generateTrace(Throwable ex, ServerWebExchange exchange) {
-    if(properties.isLoggerPresent(LoggingType.ERROR))
-      threadContextInjector.populateFromException(ex, exchange);
   }
 }

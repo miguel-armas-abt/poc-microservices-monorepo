@@ -1,11 +1,14 @@
 package com.demo.poc.commons.core.interceptor.restclient.response;
 
 import com.demo.poc.commons.core.logging.ThreadContextInjector;
+import com.demo.poc.commons.core.logging.dto.RestResponseLog;
 import com.demo.poc.commons.core.logging.enums.LoggingType;
-import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
+import com.demo.poc.commons.core.tracing.enums.TraceParam;
+import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.web.reactive.function.client.ClientRequest;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
@@ -13,63 +16,42 @@ import org.springframework.web.reactive.function.client.ExchangeFunction;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
-import java.util.Map;
-
-import static com.demo.poc.commons.core.tracing.enums.TraceParamType.TRACE_ID;
 
 @Slf4j
 @RequiredArgsConstructor
 public class RestClientResponseInterceptor implements ExchangeFilterFunction {
 
-  private static final String SAME_REQUEST = "rest.client";
-
-  private final ThreadContextInjector threadContextInjector;
-  private final ConfigurationBaseProperties properties;
+  private final ThreadContextInjector contextInjector;
+  private final ApplicationProperties properties;
 
   @Override
   public Mono<ClientResponse> filter(ClientRequest request, ExchangeFunction next) {
-    String traceId = request.headers().getFirst(TRACE_ID.getKey());
     return next.exchange(request)
-        .flatMap(clientResponse -> decorateResponse(clientResponse, traceId));
+        .flatMap(clientResponse -> clientResponse.bodyToMono(String.class)
+            .defaultIfEmpty(StringUtils.EMPTY)
+            .map(responseBody -> {
+
+              generateTrace(request, clientResponse, responseBody);
+
+              return ClientResponse.create(clientResponse.statusCode())
+                  .headers(headers -> headers.addAll(clientResponse.headers().asHttpHeaders()))
+                  .body(responseBody)
+                  .build();
+            }));
   }
 
-  private Mono<ClientResponse> decorateResponse(ClientResponse clientResponse, String traceId) {
-    return clientResponse
-        .bodyToMono(String.class)
-        .defaultIfEmpty(StringUtils.EMPTY)
-        .flatMap(responseBody -> {
-          generateTraceIfLoggerIsPresent(clientResponse, responseBody, traceId);
-          return Mono.just(ClientResponse.create(clientResponse.statusCode())
-              .headers(headers -> headers.addAll(clientResponse.headers().asHttpHeaders()))
-              .body(responseBody)
-              .build());
-        });
-  }
+  private void generateTrace(ClientRequest request, ClientResponse response, String responseBody) {
+    boolean isLoggerPresent = properties.isLoggerPresent(LoggingType.REST_CLIENT_RES);
+    if (isLoggerPresent) {
+      RestResponseLog log = RestResponseLog.builder()
+          .uri(request.url().toString())
+          .responseBody(responseBody)
+          .responseHeaders(new HashMap<>(response.headers().asHttpHeaders().toSingleValueMap()))
+          .httpCode(String.valueOf(response.statusCode().value()))
+          .traceParent(request.headers().getFirst(TraceParam.TRACE_PARENT.getKey()))
+          .build();
 
-  private void generateTraceIfLoggerIsPresent(ClientResponse response, String responseBody, String traceId) {
-    if(properties.isLoggerPresent(LoggingType.REST_CLIENT_RES))
-      generateTrace(response, responseBody, traceId);
-  }
-
-  private void generateTrace(ClientResponse response, String responseBody, String traceId) {
-    try {
-      Map<String, String> headers = new HashMap<>(response.headers().asHttpHeaders().toSingleValueMap());
-      headers.put(TRACE_ID.getKey(), traceId);
-
-      threadContextInjector.populateFromRestClientResponse(
-          headers,
-          responseBody,
-          getHttpCode(response));
-    } catch (Exception ex) {
-      log.error("Error reading response body: {}", ex.getClass(), ex);
-    }
-  }
-
-  private static String getHttpCode(ClientResponse response) {
-    try {
-      return response.statusCode().toString();
-    } catch (IllegalArgumentException ex) {
-      return String.valueOf(response.statusCode());
+      contextInjector.populateFromRestResponse(LoggingType.REST_CLIENT_RES, log);
     }
   }
 

@@ -1,6 +1,6 @@
 package com.demo.poc.entrypoint.table.placement.rest;
 
-import com.demo.poc.commons.core.restserver.RestServerUtils;
+import com.demo.poc.commons.core.restserver.utils.RestServerUtils;
 import com.demo.poc.commons.core.validations.BodyValidator;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.ParamValidator;
@@ -17,9 +17,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import static com.demo.poc.commons.core.restclient.utils.HttpHeadersFiller.extractHeadersAsMap;
-import static com.demo.poc.commons.core.restclient.utils.QueryParamFiller.extractQueryParamsAsMap;
-
 @Component
 @RequiredArgsConstructor
 public class PlacementHandler {
@@ -29,9 +26,9 @@ public class PlacementHandler {
   private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> findByTableNumber(ServerRequest serverRequest) {
-    Mono<TableNumberParam> tableNumberParamMono = paramValidator.validateAndGet(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
+    Mono<TableNumberParam> tableNumberParamMono = paramValidator.validateAndGet(RestServerUtils.extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
-    return paramValidator.validateAndGet(extractHeadersAsMap(serverRequest), DefaultHeaders.class)
+    return paramValidator.validateAndGet(RestServerUtils.extractHeadersAsMap(serverRequest), DefaultHeaders.class)
         .zipWith(tableNumberParamMono)
         .flatMap(tuple -> placementService.findByTableNumber(tuple.getT2().getTableNumber()))
         .flatMap(response -> ServerResponse.ok()
@@ -42,9 +39,9 @@ public class PlacementHandler {
   }
 
   public Mono<ServerResponse> cleanTable(ServerRequest serverRequest) {
-    Mono<TableNumberParam> tableNumberParamMono = paramValidator.validateAndGet(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
+    Mono<TableNumberParam> tableNumberParamMono = paramValidator.validateAndGet(RestServerUtils.extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
-    return paramValidator.validateAndGet(extractHeadersAsMap(serverRequest), DefaultHeaders.class)
+    return paramValidator.validateAndGet(RestServerUtils.extractHeadersAsMap(serverRequest), DefaultHeaders.class)
         .zipWith(tableNumberParamMono)
         .flatMap(tuple -> placementService.cleanTable(tuple.getT2().getTableNumber()))
         .then(ServerResponse.noContent()
@@ -53,12 +50,12 @@ public class PlacementHandler {
   }
 
   public Mono<ServerResponse> generateTableOrder(ServerRequest serverRequest) {
-    Mono<TableNumberParam> tableNumberParamMono = paramValidator.validateAndGet(extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
+    Mono<TableNumberParam> tableNumberParamMono = paramValidator.validateAndGet(RestServerUtils.extractQueryParamsAsMap(serverRequest), TableNumberParam.class);
 
     Flux<MenuOrderDto> requestedMenuOrders = serverRequest.bodyToFlux(MenuOrderDto.class)
         .flatMap(bodyValidator::validateAndGet);
 
-    return paramValidator.validate(extractHeadersAsMap(serverRequest), DefaultHeaders.class)
+    return paramValidator.validateAndGet(RestServerUtils.extractHeadersAsMap(serverRequest), DefaultHeaders.class)
         .zipWith(tableNumberParamMono)
         .flatMap(tuple -> placementService.generateTableOrder(requestedMenuOrders, tuple.getT2().getTableNumber()))
         .then(ServerResponse.noContent()

@@ -3,14 +3,15 @@ package com.demo.poc.commons.core.properties;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientException;
 import com.demo.poc.commons.core.logging.enums.LoggingType;
 import com.demo.poc.commons.core.properties.logging.LoggingTemplate;
-import com.demo.poc.commons.core.properties.restclient.HeaderTemplate;
-import com.demo.poc.commons.core.properties.restclient.PerformanceTemplate;
+import com.demo.poc.commons.core.properties.logging.ObfuscationTemplate;
 import com.demo.poc.commons.core.properties.restclient.RestClient;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,31 +25,29 @@ public abstract class ConfigurationBaseProperties {
 
   protected Map<String, RestClient> restClients;
 
-  public PerformanceTemplate searchPerformance(String serviceName) {
-    return searchRestClient(serviceName).getPerformance();
-  }
-
-  public String searchEndpoint(String serviceName) {
-    return searchRestClient(serviceName).getRequest().getEndpoint();
-  }
-
-  public Map<String, String> searchFormData(String serviceName) {
-    return searchRestClient(serviceName).getRequest().getFormData();
-  }
-
-  public HeaderTemplate searchHeaders(String serviceName) {
-    return searchRestClient(serviceName).getRequest().getHeaders();
-  }
-
-  private RestClient searchRestClient(String serviceName) {
+  public RestClient searchRestClient(String serviceName) {
     return Optional.ofNullable(restClients.get(serviceName))
-        .orElseThrow(NoSuchRestClientException::new);
+        .orElseThrow(() -> new NoSuchRestClientException(serviceName));
   }
 
   public boolean isLoggerPresent(LoggingType loggingType) {
-    return Optional.ofNullable(this.getLogging().getLoggingType())
-        .filter(enabledLoggers -> enabledLoggers.containsKey(loggingType.getCode()))
-        .map(enabledLoggers -> enabledLoggers.get(loggingType.getCode()))
-        .orElseGet(() -> Boolean.FALSE);
+    return Optional.ofNullable(this.getLogging())
+        .filter(logging -> Objects.nonNull(logging.getLoggingType()))
+        .map(LoggingTemplate::getLoggingType)
+        .filter(loggers -> loggers.containsKey(loggingType.getCode()))
+        .map(loggers -> loggers.get(loggingType.getCode()))
+        .orElse(Boolean.TRUE);
+  }
+
+  public ObfuscationTemplate searchObfuscation() {
+    return Optional.ofNullable(this.getLogging())
+        .filter(logging -> Objects.nonNull(logging.getObfuscation()))
+        .map(LoggingTemplate::getObfuscation)
+        .orElseGet(() -> {
+          ObfuscationTemplate obfuscation = new ObfuscationTemplate();
+          obfuscation.setBodyFields(Set.of());
+          obfuscation.setHeaders(Set.of());
+          return obfuscation;
+        });
   }
 }

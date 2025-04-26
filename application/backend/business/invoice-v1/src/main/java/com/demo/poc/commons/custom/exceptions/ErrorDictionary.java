@@ -32,7 +32,7 @@ public enum ErrorDictionary {
   //no such properties and components: 08.01.xx
   NO_SUCH_REST_CLIENT("08.01.01", "No such rest client", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientException.class),
   NO_SUCH_REST_CLIENT_ERROR_EXTRACTOR("08.01.02", "No such rest client error extractor", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientErrorExtractorException.class),
-  NO_SUCH_PARAM_MAPPER("08.01.03", "No such param mapper", BUSINESS, BAD_REQUEST, NoSuchParamMapperException.class),
+  NO_SUCH_PARAM_MAPPER("08.01.03", "No such param mapper", SYSTEM, BAD_REQUEST, NoSuchParamMapperException.class),
 
   //business and bad requests: 08.02.xx
   INVALID_FIELD("08.02.01", "Invalid field", BUSINESS, BAD_REQUEST, InvalidFieldException.class),
