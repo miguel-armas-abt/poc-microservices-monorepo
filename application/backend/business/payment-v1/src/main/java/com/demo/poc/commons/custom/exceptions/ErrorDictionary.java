@@ -5,7 +5,6 @@ import com.demo.poc.commons.core.errors.exceptions.EmptyBaseUrlException;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.errors.exceptions.InvalidFieldException;
 import com.demo.poc.commons.core.errors.exceptions.JsonReadException;
-import com.demo.poc.commons.core.errors.exceptions.NoSuchLoggerTypeException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchParamMapperException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientErrorExtractorException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchRestClientException;
@@ -25,16 +24,16 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 public enum ErrorDictionary {
 
   //system=09.00.xx
-  INVALID_FIELD("09.00.01", "Invalid field", BUSINESS, BAD_REQUEST, InvalidFieldException.class),
-  NO_SUCH_REST_CLIENT_ERROR_EXTRACTOR("09.00.02", "No such rest client error extractor", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientErrorExtractorException.class),
-  NO_SUCH_LOGGER_TYPE("09.00.03", "No such logger type", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchLoggerTypeException.class),
-  NO_SUCH_REST_CLIENT("09.00.04", "No such rest client", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientException.class),
-  ERROR_READING_JSON("09.00.05", "Error reading JSON", SYSTEM, INTERNAL_SERVER_ERROR, JsonReadException.class),
-  NO_SUCH_PARAM_MAPPER("09.00.06", "No such param mapper", BUSINESS, BAD_REQUEST, NoSuchParamMapperException.class),
-  EMPTY_BASE_URL("09.00.07", "Base URL is required", SYSTEM, INTERNAL_SERVER_ERROR, EmptyBaseUrlException.class),
+  ERROR_READING_JSON("09.00.01", "Error reading JSON", SYSTEM, INTERNAL_SERVER_ERROR, JsonReadException.class),
 
-  //payment=09.01.xx
-  ;
+  //no such properties and components: 09.01.xx
+  NO_SUCH_REST_CLIENT("09.01.01", "No such rest client", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientException.class),
+  NO_SUCH_REST_CLIENT_ERROR_EXTRACTOR("09.01.02", "No such rest client error extractor", SYSTEM, INTERNAL_SERVER_ERROR, NoSuchRestClientErrorExtractorException.class),
+  NO_SUCH_PARAM_MAPPER("09.01.03", "No such param mapper", BUSINESS, BAD_REQUEST, NoSuchParamMapperException.class),
+  EMPTY_BASE_URL("09.01.04", "Base URL is required", SYSTEM, INTERNAL_SERVER_ERROR, EmptyBaseUrlException.class),
+
+  //business and bad requests: 09.02.xx
+  INVALID_FIELD("09.00.01", "Invalid field", BUSINESS, BAD_REQUEST, InvalidFieldException.class),;
 
   private final String code;
   private final String message;

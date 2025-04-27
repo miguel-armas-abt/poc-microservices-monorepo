@@ -3,9 +3,9 @@ package com.demo.poc.commons.core.interceptor.error;
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.errors.selector.ResponseErrorSelector;
-import com.demo.poc.commons.core.logging.ThreadContextInjector;
+import com.demo.poc.commons.core.logging.ErrorThreadContextInjector;
 import com.demo.poc.commons.core.logging.enums.LoggingType;
-import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
+import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -26,8 +26,8 @@ import java.net.ConnectException;
 @RequiredArgsConstructor
 public class ErrorInterceptor extends ResponseEntityExceptionHandler {
 
-  private final ThreadContextInjector threadContextInjector;
-  private final ConfigurationBaseProperties properties;
+  private final ErrorThreadContextInjector contextInjector;
+  private final ApplicationProperties properties;
   private final ResponseErrorSelector responseErrorSelector;
 
   @ExceptionHandler({Throwable.class})
@@ -59,7 +59,8 @@ public class ErrorInterceptor extends ResponseEntityExceptionHandler {
   }
 
   private void generateTrace(Throwable ex, WebRequest request) {
-    if (properties.isLoggerPresent(LoggingType.ERROR))
-      threadContextInjector.populateFromException(ex, request);
+    if (properties.isLoggerPresent(LoggingType.ERROR)) {
+      contextInjector.populateFromException(ex, request);
+    }
   }
 }

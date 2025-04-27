@@ -1,5 +1,6 @@
 package com.demo.poc.entrypoint.payment.repository.processor;
 
+import com.demo.poc.commons.core.properties.restclient.RestClient;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.RetrofitFactory;
 import com.demo.poc.commons.core.restclient.StreamingTransformer;
@@ -30,7 +31,8 @@ public interface PaymentProcessorRepository {
 
     @Bean(MENU_V2_SERVICE_NAME)
     PaymentProcessorRepository create(OkHttpClient.Builder builder, ApplicationProperties properties) {
-      return RetrofitFactory.create(builder, properties, MENU_V2_SERVICE_NAME, PaymentProcessorRepository.class);
+      RestClient restClient = properties.searchRestClient(MENU_V2_SERVICE_NAME);
+      return RetrofitFactory.create(builder, restClient, PaymentProcessorRepository.class);
     }
   }
 }
