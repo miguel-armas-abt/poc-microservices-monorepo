@@ -1,15 +1,6 @@
 configuration:
   project-type: MS
 
-  logging:
-    logging-type:
-      error: true
-      rest.server.req: true
-      rest.server.res: true
-    obfuscation:
-      body-fields: [ ]
-      headers: [ ]
-
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
