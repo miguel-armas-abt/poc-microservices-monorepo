@@ -21,11 +21,8 @@ configuration:
 
   logging:
     logging-type:
-      error: true
       rest.server.req: false
       rest.server.res: false
-      rest.client.req: true
-      rest.client.res: true
     obfuscation:
       body-fields: ["accessToken"]
       headers: ["Authorization"]
@@ -47,13 +44,12 @@ configuration:
         headers:
           provided:
             Accept: application/json
-          generated:
-            trace-id: TRACE_ID
-            parent-id: PARENT_ID
-            timestamp: TIMESTAMP
           forwarded:
-            Authorization: Authorization
-            channel-id: channel-id
+            channelId: channelId
+          auto-generated:
+            timestamp: TIMESTAMP
+          tracing:
+            traceParent: TRACE_PARENT
 
 # actuator endpoints
 management:
