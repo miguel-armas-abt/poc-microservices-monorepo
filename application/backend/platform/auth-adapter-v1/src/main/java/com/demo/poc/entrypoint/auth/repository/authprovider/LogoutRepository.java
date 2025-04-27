@@ -1,5 +1,6 @@
 package com.demo.poc.entrypoint.auth.repository.authprovider;
 
+import com.demo.poc.commons.core.properties.restclient.RestClient;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.RetrofitFactory;
 import com.demo.poc.commons.core.restclient.utils.FormDataFiller;
@@ -24,13 +25,14 @@ public interface LogoutRepository {
                      @HeaderMap Map<String, String> headers);
 
   default Completable logout(Map<String, String> currentHeaders, ApplicationProperties properties, String refreshToken) {
-    Map<String, String> formData = fillFormData(properties, refreshToken);
-    Map<String, String> addedHeaders = HeadersFiller.fillHeaders(properties.searchHeaders(LOGOUT_SERVICE_NAME), currentHeaders);
+    RestClient restClient = properties.searchRestClient(LOGOUT_SERVICE_NAME);
+    Map<String, String> formData = fillFormData(restClient, refreshToken);
+    Map<String, String> addedHeaders = HeadersFiller.fillHeaders(restClient.getRequest().getHeaders(), currentHeaders);
     return logout(formData, addedHeaders);
   }
 
-  static Map<String, String> fillFormData(ApplicationProperties properties, String refreshToken) {
-    Map<String, String> providedParams = properties.searchFormData(LOGOUT_SERVICE_NAME);
+  static Map<String, String> fillFormData(RestClient restClient, String refreshToken) {
+    Map<String, String> providedParams = restClient.getRequest().getFormData();
     Map<String, String> currentParams = Map.of("refresh_token", refreshToken);
     return FormDataFiller.fillFormData(providedParams, currentParams);
   }
@@ -40,7 +42,8 @@ public interface LogoutRepository {
 
     @Bean(LOGOUT_SERVICE_NAME)
     LogoutRepository create(OkHttpClient.Builder builder, ApplicationProperties properties) {
-      return RetrofitFactory.create(builder, properties, LOGOUT_SERVICE_NAME, LogoutRepository.class);
+      RestClient restClient = properties.searchRestClient(LOGOUT_SERVICE_NAME);
+      return RetrofitFactory.create(builder, restClient, LogoutRepository.class);
     }
   }
 }

@@ -1,5 +1,6 @@
 package com.demo.poc.entrypoint.auth.repository.authprovider;
 
+import com.demo.poc.commons.core.properties.restclient.RestClient;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.RetrofitFactory;
 import com.demo.poc.commons.core.restclient.utils.FormDataFiller;
@@ -27,13 +28,14 @@ public interface RefreshTokenRepository {
   default Single<TokenResponseWrapper> refreshToken(Map<String, String> currentHeaders,
                                                     ApplicationProperties properties,
                                                     String refreshToken) {
-    Map<String, String> formData = fillFormData(properties, refreshToken);
-    Map<String, String> addedHeaders = HeadersFiller.fillHeaders(properties.searchHeaders(REFRESH_TOKEN_SERVICE_NAME), currentHeaders);
+    RestClient restClient = properties.searchRestClient(REFRESH_TOKEN_SERVICE_NAME);
+    Map<String, String> formData = fillFormData(restClient, refreshToken);
+    Map<String, String> addedHeaders = HeadersFiller.fillHeaders(restClient.getRequest().getHeaders(), currentHeaders);
     return refreshToken(formData, addedHeaders);
   }
 
-  static Map<String, String> fillFormData(ApplicationProperties properties, String refreshToken) {
-    Map<String, String> providedParams = properties.searchFormData(REFRESH_TOKEN_SERVICE_NAME);
+  static Map<String, String> fillFormData(RestClient restClient, String refreshToken) {
+    Map<String, String> providedParams = restClient.getRequest().getFormData();
     Map<String, String> currentParams = Map.of("refresh_token", refreshToken);
     return FormDataFiller.fillFormData(providedParams, currentParams);
   }
@@ -43,7 +45,8 @@ public interface RefreshTokenRepository {
 
     @Bean(REFRESH_TOKEN_SERVICE_NAME)
     RefreshTokenRepository create(OkHttpClient.Builder builder, ApplicationProperties properties) {
-      return RetrofitFactory.create(builder, properties, REFRESH_TOKEN_SERVICE_NAME, RefreshTokenRepository.class);
+      RestClient restClient = properties.searchRestClient(REFRESH_TOKEN_SERVICE_NAME);
+      return RetrofitFactory.create(builder, restClient, RefreshTokenRepository.class);
     }
   }
 }

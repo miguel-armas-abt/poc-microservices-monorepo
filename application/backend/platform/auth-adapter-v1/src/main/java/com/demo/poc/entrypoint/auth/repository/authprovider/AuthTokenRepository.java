@@ -1,5 +1,6 @@
 package com.demo.poc.entrypoint.auth.repository.authprovider;
 
+import com.demo.poc.commons.core.properties.restclient.RestClient;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.RetrofitFactory;
 import com.demo.poc.commons.core.restclient.utils.FormDataFiller;
@@ -27,14 +28,14 @@ public interface AuthTokenRepository {
   default Single<TokenResponseWrapper> getToken(Map<String, String> currentHeaders,
                                                 ApplicationProperties properties,
                                                 String username, String password) {
-
-    Map<String, String> formData = fillFormData(properties, username, password);
-    Map<String, String> addedHeaders = HeadersFiller.fillHeaders(properties.searchHeaders(AUTH_TOKEN_SERVICE_NAME), currentHeaders);
+    RestClient restClient = properties.searchRestClient(AUTH_TOKEN_SERVICE_NAME);
+    Map<String, String> formData = fillFormData(restClient, username, password);
+    Map<String, String> addedHeaders = HeadersFiller.fillHeaders(restClient.getRequest().getHeaders(), currentHeaders);
     return getToken(formData, addedHeaders);
   }
 
-  static Map<String, String> fillFormData(ApplicationProperties properties, String username, String password) {
-    Map<String, String> providedParams = properties.searchFormData(AUTH_TOKEN_SERVICE_NAME);
+  static Map<String, String> fillFormData(RestClient restClient, String username, String password) {
+    Map<String, String> providedParams = restClient.getRequest().getFormData();
     Map<String, String> currentParams = Map.of("username", username, "password", password);
     return FormDataFiller.fillFormData(providedParams, currentParams);
   }
@@ -44,7 +45,8 @@ public interface AuthTokenRepository {
 
     @Bean(AUTH_TOKEN_SERVICE_NAME)
     AuthTokenRepository create(OkHttpClient.Builder builder, ApplicationProperties properties) {
-      return RetrofitFactory.create(builder, properties, AUTH_TOKEN_SERVICE_NAME, AuthTokenRepository.class);
+      RestClient restClient = properties.searchRestClient(AUTH_TOKEN_SERVICE_NAME);
+      return RetrofitFactory.create(builder, restClient, AuthTokenRepository.class);
     }
   }
 }

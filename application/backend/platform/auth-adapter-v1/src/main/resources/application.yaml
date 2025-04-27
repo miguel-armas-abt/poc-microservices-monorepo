@@ -8,15 +8,6 @@ spring:
 configuration:
   project-type: MS
 
-  logging:
-    logging-type:
-      error: true
-      rest.server.req: true
-      rest.server.res: true
-    obfuscation:
-      body-fields: [ ]
-      headers: [ ]
-
   keycloak:
     base-url: http://${KEYCLOAK_DOMAIN:localhost:8091}/auth/realms/poc-management/protocol/openid-connect/
     client-id: front-poc-app
@@ -45,6 +36,12 @@ configuration:
         headers:
           provided:
             Accept: application/json
+          forwarded:
+            channelId: channelId
+          auto-generated:
+            timestamp: TIMESTAMP
+          tracing:
+            traceParent: TRACE_PARENT
 
     refresh-token:
       performance:
@@ -58,6 +55,12 @@ configuration:
         headers:
           provided:
             Accept: application/json
+          forwarded:
+            channelId: channelId
+          auto-generated:
+            timestamp: TIMESTAMP
+          tracing:
+            traceParent: TRACE_PARENT
 
     user-info:
       performance:
@@ -70,6 +73,11 @@ configuration:
             Accept: application/json
           forwarded:
             Authorization: Authorization
+            channelId: channelId
+          auto-generated:
+            timestamp: TIMESTAMP
+          tracing:
+            traceParent: TRACE_PARENT
 
     logout:
       performance:
@@ -83,6 +91,12 @@ configuration:
         headers:
           provided:
             Accept: application/json
+          forwarded:
+            channelId: channelId
+          auto-generated:
+            timestamp: TIMESTAMP
+          tracing:
+            traceParent: TRACE_PARENT
 
 # actuator endpoints
 management:

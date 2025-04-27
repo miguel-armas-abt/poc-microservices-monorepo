@@ -1,5 +1,6 @@
 package com.demo.poc.entrypoint.auth.repository.authprovider;
 
+import com.demo.poc.commons.core.properties.restclient.RestClient;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.RetrofitFactory;
 import com.demo.poc.commons.core.restclient.utils.HeadersFiller;
@@ -21,7 +22,8 @@ public interface UserInfoRepository {
 
   default Single<UserInfoResponseWrapper> getUserInfo(ApplicationProperties properties,
                                                       Map<String, String> currentHeaders) {
-    Map<String, String> addedHeaders = HeadersFiller.fillHeaders(properties.searchHeaders(USER_INFO_SERVICE_NAME), currentHeaders);
+    RestClient restClient = properties.searchRestClient(USER_INFO_SERVICE_NAME);
+    Map<String, String> addedHeaders = HeadersFiller.fillHeaders(restClient.getRequest().getHeaders(), currentHeaders);
     return getUserInfo(addedHeaders);
   }
 
@@ -30,7 +32,8 @@ public interface UserInfoRepository {
 
     @Bean(USER_INFO_SERVICE_NAME)
     UserInfoRepository create(OkHttpClient.Builder builder, ApplicationProperties properties) {
-      return RetrofitFactory.create(builder, properties, USER_INFO_SERVICE_NAME, UserInfoRepository.class);
+      RestClient restClient = properties.searchRestClient(USER_INFO_SERVICE_NAME);
+      return RetrofitFactory.create(builder, restClient, UserInfoRepository.class);
     }
   }
 }
