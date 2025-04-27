@@ -1,10 +1,7 @@
 package com.demo.poc.commons.core.logging.enums;
 
-import com.demo.poc.commons.core.errors.exceptions.NoSuchLoggerTypeException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Arrays;
 
 @Getter
 @RequiredArgsConstructor
@@ -18,11 +15,4 @@ public enum LoggingType {
 
   private final String code;
   private final String message;
-
-  public LoggingType findByCode(String code) {
-    return Arrays.stream(values())
-        .filter(loggerType -> loggerType.getCode().equals(code))
-        .findFirst()
-        .orElseThrow(NoSuchLoggerTypeException::new);
-  }
 }

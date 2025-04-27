@@ -1,6 +1,7 @@
 package com.demo.poc.entrypoint.auth.filter;
 
 import com.demo.poc.commons.core.interceptor.error.ErrorInterceptor;
+import com.demo.poc.commons.core.restserver.utils.RestServerUtils;
 import com.demo.poc.commons.custom.exceptions.RoleNotFoundException;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import com.demo.poc.entrypoint.auth.utils.TokenValidatorUtil;
@@ -13,8 +14,6 @@ import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFac
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-
-import static com.demo.poc.commons.core.restclient.utils.HttpHeadersFiller.extractHeadersAsMap;
 
 @Slf4j
 @Component
@@ -46,7 +45,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     Set<Boolean> status = new HashSet<>();
     return !properties.getAuthentication().isEnableAuth()
         ? Mono.just(Boolean.TRUE)
-        : authAdapterRepository.getRoles(extractHeadersAsMap(exchange.getRequest()))
+        : authAdapterRepository.getRoles(RestServerUtils.extractHeadersAsMap(exchange.getRequest()))
         .flatMapIterable(HashMap::keySet)
         .reduce(status, (currentStatus, role) -> {
           currentStatus.add(getExpectedRoles().contains(role));
