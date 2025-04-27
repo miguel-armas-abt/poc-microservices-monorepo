@@ -28,7 +28,7 @@ public class LokiAvailabilityFilter extends Filter<Object> {
   }
 
   public boolean isError(int httpCode) {
-    int hundreds = httpCode / 100;
+    int hundreds = httpCode/100;
     return hundreds == 5;
   }
 }

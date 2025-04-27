@@ -1,7 +1,10 @@
 package com.demo.poc.commons.core.interceptor.restclient.request;
 
-import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
+import com.demo.poc.commons.core.logging.dto.RestRequestLog;
+import com.demo.poc.commons.core.logging.enums.LoggingType;
 import com.demo.poc.commons.core.logging.ThreadContextInjector;
+import com.demo.poc.commons.core.tracing.enums.TraceParam;
+import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpRequest;
@@ -18,31 +21,26 @@ import static com.demo.poc.commons.core.logging.enums.LoggingType.REST_CLIENT_RE
 @RequiredArgsConstructor
 public class RestClientRequestInterceptor implements ClientHttpRequestInterceptor {
 
-  private final ThreadContextInjector threadContextInjector;
-  private final ConfigurationBaseProperties properties;
+  private final ThreadContextInjector contextInjector;
+  private final ApplicationProperties properties;
 
   @Override
   public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-    generateTraceIfLoggerIsPresent(request, body);
+    generateTrace(request, body);
     return execution.execute(request, body);
   }
 
-  private void generateTraceIfLoggerIsPresent(HttpRequest request, byte[] body) {
-    if (properties.isLoggerPresent(REST_CLIENT_REQ))
-      generateTrace(request, new String(body, StandardCharsets.UTF_8));
-  }
+  private void generateTrace(HttpRequest request, byte[] body) {
+    if (properties.isLoggerPresent(REST_CLIENT_REQ)) {
+      RestRequestLog log = RestRequestLog.builder()
+          .method(request.getMethod().toString())
+          .uri(request.getURI().toString())
+          .requestHeaders(request.getHeaders().toSingleValueMap())
+          .requestBody(new String(body, StandardCharsets.UTF_8))
+          .traceParent(request.getHeaders().getFirst(TraceParam.TRACE_PARENT.getKey()))
+          .build();
 
-  private void generateTrace(HttpRequest request, String requestBody) {
-    try {
-      threadContextInjector.populateFromRestClientRequest(
-          request.getMethod().toString(),
-          request.getURI().toString(),
-          request.getHeaders().toSingleValueMap(),
-          requestBody
-      );
-    } catch (Exception exception) {
-      log.error("Error reading request body {}", exception.getClass(), exception);
+      contextInjector.populateFromRestRequest(LoggingType.REST_CLIENT_REQ, log);
     }
   }
-
 }

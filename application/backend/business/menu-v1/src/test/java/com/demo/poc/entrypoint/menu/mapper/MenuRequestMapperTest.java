@@ -6,6 +6,7 @@ import com.demo.poc.entrypoint.menu.repository.menu.entity.MenuEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -33,7 +34,8 @@ public class MenuRequestMapperTest {
   }
 
   @Test
-  public void givenASaveRequest_WhenMappingAttributes_ThenObtainEntity() {
+  @DisplayName("Given a save request, when mapping attributes, then returns correct entity")
+  public void givenASaveRequest_WhenMappingAttributes_ThenReturnsCorrectEntity() {
     //Arrange
     menuEntity.setId(null);
     String expected = new Gson().toJson(menuEntity);

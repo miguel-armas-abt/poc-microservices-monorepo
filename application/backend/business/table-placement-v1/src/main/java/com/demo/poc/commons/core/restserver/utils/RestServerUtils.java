@@ -11,6 +11,7 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,12 @@ public class RestServerUtils {
         .map(Map::entrySet)
         .orElse(Collections.emptySet())
         .stream()
-        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        .collect(Collectors.toMap(
+            Map.Entry::getKey,
+            Map.Entry::getValue,
+            (u, v) -> v,
+            () -> new TreeMap<>(String.CASE_INSENSITIVE_ORDER)
+        ));
   }
 
   public static Map<String, String> extractHeadersAsMap(ServerHttpRequest serverHttpRequest) {
@@ -30,7 +36,12 @@ public class RestServerUtils {
         .map(headers -> headers.toSingleValueMap().entrySet())
         .orElse(Collections.emptySet())
         .stream()
-        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        .collect(Collectors.toMap(
+            Map.Entry::getKey,
+            Map.Entry::getValue,
+            (u, v) -> v,
+            () -> new TreeMap<>(String.CASE_INSENSITIVE_ORDER)
+        ));
   }
 
   public static Map<String, String> extractQueryParamsAsMap(ServerRequest serverRequest) {

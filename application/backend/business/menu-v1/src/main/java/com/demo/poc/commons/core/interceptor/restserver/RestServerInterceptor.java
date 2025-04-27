@@ -1,14 +1,15 @@
 package com.demo.poc.commons.core.interceptor.restserver;
 
-import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
-import com.demo.poc.commons.core.logging.enums.LoggingType;
+import static com.demo.poc.commons.core.interceptor.restserver.RestServerInterceptor.RequestUtil.*;
+
+import com.demo.poc.commons.core.constants.Symbol;
 import com.demo.poc.commons.core.logging.ThreadContextInjector;
-import jakarta.servlet.Filter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
+import com.demo.poc.commons.core.logging.dto.RestRequestLog;
+import com.demo.poc.commons.core.logging.dto.RestResponseLog;
+import com.demo.poc.commons.core.logging.enums.LoggingType;
+import com.demo.poc.commons.core.tracing.enums.TraceParam;
+import com.demo.poc.commons.custom.properties.ApplicationProperties;
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,23 +18,10 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
-
-import static com.demo.poc.commons.core.logging.enums.LoggingType.REST_SERVER_REQ;
-import static com.demo.poc.commons.core.interceptor.restserver.RestServerInterceptor.RequestLoggerUtil.extractRequestBody;
-import static com.demo.poc.commons.core.interceptor.restserver.RestServerInterceptor.RequestLoggerUtil.extractRequestHeadersAsMap;
-import static com.demo.poc.commons.core.interceptor.restserver.RestServerInterceptor.RequestLoggerUtil.extractRequestURL;
-import static com.demo.poc.commons.core.interceptor.restserver.RestServerInterceptor.ResponseLoggerUtil.extractResponseHeadersAsMap;
 
 @Slf4j
 @WebFilter(urlPatterns = "/*")
@@ -42,8 +30,8 @@ public class RestServerInterceptor implements Filter {
 
   private static final List<String> EXCLUDED_PATHS = List.of("/h2-console", "/swagger-ui", "/actuator");
 
-  private final ThreadContextInjector threadContextInjector;
-  private final ConfigurationBaseProperties properties;
+  private final ThreadContextInjector contextInjector;
+  private final ApplicationProperties properties;
 
   @Override
   public void init(FilterConfig filterConfig) {
@@ -68,9 +56,9 @@ public class RestServerInterceptor implements Filter {
     chain.doFilter(bufferingRequest, bufferingResponse);
     String responseBody = bufferingResponse.getCachedBody();
 
-    generateTraceOfResponse(bufferingResponse, responseBody);
+    generateTraceOfResponse(httpRequest, bufferingResponse, responseBody);
 
-    response.getOutputStream().write(responseBody.getBytes(StandardCharsets.UTF_8));
+    httpResponse.getOutputStream().write(responseBody.getBytes(StandardCharsets.UTF_8));
   }
 
   @Override
@@ -78,26 +66,34 @@ public class RestServerInterceptor implements Filter {
   }
 
   private void generateTraceOfRequest(HttpServletRequest request) {
-    if (properties.isLoggerPresent(REST_SERVER_REQ)) {
-      threadContextInjector.populateFromRestServerRequest(
-          request.getMethod(),
-          extractRequestURL(request),
-          extractRequestHeadersAsMap(request),
-          extractRequestBody(request));
+    if(properties.isLoggerPresent(LoggingType.REST_SERVER_REQ)) {
+      RestRequestLog log = RestRequestLog.builder()
+          .uri(extractRequestURL(request))
+          .requestBody(extractRequestBody(request))
+          .requestHeaders(extractRequestHeadersAsMap(request))
+          .method(request.getMethod())
+          .traceParent(request.getHeader(TraceParam.TRACE_PARENT.getKey().toLowerCase()))
+          .build();
+
+      contextInjector.populateFromRestRequest(LoggingType.REST_SERVER_REQ, log);
     }
   }
 
-  private void generateTraceOfResponse(HttpServletResponse response, String responseBody) {
-    if (properties.isLoggerPresent(LoggingType.REST_SERVER_RES)) {
-      threadContextInjector.populateFromRestServerResponse(
-          extractResponseHeadersAsMap(response),
-          responseBody,
-          String.valueOf(response.getStatus()));
+  private void generateTraceOfResponse(HttpServletRequest httpRequest, HttpServletResponse response, String responseBody) {
+    if(properties.isLoggerPresent(LoggingType.REST_SERVER_RES)) {
+      RestResponseLog log = RestResponseLog.builder()
+          .uri(extractRequestURL(httpRequest))
+          .responseBody(responseBody)
+          .responseHeaders(ResponseUtil.extractResponseHeadersAsMap(response))
+          .httpCode(String.valueOf(response.getStatus()))
+          .traceParent(httpRequest.getHeader(TraceParam.TRACE_PARENT.getKey().toLowerCase()))
+          .build();
+      contextInjector.populateFromRestResponse(LoggingType.REST_SERVER_RES, log);
     }
   }
 
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  public static class RequestLoggerUtil {
+  public static class RequestUtil {
     public static Map<String, String> extractRequestHeadersAsMap(HttpServletRequest request) {
       return Optional.ofNullable(request.getHeaderNames())
           .map(Collections::list)
@@ -110,7 +106,7 @@ public class RestServerInterceptor implements Filter {
       try {
         return new BufferingHttpServletRequest(request).getRequestBody();
       } catch (IOException exception) {
-        log.error("Error reading request body: {}", exception.getClass(), exception);
+        log.error("Request body error: {}", exception.getClass(), exception);
         return StringUtils.EMPTY;
       }
     }
@@ -123,19 +119,21 @@ public class RestServerInterceptor implements Filter {
 
       String queryString = request.getQueryString();
       if (StringUtils.isNotBlank(queryString))
-        url += "?" + queryString;
+        url += Symbol.QUESTION_MARK + queryString;
 
       return url;
     }
   }
 
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  public static class ResponseLoggerUtil {
+  private static class ResponseUtil {
+
     public static Map<String, String> extractResponseHeadersAsMap(HttpServletResponse response) {
       Map<String, String> headers = new HashMap<>();
       Collection<String> headerNames = response.getHeaderNames();
       headerNames.forEach(headerName -> headers.put(headerName, response.getHeader(headerName)));
       return headers;
     }
+
   }
 }

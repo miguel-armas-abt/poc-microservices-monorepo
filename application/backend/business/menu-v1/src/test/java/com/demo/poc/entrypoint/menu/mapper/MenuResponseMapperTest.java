@@ -7,6 +7,7 @@ import com.demo.poc.entrypoint.menu.repository.product.wrapper.response.ProductR
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -37,7 +38,8 @@ public class MenuResponseMapperTest {
   }
 
   @Test
-  public void givenAnEntity_WhenMappingAttributes_ThenObtainResponse() {
+  @DisplayName("Given an entity, when mapping attributes, then returns correct response")
+  public void givenAnEntity_WhenMappingAttributes_ThenReturnsCorrectResponse() {
     //Arrange
     String expected = new Gson().toJson(menuOption);
 

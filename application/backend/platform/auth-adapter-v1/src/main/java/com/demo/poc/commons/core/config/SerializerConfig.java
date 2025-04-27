@@ -1,6 +1,5 @@
 package com.demo.poc.commons.core.config;
 
-import com.demo.poc.commons.core.serialization.ByteSerializer;
 import com.demo.poc.commons.core.serialization.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +13,4 @@ public class SerializerConfig {
     return new JsonSerializer(objectMapper);
   }
 
-  @Bean
-  public ByteSerializer byteSerializer(ObjectMapper objectMapper) {
-    return new ByteSerializer(objectMapper);
-  }
 }

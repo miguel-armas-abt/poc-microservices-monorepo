@@ -4,7 +4,7 @@ import com.demo.poc.commons.core.validations.BodyValidator;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.ParamValidator;
 import com.demo.poc.entrypoint.tableorder.dto.request.MenuOrderRequestDto;
-import com.demo.poc.entrypoint.tableorder.dto.params.TableNumberParam;
+import com.demo.poc.entrypoint.tableorder.params.TableNumberParam;
 import com.demo.poc.entrypoint.tableorder.service.TablePlacementService;
 import com.demo.poc.commons.core.restserver.utils.RestServerUtils;
 

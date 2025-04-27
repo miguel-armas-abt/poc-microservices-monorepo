@@ -1,86 +1,81 @@
 package com.demo.poc.commons.core.logging;
 
-import com.demo.poc.commons.core.logging.constants.RestLoggingConstant;
+import com.demo.poc.commons.core.constants.Symbol;
+import com.demo.poc.commons.core.logging.dto.RestRequestLog;
+import com.demo.poc.commons.core.logging.dto.RestResponseLog;
 import com.demo.poc.commons.core.logging.enums.LoggingType;
-import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
-import com.demo.poc.commons.core.properties.logging.ObfuscationTemplate;
 import com.demo.poc.commons.core.logging.obfuscation.body.BodyObfuscator;
 import com.demo.poc.commons.core.logging.obfuscation.header.HeaderObfuscator;
-import com.demo.poc.commons.core.tracing.utils.TraceHeaderExtractor;
-import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
+import com.demo.poc.commons.core.properties.logging.ObfuscationTemplate;
+import com.demo.poc.commons.core.tracing.enums.TraceParam;
+import com.demo.poc.commons.custom.properties.ApplicationProperties;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.ThreadContext;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.Map;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
-@RequiredArgsConstructor
 public class ThreadContextInjector {
 
-  private final ConfigurationBaseProperties properties;
-  private ObfuscationTemplate obfuscation;
+  private final ObfuscationTemplate obfuscation;
 
-  @PostConstruct
-  public void init() {
-    this.obfuscation = properties.getLogging().getObfuscation();
+  public ThreadContextInjector(ApplicationProperties properties) {
+    this.obfuscation = properties.searchObfuscation();
   }
 
   private static void putInContext(String key, String value) {
     ThreadContext.put(key, StringUtils.defaultString(value));
   }
 
-  public void populateFromTraceHeaders(Map<String, String> traceHeaders) {
-    traceHeaders.forEach(ThreadContextInjector::putInContext);
+  public void populateFromHeaders(Map<String, String> headers) {
+    headers.forEach(ThreadContextInjector::putInContext);
   }
 
-  public void populateFromRestClientRequest(String method, String uri, Map<String, String> headers, String body) {
-    populateFromRestRequest(LoggingType.REST_CLIENT_REQ.getCode(), method, uri, headers, body);
-    log.info(LoggingType.REST_CLIENT_REQ.getMessage());
+  public void populateFromRestRequest(LoggingType loggingType, RestRequestLog restRequestLog) {
     ThreadContext.clearAll();
+    Map<String, String> traceHeaders = TraceParam.Util.getTraceHeadersAsMap(restRequestLog.getTraceParent());
+    populateFromHeaders(traceHeaders);
+    putInContext(loggingType.getCode() + RestConstants.METHOD, restRequestLog.getMethod());
+    putInContext(loggingType.getCode() + RestConstants.URI, restRequestLog.getUri());
+    putInContext(loggingType.getCode() + RestConstants.HEADERS, HeaderObfuscator.process(obfuscation, restRequestLog.getRequestHeaders()));
+    putInContext(loggingType.getCode() + RestConstants.BODY, BodyObfuscator.process(obfuscation, restRequestLog.getRequestBody()));
+    log.info(loggingType.getMessage());
   }
 
-  public void populateFromRestClientResponse(Map<String, String> headers, String body, String httpCode) {
-    populateFromRestResponse(LoggingType.REST_CLIENT_RES.getCode(), headers, body, httpCode);
-    log.info(LoggingType.REST_CLIENT_RES.getMessage());
+  public void populateFromRestResponse(LoggingType loggingType, RestResponseLog restResponseLog) {
     ThreadContext.clearAll();
+    Map<String, String> traceHeaders = TraceParam.Util.getTraceHeadersAsMap(restResponseLog.getTraceParent());
+    populateFromHeaders(traceHeaders);
+    putInContext(loggingType.getCode() + RestConstants.HEADERS, HeaderObfuscator.process(obfuscation, restResponseLog.getResponseHeaders()));
+    putInContext(loggingType.getCode() + RestConstants.URI, restResponseLog.getUri());
+    putInContext(loggingType.getCode() + RestConstants.BODY, BodyObfuscator.process(obfuscation, restResponseLog.getResponseBody()));
+    putInContext(loggingType.getCode() + RestConstants.STATUS, restResponseLog.getHttpCode());
+    log.info(loggingType.getMessage());
   }
 
-  public void populateFromRestServerRequest(String method, String uri, Map<String, String> headers, String body) {
-    populateFromRestRequest(LoggingType.REST_SERVER_REQ.getCode(), method, uri, headers, body);
-    log.info(LoggingType.REST_SERVER_REQ.getMessage());
-    ThreadContext.clearAll();
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  public static class Utils {
+
+    public static String getHeadersAsString(Map<String, String> headers) {
+      return headers.entrySet().stream()
+          .map(entry -> entry.getKey() + Symbol.EQUAL + entry.getValue())
+          .collect(Collectors.joining(Symbol.COMMA));
+    }
   }
 
-  public void populateFromRestServerResponse(Map<String, String> headers, String body, String httpCode) {
-    populateFromRestResponse(LoggingType.REST_SERVER_RES.getCode(), headers, body, httpCode);
-    log.info(LoggingType.REST_SERVER_RES.getMessage());
-    ThreadContext.clearAll();
-  }
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  public static class RestConstants {
 
-  public void populateFromException(Throwable exception, WebRequest request) {
-    String message = Optional.ofNullable(exception.getMessage()).orElse("Undefined error message");
-    populateFromTraceHeaders(TraceHeaderExtractor.extractTraceHeadersAsMap(request::getHeader));
-    log.error(message, exception);
-    ThreadContext.clearAll();
-  }
+    public static final String METHOD = ".method";
+    public static final String URI = ".uri";
+    public static final String HEADERS = ".headers";
+    public static final String BODY = ".body";
+    public static final String STATUS = ".status";
 
-  private void populateFromRestRequest(String prefix, String method, String uri, Map<String, String> headers, String body) {
-    populateFromTraceHeaders(TraceHeaderExtractor.extractTraceHeadersAsMap(headers::get));
-    putInContext(prefix + RestLoggingConstant.METHOD, method);
-    putInContext(prefix + RestLoggingConstant.URI, uri);
-    putInContext(prefix + RestLoggingConstant.HEADERS, HeaderObfuscator.process(obfuscation, headers));
-    putInContext(prefix + RestLoggingConstant.BODY, BodyObfuscator.process(obfuscation, body));
-  }
-
-  private void populateFromRestResponse(String prefix, Map<String, String> headers, String body, String httpCode) {
-    populateFromTraceHeaders(TraceHeaderExtractor.extractTraceHeadersAsMap(headers::get));
-    putInContext(prefix + RestLoggingConstant.HEADERS, HeaderObfuscator.process(obfuscation, headers));
-    putInContext(prefix + RestLoggingConstant.BODY, BodyObfuscator.process(obfuscation, body));
-    putInContext(prefix + RestLoggingConstant.STATUS, httpCode);
   }
 
 }

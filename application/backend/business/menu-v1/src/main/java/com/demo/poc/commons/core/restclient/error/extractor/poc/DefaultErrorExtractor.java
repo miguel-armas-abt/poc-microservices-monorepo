@@ -2,29 +2,29 @@ package com.demo.poc.commons.core.restclient.error.extractor.poc;
 
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.restclient.error.RestClientErrorExtractor;
-import com.demo.poc.commons.core.serialization.JsonSerializer;
+import com.demo.poc.commons.core.restclient.error.RestClientErrorMapper;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
 public class DefaultErrorExtractor implements RestClientErrorExtractor {
 
-  private final JsonSerializer serializer;
+  private final RestClientErrorMapper mapper;
 
   @Override
-  public Optional<Pair<String, String>> getCodeAndMessage(String jsonBody) {
-    return serializer.writeCodeAndMessage(jsonBody, ErrorDto.class, errorMapper);
+  public Optional<Map.Entry<String, String>> getCodeAndMessage(String jsonBody) {
+    return mapper.getCodeAndMessage(jsonBody, ErrorDto.class, errorMapper);
   }
 
-  private final Function<ErrorDto, Pair<String, String>> errorMapper = errorDetail
-      -> Pair.of(errorDetail.getCode(), errorDetail.getMessage());
+  private final Function<ErrorDto, Map.Entry<String, String>> errorMapper = errorDetail
+      -> Map.of(errorDetail.getCode(), errorDetail.getMessage()).entrySet().iterator().next();
 
   @Override
-  public boolean supports(Class<?> errorWrapperClass) {
-    return errorWrapperClass.isAssignableFrom(ErrorDto.class);
+  public boolean supports(Class<?> wrapperClass) {
+    return wrapperClass.isAssignableFrom(ErrorDto.class);
   }
 
 }

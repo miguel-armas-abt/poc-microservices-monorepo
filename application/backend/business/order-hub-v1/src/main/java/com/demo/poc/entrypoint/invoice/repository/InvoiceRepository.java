@@ -10,7 +10,6 @@ import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.restclient.error.RestClientErrorHandler;
 import java.util.List;
 import java.util.Map;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -23,7 +22,6 @@ import reactor.core.publisher.Mono;
 import static com.demo.poc.commons.core.restclient.utils.HttpHeadersFiller.fillHeaders;
 
 @Repository
-@RequiredArgsConstructor
 public class InvoiceRepository {
 
   private static final String SERVICE_NAME = "invoice-v1";

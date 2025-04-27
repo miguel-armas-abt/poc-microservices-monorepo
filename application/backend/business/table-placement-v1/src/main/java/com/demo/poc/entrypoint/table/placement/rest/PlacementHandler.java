@@ -5,7 +5,7 @@ import com.demo.poc.commons.core.validations.BodyValidator;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.ParamValidator;
 import com.demo.poc.entrypoint.table.placement.dto.request.MenuOrderDto;
-import com.demo.poc.entrypoint.table.placement.dto.params.TableNumberParam;
+import com.demo.poc.entrypoint.table.placement.params.TableNumberParam;
 import com.demo.poc.entrypoint.table.placement.service.PlacementService;
 import lombok.RequiredArgsConstructor;
 

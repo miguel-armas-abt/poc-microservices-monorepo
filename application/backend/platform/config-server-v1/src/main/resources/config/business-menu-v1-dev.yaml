@@ -1,17 +1,6 @@
 configuration:
   project-type: MS
 
-  logging:
-    logging-type:
-      error: true
-      rest.server.req: false
-      rest.server.res: false
-      rest.client.req: true
-      rest.client.res: true
-    obfuscation:
-      body-fields: [ ]
-      headers: [ ]
-
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
@@ -22,12 +11,12 @@ configuration:
         headers:
           provided:
             Accept: application/json
-          generated:
-            parent-id: PARENT_ID
-            timestamp: TIMESTAMP
           forwarded:
-            trace-id: trace-id
-            channel-id: channel-id
+            channelId: channelId
+          auto-generated:
+            timestamp: TIMESTAMP
+          tracing:
+            traceParent: TRACE_PARENT
 
   custom:
     cache:

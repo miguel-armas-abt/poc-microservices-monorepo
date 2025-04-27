@@ -943,12 +943,12 @@
 								"method": "POST",
 								"header": [
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}"
+										"key": "traceParent",
+										"value": "{{traceParent}}"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -1067,12 +1067,12 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}"
+										"key": "traceParent",
+										"value": "{{traceParent}}"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -1402,12 +1402,13 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}"
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -1463,13 +1464,13 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -1519,13 +1520,13 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -1573,13 +1574,13 @@
 								"method": "PUT",
 								"header": [
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -1798,17 +1799,14 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "Accept",
-										"value": "application/stream+json",
-										"disabled": true
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
 									},
 									{
-										"key": "Accept",
-										"value": "application/x-ndjson"
-									},
-									{
-										"key": "trace-id",
-										"value": "{{$guid}}"
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -1857,11 +1855,18 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/x-ndjson"
+										"value": "application/x-ndjson",
+										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}"
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -1910,16 +1915,18 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
-										"disabled": true
+										"value": "application/x-ndjson",
+										"type": "text"
 									},
 									{
-										"key": "Accept",
-										"value": "application/x-ndjson"
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}"
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -1974,16 +1981,18 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/stream+json",
-										"disabled": true
+										"value": "application/x-ndjson",
+										"type": "text"
 									},
 									{
-										"key": "Accept",
-										"value": "application/x-ndjson"
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}"
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -2030,16 +2039,19 @@
 								"method": "PUT",
 								"header": [
 									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
 										"key": "Accept",
-										"value": "application/x-ndjson"
+										"value": "application/x-ndjson",
+										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}"
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -2086,16 +2098,19 @@
 								"method": "POST",
 								"header": [
 									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
 										"key": "Accept",
-										"value": "application/x-ndjson"
+										"value": "application/x-ndjson",
+										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}"
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -2326,13 +2341,13 @@
 										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -2393,13 +2408,13 @@
 										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -2460,13 +2475,13 @@
 										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -2509,13 +2524,13 @@
 								"method": "POST",
 								"header": [
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -2572,13 +2587,13 @@
 										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -2620,13 +2635,13 @@
 										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -2681,13 +2696,13 @@
 										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -2757,13 +2772,13 @@
 										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -2809,13 +2824,13 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -2858,13 +2873,13 @@
 								"method": "PATCH",
 								"header": [
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -2912,13 +2927,13 @@
 										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -2961,13 +2976,13 @@
 										"type": "text"
 									},
 									{
-										"key": "trace-id",
-										"value": "{{$guid}}",
+										"key": "traceParent",
+										"value": "{{traceParent}}",
 										"type": "text"
 									},
 									{
-										"key": "channel-id",
-										"value": "web",
+										"key": "channelId",
+										"value": "WEB",
 										"type": "text"
 									}
 								],
@@ -3008,7 +3023,18 @@
 							"name": "Payments",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "http://localhost:8015/poc/business/payment/v1/execute",
 									"protocol": "http",
@@ -3076,6 +3102,41 @@
 					}
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"function setTraceParent() {\r",
+					"    const hex = n => [...Array(n)].reduce(s => s + (Math.random()*16|0).toString(16), '');\r",
+					"    const traceId = Math.floor(Date.now()/1e3).toString(16).padStart(8,'0') + hex(24);\r",
+					"\r",
+					"    let spanId;\r",
+					"    do { spanId = hex(16); } while (/^0+$/.test(spanId));\r",
+					"\r",
+					"    //W3C Estandar\r",
+					"    const traceParent = `00-${traceId}-${spanId}-01`;\r",
+					"    pm.globals.set(\"traceParent\", traceParent);\r",
+					"}\r",
+					"\r",
+					"setTraceParent();\r",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

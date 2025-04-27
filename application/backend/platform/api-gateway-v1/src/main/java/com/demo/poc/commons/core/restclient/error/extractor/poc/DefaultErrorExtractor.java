@@ -4,7 +4,6 @@ import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.restclient.error.RestClientErrorExtractor;
 import com.demo.poc.commons.core.restclient.error.RestClientErrorMapper;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
 import java.util.Optional;
