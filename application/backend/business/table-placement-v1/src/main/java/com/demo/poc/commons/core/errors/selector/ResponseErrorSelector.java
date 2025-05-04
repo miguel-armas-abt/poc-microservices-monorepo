@@ -6,6 +6,7 @@ import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import com.demo.poc.commons.core.properties.ProjectType;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.demo.poc.commons.core.errors.dto.ErrorDto.CODE_DEFAULT;
@@ -54,8 +55,12 @@ public class ResponseErrorSelector {
   private static <T extends Throwable> ErrorDto extractError(T exception) {
     ErrorDto error = null;
 
-    if (exception instanceof GenericException genericException)
+    if (exception instanceof GenericException genericException) {
       error = genericException.getErrorDetail();
+      if (Objects.nonNull(genericException.getMessage())) {
+        error.setMessage(genericException.getMessage());
+      }
+    }
 
     return error;
   }
