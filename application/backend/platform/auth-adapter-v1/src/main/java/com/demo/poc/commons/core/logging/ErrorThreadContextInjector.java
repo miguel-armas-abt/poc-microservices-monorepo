@@ -1,7 +1,5 @@
 package com.demo.poc.commons.core.logging;
 
-import java.util.Map;
-
 import com.demo.poc.commons.core.tracing.enums.TraceParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
