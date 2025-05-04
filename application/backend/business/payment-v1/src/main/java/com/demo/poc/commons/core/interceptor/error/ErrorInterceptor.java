@@ -35,7 +35,7 @@ public class ErrorInterceptor extends ResponseEntityExceptionHandler {
     generateTrace(ex, request);
 
     ErrorDto error = ErrorDto.getDefaultError(properties);
-    HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+    HttpStatusCode httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
     if (ex instanceof ResourceAccessException || ex instanceof ConnectException) {
       httpStatus = HttpStatus.REQUEST_TIMEOUT;

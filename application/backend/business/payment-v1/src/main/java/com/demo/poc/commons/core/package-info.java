@@ -1,14 +1,19 @@
 /**
- * <h1>Core Library</h1>
+ * <h1>Core Library - Spring RxJava</h1>
  *
- * <p>This package contains the core config classes for RxJava.</p>
- * <p>Last updated: 26/04/2025</>
- *
- * @version 1.3
  * <ul>
- *   <li>Headers Filler for Rest Client</>
- *   <li>Error message selector for server response</>
- *   <li>Body and param validators</>
+ *   <li>@version 1.4 - [26/04/2025]
+ *    <ul>
+ *      <li>Logging with MDC - core.logging
+ *      <li>Header fillers for rest clients - core.restclient.utils
+ *      <li>Error message selector for rest clients - core.errors.selector
+ *      <li>Error message selector for server - core.errors.selector
+ *      <li>Body & param validator - core.validations
+ *    </ul>
+ *   <li>@version 1.5 - [04/05/2025]
+ *    <ul>
+ *      <li>Error origin - errors.dto
+ *    </ul>
  * </ul>
  */
 package com.demo.poc.commons.core;
