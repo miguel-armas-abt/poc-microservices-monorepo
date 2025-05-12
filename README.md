@@ -1,9 +1,9 @@
 # BBQ RESTAURANT
 
 # 1. Documentación
-- [Despliegue - Local](devops/scripts/local/README.md)
-- [Despliegue - Docker Compose](devops/scripts/docker/README.md)
-- [Despliegue - Kubernetes](devops/scripts/k8s/README.md)
+- [Despliegue - Local](devops/local/README.md)
+- [Despliegue - Docker Compose](devops/docker/README.md)
+- [Despliegue - Kubernetes](devops/k8s/README.md)
 - [Despliegue - Jenkins](devops/scripts/jenkins/README.md)
 - [Documentación backend  ](./docs/info/backend/README.md)
 
@@ -11,11 +11,11 @@
 BBQ Restaurant es una cadena de restaurantes que planea implementar una arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
 Los expertos en el dominio "restaurante" utilizan los siguientes procesos para prestar servicios a sus clientes.
 
-<img src="docs/diagrams/process-diagram.png" width="1000" height="250">
+<img src="process-diagram.png" width="1000" height="250">
 
 # 3. Arquitectura de software
 
-![Arquitectura de software](./docs/diagrams/software-architecture.svg)
+![Arquitectura de software](software-architecture.svg)
 
 |    | Servicio web         | Descripción                                                                                                                   | Stack                                                             |   
 |----|----------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
