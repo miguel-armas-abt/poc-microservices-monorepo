@@ -22,13 +22,13 @@ function get_timestamp {
 
 function print_log_and_eval {
   local command=$1
-  echo "$(get_timestamp) .......... $command" >> "./../$LOG_FILE"
+  echo "$(get_timestamp) .......... $command" >> "$LOG_FILE"
   eval "$command"
 }
 
 function print_log {
   local command=$1
-  echo "$(get_timestamp) .......... $command" >> "./../$LOG_FILE"
+  echo "$(get_timestamp) .......... $command" >> "$LOG_FILE"
 }
 
 function arrow_loader {

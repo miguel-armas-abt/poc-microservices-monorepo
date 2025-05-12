@@ -66,16 +66,18 @@ server_map["loki"]="$loki_port|$LOKI_HOME|$loki_command"
 server_map["promtail"]="$promtail_port|$PROMTAIL_HOME|$promtail_command"
 
 is_port_in_use() {
-  local server_port=$1
-  
-  netstat -an | grep LISTEN | grep -q ":$server_port "
-  return $?
+  local port=$1
+
+  if netstat -an | grep LISTEN | grep -q ":$port "; then
+    echo "true"
+  else
+    echo "false"
+  fi
 }
 
 validate_zookeeper() {
   local server_name=$1
-  local port_in_use=$2
-  
+
   if [[ "$server_name" == "zookeeper" && -d "$KAFKA_TMP" ]]; then
     rm -rf "$KAFKA_TMP"
     print_log "/tmp folder was removed"
@@ -83,17 +85,25 @@ validate_zookeeper() {
 }
 
 validate_port_and_execute() {
-  local port_in_use=$1
-  local server_path=$2
-  local execution_command=$3
-  local server_port=$4
+  local server_name=$1
+  local port_in_use=$2
+  local server_path=$3
+  local execution_command=$4
+  local server_port=$5
 
-  if [ "$port_in_use" == "1" ]; then
+  local original_dir
+  original_dir="$(pwd)"
+
+  if [ "$port_in_use" == "false" ]; then
+    echo -e "${GREEN}$server_name in $server_port${NC}"
     cd "$server_path" || exit
     eval start "$execution_command"
   else
-    print_log "$server_name .......... port $server_port is currently in use"
+    echo -e "${RED}port $server_port is currently in use${NC}" >&2
+    return 1
   fi
+
+  cd "$original_dir"
 }
 
 execute_server() {
@@ -101,12 +111,13 @@ execute_server() {
 
   IFS='|' read -r server_port server_path execution_command <<< "${server_map[$server_name]}"
 
-  is_port_in_use "$server_port"
-  port_in_use=$?
-
   validate_zookeeper "$server_name" "$port_in_use"
   print_log "$server_name .......... $execution_command"
-  validate_port_and_execute "$port_in_use" "$server_path" "$execution_command" "$server_port"
+
+  local port_in_use
+  port_in_use=$(is_port_in_use "$server_port")
+
+  validate_port_and_execute "$server_name" "$port_in_use" "$server_path" "$execution_command" "$server_port"
 }
 
 list_servers() {

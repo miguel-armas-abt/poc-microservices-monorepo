@@ -1,7 +1,7 @@
 COMPONENT_NAME,COMPONENT_TYPE
-parent-springboot-commons-v1,commons
-parent-springcloud-v1,commons
-parent-quarkus-commons-v1,commons
+parent-springboot-commons-v1,parents
+parent-springcloud-v1,parents
+parent-quarkus-commons-v1,parents
 invoice-v1,business
 menu-v1,business
 menu-v2,business

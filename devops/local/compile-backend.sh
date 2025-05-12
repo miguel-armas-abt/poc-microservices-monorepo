@@ -7,10 +7,16 @@ source ./../variables.env
 compile_java() {
   local component_path=$1
 
+  local original_dir
+  original_dir="$(pwd)"
+
   if [[ -f "$component_path/pom.xml" ]]; then
     command="mvn clean install -Dmaven.home=\"$MAVEN_HOME\" -Dmaven.repo.local=\"$MAVEN_REPOSITORY\""
+    print_log "$command"
+
     cd "$component_path"
-    print_log_and_eval "$command"
+    eval "$command"
+    cd "$original_dir"
   fi
 }
 
@@ -19,14 +25,9 @@ compile_component() {
   local component_type=$2
 
   component_path="$BACKEND_PATH/$component_type/$component_name"
-  local original_dir
-  original_dir="$(pwd)"
-
   if [[ $component_type == "$BUSINESS_TYPE" ]] || [[ $component_type == "$PARENT_TYPE" ]] || [[ $component_type == "$PLATFORM_TYPE" ]] ; then
-    compile_java $component_path
+    compile_java "$component_path"
   fi
-
-  cd "$original_dir"
 }
 
 iterate_csv_records() {
