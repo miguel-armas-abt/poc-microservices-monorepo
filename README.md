@@ -1,21 +1,21 @@
 # BBQ RESTAURANT
 
-# 1. Documentación
-- [Despliegue - Local](devops/local/README.md)
-- [Despliegue - Docker Compose](devops/docker/README.md)
-- [Despliegue - Kubernetes](devops/k8s/README.md)
-- [Despliegue - Jenkins](devops/scripts/jenkins/README.md)
-- [Documentación backend  ](./docs/info/backend/README.md)
+- [Despliegue en local](devops/local/README.md)
+- [Despliegue con Docker Compose](devops/docker/README.md)
+- [Despliegue con Kubernetes](devops/k8s/README.md)
 
-# 2. Caso de estudio
+# 1. Caso de estudio
 BBQ Restaurant es una cadena de restaurantes que planea implementar una arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
 Los expertos en el dominio "restaurante" utilizan los siguientes procesos para prestar servicios a sus clientes.
 
-<img src="process-diagram.png" width="880" height="230">
+<img src="img/process-diagram.png" width="1000" height="260">
+
+# 2. Diseño UI
+<img src="img/ui-design.svg" width="1000" height="420">
 
 # 3. Arquitectura de software
 
-![Arquitectura de software](diagrams.svg)
+![Arquitectura de software](img/software-architecture.svg)
 
 |    | Servicio web         | Descripción                                                                                                                   | Stack                                                             |   
 |----|----------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
