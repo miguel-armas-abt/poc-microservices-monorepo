@@ -7,6 +7,6 @@
     @dependencies
     @volumes
     networks:
-      - dev_environment
+      - common-network
     ports:
       - "@host_port:@container_port"

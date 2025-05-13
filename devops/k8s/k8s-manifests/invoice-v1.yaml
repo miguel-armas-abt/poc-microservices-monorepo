@@ -20,7 +20,6 @@ data:
     POSTGRESQL_DOMAIN: "postgres-db:5432"
     POSTGRESQL_USERNAME: "poc_user"
     PRODUCT_DOMAIN: "product-v1:8017"
-    RULES_PROCESSOR_DOMAIN: "rules-processor-v1:8019"
 ---
 # Source: generic-backend-chart/templates/service.yaml
 apiVersion: v1
@@ -119,11 +118,6 @@ spec:
                   configMapKeyRef:
                     name: invoice-v1-config-map
                     key: PRODUCT_DOMAIN
-              - name: RULES_PROCESSOR_DOMAIN
-                valueFrom:
-                  configMapKeyRef:
-                    name: invoice-v1-config-map
-                    key: RULES_PROCESSOR_DOMAIN
               - name: POSTGRESQL_PASSWORD
                 valueFrom:
                   secretKeyRef:

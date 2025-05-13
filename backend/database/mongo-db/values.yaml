@@ -31,4 +31,4 @@ clusterIP: 10.96.1.2
 docker:
   hostPort: 27017
   dependencies: none
-  volumes: ./../application/backend/database/mongo-db:/docker-entrypoint-initdb.d;./../application/backend/database/mongo-db/data:/data
+  volumes: ./../../backend/database/mongo-db:/docker-entrypoint-initdb.d;./../../backend/database/mongo-db/data:/data

@@ -31,4 +31,4 @@ clusterIP: 10.96.1.4
 docker:
   hostPort: 5432
   dependencies: none
-  volumes: ./../application/backend/database/postgres-db:/docker-entrypoint-initdb.d;./../application/backend/database/postgres-db/data:/data
+  volumes: ./../../backend/database/postgres-db:/docker-entrypoint-initdb.d;./../../backend/database/postgres-db/data:/data

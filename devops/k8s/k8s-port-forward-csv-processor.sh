@@ -5,8 +5,8 @@ source ./../commons.sh
 source ./../variables.env
 
 port_forward() {
-  local component_name=$2
-  local component_type=$3
+  local component_name=$1
+  local component_type=$2
 
   values_file="$BACKEND_PATH/$component_type/$component_name/values.yaml"
 

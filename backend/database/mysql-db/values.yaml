@@ -32,4 +32,4 @@ clusterIP: 10.96.1.3
 docker:
   hostPort: 3306
   dependencies: none
-  volumes: ./../application/backend/database/mysql-db:/docker-entrypoint-initdb.d;./../application/backend/database/mysql-db/data:/data
+  volumes: ./../../backend/database/mysql-db:/docker-entrypoint-initdb.d;./../../backend/database/mysql-db/data:/data

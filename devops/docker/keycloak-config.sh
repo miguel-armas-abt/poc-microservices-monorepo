@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ./../commons.sh
+source ./../variables.env
 
 DOCKER_COMPOSE_FILE="./docker-compose.yml";
 
@@ -25,10 +26,11 @@ scraping_keycloak() {
 }
 
 handle() {
-  docker-commands.sh "wait-container" "$KEYCLOAK_CONTAINER_NAME"
+  ./docker-commands.sh "wait-container" "$KEYCLOAK_CONTAINER_NAME"
   scraping_keycloak
   replace_rs256_key
-  docker-commands.sh "recreate-container" "$AUTH_ADAPTER_NAME"
+  sleep "$KEYCLOAK_DELAY_AFTER_CONFIG"
+  ./docker-commands.sh "recreate-container" "$AUTH_ADAPTER_NAME"
 }
 
 handle

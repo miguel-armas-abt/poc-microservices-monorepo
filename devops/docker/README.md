@@ -10,8 +10,13 @@
 > 3. Iniciar orquestación (build)
 > 4. Detener orquestación (stop)
 > 5. Eliminar orquestación (delete)
-> 6. Configurar Keycloak
+> 6. Recrear contenedor (recreate) - *Pasar el nombre del contenedor como argumento*
+> 7. Configurar Keycloak
 > 
 > ```shell script 
 > ./main.sh
+> ```
+>
+> ```shell script 
+> ./main.sh auth-adapter-v1
 > ```
