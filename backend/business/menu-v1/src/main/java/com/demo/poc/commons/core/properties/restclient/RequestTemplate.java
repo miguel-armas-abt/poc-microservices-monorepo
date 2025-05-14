@@ -1,15 +1,10 @@
 package com.demo.poc.commons.core.properties.restclient;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Map;
 
-@Getter
-@Setter
-public class RequestTemplate {
+public interface RequestTemplate {
 
-  private String endpoint;
-  private HeaderTemplate headers;
-  private Map<String, String> formData;
+  String endpoint();
+  HeaderTemplate headers();
+  Map<String, String> formData();
 }

@@ -6,6 +6,7 @@ import com.demo.poc.commons.core.logging.dto.RestResponseLog;
 import com.demo.poc.commons.core.logging.enums.LoggingType;
 import com.demo.poc.commons.core.logging.obfuscation.body.BodyObfuscator;
 import com.demo.poc.commons.core.logging.obfuscation.header.HeaderObfuscator;
+import com.demo.poc.commons.core.properties.logging.LoggingTemplate;
 import com.demo.poc.commons.core.properties.logging.ObfuscationTemplate;
 import com.demo.poc.commons.core.tracing.enums.TraceParam;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
@@ -13,9 +14,10 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.ThreadContext;
+import org.slf4j.MDC;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -24,11 +26,23 @@ public class ThreadContextInjector {
   private final ObfuscationTemplate obfuscation;
 
   public ThreadContextInjector(ApplicationProperties properties) {
-    this.obfuscation = properties.searchObfuscation();
+    this.obfuscation = properties.logging()
+        .filter(logging -> logging.obfuscation().isPresent())
+        .flatMap(LoggingTemplate::obfuscation)
+        .orElseGet(() -> new ObfuscationTemplate() {
+          @Override
+          public Set<String> bodyFields() {
+            return Set.of();
+          }
+          @Override
+          public Set<String> headers() {
+            return Set.of();
+          }
+        });
   }
 
   private static void putInContext(String key, String value) {
-    ThreadContext.put(key, StringUtils.defaultString(value));
+    MDC.put(key, StringUtils.defaultString(value));
   }
 
   public void populateFromHeaders(Map<String, String> headers) {
@@ -36,7 +50,7 @@ public class ThreadContextInjector {
   }
 
   public void populateFromRestRequest(LoggingType loggingType, RestRequestLog restRequestLog) {
-    ThreadContext.clearAll();
+    MDC.clear();
     Map<String, String> traceHeaders = TraceParam.Util.getTraceHeadersAsMap(restRequestLog.getTraceParent());
     populateFromHeaders(traceHeaders);
     putInContext(loggingType.getCode() + RestConstants.METHOD, restRequestLog.getMethod());
@@ -47,7 +61,7 @@ public class ThreadContextInjector {
   }
 
   public void populateFromRestResponse(LoggingType loggingType, RestResponseLog restResponseLog) {
-    ThreadContext.clearAll();
+    MDC.clear();
     Map<String, String> traceHeaders = TraceParam.Util.getTraceHeadersAsMap(restResponseLog.getTraceParent());
     populateFromHeaders(traceHeaders);
     putInContext(loggingType.getCode() + RestConstants.HEADERS, HeaderObfuscator.process(obfuscation, restResponseLog.getResponseHeaders()));

@@ -3,20 +3,20 @@ package com.demo.poc.commons.core.config;
 import com.demo.poc.commons.core.logging.ErrorThreadContextInjector;
 import com.demo.poc.commons.core.logging.ThreadContextInjector;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
+@ApplicationScoped
 public class LoggingConfig {
 
-  @Bean
+  @Produces
   public ThreadContextInjector threadContextInjector(ApplicationProperties properties) {
     return new ThreadContextInjector(properties);
   }
 
-  @Bean
-  public ErrorThreadContextInjector errorThreadContextInjector(ThreadContextInjector contextInjector) {
-    return new ErrorThreadContextInjector(contextInjector);
+  @Produces
+  public ErrorThreadContextInjector errorThreadContextInjector(ThreadContextInjector threadContextInjector) {
+    return new ErrorThreadContextInjector(threadContextInjector);
   }
+
 }

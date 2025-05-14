@@ -18,32 +18,32 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorDto implements Serializable {
+public class ErrorDto implements Serializable  {
 
-  @Serial
-  private static final long serialVersionUID = 281390055501829628L;
+    @Serial
+    private static final long serialVersionUID = 281390055501829628L;
 
-  public static final String CODE_DEFAULT = "Default";
+    public static final String CODE_DEFAULT = "Default";
 
-  @JsonProperty("origin")
-  private ErrorOrigin origin;
+    @JsonProperty("origin")
+    private ErrorOrigin origin;
 
-  private String code;
+    private String code;
 
-  private String message;
+    private String message;
 
-  public static ErrorDto getDefaultError(ConfigurationBaseProperties properties) {
-    return ErrorDto
-        .builder()
-        .code(CODE_DEFAULT)
-        .message(getMatchMessage(properties, CODE_DEFAULT))
-        .origin(ErrorOrigin.OWN)
-        .build();
-  }
+    public static ErrorDto getDefaultError(ConfigurationBaseProperties properties) {
+        return ErrorDto
+            .builder()
+            .code(CODE_DEFAULT)
+            .message(getMatchMessage(properties, CODE_DEFAULT))
+            .origin(ErrorOrigin.OWN)
+            .build();
+    }
 
-  public static String getMatchMessage(ConfigurationBaseProperties properties, String errorCode) {
-    return properties
-        .getErrorMessages()
-        .get(errorCode);
-  }
+    public static String getMatchMessage(ConfigurationBaseProperties properties, String errorCode) {
+        return properties
+            .errorMessages()
+            .get(errorCode);
+    }
 }

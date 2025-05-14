@@ -1,13 +1,8 @@
 package com.demo.poc.entrypoint.menu.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
+import lombok.*;
 
 @Builder
 @Setter
@@ -23,5 +18,4 @@ public class MenuResponseDto implements Serializable {
   private String description;
 
   private String category;
-
 }

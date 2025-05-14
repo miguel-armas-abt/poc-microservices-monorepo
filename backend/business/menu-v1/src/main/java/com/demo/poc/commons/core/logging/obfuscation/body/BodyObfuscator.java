@@ -1,16 +1,16 @@
 package com.demo.poc.commons.core.logging.obfuscation.body;
 
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.IntStream;
+
 import com.demo.poc.commons.core.properties.logging.ObfuscationTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.IntStream;
 
 import static com.demo.poc.commons.core.logging.obfuscation.constants.ObfuscationConstant.ARRAY_WILDCARD;
 import static com.demo.poc.commons.core.logging.obfuscation.constants.ObfuscationConstant.JSON_SEGMENT_SPLITTER_REGEX;
@@ -23,8 +23,8 @@ public class BodyObfuscator {
 
     public static String process(ObfuscationTemplate obfuscation, String jsonBody) {
         Set<String> bodyFields = Optional.ofNullable(obfuscation)
-            .filter(template -> Objects.nonNull(template.getBodyFields()))
-            .map(ObfuscationTemplate::getBodyFields)
+            .filter(template -> Objects.nonNull(template.bodyFields()))
+            .map(ObfuscationTemplate::bodyFields)
             .orElse(Set.of());
 
         if (StringUtils.isEmpty(jsonBody) || bodyFields.isEmpty())

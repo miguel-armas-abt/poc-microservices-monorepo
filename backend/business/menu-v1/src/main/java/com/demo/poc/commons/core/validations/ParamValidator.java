@@ -1,25 +1,23 @@
 package com.demo.poc.commons.core.validations;
 
-import com.demo.poc.commons.core.errors.exceptions.NoSuchParamMapperException;
-import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 import java.util.Map;
+
+import com.demo.poc.commons.core.errors.exceptions.NoSuchParamMapperException;
+import io.smallrye.mutiny.Uni;
+import jakarta.enterprise.inject.Instance;
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class ParamValidator {
 
-  private final List<ParamMapper> paramMappers;
+  private final Instance<ParamMapper> paramMappers;
   private final BodyValidator bodyValidator;
 
-  public <T> T validateAndGet(Map<String, String> paramsMap, Class<T> paramClass) {
-    T params = (T) selectMapper(paramClass).map(paramsMap);
-    bodyValidator.validate(params);
-    return params;
-  }
-
-  public <T> void validate(Map<String, String> params, Class<T> paramClass) {
-    validateAndGet(params, paramClass);
+  public <T> Uni<T> validateAndGet(Map<String, String> paramsMap, Class<T> paramClass) {
+    ParamMapper mapper = selectMapper(paramClass);
+    @SuppressWarnings("unchecked")
+    T params = (T) mapper.map(paramsMap);
+    return bodyValidator.validateAndGet(params);
   }
 
   private ParamMapper selectMapper(Class<?> paramClass) {

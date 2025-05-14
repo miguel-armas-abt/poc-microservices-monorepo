@@ -17,7 +17,6 @@ spring:
             - name: TrackingFilter
 
 configuration:
-  project-type: MS
 
   logging:
     logging-type:
@@ -46,6 +45,7 @@ configuration:
             Accept: application/json
           forwarded:
             channelId: channelId
+            Authorization: Authorization
           auto-generated:
             timestamp: TIMESTAMP
           tracing:

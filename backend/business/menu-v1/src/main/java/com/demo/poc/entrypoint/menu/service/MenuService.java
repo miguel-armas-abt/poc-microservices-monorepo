@@ -1,21 +1,26 @@
 package com.demo.poc.entrypoint.menu.service;
 
+import static com.demo.poc.entrypoint.menu.constant.Regex.*;
+
 import com.demo.poc.entrypoint.menu.dto.request.MenuSaveRequestDto;
 import com.demo.poc.entrypoint.menu.dto.request.MenuUpdateRequestDto;
 import com.demo.poc.entrypoint.menu.dto.response.MenuResponseDto;
-
-import java.util.List;
-import java.util.Map;
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.Uni;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 public interface MenuService {
 
-  List<MenuResponseDto> findByCategory(Map<String, String> headers, String categoryCode);
+  Multi<MenuResponseDto> findByCategory(@Pattern(regexp = CATEGORY_REGEX) String categoryCode);
 
-  MenuResponseDto findByProductCode(Map<String, String> headers, String productCode);
+  Uni<MenuResponseDto> findByProductCode(@NotEmpty String productCode);
 
-  void save(Map<String, String> headers, MenuSaveRequestDto menuOption);
+  Uni<Void> save(@Valid MenuSaveRequestDto menuOptionRequest);
 
-  void update(Map<String, String> headers, String productCode, MenuUpdateRequestDto menuOption);
+  Uni<Void> update(@Valid MenuUpdateRequestDto menuOptionRequest,
+                   @NotEmpty String productCode);
 
-  void deleteByProductCode(Map<String, String> headers, String productCode);
+  Uni<Void> deleteByProductCode(@NotEmpty String productCode);
 }

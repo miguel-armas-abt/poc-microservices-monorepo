@@ -6,8 +6,6 @@ spring:
     name: auth-adapter-v1
 
 configuration:
-  project-type: MS
-
   keycloak:
     base-url: http://${KEYCLOAK_DOMAIN:localhost:8091}/auth/realms/poc-management/protocol/openid-connect/
     client-id: front-poc-app
@@ -16,7 +14,7 @@ configuration:
     scope: profile
     auth-endpoint: ${configuration.keycloak.base-url}auth
     jwk-endpoint: ${configuration.keycloak.base-url}certs
-    cert-id: ${KEYCLOAK_KEY_RS256:cYUJGhUPamPjsFL8K12AF3H7AsB46WX8Yty48f05Sa0}
+    cert-id: ${KEYCLOAK_KEY_RS256:EHwQ_CwauuprSHeSPTa_eO9_ET6jNc2Yhe-xxvyN-X8}
 
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.

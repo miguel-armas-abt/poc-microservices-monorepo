@@ -1,93 +1,49 @@
 package com.demo.poc.entrypoint.menu.repository.product;
 
-import com.demo.poc.commons.core.errors.dto.ErrorDto;
-import com.demo.poc.commons.custom.properties.ApplicationProperties;
-import com.demo.poc.commons.core.restclient.RestClientTemplate;
-import com.demo.poc.commons.core.restclient.dto.ExchangeRequest;
+import com.demo.poc.commons.core.interceptor.restclient.RestClientRequestInterceptor;
+import com.demo.poc.commons.core.interceptor.restclient.RestClientResponseInterceptor;
+import com.demo.poc.entrypoint.menu.repository.product.wrapper.response.ProductResponseWrapper;
 import com.demo.poc.entrypoint.menu.repository.product.wrapper.request.ProductSaveRequestWrapper;
 import com.demo.poc.entrypoint.menu.repository.product.wrapper.request.ProductUpdateRequestWrapper;
-import com.demo.poc.entrypoint.menu.repository.product.wrapper.response.ProductResponseWrapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Repository;
-
-import java.util.Arrays;
-import java.util.Collections;
+import io.smallrye.mutiny.Uni;
 import java.util.List;
-import java.util.Map;
+import jakarta.ws.rs.*;
+import org.eclipse.microprofile.rest.client.annotation.RegisterClientHeaders;
+import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
+import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
-@Repository
-@RequiredArgsConstructor
-public class ProductRepository {
+@Path("/products")
+@RegisterRestClient(configKey="product-v1")
+@RegisterClientHeaders(ProductHeaderFactory.class)
+@RegisterProvider(RestClientRequestInterceptor.class)
+@RegisterProvider(RestClientResponseInterceptor.class)
+public interface ProductRepository {
 
-  private static final String SERVICE_NAME = "product-v1";
+  @GET
+  @Path("/{code}")
+  @Consumes({"application/json"})
+  @Produces({"application/stream+json"})
+  Uni<ProductResponseWrapper> findByCode(@PathParam("code") String code);
 
-  private final RestClientTemplate restTemplate;
-  private final ApplicationProperties properties;
+  @GET
+  @Consumes({"application/json"})
+  @Produces({"application/stream+json"})
+  Uni<List<ProductResponseWrapper>> findByScope(@QueryParam("scope") String scope);
 
-  public ProductResponseWrapper findByCode(Map<String, String> headers, String code) {
-    return restTemplate.exchange(
-        ExchangeRequest.<Void, ProductResponseWrapper>builder()
-            .url(getEndpoint().concat("/products/{code}"))
-            .httpMethod(HttpMethod.GET)
-            .uriVariables(Collections.singletonMap("code", code))
-            .responseClass(ProductResponseWrapper.class)
-            .errorWrapperClass(ErrorDto.class)
-            .headers(headers)
-            .build(), SERVICE_NAME);
-  }
+  @POST
+  @Consumes({"application/stream+json"})
+  @Produces({"application/stream+json"})
+  Uni<Void> save(ProductSaveRequestWrapper productSaveRequestWrapper);
 
-  public List<ProductResponseWrapper> findByScope(Map<String, String> headers, String scope) {
-    return Arrays.asList(restTemplate.exchange(
-        ExchangeRequest.<Void, ProductResponseWrapper[]>builder()
-            .url(getEndpoint().concat("/products?scope={scope}"))
-            .httpMethod(HttpMethod.GET)
-            .uriVariables(Collections.singletonMap("scope", scope))
-            .responseClass(ProductResponseWrapper[].class)
-            .errorWrapperClass(ErrorDto.class)
-            .headers(headers)
-            .build(), SERVICE_NAME));
-  }
+  @DELETE
+  @Consumes({"application/stream+json"})
+  @Produces({"application/stream+json"})
+  @Path("/{code}")
+  Uni<Void> delete(@PathParam("code") String code);
 
-  public void save(Map<String, String> headers, ProductSaveRequestWrapper productRequest) {
-    restTemplate.exchange(
-        ExchangeRequest.<ProductSaveRequestWrapper, Void>builder()
-            .url(getEndpoint().concat("/products"))
-            .httpMethod(HttpMethod.POST)
-            .requestBody(productRequest)
-            .responseClass(Void.class)
-            .errorWrapperClass(ErrorDto.class)
-            .headers(headers)
-            .build(), SERVICE_NAME);
-  }
-
-  public void update(Map<String, String> headers, String code, ProductUpdateRequestWrapper productRequest) {
-    restTemplate.exchange(
-        ExchangeRequest.<ProductUpdateRequestWrapper, Void>builder()
-            .url(getEndpoint().concat("/products/{code}"))
-            .httpMethod(HttpMethod.PUT)
-            .uriVariables(Collections.singletonMap("code", code))
-            .requestBody(productRequest)
-            .responseClass(Void.class)
-            .errorWrapperClass(ErrorDto.class)
-            .headers(headers)
-            .build(), SERVICE_NAME);
-  }
-
-  public void delete(Map<String, String> headers, String code) {
-    restTemplate.exchange(
-        ExchangeRequest.<Void, Void>builder()
-            .url(getEndpoint().concat("/products/{code}"))
-            .httpMethod(HttpMethod.DELETE)
-            .uriVariables(Collections.singletonMap("code", code))
-            .responseClass(Void.class)
-            .errorWrapperClass(ErrorDto.class)
-            .headers(headers)
-            .build(), SERVICE_NAME);
-  }
-
-  private String getEndpoint() {
-    return properties.getRestClients().get(SERVICE_NAME).getRequest().getEndpoint();
-  }
-
+  @PUT
+  @Consumes({"application/stream+json"})
+  @Produces({"application/stream+json"})
+  @Path("/{code}")
+  Uni<Void> update(@PathParam("code") String code, ProductUpdateRequestWrapper productUpdateRequestWrapper);
 }

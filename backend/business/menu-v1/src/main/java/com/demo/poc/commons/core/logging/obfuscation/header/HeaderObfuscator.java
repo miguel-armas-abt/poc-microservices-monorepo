@@ -1,16 +1,16 @@
 package com.demo.poc.commons.core.logging.obfuscation.header;
 
-import com.demo.poc.commons.core.constants.Symbol;
-import com.demo.poc.commons.core.properties.logging.ObfuscationTemplate;
-
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.demo.poc.commons.core.logging.obfuscation.constants.ObfuscationConstant.OBFUSCATION_MASK;
+import com.demo.poc.commons.core.constants.Symbol;
+import com.demo.poc.commons.core.properties.logging.ObfuscationTemplate;
+
 import static com.demo.poc.commons.core.logging.obfuscation.constants.ObfuscationConstant.NULL_WARNING;
+import static com.demo.poc.commons.core.logging.obfuscation.constants.ObfuscationConstant.OBFUSCATION_MASK;
 
 public class HeaderObfuscator {
 
@@ -18,8 +18,8 @@ public class HeaderObfuscator {
                                  Map<String, String> headers) {
 
         Set<String> headerFields = Optional.ofNullable(obfuscation)
-            .filter(template -> Objects.nonNull(template.getHeaders()))
-            .map(ObfuscationTemplate::getHeaders)
+            .filter(template -> Objects.nonNull(template.headers()))
+            .map(ObfuscationTemplate::headers)
             .orElse(Set.of());
 
         return headers

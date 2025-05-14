@@ -1,19 +1,8 @@
 package com.demo.poc.commons.core.properties.restclient;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+public interface RestClientError {
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Getter
-@Setter
-public class RestClientError {
-
-  private String customCode;
-  private String message;
-  private Integer httpCode;
+  String customCode();
+  String message();
+  Integer httpCode();
 }

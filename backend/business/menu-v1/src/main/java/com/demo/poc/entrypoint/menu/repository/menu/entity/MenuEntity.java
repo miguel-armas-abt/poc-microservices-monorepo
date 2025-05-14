@@ -1,18 +1,8 @@
 package com.demo.poc.entrypoint.menu.repository.menu.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.io.Serializable;
+import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Builder
 @Setter
@@ -21,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "menu_options")
-public class MenuEntity implements Serializable {
+public class MenuEntity extends PanacheEntityBase {
 
   @Id
   @Column(name = "id")
@@ -36,5 +26,4 @@ public class MenuEntity implements Serializable {
 
   @Column(name = "category")
   private String category;
-
 }

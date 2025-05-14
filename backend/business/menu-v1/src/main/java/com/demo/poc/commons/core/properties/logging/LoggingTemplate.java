@@ -1,14 +1,10 @@
 package com.demo.poc.commons.core.properties.logging;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Map;
+import java.util.Optional;
 
-@Getter
-@Setter
-public class LoggingTemplate {
+public interface LoggingTemplate {
 
-  private Map<String, Boolean> loggingType;
-  private ObfuscationTemplate obfuscation;
+  Map<String, Boolean> loggingType();
+  Optional<ObfuscationTemplate> obfuscation();
 }

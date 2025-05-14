@@ -1,5 +1,10 @@
 package com.demo.poc.commons.core.logging.enums;
 
+import java.util.Objects;
+import java.util.Optional;
+
+import com.demo.poc.commons.core.properties.logging.LoggingTemplate;
+import com.demo.poc.commons.custom.properties.ApplicationProperties;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -15,4 +20,13 @@ public enum LoggingType {
 
   private final String code;
   private final String message;
+
+  public static boolean isLoggerPresent(ApplicationProperties properties, LoggingType loggingType) {
+    return properties.logging()
+        .filter(logging -> Objects.nonNull(logging.loggingType()))
+        .map(LoggingTemplate::loggingType)
+        .filter(loggers -> loggers.containsKey(loggingType.getCode()))
+        .map(loggers -> loggers.get(loggingType.getCode()))
+        .orElse(Boolean.TRUE);
+  }
 }

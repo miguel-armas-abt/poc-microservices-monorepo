@@ -1,23 +1,19 @@
 package com.demo.poc.entrypoint.menu.dto.request;
 
+import static com.demo.poc.entrypoint.menu.constant.Regex.*;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
-
-import static com.demo.poc.entrypoint.menu.constants.ParameterConstants.CATEGORY_REGEX;
+import lombok.*;
 
 @Builder
 @Setter
 @Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MenuSaveRequestDto implements Serializable {

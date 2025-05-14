@@ -1,11 +1,4 @@
 configuration:
-  project-type: MS
-
-  logging:
-    logging-type:
-      rest.server.req: false
-      rest.server.res: false
-
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 

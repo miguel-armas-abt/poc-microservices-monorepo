@@ -14,11 +14,13 @@
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>3.12.0</quarkus.platform.version>
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.2.5</surefire-plugin.version>
+
     <mapstruct.version>1.6.0.Beta1</mapstruct.version>
     <lombok.version>1.18.26</lombok.version>
   </properties>
@@ -36,10 +38,17 @@
   </dependencyManagement>
 
   <dependencies>
+
     <!-- reactive web -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-rest-jackson</artifactId>
+    </dependency>
+
+    <!-- reactive rest clients -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-rest-client</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -66,12 +75,6 @@
       <artifactId>quarkus-smallrye-health</artifactId>
     </dependency>
 
-    <!-- graphql-->
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-smallrye-graphql</artifactId>
-    </dependency>
-
     <!-- dependency injection -->
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -84,10 +87,10 @@
       <artifactId>quarkus-config-yaml</artifactId>
     </dependency>
 
-    <!-- openapi -->
+    <!-- validations -->
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-smallrye-openapi</artifactId>
+      <artifactId>quarkus-hibernate-validator</artifactId>
     </dependency>
 
     <!-- utils -->
@@ -131,6 +134,19 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-logging-json</artifactId>
     </dependency>
+
+    <!-- openapi -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-openapi</artifactId>
+    </dependency>
+
+    <!-- graphql-->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-graphql</artifactId>
+    </dependency>
+
   </dependencies>
 
   <!-- ToDo: Learn about these plugins -->
@@ -177,7 +193,6 @@
     </plugins>
   </build>
 
-  <!-- ToDo: Learn about this profile -->
   <profiles>
     <profile>
       <id>native</id>
@@ -188,8 +203,22 @@
       </activation>
       <properties>
         <skipITs>false</skipITs>
-        <!-- <quarkus.native.enabled>true</quarkus.native.enabled> --> <!-- only native package -->
-        <quarkus.package.type>native</quarkus.package.type> <!-- others packages alternatives -->
+
+        <quarkus.package.jar.enabled>true</quarkus.package.jar.enabled> <!-- also build JVM jar -->
+
+        <!-- fast-jar: separate code and dependencies for the better performance -->
+        <!-- uber-jar: code + dependencies into a single fat jar -->
+        <!-- mutable-jar: similar to fast-jar but allows hot reloading of classes during development -->
+        <quarkus.package.jar.type>fast-jar</quarkus.package.jar.type>
+
+        <quarkus.native.enabled>true</quarkus.native.enabled> <!-- enable native-image build -->
+        <quarkus.native.sources-only>false</quarkus.native.sources-only> <!-- include native artifacts -->
+        <quarkus.native.container-build>true</quarkus.native.container-build> <!-- generate a Linux ELF binary instead of a Windows .exe -->
+
+        <quarkus.package.jar.user-configured-ignored-entries>
+          META-INF/maven/org.jctools/jctools-core/pom.xml,
+          META-INF/maven/io.netty/netty-common/pom.xml
+        </quarkus.package.jar.user-configured-ignored-entries> <!-- drop duplicate META-INF entries -->
       </properties>
     </profile>
   </profiles>

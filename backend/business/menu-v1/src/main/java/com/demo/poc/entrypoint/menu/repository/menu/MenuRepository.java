@@ -1,24 +1,58 @@
 package com.demo.poc.entrypoint.menu.repository.menu;
 
 import com.demo.poc.entrypoint.menu.repository.menu.entity.MenuEntity;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-
+import io.quarkus.hibernate.reactive.panache.Panache;
+import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
+import io.quarkus.hibernate.reactive.panache.common.WithSession;
+import io.quarkus.hibernate.reactive.panache.common.WithTransaction;
+import io.smallrye.mutiny.Uni;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
-import java.util.Optional;
 
-@Repository
-public interface MenuRepository extends CrudRepository<MenuEntity, Long> {
+@ApplicationScoped
+public class MenuRepository implements PanacheRepositoryBase<MenuEntity, Long> {
 
-  List<MenuEntity> findAll();
+  @WithSession
+  public Uni<MenuEntity> findByProductCode(String productCode) {
+    return this.find("productCode", productCode)
+        .firstResult();
+  }
 
-  Optional<MenuEntity> findById(Long id);
+  @WithSession
+  public Uni<List<MenuEntity>> findByScope(String scope) {
+    return this.find("scope", scope)
+        .list();
+  }
 
-  Optional<MenuEntity> findByProductCode(String productCode);
+  @WithSession
+  public Uni<List<MenuEntity>> findAllMenuOptions() {
+    return this.findAll()
+        .list();
+  }
 
-  List<MenuEntity> findByCategory(String category);
+  @WithTransaction
+  //error during automatic ID generation
+  public Uni<MenuEntity> saveMenuOption(MenuEntity menuEntity) {
+    return Panache.withTransaction(() -> this.persist(menuEntity));
+  }
 
-  MenuEntity save(MenuEntity menuEntity);
+  @WithTransaction
+  public Uni<MenuEntity> update(MenuEntity menuEntity, String productCode) {
+    return Panache.withTransaction(() -> this.<MenuEntity>findByProductCode(productCode)
+        .onItem()
+        .ifNotNull()
+        .invoke(menuEntityFound -> {
+          menuEntityFound.setProductCode(menuEntity.getProductCode());
+          menuEntityFound.setDescription(menuEntity.getDescription());
+          menuEntityFound.setCategory(menuEntity.getCategory());
+        }));
+  }
 
-  void deleteByProductCode(String productCode);
+  @WithTransaction
+  public Uni<Void> deleteByProductCode(String productCode) {
+    return Panache.withTransaction(() -> this.delete("productCode = ?1", productCode))
+        .onItem()
+        .ignore()
+        .andContinueWithNull();
+  }
 }

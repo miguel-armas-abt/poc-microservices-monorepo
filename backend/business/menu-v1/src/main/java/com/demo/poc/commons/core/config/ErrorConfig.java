@@ -1,35 +1,16 @@
 package com.demo.poc.commons.core.config;
 
-import com.demo.poc.commons.core.restclient.error.RestClientErrorMapper;
-import com.demo.poc.commons.core.restclient.error.extractor.poc.DefaultErrorExtractor;
 import com.demo.poc.commons.core.errors.selector.ResponseErrorSelector;
-import com.demo.poc.commons.core.errors.selector.RestClientErrorSelector;
-import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
-import com.demo.poc.commons.core.serialization.JsonSerializer;
+import com.demo.poc.commons.custom.properties.ApplicationProperties;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
+@ApplicationScoped
 public class ErrorConfig {
 
-  @Bean
-  public DefaultErrorExtractor defaultErrorExtractor(RestClientErrorMapper errorMapper) {
-    return new DefaultErrorExtractor(errorMapper);
-  }
-
-  @Bean
-  public RestClientErrorMapper restClientErrorMapper(JsonSerializer jsonSerializer) {
-    return new RestClientErrorMapper(jsonSerializer);
-  }
-
-  @Bean
-  public ResponseErrorSelector responseErrorSelector(ConfigurationBaseProperties properties) {
+  @Produces
+  public ResponseErrorSelector responseErrorSelector(ApplicationProperties properties) {
     return new ResponseErrorSelector(properties);
   }
 
-  @Bean
-  public RestClientErrorSelector restClientErrorSelector(ConfigurationBaseProperties properties) {
-    return new RestClientErrorSelector(properties);
-  }
 }

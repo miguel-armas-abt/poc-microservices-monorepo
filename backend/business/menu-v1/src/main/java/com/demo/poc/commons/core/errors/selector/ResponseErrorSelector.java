@@ -1,18 +1,13 @@
 package com.demo.poc.commons.core.errors.selector;
 
+import java.util.Objects;
+import java.util.Optional;
+
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
-import com.demo.poc.commons.core.errors.dto.ErrorOrigin;
-import com.demo.poc.commons.custom.exceptions.ErrorDictionary;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import com.demo.poc.commons.core.properties.ProjectType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.MissingRequestHeaderException;
-
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.demo.poc.commons.core.errors.dto.ErrorDto.CODE_DEFAULT;
 
@@ -46,7 +41,7 @@ public class ResponseErrorSelector {
     String defaultMessage = ErrorDto.getDefaultError(properties).getMessage();
     ProjectType projectType = selectProjectType();
 
-    if (ProjectType.BFF.equals(projectType))
+    if(ProjectType.BFF.equals(projectType))
       return defaultMessage;
 
     return Optional.ofNullable(ErrorDto.getMatchMessage(properties, error.getCode()))
@@ -54,7 +49,7 @@ public class ResponseErrorSelector {
   }
 
   private ProjectType selectProjectType() {
-    return Optional.ofNullable(this.properties.getProjectType()).orElseGet(() -> ProjectType.MS);
+    return properties.projectType().orElseGet(() -> ProjectType.MS);
   }
 
   private static <T extends Throwable> ErrorDto extractError(T exception) {
@@ -67,36 +62,6 @@ public class ResponseErrorSelector {
       }
     }
 
-    if (exception instanceof MethodArgumentNotValidException methodArgumentNotValidException) {
-      error = extractError(methodArgumentNotValidException);
-    }
-
-    if (exception instanceof MissingRequestHeaderException missingRequestHeaderException) {
-      error = extractError(missingRequestHeaderException);
-    }
-
     return error;
-  }
-
-  private static ErrorDto extractError(MethodArgumentNotValidException exception) {
-    String message = exception.getBindingResult()
-        .getFieldErrors()
-        .stream()
-        .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
-        .collect(Collectors.joining(";"));
-
-    return ErrorDto.builder()
-        .origin(ErrorOrigin.OWN)
-        .code(ErrorDictionary.INVALID_FIELD.getCode())
-        .message(message)
-        .build();
-  }
-
-  private static ErrorDto extractError(MissingRequestHeaderException exception) {
-    return ErrorDto.builder()
-            .origin(ErrorOrigin.OWN)
-            .code(ErrorDictionary.INVALID_FIELD.getCode())
-            .message(exception.getBody().getDetail())
-            .build();
   }
 }

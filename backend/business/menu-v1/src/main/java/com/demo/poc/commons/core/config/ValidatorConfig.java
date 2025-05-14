@@ -1,31 +1,29 @@
 package com.demo.poc.commons.core.config;
 
-import java.util.List;
-
 import com.demo.poc.commons.core.validations.BodyValidator;
 import com.demo.poc.commons.core.validations.ParamMapper;
 import com.demo.poc.commons.core.validations.ParamValidator;
 import com.demo.poc.commons.core.validations.headers.DefaultHeadersMapper;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Instance;
+import jakarta.enterprise.inject.Produces;
+import jakarta.validation.Validator;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.Validator;
-
-@Configuration
+@ApplicationScoped
 public class ValidatorConfig {
 
-  @Bean
-  public BodyValidator bodyValidator(Validator validator) {
-    return new BodyValidator();
+  @Produces
+  public BodyValidator requestValidator(Validator validator) {
+    return new BodyValidator(validator);
   }
 
-  @Bean
+  @Produces
   public DefaultHeadersMapper defaultHeadersMapper() {
     return new DefaultHeadersMapper();
   }
 
-  @Bean
-  public ParamValidator paramValidator(List<ParamMapper> mappers, BodyValidator bodyValidator) {
+  @Produces
+  public ParamValidator paramValidator(Instance<ParamMapper> mappers, BodyValidator bodyValidator) {
     return new ParamValidator(mappers, bodyValidator);
   }
 }

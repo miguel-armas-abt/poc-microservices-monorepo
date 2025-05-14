@@ -1,74 +1,74 @@
 package com.demo.poc.commons.core.interceptor.error;
 
+import com.demo.poc.commons.core.constants.Symbol;
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.errors.selector.ResponseErrorSelector;
 import com.demo.poc.commons.core.logging.ErrorThreadContextInjector;
 import com.demo.poc.commons.core.logging.enums.LoggingType;
+import com.demo.poc.commons.custom.exceptions.ErrorDictionary;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.ws.rs.ProcessingException;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.MissingRequestHeaderException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.jboss.resteasy.reactive.RestResponse;
+import org.jboss.resteasy.reactive.server.ServerExceptionMapper;
 
-import java.net.ConnectException;
+import java.util.stream.Collectors;
 
-@Slf4j
-@RestControllerAdvice
+@ApplicationScoped
 @RequiredArgsConstructor
-public class ErrorInterceptor extends ResponseEntityExceptionHandler {
+public class ErrorInterceptor {
 
-  private final ErrorThreadContextInjector contextInjector;
   private final ApplicationProperties properties;
+  private final ErrorThreadContextInjector contextInjector;
   private final ResponseErrorSelector responseErrorSelector;
 
-  @ExceptionHandler({Throwable.class})
-  public ResponseEntity<ErrorDto> handleException(Throwable ex, WebRequest request) {
-    generateTrace(ex, request);
+  @ServerExceptionMapper
+  public RestResponse<ErrorDto> toResponse(Throwable throwable) {
+    boolean isLoggerPresent = LoggingType.isLoggerPresent(properties, LoggingType.ERROR);
+    if (isLoggerPresent) {
+      contextInjector.populateFromException(throwable);
+    }
 
     ErrorDto error = ErrorDto.getDefaultError(properties);
-    HttpStatusCode httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+    Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
 
-    if (ex instanceof ResourceAccessException || ex instanceof ConnectException) {
-      httpStatus = HttpStatus.REQUEST_TIMEOUT;
+    if (throwable instanceof WebApplicationException webApplicationException) {
+      status = Response.Status.fromStatusCode(webApplicationException.getResponse().getStatus());
     }
 
-    if (ex instanceof GenericException genericException) {
+    if (throwable instanceof ProcessingException) {
+      status = Response.Status.REQUEST_TIMEOUT;
+    }
+
+    if (throwable instanceof GenericException genericException) {
       error = responseErrorSelector.toErrorDTO(genericException);
-      httpStatus = genericException.getHttpStatus();
+      status = genericException.getHttpStatus();
     }
 
-    return new ResponseEntity<>(error, httpStatus);
+    return RestResponse.status(status, error);
   }
 
-  //jakarta validations
-  @Override
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
-                                                                HttpStatusCode status, WebRequest request) {
-    generateTrace(ex, request);
-    ErrorDto error = responseErrorSelector.toErrorDTO(ex);
-    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-  }
+  @ServerExceptionMapper
+  public RestResponse<ErrorDto> toResponse(ConstraintViolationException exception) {
+    contextInjector.populateFromException(exception);
+    String message = exception
+        .getConstraintViolations()
+        .stream()
+        .map(ConstraintViolation::getMessage)
+        .collect(Collectors.joining(Symbol.COMMA_WITH_SPACE));
 
-  @ExceptionHandler(MissingRequestHeaderException.class)
-  public ResponseEntity<ErrorDto> handleMissingRequestHeader(MissingRequestHeaderException ex, WebRequest request) {
-    generateTrace(ex, request);
-    ErrorDto error = responseErrorSelector.toErrorDTO(ex);
-    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-  }
+    ErrorDto error = ErrorDto.builder()
+        .code(ErrorDictionary.INVALID_FIELD.getCode())
+        .message(message)
+        .build();
 
-  private void generateTrace(Throwable ex, WebRequest request) {
-    if (properties.isLoggerPresent(LoggingType.ERROR)) {
-      contextInjector.populateFromException(ex, request);
-    }
+    Response.Status status = Response.Status.BAD_REQUEST;
+    return RestResponse.status(status, error);
   }
 }

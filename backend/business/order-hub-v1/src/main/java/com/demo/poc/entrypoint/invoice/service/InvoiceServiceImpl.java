@@ -6,7 +6,7 @@ import com.demo.poc.entrypoint.invoice.repository.InvoiceRepository;
 import com.demo.poc.entrypoint.invoice.repository.wrapper.request.PaymentSendRequestWrapper;
 import com.demo.poc.entrypoint.invoice.repository.wrapper.request.ProductRequestWrapper;
 import com.demo.poc.entrypoint.invoice.repository.wrapper.response.InvoiceResponseWrapper;
-import com.demo.poc.entrypoint.menu.repository.MenuRepositorySelector;
+import com.demo.poc.entrypoint.menu.repository.MenuRepository;
 import com.demo.poc.entrypoint.tableorder.repository.TableOrderRepository;
 import com.demo.poc.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
   private final InvoiceRepository invoiceRepository;
   private final TableOrderRepository tableOrderRepository;
-  private final MenuRepositorySelector menuRepositorySelector;
+  private final MenuRepository menuRepository;
   private final InvoiceMapper invoiceMapper;
 
   @Override
@@ -38,8 +38,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     return tableOrderRepository.findByTableNumber(headers, tableNumber)
         .flatMapIterable(TableOrderResponseWrapper::getMenuOrderList)
-        .flatMap(menuOrder -> menuRepositorySelector
-            .selectStrategy()
+        .flatMap(menuOrder -> menuRepository
             .findByProductCode(headers, menuOrder.getProductCode())
             .map(menuOption -> invoiceMapper.toProduct(menuOrder, menuOption))
         )

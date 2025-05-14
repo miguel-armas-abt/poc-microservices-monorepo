@@ -24,26 +24,6 @@ services:
 # Source: ./../../backend/business/menu-v1
   menu-v1:
     container_name: menu-v1
-    image: miguelarmasabt/menu:v1.0.1
-    restart: always
-    environment:
-      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
-      - MYSQL_DOMAIN=mysql-db:3306
-      - MYSQL_USERNAME=poc_user
-      - PRODUCT_DOMAIN=product-v1:8017
-      - JAVA_OPTS=-Xms256M -Xmx256M
-      - MYSQL_PASSWORD=qwerty
-    depends_on:
-      - config-server-v1
-      - mysql-db
-    networks:
-      - common-network
-    ports:
-      - "8012:8012"
-
-# Source: ./../../backend/business/menu-v2
-  menu-v2:
-    container_name: menu-v2
     image: miguelarmasabt/menu:v2.0.1
     restart: always
     environment:
@@ -57,7 +37,7 @@ services:
     networks:
       - common-network
     ports:
-      - "8016:8016"
+      - "8012:8012"
 
 # Source: ./../../backend/business/order-hub-v1
   order-hub-v1:
@@ -67,10 +47,8 @@ services:
     environment:
       - CONFIG_SERVER_DOMAIN=config-server-v1:8888
       - MENU_V1_DOMAIN=menu-v1:8012
-      - MENU_V2_DOMAIN=menu-v2:8016
       - TABLE_PLACEMENT_DOMAIN=table-placement-v1:8013
       - INVOICE_DOMAIN=invoice-v1:8014
-      - MENU_REPOSITORY_SELECTOR=com.demo.poc.entrypoint.menu.repository.MenuV1Repository
       - JAVA_OPTS=-Xms256M -Xmx256M
     depends_on:
       - config-server-v1
@@ -159,7 +137,7 @@ services:
     environment:
       - KEYCLOAK_DOMAIN=keycloak-server:8080
       - JAVA_OPTS=-Xms256M -Xmx256M
-      - KEYCLOAK_KEY_RS256=fZCoFNldyiM6ziydH4ID0oZU7dBLQwFZTaHyLunpITg
+      - KEYCLOAK_KEY_RS256=mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo
     networks:
       - common-network
     ports:

@@ -1,6 +1,4 @@
 configuration:
-  project-type: MS
-
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 

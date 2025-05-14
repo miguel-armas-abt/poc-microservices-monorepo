@@ -1,8 +1,8 @@
 package com.demo.poc.commons.core.restclient.enums;
 
-import lombok.RequiredArgsConstructor;
-
 import java.time.Duration;
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum TimeoutLevel {

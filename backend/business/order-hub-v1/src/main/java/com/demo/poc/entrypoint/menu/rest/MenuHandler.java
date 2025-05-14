@@ -4,7 +4,7 @@ import com.demo.poc.commons.core.restserver.utils.RestServerUtils;
 import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
 import com.demo.poc.commons.core.validations.ParamValidator;
 import com.demo.poc.entrypoint.menu.params.CategoryParam;
-import com.demo.poc.entrypoint.menu.repository.MenuRepositorySelector;
+import com.demo.poc.entrypoint.menu.repository.MenuRepository;
 import com.demo.poc.entrypoint.menu.repository.wrapper.response.MenuOptionResponseWrapper;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class MenuHandler {
 
-  private final MenuRepositorySelector menuRepository;
+  private final MenuRepository menuRepository;
   private final ParamValidator paramValidator;
 
   public Mono<ServerResponse> findMenuByCategory(ServerRequest serverRequest) {
@@ -32,7 +32,7 @@ public class MenuHandler {
 
     Flux<MenuOptionResponseWrapper> response = paramValidator.validateAndGet(headers, DefaultHeaders.class)
         .zipWith(categoryParamMono)
-        .flatMapMany(tuple -> menuRepository.selectStrategy().findByCategory(headers, tuple.getT2().getCategory()));
+        .flatMapMany(tuple -> menuRepository.findByCategory(headers, tuple.getT2().getCategory()));
 
     return ServerResponse.ok()
         .headers(httpHeaders -> RestServerUtils.buildResponseHeaders(serverRequest.headers()).accept(httpHeaders))

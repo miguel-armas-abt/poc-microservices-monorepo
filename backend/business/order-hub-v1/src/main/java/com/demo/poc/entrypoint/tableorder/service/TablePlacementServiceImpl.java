@@ -1,7 +1,7 @@
 package com.demo.poc.entrypoint.tableorder.service;
 
 import com.demo.poc.commons.custom.exceptions.MenuOptionNotFoundException;
-import com.demo.poc.entrypoint.menu.repository.MenuRepositorySelector;
+import com.demo.poc.entrypoint.menu.repository.MenuRepository;
 import com.demo.poc.entrypoint.tableorder.dto.request.MenuOrderRequestDto;
 import com.demo.poc.entrypoint.tableorder.repository.TableOrderRepository;
 import com.demo.poc.entrypoint.tableorder.repository.wrapper.TableOrderResponseWrapper;
@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 public class TablePlacementServiceImpl implements TablePlacementService {
 
   private final TableOrderRepository tableOrderRepository;
-  private final MenuRepositorySelector menuRepositorySelector;
+  private final MenuRepository menuRepository;
 
   @Override
   public Mono<Void> generateTableOrder(Map<String, String> headers,
@@ -32,8 +32,7 @@ public class TablePlacementServiceImpl implements TablePlacementService {
   }
 
   private Mono<Void> existsMenuOption(Map<String, String> headers, MenuOrderRequestDto menuOrderRequest) {
-    return menuRepositorySelector
-        .selectStrategy()
+    return menuRepository
         .findByProductCode(headers, menuOrderRequest.getProductCode())
         .switchIfEmpty(Mono.error(new MenuOptionNotFoundException()))
         .then();

@@ -1,16 +1,10 @@
 package com.demo.poc.commons.core.properties.restclient;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Map;
 
-@Getter
-@Setter
-public class RestClient {
+public interface RestClient {
 
-  private PerformanceTemplate performance;
-  private RequestTemplate request;
-  private Map<String, RestClientError> errors;
-
+  PerformanceTemplate performance();
+  RequestTemplate request();
+  Map<String, RestClientError> errors();
 }

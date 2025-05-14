@@ -1,11 +1,6 @@
 configuration:
   project-type: BFF
 
-  logging:
-    logging-type:
-      rest.server.req: false
-      rest.server.res: false
-
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
 
@@ -18,22 +13,6 @@ configuration:
         endpoint: http://${MENU_V1_DOMAIN:localhost:8012}/poc/business/menu/v1/
         headers:
           provided:
-            Accept: application/json
-          forwarded:
-            channelId: channelId
-          auto-generated:
-            timestamp: TIMESTAMP
-          tracing:
-            traceParent: TRACE_PARENT
-
-    menu-v2:
-      performance:
-        timeout: EXCELLENT
-        concurrency: LOW
-      request:
-        endpoint: http://${MENU_V2_DOMAIN:localhost:8016}/poc/business/menu/v2/
-        headers:
-          provided:
             Accept: application/x-ndjson, application/json
           forwarded:
             channelId: channelId
@@ -41,6 +20,7 @@ configuration:
             timestamp: TIMESTAMP
           tracing:
             traceParent: TRACE_PARENT
+
     table-placement-v1:
       performance:
         timeout: EXCELLENT
@@ -56,6 +36,7 @@ configuration:
             timestamp: TIMESTAMP
           tracing:
             traceParent: TRACE_PARENT
+
     invoice-v1:
       performance:
         timeout: EXCELLENT
@@ -71,7 +52,3 @@ configuration:
             timestamp: TIMESTAMP
           tracing:
             traceParent: TRACE_PARENT
-
-  custom:
-    selector-class:
-      menu-repository: ${MENU_REPOSITORY_SELECTOR:com.demo.poc.entrypoint.menu.repository.MenuV1Repository}
