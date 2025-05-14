@@ -1,0 +1,12 @@
+# Source: @component_path
+  @app_name:
+    container_name: @app_name
+    image: @docker_image
+    restart: always
+    @variables
+    @dependencies
+    @volumes
+    networks:
+      - common-network
+    ports:
+      - "@host_port:@container_port"

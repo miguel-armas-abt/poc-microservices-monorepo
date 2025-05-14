@@ -1,0 +1,54 @@
+configuration:
+  project-type: BFF
+
+  error-messages:
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+
+  rest-clients:
+    menu-v1:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
+      request:
+        endpoint: http://${MENU_V1_DOMAIN:localhost:8012}/poc/business/menu/v1/
+        headers:
+          provided:
+            Accept: application/x-ndjson, application/json
+          forwarded:
+            channelId: channelId
+          auto-generated:
+            timestamp: TIMESTAMP
+          tracing:
+            traceParent: TRACE_PARENT
+
+    table-placement-v1:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
+      request:
+        endpoint: http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/poc/business/table-placement/v1/
+        headers:
+          provided:
+            Accept: application/x-ndjson, application/json
+          forwarded:
+            channelId: channelId
+          auto-generated:
+            timestamp: TIMESTAMP
+          tracing:
+            traceParent: TRACE_PARENT
+
+    invoice-v1:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
+      request:
+        endpoint: http://${INVOICE_DOMAIN:localhost:8014}/poc/business/invoice/v1/
+        headers:
+          provided:
+            Accept: application/x-ndjson, application/json
+          forwarded:
+            channelId: channelId
+          auto-generated:
+            timestamp: TIMESTAMP
+          tracing:
+            traceParent: TRACE_PARENT

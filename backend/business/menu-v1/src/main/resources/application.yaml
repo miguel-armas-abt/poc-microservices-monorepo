@@ -1,0 +1,49 @@
+quarkus:
+  application:
+    name: menu-v1
+  http:
+    port: ${SERVER_PORT:8012}
+  log:
+    console:
+      enable: true
+      json:
+        pretty-print: false
+  datasource:
+    db-kind: mysql
+    username: ${MYSQL_USERNAME:poc_user}
+    password: ${MYSQL_PASSWORD:qwerty}
+    reactive:
+      url: mysql://${MYSQL_DOMAIN:localhost:3306}/db_menu_options
+      max-size: 20
+  hibernate-orm:
+    log:
+      sql: true
+  rest-client:
+    product-v1:
+      url: ${configuration.rest-clients.product-v1.request.endpoint}
+      verify-host: false
+
+configuration:
+  error-messages:
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+
+  rest-clients:
+    product-v1:
+      request:
+        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/poc/business/product/v1/
+        headers:
+          provided:
+            Accept: application/json
+          forwarded:
+            channelId: channelId
+          auto-generated:
+            timestamp: TIMESTAMP
+          tracing:
+            traceParent: TRACE_PARENT
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
+
+product-v1:
+  mp-graphql:
+    url: http://localhost:8017/graphql

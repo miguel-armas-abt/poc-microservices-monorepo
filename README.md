@@ -1,21 +1,21 @@
 # BBQ RESTAURANT
 
-# 1. Documentación
-- [Despliegue - Local](devops/scripts/local/README.md)
-- [Despliegue - Docker Compose](devops/scripts/docker/README.md)
-- [Despliegue - Kubernetes](devops/scripts/k8s/README.md)
-- [Despliegue - Jenkins](devops/scripts/jenkins/README.md)
-- [Documentación backend  ](./docs/info/backend/README.md)
+- [Despliegue en local](devops/local/README.md)
+- [Despliegue con Docker Compose](devops/docker/README.md)
+- [Despliegue con Kubernetes](devops/k8s/README.md)
 
-# 2. Caso de estudio
+# 1. Caso de estudio
 BBQ Restaurant es una cadena de restaurantes que planea implementar una arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
 Los expertos en el dominio "restaurante" utilizan los siguientes procesos para prestar servicios a sus clientes.
 
-<img src="docs/diagrams/process-diagram.png" width="1000" height="250">
+<img src="img/process-diagram.png" width="770" height="205">
+
+# 2. Diseño UI
+<img src="img/ui-design.svg" width="1100" height="460">
 
 # 3. Arquitectura de software
 
-![Arquitectura de software](./docs/diagrams/software-architecture.svg)
+<img src="img/software-architecture.svg" width="1000" height="560">
 
 |    | Servicio web         | Descripción                                                                                                                   | Stack                                                             |   
 |----|----------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
@@ -24,8 +24,7 @@ Los expertos en el dominio "restaurante" utilizan los siguientes procesos para p
 | 03 | `auth-adapter-v1`    | Adaptador de autenticación.                                                                                                   | **RxJava**: `Retrofit`                                            |
 | 04 | `product-v1`         | Permite gestionar los productos que ofrece el restaurante BBQ (CRUD).                                                         | **GO**: `GORM`                                                    |
 | 05 | `menu-v1`            | Permite gestionar las opciones de menú que ofrece el restaurante BBQ (CRUD), siendo las opciones de menú un tipo de producto. | **Spring Boot**: `JPA`, `RestTemplate`                            |
-| 06 | `menu-v2`            | Cumple el mismo propósito que menu-v1 (CRUD).                                                                                 | **Quarkus**: `Panache Entity`, `RestClient`, `Multiny`, `GraphQL` |
-| 07 | `table-placement-v1` | Permite realizar la colocación de la mesa, es decir que permite agregar pedidos en cada mesa y consultarlos.                  | **WebFlux**: `MongoDB Reactive`, `RouterFunctions`                |
-| 08 | `invoice-v1`         | Permite generar una factura de proforma y enviarla a pagar.                                                                   | **WebFlux**: `Retrofit`, `Kafka`, `Drools`, `JPA`                 |
-| 09 | `payment-v1`         | Recibe las facturas y las procesa.                                                                                            | **RxJava**: `Kafka`, `JPA`                                        |
-| 10 | `order-hub-v1`       | `Backend for Frontend` Construye la experiencia de generación de pedidos.                                                     | **WebFlux**: `Retrofit`                                           |
+| 06 | `table-placement-v1` | Permite realizar la colocación de la mesa, es decir que permite agregar pedidos en cada mesa y consultarlos.                  | **WebFlux**: `MongoDB Reactive`, `RouterFunctions`                |
+| 07 | `invoice-v1`         | Permite generar una factura de proforma y enviarla a pagar.                                                                   | **WebFlux**: `Retrofit`, `Kafka`, `Drools`, `JPA`                 |
+| 08 | `payment-v1`         | Recibe las facturas y las procesa.                                                                                            | **RxJava**: `Kafka`, `JPA`                                        |
+| 09 | `order-hub-v1`       | `Backend for Frontend` Construye la experiencia de generación de pedidos.                                                     | **WebFlux**: `Retrofit`                                           |

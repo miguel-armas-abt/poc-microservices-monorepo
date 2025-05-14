@@ -1,0 +1,290 @@
+services:
+# Source: ./../../backend/business/invoice-v1
+  invoice-v1:
+    container_name: invoice-v1
+    image: miguelarmasabt/invoice:v1.0.1
+    restart: always
+    environment:
+      - KAFKA_DOMAIN=kafka-server:9093
+      - POSTGRESQL_DOMAIN=postgres-db:5432
+      - POSTGRESQL_USERNAME=poc_user
+      - PRODUCT_DOMAIN=product-v1:8017
+      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
+      - JAVA_OPTS=-Xms256M -Xmx256M
+      - POSTGRESQL_PASSWORD=qwerty
+    depends_on:
+      - config-server-v1
+      - postgres-db
+      - kafka-server
+    networks:
+      - common-network
+    ports:
+      - "8014:8014"
+
+# Source: ./../../backend/business/menu-v1
+  menu-v1:
+    container_name: menu-v1
+    image: miguelarmasabt/menu:v2.0.1
+    restart: always
+    environment:
+      - MYSQL_DOMAIN=mysql-db:3306
+      - MYSQL_USERNAME=poc_user
+      - PRODUCT_DOMAIN=product-v1:8017
+      - JAVA_OPTS=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev
+      - MYSQL_PASSWORD=qwerty
+    depends_on:
+      - mysql-db
+    networks:
+      - common-network
+    ports:
+      - "8012:8012"
+
+# Source: ./../../backend/business/order-hub-v1
+  order-hub-v1:
+    container_name: order-hub-v1
+    image: miguelarmasabt/order-hub:v1.0.1
+    restart: always
+    environment:
+      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
+      - MENU_V1_DOMAIN=menu-v1:8012
+      - TABLE_PLACEMENT_DOMAIN=table-placement-v1:8013
+      - INVOICE_DOMAIN=invoice-v1:8014
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    depends_on:
+      - config-server-v1
+      - redis-server
+    networks:
+      - common-network
+    ports:
+      - "8018:8018"
+
+# Source: ./../../backend/business/payment-v1
+  payment-v1:
+    container_name: payment-v1
+    image: miguelarmasabt/payment:v1.0.1
+    restart: always
+    environment:
+      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
+      - MYSQL_DOMAIN=mysql-db:3306
+      - MYSQL_USERNAME=poc_user
+      - KAFKA_DOMAIN=kafka-server:9093
+      - CREATE_TOPICS=true
+      - JAVA_OPTS=-Xms256M -Xmx256M
+      - MYSQL_PASSWORD=qwerty
+    depends_on:
+      - config-server-v1
+      - mysql-db
+      - kafka-server
+    networks:
+      - common-network
+    ports:
+      - "8015:8015"
+
+# Source: ./../../backend/business/product-v1
+  product-v1:
+    container_name: product-v1
+    image: miguelarmasabt/product:v1.0.1
+    restart: always
+    environment:
+      - MYSQL_HOST=mysql-db:3306
+      - MYSQL_USERNAME=poc_user
+      - DATABASE=db_products
+      - MYSQL_PASSWORD=qwerty
+    depends_on:
+      - mysql-db
+    networks:
+      - common-network
+    ports:
+      - "8017:8017"
+
+# Source: ./../../backend/business/table-placement-v1
+  table-placement-v1:
+    container_name: table-placement-v1
+    image: miguelarmasabt/table-placement:v1.0.1
+    restart: always
+    environment:
+      - CONFIG_SERVER_DOMAIN=config-server-v1:8888
+      - JAVA_OPTS=-Xms256M -Xmx256M
+      - MONGODB_URL=mongodb://poc-user:qwerty@mongo-db:27017/tablePlacement
+    depends_on:
+      - config-server-v1
+      - mongo-db
+    networks:
+      - common-network
+    ports:
+      - "8013:8013"
+
+# Source: ./../../backend/platform/api-gateway-v1
+  api-gateway-v1:
+    container_name: api-gateway-v1
+    image: miguelarmasabt/api-gateway:v1.0.1
+    restart: always
+    environment:
+      - ORDER_HUB_DOMAIN=order-hub-v1:8018
+      - ENABLE_AUTH=true
+      - AUTH_ADAPTER_DOMAIN=auth-adapter-v1:8011
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    networks:
+      - common-network
+    ports:
+      - "8010:8010"
+
+# Source: ./../../backend/platform/auth-adapter-v1
+  auth-adapter-v1:
+    container_name: auth-adapter-v1
+    image: miguelarmasabt/auth-adapter:v1.0.1
+    restart: always
+    environment:
+      - KEYCLOAK_DOMAIN=keycloak-server:8080
+      - JAVA_OPTS=-Xms256M -Xmx256M
+      - KEYCLOAK_KEY_RS256=mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo
+    networks:
+      - common-network
+    ports:
+      - "8011:8011"
+
+# Source: ./../../backend/platform/config-server-v1
+  config-server-v1:
+    container_name: config-server-v1
+    image: miguelarmasabt/config-server:v1.0.1
+    restart: always
+    environment:
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    networks:
+      - common-network
+    ports:
+      - "8888:8888"
+
+# Source: ./../../backend/platform/mock-service-v1
+  mock-service-v1:
+    container_name: mock-service-v1
+    image: miguelarmasabt/mock-service:v1.0.1
+    restart: always
+    environment:
+      - MOCK_PORT=8021
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    networks:
+      - common-network
+    ports:
+      - "8021:8021"
+
+# Source: ./../../backend/runtime/keycloak-server
+  keycloak-server:
+    container_name: keycloak-server
+    image: quay.io/keycloak/keycloak:16.0.0
+    restart: always
+    environment:
+      - KEYCLOAK_USER=admin
+      - DB_VENDOR=H2
+      - KEYCLOAK_PASSWORD=admin
+    networks:
+      - common-network
+    ports:
+      - "8091:8080"
+
+# Source: ./../../backend/runtime/redis-server
+  redis-server:
+    container_name: redis-server
+    image: redis:latest
+    restart: always
+    networks:
+      - common-network
+    ports:
+      - "6379:6379"
+
+# Source: ./../../backend/runtime/zookeeper-server
+  zookeeper-server:
+    container_name: zookeeper-server
+    image: confluentinc/cp-zookeeper:7.3.2
+    restart: always
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_SERVERS=zookeeper-server:2888:3888
+      - ZOOKEEPER_SERVER_ID=1
+    networks:
+      - common-network
+    ports:
+      - "2181:2181"
+
+# Source: ./../../backend/runtime/kafka-server
+  kafka-server:
+    container_name: kafka-server
+    image: confluentinc/cp-kafka:7.3.2
+    restart: always
+    environment:
+      - KAFKA_ADVERTISED_LISTENERS=INTERNAL://kafka-server:9093,EXTERNAL://-127.0.0.1:9092,DOCKER://host.docker.internal:29092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
+      - KAFKA_INTER_BROKER_LISTENER_NAME=INTERNAL
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper-server:2181
+      - KAFKA_BROKER_ID=1
+      - KAFKA_LOG4J_LOGGERS=kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1
+      - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
+      - KAFKA_JMX_PORT=9999
+      - KAFKA_JMX_HOSTNAME=127.0.0.1
+      - KAFKA_AUTHORIZER_CLASS_NAME=kafka.security.authorizer.AclAuthorizer
+      - KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND=true
+    depends_on:
+      - zookeeper-server
+    networks:
+      - common-network
+    ports:
+      - "9092:9092"
+
+# Source: ./../../backend/database/mongo-db
+  mongo-db:
+    container_name: mongo-db
+    image: mongo:latest
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=poc-user
+      - MONGO_INITDB_ROOT_PASSWORD=qwerty
+      - MONGO_INITDB_DATABASE=tablePlacement
+    volumes:
+      - ./../../backend/database/mongo-db:/docker-entrypoint-initdb.d
+      - ./../../backend/database/mongo-db/data:/data
+    networks:
+      - common-network
+    ports:
+      - "27017:27017"
+
+# Source: ./../../backend/database/mysql-db
+  mysql-db:
+    container_name: mysql-db
+    image: mysql:latest
+    restart: always
+    environment:
+      - TZ=UTC
+      - MYSQL_ROOT_PASSWORD=qwerty
+    volumes:
+      - ./../../backend/database/mysql-db:/docker-entrypoint-initdb.d
+      - ./../../backend/database/mysql-db/data:/data
+    networks:
+      - common-network
+    ports:
+      - "3306:3306"
+
+# Source: ./../../backend/database/postgres-db
+  postgres-db:
+    container_name: postgres-db
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qwerty
+    volumes:
+      - ./../../backend/database/postgres-db:/docker-entrypoint-initdb.d
+      - ./../../backend/database/postgres-db/data:/data
+    networks:
+      - common-network
+    ports:
+      - "5432:5432"
+
+
+networks:
+  common-network:
+    driver: bridge
+    enable_ipv6: false
+    external: true

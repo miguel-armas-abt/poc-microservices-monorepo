@@ -1,0 +1,73 @@
+server:
+  port: ${SERVER_PORT:8010}
+
+spring:
+  application:
+    name: api-gateway-v1
+  cloud:
+    gateway:
+      routes:
+        - id: order-hub-v1
+          uri: http://${ORDER_HUB_DOMAIN:localhost:8018}
+          predicates:
+            - Path=/poc/bff/order-hub/v1/**
+            - Method=GET,POST,PUT,DELETE,PATCH
+          filters:
+            - name: AuthenticationFilter
+            - name: TrackingFilter
+
+configuration:
+
+  logging:
+    logging-type:
+      rest.server.req: false
+      rest.server.res: false
+    obfuscation:
+      body-fields: ["accessToken"]
+      headers: ["Authorization"]
+
+  authentication:
+    enable-auth: ${ENABLE_AUTH:false}
+    expected-roles: partners #separate items with comma
+
+  error-messages:
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+
+  rest-clients:
+    auth-adapter-v1:
+      performance:
+        timeout: EXCELLENT
+        concurrency: LOW
+      request:
+        endpoint: http://${AUTH_ADAPTER_DOMAIN:localhost:8011}/poc/infrastructure/v1/auth/
+        headers:
+          provided:
+            Accept: application/json
+          forwarded:
+            channelId: channelId
+            Authorization: Authorization
+          auto-generated:
+            timestamp: TIMESTAMP
+          tracing:
+            traceParent: TRACE_PARENT
+
+# actuator endpoints
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus, beans, env, loggers, flyway
+  endpoint:
+    health:
+      show-details: always
+      probes: #livess & readiness probe
+        enabled: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+

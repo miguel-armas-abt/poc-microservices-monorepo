@@ -1,0 +1,48 @@
+name: menu-v2
+image:
+  repository: miguelarmasabt/menu
+  tag: "v2.0.1"
+  pullPolicy: IfNotPresent
+ports:
+  containerPort: 8012
+  nodePort: 30012
+replicas: 1
+
+configMaps:
+  MYSQL_DOMAIN: "mysql-db:3306"
+  MYSQL_USERNAME: "poc_user"
+  PRODUCT_DOMAIN: "product-v1:8017"
+  JAVA_OPTS: "-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev"
+
+secrets:
+  MYSQL_PASSWORD: "qwerty"
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+    cpu: "1"
+
+livenessProbe:
+  path: /actuator/health/liveness
+  port: 8012
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  path: /actuator/health/readiness
+  port: 8012
+  initialDelaySeconds: 60
+  periodSeconds: 30
+
+namespace: restaurant
+helmTemplate: with-health
+
+docker:
+  hostPort: 8012
+  dependencies: mysql-db
+  volumes: none

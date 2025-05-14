@@ -1,0 +1,9 @@
+configuration:
+  error-messages:
+    Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
+
+spring:
+  data:
+    mongodb:
+      #uri: ${MONGODB_URL:mongodb://poc-user:qwerty@mongo-db:27017/tablePlacement}
+      uri: mongodb+srv://miguelarmasabt:l21m01j16M01L13@cluster0.t2pidzg.mongodb.net/tablePlacement

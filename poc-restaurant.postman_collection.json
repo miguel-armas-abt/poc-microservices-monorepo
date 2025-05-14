@@ -1,0 +1,2136 @@
+{
+	"info": {
+		"_postman_id": "6e0a31e9-df5a-422c-959b-f04c435e457f",
+		"name": "poc-restaurant",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13773998"
+	},
+	"item": [
+		{
+			"name": "platform-services",
+			"item": [
+				{
+					"name": "config-server",
+					"item": [
+						{
+							"name": "bs-menu-option-v1-dev",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "http://localhost:8888/business/menu-v1-dev",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"business",
+										"menu-v1-dev"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "bs-invoice-v1-dev",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8888/business/invoice-v1-dev",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8888",
+											"path": [
+												"business",
+												"invoice-v1-dev"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Method"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Headers"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 08 Nov 2023 01:20:25 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"name\": \"business\",\n    \"profiles\": [\n        \"invoice-v1-dev\"\n    ],\n    \"label\": null,\n    \"version\": \"9a9b683ab98acaabb16b32cac36a6cc52a714401\",\n    \"state\": null,\n    \"propertySources\": [\n        {\n            \"name\": \"https://github.com/miguel-armas-abt/microservices-monorepo.git/file:C:\\\\Users\\\\Miguel\\\\AppData\\\\Local\\\\Temp\\\\config-repo-11805065480806165590\\\\business-invoice-v1-dev.yaml\",\n            \"source\": {\n                \"application.http-client.menu-option-v2.base-url\": \"${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8016/poc/business/v2/}\",\n                \"application.http-client.dining-room-order-v1.base-url\": \"${BUSINESS_DINING_ROOM_ORDER_BASE_PATH:http://localhost:8010/poc/business/v1/}\",\n                \"kafka-broker.topic.invoice\": \"invoice-topic\",\n                \"kafka-broker.topic.payment\": \"paid-topic\",\n                \"spring.kafka.bootstrap-servers\": \"localhost:9092\",\n                \"spring.kafka.consumer.group-id\": \"poc\",\n                \"spring.jpa.show-sql\": true,\n                \"spring.jpa.hibernate.ddl-auto\": \"create-drop\",\n                \"spring.jpa.database-platform\": \"org.hibernate.dialect.PostgreSQLDialect\",\n                \"spring.jpa.properties.hibernate.show_sql\": true,\n                \"spring.jpa.properties.hibernate.use_sql_comments\": false,\n                \"spring.jpa.properties.hibernate.format_sql\": true,\n                \"spring.datasource.url\": \"${POSTGRESQL_URL:jdbc:postgresql://127.0.0.1:5432/db_invoices?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}\",\n                \"spring.datasource.driverClassName\": \"org.postgresql.Driver\",\n                \"spring.datasource.username\": \"${POSTGRESQL_USERNAME:poc_user}\",\n                \"spring.datasource.password\": \"${POSTGRESQL_PASSWORD:qwerty}\",\n                \"business.invoice.igv\": 0.18\n            }\n        }\n    ]\n}"
+								},
+								{
+									"name": "bs-payment-v1-dev",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8888/business/payment-v1-dev",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8888",
+											"path": [
+												"business",
+												"payment-v1-dev"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Method"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Headers"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 08 Nov 2023 01:20:57 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"name\": \"business\",\n    \"profiles\": [\n        \"payment-v1-dev\"\n    ],\n    \"label\": null,\n    \"version\": \"9a9b683ab98acaabb16b32cac36a6cc52a714401\",\n    \"state\": null,\n    \"propertySources\": [\n        {\n            \"name\": \"https://github.com/miguel-armas-abt/demo-microservices-poc.git/file:C:\\\\Users\\\\Miguel\\\\AppData\\\\Local\\\\Temp\\\\config-repo-11805065480806165590\\\\business-payment-v1-dev.yaml\",\n            \"source\": {\n                \"kafka-broker.topic.invoice\": \"invoice-topic\",\n                \"kafka-broker.topic.payment\": \"paid-topic\",\n                \"spring.kafka.bootstrap-servers\": \"localhost:9092\",\n                \"spring.kafka.consumer.group-id\": \"poc\",\n                \"spring.jpa.show-sql\": true,\n                \"spring.jpa.hibernate.ddl-auto\": \"create-drop\",\n                \"spring.jpa.database-platform\": \"org.hibernate.dialect.MySQL8Dialect\",\n                \"spring.jpa.properties.hibernate.show_sql\": true,\n                \"spring.jpa.properties.hibernate.use_sql_comments\": false,\n                \"spring.jpa.properties.hibernate.format_sql\": true,\n                \"spring.datasource.url\": \"${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/db_payments?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}\",\n                \"spring.datasource.driverClassName\": \"com.mysql.cj.jdbc.Driver\",\n                \"spring.datasource.username\": \"${MYSQL_USERNAME:poc_user}\",\n                \"spring.datasource.password\": \"${MYSQL_PASSWORD:qwerty}\"\n            }\n        }\n    ]\n}"
+								},
+								{
+									"name": "bff-order-hub-v1-dev",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8888/bff/order-hub-v1-dev",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8888",
+											"path": [
+												"bff",
+												"order-hub-v1-dev"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 18 Aug 2024 20:27:48 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"name\": \"bff\",\n    \"profiles\": [\n        \"order-hub-v1-dev\"\n    ],\n    \"label\": null,\n    \"version\": null,\n    \"state\": null,\n    \"propertySources\": [\n        {\n            \"name\": \"classpath:/config/bff-order-hub-v1-dev.yaml\",\n            \"source\": {\n                \"configuration.error-messages.enabled\": true,\n                \"configuration.error-messages.messages.Default\": \"No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.\",\n                \"configuration.rest-clients.menu-v1.request.endpoint\": \"http://${MENU_V1_DOMAIN:localhost:8012}/poc/business/menu/v1/\",\n                \"configuration.rest-clients.menu-v1.request.headers.provided.Accept\": \"application/json\",\n                \"configuration.rest-clients.menu-v1.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.menu-v1.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.menu-v1.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.menu-v1.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.rest-clients.menu-v2.request.endpoint\": \"http://${MENU_V2_DOMAIN:localhost:8016}/poc/business/menu/v2/\",\n                \"configuration.rest-clients.menu-v2.request.headers.provided.Accept\": \"application/x-ndjson\",\n                \"configuration.rest-clients.menu-v2.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.menu-v2.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.menu-v2.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.menu-v2.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.rest-clients.table-placement-v1.request.endpoint\": \"http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/poc/business/table-placement/v1/\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.provided.Accept\": \"application/stream+json\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.table-placement-v1.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.rest-clients.invoice-v1.request.endpoint\": \"http://${INVOICE_DOMAIN:localhost:8014}/poc/business/invoice/v1/\",\n                \"configuration.rest-clients.invoice-v1.request.headers.provided.Accept\": \"application/stream+json\",\n                \"configuration.rest-clients.invoice-v1.request.headers.generated.parentId\": \"PARENT_ID\",\n                \"configuration.rest-clients.invoice-v1.request.headers.generated.timestamp\": \"TIMESTAMP_V2\",\n                \"configuration.rest-clients.invoice-v1.request.headers.forwarded.traceId\": \"traceId\",\n                \"configuration.rest-clients.invoice-v1.request.headers.forwarded.channel-id\": \"channel-id\",\n                \"configuration.obfuscation.body-fields\": [],\n                \"configuration.obfuscation.headers\": [],\n                \"configuration.menu-info.selector-class\": \"com.demo.poc.entrypoint.menu.repository.MenuV1Repository\"\n            }\n        }\n    ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "actuator",
+					"item": [
+						{
+							"name": "gateway/routes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api-gateway-domain}}/actuator/gateway/routes/",
+									"host": [
+										"{{api-gateway-domain}}"
+									],
+									"path": [
+										"actuator",
+										"gateway",
+										"routes",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/actuator/prometheus",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8018/actuator/prometheus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8018",
+									"path": [
+										"actuator",
+										"prometheus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/actuator",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8018/actuator",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8018",
+									"path": [
+										"actuator"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "auth-adapter-v1",
+					"item": [
+						{
+							"name": "getToken",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "admin",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8011/poc/infrastructure/v1/auth/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8011",
+									"path": [
+										"poc",
+										"infrastructure",
+										"v1",
+										"auth",
+										"token"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "login 200",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "admin",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{api-gateway-domain}}/poc/infrastructure/v1/auth/login",
+											"host": [
+												"{{api-gateway-domain}}"
+											],
+											"path": [
+												"poc",
+												"infrastructure",
+												"v1",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "2174"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 02 Jan 2023 18:51:25 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"access_token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrZ2E3eGdjaHZVU2dYQWdicWJTcFR5WjBFbEdrbXN4aGNlQ2JTYlVCWnY0In0.eyJleHAiOjE2NzI2ODcyODUsImlhdCI6MTY3MjY4NTQ4NSwianRpIjoiZTQ1NWYzOGEtZWY5ZC00YjAwLWJlZDctYTVlMTIwZjkwMjk0IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImJkOGUzZDljLWNjYWMtNDMxYy04MThiLTc3M2Q0MWZmN2EzYyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMjAyNTY4N2MtODViNC00ODI0LWE2Y2EtZTk1NTdjZWVlMmQ3IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiMjAyNTY4N2MtODViNC00ODI0LWE2Y2EtZTk1NTdjZWVlMmQ3IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.ekOxW9avXf2BRRMBwequxvXW-7uIF94SI81jLLVq8WYbrsdoPNixA-HmRdrH61lxu9AkUMdjSQx0CisfalIhEJ5g3xZ_f-bQ91Z7PVeQ1fTujm9ZUVZBoUtq4pYSZzq_nAnssbFSShv35pp1Ij2CkpR5X3BcCOO-ZAA4fBbhwTgJllcPVLaTg2Rl3LBz-vQ6CvYDvp4toWcqHcHrONNmSZdvyNNxcZiPgYxOir9BwcvdUzLaxmy_zFua4dhygXA_IY13cPK_fpZjCg3DFAQFtUxF4ImiH5iXdj1OE11IlYY0DJDH1OOhX2yEE7AEaMudzWeG4mlTa46Pk7VbWCtf0A\",\n    \"expires_in\": 1800,\n    \"refresh_expires_in\": 1800,\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyMDA5M2I1Yi02MWI3LTQ0MmUtYjg2Yy0wYWNjMjljODIyNDgifQ.eyJleHAiOjE2NzI2ODcyODUsImlhdCI6MTY3MjY4NTQ4NSwianRpIjoiZGZjMWRhZDgtYzAxMi00OTVjLTk2NjQtZGNhMjI3NjVkNGUwIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50Iiwic3ViIjoiYmQ4ZTNkOWMtY2NhYy00MzFjLTgxOGItNzczZDQxZmY3YTNjIiwidHlwIjoiUmVmcmVzaCIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMjAyNTY4N2MtODViNC00ODI0LWE2Y2EtZTk1NTdjZWVlMmQ3Iiwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiMjAyNTY4N2MtODViNC00ODI0LWE2Y2EtZTk1NTdjZWVlMmQ3In0.ASLXsfzsPc2AQTsBl1X14tb5PeHUIpJIDaFJNG5L8jE\",\n    \"token_type\": \"Bearer\",\n    \"not-before-policy\": 0,\n    \"session_state\": \"2025687c-85b4-4824-a6ca-e9557ceee2d7\",\n    \"scope\": \"profile email\"\n}"
+								}
+							]
+						},
+						{
+							"name": "getRoles",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJjWVVKR2hVUGFtUGpzRkw4SzEyQUYzSDdBc0I0NldYOFl0eTQ4ZjA1U2EwIn0.eyJleHAiOjE3MjQ3MTQ4NTQsImlhdCI6MTcyNDcxMzA1NCwianRpIjoiMmY3NzIwZmYtZjIxNi00YmFiLTg0ZTQtZWI4ZjRjYTY2MmE4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjAzOTdkZDQyLWJkMjEtNGI4OC04Yzg1LTk4ZmU0OGNlMjYzYiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiOTE5NjgwODUtNzEzYi00OGQ4LThlY2EtOGRkODIyOTgyZDhhIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiOTE5NjgwODUtNzEzYi00OGQ4LThlY2EtOGRkODIyOTgyZDhhIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.gLw33lBWN9iEP4mcwhNNaJ6Ig8zc6XCMdJWMp3qbVkDx2HP0pNATkAait6Vx4wvgyV-e7JQ4rIKNmQQOg1fmBlro-l22BNpODyXWayhKdc-HzzUBgNLVm46q4nUAhTldKVGJjCMBgraFmLwqEcIjqIUG0_WN_hEMC_hh6KFOu_dBUwCKjnHWdBi5Iv-ol7CNCKZOTQEgD2Ox5N0JeqmXvjvS3kgCl0ZDlwpSmTLn630P_pal5PWt2f37Yyv5kr5GiLZIG9EbulW27tJc1dncpwSSBXwjY8ElU3M9ntxJwfLDoZxbEBlooEMT94Fp30KxdH_iWHWiai6vuXyZe_ryNQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "http://localhost:8011/poc/infrastructure/v1/auth/roles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8011",
+									"path": [
+										"poc",
+										"infrastructure",
+										"v1",
+										"auth",
+										"roles"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "getRoles 200",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{api-gateway-domain}}/poc/infrastructure/v1/auth/roles",
+											"host": [
+												"{{api-gateway-domain}}"
+											],
+											"path": [
+												"poc",
+												"infrastructure",
+												"v1",
+												"auth",
+												"roles"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 02 Jan 2023 18:52:42 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"partners\": 8,\n    \"offline_access\": 14,\n    \"default-roles-poc-management\": 28,\n    \"uma_authorization\": 17\n}"
+								},
+								{
+									"name": "getRoles 403",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{api-gateway-domain}}/poc/infrastructure/v1/auth/roles",
+											"host": [
+												"{{api-gateway-domain}}"
+											],
+											"path": [
+												"poc",
+												"infrastructure",
+												"v1",
+												"auth",
+												"roles"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 02 Jan 2023 18:52:56 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"type\": \"/errors/auth-rules\",\n    \"title\": \"Token validation error\",\n    \"errorCode\": \"ERROR1000\",\n    \"details\": []\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "mock-service",
+					"item": [
+						{
+							"name": "Mock - Payment processor",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8020/external/payments/v1/execute",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8020",
+									"path": [
+										"external",
+										"payments",
+										"v1",
+										"execute"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "businesss-services",
+			"item": [
+				{
+					"name": "menu-v1",
+					"item": [
+						{
+							"name": "menu v1 - health check",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/stream+json",
+										"disabled": true
+									},
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson"
+									},
+									{
+										"key": "trace-id",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"1/4 pollo a la brasa\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 19.90,\r\n    \"productCode\": \"MENU0007\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8016/q/health/ready",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8016",
+									"path": [
+										"q",
+										"health",
+										"ready"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "MAIN",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "live",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/stream+json",
+												"disabled": true
+											},
+											{
+												"key": "Accept",
+												"value": "application/x-ndjson"
+											},
+											{
+												"key": "traceId",
+												"value": "{{$guid}}"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8016/q/health/live",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8016",
+											"path": [
+												"q",
+												"health",
+												"live"
+											],
+											"query": [
+												{
+													"key": "category",
+													"value": "MAIN",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json; charset=UTF-8"
+										},
+										{
+											"key": "content-length",
+											"value": "46"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"UP\",\n    \"checks\": []\n}"
+								},
+								{
+									"name": "ready",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/stream+json",
+												"disabled": true
+											},
+											{
+												"key": "Accept",
+												"value": "application/x-ndjson"
+											},
+											{
+												"key": "traceId",
+												"value": "{{$guid}}"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8016/q/health/ready",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8016",
+											"path": [
+												"q",
+												"health",
+												"ready"
+											],
+											"query": [
+												{
+													"key": "category",
+													"value": "MAIN",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json; charset=UTF-8"
+										},
+										{
+											"key": "content-length",
+											"value": "227"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"UP\",\n    \"checks\": [\n        {\n            \"name\": \"Reactive MySQL connections health check\",\n            \"status\": \"UP\",\n            \"data\": {\n                \"<default>\": \"UP\"\n            }\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "menu v1 - findByCategory",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"1/4 pollo a la brasa\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 19.90,\r\n    \"productCode\": \"MENU0007\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options?category=main",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8016",
+									"path": [
+										"poc",
+										"business",
+										"menu",
+										"v2",
+										"menu-options"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "main"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "menu v1 - findAll",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"1/4 pollo a la brasa\",\r\n    \"category\": \"MAIN\",\r\n    \"unitPrice\": 19.90,\r\n    \"productCode\": \"MENU0007\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options?category=main",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8016",
+									"path": [
+										"poc",
+										"business",
+										"menu",
+										"v2",
+										"menu-options"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "main"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "menu v1 - findByProductCode",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options/MENU0004",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8016",
+									"path": [
+										"poc",
+										"business",
+										"menu",
+										"v2",
+										"menu-options",
+										"MENU0004"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "menu v1 - delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "yJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzbGdSSWpoTFNwN2NFN0NRaGJ0UndzbFJ4OWRyMFZUSmozdFM0ZndGNUpRIn0.eyJleHAiOjE2NzI2MjAxMzksImlhdCI6MTY3MjYxODMzOSwianRpIjoiYTE1NTQ1ZGMtNDIxYS00Y2NhLTgwMDAtZDI1Njc5OTZiNTgxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImNiMmNmNTU1LWUzNWItNDYzYS1iMjc4LWE0ZjYyODJiNjliYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.k4Dl4zZV3F2f6w38K4gtvr6o9xAS9E42Fus5y7-rhIHKZP7qUnQnknnLGCEi8jT_I6cT9pIMUFmxIQJXO6vz-B_svTutnmEJPZvoOAXpakjXgRYU2SXgRorLF_o3ajZDkp1JeAQHcJkdfAycWw7R7w5lrEk_zlwqnpo-7ozgiCaMch4FgrMQPaR53x0xlOGpzh2oK8IynQjSAvgycI5dYu7fnyKQfV7VcYJzIoS7ZoCdV_pvr85HSZmAKYnLCmncQNwYIQlAywCZcR8RrW2jZWapv-bCpp66QoBh4vBJBMgMuLtze1QX0uBhabAq5AsBkdwKPhR8v4ux631OUOoT2Q",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options/MENU0002",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8016",
+									"path": [
+										"poc",
+										"business",
+										"menu",
+										"v2",
+										"menu-options",
+										"MENU0002"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "menu v1 - update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "yJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzbGdSSWpoTFNwN2NFN0NRaGJ0UndzbFJ4OWRyMFZUSmozdFM0ZndGNUpRIn0.eyJleHAiOjE2NzI2MjAxMzksImlhdCI6MTY3MjYxODMzOSwianRpIjoiYTE1NTQ1ZGMtNDIxYS00Y2NhLTgwMDAtZDI1Njc5OTZiNTgxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImNiMmNmNTU1LWUzNWItNDYzYS1iMjc4LWE0ZjYyODJiNjliYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.k4Dl4zZV3F2f6w38K4gtvr6o9xAS9E42Fus5y7-rhIHKZP7qUnQnknnLGCEi8jT_I6cT9pIMUFmxIQJXO6vz-B_svTutnmEJPZvoOAXpakjXgRYU2SXgRorLF_o3ajZDkp1JeAQHcJkdfAycWw7R7w5lrEk_zlwqnpo-7ozgiCaMch4FgrMQPaR53x0xlOGpzh2oK8IynQjSAvgycI5dYu7fnyKQfV7VcYJzIoS7ZoCdV_pvr85HSZmAKYnLCmncQNwYIQlAywCZcR8RrW2jZWapv-bCpp66QoBh4vBJBMgMuLtze1QX0uBhabAq5AsBkdwKPhR8v4ux631OUOoT2Q",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"1/4 pollo a la brasa\",\r\n    \"category\": \"main\",\r\n    \"unitPrice\": 19.90\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options/MENU0001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8016",
+									"path": [
+										"poc",
+										"business",
+										"menu",
+										"v2",
+										"menu-options",
+										"MENU0001"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "menu v1 - save",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "yJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzbGdSSWpoTFNwN2NFN0NRaGJ0UndzbFJ4OWRyMFZUSmozdFM0ZndGNUpRIn0.eyJleHAiOjE2NzI2MjAxMzksImlhdCI6MTY3MjYxODMzOSwianRpIjoiYTE1NTQ1ZGMtNDIxYS00Y2NhLTgwMDAtZDI1Njc5OTZiNTgxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImNiMmNmNTU1LWUzNWItNDYzYS1iMjc4LWE0ZjYyODJiNjliYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiM2Y1NDgxZTEtYTIxNS00OGFiLWE2MDYtMDY2NzE0YTQ4NDczIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.k4Dl4zZV3F2f6w38K4gtvr6o9xAS9E42Fus5y7-rhIHKZP7qUnQnknnLGCEi8jT_I6cT9pIMUFmxIQJXO6vz-B_svTutnmEJPZvoOAXpakjXgRYU2SXgRorLF_o3ajZDkp1JeAQHcJkdfAycWw7R7w5lrEk_zlwqnpo-7ozgiCaMch4FgrMQPaR53x0xlOGpzh2oK8IynQjSAvgycI5dYu7fnyKQfV7VcYJzIoS7ZoCdV_pvr85HSZmAKYnLCmncQNwYIQlAywCZcR8RrW2jZWapv-bCpp66QoBh4vBJBMgMuLtze1QX0uBhabAq5AsBkdwKPhR8v4ux631OUOoT2Q",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n    \"description\": \"1/4 pollo a la brasa\",\r\n    \"category\": \"main\",\r\n    \"unitPrice\": 19.90\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8016",
+									"path": [
+										"poc",
+										"business",
+										"menu",
+										"v2",
+										"menu-options"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "product-v1",
+					"item": [
+						{
+							"name": "product v1 - findAll",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "trace-id",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"unitPrice\": 69.90,\r\n    \"scope\": \"MENU\",\r\n    \"code\": \"MENU0006\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8017/poc/business/product/v1/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8017",
+									"path": [
+										"poc",
+										"business",
+										"product",
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "scope",
+											"value": "MENU",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "product v1 - update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "trace-id",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"unitPrice\": 79.90,\r\n    \"scope\": \"MENU\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8017/poc/business/product/v1/products/MENU0006",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8017",
+									"path": [
+										"poc",
+										"business",
+										"product",
+										"v1",
+										"products",
+										"MENU0006"
+									],
+									"query": [
+										{
+											"key": "scope",
+											"value": "MENU",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "product v1 - save",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "trace-id",
+										"value": "{{$guid}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"MENU0001\",\r\n    \"unitPrice\": 69.90,\r\n    \"scope\": \"MENU\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8017/poc/business/product/v1/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8017",
+									"path": [
+										"poc",
+										"business",
+										"product",
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "scope",
+											"value": "MENU",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "table-placement-v1",
+					"item": [
+						{
+							"name": "table-placement-v1 - findByTableNumber",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {},
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8013/poc/business/table-placement/v1/table-orders?tableNumber=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8013",
+									"path": [
+										"poc",
+										"business",
+										"table-placement",
+										"v1",
+										"table-orders"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "table-placement-v1 - generateTableOrder",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"productCode\": \"MENU0007\",\r\n        \"quantity\": 1\r\n    },\r\n        {\r\n        \"productCode\": \"MENU0005\",\r\n        \"quantity\": 10\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8013/poc/business/table-placement/v1/table-orders?tableNumber=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8013",
+									"path": [
+										"poc",
+										"business",
+										"table-placement",
+										"v1",
+										"table-orders"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "table-placement-v1 - cleanTable",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8013/poc/business/table-placement/v1/table-orders?tableNumber=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8013",
+									"path": [
+										"poc",
+										"business",
+										"table-placement",
+										"v1",
+										"table-orders"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "table-placement-v1 - createTable",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"capacity\": 8,\r\n    \"tableNumber\": 101\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8013/poc/business/table-placement/v1/tables",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8013",
+									"path": [
+										"poc",
+										"business",
+										"table-placement",
+										"v1",
+										"tables"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "invoice-v1",
+					"item": [
+						{
+							"name": "invoice-v1 - calculator",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"description\": \"Ají de gallina\",\r\n        \"quantity\": 2,\r\n        \"productCode\": \"MENU0003\"\r\n    },\r\n    {\r\n        \"description\": \"Pollo a la brasa\",\r\n        \"quantity\": 3,\r\n        \"productCode\": \"MENU0005\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8014/poc/business/invoice/v1/calculate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8014",
+									"path": [
+										"poc",
+										"business",
+										"invoice",
+										"v1",
+										"calculate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "invoice-v1 - sendToPay",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productList\": [\r\n        {\r\n            \"description\": \"Flan\",\r\n            \"quantity\": 2,\r\n            \"productCode\": \"MENU0003\"\r\n        },\r\n        {\r\n            \"description\": \"Pachamanca\",\r\n            \"quantity\": 1,\r\n            \"productCode\": \"MENU0004\"\r\n        }\r\n    ],\r\n    \"customer\": {\r\n        \"documentType\": \"DNI\",\r\n        \"documentNumber\": \"76517368\"\r\n    },\r\n    \"payment\": {\r\n        \"method\": \"DEBITO\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8014/poc/business/invoice/v1/send-to-pay",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8014",
+									"path": [
+										"poc",
+										"business",
+										"invoice",
+										"v1",
+										"send-to-pay"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "invoice-v1 - invoices",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8014/poc/business/invoice/v1/invoices?documentNumber=76517368&documentType=DNI",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8014",
+									"path": [
+										"poc",
+										"business",
+										"invoice",
+										"v1",
+										"invoices"
+									],
+									"query": [
+										{
+											"key": "documentNumber",
+											"value": "76517368"
+										},
+										{
+											"key": "documentType",
+											"value": "DNI"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "order-hub-v1",
+					"item": [
+						{
+							"name": "menu-options - findByCategory",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJIeU44ZVR1S2cwMkx4M2lTYUtqc1pIS29yMm91ejJXUV9pNTBmaE15MGJrIn0.eyJleHAiOjE3MTI3ODc2NDAsImlhdCI6MTcxMjc4NTg0MCwianRpIjoiZTQ4YTBmMjQtZTlmYS00MjNiLWE5NmQtZGY1YjAyYzM2YzUyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjI4N2QwMzBiLTM1ODUtNDA0ZS1hY2I1LTQ3Y2JiNWI2NWEzNyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMDNlOWM1MDktYWQxZi00MTI1LTkxOWItNTU1OGZhMjc1Njg1IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiMDNlOWM1MDktYWQxZi00MTI1LTkxOWItNTU1OGZhMjc1Njg1IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.Sga9k4gN99ANHxNrOLYSwzzLSOaNJh_4Gx5T9N4GERJ6lOALg1i6KRtuQn8btYD8Bk1Lz_WXrTUmH78ORkI-XMn06GvSOOsqQ7riewvxM7YyoWPoqXyun4LYr6PiY4XP1bugtJsaD5le1VO7tByh6shCsZfbfVwQKe1HQDKoVawVAlg_btX6dH8iYXobDNHIvN72sdXGL2HtEDxELuK93SBD3bpxOOMx8hKjtn7qbo6GKbQ30_memnQDNGcPqp9IatDmozJI6bxpm2MKOdzmdsdlsAYMHocjrWePnLRNmaZK29O_gPIOhV8LzNBKRIGlx01K6yufattZfF1A4O862A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8018/poc/bff/order-hub/v1/menu-options?category=main",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8018",
+									"path": [
+										"poc",
+										"bff",
+										"order-hub",
+										"v1",
+										"menu-options"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "main"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "table-orders - findByTableNumber",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"productCode\": \"MENU0004\",\r\n        \"quantity\": 11\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8018/poc/bff/order-hub/v1/table-orders?tableNumber=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8018",
+									"path": [
+										"poc",
+										"bff",
+										"order-hub",
+										"v1",
+										"table-orders"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "table-orders - generateTableOrder",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"productCode\": \"MENU0007\",\r\n        \"quantity\": 1\r\n    },\r\n        {\r\n        \"productCode\": \"MENU0005\",\r\n        \"quantity\": 10\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8018/poc/bff/order-hub/v1/table-orders?tableNumber=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8018",
+									"path": [
+										"poc",
+										"bff",
+										"order-hub",
+										"v1",
+										"table-orders"
+									],
+									"query": [
+										{
+											"key": "tableNumber",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "invoices - sendToPay",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tableNumber\": 1,\r\n    \"customer\": {\r\n        \"documentType\": \"DNI\",\r\n        \"documentNumber\": \"76517369\"\r\n    },\r\n    \"payment\": {\r\n        \"method\": \"DEBITO\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8018/poc/bff/order-hub/v1/invoices/send-to-pay",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8018",
+									"path": [
+										"poc",
+										"bff",
+										"order-hub",
+										"v1",
+										"invoices",
+										"send-to-pay"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "invoices - calculator",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"description\": \"Ají de gallina\",\r\n        \"quantity\": 2,\r\n        \"productCode\": \"MENU0002\"\r\n    },\r\n    {\r\n        \"description\": \"Pollo a la brasa\",\r\n        \"quantity\": 1,\r\n        \"productCode\": \"MENU0005\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8018/poc/bff/order-hub/v1/invoices/calculate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8018",
+									"path": [
+										"poc",
+										"bff",
+										"order-hub",
+										"v1",
+										"invoices",
+										"calculate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "payment-v1",
+					"item": [
+						{
+							"name": "Payments",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8015/poc/business/payment/v1/execute",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8015",
+									"path": [
+										"poc",
+										"business",
+										"payment",
+										"v1",
+										"execute"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const REQUEST_TOKEN = {",
+							"    url: 'http://localhost:8091/auth/realms/poc-management/protocol/openid-connect/token',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Accept': '*/*',",
+							"        'Content-Type': 'application/x-www-form-urlencoded',",
+							"    },",
+							"    body: {",
+							"        mode: 'urlencoded',",
+							"        urlencoded : [",
+							"            { key: 'client_id', value: 'front-poc-app'},",
+							"            { key: 'grant_type', value: 'password'},",
+							"            { key: 'username', value: 'admin'},",
+							"            { key: 'password', value: 'admin'}",
+							"        ]",
+							"    }",
+							"};",
+							"",
+							"function getAccessToken(){",
+							"    pm.sendRequest(REQUEST_TOKEN, function (err, res) {",
+							"        console.log(\"get auth-token\");",
+							"        console.log(res.json());",
+							"        pm.globals.set(\"auth-token\", res.json().access_token);",
+							"    });",
+							"}",
+							"",
+							"//getAccessToken();"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"function setTraceParent() {\r",
+					"    const hex = n => [...Array(n)].reduce(s => s + (Math.random()*16|0).toString(16), '');\r",
+					"    const traceId = Math.floor(Date.now()/1e3).toString(16).padStart(8,'0') + hex(24);\r",
+					"\r",
+					"    let spanId;\r",
+					"    do { spanId = hex(16); } while (/^0+$/.test(spanId));\r",
+					"\r",
+					"    //W3C Estandar\r",
+					"    const traceParent = `00-${traceId}-${spanId}-01`;\r",
+					"    pm.globals.set(\"traceParent\", traceParent);\r",
+					"}\r",
+					"\r",
+					"setTraceParent();\r",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,7 @@
+services:
+@services
+networks:
+  common-network:
+    driver: bridge
+    enable_ipv6: false
+    external: true
