@@ -14,8 +14,7 @@ kind: ConfigMap
 metadata:
   name: menu-v1-config-map
 data:
-    CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
-    JAVA_OPTS: "-Xms256M -Xmx256M"
+    JAVA_OPTS: "-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev"
     MYSQL_DOMAIN: "mysql-db:3306"
     MYSQL_USERNAME: "poc_user"
     PRODUCT_DOMAIN: "product-v1:8017"
@@ -72,7 +71,7 @@ spec:
 
           livenessProbe:
             httpGet:
-              path: /actuator/health/liveness
+              path: /q/health/live
               port: 8012
             initialDelaySeconds: 60
             periodSeconds: 30
@@ -81,17 +80,12 @@ spec:
 
           readinessProbe:
             httpGet:
-              path: /actuator/health/readiness
+              path: /q/health/ready
               port: 8012
             initialDelaySeconds: 60
             periodSeconds: 30
 
           env:
-              - name: CONFIG_SERVER_DOMAIN
-                valueFrom:
-                  configMapKeyRef:
-                    name: menu-v1-config-map
-                    key: CONFIG_SERVER_DOMAIN
               - name: JAVA_OPTS
                 valueFrom:
                   configMapKeyRef:

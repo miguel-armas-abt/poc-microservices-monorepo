@@ -1,7 +1,7 @@
-name: menu-v2
+name: menu-v1
 image:
   repository: miguelarmasabt/menu
-  tag: "v2.0.1"
+  tag: "v1.0.1"
   pullPolicy: IfNotPresent
 ports:
   containerPort: 8012
@@ -26,7 +26,7 @@ resources:
     cpu: "1"
 
 livenessProbe:
-  path: /actuator/health/liveness
+  path: /q/health/live
   port: 8012
   initialDelaySeconds: 60
   periodSeconds: 30
@@ -34,7 +34,7 @@ livenessProbe:
   failureThreshold: 3
 
 readinessProbe:
-  path: /actuator/health/readiness
+  path: /q/health/ready
   port: 8012
   initialDelaySeconds: 60
   periodSeconds: 30

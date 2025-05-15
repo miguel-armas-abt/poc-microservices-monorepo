@@ -6,7 +6,7 @@ metadata:
   name: auth-adapter-v1-secret
 type: Opaque
 data:
-    KEYCLOAK_KEY_RS256: "bUg2S1RCT3RHM0I4X1Vjck92QTZ6UG4yM1NkR2VxcHA1WU9wLU1IUjBGbw=="
+    KEYCLOAK_KEY_RS256: "TS1uNGIwbmhaSTlkTC1pcUQ2Uy0zUUFHb3RXZ3hmbW42cGtXSlZnellvUQ=="
 ---
 # Source: generic-backend-chart/templates/configmap.yaml
 apiVersion: v1

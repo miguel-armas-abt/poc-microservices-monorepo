@@ -653,12 +653,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/q/health/ready",
+									"raw": "http://localhost:8012/q/health/ready",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8016",
+									"port": "8012",
 									"path": [
 										"q",
 										"health",
@@ -694,12 +694,12 @@
 											}
 										],
 										"url": {
-											"raw": "http://localhost:8016/q/health/live",
+											"raw": "http://localhost:8012/q/health/live",
 											"protocol": "http",
 											"host": [
 												"localhost"
 											],
-											"port": "8016",
+											"port": "8012",
 											"path": [
 												"q",
 												"health",
@@ -750,12 +750,12 @@
 											}
 										],
 										"url": {
-											"raw": "http://localhost:8016/q/health/ready",
+											"raw": "http://localhost:8012/q/health/ready",
 											"protocol": "http",
 											"host": [
 												"localhost"
 											],
-											"port": "8016",
+											"port": "8012",
 											"path": [
 												"q",
 												"health",
@@ -820,17 +820,17 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options?category=main",
+									"raw": "http://localhost:8012/poc/business/menu/v1/menu-options?category=main",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8016",
+									"port": "8012",
 									"path": [
 										"poc",
 										"business",
 										"menu",
-										"v2",
+										"v1",
 										"menu-options"
 									],
 									"query": [
@@ -862,7 +862,8 @@
 									{
 										"key": "traceParent",
 										"value": "{{traceParent}}",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									},
 									{
 										"key": "channelId",
@@ -880,17 +881,17 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options?category=main",
+									"raw": "http://localhost:8012/poc/business/menu/v1/menu-options?category=main",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8016",
+									"port": "8012",
 									"path": [
 										"poc",
 										"business",
 										"menu",
-										"v2",
+										"v1",
 										"menu-options"
 									],
 									"query": [
@@ -940,17 +941,17 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options/MENU0004",
+									"raw": "http://localhost:8012/poc/business/menu/v1/menu-options/MENU0004",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8016",
+									"port": "8012",
 									"path": [
 										"poc",
 										"business",
 										"menu",
-										"v2",
+										"v1",
 										"menu-options",
 										"MENU0004"
 									]
@@ -999,17 +1000,17 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options/MENU0002",
+									"raw": "http://localhost:8012/poc/business/menu/v1/menu-options/MENU0002",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8016",
+									"port": "8012",
 									"path": [
 										"poc",
 										"business",
 										"menu",
-										"v2",
+										"v1",
 										"menu-options",
 										"MENU0002"
 									]
@@ -1058,17 +1059,17 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options/MENU0001",
+									"raw": "http://localhost:8012/poc/business/menu/v1/menu-options/MENU0001",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8016",
+									"port": "8012",
 									"path": [
 										"poc",
 										"business",
 										"menu",
-										"v2",
+										"v1",
 										"menu-options",
 										"MENU0001"
 									]
@@ -1117,17 +1118,17 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8016/poc/business/menu/v2/menu-options",
+									"raw": "http://localhost:8012/poc/business/menu/v1/menu-options",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8016",
+									"port": "8012",
 									"path": [
 										"poc",
 										"business",
 										"menu",
-										"v2",
+										"v1",
 										"menu-options"
 									]
 								}
@@ -1753,7 +1754,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJIeU44ZVR1S2cwMkx4M2lTYUtqc1pIS29yMm91ejJXUV9pNTBmaE15MGJrIn0.eyJleHAiOjE3MTI3ODc2NDAsImlhdCI6MTcxMjc4NTg0MCwianRpIjoiZTQ4YTBmMjQtZTlmYS00MjNiLWE5NmQtZGY1YjAyYzM2YzUyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjI4N2QwMzBiLTM1ODUtNDA0ZS1hY2I1LTQ3Y2JiNWI2NWEzNyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMDNlOWM1MDktYWQxZi00MTI1LTkxOWItNTU1OGZhMjc1Njg1IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiMDNlOWM1MDktYWQxZi00MTI1LTkxOWItNTU1OGZhMjc1Njg1IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.Sga9k4gN99ANHxNrOLYSwzzLSOaNJh_4Gx5T9N4GERJ6lOALg1i6KRtuQn8btYD8Bk1Lz_WXrTUmH78ORkI-XMn06GvSOOsqQ7riewvxM7YyoWPoqXyun4LYr6PiY4XP1bugtJsaD5le1VO7tByh6shCsZfbfVwQKe1HQDKoVawVAlg_btX6dH8iYXobDNHIvN72sdXGL2HtEDxELuK93SBD3bpxOOMx8hKjtn7qbo6GKbQ30_memnQDNGcPqp9IatDmozJI6bxpm2MKOdzmdsdlsAYMHocjrWePnLRNmaZK29O_gPIOhV8LzNBKRIGlx01K6yufattZfF1A4O862A",
+											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJUSFE2cjcyMDlGYVVWTUstTHlaSEwwOE5TMjV1ampZcDBlMDRqNTZWT0hvIn0.eyJleHAiOjE3NDcyNzQ2MTIsImlhdCI6MTc0NzI3MjgxMiwianRpIjoiYzIwNTJjY2MtNmY2OC00NTNiLTgzNzItNDNkZmFlYWIxOGE1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL3BvYy1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjcxMDZhNmNjLTg1MTUtNDlkOC1iYzFmLTZmZmNlZjExNGMyZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LXBvYy1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiNzg5ZDE1MmItYTkxYS00YmVhLWJkNzQtNDY0ODE2N2M2ZTc0IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLXBvYy1tYW5hZ2VtZW50Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiNzg5ZDE1MmItYTkxYS00YmVhLWJkNzQtNDY0ODE2N2M2ZTc0IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.QoGhmhNfIt8jV_38Cn0r4UampKOtuRhnQ5tyJDZMb8hYI7l6mzYy1tKLQZeCyaw6zVGBS-C9VDFrBc4UOrTNUYsalNmxPbdVrJu7IFdrB3dwlgEsZqhBap6xWNolQcIEGhLXiW9mf2b_06-mXECv1Q2-VQDE1fmx2yfzaxuBtrK075FEnnkTZURxdyHCMYABpwWO_m-ukOklOUBxJ9-geAyfiXqDY5RkE7E_G1M9BTm2hEetSCbNJEbYErhnQMH6SabDWbovoZCOXVr634QyFk47MR62D7A8Au_RP2tMlWMOE2HQv2-Xr2HkIeblbMq-e2v5j8f9ku98e13ceS-tyA",
 											"type": "string"
 										}
 									]
@@ -1786,12 +1787,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8018/poc/bff/order-hub/v1/menu-options?category=main",
+									"raw": "http://localhost:8010/poc/bff/order-hub/v1/menu-options?category=main",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8018",
+									"port": "8010",
 									"path": [
 										"poc",
 										"bff",
@@ -1815,6 +1816,16 @@
 								"disableBodyPruning": true
 							},
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJUSFE2cjcyMDlGYVVWTUstTHlaSEwwOE5TMjV1ampZcDBlMDRqNTZWT0hvIn0.eyJleHAiOjE3NDcyNzQ3NDYsImlhdCI6MTc0NzI3Mjk0NiwianRpIjoiMTI2NmIwMmMtZWEwMS00NGE3LWI3ZjctNDM1Y2Y4ZjFhNmM3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL3BvYy1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjcxMDZhNmNjLTg1MTUtNDlkOC1iYzFmLTZmZmNlZjExNGMyZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LXBvYy1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMTc2NjBlMTItNmI1NC00ZjM0LWI0M2MtYjAyMDYxNTcyNjRkIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLXBvYy1tYW5hZ2VtZW50Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiMTc2NjBlMTItNmI1NC00ZjM0LWI0M2MtYjAyMDYxNTcyNjRkIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.om4wAm3k_GXZ4_CflwiUg_i_ncm9FS-oI6sNV8dak-Em4ewuojtIHJhsF0KgXF_3LBWhIPXP63NeEbthEwkn5PCENSBIudFcSUDEHLatUcYspFkT1P8ih5BpS7GWYJs5-7djWwCRhMPegpleeQevZx5hKEtv0vKzQkmqZQoBbV1s-KZfZGfyoM8lsXJI5abGFwohVSqVFQPtx01lsrS5y3k6ryFoipFJcLI3td5rd0vhlULllqka0mBXZ1B1gyfXwWYzIuAmbFfVlUVUo9ISpr10JdEZCaHk0aIG5Zt5PY6IwCgXT7x60IZZh90oqVD34ujotIPN9Ch_QjHGWYfkkw",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [
 									{
@@ -1838,12 +1849,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8018/poc/bff/order-hub/v1/table-orders?tableNumber=1",
+									"raw": "http://localhost:8010/poc/bff/order-hub/v1/table-orders?tableNumber=1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8018",
+									"port": "8010",
 									"path": [
 										"poc",
 										"bff",
@@ -1864,6 +1875,16 @@
 						{
 							"name": "table-orders - generateTableOrder",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJUSFE2cjcyMDlGYVVWTUstTHlaSEwwOE5TMjV1ampZcDBlMDRqNTZWT0hvIn0.eyJleHAiOjE3NDcyNzQ3NDYsImlhdCI6MTc0NzI3Mjk0NiwianRpIjoiMTI2NmIwMmMtZWEwMS00NGE3LWI3ZjctNDM1Y2Y4ZjFhNmM3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL3BvYy1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjcxMDZhNmNjLTg1MTUtNDlkOC1iYzFmLTZmZmNlZjExNGMyZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LXBvYy1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMTc2NjBlMTItNmI1NC00ZjM0LWI0M2MtYjAyMDYxNTcyNjRkIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLXBvYy1tYW5hZ2VtZW50Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiMTc2NjBlMTItNmI1NC00ZjM0LWI0M2MtYjAyMDYxNTcyNjRkIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.om4wAm3k_GXZ4_CflwiUg_i_ncm9FS-oI6sNV8dak-Em4ewuojtIHJhsF0KgXF_3LBWhIPXP63NeEbthEwkn5PCENSBIudFcSUDEHLatUcYspFkT1P8ih5BpS7GWYJs5-7djWwCRhMPegpleeQevZx5hKEtv0vKzQkmqZQoBbV1s-KZfZGfyoM8lsXJI5abGFwohVSqVFQPtx01lsrS5y3k6ryFoipFJcLI3td5rd0vhlULllqka0mBXZ1B1gyfXwWYzIuAmbFfVlUVUo9ISpr10JdEZCaHk0aIG5Zt5PY6IwCgXT7x60IZZh90oqVD34ujotIPN9Ch_QjHGWYfkkw",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PATCH",
 								"header": [
 									{
@@ -1887,12 +1908,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8018/poc/bff/order-hub/v1/table-orders?tableNumber=1",
+									"raw": "http://localhost:8010/poc/bff/order-hub/v1/table-orders?tableNumber=1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8018",
+									"port": "8010",
 									"path": [
 										"poc",
 										"bff",
@@ -1911,8 +1932,77 @@
 							"response": []
 						},
 						{
+							"name": "invoices - calculator",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJUSFE2cjcyMDlGYVVWTUstTHlaSEwwOE5TMjV1ampZcDBlMDRqNTZWT0hvIn0.eyJleHAiOjE3NDcyNzQ3NDYsImlhdCI6MTc0NzI3Mjk0NiwianRpIjoiMTI2NmIwMmMtZWEwMS00NGE3LWI3ZjctNDM1Y2Y4ZjFhNmM3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL3BvYy1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjcxMDZhNmNjLTg1MTUtNDlkOC1iYzFmLTZmZmNlZjExNGMyZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LXBvYy1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMTc2NjBlMTItNmI1NC00ZjM0LWI0M2MtYjAyMDYxNTcyNjRkIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLXBvYy1tYW5hZ2VtZW50Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiMTc2NjBlMTItNmI1NC00ZjM0LWI0M2MtYjAyMDYxNTcyNjRkIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.om4wAm3k_GXZ4_CflwiUg_i_ncm9FS-oI6sNV8dak-Em4ewuojtIHJhsF0KgXF_3LBWhIPXP63NeEbthEwkn5PCENSBIudFcSUDEHLatUcYspFkT1P8ih5BpS7GWYJs5-7djWwCRhMPegpleeQevZx5hKEtv0vKzQkmqZQoBbV1s-KZfZGfyoM8lsXJI5abGFwohVSqVFQPtx01lsrS5y3k6ryFoipFJcLI3td5rd0vhlULllqka0mBXZ1B1gyfXwWYzIuAmbFfVlUVUo9ISpr10JdEZCaHk0aIG5Zt5PY6IwCgXT7x60IZZh90oqVD34ujotIPN9Ch_QjHGWYfkkw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-ndjson",
+										"type": "text"
+									},
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}",
+										"type": "text"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"description\": \"Ají de gallina\",\r\n        \"quantity\": 2,\r\n        \"productCode\": \"MENU0002\"\r\n    },\r\n    {\r\n        \"description\": \"Pollo a la brasa\",\r\n        \"quantity\": 1,\r\n        \"productCode\": \"MENU0005\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8010/poc/bff/order-hub/v1/invoices/calculate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8010",
+									"path": [
+										"poc",
+										"bff",
+										"order-hub",
+										"v1",
+										"invoices",
+										"calculate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "invoices - sendToPay",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJUSFE2cjcyMDlGYVVWTUstTHlaSEwwOE5TMjV1ampZcDBlMDRqNTZWT0hvIn0.eyJleHAiOjE3NDcyNzQ3NDYsImlhdCI6MTc0NzI3Mjk0NiwianRpIjoiMTI2NmIwMmMtZWEwMS00NGE3LWI3ZjctNDM1Y2Y4ZjFhNmM3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL3BvYy1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjcxMDZhNmNjLTg1MTUtNDlkOC1iYzFmLTZmZmNlZjExNGMyZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LXBvYy1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMTc2NjBlMTItNmI1NC00ZjM0LWI0M2MtYjAyMDYxNTcyNjRkIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLXBvYy1tYW5hZ2VtZW50Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiMTc2NjBlMTItNmI1NC00ZjM0LWI0M2MtYjAyMDYxNTcyNjRkIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.om4wAm3k_GXZ4_CflwiUg_i_ncm9FS-oI6sNV8dak-Em4ewuojtIHJhsF0KgXF_3LBWhIPXP63NeEbthEwkn5PCENSBIudFcSUDEHLatUcYspFkT1P8ih5BpS7GWYJs5-7djWwCRhMPegpleeQevZx5hKEtv0vKzQkmqZQoBbV1s-KZfZGfyoM8lsXJI5abGFwohVSqVFQPtx01lsrS5y3k6ryFoipFJcLI3td5rd0vhlULllqka0mBXZ1B1gyfXwWYzIuAmbFfVlUVUo9ISpr10JdEZCaHk0aIG5Zt5PY6IwCgXT7x60IZZh90oqVD34ujotIPN9Ch_QjHGWYfkkw",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [
 									{
@@ -1954,55 +2044,6 @@
 										"v1",
 										"invoices",
 										"send-to-pay"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "invoices - calculator",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/x-ndjson",
-										"type": "text"
-									},
-									{
-										"key": "traceParent",
-										"value": "{{traceParent}}",
-										"type": "text"
-									},
-									{
-										"key": "channelId",
-										"value": "WEB",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "[\r\n    {\r\n        \"description\": \"Ají de gallina\",\r\n        \"quantity\": 2,\r\n        \"productCode\": \"MENU0002\"\r\n    },\r\n    {\r\n        \"description\": \"Pollo a la brasa\",\r\n        \"quantity\": 1,\r\n        \"productCode\": \"MENU0005\"\r\n    }\r\n]",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8018/poc/bff/order-hub/v1/invoices/calculate",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8018",
-									"path": [
-										"poc",
-										"bff",
-										"order-hub",
-										"v1",
-										"invoices",
-										"calculate"
 									]
 								}
 							},

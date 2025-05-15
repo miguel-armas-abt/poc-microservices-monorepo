@@ -34,7 +34,7 @@ while true; do
         4) script_caller "./docker-commands.sh stop-compose"; break ;;
         5) script_caller "./docker-commands.sh delete-compose"; break ;;
         6) script_caller "./docker-commands.sh recreate-container $container_name"; break ;;
-        8) exit; ;;
+        7) exit; ;;
         *) echo -e "${RED}Opción inválida${NC}" >&2
       esac
   done

@@ -25,6 +25,11 @@
 > ```
 
 ## 💡 Consideraciones
+> ⚙️ Edite el secreto de `KEYCLOAK_KEY_RS256` de `auth-adapter-v1`:
+> ```shell
+> kubectl edit secret auth-adapter-v1 -n restaurant
+> ```
+
 > ⚙️ **Acceder a Minikube**<br>
 > ```shell
 >   minikube ssh
