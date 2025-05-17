@@ -1,4 +1,4 @@
-package model
+package dto
 
 type ApiException struct {
 	Type      string `json:"type"`

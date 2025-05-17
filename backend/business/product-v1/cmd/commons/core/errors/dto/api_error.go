@@ -1,4 +1,4 @@
-package model
+package dto
 
 type ApiError struct {
 	ApiErrorType ApiErrorType
