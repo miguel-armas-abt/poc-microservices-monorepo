@@ -10,13 +10,6 @@ type productRepositoryImpl struct {
 	db *gorm.DB
 }
 
-func NewProductRepository(db *gorm.DB) ProductRepository {
-	// create an instance of the implementation of ProductRepository and return a pointer to the interface
-	return &productRepositoryImpl{
-		db: db,
-	}
-}
-
 func (thisRepository *productRepositoryImpl) FindAll() ([]entity.ProductEntity, error) {
 	var productList []entity.ProductEntity
 	if err := thisRepository.db.Find(&productList).Error; err != nil {

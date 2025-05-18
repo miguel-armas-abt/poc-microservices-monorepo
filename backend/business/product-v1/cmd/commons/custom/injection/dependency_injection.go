@@ -1,4 +1,8 @@
-package config
+// cmd/commons/custom/injection/dependency_injection.go
+//go:build wireinject
+// +build wireinject
+
+package di
 
 import (
 	"com.demo.poc/cmd/commons/custom/config"
@@ -10,14 +14,13 @@ import (
 	wire "github.com/google/wire"
 )
 
-func InitializeRouter() (*gin.Engine, string) {
+func Rest() (*gin.Engine, error) {
 	wire.Build(
-		config.SetupDatabase,
+		config.GormDB,
 		repo.NewProductRepository,
 		svc.NewProductService,
 		rest.NewProductRestService,
 		rest.SetupRouter,
-		wire.Value(config.ApplicationPort),
 	)
-	return nil, ""
+	return nil, nil
 }

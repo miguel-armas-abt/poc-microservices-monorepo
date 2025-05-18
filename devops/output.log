@@ -1,0 +1,222 @@
+10:42:48:945AM .......... C:/dev-environment/go/go1.21.4/bin/go run main.go
+10:45:26:458AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+10:45:31:350AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+10:45:36:107AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+10:45:44:513AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+10:46:06:572AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+10:46:17:812AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+10:47:02:045AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+10:47:11:519AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+10:47:21:479AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+10:47:31:045AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+10:47:39:485AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+10:47:48:432AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+10:47:53:171AM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+10:48:26:030AM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/config-server-v1-0.0.1-SNAPSHOT.jar
+12:48:30:719PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/config-server-v1-0.0.1-SNAPSHOT.jar
+ 1:06:45:674PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/config-server-v1-0.0.1-SNAPSHOT.jar
+ 1:12:39:135PM .......... C:/dev-environment/java/jdk-17/bin/java -jar ./target/config-server-v1-0.0.1-SNAPSHOT.jar
+ 4:46:10:340PM .......... postgres-db .......... ./pg_ctl -D C:/dev-environment/postgresql-16.1/data -l logging_postgresql.log start
+ 4:46:29:317PM .......... redis .......... ./redis-server &
+ 4:46:41:191PM .......... /tmp folder was removed
+ 4:46:41:205PM .......... zookeeper .......... .\\bin\\windows\\zookeeper-server-start.bat config\\zookeeper.properties
+ 4:46:52:794PM .......... kafka .......... .\\bin\\windows\\kafka-server-start.bat config\\server.properties
+ 7:45:51:253PM .......... zipkin .......... C:/dev-environment/java/jdk-17/bin/java -jar ./zipkin-server-3.3.0-exec.jar
+ 7:51:13:431PM .......... loki .......... ./loki-windows-amd64.exe --config.file=loki-local-config.yaml
+ 7:51:51:565PM .......... grafana .......... ./grafana-server.exe
+ 8:07:39:777PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 8:07:41:473PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 8:07:43:402PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 8:07:46:280PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 8:07:56:676PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 8:08:24:574PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 8:08:34:210PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 8:08:43:551PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 8:08:53:355PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 8:09:02:088PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 8:09:10:736PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 8:09:14:857PM .......... mvn clean install -Dmaven.home="C:/dev-environment/maven/apache-maven-3.9.1" -Dmaven.repo.local="C:/Users/User/.m2/repository"
+ 8:12:19:743PM .......... docker build -f ./../../backend/business/invoice-v1/Dockerfile -t miguelarmasabt/invoice:v1.0.1 ./../../backend/business/invoice-v1
+ 8:12:24:910PM .......... docker build -f ./../../backend/business/menu-v1/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./../../backend/business/menu-v1
+ 8:12:27:978PM .......... docker build -f ./../../backend/business/order-hub-v1/Dockerfile -t miguelarmasabt/order-hub:v1.0.1 ./../../backend/business/order-hub-v1
+ 8:12:31:092PM .......... docker build -f ./../../backend/business/payment-v1/Dockerfile -t miguelarmasabt/payment:v1.0.1 ./../../backend/business/payment-v1
+ 8:12:35:259PM .......... docker build -f ./../../backend/business/product-v1/Dockerfile -t miguelarmasabt/product:v1.0.1 ./../../backend/business/product-v1
+ 8:12:36:874PM .......... docker build -f ./../../backend/business/table-placement-v1/Dockerfile -t miguelarmasabt/table-placement:v1.0.1 ./../../backend/business/table-placement-v1
+ 8:12:40:162PM .......... docker build -f ./../../backend/platform/api-gateway-v1/Dockerfile -t miguelarmasabt/api-gateway:v1.0.1 ./../../backend/platform/api-gateway-v1
+ 8:12:43:339PM .......... docker build -f ./../../backend/platform/auth-adapter-v1/Dockerfile -t miguelarmasabt/auth-adapter:v1.0.1 ./../../backend/platform/auth-adapter-v1
+ 8:12:46:663PM .......... docker build -f ./../../backend/platform/config-server-v1/Dockerfile -t miguelarmasabt/config-server:v1.0.1 ./../../backend/platform/config-server-v1
+ 8:12:48:683PM .......... docker build -f ./../../backend/platform/mock-service-v1/Dockerfile -t miguelarmasabt/mock-service:v1.0.1 ./../../backend/platform/mock-service-v1
+ 8:12:57:989PM .......... docker-compose -f ./docker-compose.yml stop
+ 8:13:11:292PM .......... docker-compose -f ./docker-compose.yml stop
+ 8:13:30:597PM .......... docker-compose -f ./docker-compose.yml up -d
+ 8:14:26:182PM .......... docker-compose -f ./docker-compose.yml stop
+ 8:14:35:850PM .......... docker-compose -f ./docker-compose.yml down -v
+ 8:14:45:812PM .......... docker-compose -f ./docker-compose.yml down -v
+ 8:14:51:179PM .......... docker-compose -f ./docker-compose.yml up -d
+ 8:21:23:763PM .......... docker-compose -f ./docker-compose.yml up -d --force-recreate mysql-db
+ 8:21:38:528PM .......... docker-compose -f ./docker-compose.yml up -d --force-recreate postgres-db
+ 8:24:25:002PM .......... docker-compose -f ./docker-compose.yml down -v
+ 8:25:46:614PM .......... docker-compose -f ./docker-compose.yml up -d
+ 8:28:42:081PM .......... docker-compose -f ./docker-compose.yml down -v
+ 8:29:39:020PM .......... docker-compose -f ./docker-compose.yml up -d
+ 8:32:57:873PM .......... docker-compose -f ./docker-compose.yml up -d --force-recreate auth-adapter-v1
+ 8:40:34:445PM .......... docker-compose -f ./docker-compose.yml down -v
+ 8:42:34:297PM .......... helm template invoice-v1 ./helm/with-health -f ./../../backend/business/invoice-v1/values.yaml > ./k8s-manifests/invoice-v1.yaml
+ 8:42:34:752PM .......... helm template menu-v1 ./helm/with-health -f ./../../backend/business/menu-v1/values.yaml > ./k8s-manifests/menu-v1.yaml
+ 8:42:34:955PM .......... helm template order-hub-v1 ./helm/with-health -f ./../../backend/business/order-hub-v1/values.yaml > ./k8s-manifests/order-hub-v1.yaml
+ 8:42:35:156PM .......... helm template payment-v1 ./helm/with-health -f ./../../backend/business/payment-v1/values.yaml > ./k8s-manifests/payment-v1.yaml
+ 8:42:35:358PM .......... helm template product-v1 ./helm/default -f ./../../backend/business/product-v1/values.yaml > ./k8s-manifests/product-v1.yaml
+ 8:42:35:561PM .......... helm template table-placement-v1 ./helm/with-health -f ./../../backend/business/table-placement-v1/values.yaml > ./k8s-manifests/table-placement-v1.yaml
+ 8:42:35:765PM .......... helm template api-gateway-v1 ./helm/with-health -f ./../../backend/platform/api-gateway-v1/values.yaml > ./k8s-manifests/api-gateway-v1.yaml
+ 8:42:35:967PM .......... helm template auth-adapter-v1 ./helm/with-health -f ./../../backend/platform/auth-adapter-v1/values.yaml > ./k8s-manifests/auth-adapter-v1.yaml
+ 8:42:36:187PM .......... helm template config-server-v1 ./helm/with-health -f ./../../backend/platform/config-server-v1/values.yaml > ./k8s-manifests/config-server-v1.yaml
+ 8:42:36:403PM .......... helm template mock-service-v1 ./helm/with-health -f ./../../backend/platform/mock-service-v1/values.yaml > ./k8s-manifests/mock-service-v1.yaml
+ 8:42:36:606PM .......... helm template keycloak-server ./helm/default -f ./../../backend/runtime/keycloak-server/values.yaml > ./k8s-manifests/keycloak-server.yaml
+ 8:42:36:824PM .......... helm template redis-server ./helm/default -f ./../../backend/runtime/redis-server/values.yaml > ./k8s-manifests/redis-server.yaml
+ 8:42:37:028PM .......... helm template zookeeper-server ./helm/default -f ./../../backend/runtime/zookeeper-server/values.yaml > ./k8s-manifests/zookeeper-server.yaml
+ 8:42:37:246PM .......... helm template kafka-server ./helm/default -f ./../../backend/runtime/kafka-server/values.yaml > ./k8s-manifests/kafka-server.yaml
+ 8:42:37:589PM .......... helm template mongo-db ./helm/database -f ./../../backend/database/mongo-db/values.yaml > ./k8s-manifests/mongo-db.yaml
+ 8:42:37:932PM .......... helm template mysql-db ./helm/database -f ./../../backend/database/mysql-db/values.yaml > ./k8s-manifests/mysql-db.yaml
+ 8:42:38:275PM .......... helm template postgres-db ./helm/database -f ./../../backend/database/postgres-db/values.yaml > ./k8s-manifests/postgres-db.yaml
+ 8:45:00:824PM .......... docker build -f ./../../backend/business/invoice-v1/Dockerfile -t miguelarmasabt/invoice:v1.0.1 ./../../backend/business/invoice-v1
+ 8:45:03:848PM .......... docker build -f ./../../backend/business/menu-v1/Dockerfile.jvm -t miguelarmasabt/menu:v2.0.1 ./../../backend/business/menu-v1
+ 8:45:05:788PM .......... docker build -f ./../../backend/business/order-hub-v1/Dockerfile -t miguelarmasabt/order-hub:v1.0.1 ./../../backend/business/order-hub-v1
+ 8:45:07:481PM .......... docker build -f ./../../backend/business/payment-v1/Dockerfile -t miguelarmasabt/payment:v1.0.1 ./../../backend/business/payment-v1
+ 8:45:09:533PM .......... docker build -f ./../../backend/business/product-v1/Dockerfile -t miguelarmasabt/product:v1.0.1 ./../../backend/business/product-v1
+ 8:45:11:275PM .......... docker build -f ./../../backend/business/table-placement-v1/Dockerfile -t miguelarmasabt/table-placement:v1.0.1 ./../../backend/business/table-placement-v1
+ 8:45:13:677PM .......... docker build -f ./../../backend/platform/api-gateway-v1/Dockerfile -t miguelarmasabt/api-gateway:v1.0.1 ./../../backend/platform/api-gateway-v1
+ 8:45:15:576PM .......... docker build -f ./../../backend/platform/auth-adapter-v1/Dockerfile -t miguelarmasabt/auth-adapter:v1.0.1 ./../../backend/platform/auth-adapter-v1
+ 8:45:17:333PM .......... docker build -f ./../../backend/platform/config-server-v1/Dockerfile -t miguelarmasabt/config-server:v1.0.1 ./../../backend/platform/config-server-v1
+ 8:45:18:654PM .......... docker build -f ./../../backend/platform/mock-service-v1/Dockerfile -t miguelarmasabt/mock-service:v1.0.1 ./../../backend/platform/mock-service-v1
+ 8:47:06:416PM .......... helm template invoice-v1 ./helm/with-health -f ./../../backend/business/invoice-v1/values.yaml > ./k8s-manifests/invoice-v1.yaml
+ 8:47:06:633PM .......... helm template menu-v1 ./helm/with-health -f ./../../backend/business/menu-v1/values.yaml > ./k8s-manifests/menu-v1.yaml
+ 8:47:06:838PM .......... helm template order-hub-v1 ./helm/with-health -f ./../../backend/business/order-hub-v1/values.yaml > ./k8s-manifests/order-hub-v1.yaml
+ 8:47:07:041PM .......... helm template payment-v1 ./helm/with-health -f ./../../backend/business/payment-v1/values.yaml > ./k8s-manifests/payment-v1.yaml
+ 8:47:07:241PM .......... helm template product-v1 ./helm/default -f ./../../backend/business/product-v1/values.yaml > ./k8s-manifests/product-v1.yaml
+ 8:47:07:443PM .......... helm template table-placement-v1 ./helm/with-health -f ./../../backend/business/table-placement-v1/values.yaml > ./k8s-manifests/table-placement-v1.yaml
+ 8:47:07:661PM .......... helm template api-gateway-v1 ./helm/with-health -f ./../../backend/platform/api-gateway-v1/values.yaml > ./k8s-manifests/api-gateway-v1.yaml
+ 8:47:07:863PM .......... helm template auth-adapter-v1 ./helm/with-health -f ./../../backend/platform/auth-adapter-v1/values.yaml > ./k8s-manifests/auth-adapter-v1.yaml
+ 8:47:08:082PM .......... helm template config-server-v1 ./helm/with-health -f ./../../backend/platform/config-server-v1/values.yaml > ./k8s-manifests/config-server-v1.yaml
+ 8:47:08:282PM .......... helm template mock-service-v1 ./helm/with-health -f ./../../backend/platform/mock-service-v1/values.yaml > ./k8s-manifests/mock-service-v1.yaml
+ 8:47:08:485PM .......... helm template keycloak-server ./helm/default -f ./../../backend/runtime/keycloak-server/values.yaml > ./k8s-manifests/keycloak-server.yaml
+ 8:47:08:704PM .......... helm template redis-server ./helm/default -f ./../../backend/runtime/redis-server/values.yaml > ./k8s-manifests/redis-server.yaml
+ 8:47:08:905PM .......... helm template zookeeper-server ./helm/default -f ./../../backend/runtime/zookeeper-server/values.yaml > ./k8s-manifests/zookeeper-server.yaml
+ 8:47:09:122PM .......... helm template kafka-server ./helm/default -f ./../../backend/runtime/kafka-server/values.yaml > ./k8s-manifests/kafka-server.yaml
+ 8:47:09:449PM .......... helm template mongo-db ./helm/database -f ./../../backend/database/mongo-db/values.yaml > ./k8s-manifests/mongo-db.yaml
+ 8:47:09:792PM .......... helm template mysql-db ./helm/database -f ./../../backend/database/mysql-db/values.yaml > ./k8s-manifests/mysql-db.yaml
+ 8:47:10:137PM .......... helm template postgres-db ./helm/database -f ./../../backend/database/postgres-db/values.yaml > ./k8s-manifests/postgres-db.yaml
+ 8:49:37:529PM .......... helm template invoice-v1 ./helm/with-health -f ./../../backend/business/invoice-v1/values.yaml > ./k8s-manifests/invoice-v1.yaml
+ 8:49:37:764PM .......... helm template menu-v1 ./helm/with-health -f ./../../backend/business/menu-v1/values.yaml > ./k8s-manifests/menu-v1.yaml
+ 8:49:37:981PM .......... helm template order-hub-v1 ./helm/with-health -f ./../../backend/business/order-hub-v1/values.yaml > ./k8s-manifests/order-hub-v1.yaml
+ 8:49:38:183PM .......... helm template payment-v1 ./helm/with-health -f ./../../backend/business/payment-v1/values.yaml > ./k8s-manifests/payment-v1.yaml
+ 8:49:38:385PM .......... helm template product-v1 ./helm/default -f ./../../backend/business/product-v1/values.yaml > ./k8s-manifests/product-v1.yaml
+ 8:49:38:587PM .......... helm template table-placement-v1 ./helm/with-health -f ./../../backend/business/table-placement-v1/values.yaml > ./k8s-manifests/table-placement-v1.yaml
+ 8:49:38:789PM .......... helm template api-gateway-v1 ./helm/with-health -f ./../../backend/platform/api-gateway-v1/values.yaml > ./k8s-manifests/api-gateway-v1.yaml
+ 8:49:39:003PM .......... helm template auth-adapter-v1 ./helm/with-health -f ./../../backend/platform/auth-adapter-v1/values.yaml > ./k8s-manifests/auth-adapter-v1.yaml
+ 8:49:39:208PM .......... helm template config-server-v1 ./helm/with-health -f ./../../backend/platform/config-server-v1/values.yaml > ./k8s-manifests/config-server-v1.yaml
+ 8:49:39:409PM .......... helm template mock-service-v1 ./helm/with-health -f ./../../backend/platform/mock-service-v1/values.yaml > ./k8s-manifests/mock-service-v1.yaml
+ 8:49:39:612PM .......... helm template keycloak-server ./helm/default -f ./../../backend/runtime/keycloak-server/values.yaml > ./k8s-manifests/keycloak-server.yaml
+ 8:49:39:815PM .......... helm template redis-server ./helm/default -f ./../../backend/runtime/redis-server/values.yaml > ./k8s-manifests/redis-server.yaml
+ 8:49:40:033PM .......... helm template zookeeper-server ./helm/default -f ./../../backend/runtime/zookeeper-server/values.yaml > ./k8s-manifests/zookeeper-server.yaml
+ 8:49:40:251PM .......... helm template kafka-server ./helm/default -f ./../../backend/runtime/kafka-server/values.yaml > ./k8s-manifests/kafka-server.yaml
+ 8:49:40:582PM .......... helm template mongo-db ./helm/database -f ./../../backend/database/mongo-db/values.yaml > ./k8s-manifests/mongo-db.yaml
+ 8:49:40:936PM .......... helm template mysql-db ./helm/database -f ./../../backend/database/mysql-db/values.yaml > ./k8s-manifests/mysql-db.yaml
+ 8:49:41:278PM .......... helm template postgres-db ./helm/database -f ./../../backend/database/postgres-db/values.yaml > ./k8s-manifests/postgres-db.yaml
+ 8:49:56:764PM .......... docker build -f ./../../backend/business/invoice-v1/Dockerfile -t miguelarmasabt/invoice:v1.0.1 ./../../backend/business/invoice-v1
+ 8:49:58:542PM .......... docker build -f ./../../backend/business/menu-v1/Dockerfile.jvm -t miguelarmasabt/menu:v1.0.1 ./../../backend/business/menu-v1
+ 8:50:00:002PM .......... docker build -f ./../../backend/business/order-hub-v1/Dockerfile -t miguelarmasabt/order-hub:v1.0.1 ./../../backend/business/order-hub-v1
+ 8:50:00:895PM .......... docker build -f ./../../backend/business/payment-v1/Dockerfile -t miguelarmasabt/payment:v1.0.1 ./../../backend/business/payment-v1
+ 8:50:01:784PM .......... docker build -f ./../../backend/business/product-v1/Dockerfile -t miguelarmasabt/product:v1.0.1 ./../../backend/business/product-v1
+ 8:50:03:306PM .......... docker build -f ./../../backend/business/table-placement-v1/Dockerfile -t miguelarmasabt/table-placement:v1.0.1 ./../../backend/business/table-placement-v1
+ 8:50:04:189PM .......... docker build -f ./../../backend/platform/api-gateway-v1/Dockerfile -t miguelarmasabt/api-gateway:v1.0.1 ./../../backend/platform/api-gateway-v1
+ 8:50:05:058PM .......... docker build -f ./../../backend/platform/auth-adapter-v1/Dockerfile -t miguelarmasabt/auth-adapter:v1.0.1 ./../../backend/platform/auth-adapter-v1
+ 8:50:05:956PM .......... docker build -f ./../../backend/platform/config-server-v1/Dockerfile -t miguelarmasabt/config-server:v1.0.1 ./../../backend/platform/config-server-v1
+ 8:50:06:840PM .......... docker build -f ./../../backend/platform/mock-service-v1/Dockerfile -t miguelarmasabt/mock-service:v1.0.1 ./../../backend/platform/mock-service-v1
+ 8:50:11:272PM .......... helm install invoice-v1 ./helm/with-health -f ./../../backend/business/invoice-v1/values.yaml --namespace restaurant --create-namespace
+ 8:50:11:734PM .......... helm install menu-v1 ./helm/with-health -f ./../../backend/business/menu-v1/values.yaml --namespace restaurant --create-namespace
+ 8:50:12:137PM .......... helm install order-hub-v1 ./helm/with-health -f ./../../backend/business/order-hub-v1/values.yaml --namespace restaurant --create-namespace
+ 8:50:12:573PM .......... helm install payment-v1 ./helm/with-health -f ./../../backend/business/payment-v1/values.yaml --namespace restaurant --create-namespace
+ 8:50:13:287PM .......... helm install product-v1 ./helm/default -f ./../../backend/business/product-v1/values.yaml --namespace restaurant --create-namespace
+ 8:50:14:285PM .......... helm install table-placement-v1 ./helm/with-health -f ./../../backend/business/table-placement-v1/values.yaml --namespace restaurant --create-namespace
+ 8:50:15:778PM .......... helm install api-gateway-v1 ./helm/with-health -f ./../../backend/platform/api-gateway-v1/values.yaml --namespace restaurant --create-namespace
+ 8:50:16:885PM .......... helm install auth-adapter-v1 ./helm/with-health -f ./../../backend/platform/auth-adapter-v1/values.yaml --namespace restaurant --create-namespace
+ 8:50:19:492PM .......... helm install config-server-v1 ./helm/with-health -f ./../../backend/platform/config-server-v1/values.yaml --namespace restaurant --create-namespace
+ 8:50:21:975PM .......... helm install mock-service-v1 ./helm/with-health -f ./../../backend/platform/mock-service-v1/values.yaml --namespace restaurant --create-namespace
+ 8:50:24:587PM .......... helm install keycloak-server ./helm/default -f ./../../backend/runtime/keycloak-server/values.yaml --namespace restaurant --create-namespace
+ 8:50:28:690PM .......... helm install redis-server ./helm/default -f ./../../backend/runtime/redis-server/values.yaml --namespace restaurant --create-namespace
+ 8:50:32:892PM .......... helm install zookeeper-server ./helm/default -f ./../../backend/runtime/zookeeper-server/values.yaml --namespace restaurant --create-namespace
+ 8:50:36:479PM .......... helm install kafka-server ./helm/default -f ./../../backend/runtime/kafka-server/values.yaml --namespace restaurant --create-namespace
+ 8:50:40:132PM .......... helm install mongo-db ./helm/database -f ./../../backend/database/mongo-db/values.yaml --namespace restaurant --create-namespace
+ 8:50:48:959PM .......... helm install mysql-db ./helm/database -f ./../../backend/database/mysql-db/values.yaml --namespace restaurant --create-namespace
+ 8:50:59:133PM .......... helm install postgres-db ./helm/database -f ./../../backend/database/postgres-db/values.yaml --namespace restaurant --create-namespace
+ 9:00:33:928PM .......... helm template invoice-v1 ./helm/with-health -f ./../../backend/business/invoice-v1/values.yaml > ./k8s-manifests/invoice-v1.yaml
+ 9:00:34:144PM .......... helm template menu-v1 ./helm/with-health -f ./../../backend/business/menu-v1/values.yaml > ./k8s-manifests/menu-v1.yaml
+ 9:00:34:347PM .......... helm template order-hub-v1 ./helm/with-health -f ./../../backend/business/order-hub-v1/values.yaml > ./k8s-manifests/order-hub-v1.yaml
+ 9:00:34:549PM .......... helm template payment-v1 ./helm/with-health -f ./../../backend/business/payment-v1/values.yaml > ./k8s-manifests/payment-v1.yaml
+ 9:00:34:769PM .......... helm template product-v1 ./helm/default -f ./../../backend/business/product-v1/values.yaml > ./k8s-manifests/product-v1.yaml
+ 9:00:34:971PM .......... helm template table-placement-v1 ./helm/with-health -f ./../../backend/business/table-placement-v1/values.yaml > ./k8s-manifests/table-placement-v1.yaml
+ 9:00:35:172PM .......... helm template api-gateway-v1 ./helm/with-health -f ./../../backend/platform/api-gateway-v1/values.yaml > ./k8s-manifests/api-gateway-v1.yaml
+ 9:00:35:374PM .......... helm template auth-adapter-v1 ./helm/with-health -f ./../../backend/platform/auth-adapter-v1/values.yaml > ./k8s-manifests/auth-adapter-v1.yaml
+ 9:00:35:578PM .......... helm template config-server-v1 ./helm/with-health -f ./../../backend/platform/config-server-v1/values.yaml > ./k8s-manifests/config-server-v1.yaml
+ 9:00:35:780PM .......... helm template mock-service-v1 ./helm/with-health -f ./../../backend/platform/mock-service-v1/values.yaml > ./k8s-manifests/mock-service-v1.yaml
+ 9:00:35:981PM .......... helm template keycloak-server ./helm/default -f ./../../backend/runtime/keycloak-server/values.yaml > ./k8s-manifests/keycloak-server.yaml
+ 9:00:36:184PM .......... helm template redis-server ./helm/default -f ./../../backend/runtime/redis-server/values.yaml > ./k8s-manifests/redis-server.yaml
+ 9:00:36:386PM .......... helm template zookeeper-server ./helm/default -f ./../../backend/runtime/zookeeper-server/values.yaml > ./k8s-manifests/zookeeper-server.yaml
+ 9:00:36:589PM .......... helm template kafka-server ./helm/default -f ./../../backend/runtime/kafka-server/values.yaml > ./k8s-manifests/kafka-server.yaml
+ 9:00:36:916PM .......... helm template mongo-db ./helm/database -f ./../../backend/database/mongo-db/values.yaml > ./k8s-manifests/mongo-db.yaml
+ 9:00:37:260PM .......... helm template mysql-db ./helm/database -f ./../../backend/database/mysql-db/values.yaml > ./k8s-manifests/mysql-db.yaml
+ 9:00:37:606PM .......... helm template postgres-db ./helm/database -f ./../../backend/database/postgres-db/values.yaml > ./k8s-manifests/postgres-db.yaml
+ 9:01:47:006PM .......... helm install invoice-v1 ./helm/with-health -f ./../../backend/business/invoice-v1/values.yaml --namespace restaurant --create-namespace
+ 9:02:49:099PM .......... helm uninstall invoice-v1 -n restaurant
+ 9:02:49:362PM .......... helm uninstall menu-v1 -n restaurant
+ 9:02:49:626PM .......... helm uninstall order-hub-v1 -n restaurant
+ 9:02:49:887PM .......... helm uninstall payment-v1 -n restaurant
+ 9:02:50:151PM .......... helm uninstall product-v1 -n restaurant
+ 9:02:50:408PM .......... helm uninstall table-placement-v1 -n restaurant
+ 9:02:50:685PM .......... helm uninstall api-gateway-v1 -n restaurant
+ 9:02:50:935PM .......... helm uninstall auth-adapter-v1 -n restaurant
+ 9:02:51:200PM .......... helm uninstall config-server-v1 -n restaurant
+ 9:02:51:449PM .......... helm uninstall mock-service-v1 -n restaurant
+ 9:02:51:696PM .......... helm uninstall keycloak-server -n restaurant
+ 9:02:52:055PM .......... helm uninstall redis-server -n restaurant
+ 9:02:52:306PM .......... helm uninstall zookeeper-server -n restaurant
+ 9:02:52:553PM .......... helm uninstall kafka-server -n restaurant
+ 9:02:52:938PM .......... helm uninstall mongo-db -n restaurant
+ 9:02:53:375PM .......... helm uninstall mysql-db -n restaurant
+ 9:02:53:766PM .......... helm uninstall postgres-db -n restaurant
+ 9:03:57:735PM .......... helm install invoice-v1 ./helm/with-health -f ./../../backend/business/invoice-v1/values.yaml --namespace restaurant --create-namespace
+ 9:03:58:140PM .......... helm install menu-v1 ./helm/with-health -f ./../../backend/business/menu-v1/values.yaml --namespace restaurant --create-namespace
+ 9:03:58:559PM .......... helm install order-hub-v1 ./helm/with-health -f ./../../backend/business/order-hub-v1/values.yaml --namespace restaurant --create-namespace
+ 9:03:59:057PM .......... helm install payment-v1 ./helm/with-health -f ./../../backend/business/payment-v1/values.yaml --namespace restaurant --create-namespace
+ 9:03:59:761PM .......... helm install product-v1 ./helm/default -f ./../../backend/business/product-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:00:756PM .......... helm install table-placement-v1 ./helm/with-health -f ./../../backend/business/table-placement-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:02:735PM .......... helm install api-gateway-v1 ./helm/with-health -f ./../../backend/platform/api-gateway-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:04:554PM .......... helm install auth-adapter-v1 ./helm/with-health -f ./../../backend/platform/auth-adapter-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:06:543PM .......... helm install config-server-v1 ./helm/with-health -f ./../../backend/platform/config-server-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:08:159PM .......... helm install mock-service-v1 ./helm/with-health -f ./../../backend/platform/mock-service-v1/values.yaml --namespace restaurant --create-namespace
+ 9:04:11:145PM .......... helm install keycloak-server ./helm/default -f ./../../backend/runtime/keycloak-server/values.yaml --namespace restaurant --create-namespace
+ 9:04:16:249PM .......... helm install redis-server ./helm/default -f ./../../backend/runtime/redis-server/values.yaml --namespace restaurant --create-namespace
+ 9:04:19:744PM .......... helm install zookeeper-server ./helm/default -f ./../../backend/runtime/zookeeper-server/values.yaml --namespace restaurant --create-namespace
+ 9:04:22:047PM .......... helm install kafka-server ./helm/default -f ./../../backend/runtime/kafka-server/values.yaml --namespace restaurant --create-namespace
+ 9:04:25:996PM .......... helm install mongo-db ./helm/database -f ./../../backend/database/mongo-db/values.yaml --namespace restaurant --create-namespace
+ 9:04:34:131PM .......... helm install mysql-db ./helm/database -f ./../../backend/database/mysql-db/values.yaml --namespace restaurant --create-namespace
+ 9:04:42:905PM .......... helm install postgres-db ./helm/database -f ./../../backend/database/postgres-db/values.yaml --namespace restaurant --create-namespace
+ 9:08:31:698PM .......... kubectl port-forward svc/api-gateway-v1 8010:8010 -n restaurant
+ 9:20:24:824PM .......... kubectl port-forward svc/api-gateway-v1 8010:8010 -n restaurant
+ 9:21:43:508PM .......... helm uninstall invoice-v1 -n restaurant
+ 9:21:43:759PM .......... helm uninstall menu-v1 -n restaurant
+ 9:21:44:024PM .......... helm uninstall order-hub-v1 -n restaurant
+ 9:21:44:285PM .......... helm uninstall payment-v1 -n restaurant
+ 9:21:44:550PM .......... helm uninstall product-v1 -n restaurant
+ 9:21:44:814PM .......... helm uninstall table-placement-v1 -n restaurant
+ 9:21:45:072PM .......... helm uninstall api-gateway-v1 -n restaurant
+ 9:21:45:325PM .......... helm uninstall auth-adapter-v1 -n restaurant
+ 9:21:45:588PM .......... helm uninstall config-server-v1 -n restaurant
+ 9:21:45:838PM .......... helm uninstall mock-service-v1 -n restaurant
+ 9:21:46:088PM .......... helm uninstall keycloak-server -n restaurant
+ 9:21:46:381PM .......... helm uninstall redis-server -n restaurant
+ 9:21:46:631PM .......... helm uninstall zookeeper-server -n restaurant
+ 9:21:46:880PM .......... helm uninstall kafka-server -n restaurant
+ 9:21:47:273PM .......... helm uninstall mongo-db -n restaurant
+ 9:21:47:692PM .......... helm uninstall mysql-db -n restaurant
+ 9:21:48:114PM .......... helm uninstall postgres-db -n restaurant

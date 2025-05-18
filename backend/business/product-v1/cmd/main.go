@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	db := config.SetupDatabase()
+	db := config.GormDB()
 	productRepository := repository.NewProductRepository(db)
 	productService := service.NewProductService(productRepository)
 	productRestService := rest.NewProductRestService(productService)

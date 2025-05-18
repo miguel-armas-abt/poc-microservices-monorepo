@@ -5,7 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func SetupDatabase() *gorm.DB {
+func GormDB() *gorm.DB {
 	dsn := DBUser + ":" + DBPassword + "@tcp(" + DBHost + ")/" + DBName + "?charset=utf8mb4&parseTime=True&loc=Local"
 	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
