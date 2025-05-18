@@ -33,7 +33,7 @@ func (thisRestService *ProductRestService) FindByCode(context *gin.Context) {
 func (thisRestService *ProductRestService) FindByScope(context *gin.Context) {
 	scope := context.Query("scope")
 
-	var productList []response.ProductResponse
+	var productList []response.ProductResponseDto
 	var err error
 
 	if scope == "" {
@@ -51,7 +51,7 @@ func (thisRestService *ProductRestService) FindByScope(context *gin.Context) {
 }
 
 func (thisRestService *ProductRestService) Save(context *gin.Context) {
-	var menuOptionRequest request.ProductSaveRequest
+	var menuOptionRequest request.ProductSaveRequestDto
 	if err := context.ShouldBindJSON(&menuOptionRequest); err != nil {
 		handler.ErrorHandler(context, err)
 		return
@@ -67,7 +67,7 @@ func (thisRestService *ProductRestService) Save(context *gin.Context) {
 
 func (thisRestService *ProductRestService) Update(context *gin.Context) {
 	code := context.Param("code")
-	var menuOptionRequest request.ProductUpdateRequest
+	var menuOptionRequest request.ProductUpdateRequestDto
 
 	if err := context.ShouldBindJSON(&menuOptionRequest); err != nil {
 		handler.ErrorHandler(context, err)

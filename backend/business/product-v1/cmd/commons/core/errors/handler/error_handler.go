@@ -8,24 +8,24 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const serviceName string = "product-v1"
-
 func ErrorHandler(context *gin.Context, err error) {
-	if apiError, ok := err.(dto.ApiError); ok {
-		context.JSON(apiError.ApiErrorType.Status, dto.ApiException{
-			Type:      apiError.ApiErrorType.Description,
-			Message:   apiError.Title,
-			ErrorCode: generateErrorCode(&apiError),
-		})
+	if genericError, isError := err.(dto.GenericError); isError {
+
+		errorResponse := dto.ErrorDto{
+			Origin:  genericError.Origin.Code,
+			Message: genericError.Message,
+			Code:    genericError.Code,
+		}
+
+		context.JSON(genericError.HttpStatus, errorResponse)
 		return
 	}
-	context.JSON(http.StatusInternalServerError, dto.ApiException{
-		Type:      "/errors/internal-server-error",
-		Message:   err.Error(),
-		ErrorCode: "INTERNAL_SERVER_ERROR",
-	})
-}
 
-func generateErrorCode(apiError *dto.ApiError) string {
-	return serviceName + "." + apiError.ApiErrorType.Code + "." + apiError.ErrorCode
+	defaultResponse := dto.ErrorDto{
+		Origin:  dto.Own.Code,
+		Message: err.Error(),
+		Code:    "Default",
+	}
+
+	context.JSON(http.StatusInternalServerError, defaultResponse)
 }

@@ -1,14 +1,8 @@
-package database
+package repository
 
 import (
 	"com.demo.poc/cmd/entrypoint/products/repository/entity"
-
-	"gorm.io/gorm"
 )
-
-type productRepositoryImpl struct {
-	db *gorm.DB
-}
 
 func (thisRepository *productRepositoryImpl) FindAll() ([]entity.ProductEntity, error) {
 	var productList []entity.ProductEntity

@@ -6,10 +6,10 @@ import (
 )
 
 type ProductService interface {
-	FindAll() ([]response.ProductResponse, error)
-	FindByCode(code string) (*response.ProductResponse, error)
-	FindByScope(scope string) ([]response.ProductResponse, error)
-	Save(request request.ProductSaveRequest) (*response.ProductResponse, error)
-	Update(request request.ProductUpdateRequest, code string) (*response.ProductResponse, error)
+	FindAll() ([]response.ProductResponseDto, error)
+	FindByCode(code string) (*response.ProductResponseDto, error)
+	FindByScope(scope string) ([]response.ProductResponseDto, error)
+	Save(request request.ProductSaveRequestDto) (*response.ProductResponseDto, error)
+	Update(request request.ProductUpdateRequestDto, code string) (*response.ProductResponseDto, error)
 	Delete(code string) error
 }

@@ -1,4 +1,4 @@
-package database
+package repository
 
 import (
 	"com.demo.poc/cmd/entrypoint/products/repository/entity"

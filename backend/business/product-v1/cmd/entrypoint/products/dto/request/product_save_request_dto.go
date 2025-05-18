@@ -1,6 +1,7 @@
 package request
 
-type ProductUpdateRequest struct {
+type ProductSaveRequestDto struct {
+	Code      string  `json:"code" validate:"required,notblank"`
 	UnitPrice float64 `json:"unitPrice" validate:"required"`
 	Scope     string  `json:"scope" validate:"required,notblank"`
 }

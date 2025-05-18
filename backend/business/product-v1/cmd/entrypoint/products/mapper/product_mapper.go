@@ -7,25 +7,25 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
-func RequestToEntity(productRequest request.ProductSaveRequest) entity.ProductEntity {
+func RequestToEntity(productRequest request.ProductSaveRequestDto) entity.ProductEntity {
 	var productEntity entity.ProductEntity
 	mapstructure.Decode(productRequest, &productEntity)
 	productEntity.IsActive = true
 	return productEntity
 }
 
-func UpdateRequestToEntity(productRequest request.ProductUpdateRequest, productEntity *entity.ProductEntity) {
+func UpdateRequestToEntity(productRequest request.ProductUpdateRequestDto, productEntity *entity.ProductEntity) {
 	mapstructure.Decode(productRequest, productEntity)
 }
 
-func EntityToResponse(productEntity entity.ProductEntity) response.ProductResponse {
-	var productResponse response.ProductResponse
+func EntityToResponse(productEntity entity.ProductEntity) response.ProductResponseDto {
+	var productResponse response.ProductResponseDto
 	mapstructure.Decode(productEntity, &productResponse)
 	return productResponse
 }
 
-func EntityListToResponseList(productEntities []entity.ProductEntity) []response.ProductResponse {
-	productResponses := make([]response.ProductResponse, len(productEntities))
+func EntityListToResponseList(productEntities []entity.ProductEntity) []response.ProductResponseDto {
+	productResponses := make([]response.ProductResponseDto, len(productEntities))
 	for i, productEntity := range productEntities {
 		productResponses[i] = EntityToResponse(productEntity)
 	}

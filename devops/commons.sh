@@ -103,7 +103,7 @@ function run_main_go() {
   if [[ -f "$component_path/go.mod" ]]; then
     go="$GO_HOME/bin/go"
 
-    command="$go run main.go"
+    command="$go run cmd/main.go"
     print_log "$command"
 
     cd $component_path
