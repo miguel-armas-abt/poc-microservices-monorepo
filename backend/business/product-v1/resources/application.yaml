@@ -1,3 +1,13 @@
 projectType: MS
+
 errorMessages:
   Default: "No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente."
+
+database:
+  user: poc_user
+  password: qwerty
+  host: 127.0.0.1:3306
+  name: db_products
+
+server:
+  port: ":8017"
