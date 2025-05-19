@@ -3,9 +3,9 @@ package service
 import (
 	"com.demo.poc/cmd/products/dto/request"
 	"com.demo.poc/cmd/products/dto/response"
+	productErrors "com.demo.poc/cmd/products/errors"
 	"com.demo.poc/cmd/products/mapper"
 	"com.demo.poc/cmd/products/repository"
-	customError "com.demo.poc/commons/custom/errors"
 
 	"gorm.io/gorm"
 )
@@ -32,7 +32,7 @@ func (thisService *productServiceImpl) FindByCode(code string) (*response.Produc
 	productFound, err := thisService.repository.FindByCode(code)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
-			return nil, customError.ProductNotFound
+			return nil, productErrors.ProductNotFound
 		}
 		return nil, err
 	}

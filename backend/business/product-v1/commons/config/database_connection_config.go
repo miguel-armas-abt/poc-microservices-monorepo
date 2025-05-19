@@ -3,7 +3,7 @@ package config
 import (
 	"fmt"
 
-	properties "com.demo.poc/commons/core/properties"
+	properties "com.demo.poc/commons/properties"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

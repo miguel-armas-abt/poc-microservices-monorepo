@@ -3,7 +3,7 @@ package errors
 import (
 	"net/http"
 
-	errorDto "com.demo.poc/commons/core/errors/dto"
+	errorDto "com.demo.poc/commons/errors/dto"
 )
 
 func NewInvalidFieldError(message string) errorDto.GenericError {

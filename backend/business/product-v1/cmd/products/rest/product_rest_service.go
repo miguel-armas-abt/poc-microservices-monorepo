@@ -6,8 +6,8 @@ import (
 	"com.demo.poc/cmd/products/dto/request"
 	"com.demo.poc/cmd/products/dto/response"
 	"com.demo.poc/cmd/products/service"
-	coreErrors "com.demo.poc/commons/core/errors/errors"
-	"com.demo.poc/commons/core/validations"
+	coreErrors "com.demo.poc/commons/errors/errors"
+	"com.demo.poc/commons/validations"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 )

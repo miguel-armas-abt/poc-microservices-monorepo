@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	properties "com.demo.poc/commons/core/properties"
-	"com.demo.poc/commons/custom/injection"
+	"com.demo.poc/commons/injection"
+	properties "com.demo.poc/commons/properties"
 )
 
 func main() {

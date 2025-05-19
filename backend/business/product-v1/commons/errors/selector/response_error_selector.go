@@ -1,8 +1,8 @@
 package selector
 
 import (
-	errorDto "com.demo.poc/commons/core/errors/dto"
-	properties "com.demo.poc/commons/core/properties"
+	errorDto "com.demo.poc/commons/errors/dto"
+	properties "com.demo.poc/commons/properties"
 )
 
 type ResponseErrorSelector struct {

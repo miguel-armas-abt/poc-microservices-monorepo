@@ -1,7 +1,7 @@
 package rest
 
 import (
-	errorInterceptor "com.demo.poc/commons/core/interceptor/errors"
+	errorInterceptor "com.demo.poc/commons/interceptor/errors"
 	"github.com/gin-gonic/gin"
 )
 

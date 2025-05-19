@@ -1,8 +1,8 @@
 package errors
 
 import (
-	errorDto "com.demo.poc/commons/core/errors/dto"
-	errorSelector "com.demo.poc/commons/core/errors/selector"
+	errorDto "com.demo.poc/commons/errors/dto"
+	errorSelector "com.demo.poc/commons/errors/selector"
 
 	"net/http"
 
