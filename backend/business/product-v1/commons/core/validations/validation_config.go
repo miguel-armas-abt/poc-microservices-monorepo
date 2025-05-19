@@ -6,7 +6,7 @@ import (
 
 var Validate *validator.Validate
 
-func Validator() *validator.Validate {
+func NewValidator() *validator.Validate {
 	return Validate
 }
 

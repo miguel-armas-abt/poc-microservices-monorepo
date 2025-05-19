@@ -4,14 +4,20 @@ import (
 	"com.demo.poc/cmd/products/dto/request"
 	"com.demo.poc/cmd/products/dto/response"
 	"com.demo.poc/cmd/products/mapper"
-	repository "com.demo.poc/cmd/products/repository"
-	exception "com.demo.poc/pck/custom/errors"
+	"com.demo.poc/cmd/products/repository"
+	customError "com.demo.poc/commons/custom/errors"
 
 	"gorm.io/gorm"
 )
 
 type productServiceImpl struct {
 	repository repository.ProductRepository
+}
+
+func NewProductServiceImpl(productRepository repository.ProductRepository) ProductService {
+	return &productServiceImpl{
+		repository: productRepository,
+	}
 }
 
 func (thisService *productServiceImpl) FindAll() ([]response.ProductResponseDto, error) {
@@ -26,7 +32,7 @@ func (thisService *productServiceImpl) FindByCode(code string) (*response.Produc
 	productFound, err := thisService.repository.FindByCode(code)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
-			return nil, exception.ProductNotFound
+			return nil, customError.ProductNotFound
 		}
 		return nil, err
 	}

@@ -6,6 +6,7 @@ pkg/
 *.iws
 *.iml
 *.ipr
+*.exe
 
 ### VS Code ###
 .vscode/

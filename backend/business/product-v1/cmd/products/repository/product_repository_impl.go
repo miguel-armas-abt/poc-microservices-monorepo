@@ -9,25 +9,29 @@ type productRepositoryImpl struct {
 	db *gorm.DB
 }
 
-func (thisRepository *productRepositoryImpl) FindAll() ([]entity.ProductEntity, error) {
+func NewProductRepositoryImpl(db *gorm.DB) ProductRepository {
+	return &productRepositoryImpl{db: db}
+}
+
+func (productRepository *productRepositoryImpl) FindAll() ([]entity.ProductEntity, error) {
 	var productList []entity.ProductEntity
-	if err := thisRepository.db.Find(&productList).Error; err != nil {
+	if err := productRepository.db.Find(&productList).Error; err != nil {
 		return nil, err
 	}
 	return productList, nil
 }
 
-func (thisRepository *productRepositoryImpl) FindByCode(code string) (*entity.ProductEntity, error) {
+func (productRepository *productRepositoryImpl) FindByCode(code string) (*entity.ProductEntity, error) {
 	var product entity.ProductEntity
-	if err := thisRepository.db.Where("code=?", code).First(&product).Error; err != nil {
+	if err := productRepository.db.Where("code=?", code).First(&product).Error; err != nil {
 		return nil, err
 	}
 	return &product, nil
 }
 
-func (thisRepository *productRepositoryImpl) FindByScope(scope string) ([]entity.ProductEntity, error) {
+func (productRepository *productRepositoryImpl) FindByScope(scope string) ([]entity.ProductEntity, error) {
 	var productList []entity.ProductEntity
-	if err := thisRepository.db.Where("scope=?", scope).Find(&productList).Error; err != nil {
+	if err := productRepository.db.Where("scope=?", scope).Find(&productList).Error; err != nil {
 		return nil, err
 	}
 	return productList, nil

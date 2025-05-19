@@ -1,16 +1,16 @@
 package rest
 
 import (
-	"com.demo.poc/pck/core/errors/handler"
+	errorInterceptor "com.demo.poc/commons/core/interceptor/errors"
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter(
+func NewRouter(
 	engine *gin.Engine,
-	errorHandler *handler.ErrorHandler,
+	errorInterceptor *errorInterceptor.ErrorInterceptor,
 	productRestService *ProductRestService) *gin.Engine {
 
-	engine.Use(gin.Recovery(), gin.Logger(), errorHandler.Handler())
+	engine.Use(gin.Recovery(), gin.Logger(), errorInterceptor.Handler())
 
 	productRouter := engine.Group("/poc/business/product/v1/products")
 	{

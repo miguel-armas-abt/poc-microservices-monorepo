@@ -6,4 +6,4 @@ type ErrorDto struct {
 	Message string `json:"message"`
 }
 
-const DefaultCode = "Default"
+const CODE_DEFAULT = "default"

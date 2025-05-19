@@ -6,8 +6,8 @@ import (
 	"com.demo.poc/cmd/products/dto/request"
 	"com.demo.poc/cmd/products/dto/response"
 	"com.demo.poc/cmd/products/service"
-	"com.demo.poc/pck/core/validations"
-	"com.demo.poc/pck/custom/errors"
+	coreErrors "com.demo.poc/commons/core/errors/errors"
+	"com.demo.poc/commons/core/validations"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 )
@@ -15,6 +15,13 @@ import (
 type ProductRestService struct {
 	productService service.ProductService
 	validate       *validator.Validate
+}
+
+func NewProductRestService(service service.ProductService, validate *validator.Validate) *ProductRestService {
+	return &ProductRestService{
+		productService: service,
+		validate:       validate,
+	}
 }
 
 func (thisRestService *ProductRestService) FindByCode(context *gin.Context) {
@@ -60,7 +67,7 @@ func (thisRestService *ProductRestService) Save(context *gin.Context) {
 
 	if err := validations.Validate.Struct(saveRequest); err != nil {
 		if constraints, hasConstraints := err.(validator.ValidationErrors); hasConstraints {
-			context.Error(errors.NewInvalidFieldError(constraints.Error()))
+			context.Error(coreErrors.NewInvalidFieldError(constraints.Error()))
 			context.Abort()
 			return
 		}
@@ -92,7 +99,7 @@ func (thisRestService *ProductRestService) Update(context *gin.Context) {
 
 	if err := validations.Validate.Struct(updateRequest); err != nil {
 		if constraints, hasConstraints := err.(validator.ValidationErrors); hasConstraints {
-			context.Error(errors.NewInvalidFieldError(constraints.Error()))
+			context.Error(coreErrors.NewInvalidFieldError(constraints.Error()))
 			context.Abort()
 			return
 		}

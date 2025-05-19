@@ -3,13 +3,13 @@ package errors
 import (
 	"net/http"
 
-	dto "com.demo.poc/pck/core/errors/dto"
+	errorDto "com.demo.poc/commons/core/errors/dto"
 )
 
 var (
-	ProductNotFound = dto.GenericError{
+	ProductNotFound = errorDto.GenericError{
 		HttpStatus: http.StatusNotFound,
-		Origin:     dto.OriginOwn,
+		Origin:     errorDto.ERROR_ORIGIN_OWN,
 		Message:    "Product not found",
 		Code:       "01.01.01",
 	}

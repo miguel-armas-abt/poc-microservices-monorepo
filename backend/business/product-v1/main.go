@@ -3,16 +3,16 @@ package main
 import (
 	"log"
 
-	coreConfing "com.demo.poc/pck/core/config"
-	customConfig "com.demo.poc/pck/custom/config"
-	"com.demo.poc/pck/custom/injection"
+	properties "com.demo.poc/commons/core/properties"
+	customConfig "com.demo.poc/commons/custom/config"
+	"com.demo.poc/commons/custom/injection"
 )
 
 func main() {
-	if err := coreConfing.LoadProperties("application.yaml"); err != nil {
+	if err := properties.Init(); err != nil {
 		log.Fatalf("properties load error: %v", err)
 	}
 
-	router := injection.Rest()
+	router := injection.NewEngine()
 	router.Run(customConfig.ApplicationPort)
 }
