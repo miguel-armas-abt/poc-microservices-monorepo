@@ -6,27 +6,38 @@ import (
 	"com.demo.poc/cmd/products/dto/request"
 	"com.demo.poc/cmd/products/dto/response"
 	"com.demo.poc/cmd/products/service"
-	coreErrors "com.demo.poc/commons/errors/errors"
 	"com.demo.poc/commons/validations"
+	headers "com.demo.poc/commons/validations/headers"
 	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
 )
 
 type ProductRestService struct {
 	productService service.ProductService
-	validate       *validator.Validate
+	paramValidator *validations.ParamValidator
+	bodyValidator  *validations.BodyValidator
 }
 
-func NewProductRestService(service service.ProductService, validate *validator.Validate) *ProductRestService {
+func NewProductRestService(
+	service service.ProductService,
+	paramValidator *validations.ParamValidator,
+	bodyValidator *validations.BodyValidator,
+) *ProductRestService {
+
 	return &ProductRestService{
 		productService: service,
-		validate:       validate,
+		paramValidator: paramValidator,
+		bodyValidator:  bodyValidator,
 	}
 }
 
-func (thisRestService *ProductRestService) FindByCode(context *gin.Context) {
+func (productRestService *ProductRestService) FindByCode(context *gin.Context) {
+	var defaultHeaders headers.DefaultHeaders
+	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
+		return
+	}
+
 	code := context.Param("code")
-	menuOption, err := thisRestService.productService.FindByCode(code)
+	menuOption, err := productRestService.productService.FindByCode(code)
 	if err != nil {
 		context.Error(err)
 		context.Abort()
@@ -35,16 +46,21 @@ func (thisRestService *ProductRestService) FindByCode(context *gin.Context) {
 	context.JSON(http.StatusOK, menuOption)
 }
 
-func (thisRestService *ProductRestService) FindByScope(context *gin.Context) {
+func (productRestService *ProductRestService) FindByScope(context *gin.Context) {
+	var defaultHeaders headers.DefaultHeaders
+	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
+		return
+	}
+
 	scope := context.Query("scope")
 
 	var productList []response.ProductResponseDto
 	var err error
 
 	if scope == "" {
-		productList, err = thisRestService.productService.FindAll()
+		productList, err = productRestService.productService.FindAll()
 	} else {
-		productList, err = thisRestService.productService.FindByScope(scope)
+		productList, err = productRestService.productService.FindByScope(scope)
 	}
 
 	if err != nil {
@@ -56,27 +72,18 @@ func (thisRestService *ProductRestService) FindByScope(context *gin.Context) {
 	context.JSON(http.StatusOK, productList)
 }
 
-func (thisRestService *ProductRestService) Save(context *gin.Context) {
-	var saveRequest request.ProductSaveRequestDto
-
-	if err := context.ShouldBindJSON(&saveRequest); err != nil {
-		context.Error(err)
-		context.Abort()
+func (productRestService *ProductRestService) Save(context *gin.Context) {
+	var defaultHeaders headers.DefaultHeaders
+	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
 		return
 	}
 
-	if err := validations.Validate.Struct(saveRequest); err != nil {
-		if constraints, hasConstraints := err.(validator.ValidationErrors); hasConstraints {
-			context.Error(coreErrors.NewInvalidFieldError(constraints.Error()))
-			context.Abort()
-			return
-		}
-		context.Error(err)
-		context.Abort()
+	saveRequest, ok := validations.ValidateBodyAndGet[request.ProductSaveRequestDto](context, productRestService.bodyValidator)
+	if !ok {
 		return
 	}
 
-	createdProduct, err := thisRestService.productService.Save(saveRequest)
+	createdProduct, err := productRestService.productService.Save(saveRequest)
 
 	if err != nil {
 		context.Error(err)
@@ -87,28 +94,19 @@ func (thisRestService *ProductRestService) Save(context *gin.Context) {
 	context.JSON(http.StatusCreated, createdProduct)
 }
 
-func (thisRestService *ProductRestService) Update(context *gin.Context) {
+func (productRestService *ProductRestService) Update(context *gin.Context) {
+	var defaultHeaders headers.DefaultHeaders
+	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
+		return
+	}
+
 	code := context.Param("code")
-	var updateRequest request.ProductUpdateRequestDto
-
-	if err := context.ShouldBindJSON(&updateRequest); err != nil {
-		context.Error(err)
-		context.Abort()
+	updateRequest, ok := validations.ValidateBodyAndGet[request.ProductUpdateRequestDto](context, productRestService.bodyValidator)
+	if !ok {
 		return
 	}
 
-	if err := validations.Validate.Struct(updateRequest); err != nil {
-		if constraints, hasConstraints := err.(validator.ValidationErrors); hasConstraints {
-			context.Error(coreErrors.NewInvalidFieldError(constraints.Error()))
-			context.Abort()
-			return
-		}
-		context.Error(err)
-		context.Abort()
-		return
-	}
-
-	updatedProduct, err := thisRestService.productService.Update(updateRequest, code)
+	updatedProduct, err := productRestService.productService.Update(updateRequest, code)
 	if err != nil {
 		context.Error(err)
 		context.Abort()
@@ -118,9 +116,14 @@ func (thisRestService *ProductRestService) Update(context *gin.Context) {
 	context.JSON(http.StatusOK, updatedProduct)
 }
 
-func (thisRestService *ProductRestService) Delete(context *gin.Context) {
+func (productRestService *ProductRestService) Delete(context *gin.Context) {
+	var defaultHeaders headers.DefaultHeaders
+	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
+		return
+	}
+
 	code := context.Param("code")
-	err := thisRestService.productService.Delete(code)
+	err := productRestService.productService.Delete(code)
 	if err != nil {
 		context.Error(err)
 		context.Abort()
