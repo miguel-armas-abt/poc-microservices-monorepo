@@ -1,6 +1,7 @@
 package selector
 
 import (
+	"com.demo.poc/commons/constants"
 	errorDto "com.demo.poc/commons/errors/dto"
 	properties "com.demo.poc/commons/properties"
 )
@@ -27,7 +28,7 @@ func extractError(err error) errorDto.ErrorDto {
 			Origin: string(genericError.Origin),
 			Code:   genericError.Code,
 		}
-		if message := genericError.Message; message != "" {
+		if message := genericError.Message; message != constants.EMPTY {
 			recoveredError.Message = message
 		}
 		return recoveredError
@@ -36,7 +37,7 @@ func extractError(err error) errorDto.ErrorDto {
 }
 
 func (responseErrorSelector *ResponseErrorSelector) selectProjectType() properties.ProjectType {
-	if projectType := properties.ProjectType(responseErrorSelector.properties.ProjectType); projectType != "" {
+	if projectType := properties.ProjectType(responseErrorSelector.properties.ProjectType); projectType != constants.EMPTY {
 		return projectType
 	}
 	return properties.PROJECT_TYPE_MS
@@ -46,7 +47,7 @@ func selectCustomCode(code string, projectType properties.ProjectType) string {
 	if projectType == properties.PROJECT_TYPE_BFF {
 		return errorDto.CODE_DEFAULT
 	}
-	if code == "" {
+	if code == constants.EMPTY {
 		return errorDto.CODE_DEFAULT
 	}
 	return code
@@ -61,7 +62,7 @@ func (responseErrorSelector *ResponseErrorSelector) selectMessage(originalMessag
 	if message, existsMessage := responseErrorSelector.properties.ErrorMessages[code]; existsMessage {
 		return message
 	}
-	if originalMessage != "" {
+	if originalMessage != constants.EMPTY {
 		return originalMessage
 	}
 	return defaultMessage

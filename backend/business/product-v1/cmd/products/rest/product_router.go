@@ -12,13 +12,13 @@ func NewRouter(
 
 	engine.Use(gin.Recovery(), gin.Logger(), errorInterceptor.Handler())
 
-	productRouter := engine.Group("/poc/business/product/v1/products")
+	productRouter := engine.Group("/poc/business/product/v1")
 	{
-		productRouter.GET("", productRestService.FindByScope)
-		productRouter.GET("/:code", productRestService.FindByCode)
-		productRouter.POST("", productRestService.Save)
-		productRouter.PUT("/:code", productRestService.Update)
-		productRouter.DELETE("/:code", productRestService.Delete)
+		productRouter.GET("/products", productRestService.FindByScope)
+		productRouter.GET("/products/:code", productRestService.FindByCode)
+		productRouter.POST("/products", productRestService.Save)
+		productRouter.PUT("/products/:code", productRestService.Update)
+		productRouter.DELETE("/products/:code", productRestService.Delete)
 	}
 
 	return engine

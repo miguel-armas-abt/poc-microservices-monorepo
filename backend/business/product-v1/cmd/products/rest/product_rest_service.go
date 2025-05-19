@@ -6,6 +6,7 @@ import (
 	"com.demo.poc/cmd/products/dto/request"
 	"com.demo.poc/cmd/products/dto/response"
 	"com.demo.poc/cmd/products/service"
+	"com.demo.poc/commons/constants"
 	"com.demo.poc/commons/validations"
 	headers "com.demo.poc/commons/validations/headers"
 	"github.com/gin-gonic/gin"
@@ -57,7 +58,7 @@ func (productRestService *ProductRestService) FindByScope(context *gin.Context) 
 	var productList []response.ProductResponseDto
 	var err error
 
-	if scope == "" {
+	if scope == constants.EMPTY {
 		productList, err = productRestService.productService.FindAll()
 	} else {
 		productList, err = productRestService.productService.FindByScope(scope)
