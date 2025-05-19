@@ -17,7 +17,7 @@ func NewErrorInterceptor(selector *errorSelector.ResponseErrorSelector) *ErrorIn
 	return &ErrorInterceptor{selector: selector}
 }
 
-func (errorInterceptor *ErrorInterceptor) Handler() gin.HandlerFunc {
+func (errorInterceptor *ErrorInterceptor) InterceptError() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		context.Next()
 

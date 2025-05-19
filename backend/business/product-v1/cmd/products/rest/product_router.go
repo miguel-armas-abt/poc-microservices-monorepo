@@ -2,6 +2,7 @@ package rest
 
 import (
 	errorInterceptor "com.demo.poc/commons/interceptor/errors"
+	"com.demo.poc/commons/interceptor/restserver"
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,7 +11,7 @@ func NewRouter(
 	errorInterceptor *errorInterceptor.ErrorInterceptor,
 	productRestService *ProductRestService) *gin.Engine {
 
-	engine.Use(gin.Recovery(), gin.Logger(), errorInterceptor.Handler())
+	engine.Use(gin.Recovery(), gin.Logger(), errorInterceptor.InterceptError(), restserver.InterceptRestServer())
 
 	productRouter := engine.Group("/poc/business/product/v1")
 	{
