@@ -33,7 +33,7 @@ func (paramValidator *ParamValidator) ValidateParamAndBind(context *gin.Context,
 		return false
 	}
 
-	paramMap := restServerUtils.ExtractHeadersMap(context.Request.Header)
+	paramMap := restServerUtils.ExtractHeadersAsMap(context.Request.Header)
 	if err := paramMapper.Decode(paramMap); err != nil {
 		context.Error(coreErrors.NewInvalidFieldError(err.Error()))
 		context.Abort()

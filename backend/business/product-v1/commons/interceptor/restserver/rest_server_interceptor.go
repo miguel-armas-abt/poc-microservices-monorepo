@@ -45,7 +45,7 @@ func InterceptRestServer() gin.HandlerFunc {
 			Headers:     requestHeaders,
 			Body:        string(requestBody),
 			TraceParent: traceParent,
-		})
+		}, string(logging.RestServerReqLog))
 
 		bodyWriter := &BodyWriter{body: bytes.NewBufferString(constants.EMPTY), ResponseWriter: context.Writer}
 		context.Writer = bodyWriter
@@ -64,6 +64,6 @@ func InterceptRestServer() gin.HandlerFunc {
 			Headers:     responseHeaders,
 			Body:        bodyWriter.body.String(),
 			TraceParent: traceParent,
-		})
+		}, string(logging.RestServerResLog))
 	}
 }

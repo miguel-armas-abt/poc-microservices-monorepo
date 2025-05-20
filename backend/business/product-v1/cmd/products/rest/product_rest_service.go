@@ -7,6 +7,7 @@ import (
 	"com.demo.poc/cmd/products/dto/response"
 	"com.demo.poc/cmd/products/service"
 	"com.demo.poc/commons/constants"
+	utils "com.demo.poc/commons/restserver/utils"
 	"com.demo.poc/commons/validations"
 	headers "com.demo.poc/commons/validations/headers"
 	"github.com/gin-gonic/gin"
@@ -36,9 +37,10 @@ func (productRestService *ProductRestService) FindByCode(context *gin.Context) {
 	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
 		return
 	}
+	headers := utils.ExtractHeadersAsMap(context.Request.Header)
 
 	code := context.Param("code")
-	menuOption, err := productRestService.productService.FindByCode(code)
+	menuOption, err := productRestService.productService.FindByCode(headers, code)
 	if err != nil {
 		context.Error(err)
 		context.Abort()
@@ -52,6 +54,7 @@ func (productRestService *ProductRestService) FindByScope(context *gin.Context) 
 	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
 		return
 	}
+	headers := utils.ExtractHeadersAsMap(context.Request.Header)
 
 	scope := context.Query("scope")
 
@@ -59,9 +62,9 @@ func (productRestService *ProductRestService) FindByScope(context *gin.Context) 
 	var err error
 
 	if scope == constants.EMPTY {
-		productList, err = productRestService.productService.FindAll()
+		productList, err = productRestService.productService.FindAll(headers)
 	} else {
-		productList, err = productRestService.productService.FindByScope(scope)
+		productList, err = productRestService.productService.FindByScope(headers, scope)
 	}
 
 	if err != nil {
@@ -78,13 +81,14 @@ func (productRestService *ProductRestService) Save(context *gin.Context) {
 	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
 		return
 	}
+	headers := utils.ExtractHeadersAsMap(context.Request.Header)
 
 	saveRequest, ok := validations.ValidateBodyAndGet[request.ProductSaveRequestDto](context, productRestService.bodyValidator)
 	if !ok {
 		return
 	}
 
-	createdProduct, err := productRestService.productService.Save(saveRequest)
+	createdProduct, err := productRestService.productService.Save(headers, saveRequest)
 
 	if err != nil {
 		context.Error(err)
@@ -100,6 +104,7 @@ func (productRestService *ProductRestService) Update(context *gin.Context) {
 	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
 		return
 	}
+	headers := utils.ExtractHeadersAsMap(context.Request.Header)
 
 	code := context.Param("code")
 	updateRequest, ok := validations.ValidateBodyAndGet[request.ProductUpdateRequestDto](context, productRestService.bodyValidator)
@@ -107,7 +112,7 @@ func (productRestService *ProductRestService) Update(context *gin.Context) {
 		return
 	}
 
-	updatedProduct, err := productRestService.productService.Update(updateRequest, code)
+	updatedProduct, err := productRestService.productService.Update(headers, updateRequest, code)
 	if err != nil {
 		context.Error(err)
 		context.Abort()
@@ -122,9 +127,10 @@ func (productRestService *ProductRestService) Delete(context *gin.Context) {
 	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
 		return
 	}
+	headers := utils.ExtractHeadersAsMap(context.Request.Header)
 
 	code := context.Param("code")
-	err := productRestService.productService.Delete(code)
+	err := productRestService.productService.Delete(headers, code)
 	if err != nil {
 		context.Error(err)
 		context.Abort()

@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func ExtractHeadersMap(headers http.Header) map[string]string {
+func ExtractHeadersAsMap(headers http.Header) map[string]string {
 	result := make(map[string]string, len(headers))
 	for key, values := range headers {
 		if len(values) == 0 {

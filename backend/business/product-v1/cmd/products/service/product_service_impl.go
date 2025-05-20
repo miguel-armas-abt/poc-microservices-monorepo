@@ -11,25 +11,25 @@ import (
 )
 
 type productServiceImpl struct {
-	repository repository.ProductRepository
+	productRepository repository.ProductRepository
 }
 
 func NewProductServiceImpl(productRepository repository.ProductRepository) ProductService {
 	return &productServiceImpl{
-		repository: productRepository,
+		productRepository: productRepository,
 	}
 }
 
-func (thisService *productServiceImpl) FindAll() ([]response.ProductResponseDto, error) {
-	productListFound, err := thisService.repository.FindAll()
+func (thisService *productServiceImpl) FindAll(headers map[string]string) ([]response.ProductResponseDto, error) {
+	productListFound, err := thisService.productRepository.FindAll()
 	if err != nil {
 		return nil, err
 	}
 	return mapper.EntityListToResponseList(productListFound), nil
 }
 
-func (thisService *productServiceImpl) FindByCode(code string) (*response.ProductResponseDto, error) {
-	productFound, err := thisService.repository.FindByCode(code)
+func (thisService *productServiceImpl) FindByCode(headers map[string]string, code string) (*response.ProductResponseDto, error) {
+	productFound, err := thisService.productRepository.FindByCode(code)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, productErrors.ProductNotFound
@@ -40,8 +40,8 @@ func (thisService *productServiceImpl) FindByCode(code string) (*response.Produc
 	return &product, nil
 }
 
-func (thisService *productServiceImpl) FindByScope(scope string) ([]response.ProductResponseDto, error) {
-	productListFound, err := thisService.repository.FindByScope(scope)
+func (thisService *productServiceImpl) FindByScope(headers map[string]string, scope string) ([]response.ProductResponseDto, error) {
+	productListFound, err := thisService.productRepository.FindByScope(scope)
 	if err != nil {
 		return nil, err
 	}
@@ -49,23 +49,23 @@ func (thisService *productServiceImpl) FindByScope(scope string) ([]response.Pro
 	return mapper.EntityListToResponseList(productListFound), nil
 }
 
-func (thisService *productServiceImpl) Save(productRequest request.ProductSaveRequestDto) (*response.ProductResponseDto, error) {
+func (thisService *productServiceImpl) Save(headers map[string]string, productRequest request.ProductSaveRequestDto) (*response.ProductResponseDto, error) {
 	productToSave := mapper.RequestToEntity(productRequest)
-	if err := thisService.repository.Save(&productToSave); err != nil {
+	if err := thisService.productRepository.Save(&productToSave); err != nil {
 		return nil, err
 	}
 	product := mapper.EntityToResponse(productToSave)
 	return &product, nil
 }
 
-func (thisService *productServiceImpl) Update(productRequest request.ProductUpdateRequestDto, code string) (*response.ProductResponseDto, error) {
-	productFound, err := thisService.repository.FindByCode(code)
+func (thisService *productServiceImpl) Update(headers map[string]string, productRequest request.ProductUpdateRequestDto, code string) (*response.ProductResponseDto, error) {
+	productFound, err := thisService.productRepository.FindByCode(code)
 	if err != nil {
 		return nil, err
 	}
 	mapper.UpdateRequestToEntity(productRequest, productFound)
 
-	if err = thisService.repository.Save(productFound); err != nil {
+	if err = thisService.productRepository.Save(productFound); err != nil {
 		return nil, err
 	}
 
@@ -73,6 +73,6 @@ func (thisService *productServiceImpl) Update(productRequest request.ProductUpda
 	return &product, nil
 }
 
-func (thisService *productServiceImpl) Delete(code string) error {
-	return thisService.repository.Delete(code)
+func (thisService *productServiceImpl) Delete(headers map[string]string, code string) error {
+	return thisService.productRepository.Delete(code)
 }

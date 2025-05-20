@@ -17,7 +17,7 @@ func InjectFields(entry *logrus.Entry, headers map[string]string) *logrus.Entry 
 	return entry
 }
 
-func LogRequest(req logDto.RestRequestLog) {
+func LogRequest(req logDto.RestRequestLog, logType string) {
 	logFields := Logger.WithFields(logrus.Fields{})
 
 	traceMap := tracing.GetTraceHeadersAsMap(req.TraceParent)
@@ -25,18 +25,18 @@ func LogRequest(req logDto.RestRequestLog) {
 		logFields = logFields.WithField(key, value)
 	}
 
-	headersKey := string(RestServerReqLog) + ".headers"
+	headersKey := logType + ".headers"
 	logFields = logFields.WithField(headersKey, formatHeaders(req.Headers))
 
 	logFields = logFields.WithFields(logrus.Fields{
-		string(RestServerReqLog) + ".method": req.Method,
-		string(RestServerReqLog) + ".uri":    req.URI,
-		string(RestServerReqLog) + ".body":   req.Body,
+		logType + ".method": req.Method,
+		logType + ".uri":    req.URI,
+		logType + ".body":   req.Body,
 	})
-	logFields.Info(string(RestServerReqLog))
+	logFields.Info(logType)
 }
 
-func LogResponse(res logDto.RestResponseLog) {
+func LogResponse(res logDto.RestResponseLog, logType string) {
 	logFields := Logger.WithFields(logrus.Fields{})
 
 	traceMap := tracing.GetTraceHeadersAsMap(res.TraceParent)
@@ -44,15 +44,15 @@ func LogResponse(res logDto.RestResponseLog) {
 		logFields = logFields.WithField(key, value)
 	}
 
-	headersKey := string(RestServerResLog) + ".headers"
+	headersKey := logType + ".headers"
 	logFields = logFields.WithField(headersKey, formatHeaders(res.Headers))
 
 	logFields = logFields.WithFields(logrus.Fields{
-		string(RestServerResLog) + ".status": res.Status,
-		string(RestServerResLog) + ".uri":    res.URI,
-		string(RestServerResLog) + ".body":   res.Body,
+		logType + ".status": res.Status,
+		logType + ".uri":    res.URI,
+		logType + ".body":   res.Body,
 	})
-	logFields.Info(string(RestServerResLog))
+	logFields.Info(logType)
 }
 
 func formatHeaders(headers map[string]string) string {

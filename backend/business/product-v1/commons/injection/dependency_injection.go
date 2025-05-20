@@ -17,9 +17,11 @@ func NewEngine() *gin.Engine {
 	engine := gin.New()
 
 	props := &properties.Properties
+
 	dbConnection := coreConfig.NewDatabaseConnection()
-	repo := repository.NewProductRepositoryImpl(dbConnection)
-	svc := service.NewProductServiceImpl(repo)
+	productRepository := repository.NewProductRepositoryImpl(dbConnection)
+
+	svc := service.NewProductServiceImpl(productRepository)
 
 	coreValidator := validations.GetValidator()
 	paramValidator := validations.NewParamValidator(coreValidator)
