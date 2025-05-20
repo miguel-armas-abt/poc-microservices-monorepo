@@ -7,15 +7,17 @@ import (
 
 	"com.demo.poc/commons/logging"
 	logDto "com.demo.poc/commons/logging/dto"
+	"com.demo.poc/commons/properties"
 	"com.demo.poc/commons/tracing"
 )
 
 type LoggingRoundTripper struct {
-	rt http.RoundTripper
+	rt    http.RoundTripper
+	props *properties.ApplicationProperties
 }
 
-func NewRestClientInterceptor(rt http.RoundTripper) *LoggingRoundTripper {
-	return &LoggingRoundTripper{rt: rt}
+func NewRestClientInterceptor(rt http.RoundTripper, props *properties.ApplicationProperties) *LoggingRoundTripper {
+	return &LoggingRoundTripper{rt: rt, props: props}
 }
 
 func (loggingRoundTripper *LoggingRoundTripper) RoundTrip(httpRequest *http.Request) (*http.Response, error) {
@@ -27,13 +29,15 @@ func (loggingRoundTripper *LoggingRoundTripper) RoundTrip(httpRequest *http.Requ
 		httpRequest.Body = io.NopCloser(bytes.NewBuffer(buffer))
 	}
 
-	logging.LogRequest(logDto.RestRequestLog{
-		Method:      httpRequest.Method,
-		URI:         httpRequest.URL.String(),
-		Headers:     headerMap(httpRequest.Header),
-		Body:        string(requestBody),
-		TraceParent: httpRequest.Header.Get(tracing.TRACE_PARENT),
-	}, string(logging.RestClientReqLog))
+	if loggingRoundTripper.props.IsLoggerEnabled(string(logging.RestClientReqLog)) {
+		logging.LogRequest(logDto.RestRequestLog{
+			Method:      httpRequest.Method,
+			URI:         httpRequest.URL.String(),
+			Headers:     headerMap(httpRequest.Header),
+			Body:        string(requestBody),
+			TraceParent: httpRequest.Header.Get(tracing.TRACE_PARENT),
+		}, string(logging.RestClientReqLog))
+	}
 
 	response, err := loggingRoundTripper.rt.RoundTrip(httpRequest)
 	if err != nil {
@@ -47,13 +51,15 @@ func (loggingRoundTripper *LoggingRoundTripper) RoundTrip(httpRequest *http.Requ
 		response.Body = io.NopCloser(bytes.NewBuffer(buffer))
 	}
 
-	logging.LogResponse(logDto.RestResponseLog{
-		URI:         httpRequest.URL.String(),
-		Status:      response.StatusCode,
-		Headers:     headerMap(response.Header),
-		Body:        string(responseBody),
-		TraceParent: httpRequest.Header.Get(tracing.TRACE_PARENT),
-	}, string(logging.RestClientResLog))
+	if loggingRoundTripper.props.IsLoggerEnabled(string(logging.RestClientResLog)) {
+		logging.LogResponse(logDto.RestResponseLog{
+			URI:         httpRequest.URL.String(),
+			Status:      response.StatusCode,
+			Headers:     headerMap(response.Header),
+			Body:        string(responseBody),
+			TraceParent: httpRequest.Header.Get(tracing.TRACE_PARENT),
+		}, string(logging.RestClientResLog))
+	}
 
 	return response, nil
 }

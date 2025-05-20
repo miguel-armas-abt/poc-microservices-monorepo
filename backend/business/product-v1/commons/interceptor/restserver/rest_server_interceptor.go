@@ -7,6 +7,7 @@ import (
 	"com.demo.poc/commons/constants"
 	"com.demo.poc/commons/logging"
 	logDto "com.demo.poc/commons/logging/dto"
+	"com.demo.poc/commons/properties"
 	"com.demo.poc/commons/tracing"
 	"github.com/gin-gonic/gin"
 )
@@ -21,7 +22,7 @@ func (w BodyWriter) Write(b []byte) (int, error) {
 	return w.ResponseWriter.Write(b)
 }
 
-func InterceptRestServer() gin.HandlerFunc {
+func InterceptRestServer(props *properties.ApplicationProperties) gin.HandlerFunc {
 	return func(context *gin.Context) {
 
 		var requestBody []byte
@@ -39,13 +40,15 @@ func InterceptRestServer() gin.HandlerFunc {
 
 		traceParent := context.Request.Header.Get(tracing.TRACE_PARENT)
 
-		logging.LogRequest(logDto.RestRequestLog{
-			Method:      context.Request.Method,
-			URI:         context.Request.RequestURI,
-			Headers:     requestHeaders,
-			Body:        string(requestBody),
-			TraceParent: traceParent,
-		}, string(logging.RestServerReqLog))
+		if props.IsLoggerEnabled(string(logging.RestServerReqLog)) {
+			logging.LogRequest(logDto.RestRequestLog{
+				Method:      context.Request.Method,
+				URI:         context.Request.RequestURI,
+				Headers:     requestHeaders,
+				Body:        string(requestBody),
+				TraceParent: traceParent,
+			}, string(logging.RestServerReqLog))
+		}
 
 		bodyWriter := &BodyWriter{body: bytes.NewBufferString(constants.EMPTY), ResponseWriter: context.Writer}
 		context.Writer = bodyWriter
@@ -58,12 +61,15 @@ func InterceptRestServer() gin.HandlerFunc {
 				responseHeaders[key] = value[0]
 			}
 		}
-		logging.LogResponse(logDto.RestResponseLog{
-			URI:         context.Request.RequestURI,
-			Status:      context.Writer.Status(),
-			Headers:     responseHeaders,
-			Body:        bodyWriter.body.String(),
-			TraceParent: traceParent,
-		}, string(logging.RestServerResLog))
+
+		if props.IsLoggerEnabled(string(logging.RestServerResLog)) {
+			logging.LogResponse(logDto.RestResponseLog{
+				URI:         context.Request.RequestURI,
+				Status:      context.Writer.Status(),
+				Headers:     responseHeaders,
+				Body:        bodyWriter.body.String(),
+				TraceParent: traceParent,
+			}, string(logging.RestServerResLog))
+		}
 	}
 }
