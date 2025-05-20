@@ -3,6 +3,7 @@ package validations
 import (
 	"regexp"
 
+	"com.demo.poc/commons/tracing"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -15,8 +16,8 @@ func GetValidator() *validator.Validate {
 func init() {
 	Validate = validator.New()
 
-	Validate.RegisterValidation("traceparent", func(fl validator.FieldLevel) bool {
-		pattern := `^[0-9A-Fa-f]{2}-[0-9A-Fa-f]{32}-[0-9A-Fa-f]{16}-[0-9A-Fa-f]{2}$`
+	Validate.RegisterValidation(tracing.TRACE_PARENT, func(fl validator.FieldLevel) bool {
+		pattern := tracing.TRACE_PARENT_REGEX
 		matched, _ := regexp.MatchString(pattern, fl.Field().String())
 		return matched
 	})

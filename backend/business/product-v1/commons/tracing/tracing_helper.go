@@ -42,8 +42,16 @@ func GetTraceHeadersAsMap(traceParent string) map[string]string {
 		return map[string]string{}
 	}
 	return map[string]string{
-		"traceParent": traceParent,
-		"traceId":     GetTraceId(traceParent),
-		"spanId":      GetSpanId(traceParent),
+		TRACE_PARENT: traceParent,
+		TRACE_ID:     GetTraceId(traceParent),
+		SPAN_ID:      GetSpanId(traceParent),
 	}
 }
+
+const (
+	TRACE_PARENT string = "traceParent"
+	TRACE_ID     string = "traceId"
+	SPAN_ID      string = "spanId"
+
+	TRACE_PARENT_REGEX string = `^[0-9A-Fa-f]{2}-[0-9A-Fa-f]{32}-[0-9A-Fa-f]{16}-[0-9A-Fa-f]{2}$`
+)

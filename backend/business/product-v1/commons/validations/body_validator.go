@@ -14,28 +14,17 @@ func NewBodyValidator(coreValidator *validator.Validate) *BodyValidator {
 	return &BodyValidator{coreValidator: coreValidator}
 }
 
-func (bodyValidator *BodyValidator) BindJSON(context *gin.Context, obj interface{}) error {
-	if err := context.ShouldBindJSON(obj); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (bodyValidator *BodyValidator) ValidateStruct(obj interface{}) error {
-	return bodyValidator.coreValidator.Struct(obj)
-}
-
 func ValidateBodyAndGet[T any](context *gin.Context, bodyValidator *BodyValidator) (T, bool) {
 	var defaultObject T
 	var responseObject T
 
-	if err := bodyValidator.BindJSON(context, &responseObject); err != nil {
+	if err := bodyValidator.bindJSON(context, &responseObject); err != nil {
 		context.Error(err)
 		context.Abort()
 		return defaultObject, false
 	}
 
-	if err := bodyValidator.ValidateStruct(responseObject); err != nil {
+	if err := bodyValidator.validateStruct(responseObject); err != nil {
 		if constraints, hasContraints := err.(validator.ValidationErrors); hasContraints {
 			context.Error(errors.NewInvalidFieldError(constraints.Error()))
 		} else {
@@ -45,4 +34,15 @@ func ValidateBodyAndGet[T any](context *gin.Context, bodyValidator *BodyValidato
 		return defaultObject, false
 	}
 	return responseObject, true
+}
+
+func (bodyValidator *BodyValidator) bindJSON(context *gin.Context, obj interface{}) error {
+	if err := context.ShouldBindJSON(obj); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (bodyValidator *BodyValidator) validateStruct(obj interface{}) error {
+	return bodyValidator.coreValidator.Struct(obj)
 }

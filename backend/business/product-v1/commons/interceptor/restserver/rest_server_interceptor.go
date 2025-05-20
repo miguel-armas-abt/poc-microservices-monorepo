@@ -7,6 +7,7 @@ import (
 	"com.demo.poc/commons/constants"
 	"com.demo.poc/commons/logging"
 	logDto "com.demo.poc/commons/logging/dto"
+	"com.demo.poc/commons/tracing"
 	"github.com/gin-gonic/gin"
 )
 
@@ -36,7 +37,7 @@ func InterceptRestServer() gin.HandlerFunc {
 			}
 		}
 
-		traceParent := context.Request.Header.Get("traceParent")
+		traceParent := context.Request.Header.Get(tracing.TRACE_PARENT)
 
 		logging.LogRequest(logDto.RestRequestLog{
 			Method:      context.Request.Method,
