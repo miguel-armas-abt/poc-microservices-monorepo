@@ -20,15 +20,14 @@ func NewEngine() *gin.Engine {
 
 	dbConnection := coreConfig.NewDatabaseConnection()
 	productRepository := repository.NewProductRepositoryImpl(dbConnection)
-
 	svc := service.NewProductServiceImpl(productRepository)
 
 	coreValidator := validations.GetValidator()
 	paramValidator := validations.NewParamValidator(coreValidator)
 	bodyValidator := validations.NewBodyValidator(coreValidator)
 
-	selector := errorSelector.NewResponseErrorSelector(props)
-	interceptor := errorInterceptor.NewErrorInterceptor(selector)
+	responseErrorSelector := errorSelector.NewResponseErrorSelector(props)
+	interceptor := errorInterceptor.NewErrorInterceptor(responseErrorSelector)
 
 	restService := rest.NewProductRestService(svc, paramValidator, bodyValidator)
 	rest.NewRouter(engine, interceptor, restService)

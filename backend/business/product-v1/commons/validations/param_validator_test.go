@@ -26,43 +26,43 @@ func setupParamValidatorContext(headers map[string]string) *gin.Context {
 }
 
 func TestGivenValidHeaders_WhenValidateParamAndBind_ThenReturnsTrueAndBindsFields(test *testing.T) {
-	// Given
+	// Arrange
 	headers := map[string]string{"id": "12345"}
 	context := setupParamValidatorContext(headers)
 	paramValidator := NewParamValidator(Validate)
 	var params DummyParams
 
-	// When
+	// Act
 	isValid := paramValidator.ValidateParamAndBind(context, &params)
 
-	// Then
+	// Assert
 	require.True(test, isValid)
 	require.Equal(test, "12345", params.ID)
 }
 
 func TestGivenEmptyHeader_WhenValidateParamAndBind_ThenReturnsFalse(test *testing.T) {
-	// Given
+	// Arrange
 	headers := map[string]string{"id": ""}
 	context := setupParamValidatorContext(headers)
 	paramValidator := NewParamValidator(Validate)
 	var params DummyParams
 
-	// When
+	// Act
 	isValid := paramValidator.ValidateParamAndBind(context, &params)
 
-	// Then
+	// Assert
 	require.False(test, isValid)
 }
 
 func TestGivenMissingHeader_WhenValidateParamAndBind_ThenReturnsFalse(test *testing.T) {
-	// Given
+	// Arrange
 	context := setupParamValidatorContext(map[string]string{})
 	paramValidator := NewParamValidator(Validate)
 	var params DummyParams
 
-	// When
+	// Act
 	isValid := paramValidator.ValidateParamAndBind(context, &params)
 
-	// Then
+	// Assert
 	require.False(test, isValid)
 }
