@@ -13,35 +13,35 @@ func NewProductRepositoryImpl(db *gorm.DB) ProductRepository {
 	return &productRepositoryImpl{db: db}
 }
 
-func (productRepository *productRepositoryImpl) FindAll() ([]entity.ProductEntity, error) {
+func (repository *productRepositoryImpl) FindAll() ([]entity.ProductEntity, error) {
 	var productList []entity.ProductEntity
-	if err := productRepository.db.Find(&productList).Error; err != nil {
+	if err := repository.db.Find(&productList).Error; err != nil {
 		return nil, err
 	}
 	return productList, nil
 }
 
-func (productRepository *productRepositoryImpl) FindByCode(code string) (*entity.ProductEntity, error) {
+func (repository *productRepositoryImpl) FindByCode(code string) (*entity.ProductEntity, error) {
 	var product entity.ProductEntity
-	if err := productRepository.db.Where("code=?", code).First(&product).Error; err != nil {
+	if err := repository.db.Where("code=?", code).First(&product).Error; err != nil {
 		return nil, err
 	}
 	return &product, nil
 }
 
-func (productRepository *productRepositoryImpl) FindByScope(scope string) ([]entity.ProductEntity, error) {
+func (repository *productRepositoryImpl) FindByScope(scope string) ([]entity.ProductEntity, error) {
 	var productList []entity.ProductEntity
-	if err := productRepository.db.Where("scope=?", scope).Find(&productList).Error; err != nil {
+	if err := repository.db.Where("scope=?", scope).Find(&productList).Error; err != nil {
 		return nil, err
 	}
 	return productList, nil
 }
 
-func (thisRepository *productRepositoryImpl) Save(product *entity.ProductEntity) error {
-	return thisRepository.db.Save(product).Error
+func (repository *productRepositoryImpl) Save(product *entity.ProductEntity) error {
+	return repository.db.Save(product).Error
 }
 
-func (thisRepository *productRepositoryImpl) Delete(code string) error {
+func (repository *productRepositoryImpl) Delete(code string) error {
 	var product entity.ProductEntity
-	return thisRepository.db.Where("code = ?", code).Delete(&product).Error
+	return repository.db.Where("code = ?", code).Delete(&product).Error
 }

@@ -3,30 +3,20 @@ package filler
 import (
 	"strings"
 
-	"com.demo.poc/commons/properties"
+	template "com.demo.poc/commons/properties/restclient"
 	"com.demo.poc/commons/tracing"
 )
 
-type HeaderFiller struct {
-	props       *properties.ApplicationProperties
-	serviceName string
-}
-
-func NewHeaderFiller(props *properties.ApplicationProperties, serviceName string) *HeaderFiller {
-	return &HeaderFiller{props: props, serviceName: serviceName}
-}
-
-func (headerFiller *HeaderFiller) FillHeaders(incoming map[string]string) map[string]string {
+func FillHeaders(incoming map[string]string, restClient *template.RestClient) map[string]string {
 	headers := make(map[string]string)
 
 	//provided
-	restClient := headerFiller.props.RestClients[headerFiller.serviceName]
 	for key, value := range restClient.Request.Headers.Provided {
 		headers[key] = value
 	}
 
-	//forwarded
-	for outKey, inKey := range restClient.Request.Headers.Forwarded {
+	//forwarded (inKey → outKey)
+	for inKey, outKey := range restClient.Request.Headers.Forwarded {
 		if val, exists := incoming[inKey]; exists {
 			headers[outKey] = val
 		}

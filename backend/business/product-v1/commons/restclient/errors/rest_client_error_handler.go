@@ -3,21 +3,31 @@ package errors
 import (
 	"com.demo.poc/commons/constants"
 	errorDto "com.demo.poc/commons/errors/dto"
-	errorSelector "com.demo.poc/commons/errors/selector"
+	"com.demo.poc/commons/errors/selector"
 	"github.com/go-resty/resty/v2"
 )
 
-func HandleError(
-	response *resty.Response,
-	serviceName string,
-	wrapperType string,
-	selector *errorSelector.RestClientErrorSelector,
-	extractors []RestClientErrorExtractor,
-) error {
+type RestclientErrorHandler struct {
+	errorSelector   *selector.RestClientErrorSelector
+	errorExtractors []RestClientErrorExtractor
+}
+
+func NewRestCrestclientErrorHandler(
+	errorSelector *selector.RestClientErrorSelector,
+	errorExtractors []RestClientErrorExtractor,
+) RestclientErrorHandler {
+
+	return RestclientErrorHandler{
+		errorSelector:   errorSelector,
+		errorExtractors: errorExtractors,
+	}
+}
+
+func (handler *RestclientErrorHandler) HandleError(response *resty.Response, serviceName string, wrapperType string) error {
 	responseBody := response.String()
 
 	var errorCode, errorMessage string
-	for _, extractor := range extractors {
+	for _, extractor := range handler.errorExtractors {
 		if extractor.Supports(wrapperType) {
 			if code, msg, exists := extractor.Extract(responseBody); exists {
 				errorCode, errorMessage = code, msg
@@ -31,10 +41,10 @@ func HandleError(
 		errorMessage = "unexpected error"
 	}
 
-	selectedCode := selector.SelectCode(errorCode, serviceName)
-	selectedMessage := selector.SelectMessage(errorCode, errorMessage, serviceName)
-	selectedHttpCode := selector.SelectHttpCode(response.StatusCode(), errorCode, serviceName)
-	selectedOrigin := selector.SelectOriginType(wrapperType)
+	selectedCode := handler.errorSelector.SelectCode(errorCode, serviceName)
+	selectedMessage := handler.errorSelector.SelectMessage(errorCode, errorMessage, serviceName)
+	selectedHttpCode := handler.errorSelector.SelectHttpCode(response.StatusCode(), errorCode, serviceName)
+	selectedOrigin := handler.errorSelector.SelectOriginType(wrapperType)
 
 	return errorDto.GenericError{
 		HttpStatus: selectedHttpCode,

@@ -25,10 +25,10 @@ func TestGivenOnlyProvidedParams_WhenFillHeaders_ThenReturnsOnlyProvided(test *t
 			},
 		},
 	}
-	hf := NewHeaderFiller(props, serviceName)
+	rc := props.RestClients[serviceName]
 
 	// Act
-	result := hf.FillHeaders(nil)
+	result := FillHeaders(nil, &rc)
 
 	// Assert
 	require.Len(test, result, 1)
@@ -38,8 +38,8 @@ func TestGivenOnlyProvidedParams_WhenFillHeaders_ThenReturnsOnlyProvided(test *t
 func TestGivenOnlyForwardedParams_WhenFillHeaders_ThenReturnsOnlyForwarded(test *testing.T) {
 	// Arrange
 	serviceName := "svc"
-	forwardedKey := "channelId"
-	headerName := "channelId"
+	headerName := "channelId"     // inKey
+	forwardedKey := "application" // outKey
 	headerVal := "APP"
 
 	props := &properties.ApplicationProperties{
@@ -47,17 +47,17 @@ func TestGivenOnlyForwardedParams_WhenFillHeaders_ThenReturnsOnlyForwarded(test 
 			serviceName: {
 				Request: restclient.RequestTemplate{
 					Headers: restclient.HeaderTemplate{
-						Forwarded: map[string]string{forwardedKey: headerName},
+						Forwarded: map[string]string{headerName: forwardedKey},
 					},
 				},
 			},
 		},
 	}
-	hf := NewHeaderFiller(props, serviceName)
+	rc := props.RestClients[serviceName]
 	incoming := map[string]string{headerName: headerVal}
 
 	// Act
-	result := hf.FillHeaders(incoming)
+	result := FillHeaders(incoming, &rc)
 
 	// Assert
 	require.Len(test, result, 1)
@@ -67,9 +67,9 @@ func TestGivenOnlyForwardedParams_WhenFillHeaders_ThenReturnsOnlyForwarded(test 
 func TestGivenProvidedAndForwardedParams_WhenFillHeaders_ThenReturnsBothSets(test *testing.T) {
 	// Arrange
 	serviceName := "svc"
-	providedKey, providedValue := "prov-key", "prov-value"
-	forwardedKey := "fwd-key"
-	incomingHeaderKey, incomingHeaderValue := "header-key", "header-value"
+	providedKey, providedValue := "Subscription-Key", "fake-key"
+	incomingHeaderKey, incomingHeaderValue := "channelId", "APP"
+	forwardedKey := "application" // outKey
 
 	props := &properties.ApplicationProperties{
 		RestClients: map[string]restclient.RestClient{
@@ -77,17 +77,17 @@ func TestGivenProvidedAndForwardedParams_WhenFillHeaders_ThenReturnsBothSets(tes
 				Request: restclient.RequestTemplate{
 					Headers: restclient.HeaderTemplate{
 						Provided:  map[string]string{providedKey: providedValue},
-						Forwarded: map[string]string{forwardedKey: incomingHeaderKey},
+						Forwarded: map[string]string{incomingHeaderKey: forwardedKey},
 					},
 				},
 			},
 		},
 	}
-	hf := NewHeaderFiller(props, serviceName)
+	rc := props.RestClients[serviceName]
 	incomingHeaders := map[string]string{incomingHeaderKey: incomingHeaderValue}
 
 	// Act
-	result := hf.FillHeaders(incomingHeaders)
+	result := FillHeaders(incomingHeaders, &rc)
 
 	// Assert
 	require.Len(test, result, 2)

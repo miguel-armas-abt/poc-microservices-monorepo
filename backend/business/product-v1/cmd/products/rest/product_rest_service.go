@@ -32,15 +32,15 @@ func NewProductRestService(
 	}
 }
 
-func (productRestService *ProductRestService) FindByCode(context *gin.Context) {
+func (rest *ProductRestService) FindByCode(context *gin.Context) {
 	var defaultHeaders headers.DefaultHeaders
-	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
+	if !rest.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
 		return
 	}
 	headers := utils.ExtractHeadersAsMap(context.Request.Header)
 
 	code := context.Param("code")
-	menuOption, err := productRestService.productService.FindByCode(headers, code)
+	menuOption, err := rest.productService.FindByCode(headers, code)
 	if err != nil {
 		context.Error(err)
 		context.Abort()
@@ -49,9 +49,9 @@ func (productRestService *ProductRestService) FindByCode(context *gin.Context) {
 	context.JSON(http.StatusOK, menuOption)
 }
 
-func (productRestService *ProductRestService) FindByScope(context *gin.Context) {
+func (rest *ProductRestService) FindByScope(context *gin.Context) {
 	var defaultHeaders headers.DefaultHeaders
-	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
+	if !rest.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
 		return
 	}
 	headers := utils.ExtractHeadersAsMap(context.Request.Header)
@@ -62,9 +62,9 @@ func (productRestService *ProductRestService) FindByScope(context *gin.Context) 
 	var err error
 
 	if scope == constants.EMPTY {
-		productList, err = productRestService.productService.FindAll(headers)
+		productList, err = rest.productService.FindAll(headers)
 	} else {
-		productList, err = productRestService.productService.FindByScope(headers, scope)
+		productList, err = rest.productService.FindByScope(headers, scope)
 	}
 
 	if err != nil {
@@ -76,19 +76,19 @@ func (productRestService *ProductRestService) FindByScope(context *gin.Context) 
 	context.JSON(http.StatusOK, productList)
 }
 
-func (productRestService *ProductRestService) Save(context *gin.Context) {
+func (rest *ProductRestService) Save(context *gin.Context) {
 	var defaultHeaders headers.DefaultHeaders
-	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
+	if !rest.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
 		return
 	}
 	headers := utils.ExtractHeadersAsMap(context.Request.Header)
 
-	saveRequest, ok := validations.ValidateBodyAndGet[request.ProductSaveRequestDto](context, productRestService.bodyValidator)
+	saveRequest, ok := validations.ValidateBodyAndGet[request.ProductSaveRequestDto](context, rest.bodyValidator)
 	if !ok {
 		return
 	}
 
-	createdProduct, err := productRestService.productService.Save(headers, saveRequest)
+	createdProduct, err := rest.productService.Save(headers, saveRequest)
 
 	if err != nil {
 		context.Error(err)
@@ -99,20 +99,20 @@ func (productRestService *ProductRestService) Save(context *gin.Context) {
 	context.JSON(http.StatusCreated, createdProduct)
 }
 
-func (productRestService *ProductRestService) Update(context *gin.Context) {
+func (rest *ProductRestService) Update(context *gin.Context) {
 	var defaultHeaders headers.DefaultHeaders
-	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
+	if !rest.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
 		return
 	}
 	headers := utils.ExtractHeadersAsMap(context.Request.Header)
 
 	code := context.Param("code")
-	updateRequest, ok := validations.ValidateBodyAndGet[request.ProductUpdateRequestDto](context, productRestService.bodyValidator)
+	updateRequest, ok := validations.ValidateBodyAndGet[request.ProductUpdateRequestDto](context, rest.bodyValidator)
 	if !ok {
 		return
 	}
 
-	updatedProduct, err := productRestService.productService.Update(headers, updateRequest, code)
+	updatedProduct, err := rest.productService.Update(headers, updateRequest, code)
 	if err != nil {
 		context.Error(err)
 		context.Abort()
@@ -122,15 +122,15 @@ func (productRestService *ProductRestService) Update(context *gin.Context) {
 	context.JSON(http.StatusOK, updatedProduct)
 }
 
-func (productRestService *ProductRestService) Delete(context *gin.Context) {
+func (rest *ProductRestService) Delete(context *gin.Context) {
 	var defaultHeaders headers.DefaultHeaders
-	if !productRestService.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
+	if !rest.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
 		return
 	}
 	headers := utils.ExtractHeadersAsMap(context.Request.Header)
 
 	code := context.Param("code")
-	err := productRestService.productService.Delete(headers, code)
+	err := rest.productService.Delete(headers, code)
 	if err != nil {
 		context.Error(err)
 		context.Abort()
