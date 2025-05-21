@@ -21,13 +21,8 @@ func NewDatabaseConnection() *gorm.DB {
 
 	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		panic("[LOG] Failed to connect to MYSQL database")
+		panic(fmt.Sprintf("Could not connect to database: %v", err))
 	}
-
-	//err = database.AutoMigrate(&entity.ProductEntity{}) //to auto create table
-	//if err != nil {
-	//	panic("[LOG] Failed to auto migrate products table")
-	//}
 
 	return database
 }
