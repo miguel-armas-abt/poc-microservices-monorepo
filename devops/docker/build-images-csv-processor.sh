@@ -30,7 +30,7 @@ iterate_csv_records() {
 
     # Ignore comments
     if [[ $component_name != "#"* ]]; then
-      if [[ $component_type == "$BUSINESS_TYPE" ]] || [[ $component_type == "$PLATFORM_TYPE" ]] ; then
+      if [[ $component_type == "$MICROSERVICES_TYPE" ]] ; then
         process_record "$component_name" "$component_type"
       fi
     fi

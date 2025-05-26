@@ -33,7 +33,7 @@ iterate_csv_records() {
 
     # Ignore comments
     if [[ $component_name != "#"* ]]; then
-      if [[ $component_type == "$BUSINESS_TYPE" ]] || [[ $component_type == "$PARENT_TYPE" ]] || [[ $component_type == "$PLATFORM_TYPE" ]]; then
+      if [[ $component_type == "$MICROSERVICES_TYPE" ]] || [[ $component_type == "$PARENT_TYPE" ]]; then
         compile_component "$component_name" "$component_type"
       fi
     fi

@@ -31,7 +31,7 @@ list_components() {
     fi
 
     # Ignore comments
-    if [[ $component_name != "#"* ]] && [[ $component_type == "$BUSINESS_TYPE" || $component_type == "$PLATFORM_TYPE" ]]; then
+    if [[ $component_name != "#"* ]] && [[ $component_type == "$MICROSERVICES_TYPE" ]]; then
       echo "$index) $component_name"
       index=$((index + 1))
     fi
@@ -58,7 +58,7 @@ select_component() {
     fi
 
     # Ignore comments
-    if [[ $component_name != "#"* ]] && [[ $component_type == "$BUSINESS_TYPE" || $component_type == "$PLATFORM_TYPE" ]]; then
+    if [[ $component_name != "#"* ]] && [[ $component_type == "$MICROSERVICES_TYPE" ]]; then
       if (( index == component_index )); then
         selected_component_name=$component_name
         selected_component_type=$component_type
