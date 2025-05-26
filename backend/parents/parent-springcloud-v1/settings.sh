@@ -6,4 +6,7 @@ get_compile_command() {
   echo "$command"
 }
 
-get_compile_command
+case "$1" in
+  compile_command) get_compile_command ;;
+  *) echo -e "Invalid option" >&2
+esac

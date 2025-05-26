@@ -15,8 +15,7 @@
 
 ## ▶️ Menú de opciones
 > 1. Compilar proyectos backend
-> 2. Inicializar bases de datos en MySQL
-> 3. Ejecutar servidor
+> 2. Ejecutar servidores
 > 
 > ```shell script 
 > ./main.sh

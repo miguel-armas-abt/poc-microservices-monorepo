@@ -17,9 +17,8 @@ compile_component() {
   export GO=$GO
 
   cd "$component_path"
-  command=$(./settings.sh)
-  print_log "$command"
-  eval "$command"
+  command=$(./settings.sh compile_command)
+  print_log_and_eval "$command"
   cd "$original_dir"
 }
 

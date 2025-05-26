@@ -1,17 +1,21 @@
 COMPONENT_NAME,COMPONENT_TYPE
+#::go
+product-v1,business
+#::spring boot
 parent-springboot-commons-v1,parents
 parent-springcloud-v1,parents
-parent-quarkus-commons-v1,parents
 invoice-v1,business
-menu-v1,business
 order-hub-v1,business
 payment-v1,business
-product-v1,business
 table-placement-v1,business
 api-gateway-v1,platform
 auth-adapter-v1,platform
 config-server-v1,platform
 mock-service-v1,platform
+#::quarkus
+parent-quarkus-commons-v1,parents
+menu-v1,business
+#::servers
 keycloak-server,runtime
 redis-server,runtime
 zookeeper-server,runtime

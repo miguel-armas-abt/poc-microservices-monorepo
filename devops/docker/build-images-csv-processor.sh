@@ -4,37 +4,18 @@ set -e
 source ./../commons.sh
 source ./../variables.env
 
-search_dockerfile() {
-  local component_path=$1
-
-  dockerfile=$(find "$component_path" -maxdepth 1 -type f -iname 'Dockerfile*' | head -n 1)
-
-  if [[ -z "$dockerfile" ]]; then
-    echo -e "${RED}Dockerfile not found in $component_path${NC}" >&2
-    return 1
-  fi
-  echo "$dockerfile"
-}
-
 process_record() {
   local component_name=$1
   local component_type=$2
 
-  if [[ $component_type == "$BUSINESS_TYPE" ]] || [[ $component_type == "$PLATFORM_TYPE" ]] ; then
+  component_path="$BACKEND_PATH/$component_type/$component_name"
+  local original_dir
+  original_dir="$(pwd)"
 
-    component_path="$BACKEND_PATH/$component_type/$component_name"
-
-    dockerfile=$(search_dockerfile "$component_path") || return 1
-
-    values_file="$component_path/values.yaml"
-
-    repository=$(yq '.image.repository' "$values_file")
-    tag_version=$(yq '.image.tag' "$values_file")
-
-    command="docker build -f $dockerfile -t $repository:$tag_version $component_path"
-
-    print_log_and_eval "$command"
-  fi
+  cd "$component_path"
+  command=$(./settings.sh docker_build_image_command)
+  print_log_and_eval "$command"
+  cd "$original_dir"
 }
 
 iterate_csv_records() {
@@ -49,7 +30,9 @@ iterate_csv_records() {
 
     # Ignore comments
     if [[ $component_name != "#"* ]]; then
-      process_record "$component_name" "$component_type"
+      if [[ $component_type == "$BUSINESS_TYPE" ]] || [[ $component_type == "$PLATFORM_TYPE" ]] ; then
+        process_record "$component_name" "$component_type"
+      fi
     fi
 
   done < <(sed 's/\r//g' "$COMPONENTS_CSV")
