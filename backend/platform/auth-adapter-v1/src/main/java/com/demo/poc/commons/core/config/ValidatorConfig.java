@@ -15,7 +15,7 @@ import org.springframework.validation.Validator;
 public class ValidatorConfig {
 
   @Bean
-  public BodyValidator bodyValidator(Validator validator) {
+  public BodyValidator requestValidator(Validator validator) {
     return new BodyValidator();
   }
 

@@ -19,11 +19,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class DefaultHeaders implements Serializable {
 
-  @Pattern(regexp = ForwardedParam.Constants.CHANNEL_ID_REGEX)
-  @NotEmpty
-  private String channelId;
+    @Pattern(regexp = ForwardedParam.Constants.CHANNEL_ID_REGEX)
+    @NotEmpty
+    private String channelId;
 
-  @Pattern(regexp = TraceParam.Constants.TRACE_PARENT_REGEX)
-  @NotEmpty
-  private String traceParent;
+    @Pattern(regexp = TraceParam.Constants.TRACE_PARENT_REGEX)
+    @NotEmpty
+    private String traceParent;
 }

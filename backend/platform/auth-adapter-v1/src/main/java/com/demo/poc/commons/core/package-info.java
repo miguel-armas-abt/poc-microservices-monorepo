@@ -1,10 +1,11 @@
 /**
- * <h1>Core Library - Spring RxJava</h1>
+ * <h1>Core Library - Spring WebFlux</h1>
  *
  * <ul>
  *   <li>@version 1.4 - [26/04/2025]
  *    <ul>
  *      <li>Logging with MDC - core.logging
+ *      <li>Error handler for rest clients - core.restclient.error
  *      <li>Header fillers for rest clients - core.restclient.utils
  *      <li>Error message selector for rest clients - core.errors.selector
  *      <li>Error message selector for server - core.errors.selector

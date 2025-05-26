@@ -2,20 +2,25 @@ package com.demo.poc.commons.core.restclient.utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
-import java.util.HashMap;
 import java.util.Map;
-
-import static com.demo.poc.commons.core.restclient.utils.ParameterMapFiller.addProvidedParams;
+import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FormDataFiller {
 
-  public static Map<String, String> fillFormData(Map<String, String> providedParams,
-                                                 Map<String, String> currentParams) {
+  public static MultiValueMap<String, String> fillFormData(Map<String, String> providedParams,
+                                                           Map<String, String> currentParams) {
 
-    Map<String, String> params = new HashMap<>(currentParams);
-    addProvidedParams(providedParams).accept(params);
+    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+    if (Objects.nonNull(currentParams)) {
+      currentParams.forEach(params::add);
+    }
+    if (Objects.nonNull(providedParams)) {
+      providedParams.forEach(params::set);
+    }
     return params;
   }
 }

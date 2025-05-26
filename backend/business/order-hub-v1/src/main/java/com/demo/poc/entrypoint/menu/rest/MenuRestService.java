@@ -12,7 +12,7 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 @Configuration
-public class MenuRestServiceImpl {
+public class MenuRestService {
 
   private static final String BASE_URI = "/poc/bff/order-hub/v1/";
 

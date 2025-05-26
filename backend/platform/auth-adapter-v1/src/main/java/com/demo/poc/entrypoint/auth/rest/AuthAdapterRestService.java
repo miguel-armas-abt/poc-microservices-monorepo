@@ -1,88 +1,32 @@
 package com.demo.poc.entrypoint.auth.rest;
 
-import java.util.Map;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
-import com.demo.poc.commons.core.restserver.utils.RestServerUtils;
-import com.demo.poc.commons.core.validations.headers.DefaultHeaders;
-import com.demo.poc.commons.core.validations.ParamValidator;
-import com.demo.poc.entrypoint.auth.params.roles.RolesHeader;
-import com.demo.poc.entrypoint.auth.params.user.UserInfoHeader;
-import com.demo.poc.entrypoint.auth.params.login.LoginParam;
-import com.demo.poc.entrypoint.auth.params.refresh.RefreshTokenParam;
-import com.demo.poc.entrypoint.auth.service.AuthenticationService;
-import com.demo.poc.entrypoint.auth.repository.authprovider.wrapper.TokenResponseWrapper;
-import com.demo.poc.entrypoint.auth.repository.authprovider.wrapper.UserInfoResponseWrapper;
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Single;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.http.MediaType;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+import static org.springframework.web.reactive.function.server.RequestPredicates.path;
+import static org.springframework.web.reactive.function.server.RouterFunctions.nest;
+import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
-@Slf4j
-@RestController
-@RequiredArgsConstructor
-@RequestMapping(value = "/poc/infrastructure/v1/auth", produces = MediaType.APPLICATION_JSON_VALUE)
+@Configuration
 public class AuthAdapterRestService {
 
-  private final AuthenticationService authenticationService;
-  private final ParamValidator paramValidator;
+  private static final String BASE_URI = "/poc/infrastructure/v1/auth/";
 
-  @PostMapping("/token")
-  public Single<TokenResponseWrapper> login(HttpServletRequest servletRequest,
-                                            HttpServletResponse servletResponse) {
-
-    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(servletRequest);
-
-    return paramValidator.validateAndGet(headers, DefaultHeaders.class)
-        .flatMap(defaultHeaders -> paramValidator.validateAndGet(RestServerUtils.extractQueryParamsAsMap(servletRequest), LoginParam.class)
-            .flatMap(loginParam -> authenticationService.getToken(headers, loginParam.getUsername(), loginParam.getPassword())))
-        .doOnSuccess(token -> servletResponse.setStatus(200));
-  }
-
-  @PostMapping("/logout")
-  public Completable logout(HttpServletRequest servletRequest,
-                            HttpServletResponse servletResponse) {
-
-    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(servletRequest);
-
-    return paramValidator.validateAndGet(headers, DefaultHeaders.class)
-        .flatMapCompletable(defaultHeaders -> paramValidator.validateAndGet(RestServerUtils.extractQueryParamsAsMap(servletRequest), RefreshTokenParam.class)
-            .flatMapCompletable(refreshTokenParam -> authenticationService.logout(headers, refreshTokenParam.getRefreshToken())))
-        .doOnComplete(() -> servletResponse.setStatus(200))
-        .andThen(Completable.complete());
-  }
-
-  @PostMapping(value = "/refresh")
-  public Single<TokenResponseWrapper> refresh(HttpServletRequest servletRequest,
-                                              HttpServletResponse servletResponse) {
-    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(servletRequest);
-
-    return paramValidator.validateAndGet(headers, DefaultHeaders.class)
-        .flatMap(defaultHeaders -> paramValidator.validateAndGet(RestServerUtils.extractQueryParamsAsMap(servletRequest), RefreshTokenParam.class)
-            .flatMap(refreshTokenParam -> authenticationService.refreshToken(headers, refreshTokenParam.getRefreshToken())))
-        .doOnSuccess(token -> servletResponse.setStatus(200));
-  }
-
-  @GetMapping("/user-info")
-  public Single<UserInfoResponseWrapper> getUserInfo(HttpServletRequest servletRequest,
-                                                     HttpServletResponse servletResponse) {
-    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(servletRequest);
-
-    return paramValidator.validateAndGet(headers, UserInfoHeader.class)
-        .flatMap(userInfoHeader -> authenticationService.getUserInfo(headers))
-        .doOnSuccess(token -> servletResponse.setStatus(200));
-  }
-
-  @GetMapping("/roles")
-  public Single<Map<String, Integer>> getRoles(HttpServletRequest servletRequest,
-                                               HttpServletResponse servletResponse) {
-    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(servletRequest);
-
-    return paramValidator.validateAndGet(headers, RolesHeader.class)
-        .flatMap(rolesHeader -> Single.just(authenticationService.getRoles(rolesHeader.getAuthorization())))
-        .doOnSuccess(token -> servletResponse.setStatus(200));
+  @Bean(name = "auth-adapter")
+  public RouterFunction<ServerResponse> build(AuthAdapterHandler handler) {
+    return nest(
+        path(BASE_URI),
+        route()
+            .POST("token", accept(APPLICATION_JSON) , handler::getToken)
+            .POST("logout", accept(APPLICATION_JSON) , handler::logout)
+            .POST("refresh", accept(APPLICATION_JSON) , handler::refresh)
+            .GET("user-info", accept(APPLICATION_JSON) , handler::getUserInfo)
+            .GET("roles", accept(APPLICATION_JSON) , handler::getRoles)
+            .build()
+    );
   }
 }

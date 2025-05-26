@@ -1,4 +1,4 @@
-package com.demo.poc.entrypoint.auth.repository.authprovider;
+package com.demo.poc.entrypoint.auth.repository;
 
 import com.auth0.jwk.Jwk;
 import com.auth0.jwk.UrlJwkProvider;

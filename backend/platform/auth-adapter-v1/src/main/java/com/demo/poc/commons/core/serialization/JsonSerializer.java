@@ -4,12 +4,12 @@ import com.demo.poc.commons.core.errors.exceptions.JsonReadException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
-import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,17 +49,17 @@ public class JsonSerializer {
     }
   }
 
-  public <T> Single<T> readElementFromFile(String filePath, Class<T> objectClass) {
-    return Single.fromCallable(() -> getResourceAsStream(filePath))
-        .subscribeOn(Schedulers.io())
+  public <T> Mono<T> readElementFromFile(String filePath, Class<T> objectClass) {
+    return Mono.fromCallable(() -> getResourceAsStream(filePath))
+        .subscribeOn(Schedulers.boundedElastic())
         .map(is -> readValue(is, objectClass));
   }
 
-  public <T> Flowable<T> readListFromFile(String filePath, Class<T> objectClass) {
-    return Single.fromCallable(() -> getResourceAsStream(filePath))
-        .subscribeOn(Schedulers.io())
+  public <T> Flux<T> readListFromFile(String filePath, Class<T> objectClass) {
+    return Mono.fromCallable(() -> getResourceAsStream(filePath))
+        .subscribeOn(Schedulers.boundedElastic())
         .map(is -> readList(is, objectClass))
-        .flatMapPublisher(Flowable::fromIterable);
+        .flatMapMany(Flux::fromIterable);
   }
 
   public <T> Optional<T> readNullableObject(String jsonBody, Class<T> objectClass) {

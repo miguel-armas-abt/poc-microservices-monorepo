@@ -9,12 +9,11 @@ configuration:
   keycloak:
     base-url: http://${KEYCLOAK_DOMAIN:localhost:8091}/auth/realms/poc-management/protocol/openid-connect/
     client-id: front-poc-app
-    grant-type: password
     client-secret: qwerty
     scope: profile
     auth-endpoint: ${configuration.keycloak.base-url}auth
     jwk-endpoint: ${configuration.keycloak.base-url}certs
-    cert-id: ${KEYCLOAK_KEY_RS256:EHwQ_CwauuprSHeSPTa_eO9_ET6jNc2Yhe-xxvyN-X8}
+    cert-id: ${KEYCLOAK_KEY_RS256:OWM45x2evqPpvZVjkedeuT3mpFRIXgR98BM4EZPugj0}
 
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.
@@ -28,7 +27,7 @@ configuration:
         endpoint: ${configuration.keycloak.base-url}
         form-data:
           client_id: ${configuration.keycloak.client-id}
-          grant_type: ${configuration.keycloak.grant-type}
+          grant_type: password
           client_secret: ${configuration.keycloak.client-secret}
           scope: ${configuration.keycloak.scope}
         headers:
@@ -49,7 +48,7 @@ configuration:
         endpoint: ${configuration.keycloak.base-url}
         form-data:
           client_id: ${configuration.keycloak.client-id}
-          grant_type: ${configuration.keycloak.grant-type}
+          grant_type: refresh_token
         headers:
           provided:
             Accept: application/json
@@ -85,7 +84,6 @@ configuration:
         endpoint: ${configuration.keycloak.base-url}
         form-data:
           client_id: ${configuration.keycloak.client-id}
-          grant_type: ${configuration.keycloak.grant-type}
         headers:
           provided:
             Accept: application/json

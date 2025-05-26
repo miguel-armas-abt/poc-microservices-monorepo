@@ -1,17 +1,13 @@
 package com.demo.poc.commons.core.errors.selector;
 
 import com.demo.poc.commons.core.errors.dto.ErrorDto;
-import com.demo.poc.commons.core.errors.dto.ErrorOrigin;
-import com.demo.poc.commons.custom.exceptions.ErrorDictionary;
 import com.demo.poc.commons.core.errors.exceptions.GenericException;
 import com.demo.poc.commons.core.properties.ConfigurationBaseProperties;
 import com.demo.poc.commons.core.properties.ProjectType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.demo.poc.commons.core.errors.dto.ErrorDto.CODE_DEFAULT;
 
@@ -35,25 +31,25 @@ public class ResponseErrorSelector {
     ProjectType projectType = selectProjectType();
 
     return ProjectType.BFF.equals(projectType)
-            ? CODE_DEFAULT
-            : Optional.ofNullable(error)
-            .map(ErrorDto::getCode)
-            .orElseGet(() -> CODE_DEFAULT);
+        ? CODE_DEFAULT
+        : Optional.ofNullable(error)
+        .map(ErrorDto::getCode)
+        .orElseGet(() -> CODE_DEFAULT);
   }
 
   private String selectMessage(ErrorDto error) {
     String defaultMessage = ErrorDto.getDefaultError(properties).getMessage();
     ProjectType projectType = selectProjectType();
 
-    if (ProjectType.BFF.equals(projectType))
+    if(ProjectType.BFF.equals(projectType))
       return defaultMessage;
 
     return Optional.ofNullable(ErrorDto.getMatchMessage(properties, error.getCode()))
-            .orElseGet(() -> Optional.ofNullable(error.getMessage()).orElse(defaultMessage));
+        .orElseGet(() -> Optional.ofNullable(error.getMessage()).orElse(defaultMessage));
   }
 
   private ProjectType selectProjectType() {
-    return Optional.ofNullable(this.properties.getProjectType()).orElseGet(() -> ProjectType.MS);
+    return Optional.ofNullable(properties.getProjectType()).orElseGet(() -> ProjectType.MS);
   }
 
   private static <T extends Throwable> ErrorDto extractError(T exception) {
@@ -66,24 +62,6 @@ public class ResponseErrorSelector {
       }
     }
 
-    if (exception instanceof MethodArgumentNotValidException methodArgumentNotValidException) {
-      error = extractError(methodArgumentNotValidException);
-    }
-
     return error;
-  }
-
-  private static ErrorDto extractError(MethodArgumentNotValidException exception) {
-    String message = exception.getBindingResult()
-            .getFieldErrors()
-            .stream()
-            .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
-            .collect(Collectors.joining(";"));
-
-    return ErrorDto.builder()
-            .origin(ErrorOrigin.OWN)
-            .code(ErrorDictionary.INVALID_FIELD.getCode())
-            .message(message)
-            .build();
   }
 }

@@ -16,8 +16,7 @@ public class LoggingConfig {
   }
 
   @Bean
-  public ErrorThreadContextInjector errorThreadContextInjector(ThreadContextInjector contextInjector) {
-    return new ErrorThreadContextInjector(contextInjector);
+  public ErrorThreadContextInjector threadContextErrorInjector(ThreadContextInjector context) {
+    return new ErrorThreadContextInjector(context);
   }
-
 }

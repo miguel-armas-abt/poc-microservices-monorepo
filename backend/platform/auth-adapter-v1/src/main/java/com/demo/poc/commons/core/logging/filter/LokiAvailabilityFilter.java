@@ -1,11 +1,11 @@
 package com.demo.poc.commons.core.logging.filter;
 
+import ch.qos.logback.core.filter.Filter;
+import ch.qos.logback.core.spi.FilterReply;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import ch.qos.logback.core.filter.Filter;
-import ch.qos.logback.core.spi.FilterReply;
 
 public class LokiAvailabilityFilter extends Filter<Object> {
 

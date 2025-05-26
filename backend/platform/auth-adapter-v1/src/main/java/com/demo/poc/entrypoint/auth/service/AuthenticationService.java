@@ -6,21 +6,23 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.demo.poc.commons.custom.exceptions.ExpiredTokenException;
 import com.demo.poc.commons.custom.exceptions.InvalidJwtException;
-import com.demo.poc.commons.custom.exceptions.UnableLogoutException;
-import com.demo.poc.commons.custom.exceptions.UnableRefreshException;
 import com.demo.poc.commons.custom.properties.ApplicationProperties;
-import com.demo.poc.entrypoint.auth.repository.authprovider.*;
-import com.demo.poc.entrypoint.auth.repository.authprovider.wrapper.TokenResponseWrapper;
-import com.demo.poc.entrypoint.auth.repository.authprovider.wrapper.UserInfoResponseWrapper;
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Single;
+import com.demo.poc.entrypoint.auth.repository.JsonKeyWrappingRepository;
+import com.demo.poc.entrypoint.auth.repository.authtoken.*;
+import com.demo.poc.entrypoint.auth.repository.authtoken.wrapper.TokenResponseWrapper;
+import com.demo.poc.entrypoint.auth.repository.logout.LogoutRepository;
+import com.demo.poc.entrypoint.auth.repository.userinfo.wrapper.UserInfoResponseWrapper;
+import com.demo.poc.entrypoint.auth.repository.refreshtoken.RefreshTokenRepository;
+import com.demo.poc.entrypoint.auth.repository.userinfo.UserInfoRepository;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
@@ -33,26 +35,24 @@ public class AuthenticationService {
   private final UserInfoRepository userInfoRepository;
   private final JsonKeyWrappingRepository jsonKeyWrappingRepository;
 
-  public Single<TokenResponseWrapper> getToken(Map<String, String> currentHeaders, String username, String password) {
-    return authTokenRepository.getToken(currentHeaders, properties, username, password);
+  public Mono<TokenResponseWrapper> getToken(Map<String, String> currentHeaders, String username, String password) {
+    return authTokenRepository.getToken(currentHeaders, username, password);
   }
 
-  public Completable logout(Map<String, String> currentHeaders, String refreshToken) {
-    return logoutRepository.logout(currentHeaders, properties, refreshToken)
-        .onErrorResumeNext(throwable -> Completable.error(new UnableLogoutException(throwable.getMessage())));
+  public Mono<Void> logout(Map<String, String> headers, String refreshToken) {
+    return logoutRepository.logout(headers, refreshToken);
   }
 
-  public Single<TokenResponseWrapper> refreshToken(Map<String, String> currentHeaders, String refreshToken) {
-    return refreshTokenRepository.refreshToken(currentHeaders, properties, refreshToken)
-        .onErrorResumeNext(throwable -> Single.error(new UnableRefreshException()));
+  public Mono<TokenResponseWrapper> refreshToken(Map<String, String> headers, String refreshToken) {
+    return refreshTokenRepository.refreshToken(headers, refreshToken);
   }
 
-  public Single<UserInfoResponseWrapper> getUserInfo(Map<String, String> currentHeaders) {
-    return userInfoRepository.getUserInfo(properties, currentHeaders);
+  public Mono<UserInfoResponseWrapper> getUserInfo(Map<String, String> headers) {
+    return userInfoRepository.getUserInfo(headers);
   }
 
   public Map<String, Integer> getRoles(String authToken) {
-      DecodedJWT jwt = JWT.decode(authToken.replace("Bearer", "").trim());
+      DecodedJWT jwt = JWT.decode(authToken.replace("Bearer", StringUtils.EMPTY).trim());
 
       verifyJwtAlgorithm(jwt);
       verifyJwtExpiration(jwt);

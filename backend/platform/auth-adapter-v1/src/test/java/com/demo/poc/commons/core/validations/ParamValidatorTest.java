@@ -2,8 +2,6 @@ package com.demo.poc.commons.core.validations;
 
 import com.demo.poc.commons.core.errors.exceptions.InvalidFieldException;
 import com.demo.poc.commons.core.errors.exceptions.NoSuchParamMapperException;
-import io.reactivex.rxjava3.observers.TestObserver;
-import io.reactivex.rxjava3.core.Single;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -11,11 +9,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParamValidatorTest {
 
@@ -39,43 +40,39 @@ class ParamValidatorTest {
   }
 
   private final BodyValidator bodyValidator = new BodyValidator();
-  private final ParamValidator validator =
-      new ParamValidator(List.of(new DummyParamMapper()), bodyValidator);
+
+  private final ParamValidator validator = new ParamValidator(List.of(new DummyParamMapper()), bodyValidator);
 
   @ParameterizedTest(name = "#{index} – paramValue=''{0}''")
-  @CsvSource({ "01", "02" })
+  @CsvSource({"01", "02"})
   @DisplayName("Given valid paramsMap, when validateAndGet, then emits mapped and validated object")
   void givenValidParamsMap_whenValidateAndGet_thenEmitsMappedObject(String paramValue) {
     // Arrange
     Map<String, String> paramsMap = Map.of("id", paramValue);
 
     // Act
-    Single<DummyParams> single = validator.validateAndGet(paramsMap, DummyParams.class);
-    TestObserver<DummyParams> to = single.test();
+    Mono<DummyParams> resultMono = validator.validateAndGet(paramsMap, DummyParams.class);
 
     // Assert
-    to.assertComplete()
-        .assertNoErrors()
-        .assertValue(dp -> dp.getId().equals(paramValue));
+    StepVerifier.create(resultMono)
+        .assertNext(param -> assertEquals(paramValue, param.getId()))
+        .verifyComplete();
   }
 
-  @Test
   @DisplayName("Given missing params, when validateAndGet, then errors InvalidFieldException")
+  @Test
   void givenMissingParams_whenValidateAndGet_thenErrorsInvalidFieldException() {
     // Arrange
     Map<String, String> paramsMap = Map.of();
 
-    // Act
-    TestObserver<DummyParams> to = validator
-        .validateAndGet(paramsMap, DummyParams.class)
-        .test();
-
-    // Assert
-    to.assertError(InvalidFieldException.class);
+    // Act & Assert
+    StepVerifier.create(validator.validateAndGet(paramsMap, DummyParams.class))
+        .expectError(InvalidFieldException.class)
+        .verify();
   }
 
-  @Test
   @DisplayName("Given no mapper supports class, when validateAndGet, then throws NoSuchParamMapperException")
+  @Test
   void givenNoMapper_whenValidateAndGet_thenThrowsNoSuchParamMapperException() {
     // Arrange
     ParamValidator emptyValidator = new ParamValidator(List.of(), bodyValidator);
@@ -84,6 +81,6 @@ class ParamValidatorTest {
     assertThrows(NoSuchParamMapperException.class,
         () -> emptyValidator
             .validateAndGet(Map.of("key", "value"), DummyParams.class)
-            .test());
+            .block());
   }
 }

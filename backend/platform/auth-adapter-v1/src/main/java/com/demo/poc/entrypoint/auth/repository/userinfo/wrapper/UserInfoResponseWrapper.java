@@ -1,4 +1,4 @@
-package com.demo.poc.entrypoint.auth.repository.authprovider.wrapper;
+package com.demo.poc.entrypoint.auth.repository.userinfo.wrapper;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -13,10 +13,6 @@
   <artifactId>order-hub-v1</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <properties>
-    <spring-cloud-dependencies.version>2023.0.0</spring-cloud-dependencies.version>
-  </properties>
-
   <dependencyManagement>
     <dependencies>
       <dependency>
