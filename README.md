@@ -8,14 +8,14 @@
 BBQ Restaurant es una cadena de restaurantes que planea implementar una arquitectura de microservicios para mejorar la escalabilidad y la eficiencia operativa en su creciente red de restaurantes.
 Los expertos en el dominio "restaurante" utilizan los siguientes procesos para prestar servicios a sus clientes.
 
-<img src="img/process-diagram.png" width="770" height="205">
+<img src="https://raw.githubusercontent.com/miguel-armas-abt/multimedia-storage/main/microservices-monorepo/process-diagram.png" width="770" height="205">
 
 # 2. Diseño UI
-<img src="img/ui-design.svg" width="1100" height="460">
+<img src="https://raw.githubusercontent.com/miguel-armas-abt/multimedia-storage/main/microservices-monorepo/ui-design.svg" width="1100" height="460">
 
 # 3. Arquitectura de software
 
-<img src="img/software-architecture.svg" width="1000" height="560">
+<img src="https://raw.githubusercontent.com/miguel-armas-abt/multimedia-storage/main/microservices-monorepo/software-architecture.svg" width="1000" height="560">
 
 |    | Servicio web         | Descripción                                                                                                                   | Stack                                                             |   
 |----|----------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
