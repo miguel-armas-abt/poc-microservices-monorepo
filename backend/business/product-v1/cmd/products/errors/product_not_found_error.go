@@ -3,7 +3,7 @@ package errors
 import (
 	"net/http"
 
-	errorDto "com.demo.poc/commons/errors/dto"
+	errorDto "poc/commons/core/errors/dto"
 )
 
 var (

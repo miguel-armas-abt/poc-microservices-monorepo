@@ -373,7 +373,7 @@
 							},
 							"response": [
 								{
-									"name": "login 200",
+									"name": "200",
 									"originalRequest": {
 										"method": "POST",
 										"header": [],
@@ -393,10 +393,12 @@
 											]
 										},
 										"url": {
-											"raw": "{{api-gateway-domain}}/poc/infrastructure/v1/auth/login",
+											"raw": "http://localhost:8011/poc/infrastructure/v1/auth/login",
+											"protocol": "http",
 											"host": [
-												"{{api-gateway-domain}}"
+												"localhost"
 											],
+											"port": "8011",
 											"path": [
 												"poc",
 												"infrastructure",
@@ -437,6 +439,98 @@
 							]
 						},
 						{
+							"name": "logout",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "refresh_token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJlZWQzMzQ1NS05ZGVkLTQ3ZGEtYWRmZC1mNDMxYTIxMzQzMmMifQ.eyJleHAiOjE3NDgyNzM3OTgsImlhdCI6MTc0ODI3MTk5OCwianRpIjoiMDYyMDY3OWItMzcxYy00ZmMzLWJkZTctY2Q2MzJkN2YwYjI1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL3BvYy1tYW5hZ2VtZW50IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL3BvYy1tYW5hZ2VtZW50Iiwic3ViIjoiOWRmY2MyZDUtMDNlNy00NWY1LWE3M2QtMWYyZDNhNTdlYWVhIiwidHlwIjoiUmVmcmVzaCIsImF6cCI6ImZyb250LXBvYy1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiMGQxZjBmMzUtMjFmYS00ZGRiLThmZGQtNTllNjlmNmZlNGRiIiwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiMGQxZjBmMzUtMjFmYS00ZGRiLThmZGQtNTllNjlmNmZlNGRiIn0.Lhzdb5UOKGhlbMnGIEwUuAvzgKQX7YG_Uh37DKF7Xc4",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8011/poc/infrastructure/v1/auth/logout",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8011",
+									"path": [
+										"poc",
+										"infrastructure",
+										"v1",
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "refresh",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "traceParent",
+										"value": "{{traceParent}}"
+									},
+									{
+										"key": "channelId",
+										"value": "WEB",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "refresh_token",
+											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJPV000NXgyZXZxUHB2WlZqa2VkZXVUM21wRlJJWGdSOThCTTRFWlB1Z2owIn0.eyJleHAiOjE3NDgyNzM4NDksImlhdCI6MTc0ODI3MjA0OSwianRpIjoiM2MzZDE1MmItZjQ0ZS00OWZkLTg1MWEtYzQ3ODhkYTlmNDUxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL3BvYy1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjlkZmNjMmQ1LTAzZTctNDVmNS1hNzNkLTFmMmQzYTU3ZWFlYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LXBvYy1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiYzM2NzAwOWUtNDI0ZS00NjE4LTk1NDEtMWQxNjY2ZTNkNWQ2IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLXBvYy1tYW5hZ2VtZW50Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiYzM2NzAwOWUtNDI0ZS00NjE4LTk1NDEtMWQxNjY2ZTNkNWQ2IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.PkUgS1uzlGltfKQ2T5kuCX09umcxinPXSWBX8_99LFm0hrJHcwZWpNArI3vMQx9ywLZ8v_t-Ki2SXFFF2YJmESIBPUO4yC2NDF7INz0HUWO5YqHt7V56C9-T582CBivVNMCPgPDrVcZCdHmqNFj74uNquDcmbSVzKPQ7EQUo4GqCK_lp8ikVXmALOw3po4_mUbQShDaPDTaNkwJZj4z8btp8u83mjTplU9q4isRiSBFrm___ZBJLR-Z2dFPpOKMl017KcuCRMtGM2ZqFqneso7erUYbk0ZzoNKfKhWZm97Q0Hh4Duj7mVAtnqEkwGtcqhaG1r7V5vNtcKNp2iD-DgA",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8011/poc/infrastructure/v1/auth/refresh",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8011",
+									"path": [
+										"poc",
+										"infrastructure",
+										"v1",
+										"auth",
+										"refresh"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "getRoles",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -447,7 +541,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJjWVVKR2hVUGFtUGpzRkw4SzEyQUYzSDdBc0I0NldYOFl0eTQ4ZjA1U2EwIn0.eyJleHAiOjE3MjQ3MTQ4NTQsImlhdCI6MTcyNDcxMzA1NCwianRpIjoiMmY3NzIwZmYtZjIxNi00YmFiLTg0ZTQtZWI4ZjRjYTY2MmE4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL2JicS1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjAzOTdkZDQyLWJkMjEtNGI4OC04Yzg1LTk4ZmU0OGNlMjYzYiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LWJicS1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiOTE5NjgwODUtNzEzYi00OGQ4LThlY2EtOGRkODIyOTgyZDhhIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1iYnEtbWFuYWdlbWVudCIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiOTE5NjgwODUtNzEzYi00OGQ4LThlY2EtOGRkODIyOTgyZDhhIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.gLw33lBWN9iEP4mcwhNNaJ6Ig8zc6XCMdJWMp3qbVkDx2HP0pNATkAait6Vx4wvgyV-e7JQ4rIKNmQQOg1fmBlro-l22BNpODyXWayhKdc-HzzUBgNLVm46q4nUAhTldKVGJjCMBgraFmLwqEcIjqIUG0_WN_hEMC_hh6KFOu_dBUwCKjnHWdBi5Iv-ol7CNCKZOTQEgD2Ox5N0JeqmXvjvS3kgCl0ZDlwpSmTLn630P_pal5PWt2f37Yyv5kr5GiLZIG9EbulW27tJc1dncpwSSBXwjY8ElU3M9ntxJwfLDoZxbEBlooEMT94Fp30KxdH_iWHWiai6vuXyZe_ryNQ",
+											"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJPV000NXgyZXZxUHB2WlZqa2VkZXVUM21wRlJJWGdSOThCTTRFWlB1Z2owIn0.eyJleHAiOjE3NDgyNzI2NTMsImlhdCI6MTc0ODI3MDg1MywianRpIjoiNzZmYzQ0ODItOWJlNi00N2M1LTg4YzgtYzJkMDA4MGUyZTRjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkxL2F1dGgvcmVhbG1zL3BvYy1tYW5hZ2VtZW50IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjlkZmNjMmQ1LTAzZTctNDVmNS1hNzNkLTFmMmQzYTU3ZWFlYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250LXBvYy1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiOTllYjU2NDAtZDgzOS00N2VmLTlmZDUtN2Q0MDNmNDAzN2U0IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwYXJ0bmVycyIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLXBvYy1tYW5hZ2VtZW50Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiOTllYjU2NDAtZDgzOS00N2VmLTlmZDUtN2Q0MDNmNDAzN2U0IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.r0dNYXF2DI0NZWmzCgFa6Uh5m6NNeM8af77aMpA4Ph4LlcqdzdbnIRnBaTlveOVjFCJ9YqLIBc05xf_kD0PTmv0v0AAPHxvtCVwuAoTJmuvi82iBYk7B9oKux5TFwQKq2q8nrPm1_sYYe6gyrbmHRSTdfbf23zBLAswu9PPgQompgj8i2Vm8NJB-eFhT2hvoce-IX6dYJWkXIvIGClIjv5MKBocCb7uPHUEVkfrDoQSkZ2y2Wj79oTMw7b0zfhTuWp9S_qfiaJIERmWLFOi19T8OYlT_f5zf86R79K6sJrGrywbaaVYx9iQDqwl9AJ_ZXZ_horHv2TIRBPNTNxabLg",
 											"type": "string"
 										}
 									]
@@ -486,7 +580,7 @@
 							},
 							"response": [
 								{
-									"name": "getRoles 200",
+									"name": "200",
 									"originalRequest": {
 										"method": "GET",
 										"header": [],
@@ -531,53 +625,6 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"partners\": 8,\n    \"offline_access\": 14,\n    \"default-roles-poc-management\": 28,\n    \"uma_authorization\": 17\n}"
-								},
-								{
-									"name": "getRoles 403",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{api-gateway-domain}}/poc/infrastructure/v1/auth/roles",
-											"host": [
-												"{{api-gateway-domain}}"
-											],
-											"path": [
-												"poc",
-												"infrastructure",
-												"v1",
-												"auth",
-												"roles"
-											]
-										}
-									},
-									"status": "Forbidden",
-									"code": 403,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Mon, 02 Jan 2023 18:52:56 GMT"
-										},
-										{
-											"key": "Keep-Alive",
-											"value": "timeout=60"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"type\": \"/errors/auth-rules\",\n    \"title\": \"Token validation error\",\n    \"errorCode\": \"ERROR1000\",\n    \"details\": []\n}"
 								}
 							]
 						}

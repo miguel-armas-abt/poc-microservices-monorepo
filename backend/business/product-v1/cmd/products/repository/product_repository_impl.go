@@ -1,7 +1,8 @@
 package repository
 
 import (
-	"com.demo.poc/cmd/products/repository/entity"
+	"poc/cmd/products/repository/entity"
+
 	"gorm.io/gorm"
 )
 

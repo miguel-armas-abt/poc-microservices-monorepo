@@ -1,11 +1,12 @@
 package service
 
 import (
-	"com.demo.poc/cmd/products/dto/request"
-	"com.demo.poc/cmd/products/dto/response"
-	productErrors "com.demo.poc/cmd/products/errors"
-	"com.demo.poc/cmd/products/mapper"
-	"com.demo.poc/cmd/products/repository"
+	"context"
+	"poc/cmd/products/dto/request"
+	"poc/cmd/products/dto/response"
+	productErrors "poc/cmd/products/errors"
+	"poc/cmd/products/mapper"
+	"poc/cmd/products/repository"
 
 	"gorm.io/gorm"
 )
@@ -22,7 +23,10 @@ func NewProductServiceImpl(
 	}
 }
 
-func (service *productServiceImpl) FindAll(headers map[string]string) ([]response.ProductResponseDto, error) {
+func (service *productServiceImpl) FindAll(
+	ctx context.Context,
+	headers map[string]string) ([]response.ProductResponseDto, error) {
+
 	productListFound, err := service.productRepository.FindAll()
 	if err != nil {
 		return nil, err
@@ -30,7 +34,11 @@ func (service *productServiceImpl) FindAll(headers map[string]string) ([]respons
 	return mapper.EntityListToResponseList(productListFound), nil
 }
 
-func (service *productServiceImpl) FindByCode(headers map[string]string, code string) (*response.ProductResponseDto, error) {
+func (service *productServiceImpl) FindByCode(
+	ctx context.Context,
+	headers map[string]string,
+	code string) (*response.ProductResponseDto, error) {
+
 	productFound, err := service.productRepository.FindByCode(code)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -42,7 +50,11 @@ func (service *productServiceImpl) FindByCode(headers map[string]string, code st
 	return &product, nil
 }
 
-func (service *productServiceImpl) FindByScope(headers map[string]string, scope string) ([]response.ProductResponseDto, error) {
+func (service *productServiceImpl) FindByScope(
+	ctx context.Context,
+	headers map[string]string,
+	scope string) ([]response.ProductResponseDto, error) {
+
 	productListFound, err := service.productRepository.FindByScope(scope)
 	if err != nil {
 		return nil, err
@@ -51,7 +63,11 @@ func (service *productServiceImpl) FindByScope(headers map[string]string, scope 
 	return mapper.EntityListToResponseList(productListFound), nil
 }
 
-func (service *productServiceImpl) Save(headers map[string]string, productRequest request.ProductSaveRequestDto) (*response.ProductResponseDto, error) {
+func (service *productServiceImpl) Save(
+	ctx context.Context,
+	headers map[string]string,
+	productRequest request.ProductSaveRequestDto) (*response.ProductResponseDto, error) {
+
 	productToSave := mapper.RequestToEntity(productRequest)
 	if err := service.productRepository.Save(&productToSave); err != nil {
 		return nil, err
@@ -60,7 +76,12 @@ func (service *productServiceImpl) Save(headers map[string]string, productReques
 	return &product, nil
 }
 
-func (service *productServiceImpl) Update(headers map[string]string, productRequest request.ProductUpdateRequestDto, code string) (*response.ProductResponseDto, error) {
+func (service *productServiceImpl) Update(
+	ctx context.Context,
+	headers map[string]string,
+	productRequest request.ProductUpdateRequestDto,
+	code string) (*response.ProductResponseDto, error) {
+
 	productFound, err := service.productRepository.FindByCode(code)
 	if err != nil {
 		return nil, err
@@ -75,6 +96,9 @@ func (service *productServiceImpl) Update(headers map[string]string, productRequ
 	return &product, nil
 }
 
-func (service *productServiceImpl) Delete(headers map[string]string, code string) error {
+func (service *productServiceImpl) Delete(
+	ctx context.Context,
+	headers map[string]string,
+	code string) error {
 	return service.productRepository.Delete(code)
 }

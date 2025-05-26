@@ -1,9 +1,10 @@
 package mapper
 
 import (
-	"com.demo.poc/cmd/products/dto/request"
-	"com.demo.poc/cmd/products/dto/response"
-	"com.demo.poc/cmd/products/repository/entity"
+	"poc/cmd/products/dto/request"
+	"poc/cmd/products/dto/response"
+	"poc/cmd/products/repository/entity"
+
 	"github.com/mitchellh/mapstructure"
 )
 

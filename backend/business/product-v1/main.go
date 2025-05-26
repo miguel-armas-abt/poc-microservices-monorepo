@@ -1,25 +1,23 @@
 package main
 
 import (
-	"log"
-	"net/http"
+	_ "embed"
+	"strings"
 
-	"com.demo.poc/commons/injection"
-	"com.demo.poc/commons/interceptor/restclient"
-	"com.demo.poc/commons/logging"
-	properties "com.demo.poc/commons/properties"
-	"github.com/sirupsen/logrus"
+	"poc/commons/core/constants"
+	"poc/commons/custom/injection"
+	properties "poc/commons/custom/properties"
 )
 
+//go:embed resources/application.yaml
+var applicationYAML []byte
+
 func main() {
-	logging.InitLogger(logrus.InfoLevel)
+	router := injection.NewEngine(applicationYAML)
 
-	if err := properties.Init(); err != nil {
-		log.Fatalf("properties load error: %v", err)
+	serverPort := properties.Properties.Server.Port
+	if !strings.HasPrefix(serverPort, constants.COLON) {
+		serverPort = constants.COLON + serverPort
 	}
-
-	http.DefaultClient.Transport = restclient.NewRestClientInterceptor(http.DefaultTransport, &properties.Properties)
-
-	router := injection.NewEngine()
-	router.Run(properties.Properties.Server.Port)
+	router.Run(serverPort)
 }

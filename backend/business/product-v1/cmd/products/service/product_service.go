@@ -1,20 +1,33 @@
 package service
 
 import (
-	"com.demo.poc/cmd/products/dto/request"
-	"com.demo.poc/cmd/products/dto/response"
+	"context"
+	"poc/cmd/products/dto/request"
+	"poc/cmd/products/dto/response"
 )
 
 type ProductService interface {
-	FindAll(headers map[string]string) ([]response.ProductResponseDto, error)
+	FindAll(
+		ctx context.Context,
+		headers map[string]string) ([]response.ProductResponseDto, error)
 
-	FindByCode(headers map[string]string, code string) (*response.ProductResponseDto, error)
+	FindByCode(
+		ctx context.Context,
+		headers map[string]string, code string) (*response.ProductResponseDto, error)
 
-	FindByScope(headers map[string]string, scope string) ([]response.ProductResponseDto, error)
+	FindByScope(
+		ctx context.Context,
+		headers map[string]string, scope string) ([]response.ProductResponseDto, error)
 
-	Save(headers map[string]string, request request.ProductSaveRequestDto) (*response.ProductResponseDto, error)
+	Save(
+		ctx context.Context,
+		headers map[string]string, request request.ProductSaveRequestDto) (*response.ProductResponseDto, error)
 
-	Update(headers map[string]string, request request.ProductUpdateRequestDto, code string) (*response.ProductResponseDto, error)
+	Update(
+		ctx context.Context,
+		headers map[string]string, request request.ProductUpdateRequestDto, code string) (*response.ProductResponseDto, error)
 
-	Delete(headers map[string]string, code string) error
+	Delete(
+		ctx context.Context,
+		headers map[string]string, code string) error
 }

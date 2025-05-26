@@ -1,5 +1,7 @@
 server:
   port: ":8017"
+  corsOrigins:
+    - http://localhost:63342
 
 projectType: MS
 
