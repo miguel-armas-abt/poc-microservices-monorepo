@@ -17,7 +17,6 @@
 > 1. Compilar proyectos backend
 > 2. Inicializar bases de datos en MySQL
 > 3. Ejecutar servidor
-> 4. Ejecutar backend
 > 
 > ```shell script 
 > ./main.sh

@@ -1,5 +1,22 @@
-go get -u gorm.io/gorm
-go get -u gorm.io/driver/mysql
-go get -u github.com/gin-gonic/gin
-go get -u github.com/mitchellh/mapstructure
-go get github.com/joho/godotenv -- variables de entorno
+
+[← Regresar](../README.md) <br>
+
+---
+## 📋 Core library
+[🌐 Documentación](https://github.com/miguel-armas-abt/backend-core-library) <br>
+
+---
+
+## ▶️ Despliegue local
+
+1. Generar binario
+```sh
+go build -o runner ./main.go
+```
+
+2. Configurar las [variables de entorno](./variables_local.env) en el IDE.
+
+3. Ejecutar aplicación
+
+
+---
