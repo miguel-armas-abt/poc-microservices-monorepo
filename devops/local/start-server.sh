@@ -6,7 +6,7 @@ source ./../variables.env
 
 get_port_from_values() {
   local yaml_file="$1"
-  yq '.ports.containerPort // {}' "$yaml_file"
+  yq '.container.port // {}' "$yaml_file"
 }
 
 #java

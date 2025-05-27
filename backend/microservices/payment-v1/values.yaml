@@ -1,12 +1,30 @@
 name: payment-v1
-image:
-  repository: miguelarmasabt/payment
-  tag: "v1.0.1"
-  pullPolicy: IfNotPresent
-ports:
-  containerPort: 8015
-  nodePort: 30015
-replicas: 1
+
+container:
+  image:
+    repository: miguelarmasabt/payment
+    tag: "v1.0.1"
+    pullPolicy: IfNotPresent
+  port: 8015
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "500m"
+    limits:
+      memory: "512Mi"
+      cpu: "1"
+  livenessProbe:
+    path: /actuator/health/liveness
+    port: 8015
+    initialDelaySeconds: 60
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readinessProbe:
+    path: /actuator/health/readiness
+    port: 8015
+    initialDelaySeconds: 60
+    periodSeconds: 30
 
 configMaps:
   CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
@@ -19,27 +37,29 @@ configMaps:
 secrets:
   MYSQL_PASSWORD: "qwerty"
 
-resources:
-  requests:
-    memory: "256Mi"
-    cpu: "500m"
-  limits:
-    memory: "512Mi"
-    cpu: "1"
+service:
+  nodePort: 30015
 
-livenessProbe:
-  path: /actuator/health/liveness
-  port: 8015
-  initialDelaySeconds: 60
-  periodSeconds: 30
-  timeoutSeconds: 5
-  failureThreshold: 3
+deployment:
+  replicas: 1
 
-readinessProbe:
-  path: /actuator/health/readiness
-  port: 8015
-  initialDelaySeconds: 60
-  periodSeconds: 30
+hpa:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 70
 
 namespace: restaurant
 helmTemplate: with-health

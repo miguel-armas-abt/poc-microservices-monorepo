@@ -1,2 +1,2 @@
-ports:
-  containerPort: 9411
+container:
+  port: 9411

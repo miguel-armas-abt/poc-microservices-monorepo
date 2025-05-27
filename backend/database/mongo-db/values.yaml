@@ -1,28 +1,35 @@
 name: mongo-db
-image:
-  repository: mongo
-  tag: "latest"
-  pullPolicy: IfNotPresent
-ports:
-  containerPort: 27017
-  nodePort: 30717
-replicas: 1
+
+container:
+  image:
+    repository: mongo
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  port: 27017
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "500m"
+    limits:
+      memory: "512Mi"
+      cpu: "1"
 
 secrets:
   MONGO_INITDB_ROOT_USERNAME: "poc-user"
   MONGO_INITDB_ROOT_PASSWORD: "qwerty"
   MONGO_INITDB_DATABASE: "tablePlacement"
 
+service:
+  nodePort: 30717
+
+deployment:
+  replicas: 1
+
+hpa:
+  enabled: false
+
 initdb:
   value: initdb.js
-
-resources:
-  requests:
-    memory: "256Mi"
-    cpu: "500m"
-  limits:
-    memory: "512Mi"
-    cpu: "1"
 
 namespace: restaurant
 helmTemplate: database

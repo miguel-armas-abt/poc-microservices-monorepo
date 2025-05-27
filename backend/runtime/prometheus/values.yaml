@@ -1,2 +1,2 @@
-ports:
-  containerPort: 9090
+container:
+  port: 9090

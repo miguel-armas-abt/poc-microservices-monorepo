@@ -1,12 +1,18 @@
 name: keycloak-server
-image:
-  repository: quay.io/keycloak/keycloak
-  tag: "16.0.0"
-  pullPolicy: IfNotPresent
-ports:
-  containerPort: 8080
-  nodePort: 30180
-replicas: 1
+
+container:
+  image:
+    repository: quay.io/keycloak/keycloak
+    tag: "16.0.0"
+    pullPolicy: IfNotPresent
+  port: 8080
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "500m"
+    limits:
+      memory: "512Mi"
+      cpu: "1"
 
 configMaps:
   KEYCLOAK_USER: "admin"
@@ -15,13 +21,14 @@ configMaps:
 secrets:
   KEYCLOAK_PASSWORD: "admin"
 
-resources:
-  requests:
-    memory: "256Mi"
-    cpu: "500m"
-  limits:
-    memory: "512Mi"
-    cpu: "1"
+service:
+  nodePort: 30180
+
+deployment:
+  replicas: 1
+
+hpa:
+  enabled: false
 
 namespace: restaurant
 helmTemplate: default

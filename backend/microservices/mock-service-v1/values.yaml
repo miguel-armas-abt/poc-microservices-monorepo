@@ -1,38 +1,43 @@
 name: mock-service-v1
-image:
-  repository: miguelarmasabt/mock-service
-  tag: "v1.0.1"
-  pullPolicy: IfNotPresent
-ports:
-  containerPort: 8021
-  nodePort: 30021
-replicas: 1
+
+container:
+  image:
+    repository: miguelarmasabt/mock-service
+    tag: "v1.0.1"
+    pullPolicy: IfNotPresent
+  port: 8021
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "500m"
+    limits:
+      memory: "512Mi"
+      cpu: "1"
+  livenessProbe:
+    path: /actuator/health/liveness
+    port: 8020
+    initialDelaySeconds: 60
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readinessProbe:
+    path: /actuator/health/readiness
+    port: 8020
+    initialDelaySeconds: 60
+    periodSeconds: 30
 
 configMaps:
   MOCK_PORT: "8021"
   JAVA_OPTS: "-Xms256M -Xmx256M"
 
-resources:
-  requests:
-    memory: "256Mi"
-    cpu: "500m"
-  limits:
-    memory: "512Mi"
-    cpu: "1"
+service:
+  nodePort: 30021
 
-livenessProbe:
-  path: /actuator/health/liveness
-  port: 8020
-  initialDelaySeconds: 60
-  periodSeconds: 30
-  timeoutSeconds: 5
-  failureThreshold: 3
+deployment:
+  replicas: 1
 
-readinessProbe:
-  path: /actuator/health/readiness
-  port: 8020
-  initialDelaySeconds: 60
-  periodSeconds: 30
+hpa:
+  enabled: false
 
 namespace: restaurant
 helmTemplate: with-health

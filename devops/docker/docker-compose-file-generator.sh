@@ -54,11 +54,11 @@ process_csv_record() {
   component_path="$BACKEND_PATH/$component_type/$component_name"
   values_file="$component_path/values.yaml"
 
-  repository=$(yq '.image.repository' "$values_file")
-  tag_version=$(yq '.image.tag' "$values_file")
+  repository=$(yq '.container.image.repository' "$values_file")
+  tag_version=$(yq '.container.image.tag' "$values_file")
   docker_image="$repository:$tag_version"
   host_port=$(yq '.docker.hostPort' "$values_file")
-  container_port=$(yq '.ports.containerPort' "$values_file")
+  container_port=$(yq '.container.port' "$values_file")
   dependencies=$(yq '.docker.dependencies // "none"' "$values_file")
   volumes=$(yq '.docker.volumes // "none"' "$values_file")
 

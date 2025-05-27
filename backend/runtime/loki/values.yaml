@@ -1,2 +1,2 @@
-ports:
-  containerPort: 3100
+container:
+  port: 3100

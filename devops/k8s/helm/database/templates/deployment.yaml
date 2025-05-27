@@ -5,7 +5,7 @@ metadata:
   labels:
     app: {{ .Values.name }}
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.name }}
@@ -16,20 +16,20 @@ spec:
     spec:
       containers:
         - name: {{ .Values.name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.container.image.repository }}:{{ .Values.container.image.tag }}"
+          imagePullPolicy: {{ .Values.container.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.ports.containerPort }}
+            - containerPort: {{ .Values.container.port }}
           envFrom:
             - secretRef:
                 name: {{ .Values.name }}-secret
           resources:
             requests:
-              memory: "{{ .Values.resources.requests.memory }}"
-              cpu: "{{ .Values.resources.requests.cpu }}"
+              memory: "{{ .Values.container.resources.requests.memory }}"
+              cpu: "{{ .Values.container.resources.requests.cpu }}"
             limits:
-              memory: "{{ .Values.resources.limits.memory }}"
-              cpu: "{{ .Values.resources.limits.cpu }}"
+              memory: "{{ .Values.container.resources.limits.memory }}"
+              cpu: "{{ .Values.container.resources.limits.cpu }}"
           volumeMounts:
             - mountPath: /var/lib/database
               name: {{ .Values.name }}-data-volume

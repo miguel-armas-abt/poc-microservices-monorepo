@@ -1,12 +1,30 @@
 name: menu-v1
-image:
-  repository: miguelarmasabt/menu
-  tag: "v1.0.1"
-  pullPolicy: IfNotPresent
-ports:
-  containerPort: 8012
-  nodePort: 30012
-replicas: 1
+
+container:
+  image:
+    repository: miguelarmasabt/menu
+    tag: "v1.0.1"
+    pullPolicy: IfNotPresent
+  port: 8012
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "500m"
+    limits:
+      memory: "512Mi"
+      cpu: "1"
+  livenessProbe:
+    path: /q/health/live
+    port: 8012
+    initialDelaySeconds: 60
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readinessProbe:
+    path: /q/health/ready
+    port: 8012
+    initialDelaySeconds: 60
+    periodSeconds: 30
 
 configMaps:
   MYSQL_DOMAIN: "mysql-db:3306"
@@ -17,27 +35,29 @@ configMaps:
 secrets:
   MYSQL_PASSWORD: "qwerty"
 
-resources:
-  requests:
-    memory: "256Mi"
-    cpu: "500m"
-  limits:
-    memory: "512Mi"
-    cpu: "1"
+service:
+  nodePort: 30012
 
-livenessProbe:
-  path: /q/health/live
-  port: 8012
-  initialDelaySeconds: 60
-  periodSeconds: 30
-  timeoutSeconds: 5
-  failureThreshold: 3
+deployment:
+  replicas: 1
 
-readinessProbe:
-  path: /q/health/ready
-  port: 8012
-  initialDelaySeconds: 60
-  periodSeconds: 30
+hpa:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 70
 
 namespace: restaurant
 helmTemplate: with-health

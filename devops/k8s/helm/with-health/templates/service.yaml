@@ -12,6 +12,6 @@ spec:
     - IPv4
   ports:
     - name: {{ .Values.name }}
-      port: {{ .Values.ports.containerPort }}
-      nodePort: {{ .Values.ports.nodePort }}
+      port: {{ .Values.container.port }}
+      nodePort: {{ .Values.service.nodePort }}
 ---

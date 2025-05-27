@@ -1,12 +1,18 @@
 name: kafka-server
-image:
-  repository: confluentinc/cp-kafka
-  tag: "7.3.2"
-  pullPolicy: IfNotPresent
-ports:
-  containerPort: 9092
-  nodePort: 30092
-replicas: 1
+
+container:
+  image:
+    repository: confluentinc/cp-kafka
+    tag: "7.3.2"
+    pullPolicy: IfNotPresent
+  port: 9092
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "500m"
+    limits:
+      memory: "512Mi"
+      cpu: "1"
 
 configMaps:
   KAFKA_ADVERTISED_LISTENERS: "INTERNAL://kafka-server:9093,EXTERNAL://-127.0.0.1:9092,DOCKER://host.docker.internal:29092"
@@ -23,13 +29,14 @@ configMaps:
   KAFKA_AUTHORIZER_CLASS_NAME: "kafka.security.authorizer.AclAuthorizer"
   KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
 
-resources:
-  requests:
-    memory: "256Mi"
-    cpu: "500m"
-  limits:
-    memory: "512Mi"
-    cpu: "1"
+service:
+  nodePort: 30092
+
+deployment:
+  replicas: 1
+
+hpa:
+  enabled: false
 
 namespace: restaurant
 helmTemplate: default
