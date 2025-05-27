@@ -14,7 +14,7 @@ spec:
     - IPv4
   ports:
     - name: redis-server
-      port: 6379
+      port: 
       nodePort: 30379
 ---
 # Source: generic-server-chart/templates/deployment.yaml
@@ -39,7 +39,7 @@ spec:
           image: "redis:latest"
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 6379
+            - containerPort: 
 
           resources:
             requests:

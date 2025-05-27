@@ -1,5 +1,22 @@
 services:
-# Source: ./../../backend/business/invoice-v1
+# Source: ./../../backend/microservices/product-v1
+  product-v1:
+    container_name: product-v1
+    image: miguelarmasabt/product:v1.0.1
+    restart: always
+    environment:
+      - MYSQL_HOST=mysql-db:3306
+      - MYSQL_USERNAME=poc_user
+      - DATABASE=db_products
+      - MYSQL_PASSWORD=qwerty
+    depends_on:
+      - mysql-db
+    networks:
+      - common-network
+    ports:
+      - "8017:8017"
+
+# Source: ./../../backend/microservices/invoice-v1
   invoice-v1:
     container_name: invoice-v1
     image: miguelarmasabt/invoice:v1.0.1
@@ -21,25 +38,7 @@ services:
     ports:
       - "8014:8014"
 
-# Source: ./../../backend/business/menu-v1
-  menu-v1:
-    container_name: menu-v1
-    image: miguelarmasabt/menu:v2.0.1
-    restart: always
-    environment:
-      - MYSQL_DOMAIN=mysql-db:3306
-      - MYSQL_USERNAME=poc_user
-      - PRODUCT_DOMAIN=product-v1:8017
-      - JAVA_OPTS=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev
-      - MYSQL_PASSWORD=qwerty
-    depends_on:
-      - mysql-db
-    networks:
-      - common-network
-    ports:
-      - "8012:8012"
-
-# Source: ./../../backend/business/order-hub-v1
+# Source: ./../../backend/microservices/order-hub-v1
   order-hub-v1:
     container_name: order-hub-v1
     image: miguelarmasabt/order-hub:v1.0.1
@@ -58,7 +57,7 @@ services:
     ports:
       - "8018:8018"
 
-# Source: ./../../backend/business/payment-v1
+# Source: ./../../backend/microservices/payment-v1
   payment-v1:
     container_name: payment-v1
     image: miguelarmasabt/payment:v1.0.1
@@ -80,24 +79,7 @@ services:
     ports:
       - "8015:8015"
 
-# Source: ./../../backend/business/product-v1
-  product-v1:
-    container_name: product-v1
-    image: miguelarmasabt/product:v1.0.1
-    restart: always
-    environment:
-      - MYSQL_HOST=mysql-db:3306
-      - MYSQL_USERNAME=poc_user
-      - DATABASE=db_products
-      - MYSQL_PASSWORD=qwerty
-    depends_on:
-      - mysql-db
-    networks:
-      - common-network
-    ports:
-      - "8017:8017"
-
-# Source: ./../../backend/business/table-placement-v1
+# Source: ./../../backend/microservices/table-placement-v1
   table-placement-v1:
     container_name: table-placement-v1
     image: miguelarmasabt/table-placement:v1.0.1
@@ -114,7 +96,7 @@ services:
     ports:
       - "8013:8013"
 
-# Source: ./../../backend/platform/api-gateway-v1
+# Source: ./../../backend/microservices/api-gateway-v1
   api-gateway-v1:
     container_name: api-gateway-v1
     image: miguelarmasabt/api-gateway:v1.0.1
@@ -129,7 +111,7 @@ services:
     ports:
       - "8010:8010"
 
-# Source: ./../../backend/platform/auth-adapter-v1
+# Source: ./../../backend/microservices/auth-adapter-v1
   auth-adapter-v1:
     container_name: auth-adapter-v1
     image: miguelarmasabt/auth-adapter:v1.0.1
@@ -137,13 +119,13 @@ services:
     environment:
       - KEYCLOAK_DOMAIN=keycloak-server:8080
       - JAVA_OPTS=-Xms256M -Xmx256M
-      - KEYCLOAK_KEY_RS256=THQ6r7209FaUVMK-LyZHL08NS25ujjYp0e04j56VOHo
+      - KEYCLOAK_KEY_RS256=mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo
     networks:
       - common-network
     ports:
       - "8011:8011"
 
-# Source: ./../../backend/platform/config-server-v1
+# Source: ./../../backend/microservices/config-server-v1
   config-server-v1:
     container_name: config-server-v1
     image: miguelarmasabt/config-server:v1.0.1
@@ -155,7 +137,7 @@ services:
     ports:
       - "8888:8888"
 
-# Source: ./../../backend/platform/mock-service-v1
+# Source: ./../../backend/microservices/mock-service-v1
   mock-service-v1:
     container_name: mock-service-v1
     image: miguelarmasabt/mock-service:v1.0.1
@@ -167,6 +149,24 @@ services:
       - common-network
     ports:
       - "8021:8021"
+
+# Source: ./../../backend/microservices/menu-v1
+  menu-v1:
+    container_name: menu-v1
+    image: miguelarmasabt/menu:v1.0.1
+    restart: always
+    environment:
+      - MYSQL_DOMAIN=mysql-db:3306
+      - MYSQL_USERNAME=poc_user
+      - PRODUCT_DOMAIN=product-v1:8017
+      - JAVA_OPTS=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev
+      - MYSQL_PASSWORD=qwerty
+    depends_on:
+      - mysql-db
+    networks:
+      - common-network
+    ports:
+      - "8012:8012"
 
 # Source: ./../../backend/runtime/keycloak-server
   keycloak-server:
@@ -190,7 +190,7 @@ services:
     networks:
       - common-network
     ports:
-      - "6379:6379"
+      - "6379:null"
 
 # Source: ./../../backend/runtime/zookeeper-server
   zookeeper-server:

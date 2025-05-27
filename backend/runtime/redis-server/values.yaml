@@ -5,8 +5,7 @@ container:
     repository: redis
     tag: "latest"
     pullPolicy: IfNotPresent
-  ports:
-    containerPort: 6379
+  port: 6379
   resources:
     requests:
       memory: "256Mi"

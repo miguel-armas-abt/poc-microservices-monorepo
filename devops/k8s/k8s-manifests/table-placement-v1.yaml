@@ -99,3 +99,31 @@ spec:
                   secretKeyRef:
                     name: table-placement-v1-secret
                     key: MONGODB_URL
+---
+# Source: generic-backend-chart/templates/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: table-placement-v1-hpa
+  labels:
+    app: table-placement-v1
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: table-placement-v1
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 70
