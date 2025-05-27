@@ -19,10 +19,21 @@
 > 2. Construir imágenes en Minikube
 > 3. Instalar objetos k8s
 > 4. Desinstalar objetos k8s
-> 5. Port forwarding
 > ```shell script 
 > ./main.sh
 > ```
+
+## ▶️ Habilitar Ingress Controller en Minikube
+```shell script 
+  minikube addons enable ingress
+  kubectl get pods -n ingress-nginx
+  kubectl apply -f ingress.yaml
+  minikube tunnel #ingress accesible en 127.0.0.1
+```
+📋 **Nota**: Para que `com.api.dev` resuelva a tu Minikube, añade esta línea en tu `/etc/hosts`.
+```
+127.0.0.1 poc.api.dev
+```
 
 ## 💡 Consideraciones
 > ⚙️ Edite el secreto de `KEYCLOAK_KEY_RS256` de `auth-adapter-v1`:

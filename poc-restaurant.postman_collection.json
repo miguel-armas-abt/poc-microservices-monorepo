@@ -1852,12 +1852,13 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8010/poc/bff/order-hub/v1/menu-options?category=main",
+									"raw": "http://poc.api.dev/poc/bff/order-hub/v1/menu-options?category=main",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"poc",
+										"api",
+										"dev"
 									],
-									"port": "8010",
 									"path": [
 										"poc",
 										"bff",
@@ -1914,12 +1915,13 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8010/poc/bff/order-hub/v1/table-orders?tableNumber=1",
+									"raw": "http://poc.api.dev/poc/bff/order-hub/v1/table-orders?tableNumber=1",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"poc",
+										"api",
+										"dev"
 									],
-									"port": "8010",
 									"path": [
 										"poc",
 										"bff",
@@ -1973,12 +1975,13 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8010/poc/bff/order-hub/v1/table-orders?tableNumber=1",
+									"raw": "http://poc.api.dev/poc/bff/order-hub/v1/table-orders?tableNumber=1",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"poc",
+										"api",
+										"dev"
 									],
-									"port": "8010",
 									"path": [
 										"poc",
 										"bff",
@@ -2037,12 +2040,13 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8010/poc/bff/order-hub/v1/invoices/calculate",
+									"raw": "http://poc.api.dev/poc/bff/order-hub/v1/invoices/calculate",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"poc",
+										"api",
+										"dev"
 									],
-									"port": "8010",
 									"path": [
 										"poc",
 										"bff",
@@ -2096,12 +2100,13 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8018/poc/bff/order-hub/v1/invoices/send-to-pay",
+									"raw": "http://poc.api.dev/poc/bff/order-hub/v1/invoices/send-to-pay",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"poc",
+										"api",
+										"dev"
 									],
-									"port": "8018",
 									"path": [
 										"poc",
 										"bff",

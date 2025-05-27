@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: restaurant-ingress-v1
+  namespace: restaurant
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:63342,https://repository-finder.vercel.app,https://miguel-armas-abt.github.io"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET,POST,PATCH,OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "Authorization,Content-Type,traceParent,channelId"
+    nginx.ingress.kubernetes.io/cors-max-age: "1728000"
+spec:
+  rules:
+    - host: poc.api.dev #add in /etc/hosts: 127.0.0.1 poc.api.dev
+      http:
+        paths:
+          - path: /poc/bff/order-hub/v1
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway-v1
+                port:
+                  number: 8010
