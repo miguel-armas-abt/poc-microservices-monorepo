@@ -39,7 +39,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${AUTH_ADAPTER_DOMAIN:localhost:8011}/poc/infrastructure/v1/auth/
+        endpoint: http://${AUTH_ADAPTER_DOMAIN:localhost:8011}/poc/platform/auth-adapter/v1/auth/
         headers:
           provided:
             Accept: application/json

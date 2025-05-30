@@ -356,7 +356,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8011/poc/infrastructure/v1/auth/token",
+									"raw": "http://localhost:8011/poc/platform/auth-adapter/v1/auth/token",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -364,7 +364,7 @@
 									"port": "8011",
 									"path": [
 										"poc",
-										"infrastructure",
+										"platform",
 										"v1",
 										"auth",
 										"token"
@@ -393,7 +393,7 @@
 											]
 										},
 										"url": {
-											"raw": "http://localhost:8011/poc/infrastructure/v1/auth/login",
+											"raw": "http://localhost:8011/poc/platform/auth-adapter/v1/auth/login",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -401,7 +401,7 @@
 											"port": "8011",
 											"path": [
 												"poc",
-												"infrastructure",
+												"platform",
 												"v1",
 												"auth",
 												"login"
@@ -467,7 +467,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8011/poc/infrastructure/v1/auth/logout",
+									"raw": "http://localhost:8011/poc/platform/auth-adapter/v1/auth/logout",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -475,7 +475,7 @@
 									"port": "8011",
 									"path": [
 										"poc",
-										"infrastructure",
+										"platform",
 										"v1",
 										"auth",
 										"logout"
@@ -513,7 +513,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8011/poc/infrastructure/v1/auth/refresh",
+									"raw": "http://localhost:8011/poc/platform/auth-adapter/v1/auth/refresh",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -521,7 +521,7 @@
 									"port": "8011",
 									"path": [
 										"poc",
-										"infrastructure",
+										"platform",
 										"v1",
 										"auth",
 										"refresh"
@@ -563,7 +563,7 @@
 									"urlencoded": []
 								},
 								"url": {
-									"raw": "http://localhost:8011/poc/infrastructure/v1/auth/roles",
+									"raw": "http://localhost:8011/poc/platform/auth-adapter/v1/auth/roles",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -571,7 +571,7 @@
 									"port": "8011",
 									"path": [
 										"poc",
-										"infrastructure",
+										"platform",
 										"v1",
 										"auth",
 										"roles"
@@ -585,7 +585,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{api-gateway-domain}}/poc/infrastructure/v1/auth/roles",
+											"raw": "{{api-gateway-domain}}/poc/platform/auth-adapter/v1/auth/roles",
 											"host": [
 												"{{api-gateway-domain}}"
 											],

@@ -14,7 +14,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @Configuration
 public class AuthAdapterRestService {
 
-  private static final String BASE_URI = "/poc/infrastructure/v1/auth/";
+  private static final String BASE_URI = "/poc/platform/auth-adapter/v1/auth/";
 
   @Bean(name = "auth-adapter")
   public RouterFunction<ServerResponse> build(AuthAdapterHandler handler) {

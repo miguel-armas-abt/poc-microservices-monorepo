@@ -24,7 +24,7 @@ public class AuthAdapterMockService implements MockService {
     mockServer
         .when(request()
             .withMethod("GET")
-            .withPath("/poc/infrastructure/v1/auth/roles"))
+            .withPath("/poc/platform/auth-adapter/v1/auth/roles"))
         .respond(request -> {
 
           long randomDelay = generateRandomDelay();
