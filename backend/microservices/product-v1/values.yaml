@@ -27,12 +27,12 @@ container:
     periodSeconds: 30
 
 configMaps:
-  MYSQL_HOST: "mysql-db:3306"
-  MYSQL_USERNAME: "poc_user"
-  DATABASE: "db_products"
+  DATABASE_HOST: "mysql-db:3306"
+  DATABASE_USER: "poc_user"
+  DATABASE_NAME: "db_products"
 
 secrets:
-  MYSQL_PASSWORD: "qwerty"
+  DATABASE_PASSWORD: "qwerty"
 
 service:
   nodePort: 30017

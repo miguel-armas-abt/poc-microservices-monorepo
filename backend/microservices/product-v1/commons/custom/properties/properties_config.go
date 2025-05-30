@@ -23,11 +23,11 @@ func Init(yamlBytes []byte) {
 	reader.AutomaticEnv()
 
 	environmentVariables := []struct{ key, env string }{
-		{"server.port", "APPLICATION_PORT"},
-		{"database.user", "MYSQL_USERNAME"},
-		{"database.password", "MYSQL_PASSWORD"},
-		{"database.host", "MYSQL_HOST"},
-		{"database.name", "DATABASE"},
+		{"server.port", "SERVER_PORT"},
+		{"database.user", "DATABASE_USER"},
+		{"database.password", "DATABASE_PASSWORD"},
+		{"database.host", "DATABASE_HOST"},
+		{"database.name", "DATABASE_NAME"},
 	}
 	for _, variable := range environmentVariables {
 		reader.BindEnv(variable.key, variable.env)

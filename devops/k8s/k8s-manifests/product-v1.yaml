@@ -6,7 +6,7 @@ metadata:
   name: product-v1-secret
 type: Opaque
 data:
-    MYSQL_PASSWORD: "cXdlcnR5"
+    DATABASE_PASSWORD: "cXdlcnR5"
 ---
 # Source: generic-server-chart/templates/configmap.yaml
 apiVersion: v1
@@ -14,9 +14,9 @@ kind: ConfigMap
 metadata:
   name: product-v1-config-map
 data:
-    DATABASE: "db_products"
-    MYSQL_HOST: "mysql-db:3306"
-    MYSQL_USERNAME: "poc_user"
+    DATABASE_HOST: "mysql-db:3306"
+    DATABASE_NAME: "db_products"
+    DATABASE_USER: "poc_user"
 ---
 # Source: generic-server-chart/templates/service.yaml
 apiVersion: v1
@@ -69,26 +69,26 @@ spec:
               cpu: "1"
 
           env:
-              - name: DATABASE
+              - name: DATABASE_HOST
                 valueFrom:
                   configMapKeyRef:
                     name: product-v1-config-map
-                    key: DATABASE
-              - name: MYSQL_HOST
+                    key: DATABASE_HOST
+              - name: DATABASE_NAME
                 valueFrom:
                   configMapKeyRef:
                     name: product-v1-config-map
-                    key: MYSQL_HOST
-              - name: MYSQL_USERNAME
+                    key: DATABASE_NAME
+              - name: DATABASE_USER
                 valueFrom:
                   configMapKeyRef:
                     name: product-v1-config-map
-                    key: MYSQL_USERNAME
-              - name: MYSQL_PASSWORD
+                    key: DATABASE_USER
+              - name: DATABASE_PASSWORD
                 valueFrom:
                   secretKeyRef:
                     name: product-v1-secret
-                    key: MYSQL_PASSWORD
+                    key: DATABASE_PASSWORD
 ---
 # Source: generic-server-chart/templates/hpa.yaml
 apiVersion: autoscaling/v2
