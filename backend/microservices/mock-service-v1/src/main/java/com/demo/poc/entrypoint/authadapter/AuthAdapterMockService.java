@@ -23,6 +23,23 @@ public class AuthAdapterMockService implements MockService {
 
     mockServer
         .when(request()
+            .withMethod("POST")
+            .withPath("/poc/platform/auth-adapter/v1/auth/token"))
+        .respond(request -> {
+
+          long randomDelay = generateRandomDelay();
+          Header traceIdHeader = generateTraceId();
+
+          return response()
+              .withStatusCode(HttpStatusCode.OK_200.code())
+              .withHeader(contentType(ContentType.APPLICATION_JSON.getMimeType()))
+              .withHeader(traceIdHeader)
+              .withBody(readJSON("mocks/auth-adapter-v1/get-token.200.json"))
+              .withDelay(TimeUnit.MILLISECONDS, randomDelay);
+        });
+
+    mockServer
+        .when(request()
             .withMethod("GET")
             .withPath("/poc/platform/auth-adapter/v1/auth/roles"))
         .respond(request -> {
@@ -31,10 +48,10 @@ public class AuthAdapterMockService implements MockService {
           Header traceIdHeader = generateTraceId();
 
           return response()
-              .withStatusCode(HttpStatusCode.BAD_REQUEST_400.code())
+              .withStatusCode(HttpStatusCode.OK_200.code())
               .withHeader(contentType(ContentType.APPLICATION_JSON.getMimeType()))
               .withHeader(traceIdHeader)
-              .withBody(readJSON("mocks/auth-adapter-v1/get-roles.400.json"))
+              .withBody(readJSON("mocks/auth-adapter-v1/get-roles.200.json"))
               .withDelay(TimeUnit.MILLISECONDS, randomDelay);
         });
   }

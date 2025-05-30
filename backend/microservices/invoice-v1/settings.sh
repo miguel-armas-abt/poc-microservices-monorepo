@@ -8,8 +8,8 @@ get_compile_command() {
 
 get_docker_build_image_command() {
   values_file="./values.yaml"
-  repository=$(yq '.image.repository' "$values_file")
-  tag_version=$(yq '.image.tag' "$values_file")
+  repository=$(yq '.container.image.repository' "$values_file")
+  tag_version=$(yq '.container.image.tag' "$values_file")
 
   echo "docker build -t $repository:$tag_version -f ./Dockerfile ."
 }
