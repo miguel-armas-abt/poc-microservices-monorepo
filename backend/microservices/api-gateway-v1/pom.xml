@@ -4,14 +4,19 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.demo.poc.parent</groupId>
-		<artifactId>parent-webflux-v1</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<groupId>com.demo.commons</groupId>
+		<artifactId>commons-webflux-parent</artifactId>
+		<version>1.0.0</version>
+		<relativePath/>
 	</parent>
 
-	<groupId>com.demo.poc.service</groupId>
+	<groupId>com.demo.service</groupId>
 	<artifactId>api-gateway-v1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
+		<spring-cloud-dependencies.version>2023.0.0</spring-cloud-dependencies.version>
+	</properties>
 
 	<dependencyManagement>
 		<dependencies>
@@ -27,6 +32,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.demo.commons</groupId>
+			<artifactId>commons-webflux</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-gateway</artifactId>
 		</dependency>
@@ -34,17 +44,9 @@
 
 	<build>
 		<plugins>
-			<plugin> <!-- executable application -->
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring-boot.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

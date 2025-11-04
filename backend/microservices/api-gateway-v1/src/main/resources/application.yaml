@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT:8010}
+  port: ${SERVER_PORT}
 
 spring:
   application:
@@ -8,7 +8,7 @@ spring:
     gateway:
       routes:
         - id: order-hub-v1
-          uri: http://${ORDER_HUB_DOMAIN:localhost:8018}
+          uri: http://${ORDER_HUB_DOMAIN}
           predicates:
             - Path=/poc/bff/order-hub/v1/**
             - Method=GET,POST,PUT,DELETE,PATCH
@@ -39,7 +39,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${AUTH_ADAPTER_DOMAIN:localhost:8011}/poc/platform/auth-adapter/v1/auth/
+        endpoint: http://${AUTH_ADAPTER_DOMAIN}/poc/platform/auth-adapter/v1/auth/
         headers:
           provided:
             Accept: application/json
