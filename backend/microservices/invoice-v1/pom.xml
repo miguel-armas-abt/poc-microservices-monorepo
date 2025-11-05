@@ -10,7 +10,7 @@
     <relativePath/>
   </parent>
 
-  <groupId>com.demo.poc.service</groupId>
+  <groupId>com.demo.service</groupId>
   <artifactId>invoice-v1</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
