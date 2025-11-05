@@ -1,12 +1,12 @@
 server:
-  port: ${SERVER_PORT:8014}
+  port: ${SERVER_PORT}
 
 spring:
   application:
     name: invoice-v1
   cloud:
     config:
-      uri: http://${CONFIG_SERVER_DOMAIN:localhost:8888}
+      uri: http://${CONFIG_SERVER_DOMAIN}
       failFast: true
       name: business-invoice-v1 #prefix, name of API type
       profile: dev #sufix, indicate the execution environment
