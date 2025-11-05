@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT:8011}
+  port: ${SERVER_PORT}
 
 spring:
   application:
@@ -7,13 +7,13 @@ spring:
 
 configuration:
   keycloak:
-    base-url: http://${KEYCLOAK_DOMAIN:localhost:8091}/auth/realms/poc-management/protocol/openid-connect/
+    base-url: http://${KEYCLOAK_DOMAIN}/auth/realms/poc-management/protocol/openid-connect/
     client-id: front-poc-app
     client-secret: qwerty
     scope: profile
     auth-endpoint: ${configuration.keycloak.base-url}auth
     jwk-endpoint: ${configuration.keycloak.base-url}certs
-    cert-id: ${KEYCLOAK_KEY_RS256:OWM45x2evqPpvZVjkedeuT3mpFRIXgR98BM4EZPugj0}
+    cert-id: ${KEYCLOAK_KEY_RS256}
 
   error-messages:
     Default: No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente.

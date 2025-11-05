@@ -4,6 +4,7 @@ import com.demo.commons.errors.dto.ErrorDto;
 import com.demo.commons.properties.restclient.RestClient;
 import com.demo.commons.restclient.WebClientFactory;
 import com.demo.commons.restclient.error.RestClientErrorHandler;
+import com.demo.commons.restclient.utils.HttpHeadersFiller;
 import com.demo.service.commons.properties.ApplicationProperties;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,9 +13,6 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-
-import static com.demo.commons.restclient.utils.HeadersFiller.fillHeaders;
-
 
 @Repository
 public class AuthAdapterRepository {
@@ -37,7 +35,7 @@ public class AuthAdapterRepository {
   public Mono<HashMap<String, Integer>> getRoles(Map<String, String> headers) {
     return webClient.get()
         .uri(restClient.getRequest().getEndpoint().concat("/roles"))
-        .headers(x -> fillHeaders(restClient.getRequest().getHeaders(), headers))
+        .headers(HttpHeadersFiller.fillHeaders(restClient.getRequest().getHeaders(), headers))
         .retrieve()
         .onStatus(HttpStatusCode::isError, clientResponse -> errorHandler.handleError(clientResponse, ErrorDto.class, SERVICE_NAME))
         .toEntity(HashMap.class)
