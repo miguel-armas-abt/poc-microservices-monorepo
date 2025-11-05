@@ -9,11 +9,9 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.demo.poc.service</groupId>
+	<groupId>com.demo.service</groupId>
 	<artifactId>config-server-v1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Config Server V1</name>
-	<description>Config Server V1</description>
 
 	<dependencies>
 		<dependency>
