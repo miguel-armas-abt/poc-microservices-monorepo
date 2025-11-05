@@ -1,12 +1,12 @@
 quarkus:
   datasource:
-    username: ${MYSQL_USERNAME:poc_user}
-    password: ${MYSQL_PASSWORD:qwerty}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
     reactive:
-      url: mysql://${MYSQL_DOMAIN:localhost:3306}/db_menu_options
+      url: mysql://${MYSQL_DOMAIN}/db_menu_options
 
 configuration:
   rest-clients:
     product-v1:
       request:
-        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/poc/business/product/v1/
+        endpoint: http://${PRODUCT_DOMAIN}/poc/business/product/v1/

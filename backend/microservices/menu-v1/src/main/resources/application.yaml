@@ -2,7 +2,7 @@ quarkus:
   application:
     name: menu-v1
   http:
-    port: ${SERVER_PORT:8012}
+    port: ${SERVER_PORT}
   log:
     console:
       enable: true
@@ -10,10 +10,10 @@ quarkus:
         pretty-print: false
   datasource:
     db-kind: mysql
-    username: ${MYSQL_USERNAME:poc_user}
-    password: ${MYSQL_PASSWORD:qwerty}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
     reactive:
-      url: mysql://${MYSQL_DOMAIN:localhost:3306}/db_menu_options
+      url: mysql://${MYSQL_DOMAIN}/db_menu_options
       max-size: 20
   hibernate-orm:
     log:
@@ -30,7 +30,7 @@ configuration:
   rest-clients:
     product-v1:
       request:
-        endpoint: http://${PRODUCT_DOMAIN:localhost:8017}/poc/business/product/v1/
+        endpoint: http://${PRODUCT_DOMAIN}/poc/business/product/v1/
         headers:
           provided:
             Accept: application/json
@@ -43,7 +43,3 @@ configuration:
       performance:
         timeout: EXCELLENT
         concurrency: LOW
-
-product-v1:
-  mp-graphql:
-    url: http://localhost:8017/graphql

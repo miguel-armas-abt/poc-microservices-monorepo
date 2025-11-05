@@ -5,16 +5,21 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.demo.poc.parent</groupId>
-    <artifactId>parent-quarkus-commons-v1</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <groupId>com.demo.commons</groupId>
+    <artifactId>commons-quarkus-parent</artifactId>
+    <version>1.0.0</version>
   </parent>
 
-  <groupId>com.demo.poc.service</groupId>
+  <groupId>com.demo.service</groupId>
   <artifactId>menu-v1</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <dependencies>
+    <dependency>
+      <groupId>com.demo.commons</groupId>
+      <artifactId>commons-quarkus</artifactId>
+      <version>1.0.0</version>
+    </dependency>
 
     <!-- reactive database -->
     <dependency>
