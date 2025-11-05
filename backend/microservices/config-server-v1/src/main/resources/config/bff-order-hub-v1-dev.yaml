@@ -10,7 +10,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${MENU_V1_DOMAIN:localhost:8012}/poc/business/menu/v1/
+        endpoint: http://${MENU_V1_DOMAIN}/poc/business/menu/v1/
         headers:
           provided:
             Accept: application/x-ndjson, application/json
@@ -26,7 +26,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${TABLE_PLACEMENT_DOMAIN:localhost:8013}/poc/business/table-placement/v1/
+        endpoint: http://${TABLE_PLACEMENT_DOMAIN}/poc/business/table-placement/v1/
         headers:
           provided:
             Accept: application/x-ndjson, application/json
@@ -42,7 +42,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${INVOICE_DOMAIN:localhost:8014}/poc/business/invoice/v1/
+        endpoint: http://${INVOICE_DOMAIN}/poc/business/invoice/v1/
         headers:
           provided:
             Accept: application/x-ndjson, application/json

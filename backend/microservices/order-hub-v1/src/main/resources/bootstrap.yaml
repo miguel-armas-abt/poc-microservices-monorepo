@@ -1,12 +1,12 @@
 server:
-  port: ${SERVER_PORT:8018}
+  port: ${SERVER_PORT}
 
 spring:
   application:
     name: order-hub-v1
   cloud:
     config:
-      uri: http://${CONFIG_SERVER_DOMAIN:localhost:8888}
+      uri: http://${CONFIG_SERVER_DOMAIN}
       failFast: true
       name: bff-order-hub-v1 #prefix, API name
       profile: dev #sufix, indicate the execution environment
