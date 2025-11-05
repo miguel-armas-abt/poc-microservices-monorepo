@@ -1,6 +1,6 @@
 server:
-  port: ${SERVER_PORT:8020}
-  mock-port: ${MOCK_PORT:8021}
+  port: ${SERVER_PORT}
+  mock-port: ${MOCK_PORT}
 
 spring:
   application:
