@@ -8,7 +8,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://${MOCK_SERVICE_DOMAIN:localhost:8080}/external/payments/v1/
+        endpoint: http://${MOCK_SERVICE_DOMAIN}/external/payments/v1/
         headers:
           provided:
             Accept: application/x-ndjson
@@ -26,7 +26,7 @@ kafka-broker:
 
 spring:
   kafka:
-    bootstrap-servers: ${KAFKA_DOMAIN:localhost:9092}
+    bootstrap-servers: ${KAFKA_DOMAIN}
     consumer:
       group-id: poc
     properties:
@@ -37,7 +37,7 @@ spring:
     admin:
       properties:
         spring.kafka.admin.properties:
-          auto.create.topics.enable: ${CREATE_TOPICS:false}
+          auto.create.topics.enable: ${CREATE_TOPICS}
 
   jpa:
     show-sql: true
@@ -51,7 +51,7 @@ spring:
         format_sql: true
 
   datasource:
-    url: jdbc:mysql://${MYSQL_DOMAIN:127.0.0.1:3306}/db_payments?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://${MYSQL_DOMAIN}/db_payments?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     driverClassName: com.mysql.cj.jdbc.Driver
-    username: ${MYSQL_USERNAME:poc_user}
-    password: ${MYSQL_PASSWORD:qwerty}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
