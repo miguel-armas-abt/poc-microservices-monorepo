@@ -4,56 +4,52 @@ container:
   image:
     repository: miguelarmasabt/menu
     tag: "v1.0.1"
-    pullPolicy: IfNotPresent
   port: 8012
-  resources:
-    requests:
-      memory: "256Mi"
-      cpu: "500m"
-    limits:
-      memory: "512Mi"
-      cpu: "1"
-  livenessProbe:
+  variables:
+    config-map:
+      MYSQL_DOMAIN: "mysql-db:3306"
+      MYSQL_USERNAME: "poc_user"
+      PRODUCT_DOMAIN: "product-v1:8017"
+      JAVA_OPTS: "-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev"
+    secrets:
+      MYSQL_PASSWORD: "qwerty"
+  compose:
+    host-port: 8012
+    volumes: none
+    dependencies: mysql-db
+
+k8s:
+  helm-template: HEALTHY
+  namespace: restaurant
+  image-pull-policy: IfNotPresent
+  service:
+    node-port: 30012
+  deployment:
+    replicas: 1
+    container-resources:
+      requests:
+        memory: "256Mi"
+        cpu: "500m"
+      limits:
+        memory: "512Mi"
+        cpu: "1"
+  hpa:
+    enabled: true
+    min-replicas: 1
+    max-replicas: 2
+    cpu:
+      target-average-utilization: 80
+    memory:
+      target-average-utilization: 70
+  liveness-probe:
     path: /q/health/live
     port: 8012
-    initialDelaySeconds: 60
-    periodSeconds: 30
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
+    initial-delay-seconds: 60
+    period-seconds: 30
+    timeout-seconds: 5
+    failure-threshold: 3
+  readiness-probe:
     path: /q/health/ready
     port: 8012
-    initialDelaySeconds: 60
-    periodSeconds: 30
-
-configMaps:
-  MYSQL_DOMAIN: "mysql-db:3306"
-  MYSQL_USERNAME: "poc_user"
-  PRODUCT_DOMAIN: "product-v1:8017"
-  JAVA_OPTS: "-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dquarkus-profile=dev"
-
-secrets:
-  MYSQL_PASSWORD: "qwerty"
-
-service:
-  nodePort: 30012
-
-deployment:
-  replicas: 1
-
-hpa:
-  enabled: true
-  minReplicas: 1
-  maxReplicas: 2
-  cpu:
-    targetAverageUtilization: 80
-  memory:
-    targetAverageUtilization: 70
-
-namespace: restaurant
-helmTemplate: with-health
-
-docker:
-  hostPort: 8012
-  dependencies: mysql-db
-  volumes: none
+    initial-delay-seconds: 60
+    period-seconds: 30

@@ -4,58 +4,54 @@ container:
   image:
     repository: miguelarmasabt/payment
     tag: "v1.0.1"
-    pullPolicy: IfNotPresent
   port: 8015
-  resources:
-    requests:
-      memory: "256Mi"
-      cpu: "500m"
-    limits:
-      memory: "512Mi"
-      cpu: "1"
-  livenessProbe:
+  variables:
+    config-map:
+      CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
+      MYSQL_DOMAIN: "mysql-db:3306"
+      MYSQL_USERNAME: "poc_user"
+      KAFKA_DOMAIN: "kafka-server:9093"
+      CREATE_TOPICS: "true"
+      JAVA_OPTS: "-Xms256M -Xmx256M"
+    secrets:
+      MYSQL_PASSWORD: "qwerty"
+  compose:
+    host-port: 8015
+    volumes: none
+    dependencies: config-server-v1;mysql-db;kafka-server
+
+k8s:
+  helm-template: HEALTHY
+  namespace: restaurant
+  image-pull-policy: IfNotPresent
+  service:
+    node-port: 30015
+  deployment:
+    replicas: 1
+    container-resources:
+      requests:
+        memory: "256Mi"
+        cpu: "500m"
+      limits:
+        memory: "512Mi"
+        cpu: "1"
+  hpa:
+    enabled: true
+    min-replicas: 1
+    max-replicas: 2
+    cpu:
+      target-average-utilization: 80
+    memory:
+      target-average-utilization: 70
+  liveness-probe:
     path: /actuator/health/liveness
     port: 8015
-    initialDelaySeconds: 60
-    periodSeconds: 30
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
+    initial-delay-seconds: 60
+    period-seconds: 30
+    timeout-seconds: 5
+    failure-threshold: 3
+  readiness-probe:
     path: /actuator/health/readiness
     port: 8015
-    initialDelaySeconds: 60
-    periodSeconds: 30
-
-configMaps:
-  CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
-  MYSQL_DOMAIN: "mysql-db:3306"
-  MYSQL_USERNAME: "poc_user"
-  KAFKA_DOMAIN: "kafka-server:9093"
-  CREATE_TOPICS: "true"
-  JAVA_OPTS: "-Xms256M -Xmx256M"
-
-secrets:
-  MYSQL_PASSWORD: "qwerty"
-
-service:
-  nodePort: 30015
-
-deployment:
-  replicas: 1
-
-hpa:
-  enabled: true
-  minReplicas: 1
-  maxReplicas: 2
-  cpu:
-    targetAverageUtilization: 80
-  memory:
-    targetAverageUtilization: 70
-
-namespace: restaurant
-helmTemplate: with-health
-
-docker:
-  hostPort: 8015
-  dependencies: config-server-v1;mysql-db;kafka-server
-  volumes: none
+    initial-delay-seconds: 60
+    period-seconds: 30

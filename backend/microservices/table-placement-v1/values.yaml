@@ -4,54 +4,50 @@ container:
   image:
     repository: miguelarmasabt/table-placement
     tag: "v1.0.1"
-    pullPolicy: IfNotPresent
   port: 8013
-  resources:
-    requests:
-      memory: "256Mi"
-      cpu: "500m"
-    limits:
-      memory: "512Mi"
-      cpu: "1"
-  livenessProbe:
+  variables:
+    config-map:
+      CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
+      JAVA_OPTS: "-Xms256M -Xmx256M"
+    secrets:
+      MONGODB_URL: "mongodb://poc-user:qwerty@mongo-db:27017/tablePlacement"
+  compose:
+    host-port: 8013
+    volumes: none
+    dependencies: config-server-v1;mongo-db
+
+k8s:
+  helm-template: HEALTHY
+  namespace: restaurant
+  image-pull-policy: IfNotPresent
+  service:
+    node-port: 30013
+  deployment:
+    replicas: 1
+    container-resources:
+      requests:
+        memory: "256Mi"
+        cpu: "500m"
+      limits:
+        memory: "512Mi"
+        cpu: "1"
+  hpa:
+    enabled: true
+    min-replicas: 1
+    max-replicas: 2
+    cpu:
+      target-average-utilization: 80
+    memory:
+      target-average-utilization: 70
+  liveness-probe:
     path: /actuator/health/liveness
     port: 8013
-    initialDelaySeconds: 60
-    periodSeconds: 30
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
+    initial-delay-seconds: 60
+    period-seconds: 30
+    timeout-seconds: 5
+    failure-threshold: 3
+  readiness-probe:
     path: /actuator/health/readiness
     port: 8013
-    initialDelaySeconds: 60
-    periodSeconds: 30
-
-configMaps:
-  CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
-  JAVA_OPTS: "-Xms256M -Xmx256M"
-
-secrets:
-  MONGODB_URL: "mongodb://poc-user:qwerty@mongo-db:27017/tablePlacement"
-
-service:
-  nodePort: 30013
-
-deployment:
-  replicas: 1
-
-hpa:
-  enabled: true
-  minReplicas: 1
-  maxReplicas: 2
-  cpu:
-    targetAverageUtilization: 80
-  memory:
-    targetAverageUtilization: 70
-
-namespace: restaurant
-helmTemplate: with-health
-
-docker:
-  hostPort: 8013
-  dependencies: config-server-v1;mongo-db
-  volumes: none
+    initial-delay-seconds: 60
+    period-seconds: 30

@@ -4,55 +4,51 @@ container:
   image:
     repository: miguelarmasabt/product
     tag: "v1.0.1"
-    pullPolicy: IfNotPresent
   port: 8017
-  resources:
-    requests:
-      memory: "256Mi"
-      cpu: "500m"
-    limits:
-      memory: "512Mi"
-      cpu: "1"
-  livenessProbe:
+  variables:
+    config-map:
+      DATABASE_HOST: "mysql-db:3306"
+      DATABASE_USER: "poc_user"
+      DATABASE_NAME: "db_products"
+    secrets:
+      DATABASE_PASSWORD: "qwerty"
+  compose:
+    host-port: 8017
+    volumes: none
+    dependencies: mysql-db
+
+k8s:
+  helm-template: NOT_HEALTHY
+  namespace: restaurant
+  image-pull-policy: IfNotPresent
+  service:
+    node-port: 30017
+  deployment:
+    replicas: 1
+    container-resources:
+      requests:
+        memory: "256Mi"
+        cpu: "500m"
+      limits:
+        memory: "512Mi"
+        cpu: "1"
+  hpa:
+    enabled: true
+    min-replicas: 1
+    max-replicas: 2
+    cpu:
+      target-average-utilization: 80
+    memory:
+      target-average-utilization: 70
+  liveness-probe:
     path: /actuator/health/liveness
     port: 8017
-    initialDelaySeconds: 60
-    periodSeconds: 30
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
+    initial-delay-seconds: 60
+    period-seconds: 30
+    timeout-seconds: 5
+    failure-threshold: 3
+  readiness-probe:
     path: /actuator/health/readiness
     port: 8017
-    initialDelaySeconds: 60
-    periodSeconds: 30
-
-configMaps:
-  DATABASE_HOST: "mysql-db:3306"
-  DATABASE_USER: "poc_user"
-  DATABASE_NAME: "db_products"
-
-secrets:
-  DATABASE_PASSWORD: "qwerty"
-
-service:
-  nodePort: 30017
-
-deployment:
-  replicas: 1
-
-hpa:
-  enabled: true
-  minReplicas: 1
-  maxReplicas: 2
-  cpu:
-    targetAverageUtilization: 80
-  memory:
-    targetAverageUtilization: 70
-
-namespace: restaurant
-helmTemplate: default
-
-docker:
-  hostPort: 8017
-  dependencies: mysql-db
-  volumes: none
+    initial-delay-seconds: 60
+    period-seconds: 30

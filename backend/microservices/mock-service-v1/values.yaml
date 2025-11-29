@@ -4,45 +4,42 @@ container:
   image:
     repository: miguelarmasabt/mock-service
     tag: "v1.0.1"
-    pullPolicy: IfNotPresent
   port: 8021
-  resources:
-    requests:
-      memory: "256Mi"
-      cpu: "500m"
-    limits:
-      memory: "512Mi"
-      cpu: "1"
-  livenessProbe:
+  variables:
+    config-map:
+      MOCK_PORT: "8021"
+      JAVA_OPTS: "-Xms256M -Xmx256M"
+  compose:
+    host-port: 8021
+    volumes: none
+    dependencies: none
+
+k8s:
+  helm-template: HEALTHY
+  namespace: restaurant
+  image-pull-policy: IfNotPresent
+  service:
+    node-port: 30021
+  deployment:
+    replicas: 1
+    container-resources:
+      requests:
+        memory: "256Mi"
+        cpu: "500m"
+      limits:
+        memory: "512Mi"
+        cpu: "1"
+  hpa:
+    enabled: false
+  liveness-probe:
     path: /actuator/health/liveness
     port: 8020
-    initialDelaySeconds: 60
-    periodSeconds: 30
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
+    initial-delay-seconds: 60
+    period-seconds: 30
+    timeout-seconds: 5
+    failure-threshold: 3
+  readiness-probe:
     path: /actuator/health/readiness
     port: 8020
-    initialDelaySeconds: 60
-    periodSeconds: 30
-
-configMaps:
-  MOCK_PORT: "8021"
-  JAVA_OPTS: "-Xms256M -Xmx256M"
-
-service:
-  nodePort: 30021
-
-deployment:
-  replicas: 1
-
-hpa:
-  enabled: false
-
-namespace: restaurant
-helmTemplate: with-health
-
-docker:
-  hostPort: 8021
-  volumes: none
-  dependencies: none
+    initial-delay-seconds: 60
+    period-seconds: 30

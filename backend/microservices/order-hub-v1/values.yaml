@@ -4,54 +4,51 @@ container:
   image:
     repository: miguelarmasabt/order-hub
     tag: "v1.0.1"
-    pullPolicy: IfNotPresent
   port: 8018
-  resources:
-    requests:
-      memory: "256Mi"
-      cpu: "500m"
-    limits:
-      memory: "512Mi"
-      cpu: "1"
-  livenessProbe:
+  variables:
+    config-map:
+      CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
+      MENU_V1_DOMAIN: "menu-v1:8012"
+      TABLE_PLACEMENT_DOMAIN: "table-placement-v1:8013"
+      INVOICE_DOMAIN: "invoice-v1:8014"
+      JAVA_OPTS: "-Xms256M -Xmx256M"
+  compose:
+    host-port: 8018
+    volumes: none
+    dependencies: config-server-v1;redis-server
+
+k8s:
+  helm-template: HEALTHY
+  namespace: restaurant
+  image-pull-policy: IfNotPresent
+  service:
+    node-port: 30018
+  deployment:
+    replicas: 1
+    container-resources:
+      requests:
+        memory: "256Mi"
+        cpu: "500m"
+      limits:
+        memory: "512Mi"
+        cpu: "1"
+  hpa:
+    enabled: true
+    min-replicas: 1
+    max-replicas: 2
+    cpu:
+      target-average-utilization: 80
+    memory:
+      target-average-utilization: 70
+  liveness-probe:
     path: /actuator/health/liveness
     port: 8018
-    initialDelaySeconds: 60
-    periodSeconds: 30
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
+    initial-delay-seconds: 60
+    period-seconds: 30
+    timeout-seconds: 5
+    failure-threshold: 3
+  readiness-probe:
     path: /actuator/health/readiness
     port: 8018
-    initialDelaySeconds: 60
-    periodSeconds: 30
-
-configMaps:
-  CONFIG_SERVER_DOMAIN: "config-server-v1:8888"
-  MENU_V1_DOMAIN: "menu-v1:8012"
-  TABLE_PLACEMENT_DOMAIN: "table-placement-v1:8013"
-  INVOICE_DOMAIN: "invoice-v1:8014"
-  JAVA_OPTS: "-Xms256M -Xmx256M"
-
-service:
-  nodePort: 30018
-
-deployment:
-  replicas: 1
-
-hpa:
-  enabled: true
-  minReplicas: 1
-  maxReplicas: 2
-  cpu:
-    targetAverageUtilization: 80
-  memory:
-    targetAverageUtilization: 70
-
-namespace: restaurant
-helmTemplate: with-health
-
-docker:
-  hostPort: 8018
-  dependencies: config-server-v1;redis-server
-  volumes: none
+    initial-delay-seconds: 60
+    period-seconds: 30

@@ -4,54 +4,50 @@ container:
   image:
     repository: miguelarmasabt/auth-adapter
     tag: "v1.0.1"
-    pullPolicy: IfNotPresent
   port: 8011
-  resources:
-    requests:
-      memory: "256Mi"
-      cpu: "500m"
-    limits:
-      memory: "512Mi"
-      cpu: "1"
-  livenessProbe:
+  variables:
+    config-map:
+      KEYCLOAK_DOMAIN: "keycloak-server:8080"
+      JAVA_OPTS: "-Xms256M -Xmx256M"
+    secrets:
+      KEYCLOAK_KEY_RS256: "mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo"
+  compose:
+    host-port: 8011
+    volumes: none
+    dependencies: none
+
+k8s:
+  helm-template: HEALTHY
+  namespace: restaurant
+  image-pull-policy: IfNotPresent
+  service:
+    node-port: 30011
+  deployment:
+    replicas: 1
+    container-resources:
+      requests:
+        memory: "256Mi"
+        cpu: "500m"
+      limits:
+        memory: "512Mi"
+        cpu: "1"
+  hpa:
+    enabled: true
+    min-replicas: 1
+    max-replicas: 2
+    cpu:
+      target-average-utilization: 80
+    memory:
+      target-average-utilization: 70
+  liveness-probe:
     path: /actuator/health/liveness
     port: 8011
-    initialDelaySeconds: 60
-    periodSeconds: 30
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
+    initial-delay-seconds: 60
+    period-seconds: 30
+    timeout-seconds: 5
+    failure-threshold: 3
+  readiness-probe:
     path: /actuator/health/readiness
     port: 8011
-    initialDelaySeconds: 60
-    periodSeconds: 30
-
-configMaps:
-  KEYCLOAK_DOMAIN: "keycloak-server:8080"
-  JAVA_OPTS: "-Xms256M -Xmx256M"
-
-secrets:
-  KEYCLOAK_KEY_RS256: "mH6KTBOtG3B8_UcrOvA6zPn23SdGeqpp5YOp-MHR0Fo"
-
-service:
-  nodePort: 30011
-
-deployment:
-  replicas: 1
-
-hpa:
-  enabled: true
-  minReplicas: 1
-  maxReplicas: 2
-  cpu:
-    targetAverageUtilization: 80
-  memory:
-    targetAverageUtilization: 70
-
-namespace: restaurant
-helmTemplate: with-health
-
-docker:
-  hostPort: 8011
-  volumes: none
-  dependencies: none
+    initial-delay-seconds: 60
+    period-seconds: 30
